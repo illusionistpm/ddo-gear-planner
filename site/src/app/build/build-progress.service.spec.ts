@@ -92,6 +92,7 @@ describe('buildProgressFailureOf', () => {
     [httpError(429, { error: 'x', retryAfterMs: 700 }), { kind: 'throttled', retryAfterMs: 700 }],
     [httpError(429, null), { kind: 'throttled', retryAfterMs: 1500 }],
     [httpError(429, { error: 'x', dailyCapReached: true }), { kind: 'daily-cap' }],
+    [httpError(401), { kind: 'unauthorized' }],
     [httpError(403), { kind: 'not-owned' }],
     [httpError(404), { kind: 'not-owned' }],
     [httpError(400), { kind: 'rejected' }],

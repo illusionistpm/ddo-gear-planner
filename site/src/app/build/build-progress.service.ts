@@ -39,6 +39,8 @@ export type BuildProgressFailure =
   | { kind: 'throttled'; retryAfterMs: number }
   /** The user's writes for today are used up: keep changes on this device. */
   | { kind: 'daily-cap' }
+  /** The worker refused the token (expired, or meant for another API): keep changes on this device. */
+  | { kind: 'unauthorized' }
   /** Not a saved build of this user's (any more): keep progress on this device. */
   | { kind: 'not-owned' }
   /** The worker refused this body (invalid or too big): retrying won't help. */
@@ -61,6 +63,9 @@ export function buildProgressFailureOf(error: unknown): BuildProgressFailure {
       return { kind: 'daily-cap' };
     }
     return { kind: 'throttled', retryAfterMs: typeof body?.retryAfterMs === 'number' ? body.retryAfterMs : 1500 };
+  }
+  if (error.status === 401) {
+    return { kind: 'unauthorized' };
   }
   if (error.status === 403 || error.status === 404) {
     return { kind: 'not-owned' };

@@ -20,7 +20,11 @@ import {
 export interface ShoppingSyncTiming {
   /** Quiet time after a change before it's sent, so a burst of ticks is one request. */
   debounceMs: number;
-  /** Waits after successive failures to reach the server; the last repeats. */
+  /**
+   * Waits after successive failures to reach the server. After the last,
+   * it's tried again only when the user comes back to the page or changes
+   * something, so a tab left open on a dead connection goes quiet.
+   */
   backoffMs: readonly number[];
   /** On focus, the server's copy is read again if it's older than this. */
   refetchAfterMs: number;
@@ -46,14 +50,17 @@ const SAVED_SCOPE_PREFIX = 'saved:';
  * the local copy, with anything still queued laid over it.
  *
  * Nothing runs on a timer while idle. Reads happen when a saved build
- * becomes current and on window focus when the last read is stale. Hiding
- * the page sends what's queued without waiting out the quiet spell, and
- * closing it sends it once more with keepalive, in case that didn't land.
+ * becomes current and when the page is focused or shown again with the
+ * last read stale. Hiding the page sends what's queued without waiting out
+ * the quiet spell, and closing it sends it once more with keepalive, in
+ * case that didn't land.
  * Failures:
  * - too soon after the last write: retry when the server says;
- * - unreachable: retry after a growing wait;
- * - daily cap, not the owner, or a write the server refuses: stop syncing
- *   this build until it's opened again, keeping everything on this device.
+ * - unreachable: retry after a growing wait, a few times, then when the
+ *   user comes back to the page;
+ * - daily cap, a refused token, not the owner, or a write the server
+ *   refuses: stop syncing this build until it's opened again, keeping
+ *   everything on this device.
  */
 @Injectable({ providedIn: 'root' })
 export class ServerShoppingProgressStore extends ShoppingProgressStore implements OnDestroy {
@@ -91,14 +98,23 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
   /** The token the last request went with, for a keepalive flush that can't wait for one. */
   private lastToken: string | null = null;
   private readonly subscription: Subscription;
-  private readonly onFocus = () => {
-    if (this.buildId && Date.now() - this.lastFetchAt >= this.timing.refetchAfterMs) {
+  /** The user came back to the page: catch up with other devices, and retry if the last try failed. */
+  private readonly onReturn = () => {
+    if (!this.buildId) {
+      return;
+    }
+    if (Date.now() - this.lastFetchAt >= this.timing.refetchAfterMs) {
       this.fetchWanted = true;
+      this.pump();
+    } else if (this.failures > 0) {
+      this.flushDue = true;
       this.pump();
     }
   };
   private readonly onVisibilityChange = () => {
-    if (document.visibilityState === 'hidden' && this.flushTimer) {
+    if (document.visibilityState === 'visible') {
+      this.onReturn();
+    } else if (this.flushTimer) {
       clearTimeout(this.flushTimer);
       this.flushTimer = null;
       this.flushDue = true;
@@ -117,7 +133,7 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
   constructor() {
     super();
     this.subscription = inject(CurrentBuildService).state$.subscribe(state => this.changeBuild(shoppingProgressScope(state)));
-    window.addEventListener('focus', this.onFocus);
+    window.addEventListener('focus', this.onReturn);
     document.addEventListener('visibilitychange', this.onVisibilityChange);
     window.addEventListener('pagehide', this.onPageHide);
   }
@@ -167,7 +183,7 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
   ngOnDestroy(): void {
     this.destroyed = true;
     this.subscription.unsubscribe();
-    window.removeEventListener('focus', this.onFocus);
+    window.removeEventListener('focus', this.onReturn);
     document.removeEventListener('visibilitychange', this.onVisibilityChange);
     window.removeEventListener('pagehide', this.onPageHide);
     this.clearTimers();
@@ -314,11 +330,17 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
       case 'throttled':
         this.retryAfter(failure.retryAfterMs);
         return;
-      case 'unavailable':
-        this.retryAfter(this.timing.backoffMs[Math.min(this.failures++, this.timing.backoffMs.length - 1)]);
+      case 'unavailable': {
+        const wait = this.timing.backoffMs[this.failures++];
+        if (wait !== undefined) {
+          this.retryAfter(wait);
+        }
         return;
+      }
       case 'daily-cap':
-        // Kept queued for the next visit.
+      case 'unauthorized':
+        // Kept queued for the next visit. A refused token stays refused:
+        // trying again with it would only fail the same way.
         this.halted = 'local';
         return;
       case 'not-owned':

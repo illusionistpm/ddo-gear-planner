@@ -203,6 +203,44 @@ describe('ServerShoppingProgressStore', () => {
     expect(syncStates.at(-1)).toBe('synced');
   });
 
+  it('stops retrying once the waits run out, until the window is focused again', async () => {
+    const store = create();
+    await openOwned();
+
+    store.applyPatch({ a: 1 });
+    (await expectRequest('PUT')).error(new ProgressEvent('error'));
+    // One wait in this spec's timing, so one retry.
+    (await expectRequest('PUT')).error(new ProgressEvent('error'));
+    await settle();
+    http.expectNone(() => true);
+    expect(syncStates.at(-1)).toBe('offline');
+    expect(readOutbox('b1')?.patch).toEqual({ a: 1 });
+
+    window.dispatchEvent(new Event('focus'));
+    const retry = await expectRequest('PUT');
+    expect(retry.request.body).toEqual({ patch: { a: 1 } });
+    retry.flush(doc({ entries: { a: 1 } }));
+    await settle();
+    expect(syncStates.at(-1)).toBe('synced');
+  });
+
+  it('stops when the server refuses the token, keeping the change queued for next time', async () => {
+    const store = create();
+    await openOwned();
+
+    store.applyPatch({ a: 1 });
+    (await expectRequest('PUT')).flush({ error: 'x' }, { status: 401, statusText: 'Unauthorized' });
+    store.applyPatch({ b: 1 });
+    await settle();
+    window.dispatchEvent(new Event('focus'));
+    await settle();
+
+    http.expectNone(() => true);
+    expect(store.progress).toEqual({ a: 1, b: 1 });
+    expect(readOutbox('b1')?.patch).toEqual({ a: 1, b: 1 });
+    expect(syncStates.at(-1)).toBe('local');
+  });
+
   it('stops at the daily cap, keeping the change on this device and queued for next time', async () => {
     const store = create();
     await openOwned();
@@ -385,6 +423,21 @@ describe('ServerShoppingProgressStore', () => {
       await settle();
 
       http.expectNone(() => true);
+    });
+
+    it('tries a failed write again when the page is shown again', async () => {
+      const store = create();
+      await openOwned();
+      store.applyPatch({ a: 1 });
+      (await expectRequest('PUT')).error(new ProgressEvent('error'));
+      (await expectRequest('PUT')).error(new ProgressEvent('error'));
+      await settle();
+      http.expectNone(() => true);
+
+      setVisibility('visible');
+      (await expectRequest('PUT')).flush(doc({ entries: { a: 1 } }));
+      await settle();
+      expect(syncStates.at(-1)).toBe('synced');
     });
 
     it('sends what\'s still queued with keepalive when the page goes away, and keeps it queued', async () => {

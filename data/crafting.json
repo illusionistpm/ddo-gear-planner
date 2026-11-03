@@ -38220,6 +38220,15 @@
             {
                 "affixes": [
                     {
+                        "name": "Enhanced Ki",
+                        "type": "Untyped",
+                        "value": "1"
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Everbright",
                         "type": "Bool",
                         "value": 1
@@ -38322,15 +38331,6 @@
                         "name": "Healing Amplification",
                         "type": "Competence",
                         "value": "60"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Ki",
-                        "type": "Untyped",
-                        "value": "1"
                     }
                 ]
             },

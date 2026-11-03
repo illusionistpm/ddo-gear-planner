@@ -9,6 +9,7 @@ from read_json import read_json
 from get_inverted_synonym_map import get_inverted_synonym_map
 from allowed_bonus_types import get_parser_bonus_type_regex, normalize_bonus_type
 from compound_affixes import load_compound_affixes
+from build_affix_groups import get_all_skills
 from provenance_io import include_affix_provenance
 import copy
 
@@ -225,8 +226,8 @@ def apply_known_affix_type_defaults(affix):
         'Arcane Augmentation',
         'Arcane Casting Dexterity',
         'Divine Augmentation',
+        'Enhanced Ki',
         'Extra Smites',
-        'Ki',
         'Linguistics',
         'Maximum Charge Tier',
         'Raging Strength',
@@ -315,11 +316,22 @@ def convert_roman_numerals(name):
     return name
 
 
+# "Enhanced" is a bonus type only on skills ("Enhanced Haggle +3" is a +3 Enhancement bonus to Haggle).
+# Anywhere else it's part of the name: Enhanced Ki, Enhanced Bloodrage and Enhanced Jet Propulsion are
+# each a different effect from the name without it.
+# The skill has to be the whole name, bar a value: Enhanced Heal Critical Wounds is a clicky, not Heal.
+ENHANCED_SKILL_PREFIX = re.compile(r'^Enhanced ((?:' + '|'.join(get_all_skills()) + r')(?: \+?\d+)?)$')
+
+
 def strip_bonus_types(name):
     if is_compound_affix_name(name):
         return name
 
-    search = re.search(r'^(Artifact|Competence|Enhanced|Enhancement|Equipment|Equipped|Exceptional|Festive|Inherent|Insight|Insightful|Profane(?! Experiment)|Quality|Sacred) (.*)$', name)
+    search = ENHANCED_SKILL_PREFIX.search(name)
+    if search:
+        return search.group(1)
+
+    search = re.search(r'^(Artifact|Competence|Enhancement|Equipment|Equipped|Exceptional|Festive|Inherent|Insight|Insightful|Profane(?! Experiment)|Quality|Sacred) (.*)$', name)
     if search:
         return search.group(2)
 

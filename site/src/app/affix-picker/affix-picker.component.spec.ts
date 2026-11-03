@@ -80,7 +80,6 @@ describe('AffixPickerComponent', () => {
   it('offers canonical affix names in spellpower bundles', () => {
     expect(component.spellpowerPackages.get('Healing')).toContain('Positive Spell Power');
     expect(component.spellpowerPackages.get('Healing')).not.toContain('Devotion');
-
     expect(component.spellpowerPackages.get('Cold')).toContain('Cold Lore');
     expect(component.spellpowerPackages.get('Cold')).toContain('Ice Intensity');
     expect(component.spellpowerPackages.get('Cold')).not.toContain('Ice Lore');
@@ -122,6 +121,26 @@ describe('AffixPickerComponent', () => {
     expect(component.packages.get('Basic')).toContain('Undying');
     expect(component.packages.get('Basic')).not.toContain('Resistance');
     expect(component.packages.get('Basic')).not.toContain('Sheltering');
+  });
+
+  it('tracks each elemental absorption in the basic bundle rather than the group', () => {
+    for (const element of ['Acid', 'Cold', 'Fire', 'Electric', 'Sonic']) {
+      expect(component.packages.get('Basic')).toContain(`${element} Absorption`);
+    }
+    expect(component.packages.get('Basic')).not.toContain('Elemental Absorption');
+  });
+
+  it('tracks Enhanced Bloodrage in the melee bundle, not Blood Rage', () => {
+    expect(component.packages.get('Melee')).toContain('Enhanced Bloodrage');
+    expect(component.packages.get('Melee')).not.toContain('Blood Rage');
+    expect(component.packages.get('Melee')).not.toContain('Bloodrage');
+  });
+
+  it('leaves what the basic bundle already tracks out of the melee and ranged bundles', () => {
+    const basic = component.packages.get('Basic')!;
+
+    expect(component.packages.get('Melee')!.filter(affix => basic.includes(affix))).toEqual([]);
+    expect(component.packages.get('Ranged')!.filter(affix => basic.includes(affix))).toEqual([]);
   });
 
   it('does not include universal spell affixes in the caster bundle', () => {

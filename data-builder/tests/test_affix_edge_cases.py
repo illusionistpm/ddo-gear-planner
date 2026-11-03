@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import pytest
 
+import parse_affixes_from_cell
 from parse_affixes_from_cell import get_text_map_from_tag, convert_affix_text_map_to_affix_map, translate_list_tag_to_affix_map, get_fake_bonuses, convert_weapon_damage_proc_to_bool
 
 
@@ -22,6 +23,25 @@ def test_once_every_parses_as_untyped_bool():
     am = convert_affix_text_map_to_affix_map(tm)
     assert am['type'] == 'Untyped'
     assert am['value'] == 1
+
+
+@pytest.mark.parametrize('name, expected', [
+    ('Enhanced Haggle +3', 'Haggle +3'),
+    ('Enhanced Disable Device +5', 'Disable Device +5'),
+    ('Enhanced Ki +3', 'Enhanced Ki +3'),
+    ('Enhanced Bloodrage', 'Enhanced Bloodrage'),
+    ('Enhanced Ghostly', 'Enhanced Ghostly'),
+    ('Enhanced Jet Propulsion', 'Enhanced Jet Propulsion'),
+    # The skill has to be the whole name, bar a value.
+    ('Enhanced Heal +5', 'Heal +5'),
+    ('Enhanced Healing', 'Enhanced Healing'),
+    ('Enhanced Heal Critical Wounds - 50 Charges', 'Enhanced Heal Critical Wounds - 50 Charges'),
+])
+def test_enhanced_is_stripped_only_before_a_skill(monkeypatch, name, expected):
+    # Enhanced Ghostly is also a compound affix, which is kept whole regardless; take that away.
+    monkeypatch.setattr(parse_affixes_from_cell, 'load_compound_affixes', lambda: {})
+
+    assert parse_affixes_from_cell.strip_bonus_types(name) == expected
 
 
 def test_translate_list_tag_detects_unique_property_required():
@@ -56,7 +76,7 @@ def test_translate_list_tag_detects_unique_property_required():
             {'name': 'Ghostly', 'type': 'Bool', 'value': 1},
         ),
         (
-            # "Enhanced" is otherwise stripped as a bonus-type prefix; Enhanced Ghostly is its own compound (15% incorporeality)
+            # "Enhanced" is a bonus type only before a skill; see ENHANCED_SKILL_PREFIX
             '<li><span class="has_tooltip">Enhanced Ghostly <span class="tooltip">Enhanced Ghostly: Enemy attacks have a 15% chance to miss you due to incorporeality. You receive a +5 enhancement bonus to your Hide and Move Silently skills.</span></span></li>',
             {'name': 'Enhanced Ghostly', 'type': 'Bool', 'value': 1},
         ),
@@ -174,7 +194,15 @@ def test_translate_list_tag_detects_unique_property_required():
         ),
         (
             '<li><span class="has_tooltip">Enhanced Ki +3<span class="tooltip">Enhanced Ki +3: Increases the rate at which the user gains ki with each successful attack.</span></span></li>',
-            {'name': 'Ki', 'type': 'Untyped', 'value': '3'},
+            {'name': 'Enhanced Ki', 'type': 'Untyped', 'value': '3'},
+        ),
+        (
+            '<li><span class="has_tooltip">Enhanced Bloodrage<span class="tooltip">Enhanced Bloodrage: This weapon is enhanced by blood - your blood!</span></span></li>',
+            {'name': 'Enhanced Bloodrage', 'type': 'Bool', 'value': 1},
+        ),
+        (
+            '<li><span class="has_tooltip">Blood Rage<span class="tooltip">Blood Rage: Anytime you are hit there is a chance that you will fall into a Blood Rage.</span></span></li>',
+            {'name': 'Blood Rage', 'type': 'Bool', 'value': 1},
         ),
         (
             '<li><span class="has_tooltip">Extra Smites 2<span class="tooltip">Extra Smites 2: +2 Smite Evil uses per rest. Smite Evil uses regenerate 10% faster.</span></span></li>',

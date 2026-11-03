@@ -16282,7 +16282,7 @@
     {
         "affixes": [
             {
-                "name": "Ki",
+                "name": "Enhanced Ki",
                 "type": "Untyped",
                 "value": "3"
             },
@@ -23156,7 +23156,7 @@
     {
         "affixes": [
             {
-                "name": "Ki",
+                "name": "Enhanced Ki",
                 "type": "Untyped",
                 "value": "1"
             },
@@ -76920,7 +76920,7 @@
                 "value": "4"
             },
             {
-                "name": "Ki",
+                "name": "Enhanced Ki",
                 "type": "Untyped",
                 "value": "3"
             }
@@ -103466,7 +103466,7 @@
                 "value": "15"
             },
             {
-                "name": "Ki",
+                "name": "Enhanced Ki",
                 "type": "Untyped",
                 "value": "1"
             },
@@ -116570,7 +116570,7 @@
     {
         "affixes": [
             {
-                "name": "Ki",
+                "name": "Enhanced Ki",
                 "type": "Untyped",
                 "value": "1"
             },
@@ -129820,7 +129820,7 @@
                 "value": "22"
             },
             {
-                "name": "Bloodrage",
+                "name": "Enhanced Bloodrage",
                 "type": "Bool",
                 "value": 1
             }
@@ -132619,7 +132619,7 @@
     {
         "affixes": [
             {
-                "name": "Ki",
+                "name": "Enhanced Ki",
                 "type": "Untyped",
                 "value": "5"
             },
@@ -136116,7 +136116,7 @@
                 "value": "5"
             },
             {
-                "name": "Bloodrage",
+                "name": "Enhanced Bloodrage",
                 "type": "Bool",
                 "value": 1
             },
@@ -140874,7 +140874,7 @@
                 "value": 1
             },
             {
-                "name": "Bloodrage",
+                "name": "Enhanced Bloodrage",
                 "type": "Bool",
                 "value": 1
             },
@@ -157020,7 +157020,7 @@
                 "value": 1
             },
             {
-                "name": "Ki",
+                "name": "Enhanced Ki",
                 "type": "Untyped",
                 "value": "4"
             },
@@ -158936,7 +158936,7 @@
                 "value": "21"
             },
             {
-                "name": "Ki",
+                "name": "Enhanced Ki",
                 "type": "Untyped",
                 "value": "5"
             },
@@ -159701,7 +159701,7 @@
     {
         "affixes": [
             {
-                "name": "Bloodrage",
+                "name": "Enhanced Bloodrage",
                 "type": "Bool",
                 "value": 1
             },
@@ -165861,7 +165861,7 @@
     {
         "affixes": [
             {
-                "name": "Ki",
+                "name": "Enhanced Ki",
                 "type": "Untyped",
                 "value": "5"
             },
@@ -174469,7 +174469,7 @@
                 "value": 1
             },
             {
-                "name": "Ki",
+                "name": "Enhanced Ki",
                 "type": "Untyped",
                 "value": "3"
             },
@@ -177063,7 +177063,7 @@
                 "value": "6"
             },
             {
-                "name": "Ki",
+                "name": "Enhanced Ki",
                 "type": "Untyped",
                 "value": "4"
             }
@@ -179816,7 +179816,7 @@
     {
         "affixes": [
             {
-                "name": "Bloodrage",
+                "name": "Enhanced Bloodrage",
                 "type": "Bool",
                 "value": 1
             },
@@ -196248,7 +196248,7 @@
     {
         "affixes": [
             {
-                "name": "Bloodrage",
+                "name": "Enhanced Bloodrage",
                 "type": "Bool",
                 "value": 1
             },
@@ -196331,7 +196331,7 @@
                 "value": 1
             },
             {
-                "name": "Bloodrage",
+                "name": "Enhanced Bloodrage",
                 "type": "Bool",
                 "value": 1
             },
@@ -201655,7 +201655,7 @@
                 "value": 1
             },
             {
-                "name": "Ki",
+                "name": "Enhanced Ki",
                 "type": "Untyped",
                 "value": "5"
             },
@@ -216062,7 +216062,7 @@
                 "value": 1
             },
             {
-                "name": "Ki",
+                "name": "Enhanced Ki",
                 "type": "Untyped",
                 "value": "1"
             },
@@ -226396,7 +226396,7 @@
                 "value": "6"
             },
             {
-                "name": "Ki",
+                "name": "Enhanced Ki",
                 "type": "Untyped",
                 "value": "1"
             }
@@ -229169,7 +229169,7 @@
                 "value": "2"
             },
             {
-                "name": "Ki",
+                "name": "Enhanced Ki",
                 "type": "Untyped",
                 "value": "1"
             }
@@ -244734,7 +244734,7 @@
                 "value": "+3"
             },
             {
-                "name": "Heal Critical Wounds clicky",
+                "name": "Enhanced Heal Critical Wounds clicky",
                 "type": "Bool",
                 "value": 1
             }
@@ -265934,7 +265934,7 @@
                 "value": "6"
             },
             {
-                "name": "Ki",
+                "name": "Enhanced Ki",
                 "type": "Untyped",
                 "value": "1"
             },
@@ -280760,7 +280760,7 @@
                 "value": 1
             },
             {
-                "name": "Bloodrage",
+                "name": "Enhanced Bloodrage",
                 "type": "Bool",
                 "value": 1
             }
@@ -283601,7 +283601,7 @@
     {
         "affixes": [
             {
-                "name": "Jet Propulsion",
+                "name": "Enhanced Jet Propulsion",
                 "type": "Bool",
                 "value": 1
             },
@@ -284049,7 +284049,7 @@
                 "value": "18"
             },
             {
-                "name": "Bloodrage",
+                "name": "Enhanced Bloodrage",
                 "type": "Bool",
                 "value": 1
             }
@@ -294119,7 +294119,7 @@
                 "value": "6"
             },
             {
-                "name": "Ki",
+                "name": "Enhanced Ki",
                 "type": "Untyped",
                 "value": "1"
             },
@@ -294412,7 +294412,7 @@
                 "value": "13"
             },
             {
-                "name": "Ki",
+                "name": "Enhanced Ki",
                 "type": "Untyped",
                 "value": "3"
             },
@@ -296480,7 +296480,7 @@
                 "value": 1
             },
             {
-                "name": "Ki",
+                "name": "Enhanced Ki",
                 "type": "Untyped",
                 "value": "1"
             },
@@ -299506,7 +299506,7 @@
                 "value": "5"
             },
             {
-                "name": "Bloodrage",
+                "name": "Enhanced Bloodrage",
                 "type": "Bool",
                 "value": 1
             },

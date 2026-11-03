@@ -42,9 +42,15 @@ export class AffixPackagesService {
     this.packages.set('Basic', ['Healing Amplification', 'Physical Sheltering',
       'Magical Sheltering', 'Constitution', 'Dodge', 'Fortitude Save', 'Reflex Save', 'Will Save', 'Concealment', 'Parrying', 'Incorporeality',
       'Fortification', 'False Life', 'Speed', 'Freedom of Movement', 'Feather Falling', 'Blindness Immunity',
-      'Immunity to Fear', 'Heroic Inspiration', 'Undying']);
-    this.packages.set('Melee', ['Melee Alacrity', 'Melee Power', 'Doublestrike', 'Deadly', 'Seeker', 'Accuracy', 'Armor-Piercing', 'Incorporeal Bypass', 'Armor Class']);
-    this.packages.set('Ranged', ['Ranged Alacrity', 'Ranged Power', 'Doubleshot', 'Deadly', 'Seeker', 'Accuracy', 'Armor-Piercing', 'Incorporeal Bypass']);
+      'Immunity to Fear', 'Heroic Inspiration', 'Undying', 'Acid Absorption', 'Cold Absorption', 'Fire Absorption',
+      'Electric Absorption', 'Sonic Absorption']);
+    // Not the weaker 'Blood Rage', which is a different effect.
+    this.packages.set('Melee', ['Melee Alacrity', 'Melee Power', 'Doublestrike', 'Deadly', 'Seeker', 'Accuracy', 'Armor-Piercing',
+      'Incorporeal Bypass', 'Armor Class', 'Deception', 'Improved Deception', 'Action Boost Charges', 'Alchemical Earth Attunement',
+      'Relentless Fury', 'Enhanced Bloodrage', 'Dripping with Magma']);
+    this.packages.set('Ranged', ['Ranged Alacrity', 'Ranged Power', 'Doubleshot', 'Deadly', 'Seeker', 'Accuracy', 'Armor-Piercing',
+      'Incorporeal Bypass', 'Deception', 'Improved Deception', 'Action Boost Charges', 'Alchemical Earth Attunement', 'Relentless Fury',
+      'Dripping with Magma']);
     this.packages.set('Caster', ['Spellcraft', 'Wizardry', 'Spell Penetration', 'Concentration']);
     this.packages.set('Trapping', ['Open Lock', 'Disable Device', 'Spot', 'Search']);
     this.packageKeys = Array.from(this.packages.keys());

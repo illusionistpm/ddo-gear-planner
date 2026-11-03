@@ -182,6 +182,49 @@ def test_heroism_family_from_the_real_compound_map(monkeypatch, name, value):
     }
 
 
+@pytest.mark.parametrize('name, incorporeality', [('Ghostly', 10), ('Enhanced Ghostly', 15)])
+def test_ghostly_splits_into_incorporeality_stealth_and_bypass(monkeypatch, name, incorporeality):
+    written = {}
+
+    def capture(data, name):
+        written[name] = data
+
+    monkeypatch.setattr(module, 'write_json', capture)
+
+    module.build_affix_groups()
+
+    group = next(entry for entry in written['affix-groups'] if entry['name'] == name)
+    assert group == {
+        'name': name,
+        'affixes': ['Incorporeality', 'Hide', 'Move Silently', 'Incorporeal Bypass'],
+        'components': [
+            {'name': 'Incorporeality', 'type': 'Enhancement', 'value': incorporeality},
+            {'name': 'Hide', 'type': 'Enhancement', 'value': 5},
+            {'name': 'Move Silently', 'type': 'Enhancement', 'value': 5},
+            {'name': 'Incorporeal Bypass', 'type': 'Bool', 'value': 1},
+        ],
+    }
+
+
+@pytest.mark.parametrize('name', [
+    'Ethereal', 'Ghost Touch', 'Ghostbane', 'Dream Vision',
+    'Flameblade', 'Frostblade', 'Mindcleaver', 'Shadowblade', 'Thornblade',
+])
+def test_incorporeal_miss_chance_bypass_sources(monkeypatch, name):
+    written = {}
+
+    def capture(data, name):
+        written[name] = data
+
+    monkeypatch.setattr(module, 'write_json', capture)
+
+    module.build_affix_groups()
+
+    group = next(entry for entry in written['affix-groups'] if entry['name'] == name)
+    # Groups ungroup one level deep, so the bypass must be a direct component (not via Ghost Touch)
+    assert {'name': 'Incorporeal Bypass', 'type': 'Bool', 'value': 1} in group['components']
+
+
 def test_build_affix_groups_sight_beyond_sight(monkeypatch):
     written = {}
 

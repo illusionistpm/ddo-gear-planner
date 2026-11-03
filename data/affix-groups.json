@@ -862,6 +862,31 @@
     },
     {
         "affixes": [
+            "Accuracy",
+            "Deadly",
+            "Incorporeal Bypass"
+        ],
+        "components": [
+            {
+                "name": "Accuracy",
+                "type": "<TypeAlreadyParsed>",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Deadly",
+                "type": "<TypeAlreadyParsed>",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Incorporeal Bypass",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "name": "Dream Vision"
+    },
+    {
+        "affixes": [
             "Acid Absorption",
             "Cold Absorption",
             "Fire Absorption",
@@ -949,6 +974,50 @@
     },
     {
         "affixes": [
+            "Incorporeality",
+            "Hide",
+            "Move Silently",
+            "Incorporeal Bypass"
+        ],
+        "components": [
+            {
+                "name": "Incorporeality",
+                "type": "Enhancement",
+                "value": 15
+            },
+            {
+                "name": "Hide",
+                "type": "Enhancement",
+                "value": 5
+            },
+            {
+                "name": "Move Silently",
+                "type": "Enhancement",
+                "value": 5
+            },
+            {
+                "name": "Incorporeal Bypass",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "name": "Enhanced Ghostly"
+    },
+    {
+        "affixes": [
+            "Incorporeal Bypass"
+        ],
+        "components": [
+            {
+                "name": "Incorporeal Bypass",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "name": "Ethereal"
+    },
+    {
+        "affixes": [
             "Fire Absorption",
             "Cold Absorption"
         ],
@@ -963,6 +1032,32 @@
     },
     {
         "affixes": [
+            "Incorporeal Bypass"
+        ],
+        "components": [
+            {
+                "name": "Incorporeal Bypass",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "name": "Flameblade"
+    },
+    {
+        "affixes": [
+            "Incorporeal Bypass"
+        ],
+        "components": [
+            {
+                "name": "Incorporeal Bypass",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "name": "Frostblade"
+    },
+    {
+        "affixes": [
             "Cold Lore",
             "Sonic Lore",
             "Lightning Lore"
@@ -971,16 +1066,60 @@
     },
     {
         "affixes": [
-            "Ghost Touch"
+            "Incorporeal Bypass"
         ],
         "components": [
             {
-                "name": "Ghost Touch",
+                "name": "Incorporeal Bypass",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "name": "Ghost Touch"
+    },
+    {
+        "affixes": [
+            "Incorporeal Bypass"
+        ],
+        "components": [
+            {
+                "name": "Incorporeal Bypass",
                 "type": "Bool",
                 "value": 1
             }
         ],
         "name": "Ghostbane"
+    },
+    {
+        "affixes": [
+            "Incorporeality",
+            "Hide",
+            "Move Silently",
+            "Incorporeal Bypass"
+        ],
+        "components": [
+            {
+                "name": "Incorporeality",
+                "type": "Enhancement",
+                "value": 10
+            },
+            {
+                "name": "Hide",
+                "type": "Enhancement",
+                "value": 5
+            },
+            {
+                "name": "Move Silently",
+                "type": "Enhancement",
+                "value": 5
+            },
+            {
+                "name": "Incorporeal Bypass",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "name": "Ghostly"
     },
     {
         "affixes": [
@@ -1724,6 +1863,19 @@
     },
     {
         "affixes": [
+            "Incorporeal Bypass"
+        ],
+        "components": [
+            {
+                "name": "Incorporeal Bypass",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "name": "Mindcleaver"
+    },
+    {
+        "affixes": [
             "Negative Lore",
             "Force Lore",
             "Poison Lore"
@@ -2064,6 +2216,19 @@
     },
     {
         "affixes": [
+            "Incorporeal Bypass"
+        ],
+        "components": [
+            {
+                "name": "Incorporeal Bypass",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "name": "Shadowblade"
+    },
+    {
+        "affixes": [
             "Healing Lore",
             "Light Lore",
             "Alignment Lore"
@@ -2313,6 +2478,19 @@
             }
         ],
         "name": "Swiftness"
+    },
+    {
+        "affixes": [
+            "Incorporeal Bypass"
+        ],
+        "components": [
+            {
+                "name": "Incorporeal Bypass",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "name": "Thornblade"
     },
     {
         "affixes": [

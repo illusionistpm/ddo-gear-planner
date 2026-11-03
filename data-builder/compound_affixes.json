@@ -340,6 +340,32 @@
     ],
     "notes": "Decomposed +23% Enhancement bonus to Fire and Evil Absorption into separate components as permanent stat bonuses."
   },
+  "Dream Vision": {
+    "components": [
+      {
+        "name": "Accuracy",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Deadly",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Incorporeal Bypass",
+        "type": "Bool",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ],
+    "notes": "Passive Competence bonus to attack and damage rolls, and melee and ranged attacks bypass incorporeal miss chance as if they had Ghost Touch."
+  },
   "Elemental Absorption": {
     "components": [
       {
@@ -486,6 +512,54 @@
     ],
     "notes": "Elemental Resonance grants equal permanent Equipment Spell Power bonuses to Acid, Fire, Electric and Cold; decomposed into four components."
   },
+  "Enhanced Ghostly": {
+    "components": [
+      {
+        "name": "Incorporeality",
+        "type": "Enhancement",
+        "value": {
+          "amount": 15,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Hide",
+        "type": "Enhancement",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Move Silently",
+        "type": "Enhancement",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Incorporeal Bypass",
+        "type": "Bool",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ],
+    "notes": "As Ghostly, but enemies have a 15% chance to miss you."
+  },
+  "Ethereal": {
+    "components": [
+      {
+        "name": "Incorporeal Bypass",
+        "type": "Bool",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ],
+    "notes": "Your melee attacks do not roll a miss chance for incorporeal targets."
+  },
   "Fire and Cold Absorption": {
     "components": [
       {
@@ -524,6 +598,30 @@
     ],
     "notes": "Firestorm Lore is spell critical hit chance for Fire and Electric spells, matching Power of the Firestorm."
   },
+  "Flameblade": {
+    "components": [
+      {
+        "name": "Incorporeal Bypass",
+        "type": "Bool",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ],
+    "notes": "This blade bypasses the incorporeal miss chance of ethereal monsters innately."
+  },
+  "Frostblade": {
+    "components": [
+      {
+        "name": "Incorporeal Bypass",
+        "type": "Bool",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ],
+    "notes": "This blade bypasses the incorporeal miss chance of ethereal monsters innately."
+  },
   "Frozen Thunderstorm Lore": {
     "components": [
       {
@@ -550,17 +648,65 @@
     ],
     "notes": "Frozen Thunderstorm Lore is spell critical hit chance for Cold, Sonic and Electric spells, matching Power of the Frozen Thunderstorm."
   },
-  "Ghostbane": {
+  "Ghost Touch": {
     "components": [
       {
-        "name": "Ghost Touch",
+        "name": "Incorporeal Bypass",
         "type": "Bool",
         "value": {
           "mode": "boolean_one"
         }
       }
     ],
-    "notes": "This affix grants a permanent weapon bonus: extra bane damage vs. Undead scaling with affix rank and a fixed Ghost Touch effect that bypasses ethereal monster evade chance. Both are passive and always active, so the affix is decomposed into permanent bonus components."
+    "notes": "An incorporeal creature's 50% chance to avoid damage does not apply to this weapon."
+  },
+  "Ghostbane": {
+    "components": [
+      {
+        "name": "Incorporeal Bypass",
+        "type": "Bool",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ],
+    "notes": "Passive: the weapon has Ghost Touch. The bane damage against undead is an on-hit proc and is not tracked."
+  },
+  "Ghostly": {
+    "components": [
+      {
+        "name": "Incorporeality",
+        "type": "Enhancement",
+        "value": {
+          "amount": 10,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Hide",
+        "type": "Enhancement",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Move Silently",
+        "type": "Enhancement",
+        "value": {
+          "amount": 5,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Incorporeal Bypass",
+        "type": "Bool",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ],
+    "notes": "Partially incorporeal: enemies have a 10% chance to miss you, your melee attacks ignore incorporeal miss chance, and +5 Enhancement to Hide and Move Silently."
   },
   "Good Luck": {
     "components": [
@@ -1773,6 +1919,18 @@
     ],
     "notes": "Compound affix with multiple permanent underlying bonuses all to Rust and Repair spells: Spell Power, Spell Crit Chance, and Spell Crit Damage."
   },
+  "Mindcleaver": {
+    "components": [
+      {
+        "name": "Incorporeal Bypass",
+        "type": "Bool",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ],
+    "notes": "This blade bypasses the incorporeal miss chance of ethereal monsters innately."
+  },
   "Moonlit Haunt Lore": {
     "components": [
       {
@@ -2361,6 +2519,18 @@
       }
     ]
   },
+  "Shadowblade": {
+    "components": [
+      {
+        "name": "Incorporeal Bypass",
+        "type": "Bool",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ],
+    "notes": "This blade bypasses the incorporeal miss chance of ethereal monsters innately."
+  },
   "Silver Flame Lore": {
     "components": [
       {
@@ -2691,6 +2861,18 @@
         }
       }
     ]
+  },
+  "Thornblade": {
+    "components": [
+      {
+        "name": "Incorporeal Bypass",
+        "type": "Bool",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ],
+    "notes": "This blade bypasses the incorporeal miss chance of ethereal monsters innately."
   },
   "Thunderstorm Lore": {
     "components": [

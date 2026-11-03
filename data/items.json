@@ -53750,7 +53750,7 @@
                 "value": "153"
             },
             {
-                "name": "Ghostly",
+                "name": "Enhanced Ghostly",
                 "type": "Bool",
                 "value": 1
             }
@@ -53787,7 +53787,7 @@
                 "value": "166"
             },
             {
-                "name": "Ghostly",
+                "name": "Enhanced Ghostly",
                 "type": "Bool",
                 "value": 1
             }
@@ -136919,7 +136919,7 @@
                 "value": 1
             },
             {
-                "name": "Ghostly",
+                "name": "Enhanced Ghostly",
                 "type": "Bool",
                 "value": 1
             },
@@ -136958,7 +136958,7 @@
                 "value": 1
             },
             {
-                "name": "Ghostly",
+                "name": "Enhanced Ghostly",
                 "type": "Bool",
                 "value": 1
             },
@@ -151304,7 +151304,7 @@
                 "value": 1
             },
             {
-                "name": "Ghostly",
+                "name": "Enhanced Ghostly",
                 "type": "Bool",
                 "value": 1
             },
@@ -159883,7 +159883,7 @@
     {
         "affixes": [
             {
-                "name": "Ghostly",
+                "name": "Enhanced Ghostly",
                 "type": "Bool",
                 "value": 1
             },
@@ -168595,7 +168595,7 @@
                 "value": "+15"
             },
             {
-                "name": "Ghostly",
+                "name": "Enhanced Ghostly",
                 "type": "Bool",
                 "value": 1
             },
@@ -168663,7 +168663,7 @@
                 "value": "+15"
             },
             {
-                "name": "Ghostly",
+                "name": "Enhanced Ghostly",
                 "type": "Bool",
                 "value": 1
             },
@@ -168755,7 +168755,7 @@
                 "value": "+15"
             },
             {
-                "name": "Ghostly",
+                "name": "Enhanced Ghostly",
                 "type": "Bool",
                 "value": 1
             },
@@ -168823,7 +168823,7 @@
                 "value": "+15"
             },
             {
-                "name": "Ghostly",
+                "name": "Enhanced Ghostly",
                 "type": "Bool",
                 "value": 1
             },
@@ -168978,7 +168978,7 @@
                 "value": "+15"
             },
             {
-                "name": "Ghostly",
+                "name": "Enhanced Ghostly",
                 "type": "Bool",
                 "value": 1
             },
@@ -169075,7 +169075,7 @@
                 "value": "+15"
             },
             {
-                "name": "Ghostly",
+                "name": "Enhanced Ghostly",
                 "type": "Bool",
                 "value": 1
             },
@@ -174202,7 +174202,7 @@
                 "value": "20"
             },
             {
-                "name": "Ghostly",
+                "name": "Enhanced Ghostly",
                 "type": "Bool",
                 "value": 1
             },
@@ -178332,7 +178332,7 @@
                 "value": "20"
             },
             {
-                "name": "Ghostly",
+                "name": "Enhanced Ghostly",
                 "type": "Bool",
                 "value": 1
             },
@@ -196219,7 +196219,7 @@
                 "value": "11"
             },
             {
-                "name": "Ghostly",
+                "name": "Enhanced Ghostly",
                 "type": "Bool",
                 "value": 1
             },
@@ -229963,7 +229963,7 @@
                 "value": "4"
             },
             {
-                "name": "Ghostly",
+                "name": "Enhanced Ghostly",
                 "type": "Bool",
                 "value": 1
             },
@@ -283735,7 +283735,7 @@
                 "value": "11"
             },
             {
-                "name": "Ghostly",
+                "name": "Enhanced Ghostly",
                 "type": "Bool",
                 "value": 1
             }
@@ -283963,7 +283963,7 @@
                 "value": "14"
             },
             {
-                "name": "Ghostly",
+                "name": "Enhanced Ghostly",
                 "type": "Bool",
                 "value": 1
             },

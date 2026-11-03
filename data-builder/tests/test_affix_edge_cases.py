@@ -56,6 +56,11 @@ def test_translate_list_tag_detects_unique_property_required():
             {'name': 'Ghostly', 'type': 'Bool', 'value': 1},
         ),
         (
+            # "Enhanced" is otherwise stripped as a bonus-type prefix; Enhanced Ghostly is its own compound (15% incorporeality)
+            '<li><span class="has_tooltip">Enhanced Ghostly <span class="tooltip">Enhanced Ghostly: Enemy attacks have a 15% chance to miss you due to incorporeality. You receive a +5 enhancement bonus to your Hide and Move Silently skills.</span></span></li>',
+            {'name': 'Enhanced Ghostly', 'type': 'Bool', 'value': 1},
+        ),
+        (
             '<li><span class="has_tooltip">Songblade <span class="tooltip">Songblade: +2 enhancement bonus to the Perform skill.</span></span></li>',
             {'name': 'Songblade', 'type': 'Bool', 'value': 1},
         ),

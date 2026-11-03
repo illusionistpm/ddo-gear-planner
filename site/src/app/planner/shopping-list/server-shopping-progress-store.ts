@@ -172,6 +172,14 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
   }
 
   publish(published: ShoppingPublished): void {
+    // Another tab's tick redraws this tab's list too, which offers this
+    // tab's copy - its own route, from when its list opened. Only the tab
+    // in use says what friends see: otherwise every tick is sent from each
+    // open tab, and the second is throttled. A tick is published as it's
+    // made, while its tab is still visible.
+    if (document.visibilityState === 'hidden') {
+      return;
+    }
     const json = JSON.stringify(published);
     if (!this.buildId || json === this.publishedJson) {
       return;

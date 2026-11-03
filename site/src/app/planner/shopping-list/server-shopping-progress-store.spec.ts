@@ -425,6 +425,30 @@ describe('ServerShoppingProgressStore', () => {
       http.expectNone(() => true);
     });
 
+    it('leaves what friends see to the tab in use while hidden, still sending ticks', async () => {
+      const store = create();
+      await openOwned(doc({ needed: ['k1'], route: {} }));
+
+      // Another tab's tick redraws this hidden tab's list, which offers its own copy.
+      setVisibility('hidden');
+      store.publish({ needed: [], route: {} });
+      await settle();
+      http.expectNone(() => true);
+
+      store.applyPatch({ a: 1 });
+      const put = await expectRequest('PUT');
+      expect(put.request.body).toEqual({ patch: { a: 1 } });
+      put.flush(doc({ entries: { a: 1 }, needed: ['k1'], route: {} }));
+      await settle();
+
+      setVisibility('visible');
+      store.publish({ needed: [], route: {} });
+      const publish = await expectRequest('PUT');
+      expect(publish.request.body).toEqual({ needed: [], route: {} });
+      publish.flush(doc({ entries: { a: 1 }, needed: [], route: {} }));
+      await settle();
+    });
+
     it('tries a failed write again when the page is shown again', async () => {
       const store = create();
       await openOwned();

@@ -163,8 +163,9 @@
     display: inline-flex;
     font-size: 0.75rem;
     font-weight: 800;
-    height: 1rem;
-    width: 1rem;
+    /* A variable so the checklist chip can reserve room for whatever size it is. */
+    height: var(--tracked-affix-remove-size, 1rem);
+    width: var(--tracked-affix-remove-size, 1rem);
     justify-content: center;
     line-height: 1;
     opacity: 0;
@@ -373,6 +374,69 @@
     }
 }
 
+/*
+ * Narrow column (a phone, or a narrow side panel): a fixed-width name column
+ * on the left leaves the chips a sliver, so each row stacks instead - a header
+ * line of name and cur/max, with the remove button in its own reserved space
+ * at the far right, and the chips across the full width below. A container
+ * query, not a media query, since the column's width isn't the viewport's.
+ */
+@container (max-width: 30rem) {
+    .tracked-affix-row {
+        align-items: stretch;
+        flex-direction: column;
+        gap: var(--space-4);
+    }
+
+    .tracked-affix-summary {
+        align-items: baseline;
+        flex: 0 0 auto;
+        flex-direction: row;
+        gap: var(--space-8);
+        /* The remove button's reserved space; it's positioned against this box. */
+        padding-right: 1.6rem;
+        position: relative;
+    }
+
+    /* Static, so the remove button anchors to the summary's right edge, past the total. */
+    .tracked-affix-name {
+        position: static;
+    }
+
+    .tracked-affix-name-text {
+        padding-right: 0;
+    }
+
+    .tracked-affix-total {
+        font-size: 0.9rem;
+    }
+
+    .tracked-affix-progress {
+        display: none;
+    }
+
+    .tracked-affix-summary:hover .tracked-affix-remove {
+        opacity: 1;
+    }
+
+    .tracked-affix-chips {
+        flex: 0 0 auto;
+    }
+}
+
+/* Touch with the stacked layout: there's room for a remove target closer to 24px. */
+@container (max-width: 30rem) {
+    @media (pointer: coarse) {
+        .tracked-affix-row {
+            --tracked-affix-remove-size: 1.4rem;
+        }
+
+        .tracked-affix-remove {
+            font-size: 0.85rem;
+        }
+    }
+}
+
 /* Group-by control + the "Scarcity" grouping view. */
 .tracked-affix-slots-empty {
     color: var(--text-secondary);
@@ -509,8 +573,10 @@
 }
 
 @media (hover: none) {
+    /* The remove button's width plus its 0.1rem inset and a little air, so it
+       clears the checkbox at either button size. */
     .checklist-chip-wrap {
-        padding-right: 0.9rem;
+        padding-right: calc(var(--tracked-affix-remove-size, 1rem) + 0.3rem);
     }
 
     .checklist-chip-remove {

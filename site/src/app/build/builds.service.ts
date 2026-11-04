@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Build, BuildSummary } from './build';
+import type { ShoppingSaveProgress } from '../planner/shopping-list/shopping-list-types';
 import { environment } from '../../environments/environment';
 
 interface BuildResponse {
@@ -53,8 +54,14 @@ export class BuildsService {
     return this.http.get<SharedBuildResponse>(`${this.baseUrl}/build/${encodeURIComponent(shortId)}`);
   }
 
-  update(id: string, fields: { name?: string; blob?: string }): Observable<Build> {
-    return this.http.put<BuildResponse>(`${this.baseUrl}/builds/${encodeURIComponent(id)}`, fields);
+  /**
+   * Renames a build or saves new gear into it. `progress`, the shopping
+   * list for the build as saved, is stored with it in one step (see the
+   * worker's handleUpdateBuild); `progressSaved` in the answer says whether
+   * it was, present only when it was sent.
+   */
+  update(id: string, fields: { name?: string; blob?: string; progress?: ShoppingSaveProgress }): Observable<Build & { progressSaved?: boolean }> {
+    return this.http.put<BuildResponse & { progressSaved?: boolean }>(`${this.baseUrl}/builds/${encodeURIComponent(id)}`, fields);
   }
 
   delete(id: string): Observable<void> {

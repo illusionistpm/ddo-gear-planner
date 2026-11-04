@@ -6,7 +6,7 @@ import { BuildProgressService, buildProgressFailureOf, OwnBuildProgress } from '
 import { CurrentBuildService } from '../../build/current-build.service';
 import { AuthService } from '../../shared/auth.service';
 import type {
-  ShoppingProgress, ShoppingProgressPatch, ShoppingPublished, ShoppingRouteOrder, ShoppingSourcePicks
+  ShoppingProgress, ShoppingProgressPatch, ShoppingPublished, ShoppingRouteOrder, ShoppingSaveProgress, ShoppingSourcePicks
 } from './shopping-list-types';
 import { applyProgressPatch } from './shopping-list-view-model';
 import {
@@ -49,6 +49,13 @@ const SAVED_SCOPE_PREFIX = 'saved:';
  * after a quiet spell, one request at a time. The server's answer becomes
  * the local copy, with anything still queued laid over it.
  *
+ * While the build has unsaved changes, a new route order stays queued:
+ * friends see the build as saved, and an order arranged for the changes
+ * would move their list ahead of it. Saving sends it along with the build
+ * (progressForSave); undoing the changes sends it the usual way. Ticks and
+ * picks go at once regardless - they're private, and the owner's other
+ * devices want them.
+ *
  * Nothing runs on a timer while idle. Reads happen when a saved build
  * becomes current and when the page is focused or shown again with the
  * last read stale. Hiding the page sends what's queued without waiting out
@@ -85,6 +92,8 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
   private carriedFrom: string | null = null;
   /** Syncing stopped for this build until it's opened again; everything stays on this device. */
   private halted = false;
+  /** The build has unsaved changes: a queued order waits for the save. */
+  private dirty = false;
   private busy = false;
   private fetchWanted = false;
   /** The quiet spell after the last change has passed. */
@@ -123,7 +132,7 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
     }
   };
   private readonly onPageHide = () => {
-    const queued = this.buildId && !this.halted ? readOutbox(this.buildId) : null;
+    const queued = this.buildId && !this.halted ? this.sendable(readOutbox(this.buildId)) : null;
     if (this.buildId && this.lastToken && queued && !isEmptyWrite(queued)) {
       // Not settled: nothing will see the answer. The outbox sends it again
       // next visit, which is harmless - every write is "set this to that".
@@ -133,7 +142,10 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
 
   constructor() {
     super();
-    this.subscription = inject(CurrentBuildService).state$.subscribe(state => this.changeBuild(shoppingProgressScope(state)));
+    this.subscription = inject(CurrentBuildService).state$.subscribe(state => {
+      this.changeBuild(shoppingProgressScope(state));
+      this.setDirty(state.isDirty);
+    });
     window.addEventListener('focus', this.onReturn);
     document.addEventListener('visibilitychange', this.onVisibilityChange);
     window.addEventListener('pagehide', this.onPageHide);
@@ -198,6 +210,32 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
     this.queue({ published });
   }
 
+  progressForSave(published: ShoppingPublished): ShoppingSaveProgress | null {
+    if (!this.buildId || this.halted || this.publishedJson === null) {
+      return null;
+    }
+    return { needed: [...published.needed], route: { ...published.route }, order: this.local.order };
+  }
+
+  savedWithBuild(sent: ShoppingSaveProgress, stored: boolean): void {
+    if (!this.buildId) {
+      return;
+    }
+    const { order, ...published } = sent;
+    this.publishedJson = JSON.stringify(published);
+    if (!stored) {
+      // Throttled, or today's writes used up: the usual way, then.
+      this.queue({ published, order });
+      return;
+    }
+    // Whatever was queued for friends predates the save, which replaced it:
+    // nothing is published while the build has unsaved changes. An order
+    // arranged while the save was out is newer, and stays.
+    const queued = readOutbox(this.buildId);
+    settleOutbox(this.buildId, { patch: {}, picksPatch: {}, ...(queued?.published ? { published: queued.published } : {}), order });
+    this.updateSyncState();
+  }
+
   ngOnDestroy(): void {
     this.destroyed = true;
     this.subscription.unsubscribe();
@@ -225,11 +263,36 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
     this.pump();
   }
 
+  private setDirty(dirty: boolean): void {
+    const wasDirty = this.dirty;
+    this.dirty = dirty;
+    const queued = this.buildId ? readOutbox(this.buildId) : null;
+    if (wasDirty && !dirty && queued && 'order' in queued) {
+      // Back to the build as saved, without saving: the order it held back can go.
+      this.scheduleFlush();
+    }
+  }
+
+  /** What of a queued write may go now: all of it, but an order while the build has unsaved changes. */
+  private sendable(write: OutboxWrite | null): OutboxWrite | null {
+    if (!write || !this.dirty || !('order' in write)) {
+      return write;
+    }
+    const rest: OutboxWrite = { ...write };
+    delete rest.order;
+    return rest;
+  }
+
   private queue(write: Partial<OutboxWrite>): void {
     if (!this.buildId) {
       return;
     }
     addToOutbox(this.buildId, write);
+    this.scheduleFlush();
+  }
+
+  /** Sends what's queued after a quiet spell, restarting it. */
+  private scheduleFlush(): void {
     if (this.flushTimer) {
       clearTimeout(this.flushTimer);
     }
@@ -251,7 +314,7 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
       void this.fetch(this.buildId);
       return;
     }
-    const queued = readOutbox(this.buildId);
+    const queued = this.sendable(readOutbox(this.buildId));
     if (this.flushDue && queued && !isEmptyWrite(queued)) {
       void this.send(this.buildId, queued);
     }
@@ -340,8 +403,7 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
         picks.delete(identity);
       }
     }
-    // An order still queued wins; a worker that doesn't store one (doc.order
-    // undefined) leaves this device's alone.
+    // An order still queued wins.
     const order = queued && 'order' in queued ? queued.order : doc.order;
     this.local.replaceScope(
       SAVED_SCOPE_PREFIX + buildId, applyProgressPatch(doc.entries, queued?.patch ?? {}), Object.fromEntries(picks), order
@@ -403,7 +465,7 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
     } else if (this.failures > 0) {
       this.syncStateSubject.next('offline');
     } else {
-      const queued = readOutbox(this.buildId);
+      const queued = this.sendable(readOutbox(this.buildId));
       this.syncStateSubject.next(this.busy || this.fetchWanted || (queued && !isEmptyWrite(queued)) ? 'saving' : 'synced');
     }
   }

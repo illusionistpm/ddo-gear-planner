@@ -136,8 +136,7 @@ export class LiveBuildListService {
           if (message?.kind === 'gone') {
             finish(true);
           } else if (message?.kind === 'list' && (!state.list || message.version >= state.list.version)) {
-            const { kind: _kind, ...list } = message;
-            emit({ list });
+            emit({ list: listOf(message) });
           }
         };
         current.onclose = event => {
@@ -222,6 +221,11 @@ export class LiveBuildListService {
       return () => finish(false);
     });
   }
+}
+
+function listOf(message: LiveBuildList): LiveBuildList {
+  const { name, blob, needed, route, order, version } = message;
+  return { name, blob, needed, route, order, version };
 }
 
 function parse(data: unknown): LiveMessage | null {

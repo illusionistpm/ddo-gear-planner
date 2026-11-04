@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter, RouterLink } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 
 import { ShoppingListComponent } from './shopping-list.component';
 import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
@@ -12,6 +12,7 @@ import { TapTooltipComponent } from '../tap-tooltip/tap-tooltip.component';
 import { UserItemLocationTooltipPipe } from '../shared/user-item-location-tooltip.pipe';
 import { Clipboard } from '../shared/clipboard';
 import { AnalyticsService } from '../shared/analytics.service';
+import { AuthService } from '../shared/auth.service';
 import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
 import { FriendShoppingList } from '../planner/shopping-list/friend-shopping-list.service';
 import { ShoppingProgressStore, ShoppingSyncState } from '../planner/shopping-list/shopping-progress-store';
@@ -78,7 +79,9 @@ describe('ShoppingListComponent', () => {
         provideRouter([]),
         { provide: ShoppingListService, useValue: service },
         { provide: ShoppingListViewService, useValue: { openedFrom: null } },
-        { provide: ShoppingProgressStore, useValue: { syncState$: syncStates } }
+        { provide: ShoppingProgressStore, useValue: { syncState$: syncStates } },
+        // The share menu asks; signed out, it offers the list as text alone.
+        { provide: AuthService, useValue: { isAuthenticated$: of(false), signIn: vi.fn() } }
       ]
     }).compileComponents();
     fixture = TestBed.createComponent(ShoppingListComponent);
@@ -519,7 +522,8 @@ describe('ShoppingListComponent', () => {
     const shareButton = () => el().querySelector('.shopping-list-share') as HTMLButtonElement;
     const menu = () => el().querySelector('app-shopping-list-share-menu');
     // An unsaved build's menu has only this; the menu's own spec covers the links.
-    const copyListItem = () => el().querySelector<HTMLButtonElement>('.share-menu-item:last-of-type')!;
+    const copyListItem = () => Array.from(el().querySelectorAll<HTMLButtonElement>('.share-menu-item'))
+      .find(item => ['Copy list', 'Copied!'].includes(item.textContent?.trim() ?? ''))!;
     const openMenu = () => {
       shareButton().click();
       fixture.detectChanges();

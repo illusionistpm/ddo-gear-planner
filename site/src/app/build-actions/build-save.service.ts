@@ -8,6 +8,7 @@ import { buildPath, urlFragmentOf } from '../build/build-route';
 import { BuildsService } from '../build/builds.service';
 import { CurrentBuildService } from '../build/current-build.service';
 import { QueryParamsService } from '../build/query-params.service';
+import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
 
 /** A save/rename failure, carrying the message to show the user. */
 export class BuildSaveError extends Error { }
@@ -30,7 +31,8 @@ export class BuildSaveService {
     private readonly buildsService: BuildsService,
     private readonly currentBuild: CurrentBuildService,
     private readonly queryParams: QueryParamsService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly shoppingList: ShoppingListService
   ) { }
 
   /** Creates a new build row from the current build - both "Save…" and Save As. */
@@ -52,13 +54,24 @@ export class BuildSaveService {
     );
   }
 
+  /**
+   * Saves the current build over its saved copy. Its shopping list, as it
+   * is for the build being saved, goes with it, so friends following the
+   * list get the new gear and what it still needs in one step.
+   */
   saveInPlace(savedBuildId: string): Observable<void> {
     return of(null).pipe(
-      map(() => this.encodeWithinLimit()),
-      switchMap(blob => this.buildsService.update(savedBuildId, { blob }).pipe(
-        catchError(() => throwError(() => new BuildSaveError(SAVE_FAILED)))
+      map(() => ({ blob: this.encodeWithinLimit(), progress: this.shoppingList.progressForSave() })),
+      switchMap(({ blob, progress }) => this.buildsService.update(savedBuildId, progress ? { blob, progress } : { blob }).pipe(
+        catchError(() => throwError(() => new BuildSaveError(SAVE_FAILED))),
+        map(build => ({ build, progress }))
       )),
-      tap(build => this.recordSaved(build, true)),
+      tap(({ build, progress }) => {
+        this.recordSaved(build, true);
+        if (progress) {
+          this.shoppingList.savedWithBuild(progress, build.progressSaved === true);
+        }
+      }),
       map(() => undefined)
     );
   }

@@ -10,6 +10,7 @@ import { AuthService } from '../shared/auth.service';
 import { BuildsService } from '../build/builds.service';
 import { CurrentBuildService, CurrentBuildState } from '../build/current-build.service';
 import { QueryParamsService } from '../build/query-params.service';
+import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
 import { BuildActionsComponent, BuildActionsMenu } from './build-actions.component';
 import { BuildSaveService } from './build-save.service';
 
@@ -35,6 +36,7 @@ describe('BuildActionsComponent', () => {
     user$: BehaviorSubject<unknown>;
   };
   let router: MockedObject<Router>;
+  let shoppingList: { progressForSave: ReturnType<typeof vi.fn>; savedWithBuild: ReturnType<typeof vi.fn> };
   let component: BuildActionsComponent;
 
   function create(): BuildActionsComponent {
@@ -80,6 +82,8 @@ describe('BuildActionsComponent', () => {
     const cdr = {
       markForCheck: vi.fn().mockName('ChangeDetectorRef.markForCheck')
     };
+    // No friends' link to follow the build, unless a test says so.
+    shoppingList = { progressForSave: vi.fn(() => null), savedWithBuild: vi.fn() };
 
     TestBed.configureTestingModule({
       providers: [
@@ -88,6 +92,7 @@ describe('BuildActionsComponent', () => {
         { provide: QueryParamsService, useValue: queryParams },
         { provide: AuthService, useValue: auth },
         { provide: Router, useValue: router },
+        { provide: ShoppingListService, useValue: shoppingList },
         { provide: ChangeDetectorRef, useValue: cdr }
       ]
     });
@@ -223,6 +228,19 @@ describe('BuildActionsComponent', () => {
     // saving in place must strip it back off, not leave a stale non-clean
     // URL showing for an already-clean, just-saved build.
     expect(router.navigateByUrl).toHaveBeenCalledWith('/build/abc123/my-build', { replaceUrl: true });
+  });
+
+  it('sends the shopping list with a save in place, so friends get the new gear and its list together', () => {
+    auth.isAuthenticated$.next(true);
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
+    const progress = { needed: ['k'], route: {}, order: null };
+    shoppingList.progressForSave.mockReturnValue(progress);
+    buildsService.update.mockReturnValue(of({ id: 'build-1', shortId: 'abc123', name: 'My Build', blob: 'z1.encoded', progressSaved: false }));
+
+    component.onSaveControlPrimaryClick();
+
+    expect(buildsService.update).toHaveBeenCalledWith('build-1', { blob: 'z1.encoded', progress });
+    expect(shoppingList.savedWithBuild).toHaveBeenCalledWith(progress, false);
   });
 
   it('keeps the view open across a save, carrying the URL fragment to the saved build\'s URL', () => {

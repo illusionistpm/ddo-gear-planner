@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 
 import { CurrentBuildService, CurrentBuildState } from '../../build/current-build.service';
 import type {
-  ShoppingProgress, ShoppingProgressPatch, ShoppingPublished, ShoppingRouteOrder, ShoppingSourcePicks
+  ShoppingProgress, ShoppingProgressPatch, ShoppingPublished, ShoppingRouteOrder, ShoppingSaveProgress, ShoppingSourcePicks
 } from './shopping-list-types';
 import {
   clearScopePicks, copyScopeProgress, hasScopeProgress, patchScopeProgress, readScopeOrder, readScopePicks, readScopeProgress,
@@ -54,6 +54,16 @@ export abstract class ShoppingProgressStore {
   abstract readonly syncState$: Observable<ShoppingSyncState>;
   /** Sets what friends' links show, where the build has any. */
   abstract publish(published: ShoppingPublished): void;
+  /**
+   * What to send with a save of the current build, so friends get the new
+   * gear and its list together: what they'll see (`published`, worked out
+   * for the build as it's being saved) and the route's order. Null when the
+   * build has no friends' link to follow it - not a saved build of yours,
+   * or one whose list was never shared.
+   */
+  abstract progressForSave(published: ShoppingPublished): ShoppingSaveProgress | null;
+  /** A save carrying progressForSave's answer finished; `stored` says whether the server kept the list too. */
+  abstract savedWithBuild(sent: ShoppingSaveProgress, stored: boolean): void;
 }
 
 /**
@@ -131,6 +141,14 @@ export class LocalShoppingProgressStore extends ShoppingProgressStore implements
   /** Nothing to publish to: friends' links need the server. */
   publish(): void {
     // Intentionally empty.
+  }
+
+  progressForSave(): ShoppingSaveProgress | null {
+    return null;
+  }
+
+  savedWithBuild(): void {
+    // Nothing was sent.
   }
 
   /** Replaces a scope's ticks and picks, and its order when given, as when another copy of them wins. */

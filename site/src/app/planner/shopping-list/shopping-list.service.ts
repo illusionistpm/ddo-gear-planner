@@ -11,7 +11,7 @@ import { UserGearService } from '../user-gear.service';
 import { deriveShoppingEntries, ShoppingSourceLookup } from './shopping-list-entries';
 import { formatShoppingListText } from './shopping-list-text';
 import type {
-  ShoppingEntry, ShoppingFilter, ShoppingListView, ShoppingProgress, ShoppingRow, ShoppingTroveLookup
+  ShoppingEntry, ShoppingFilter, ShoppingListView, ShoppingProgress, ShoppingRow, ShoppingSaveProgress, ShoppingTroveLookup
 } from './shopping-list-types';
 import {
   buildShoppingListView, prunePatch, publishedProgress, settledIdentities, stillNeededKeys, togglePatch
@@ -73,9 +73,9 @@ export class ShoppingListService {
         const view = buildShoppingListView(entries, progress, this.trove,
           { filter, hiddenPacks, picks, packAccents: this.packAccents, routeSettled, order: order ?? undefined });
         this.packAccents = view.packAccents;
-        // Only while the build is as saved, so a friend's link (which loads
-        // the saved build) lists the same things. So friends see changes
-        // the next time the list is worked out, not in the background.
+        // Only while the build is as saved, so a friend's link (which shows
+        // the saved build) lists the same things. Saving sends the list for
+        // the build as saved along with it - see progressForSave.
         if (!this.currentBuild.value.isDirty) {
           this.progressStore.publish(publishedProgress(entries, progress, this.trove, { hiddenPacks, picks, routeSettled }));
         }
@@ -147,6 +147,25 @@ export class ShoppingListService {
       routeSettled: this.routeSettled ?? settledIdentities(entries, progress, this.trove), order: this.progressStore.order ?? undefined,
     });
     return formatShoppingListText(view, this.currentBuild.value.name);
+  }
+
+  /**
+   * What to send with a save of the build on screen, so friends' pages get
+   * the new gear and its list in one step; null when it has no friends'
+   * link to follow it. Worked out whether or not the list is open.
+   */
+  progressForSave(): ShoppingSaveProgress | null {
+    const entries = this.currentEntries();
+    const progress = this.progressStore.progress;
+    return this.progressStore.progressForSave(publishedProgress(entries, progress, this.trove, {
+      hiddenPacks: this.gearDb.getHiddenPacks(), picks: this.progressStore.picks,
+      routeSettled: this.routeSettled ?? settledIdentities(entries, progress, this.trove),
+    }));
+  }
+
+  /** A save carrying progressForSave's answer finished; `stored` says whether the server kept the list too. */
+  savedWithBuild(sent: ShoppingSaveProgress, stored: boolean): void {
+    this.progressStore.savedWithBuild(sent, stored);
   }
 
   /** Keys of the entries still needed. */

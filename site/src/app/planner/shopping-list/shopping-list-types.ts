@@ -73,6 +73,14 @@ export interface ShoppingPublished {
   route: ShoppingSourcePicks;
 }
 
+/**
+ * What friends will see once a build is saved, sent with the save so
+ * their pages switch to the new gear and its list together.
+ */
+export interface ShoppingSaveProgress extends ShoppingPublished {
+  order: ShoppingRouteOrder | null;
+}
+
 export type ShoppingFilter = 'all' | 'needed';
 export type ShoppingRowState = 'checked' | 'mixed' | 'unchecked';
 

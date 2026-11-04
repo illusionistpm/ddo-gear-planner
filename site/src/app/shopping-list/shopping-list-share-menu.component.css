@@ -41,10 +41,36 @@
   width: 100%;
 }
 
-.share-menu-item:hover,
-.share-menu-item:focus {
+.share-menu-item:not(:disabled):hover,
+.share-menu-item:not(:disabled):focus {
   background: var(--surface-subtle-color);
   color: var(--primary-color);
+}
+
+/* A live link, until the changes on screen are saved. */
+.share-menu-item:disabled {
+  color: var(--text-secondary);
+  cursor: default;
+}
+
+/* Under its note, the way to what it says a live list takes. */
+.share-menu-hint {
+  background: transparent;
+  border: 0;
+  color: var(--primary-color);
+  cursor: pointer;
+  display: block;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0 var(--space-12) var(--space-8);
+  text-align: left;
+  width: 100%;
+}
+
+.share-menu-hint:hover,
+.share-menu-hint:focus {
+  text-decoration: underline;
 }
 
 .share-menu-note,

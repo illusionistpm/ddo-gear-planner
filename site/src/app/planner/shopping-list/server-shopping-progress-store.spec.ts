@@ -19,7 +19,7 @@ const OWNED: CurrentBuildState = { savedBuildId: 'b1', shortId: 's1', name: 'Min
 const URL_B1 = `${environment.apiBaseUrl}/api/builds/b1/progress`;
 
 function doc(overrides: Partial<OwnBuildProgress> = {}): OwnBuildProgress {
-  return { entries: {}, picks: {}, needed: null, route: {}, updatedAt: '2026-11-02T12:00:00.000Z', ...overrides };
+  return { entries: {}, picks: {}, needed: null, route: {}, order: null, updatedAt: '2026-11-02T12:00:00.000Z', ...overrides };
 }
 
 describe('ServerShoppingProgressStore', () => {
@@ -193,15 +193,6 @@ describe('ServerShoppingProgressStore', () => {
       expect(store.order).toEqual(order);
     });
 
-    it('keeps its own when the server says nothing of one, as a worker that predates it doesn\'t', async () => {
-      const store = create();
-      setScopeOrder('saved:b1', order);
-
-      await openOwned(doc());
-
-      expect(store.order).toEqual(order);
-    });
-
     it('keeps one still queued over the server\'s answer', async () => {
       const store = create();
       await openOwned(doc({ order }));
@@ -231,6 +222,30 @@ describe('ServerShoppingProgressStore', () => {
       expect(put.request.body).toEqual({ order });
       put.flush(doc({ order }));
       await settle();
+    });
+
+    it('holds it while the build has unsaved changes, sending ticks meanwhile, and sends it once they\'re undone', async () => {
+      const store = create();
+      await openOwned();
+      state.next({ ...OWNED, isDirty: true });
+
+      store.setOrder(order);
+      store.applyPatch({ a: 1 });
+      const put = await expectRequest('PUT');
+      expect(put.request.body).toEqual({ patch: { a: 1 } });
+      put.flush(doc({ entries: { a: 1 } }));
+      await settle();
+      http.expectNone(URL_B1);
+      // Held, not stuck: nothing is on its way.
+      expect(syncStates.at(-1)).toBe('synced');
+      expect(store.order).toEqual(order);
+
+      state.next(OWNED);
+      const sent = await expectRequest('PUT');
+      expect(sent.request.body).toEqual({ order });
+      sent.flush(doc({ entries: { a: 1 }, order }));
+      await settle();
+      expect(readOutbox('b1')).toBeNull();
     });
 
     it('brings along one arranged before the build turned out to be yours, unless the server has one', async () => {
@@ -430,6 +445,68 @@ describe('ServerShoppingProgressStore', () => {
     (await expectRequest('GET')).flush(doc({ entries: { fromPhone: 1 } }));
     await settle();
     expect(readScopeProgress('saved:b1')).toEqual({ fromPhone: 1 });
+  });
+
+  describe('saving the build', () => {
+    const published = { needed: ['k1'], route: { Thing: ['Quest A'] } };
+    const order = { packs: ['Pack B'], quests: [] };
+
+    it('has nothing to send with a save until friends have been shown a list', async () => {
+      const store = create();
+      expect(store.progressForSave(published)).toBeNull();
+
+      await openOwned();
+      expect(store.progressForSave(published)).toBeNull();
+
+      store.publish({ needed: [], route: {} });
+      (await expectRequest('PUT')).flush(doc({ needed: [], route: {} }));
+      await settle();
+      store.setOrder(order);
+      (await expectRequest('PUT')).flush(doc({ needed: [], route: {}, order }));
+      await settle();
+
+      expect(store.progressForSave(published)).toEqual({ ...published, order });
+    });
+
+    it('sends the list with the save for a build whose server copy has one', async () => {
+      const store = create();
+      await openOwned(doc({ needed: [], route: {} }));
+
+      expect(store.progressForSave(published)).toEqual({ ...published, order: null });
+    });
+
+    it('forgets what was queued for friends once a save stores the list, keeping an order arranged meanwhile', async () => {
+      const store = create();
+      await openOwned(doc({ needed: [], route: {} }));
+      state.next({ ...OWNED, isDirty: true });
+      addToOutbox('b1', { published: { needed: ['stale'], route: {} } });
+      const sent = store.progressForSave(published)!;
+      store.setOrder(order);
+
+      state.next(OWNED);
+      store.savedWithBuild(sent, true);
+
+      expect(readOutbox('b1')).toEqual({ patch: {}, picksPatch: {}, order });
+      (await expectRequest('PUT')).flush(doc({ needed: published.needed, route: published.route, order }));
+      await settle();
+      // What the save sent isn't published again.
+      store.publish(published);
+      await settle();
+      http.expectNone(URL_B1);
+    });
+
+    it('sends the list the usual way when the save couldn\'t store it', async () => {
+      const store = create();
+      await openOwned(doc({ needed: [], route: {} }));
+      const sent = store.progressForSave(published)!;
+
+      store.savedWithBuild(sent, false);
+
+      const put = await expectRequest('PUT');
+      expect(put.request.body).toEqual({ ...published, order: null });
+      put.flush(doc({ ...published }));
+      await settle();
+    });
   });
 
   it('publishes what friends see only when it changes', async () => {

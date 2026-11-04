@@ -143,6 +143,12 @@ on filled buttons - the only literals left in the tree.
   render time. One such change broke 16 specs in a single commit.
 - **`OnPush` components** here mutate state from async callbacks, so they call
   `cdr.markForCheck()` explicitly. Keep that up in new async paths.
+- **`AppModule` is eager**: everything it declares or imports lands in the
+  initial bundle, so a dependency one feature needs (drag-drop, for the
+  shopping list's Arrange mode) would cost every page load. Put it in a
+  standalone component loaded with `import()` and `ngComponentOutlet`, as
+  `ShoppingListComponent.startArranging` does - and check the production
+  build's initial total before and after.
 - Specs that drive a component **through its rendered DOM** survive refactors of
   the component's internals; specs that call its methods do not. Prefer the
   former when the point is to pin behaviour before changing structure.

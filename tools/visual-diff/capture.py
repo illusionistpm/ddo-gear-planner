@@ -109,6 +109,23 @@ def open_shopping_list(page: Page) -> None:
 
 
 
+def open_still_needed(page: Page) -> None:
+    """A friend's still-needed page for the build on screen, its API answers
+    pinned: the build as the planner encodes it (its URL's b=), and an owner
+    who has shared nothing yet, so everything is listed - in an arranged
+    order, so the page is seen to follow one."""
+    page.wait_for_function("location.search.includes('b=')")
+    blob = page.evaluate("new URLSearchParams(location.search).get('b')")
+    progress = {'needed': None, 'route': {}, 'updatedAt': None,
+                'order': {'packs': ['Sinister Secret of Saltmarsh', 'Hunter and Hunted', 'Fables of the Feywild', ''],
+                          'quests': ['The Haunting of Saltmarsh', 'Saltmarsh']}}
+    cors = {'Access-Control-Allow-Origin': '*'}
+    page.route('**/api/build/s1', lambda route: route.fulfill(json={'name': 'Test Build', 'blob': blob}, headers=cors))
+    page.route('**/api/build/s1/progress', lambda route: route.fulfill(json=progress, headers=cors))
+    page.goto(page.url.split('/?')[0] + '/still-needed/s1/test-build')
+    page.wait_for_selector('.shopping-section')
+
+
 @dataclass
 class Scene:
     name: str
@@ -137,6 +154,8 @@ SCENES = [
     Scene('affix-builder', tab='affixes', steps=[click('.tracked-affix-edit-affixes')]),
     Scene('shopping-list', build=SHOPPING_BUILD, steps=[open_shopping_list]),
     Scene('shopping-list-share', build=SHOPPING_BUILD, steps=[open_shopping_list, click('.shopping-list-share')]),
+    Scene('shopping-list-arrange', build=SHOPPING_BUILD, steps=[open_shopping_list, click('.shopping-list-arrange')]),
+    Scene('still-needed', build=SHOPPING_BUILD, steps=[open_still_needed]),
 ]
 
 THEMES = ['light', 'dark']

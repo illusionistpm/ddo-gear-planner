@@ -466,12 +466,6 @@
     },
     {
         "affixes": [
-            "Dexterity"
-        ],
-        "name": "Finesse"
-    },
-    {
-        "affixes": [
             "Bluff",
             "Diplomacy",
             "Haggle",
@@ -1019,6 +1013,12 @@
             }
         ],
         "name": "Ethereal"
+    },
+    {
+        "affixes": [
+            "Dexterity"
+        ],
+        "name": "Finesse"
     },
     {
         "affixes": [

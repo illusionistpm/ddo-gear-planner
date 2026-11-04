@@ -238,6 +238,11 @@ def apply_known_affix_type_defaults(affix):
         affix['type'] = 'Enhancement'
     elif name == 'Improved Deception':
         affix['type'] = 'Enhancement'
+    # Deception III to IX ("On sneak attack: +N to Attack Rolls") name no bonus
+    # type. Deception +N says Enhancement, as does the Slavers recipe; the other
+    # types are the Insightful, Quality and set-bonus flavours.
+    elif name == 'Deception' and 'value' in affix:
+        affix['type'] = 'Enhancement'
     elif name in {
         'Arcane Augmentation',
         'Arcane Casting Dexterity',
@@ -289,9 +294,9 @@ def apply_concealment_value(affix, tooltip=''):
     return affix
 
 
-# Unnumbered or untyped variants of affixes that elsewhere carry a type and a
-# value. Left alone, the Bool catch-all (or a missing type, which the planner
-# shows as Untyped) puts them in the same list as the typed versions.
+# Unnumbered variants of affixes that elsewhere carry a type and a value, whose
+# tooltip states the value. Left alone, the Bool catch-all puts them in the same
+# list as the typed versions.
 def apply_variant_type_and_value(affix, tooltip=''):
     if not isinstance(affix, dict):
         return affix
@@ -307,12 +312,6 @@ def apply_variant_type_and_value(affix, tooltip=''):
         affix['name'] = 'Improved Deception'
         affix['type'] = 'Enhancement'
         affix['value'] = bluff.group(1)
-
-    # Deception III to IX ("On sneak attack: +N to Attack Rolls") name no bonus
-    # type. Deception +N says Enhancement, as does the Slavers recipe; the other
-    # types are the Insightful, Quality and set-bonus flavours.
-    elif name == 'Deception' and 'value' in affix and 'type' not in affix:
-        affix['type'] = 'Enhancement'
 
     elif name == 'Finesse':
         dexterity = re.search(r"grants a \+([0-9]+) enhancement bonus to the wielder's Dexterity", tooltip)

@@ -560,6 +560,18 @@
     ],
     "notes": "Your melee attacks do not roll a miss chance for incorporeal targets."
   },
+  "Finesse": {
+    "components": [
+      {
+        "name": "Dexterity",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Finesse +N is a +N Enhancement bonus to Dexterity (the unnumbered Finesse is +2) and the use of finesse weapons as if with the Weapon Finesse feat, which isn't tracked."
+  },
   "Fire and Cold Absorption": {
     "components": [
       {

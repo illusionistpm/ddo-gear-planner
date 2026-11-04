@@ -167,8 +167,6 @@ def build_affix_groups() -> None:
     add(groups, 'Dazing', ['Stunning'])
     add(groups, 'Sundering', ['Shatter'])
     add(groups, 'Improved Deception', ['Bluff'])
-    # Finesse +N is a +N Enhancement bonus to Dexterity, alongside the Weapon Finesse it grants
-    add(groups, 'Finesse', ['Dexterity'])
     add(groups, 'Alluring Skills Bonus', ['Bluff', 'Diplomacy', 'Haggle', 'Intimidate', 'Perform'])
     add(groups, 'Charisma Skills', ['Bluff', 'Diplomacy', 'Haggle', 'Intimidate', 'Perform'])
     add(groups, 'Frozen Depths Lore', ['Cold Lore', 'Poison Lore', 'Negative Lore'])

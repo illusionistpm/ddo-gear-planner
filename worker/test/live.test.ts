@@ -5,42 +5,24 @@ import { GONE_CLOSE_CODE, LiveMessage } from '../src/live';
 import { ProgressRoom } from '../src/progress-room';
 import { handleDeleteBuild, handleUpdateBuild } from '../src/routes/builds';
 import { handlePutProgress } from '../src/routes/progress';
-import { createFakeKv, createFakeRooms, FakeBuildProgressRow, FakeD1, FakeRooms, noWait } from './fakes';
+import { FakeBuildProgressRow, FakeD1, FakeRooms, makeEnv as makeTestEnv, noWait, seedProgress as seedProgressRow } from './fakes';
 
 const owner: AuthenticatedUser = { sub: 'auth0|owner', email: 'owner@example.test', name: 'Owner' };
 const ORIGIN = 'https://ddo-gear-planner.com';
 
 function makeEnv(): { env: Env; db: FakeD1; rooms: FakeRooms } {
-  const db = new FakeD1();
-  const rooms = createFakeRooms();
-  db.users.push({ id: 'user-1', auth0_sub: owner.sub, email: null, email_verified: 0, display_name: null, created_at: 'now', last_login_at: 'now' });
-  db.builds.push({
+  const made = makeTestEnv();
+  made.db.users.push({ id: 'user-1', auth0_sub: owner.sub, email: null, email_verified: 0, display_name: null, created_at: 'now', last_login_at: 'now' });
+  made.db.builds.push({
     id: 'build-1', short_id: 'short01', owner_user_id: 'user-1', name: 'My Fighter', blob: 'z1.abc', visibility: 'public',
     created_at: '2026-11-01T00:00:00.000Z', updated_at: '2026-11-01T00:00:00.000Z'
   });
-  return {
-    env: {
-      DB: db as unknown as Env['DB'], BUILD_CACHE: createFakeKv(), PROGRESS_ROOMS: rooms.namespace, ALLOWED_ORIGINS: `${ORIGIN},http://localhost:4200`
-    } as Env,
-    db,
-    rooms
-  };
+  return made;
 }
 
+/** build-1's progress, last written an hour before the tests' clock, in its default order. */
 function seedProgress(db: FakeD1, overrides: Partial<FakeBuildProgressRow> = {}): void {
-  db.buildProgress.push({
-    build_id: 'build-1',
-    owner_user_id: 'user-1',
-    entries: '{"g|Ring 1|Secret Ring":1}',
-    picks: '{"Secret Ring":["The Secret Quest"]}',
-    needed: '["g|Neck|Needed Necklace"]',
-    route: '{"Needed Necklace":["The Shared Quest"]}',
-    route_order: null,
-    updated_at: '2026-11-02T11:00:00.000Z',
-    write_day: '2026-11-02',
-    writes_today: 1,
-    ...overrides
-  });
+  seedProgressRow(db, 'build-1', { route_order: null, updated_at: '2026-11-02T11:00:00.000Z', writes_today: 1, ...overrides });
 }
 
 function liveRequest(path: string, headers: Record<string, string>): Request {

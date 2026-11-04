@@ -4,42 +4,11 @@ import { upsertBuildProgressIfUnchanged } from '../src/db';
 import worker from '../src/index';
 import { handleGetOwnProgress, handlePutProgress } from '../src/routes/progress';
 import sharedConstants from '../../shared/constants.json';
-import { createFakeKv, createFakeRooms, FakeBuildProgressRow, FakeD1, FakeRooms, noWait } from './fakes';
-
-function makeEnv(): { env: Env; db: FakeD1; rooms: FakeRooms } {
-  const db = new FakeD1();
-  const rooms = createFakeRooms();
-  return {
-    env: {
-      DB: db as unknown as Env['DB'],
-      BUILD_CACHE: createFakeKv(),
-      PROGRESS_ROOMS: rooms.namespace,
-      ALLOWED_ORIGINS: 'https://ddo-gear-planner.com'
-    } as Env,
-    db,
-    rooms
-  };
-}
+import { FakeD1, makeEnv, noWait, seedProgress } from './fakes';
 
 function seedBuild(db: FakeD1, id: string, shortId: string, visibility = 'public'): void {
   db.builds.push({
     id, short_id: shortId, owner_user_id: 'user-1', name: id, blob: 'z1.abc', visibility, created_at: 'now', updated_at: 'now'
-  });
-}
-
-function seedProgress(db: FakeD1, buildId: string, overrides: Partial<FakeBuildProgressRow> = {}): void {
-  db.buildProgress.push({
-    build_id: buildId,
-    owner_user_id: 'user-1',
-    entries: '{"g|Ring 1|Secret Ring":1}',
-    picks: '{"Secret Ring":["The Secret Quest"]}',
-    needed: '["g|Neck|Needed Necklace"]',
-    route: '{"Needed Necklace":["The Shared Quest"]}',
-    route_order: '{"packs":["Pack B",""],"quests":["The Shared Quest"]}',
-    updated_at: '2026-11-02T12:00:00.000Z',
-    write_day: '2026-11-02',
-    writes_today: 3,
-    ...overrides
   });
 }
 

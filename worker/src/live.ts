@@ -2,6 +2,7 @@ import { Env } from './auth';
 import { parseAllowedOrigins } from './cors';
 import { LiveBuildRow } from './db';
 import { errorResponse } from './http';
+import sharedConstants from '../../shared/constants.json';
 
 // A friend's live list of what a saved build still needs. Each friend page
 // holds a WebSocket to the build's ProgressRoom (progress-room.ts), which
@@ -40,7 +41,8 @@ export interface FriendList {
 
 /**
  * What a friend's page receives: the list, or that there's no (longer a)
- * build to show - a missing, private or deleted one.
+ * build to show - a missing, private or deleted one. The site's copy of
+ * this shape is site/src/app/build/live-build-list.service.ts.
  */
 export type LiveMessage = ({ kind: 'list' } & FriendList) | { kind: 'gone' };
 
@@ -50,29 +52,49 @@ export type LiveMessage = ({ kind: 'list' } & FriendList) | { kind: 'gone' };
  * (seen under `wrangler dev`), so the page acts on the message and closes
  * the socket itself, which always completes.
  */
-export const GONE_CLOSE_CODE = 4404;
+export const GONE_CLOSE_CODE = sharedConstants.liveGoneCloseCode;
 export const GONE_MESSAGE = JSON.stringify({ kind: 'gone' } satisfies LiveMessage);
+export const GONE_REASON = 'No build found for that link.';
 
 /** Keepalive: the room answers this without waking (setWebSocketAutoResponse). */
-export const PING = 'ping';
-export const PONG = 'pong';
+export const PING = sharedConstants.livePing;
+export const PONG = sharedConstants.livePong;
 
 /** What the Worker's handlers are given to finish work after answering. */
 export interface Waiter {
   waitUntil(promise: Promise<unknown>): void;
 }
 
+/** A progress row's public columns, as stored. */
+interface SharedColumns {
+  needed: string | null;
+  route: string | null;
+  route_order: string | null;
+}
+
+/**
+ * What friends see of a build's progress, parsed: needed is null, not [],
+ * when the owner has never shared a list, so a friend sees "nothing shared
+ * yet" rather than "nothing left to get". The owner's own GET answers with
+ * the same three fields.
+ */
+export function sharedListOf(progress: SharedColumns | null): Pick<FriendList, 'needed' | 'route' | 'order'> {
+  return {
+    needed: progress?.needed ? JSON.parse(progress.needed) as string[] : null,
+    route: progress?.route ? JSON.parse(progress.route) as Record<string, string[]> : {},
+    order: progress?.route_order ? JSON.parse(progress.route_order) as RouteOrder : null
+  };
+}
+
 export function friendListOf(
   build: { name: string; blob: string; updated_at: string },
-  progress: { needed: string | null; route: string | null; route_order: string | null; updated_at: string | null } | null
+  progress: (SharedColumns & { updated_at: string | null }) | null
 ): FriendList {
   const progressAt = progress?.updated_at ?? '';
   return {
     name: build.name,
     blob: build.blob,
-    needed: progress?.needed ? JSON.parse(progress.needed) as string[] : null,
-    route: progress?.route ? JSON.parse(progress.route) as Record<string, string[]> : {},
-    order: progress?.route_order ? JSON.parse(progress.route_order) as RouteOrder : null,
+    ...sharedListOf(progress),
     version: progressAt > build.updated_at ? progressAt : build.updated_at
   };
 }

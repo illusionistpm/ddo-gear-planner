@@ -4,19 +4,13 @@ import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import type {
-  ShoppingProgress, ShoppingProgressPatch, ShoppingRouteOrder, ShoppingSourcePicks
+  SharedShoppingList, ShoppingProgress, ShoppingProgressPatch, ShoppingRouteOrder, ShoppingSourcePicks
 } from '../planner/shopping-list/shopping-list-types';
 
 /** The owner's whole doc: their ticks and picks, and what friends see (LiveBuildListService). */
-export interface OwnBuildProgress {
+export interface OwnBuildProgress extends SharedShoppingList {
   entries: ShoppingProgress;
   picks: ShoppingSourcePicks;
-  /** Still-needed entry keys; null when the owner has never shared a list. */
-  needed: readonly string[] | null;
-  /** For each still-needed thing, the quests the owner's list sends them to. */
-  route: ShoppingSourcePicks;
-  /** The order the owner arranged the route in; null for the default. */
-  order: ShoppingRouteOrder | null;
   updatedAt: string | null;
 }
 

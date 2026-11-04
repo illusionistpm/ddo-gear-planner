@@ -3,14 +3,13 @@ import {
   BuildProgressRow,
   BuildRow,
   countProgressWritesOnDay,
-  getBuildById,
   getBuildProgress,
   upsertBuildProgressStatement
 } from '../db';
-import { errorResponse, jsonResponse } from '../http';
-import { friendListOf, RouteOrder, tellFriends, Waiter } from '../live';
+import { errorResponse, jsonResponse, readJsonBody } from '../http';
+import { friendListOf, RouteOrder, sharedListOf, tellFriends, Waiter } from '../live';
 import sharedConstants from '../../../shared/constants.json';
-import { resolveOwnerUserId } from './builds';
+import { checkOwnership } from './ownership';
 
 // Shopping-list progress for saved builds (see migrations/0006). None of
 // these routes go through checkMutationRateLimit or touch KV: that limiter
@@ -29,7 +28,7 @@ const MAX_KEY_LENGTH = sharedConstants.maxProgressKeyLength;
 // The stored JSON columns together, and the request body, counted in
 // string length (UTF-16 units) - close enough to bytes for a ceiling.
 export const MAX_PROGRESS_BYTES = sharedConstants.maxProgressBytes;
-const MAX_BYTES = MAX_PROGRESS_BYTES;
+const TOO_BIG = 'That shopping list is too big to save.';
 const MIN_WRITE_INTERVAL_MS = sharedConstants.progressMinWriteIntervalMs;
 const MAX_WRITES_PER_USER_PER_DAY = sharedConstants.maxProgressWritesPerUserPerDay;
 
@@ -50,15 +49,9 @@ function toOwnerProgress(row: BuildProgressRow | null) {
   return {
     entries: row ? JSON.parse(row.entries) as Record<string, 0 | 1> : {},
     picks: row ? JSON.parse(row.picks) as QuestLists : {},
-    needed: row?.needed ? JSON.parse(row.needed) as string[] : null,
-    route: row?.route ? JSON.parse(row.route) as QuestLists : {},
-    order: orderOf(row?.route_order ?? null),
+    ...sharedListOf(row),
     updatedAt: row?.updated_at ?? null
   };
-}
-
-function orderOf(text: string | null): RouteOrder | null {
-  return text === null ? null : JSON.parse(text) as RouteOrder;
 }
 
 /** The owner's whole progress doc. An empty one when nothing is stored yet. */
@@ -91,15 +84,9 @@ export async function handlePutProgress(
     return owned;
   }
 
-  const text = await request.text();
-  if (text.length > MAX_BYTES) {
-    return errorResponse(413, 'That shopping list is too big to save.');
-  }
-  let body: unknown;
-  try {
-    body = JSON.parse(text);
-  } catch {
-    return errorResponse(400, 'Invalid shopping list progress.');
+  const body = await readJsonBody(request, MAX_PROGRESS_BYTES, TOO_BIG);
+  if (body instanceof Response) {
+    return body;
   }
   const put = parseProgressPut(body);
   if (!put) {
@@ -149,7 +136,7 @@ export async function planProgressWrite(
   const entries = mergePatch(existing ? JSON.parse(existing.entries) as Record<string, 0 | 1> : {}, put.patch);
   const picks = mergePatch(existing ? JSON.parse(existing.picks) as QuestLists : {}, put.picksPatch);
   if (Object.keys(entries).length > MAX_ENTRIES || Object.keys(picks).length > MAX_PICKS) {
-    return errorResponse(413, 'That shopping list is too big to save.');
+    return errorResponse(413, TOO_BIG);
   }
 
   const day = new Date(now).toISOString().slice(0, 10);
@@ -165,8 +152,8 @@ export async function planProgressWrite(
     write_day: day
   };
   const stored = [row.entries, row.picks, row.needed, row.route, row.route_order];
-  if (stored.reduce((total, column) => total + (column?.length ?? 0), 0) > MAX_BYTES) {
-    return errorResponse(413, 'That shopping list is too big to save.');
+  if (stored.reduce((total, column) => total + (column?.length ?? 0), 0) > MAX_PROGRESS_BYTES) {
+    return errorResponse(413, TOO_BIG);
   }
 
   if (await countProgressWritesOnDay(env.DB, ownerUserId, day) >= MAX_WRITES_PER_USER_PER_DAY) {
@@ -184,21 +171,6 @@ export async function planProgressWrite(
     || row.route !== (existing?.route ?? null)
     || row.route_order !== (existing?.route_order ?? null);
   return { statement, row, friendsSeeChange };
-}
-
-/** The build and its owner's user id, or the response refusing them. */
-async function checkOwnership(
-  buildId: string, user: AuthenticatedUser, env: Env
-): Promise<{ build: BuildRow; ownerUserId: string } | Response> {
-  const build = await getBuildById(env.DB, buildId);
-  if (!build) {
-    return errorResponse(404, 'Build not found.');
-  }
-  const ownerUserId = await resolveOwnerUserId(env, user);
-  if (!ownerUserId || build.owner_user_id !== ownerUserId) {
-    return errorResponse(403, 'You do not own this build.');
-  }
-  return { build, ownerUserId };
 }
 
 function throttled(retryAfterMs: number): Response {

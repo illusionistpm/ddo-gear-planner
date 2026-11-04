@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { AuthenticatedUser, Env } from '../src/auth';
+import { AuthenticatedUser } from '../src/auth';
 import {
   handleCreateBuild,
   handleDeleteBuild,
@@ -8,13 +8,7 @@ import {
   handleUpdateBuild,
   MAX_BUILDS_PER_USER
 } from '../src/routes/builds';
-import { createFakeKv, createFakeRooms, FakeD1, noWait } from './fakes';
-
-function makeEnv(): { env: Env; db: FakeD1; rooms: ReturnType<typeof createFakeRooms> } {
-  const db = new FakeD1();
-  const rooms = createFakeRooms();
-  return { env: { DB: db as unknown as Env['DB'], BUILD_CACHE: createFakeKv(), PROGRESS_ROOMS: rooms.namespace } as Env, db, rooms };
-}
+import { FakeD1, makeEnv, noWait } from './fakes';
 
 const user: AuthenticatedUser = { sub: 'auth0|abc123', email: 'player@example.test', name: 'Player' };
 const otherUser: AuthenticatedUser = { sub: 'auth0|xyz789', email: 'other@example.test', name: 'Other' };

@@ -83,7 +83,7 @@ export class StillNeededPageComponent implements OnInit, OnDestroy {
   }
 
   private showBuild(shortId: string, build: FriendBuild): void {
-    const changed = build.status !== this.build.status || (build.status === 'error' && this.build.status === 'error' && build.error !== this.build.error);
+    const newError = errorOf(build) !== errorOf(this.build);
     this.build = build;
     if (build.status !== 'ready') {
       this.heading = null;
@@ -91,7 +91,7 @@ export class StillNeededPageComponent implements OnInit, OnDestroy {
       this.heading = { name: build.name, plannerPath: buildPath(shortId, build.name) };
     }
     this.title.setTitle(build.status === 'ready' && build.name ? `Still needed for ${build.name} - ${SITE_TITLE}` : SITE_TITLE);
-    if (build.status === 'error' && changed) {
+    if (build.status === 'error' && newError) {
       this.analytics.track('still_needed_load_error', { error: build.error });
     }
   }
@@ -112,4 +112,9 @@ export class StillNeededPageComponent implements OnInit, OnDestroy {
       error: () => undefined
     });
   }
+}
+
+/** What went wrong, if anything: the page tracks each new error once, not every update. */
+function errorOf(build: FriendBuild): string | null {
+  return build.status === 'error' ? build.error : null;
 }

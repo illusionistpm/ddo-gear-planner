@@ -12,6 +12,8 @@
 // belongs in an integration test against real D1 (`wrangler dev --local`),
 // not here.
 
+import type { Env } from '../src/auth';
+
 export interface FakeUserRow {
   id: string;
   auth0_sub: string;
@@ -433,3 +435,44 @@ export function createFakeRooms(): FakeRooms {
 
 /** A Waiter for handlers called directly; the fake rooms record without it. */
 export const noWait = { waitUntil: (): void => undefined };
+
+/**
+ * An Env over fresh fakes, for the route-handler tests: the D1 and the
+ * rooms to inspect, and both allowed origins (production first).
+ */
+export function makeEnv(): { env: Env; db: FakeD1; rooms: FakeRooms } {
+  const db = new FakeD1();
+  const rooms = createFakeRooms();
+  return {
+    env: {
+      DB: db as unknown as D1Database,
+      BUILD_CACHE: createFakeKv(),
+      PROGRESS_ROOMS: rooms.namespace,
+      AUTH0_DOMAIN: 'test-tenant.us.auth0.com',
+      AUTH0_AUDIENCE: 'https://api.ddo-gear-planner.com',
+      ALLOWED_ORIGINS: 'https://ddo-gear-planner.com,http://localhost:4200'
+    },
+    db,
+    rooms
+  };
+}
+
+/**
+ * A build's progress row, owned by user-1: a private tick and pick, and
+ * what friends see - one thing still needed, routed and arranged.
+ */
+export function seedProgress(db: FakeD1, buildId: string, overrides: Partial<FakeBuildProgressRow> = {}): void {
+  db.buildProgress.push({
+    build_id: buildId,
+    owner_user_id: 'user-1',
+    entries: '{"g|Ring 1|Secret Ring":1}',
+    picks: '{"Secret Ring":["The Secret Quest"]}',
+    needed: '["g|Neck|Needed Necklace"]',
+    route: '{"Needed Necklace":["The Shared Quest"]}',
+    route_order: '{"packs":["Pack B",""],"quests":["The Shared Quest"]}',
+    updated_at: '2026-11-02T12:00:00.000Z',
+    write_day: '2026-11-02',
+    writes_today: 3,
+    ...overrides
+  });
+}

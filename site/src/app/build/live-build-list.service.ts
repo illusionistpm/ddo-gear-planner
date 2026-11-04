@@ -1,22 +1,17 @@
 import { inject, Injectable, InjectionToken } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import sharedConstants from '../../../../shared/constants.json';
 import { environment } from '../../environments/environment';
-import type { ShoppingRouteOrder, ShoppingSourcePicks } from '../planner/shopping-list/shopping-list-types';
+import type { SharedShoppingList } from '../planner/shopping-list/shopping-list-types';
 
 /**
  * What a saved build's owner shares with friends, as worker/src/live.ts
- * sends it: the build as saved and its still-needed list.
+ * sends it (its FriendList): the build as saved and its still-needed list.
  */
-export interface LiveBuildList {
+export interface LiveBuildList extends SharedShoppingList {
   name: string;
   blob: string;
-  /** Still-needed entry keys; null when the owner has never shared a list. */
-  needed: readonly string[] | null;
-  /** For each still-needed thing, the quests the owner's list sends them to. */
-  route: ShoppingSourcePicks;
-  /** The order the owner arranged the route in; null for the default. */
-  order: ShoppingRouteOrder | null;
   /** When it last changed. A message older than the one shown is dropped. */
   version: string;
 }
@@ -62,14 +57,15 @@ export const LIVE_SOCKET_FACTORY = new InjectionToken<(url: string) => WebSocket
   factory: () => (url: string) => new WebSocket(url)
 });
 
-/** worker/src/live.ts's keepalive and its answer. */
-const PING = 'ping';
-const PONG = 'pong';
-const GONE_CLOSE_CODE = 4404;
+/** worker/src/live.ts's keepalive and its answer, and its close code for a build that's gone. */
+const PING = sharedConstants.livePing;
+const PONG = sharedConstants.livePong;
+const GONE_CLOSE_CODE = sharedConstants.liveGoneCloseCode;
 // WebSocket.OPEN and .CLOSED, which a fake socket's class needn't carry.
 const OPEN = 1;
 const CLOSED = 3;
 
+/** worker/src/live.ts's LiveMessage. */
 type LiveMessage = ({ kind: 'list' } & LiveBuildList) | { kind: 'gone' };
 
 /**
@@ -136,7 +132,8 @@ export class LiveBuildListService {
           if (message?.kind === 'gone') {
             finish(true);
           } else if (message?.kind === 'list' && (!state.list || message.version >= state.list.version)) {
-            emit({ list: listOf(message) });
+            // The message is the list, with its kind alongside.
+            emit({ list: message });
           }
         };
         current.onclose = event => {
@@ -221,11 +218,6 @@ export class LiveBuildListService {
       return () => finish(false);
     });
   }
-}
-
-function listOf(message: LiveBuildList): LiveBuildList {
-  const { name, blob, needed, route, order, version } = message;
-  return { name, blob, needed, route, order, version };
 }
 
 function parse(data: unknown): LiveMessage | null {

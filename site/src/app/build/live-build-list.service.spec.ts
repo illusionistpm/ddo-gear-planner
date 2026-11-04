@@ -88,7 +88,7 @@ describe('LiveBuildListService', () => {
     watch();
     socket().open();
     socket().receive({ kind: 'list', ...list() });
-    expect(latest()).toEqual({ list: list(), connection: 'live', gone: false });
+    expect(latest()).toMatchObject({ list: list(), connection: 'live', gone: false });
 
     socket().receive({ kind: 'list', ...list({ needed: [], version: '2026-11-02T12:00:05.000Z' }) });
     expect(latest().list?.needed).toEqual([]);

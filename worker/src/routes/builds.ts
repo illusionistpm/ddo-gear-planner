@@ -10,13 +10,13 @@ import {
   getShortLinkByShortId,
   listBuildSummariesByOwner,
   reserveAndInsertBuildIfUnderLimit,
-  resolveUserId,
   BuildSummaryRow,
   getBuildProgress,
   updateBuildStatement
 } from '../db';
-import { errorResponse, jsonResponse } from '../http';
+import { errorResponse, jsonResponse, readJsonBody } from '../http';
 import { closeFriends, friendListOf, tellFriends, Waiter } from '../live';
+import { checkOwnership, resolveOwnerUserId } from './ownership';
 import { MAX_PROGRESS_BYTES, parseProgressPut, planProgressWrite, ProgressPut } from './progress';
 import { withUniqueShortId } from '../shortId';
 import sharedConstants from '../../../shared/constants.json';
@@ -106,16 +106,6 @@ function toBuildSummaryResponse(row: BuildSummaryRow) {
     createdAt: row.created_at,
     updatedAt: row.updated_at
   };
-}
-
-// The read-only lookup list/update/delete use - see db.ts's resolveUserId
-// for why it falls back to the verified email.
-export async function resolveOwnerUserId(env: Env, user: AuthenticatedUser): Promise<string | null> {
-  return resolveUserId(env.DB, {
-    auth0Sub: user.sub,
-    email: user.email ?? null,
-    emailVerified: user.emailVerified ?? false
-  });
 }
 
 // Insert-if-missing, no write when the row already exists (see
@@ -266,25 +256,17 @@ export async function handleUpdateBuild(
   env: Env,
   waiter: Waiter
 ): Promise<Response> {
-  const row = await getBuildById(env.DB, id);
-  if (!row) {
-    return errorResponse(404, 'Build not found.');
+  const owned = await checkOwnership(id, user, env);
+  if (owned instanceof Response) {
+    return owned;
   }
-  const ownerUserId = await resolveOwnerUserId(env, user);
-  if (!ownerUserId || row.owner_user_id !== ownerUserId) {
-    return errorResponse(403, 'You do not own this build.');
-  }
+  const { build: row, ownerUserId } = owned;
 
-  const text = await request.text();
-  if (text.length > MAX_PROGRESS_BYTES + MAX_BLOB_LENGTH + 1024) {
-    return errorResponse(413, 'That build is too big to save.');
+  const parsed = await readJsonBody(request, MAX_PROGRESS_BYTES + MAX_BLOB_LENGTH + 1024, 'That build is too big to save.');
+  if (parsed instanceof Response) {
+    return parsed;
   }
-  let body: { name?: unknown; blob?: unknown; progress?: unknown } | null;
-  try {
-    body = JSON.parse(text) as typeof body;
-  } catch {
-    body = null;
-  }
+  const body = parsed as { name?: unknown; blob?: unknown; progress?: unknown } | undefined;
   const fields: { name?: string; blob?: string } = {};
 
   if (body?.name !== undefined) {
@@ -311,10 +293,12 @@ export async function handleUpdateBuild(
   }
 
   const now = Date.now();
-  const plan = progress ? await planProgressWrite(env, row, ownerUserId, progress, now) : null;
+  // A list the throttle or daily cap refuses is skipped, not the save.
+  const planned = progress ? await planProgressWrite(env, row, ownerUserId, progress, now) : null;
+  const write = planned instanceof Response ? null : planned;
   const statements = [updateBuildStatement(env.DB, id, fields, new Date(now).toISOString())];
-  if (plan && !(plan instanceof Response)) {
-    statements.push(plan.statement);
+  if (write) {
+    statements.push(write.statement);
   }
 
   let results: D1Result[];
@@ -326,7 +310,7 @@ export async function handleUpdateBuild(
     }
     throw err;
   }
-  const progressSaved = plan !== null && !(plan instanceof Response) && (results[1]?.meta.changes ?? 0) > 0;
+  const progressSaved = write !== null && (results[1]?.meta.changes ?? 0) > 0;
   // Write-through: invalidate rather than pre-populate, since the next
   // GET /api/build/:shortId will repopulate it and this keeps the update
   // path from needing to duplicate the cache payload shape.
@@ -334,7 +318,7 @@ export async function handleUpdateBuild(
 
   const updated = await getBuildById(env.DB, id) as BuildRow;
   if (fields.name !== undefined || fields.blob !== undefined || progressSaved) {
-    const stored = progressSaved && plan && !(plan instanceof Response) ? plan.row : await getBuildProgress(env.DB, id);
+    const stored = progressSaved && write ? write.row : await getBuildProgress(env.DB, id);
     tellFriends(env, waiter, row.short_id, friendListOf(updated, stored));
   }
   return jsonResponse(progress ? { ...toBuildResponse(updated), progressSaved } : toBuildResponse(updated));
@@ -351,14 +335,11 @@ function parseSavedProgress(value: unknown): ProgressPut | null {
 }
 
 export async function handleDeleteBuild(id: string, user: AuthenticatedUser, env: Env, waiter: Waiter): Promise<Response> {
-  const row = await getBuildById(env.DB, id);
-  if (!row) {
-    return errorResponse(404, 'Build not found.');
+  const owned = await checkOwnership(id, user, env);
+  if (owned instanceof Response) {
+    return owned;
   }
-  const ownerUserId = await resolveOwnerUserId(env, user);
-  if (!ownerUserId || row.owner_user_id !== ownerUserId) {
-    return errorResponse(403, 'You do not own this build.');
-  }
+  const row = owned.build;
 
   await deleteBuild(env.DB, id);
   await env.BUILD_CACHE.delete(buildCacheKey(row.short_id));

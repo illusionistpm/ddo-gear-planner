@@ -1,6 +1,6 @@
 import { Env } from './auth';
 import { getLiveBuildByShortId } from './db';
-import { friendListOfRow, GONE_CLOSE_CODE, GONE_MESSAGE, LiveMessage, PING, PONG } from './live';
+import { friendListOfRow, GONE_CLOSE_CODE, GONE_MESSAGE, GONE_REASON, LiveMessage, PING, PONG } from './live';
 
 /**
  * One saved build's friends' sockets (see live.ts). A Durable Object, one
@@ -34,7 +34,7 @@ export class ProgressRoom implements DurableObject {
       case '/close':
         for (const socket of this.state.getWebSockets()) {
           trySend(socket, GONE_MESSAGE);
-          tryClose(socket, GONE_CLOSE_CODE, 'No build found for that link.');
+          tryClose(socket, GONE_CLOSE_CODE, GONE_REASON);
         }
         return new Response(null, { status: 204 });
       default:
@@ -54,7 +54,7 @@ export class ProgressRoom implements DurableObject {
       trySend(server, JSON.stringify(message));
     } else {
       trySend(server, GONE_MESSAGE);
-      tryClose(server, GONE_CLOSE_CODE, 'No build found for that link.');
+      tryClose(server, GONE_CLOSE_CODE, GONE_REASON);
     }
     return new Response(null, { status: 101, webSocket: client });
   }

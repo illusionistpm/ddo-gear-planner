@@ -31,10 +31,22 @@ waits out a quiet spell after the last change before writing (2 s, set in
 | `maxProgressEntries` | tick overrides per build, and the length of `needed` and `route` |
 | `maxProgressPicks` | picked things per build |
 | `maxProgressKeyLength` | any key, thing or quest name |
-| `maxProgressBytes` | the request body, and the four stored JSON columns together |
+| `maxProgressBytes` | the request body, and the stored JSON columns together |
 | `progressMinWriteIntervalMs` | the gap between two writes to one build's progress |
 | `maxProgressWritesPerUserPerDay` | progress writes per user per UTC day, over all their builds |
 
 They are ceilings against a runaway or scripted client, not limits a real
 build gets near: the longest key data/ can produce is about 230 characters,
 and the client sends one write per burst of changes, one at a time.
+
+## Live shopping lists
+
+A friend's still-needed page holds a WebSocket to the Worker
+(`worker/src/live.ts`; the site's end is
+`site/src/app/build/live-build-list.service.ts`). These are its protocol's
+fixed values, which both ends must send and recognise alike:
+
+| Key | Is |
+|---|---|
+| `livePing` / `livePong` | the page's keepalive, and the answer the room gives without waking |
+| `liveGoneCloseCode` | the close code after a `gone` message: no (longer a) build to show |

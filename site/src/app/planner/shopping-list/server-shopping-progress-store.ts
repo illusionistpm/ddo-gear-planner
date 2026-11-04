@@ -214,7 +214,7 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
     if (!this.buildId || this.halted || this.publishedJson === null) {
       return null;
     }
-    return { needed: [...published.needed], route: { ...published.route }, order: this.local.order };
+    return { ...published, order: this.local.order };
   }
 
   savedWithBuild(sent: ShoppingSaveProgress, stored: boolean): void {

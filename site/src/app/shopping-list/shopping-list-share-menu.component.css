@@ -1,51 +1,4 @@
-/* As the build's share menu looks (build-share-menu.component.css), opening under its button. */
-:host {
-  display: contents;
-}
-
-.share-menu-backdrop {
-  background: transparent;
-  border: 0;
-  bottom: 0;
-  cursor: default;
-  left: 0;
-  padding: 0;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 30;
-}
-
-.share-menu {
-  background: var(--surface-elevated-color);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-lg);
-  min-width: 14rem;
-  overflow: hidden;
-  position: absolute;
-  right: 0;
-  top: calc(100% + 0.35rem);
-  z-index: 40;
-}
-
-.share-menu-item {
-  background: transparent;
-  border: 0;
-  color: var(--text-primary);
-  cursor: pointer;
-  display: block;
-  font: inherit;
-  padding: var(--space-8) var(--space-12);
-  text-align: left;
-  width: 100%;
-}
-
-.share-menu-item:not(:disabled):hover,
-.share-menu-item:not(:disabled):focus {
-  background: var(--surface-subtle-color);
-  color: var(--primary-color);
-}
+/* The common rules are shared/share-menu.css. */
 
 /* A live link, until the changes on screen are saved. */
 .share-menu-item:disabled {
@@ -53,38 +6,13 @@
   cursor: default;
 }
 
-/* Under its note, the way to what it says a live list takes. */
-.share-menu-hint {
+.share-menu-item:disabled:hover,
+.share-menu-item:disabled:focus {
   background: transparent;
-  border: 0;
-  color: var(--primary-color);
-  cursor: pointer;
-  display: block;
-  font: inherit;
-  font-size: 0.8rem;
-  font-weight: 600;
-  padding: 0 var(--space-12) var(--space-8);
-  text-align: left;
-  width: 100%;
 }
 
-.share-menu-hint:hover,
-.share-menu-hint:focus {
-  text-decoration: underline;
-}
-
-.share-menu-note,
-.share-menu-error {
-  border-top: 1px solid var(--border-color);
-  display: block;
-  font-size: 0.8rem;
-  padding: var(--space-8) var(--space-12);
-}
-
-.share-menu-note {
-  color: var(--text-secondary);
-}
-
-.share-menu-error {
-  color: var(--danger-color);
+/* Sign in, right under the note saying why: one block, not two rows. */
+.share-menu-note + .share-menu-hint {
+  border-top: 0;
+  padding-top: 0;
 }

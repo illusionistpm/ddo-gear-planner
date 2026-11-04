@@ -53,7 +53,7 @@ export async function getUserByAuth0Sub(db: D1Database, auth0Sub: string): Promi
 // also covers a sub moved away by cross-provider linking. upsertUser (below) does a write on every call (an UPDATE
 // even when nothing changed), which made every GET/PUT/DELETE pay for a
 // last_login_at bump that has nothing to do with logging in - see
-// resolveOwnerUserId in routes/builds.ts. Returns null rather than creating
+// resolveOwnerUserId in routes/ownership.ts. Returns null rather than creating
 // a row for an unrecognized sub - a route reaching here for a sub with no
 // row yet has nothing to look up anyway (no user row means no builds could
 // exist for it either), and creating one on the fly with fewer defaults

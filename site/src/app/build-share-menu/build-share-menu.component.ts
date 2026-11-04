@@ -22,7 +22,7 @@ const COPIED_CONFIRMATION_MS = 1500;
 @Component({
   selector: 'app-build-share-menu',
   templateUrl: './build-share-menu.component.html',
-  styleUrls: ['./build-share-menu.component.css'],
+  styleUrls: ['../shared/share-menu.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false
 })

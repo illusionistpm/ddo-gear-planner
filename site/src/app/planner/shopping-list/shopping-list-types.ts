@@ -73,6 +73,16 @@ export interface ShoppingPublished {
   route: ShoppingSourcePicks;
 }
 
+/** What friends see of a saved build's list, as the server stores it. */
+export interface SharedShoppingList {
+  /** Still-needed entry keys; null when the owner has never shared a list. */
+  needed: readonly string[] | null;
+  /** For each still-needed thing, the quests the owner's list sends them to. */
+  route: ShoppingSourcePicks;
+  /** The order the owner arranged the route in; null for the default. */
+  order: ShoppingRouteOrder | null;
+}
+
 /**
  * What friends will see once a build is saved, sent with the save so
  * their pages switch to the new gear and its list together.

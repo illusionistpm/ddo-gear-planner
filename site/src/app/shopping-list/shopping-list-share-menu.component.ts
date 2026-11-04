@@ -36,7 +36,7 @@ const COPIED_CONFIRMATION_MS = 1500;
 @Component({
   selector: 'app-shopping-list-share-menu',
   templateUrl: './shopping-list-share-menu.component.html',
-  styleUrls: ['./shopping-list-share-menu.component.css'],
+  styleUrls: ['../shared/share-menu.css', './shopping-list-share-menu.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false
 })

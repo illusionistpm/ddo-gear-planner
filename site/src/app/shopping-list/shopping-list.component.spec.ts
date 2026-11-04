@@ -52,6 +52,7 @@ describe('ShoppingListComponent', () => {
   let views: BehaviorSubject<ShoppingListView>;
   let service: { view$: BehaviorSubject<ShoppingListView>; toggle: ReturnType<typeof vi.fn>;
     setFilter: ReturnType<typeof vi.fn>; pickSources: ReturnType<typeof vi.fn>; resetRoute: ReturnType<typeof vi.fn>;
+    resetOrder: ReturnType<typeof vi.fn>; arrangePacks: ReturnType<typeof vi.fn>; arrangeQuests: ReturnType<typeof vi.fn>;
     stillNeededText: () => string; stillNeededKeys: () => string[]; };
 
   const show = (progress: ShoppingProgress, filter: 'all' | 'needed' = 'all', list = entries) => {
@@ -68,6 +69,7 @@ describe('ShoppingListComponent', () => {
   beforeEach(async () => {
     views = new BehaviorSubject(buildShoppingListView(entries, {}, trove, { filter: 'all' }));
     service = { view$: views, toggle: vi.fn(), setFilter: vi.fn(), pickSources: vi.fn(), resetRoute: vi.fn(),
+      resetOrder: vi.fn(), arrangePacks: vi.fn(), arrangeQuests: vi.fn(),
       stillNeededText: () => 'Still needed for my build (5):', stillNeededKeys: () => ['k1', 'k2', 'k3', 'k4'] };
     friendService = { refresh: vi.fn(() => true), nextRefreshAt: 0 };
     syncStates = new BehaviorSubject<ShoppingSyncState>('off');
@@ -227,6 +229,18 @@ describe('ShoppingListComponent', () => {
 
         latest().see({ 'pack:Raid Pack': false });
         expect(marked()).toEqual(['Other sources']);
+      });
+
+      it('marks none while no pack\'s cards are listed, as in Arrange mode', async () => {
+        latest().see({ 'pack:Raid Pack': true });
+
+        el().querySelector<HTMLButtonElement>('.shopping-list-arrange')!.click();
+        fixture.detectChanges();
+        await Promise.resolve();
+        fixture.detectChanges();
+
+        expect(links().length).toBe(2);
+        expect(marked()).toEqual([]);
       });
 
       it('watches again when the packs listed change', () => {
@@ -456,6 +470,52 @@ describe('ShoppingListComponent', () => {
 
     show(Object.fromEntries(entries.map(candidate => [candidate.key, 1 as const])), 'needed');
     expect(el().querySelector('.shopping-list-empty')?.textContent).toContain('Everything is ticked off');
+  });
+
+  describe('arranging the route', () => {
+    const arrangeButton = () => el().querySelector<HTMLButtonElement>('.shopping-list-arrange');
+    const outline = () => el().querySelector('app-shopping-list-arrange');
+    const startArranging = async () => {
+      arrangeButton()!.click();
+      fixture.detectChanges();
+      // The outline is loaded on first use.
+      await vi.waitFor(() => {
+        fixture.detectChanges();
+        expect(outline()).toBeTruthy();
+      });
+    };
+
+    it('shows the route as an outline in place of the cards, until Done', async () => {
+      await startArranging();
+
+      expect(el().querySelector('.shopping-section')).toBeNull();
+      expect(Array.from(el().querySelectorAll('.shopping-arrange-pack-row .shopping-arrange-name'), name => name.textContent?.trim()))
+        .toEqual(['Raid Pack', 'Other sources']);
+      expect(el().querySelector('.shopping-list-choice')).toBeNull();
+      expect(arrangeButton()).toBeNull();
+
+      (el().querySelector('.shopping-list-arrange-done') as HTMLButtonElement).click();
+      fixture.detectChanges();
+      expect(outline()).toBeNull();
+      expect(el().querySelector('.shopping-section')).toBeTruthy();
+    });
+
+    it('offers the default order back once arranged', async () => {
+      await startArranging();
+      expect(el().querySelector('.shopping-list-reset-route')).toBeNull();
+
+      views.next({ ...views.value, arranged: true });
+      fixture.detectChanges();
+      (el().querySelector('.shopping-list-reset-route') as HTMLButtonElement).click();
+
+      expect(service.resetOrder).toHaveBeenCalled();
+    });
+
+    it('is not offered with nothing listed', () => {
+      show({}, 'all', []);
+
+      expect(arrangeButton()).toBeNull();
+    });
   });
 
   describe('sharing the list', () => {

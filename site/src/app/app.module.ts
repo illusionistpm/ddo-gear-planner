@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, provideAppInitializer, inject, DestroyRef, Injector, runInInjectionContext } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { CdkScrollable } from '@angular/cdk/scrolling';
 import { provideHttpClient, withInterceptorsFromDi, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthModule, AuthHttpInterceptor } from '@auth0/auth0-angular';
 
@@ -96,6 +97,7 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         NgbModule,
         BrowserModule,
         FormsModule,
+        CdkScrollable,
         AuthModule.forRoot({
             domain: environment.auth0Domain,
             clientId: environment.auth0ClientId,

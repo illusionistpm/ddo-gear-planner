@@ -83,6 +83,19 @@
         </div>
       }
       <div class="shopping-list-controls">
+        @if (arranging) {
+          <button type="button" class="shopping-list-arrange-done" (click)="stopArranging()">
+            <i class="fas fa-check" aria-hidden="true"></i>
+            <span>Done</span>
+          </button>
+          @if (view?.arranged) {
+            <button type="button" class="shopping-list-reset-route" (click)="resetOrder()"
+              title="Put the packs and quests back in the order the list chose">
+              <i class="fas fa-arrow-rotate-left" aria-hidden="true"></i>
+              <span>Default order</span>
+            </button>
+          }
+        } @else {
         <div class="shopping-list-choice" role="group" aria-label="Show">
           <span class="shopping-list-choice-label">Show</span>
           <button type="button" class="shopping-list-choice-option" [class.active]="view?.filter === 'all'"
@@ -96,6 +109,14 @@
             <i class="fas fa-route" aria-hidden="true"></i>
             <span>Reset route</span>
           </button>
+        }
+        @if (view?.sections?.length) {
+          <button type="button" class="shopping-list-arrange" (click)="startArranging()"
+            title="Put the packs and quests in the order you'll run them">
+            <i class="fas fa-up-down" aria-hidden="true"></i>
+            <span>Arrange</span>
+          </button>
+        }
         }
       </div>
     }
@@ -112,7 +133,14 @@
     } @else if (!view.sections.length) {
       <p class="shopping-list-empty">{{friendBuild ? 'Nothing left to get: everything is ticked off.' : 'Everything is ticked off.'}}</p>
     }
-    @for (section of view.sections; track section.id) {
+    @if (arranging && view.sections.length) {
+      @if (arrangeComponent) {
+        <ng-container *ngComponentOutlet="arrangeComponent; inputs: { sections: view.sections }"></ng-container>
+      } @else {
+        <p class="shopping-list-empty">Loading…</p>
+      }
+    }
+    @for (section of arranging ? [] : view.sections; track section.id) {
       <section class="shopping-section" #sectionElement [attr.data-section-id]="section.id" [ngClass]="accentClass(section.accent)"
         [attr.aria-label]="section.label">
         <h3 class="shopping-section-title" #sectionTitle tabindex="-1">

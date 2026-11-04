@@ -66,6 +66,8 @@
 .shopping-list-share,
 .shopping-list-refresh,
 .shopping-list-open-build,
+.shopping-list-arrange,
+.shopping-list-arrange-done,
 .shopping-list-reset-route {
     align-items: center;
     background: var(--surface-color);
@@ -82,9 +84,17 @@
 .shopping-list-share[aria-expanded="true"],
 .shopping-list-refresh:not(:disabled):hover,
 .shopping-list-open-build:hover,
+.shopping-list-arrange:hover,
 .shopping-list-reset-route:hover {
     border-color: var(--primary-color);
     color: var(--primary-color);
+}
+
+.shopping-list-arrange-done {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--on-accent-text-color);
+    font-weight: 700;
 }
 
 .shopping-list-open-build {

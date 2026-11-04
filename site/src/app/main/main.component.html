@@ -173,7 +173,8 @@
 
 
     @if (shoppingListOpen) {
-        <app-shopping-list class="planner-shopping-list" (closed)="closeShoppingList()"></app-shopping-list>
+        <!-- cdkScrollable: it's what scrolls, so a drag in Arrange mode scrolls it at its edges. -->
+        <app-shopping-list class="planner-shopping-list" cdkScrollable (closed)="closeShoppingList()"></app-shopping-list>
     }
 
     <div class="planner-tab-panels" #tabPanels appPanelSwipe [hidden]="shoppingListOpen">

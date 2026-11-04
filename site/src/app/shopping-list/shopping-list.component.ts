@@ -1,6 +1,6 @@
 import {
   AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, NgZone,
-  OnChanges, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren
+  OnChanges, OnDestroy, OnInit, Output, QueryList, Type, ViewChild, ViewChildren
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -54,6 +54,10 @@ export class ShoppingListComponent implements OnInit, OnChanges, AfterViewInit, 
   canRefresh = false;
   /** The Share menu is open. */
   shareOpen = false;
+  /** Arrange mode: the route as an outline, to put in order. */
+  arranging = false;
+  /** ShoppingListArrangeComponent, once loaded. */
+  arrangeComponent: Type<unknown> | null = null;
   /** Whether your ticks are on the server too, or only on this device. */
   syncState: ShoppingSyncState = 'off';
   /** The packs with some part on screen, below the sticky header, by section id: marked in the pack list. */
@@ -130,6 +134,11 @@ export class ShoppingListComponent implements OnInit, OnChanges, AfterViewInit, 
         { root: this.elementRef.nativeElement, rootMargin: `-${headerHeight}px 0px 0px 0px` });
     });
     this.sectionElements?.forEach(section => this.sectionObserver!.observe(section.nativeElement));
+    // No packs listed (Arrange mode, say): nothing will report, so none are on screen. After
+    // this check, which already drew the pack list: the observer's own reports come later too.
+    if (!this.sectionElements?.length) {
+      Promise.resolve().then(() => this.sectionsSeen([]));
+    }
   }
 
   private sectionsSeen(entries: readonly IntersectionObserverEntry[]): void {
@@ -261,6 +270,28 @@ export class ShoppingListComponent implements OnInit, OnChanges, AfterViewInit, 
       quest_count: quests.length
     });
     this.shoppingList.pickSources(row, quests);
+  }
+
+  async startArranging(): Promise<void> {
+    this.analytics.track('arrange_shopping_route', { moved: 'start', has_order: !!this.view?.arranged });
+    this.arranging = true;
+    this.expandedRowId = null;
+    if (!this.arrangeComponent) {
+      // Drag-drop is only needed here: loaded on first use.
+      const { ShoppingListArrangeComponent } = await import('./shopping-list-arrange.component');
+      this.arrangeComponent = ShoppingListArrangeComponent;
+      this.cdr.markForCheck();
+    }
+  }
+
+  stopArranging(): void {
+    this.arranging = false;
+  }
+
+  /** Puts the packs and quests back in the order the list chose. */
+  resetOrder(): void {
+    this.analytics.track('arrange_shopping_route', { moved: 'reset' });
+    this.shoppingList.resetOrder();
   }
 
   /** Forgets every pick, and plans the route again around what's still needed. */

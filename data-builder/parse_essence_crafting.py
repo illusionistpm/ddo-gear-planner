@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from get_most_common_bonus_type import get_most_common_bonus_type
 from write_json import write_json
-from parse_affixes_from_cell import canonicalize_affix_name
+from parse_affixes_from_cell import BOOL_VARIANT_NAMES, canonicalize_affix_name
 from get_snapshot_path import get_snapshot_path
 
 
@@ -522,21 +522,6 @@ def get_max_known_level(
     return max_known_level
 
 
-# Options whose affix goes by another name in the item data. The site reads
-# this as the essence data's "affixes" map; the option keeps its own name.
-ESSENCE_OPTION_AFFIXES = {
-    # breathing only, where the items' Underwater Action is a Competence bonus
-    # to Swim; the items call this one Water Breathing
-    'Underwater Action': 'Water Breathing',
-}
-
-# The bonus type of each renamed affix, which the site looks up by the affix's
-# name rather than the option's.
-ESSENCE_RENAMED_AFFIX_BONUS_TYPES = {
-    'Water Breathing': 'Bool',
-}
-
-
 def get_essence_crafting_affix_order(item_types: dict[str, dict[str, list[str]]]) -> list[str]:
     affix_order: list[str] = []
     for item_type_slots in item_types.values():
@@ -595,12 +580,20 @@ def build_essence_crafting_data() -> dict:
     for k in delKeys:
         del assumedBonusTypeMap[k]
 
-    renamed = {option: affix for option, affix in ESSENCE_OPTION_AFFIXES.items() if option in progression}
+    # A non-scaling option is the unnumbered variant the item parser renames,
+    # so it gets the items' name (Underwater Action is Water Breathing). The
+    # site maps the option to it through "affixes" and looks its bonus type up
+    # by that name; the option keeps its own, which build URLs carry.
+    renamed = {
+        option: BOOL_VARIANT_NAMES[option]
+        for option in progression
+        if option in NON_SCALING_AFFIXES and option in BOOL_VARIANT_NAMES
+    }
     if renamed:
         output['affixes'] = renamed
         for option, affix in renamed.items():
             assumedBonusTypeMap.pop(option, None)
-            assumedBonusTypeMap[affix] = ESSENCE_RENAMED_AFFIX_BONUS_TYPES[affix]
+            assumedBonusTypeMap[affix] = 'Bool'
 
     max_level = get_max_known_level(wiki_levels, wiki_keys_used, wiki_progression, 34)
     output['maxLevel'] = max_level

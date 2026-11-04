@@ -2561,6 +2561,18 @@
     ],
     "notes": "The affix grants permanent Equipment bonus to both Sonic and Electric Spell Power. Decomposed into two components for Sonic and Electric Spell Power respectively."
   },
+  "Protection from Evil": {
+    "components": [
+      {
+        "name": "Armor Class",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Protection from Evil +N is a +N Deflection bonus to AC and a +N Resistance bonus to saves against evil monsters; the plain spell version is +2 of each. Only the AC is tracked: the saves only apply against evil attackers."
+  },
   "Prudent Skills Bonus": {
     "components": [
       {

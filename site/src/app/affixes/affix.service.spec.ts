@@ -66,6 +66,15 @@ describe('AffixService', () => {
     ]);
   });
 
+  it('counts Protection from Evil as its Deflection bonus to AC from the real affix groups', () => {
+    const service: AffixService = TestBed.inject(AffixService);
+
+    expect(service.resolvesToAffix('Protection from Evil', 'Armor Class')).toBe(true);
+    expect(service.flattenAffixGroups([new Affix({ name: 'Protection from Evil', type: 'Deflection', value: 2 })])).toEqual([
+      new Affix({ name: 'Armor Class', type: 'Deflection', value: 2 })
+    ]);
+  });
+
   it('preserves non-group affixes when flattening', () => {
     const service: AffixService = TestBed.inject(AffixService);
     const deadly = new Affix({ name: 'Deadly', type: 'Competence', value: 10 });

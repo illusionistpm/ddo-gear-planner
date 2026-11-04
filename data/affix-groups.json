@@ -2314,6 +2314,12 @@
     },
     {
         "affixes": [
+            "Armor Class"
+        ],
+        "name": "Protection from Evil"
+    },
+    {
+        "affixes": [
             "Heal",
             "Listen",
             "Spot"

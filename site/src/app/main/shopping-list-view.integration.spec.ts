@@ -2,8 +2,8 @@ import { ApplicationRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { provideLocationMocks } from '@angular/common/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { convertToParamMap, Router } from '@angular/router';
-import { of } from 'rxjs';
+import { convertToParamMap, NavigationEnd, Router } from '@angular/router';
+import { filter, firstValueFrom, of } from 'rxjs';
 
 import { AppModule } from '../app.module';
 import { AuthService } from '../shared/auth.service';
@@ -93,7 +93,25 @@ describe('MainComponent with the shopping list', () => {
     fixture.detectChanges();
     (el().querySelector('.shopping-list-back') as HTMLButtonElement).click();
     await TestBed.inject(ApplicationRef).whenStable();
-    expect(path()).toBe('/');
+    expect(path()).not.toContain('#');
+  });
+
+  it('closes the list on the browser\'s Back, back to the planner', async () => {
+    TestBed.inject(Router).setUpLocationChangeListener();
+    shoppingListButton().click();
+    await TestBed.inject(ApplicationRef).whenStable();
+    fixture.detectChanges();
+    expect(list()).toBeTruthy();
+
+    // The router handles a popstate on a timer, which whenStable doesn't wait for.
+    const landed = firstValueFrom(TestBed.inject(Router).events.pipe(filter(event => event instanceof NavigationEnd)));
+    TestBed.inject(Location).back();
+    await landed;
+    await TestBed.inject(ApplicationRef).whenStable();
+    fixture.detectChanges();
+
+    expect(list()).toBeNull();
+    expect(panels().hidden).toBe(false);
   });
 
   it('opens the list when the URL says it\'s open, as a reload does', async () => {

@@ -1,9 +1,10 @@
+import { Location } from '@angular/common';
 import { inject, Injectable, OnDestroy } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 
-import { urlFragmentOf } from '../../build/build-route';
+import { urlFragmentOf, urlWithoutFragment } from '../../build/build-route';
 import { CurrentBuildService } from '../../build/current-build.service';
 import { QueryParamsService } from '../../build/query-params.service';
 import { parseShoppingListFragment, ShoppingListLink, shoppingListFragment } from '../../build/shopping-list-link';
@@ -21,6 +22,11 @@ export type FriendShoppingListLink = Exclude<ShoppingListLink, { kind: 'own' }>;
  * to it, a friend's link opens it, and the app's own URL writes (edits,
  * saves, signing in) keep it.
  *
+ * Opening your list is a step in the browser's history, so Back (the
+ * browser's, or Android's) returns to the planner, as the list's own
+ * Planner button does. Opened from the URL there's no step to go back to,
+ * so closing just takes the fragment off.
+ *
  * A friend's link to a build of yours opens your own list instead, which
  * says more: opened by its owner, or once a friend saves a copy.
  */
@@ -29,6 +35,7 @@ export class ShoppingListViewService implements OnDestroy {
   private readonly router = inject(Router);
   private readonly queryParams = inject(QueryParamsService);
   private readonly currentBuild = inject(CurrentBuildService);
+  private readonly location = inject(Location);
   private readonly linkSubject = new BehaviorSubject<ShoppingListLink | null>(null);
   /** The list on screen, or null for the planner. */
   readonly link$: Observable<ShoppingListLink | null> = this.linkSubject.pipe(distinctUntilChanged(sameLink));
@@ -36,6 +43,12 @@ export class ShoppingListViewService implements OnDestroy {
   /** What opened the list last, for analytics. */
   openedFrom: ShoppingListEntryPoint | null = null;
   private readonly subscriptions = new Subscription();
+  /**
+   * The URL open() added to history, while it's still the current one. Saving
+   * with the list open replaces it with the saved build's, so Back would then
+   * leave the build rather than close the list.
+   */
+  private pushedUrl: string | null = null;
 
   constructor() {
     this.followUrl();
@@ -55,12 +68,23 @@ export class ShoppingListViewService implements OnDestroy {
   /** Opens your own list. */
   open(from: ShoppingListEntryPoint): void {
     this.openedFrom = from;
-    this.show({ kind: 'own' });
+    const link: ShoppingListLink = { kind: 'own' };
+    this.linkSubject.next(link);
+    const fragment = shoppingListFragment(link);
+    if (this.queryParams.writeViewFragment(fragment, false)) {
+      this.pushedUrl = `${urlWithoutFragment(this.router.url)}#${fragment}`;
+    }
   }
 
   close(): void {
     this.linkSubject.next(null);
-    this.queryParams.writeViewFragment(null, true);
+    const pushed = this.pushedUrl !== null && this.pushedUrl === this.router.url;
+    this.pushedUrl = null;
+    if (pushed) {
+      this.location.back();
+    } else {
+      this.queryParams.writeViewFragment(null, true);
+    }
   }
 
   ngOnDestroy(): void {

@@ -391,10 +391,12 @@ describe('QueryParamsService', () => {
   });
 
   describe('writeViewFragment', () => {
+    let navigated: boolean;
+
     function write(url: string, fragment: string | null): MockedObject<Router> {
       const router = TestBed.inject(Router) as MockedObject<Router>;
       (router as any).url = url;
-      TestBed.inject(QueryParamsService).writeViewFragment(fragment, true);
+      navigated = TestBed.inject(QueryParamsService).writeViewFragment(fragment, true);
       return router;
     }
 
@@ -402,6 +404,7 @@ describe('QueryParamsService', () => {
       const router = write('/build/ab12cd34/my-build?b=z1.test', 'shopping-list');
 
       expect(router.navigate).toHaveBeenCalledWith([], { queryParamsHandling: 'preserve', fragment: 'shopping-list', replaceUrl: true });
+      expect(navigated).toBe(true);
       expect(TestBed.inject(QueryParamsService).consumeAppUrlWrite()).toBe(true);
     });
 
@@ -411,9 +414,11 @@ describe('QueryParamsService', () => {
       expect(router.navigate).toHaveBeenCalledWith([], { queryParamsHandling: 'preserve', fragment: undefined, replaceUrl: true });
     });
 
-    it('does nothing when the URL already says so', () => {
+    it('does nothing when the URL already says so, and says so', () => {
       expect(write('/?b=z1.test#shopping-list', 'shopping-list').navigate).not.toHaveBeenCalled();
+      expect(navigated).toBe(false);
       expect(write('/?b=z1.test', null).navigate).not.toHaveBeenCalled();
+      expect(navigated).toBe(false);
       expect(TestBed.inject(QueryParamsService).consumeAppUrlWrite()).toBe(false);
     });
   });

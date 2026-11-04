@@ -541,13 +541,24 @@ export class QueryParamsService {
    * or takes it out (null), keeping the path and query string. View state
    * rides in the fragment, never in query keys: the codec never sees it, so
    * build URLs are untouched. AppComponent skips it as an app write.
+   * Returns whether it navigated: not when the URL already says so.
    */
-  writeViewFragment(fragment: string | null, replaceUrl: boolean) {
-    if (urlFragmentOf(this.router.url) === (fragment === null ? '' : `#${fragment}`)) {
-      return;
+  writeViewFragment(fragment: string | null, replaceUrl: boolean): boolean {
+    if (urlFragmentOf(this.urlHeadingTo()) === (fragment === null ? '' : `#${fragment}`)) {
+      return false;
     }
     // [] with no relativeTo stays on the current route (see navigateWithParams).
     this.navigateAsAppWrite([], { queryParamsHandling: 'preserve', fragment: fragment ?? undefined, replaceUrl });
+    return true;
+  }
+
+  // The URL of a navigation under way, else the current one - so closing the
+  // list straight after opening it isn't taken for "already closed" while
+  // the open is still landing. A navigation started now supersedes it.
+  private urlHeadingTo(): string {
+    const navigation = this.router.currentNavigation?.();
+    const target = navigation?.finalUrl ?? navigation?.extractedUrl;
+    return target ? this.router.serializeUrl(target) : this.router.url;
   }
 
   // A navigation of the app's own making, which AppComponent's

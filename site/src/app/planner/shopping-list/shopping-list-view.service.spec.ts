@@ -2,7 +2,8 @@ import { ApplicationRef, Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { provideLocationMocks } from '@angular/common/testing';
 import { TestBed } from '@angular/core/testing';
-import { provideRouter, Router } from '@angular/router';
+import { NavigationEnd, provideRouter, Router } from '@angular/router';
+import { filter, firstValueFrom } from 'rxjs';
 
 import { CurrentBuildService } from '../../build/current-build.service';
 import { QueryParamsService } from '../../build/query-params.service';
@@ -18,6 +19,85 @@ describe('ShoppingListViewService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [provideRouter([{ path: '**', component: StubComponent }]), provideLocationMocks()]
+    });
+    // Bootstrapping does this; without it Back (a popstate) never reaches the router.
+    TestBed.inject(Router).setUpLocationChangeListener();
+  });
+
+  describe('Back', () => {
+    // The router handles a popstate on a timer, which whenStable doesn't wait for.
+    async function landing(go: () => void): Promise<void> {
+      const landed = firstValueFrom(TestBed.inject(Router).events.pipe(filter(event => event instanceof NavigationEnd)));
+      go();
+      await landed;
+      await settle();
+    }
+
+    async function openFrom(url: string): Promise<ShoppingListViewService> {
+      await TestBed.inject(Router).navigateByUrl(url);
+      const view = TestBed.inject(ShoppingListViewService);
+      view.open('toolbar');
+      await settle();
+      return view;
+    }
+
+    it('closes the list opened from the planner, back to the planner\'s URL', async () => {
+      const view = await openFrom('/?b=z1.test');
+
+      await landing(() => TestBed.inject(Location).back());
+
+      expect(view.isOpen).toBe(false);
+      expect(path()).toBe('/?b=z1.test');
+    });
+
+    it('is what the list\'s own close does, so Forward opens it again', async () => {
+      const view = await openFrom('/?b=z1.test');
+      const location = TestBed.inject(Location);
+      const back = vi.spyOn(location, 'back');
+
+      await landing(() => view.close());
+      expect(back).toHaveBeenCalled();
+      expect(path()).toBe('/?b=z1.test');
+
+      await landing(() => location.forward());
+      expect(view.isOpen).toBe(true);
+      expect(view.openedFrom).toBe('url');
+    });
+
+    it('isn\'t used to close once a save has moved the list to the saved build\'s URL', async () => {
+      const view = await openFrom('/?b=z1.test');
+      await TestBed.inject(Router).navigateByUrl('/build/abc123/my-build#shopping-list', { replaceUrl: true });
+      const back = vi.spyOn(TestBed.inject(Location), 'back');
+
+      view.close();
+      await settle();
+
+      expect(back).not.toHaveBeenCalled();
+      expect(path()).toBe('/build/abc123/my-build');
+    });
+
+    it('isn\'t used to close a list the URL opened, which has no step to go back to', async () => {
+      await TestBed.inject(Router).navigateByUrl('/?b=z1.test#shopping-list');
+      const view = TestBed.inject(ShoppingListViewService);
+      const back = vi.spyOn(TestBed.inject(Location), 'back');
+
+      view.close();
+      await settle();
+
+      expect(back).not.toHaveBeenCalled();
+      expect(path()).toBe('/?b=z1.test');
+    });
+
+    it('stays closed when closed straight after opening, before the open has landed', async () => {
+      await TestBed.inject(Router).navigateByUrl('/?b=z1.test');
+      const view = TestBed.inject(ShoppingListViewService);
+
+      view.open('toolbar');
+      view.close();
+      await settle();
+
+      expect(view.isOpen).toBe(false);
+      expect(path()).toBe('/?b=z1.test');
     });
   });
 

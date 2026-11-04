@@ -227,6 +227,26 @@ describe('AppComponent', () => {
     expect(params.get('b')).toBe('z1.test');
   });
 
+  it('does not reapply URL params when only the fragment changes, as Back from the shopping list does', async () => {
+    const queryParams = TestBed.inject(QueryParamsService);
+    vi.spyOn(queryParams, 'updateFromParams').mockReturnValue(undefined);
+    const router = TestBed.inject(Router);
+
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    await router.navigateByUrl('/?b=z1.test');
+    expect(queryParams.updateFromParams).toHaveBeenCalled();
+    (queryParams.updateFromParams as Mock).mockClear();
+
+    await router.navigateByUrl('/?b=z1.test#shopping-list');
+    await router.navigateByUrl('/?b=z1.test');
+    expect(queryParams.updateFromParams).not.toHaveBeenCalled();
+
+    await router.navigateByUrl('/?b=z1.other#shopping-list');
+    expect(vi.mocked(queryParams.updateFromParams as Mock).mock.lastCall![0].get('b')).toBe('z1.other');
+  });
+
   it('does call updateFromParams on a /build/:shortId route once it carries a b= param', async () => {
     // Regression test: editing a loaded build accumulates a b= param on
     // this same route shape as you go (see BuildActionsComponent's comment

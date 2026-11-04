@@ -28,6 +28,11 @@ export function urlFragmentOf(url: string): string {
   return hash < 0 ? '' : url.slice(hash);
 }
 
+/** A URL without its fragment: what's left is the build, and where it's loaded from. */
+export function urlWithoutFragment(url: string): string {
+  return url.slice(0, url.length - urlFragmentOf(url).length);
+}
+
 // A build loaded by shortId (`/build/:shortId(/:slug)`) carries no query
 // string at all - its state comes from a server fetch + decode
 // (MainComponent's own logic), not from AppComponent's generic

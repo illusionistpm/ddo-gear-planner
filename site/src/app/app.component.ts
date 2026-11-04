@@ -9,7 +9,7 @@ import { EquippedService } from './planner/equipped.service';
 import { FiltersService } from './planner/filters.service';
 import { QueryParamsService } from './build/query-params.service';
 import { CurrentBuildService } from './build/current-build.service';
-import { isBuildShortIdRoute, routePathOf } from './build/build-route';
+import { isBuildShortIdRoute, routePathOf, urlWithoutFragment } from './build/build-route';
 import { hasUnsavedWork } from './build/unsaved-changes.guard';
 import { PlannerOnboardingService } from './planner/planner-onboarding.service';
 import { perfAfterFrames, perfStart } from './shared/perf-trace';
@@ -30,6 +30,9 @@ export class AppComponent implements OnInit, OnDestroy {
   // Browser back/forward replays the user's own edit history - not a link
   // they followed - so it mustn't switch the intro off mid-way through it.
   private navigationIsPopstate = false;
+  // The last URL navigated to, less its fragment, to tell a navigation that
+  // only changes the view apart from one that changes the build.
+  private lastUrlWithoutFragment: string | null = null;
 
   constructor(
     private readonly router: Router,
@@ -86,9 +89,18 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private updateFromLocation() {
     const done = perfStart('AppComponent.updateFromLocation');
+    const previousUrl = this.lastUrlWithoutFragment;
+    this.lastUrlWithoutFragment = urlWithoutFragment(this.router.url);
     if (this.queryParams.consumeAppUrlWrite()) {
       done({ skipped: 'appUrlWrite' });
       perfAfterFrames('paint after skipped app navigation');
+      return;
+    }
+    if (this.lastUrlWithoutFragment === previousUrl) {
+      // Only the fragment changed - Back from the shopping list, say. That's
+      // the view, not the build (see shopping-list-link.ts): the build on
+      // screen is already this URL's.
+      done({ skipped: 'fragmentOnly' });
       return;
     }
 

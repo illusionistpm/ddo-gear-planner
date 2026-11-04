@@ -6,7 +6,7 @@
       @for (section of view.sections; track section.id; let i = $index) {
         <li>
           <button type="button" class="shopping-pack-nav-link" [ngClass]="accentClass(section.accent)"
-            [class.done]="section.acquired === section.total" (click)="scrollToSection(i)">
+            [class.in-view]="sectionsInView.has(section.id)" [class.done]="section.acquired === section.total" (click)="scrollToSection(i)">
             <span class="shopping-pack-nav-name">{{section.label}}</span>
             <span class="shopping-pack-nav-count">{{sectionCount(section)}}</span>
           </button>
@@ -113,7 +113,8 @@
       <p class="shopping-list-empty">{{friendBuild ? 'Nothing left to get: everything is ticked off.' : 'Everything is ticked off.'}}</p>
     }
     @for (section of view.sections; track section.id) {
-      <section class="shopping-section" [ngClass]="accentClass(section.accent)" [attr.aria-label]="section.label">
+      <section class="shopping-section" #sectionElement [attr.data-section-id]="section.id" [ngClass]="accentClass(section.accent)"
+        [attr.aria-label]="section.label">
         <h3 class="shopping-section-title" #sectionTitle tabindex="-1">
           <span class="shopping-section-name">{{section.label}}</span>
           <span class="shopping-section-count">{{sectionCount(section)}}</span>

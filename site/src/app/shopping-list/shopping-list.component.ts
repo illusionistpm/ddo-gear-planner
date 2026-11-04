@@ -1,6 +1,6 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy,
-  OnInit, Output, QueryList, ViewChild, ViewChildren
+  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, NgZone,
+  OnChanges, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -39,7 +39,7 @@ export interface FriendBuildHeading {
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false
 })
-export class ShoppingListComponent implements OnInit, OnChanges, OnDestroy {
+export class ShoppingListComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
   /** A friend's build, making this its read-only still-needed list; null for your own list. */
   @Input() friendBuild: FriendBuildHeading | null = null;
   /** A friend's view of the build's list, with friendBuild. */
@@ -47,6 +47,7 @@ export class ShoppingListComponent implements OnInit, OnChanges, OnDestroy {
   @Output() closed = new EventEmitter<void>();
   @ViewChild('header') private header?: ElementRef<HTMLElement>;
   @ViewChildren('sectionTitle') private sectionTitles?: QueryList<ElementRef<HTMLElement>>;
+  @ViewChildren('sectionElement') private sectionElements?: QueryList<ElementRef<HTMLElement>>;
 
   view: ShoppingListView | null = null;
   /** A friend's list can be fetched again (not more than every 30 s). */
@@ -55,12 +56,18 @@ export class ShoppingListComponent implements OnInit, OnChanges, OnDestroy {
   shareOpen = false;
   /** Whether your ticks are on the server too, or only on this device. */
   syncState: ShoppingSyncState = 'off';
+  /** The packs with some part on screen, below the sticky header, by section id: marked in the pack list. */
+  sectionsInView: ReadonlySet<string> = new Set();
   /** The row whose choice of where to get it is open, if any. */
   expandedRowId: string | null = null;
   /** The row whose last quest the user just tried to untick, to say why it stays. */
   lastQuestHintRowId: string | null = null;
   private readonly subscriptions = new Subscription();
   private refreshTimeout?: ReturnType<typeof setTimeout>;
+  private sectionObserver?: IntersectionObserver;
+  private headerObserver?: ResizeObserver;
+  /** Each section observed, and whether it's on screen. */
+  private readonly sectionVisibility = new Map<Element, boolean>();
 
   constructor(
     readonly shoppingList: ShoppingListService,
@@ -69,7 +76,8 @@ export class ShoppingListComponent implements OnInit, OnChanges, OnDestroy {
     private readonly progressStore: ShoppingProgressStore,
     private readonly analytics: AnalyticsService,
     private readonly cdr: ChangeDetectorRef,
-    private readonly elementRef: ElementRef<HTMLElement>
+    private readonly elementRef: ElementRef<HTMLElement>,
+    private readonly zone: NgZone
   ) { }
 
   ngOnInit(): void {
@@ -90,9 +98,53 @@ export class ShoppingListComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  ngAfterViewInit(): void {
+    if (typeof IntersectionObserver === 'undefined' || !this.sectionElements) {
+      return;
+    }
+    // The header wraps as the list narrows, and what's under it isn't on screen.
+    this.zone.runOutsideAngular(() => {
+      this.headerObserver = new ResizeObserver(() => this.observeSections());
+      if (this.header) {
+        this.headerObserver.observe(this.header.nativeElement);
+      }
+    });
+    this.subscriptions.add(this.sectionElements.changes.subscribe(() => this.observeSections()));
+    this.observeSections();
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
     clearTimeout(this.refreshTimeout);
+    this.sectionObserver?.disconnect();
+    this.headerObserver?.disconnect();
+  }
+
+  /** Watches each pack's section scroll through the host, which is what scrolls, below the header. */
+  private observeSections(): void {
+    this.sectionObserver?.disconnect();
+    this.sectionVisibility.clear();
+    const headerHeight = Math.round(this.header?.nativeElement.getBoundingClientRect().height ?? 0);
+    this.zone.runOutsideAngular(() => {
+      this.sectionObserver = new IntersectionObserver(entries => this.sectionsSeen(entries),
+        { root: this.elementRef.nativeElement, rootMargin: `-${headerHeight}px 0px 0px 0px` });
+    });
+    this.sectionElements?.forEach(section => this.sectionObserver!.observe(section.nativeElement));
+  }
+
+  private sectionsSeen(entries: readonly IntersectionObserverEntry[]): void {
+    for (const entry of entries) {
+      this.sectionVisibility.set(entry.target, entry.isIntersecting);
+    }
+    const inView = new Set(Array.from(this.sectionVisibility)
+      .filter(([, visible]) => visible)
+      .map(([section]) => (section as HTMLElement).dataset['sectionId'] ?? ''));
+    if (inView.size !== this.sectionsInView.size || [...inView].some(id => !this.sectionsInView.has(id))) {
+      this.zone.run(() => {
+        this.sectionsInView = inView;
+        this.cdr.markForCheck();
+      });
+    }
   }
 
   toggleShare(): void {

@@ -209,6 +209,12 @@
     background: var(--surface-muted-color);
 }
 
+/* Some of its pack is on screen: where you are in the list. Tinted, not
+   bolded: bold text is wider, and a name rewrapping would shift the list. */
+.shopping-pack-nav-link.in-view {
+    background: rgba(var(--primary-color-rgb), 0.1);
+}
+
 .shopping-pack-nav-name {
     flex: 1 1 auto;
     min-width: 0;

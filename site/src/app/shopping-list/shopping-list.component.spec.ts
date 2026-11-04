@@ -177,6 +177,70 @@ describe('ShoppingListComponent', () => {
       expect(el().querySelector('.shopping-pack-nav')).toBeNull();
     });
 
+    describe('marking the packs on screen', () => {
+      // jsdom has no IntersectionObserver: this one is driven by hand.
+      let observers: FakeIntersectionObserver[];
+      class FakeIntersectionObserver {
+        readonly observed: Element[] = [];
+        constructor(readonly callback: IntersectionObserverCallback, readonly options: IntersectionObserverInit) {
+          observers.push(this);
+        }
+        observe(target: Element): void {
+          this.observed.push(target);
+        }
+        disconnect(): void {
+          this.observed.length = 0;
+        }
+        see(visible: Record<string, boolean>): void {
+          const entries = this.observed
+            .filter(target => (target as HTMLElement).dataset['sectionId']! in visible)
+            .map(target => ({ target, isIntersecting: visible[(target as HTMLElement).dataset['sectionId']!] }));
+          this.callback(entries as unknown as IntersectionObserverEntry[], this as unknown as IntersectionObserver);
+          fixture.detectChanges();
+        }
+      }
+      const latest = () => observers[observers.length - 1];
+      const marked = () => links().filter(link => link.classList.contains('in-view'))
+        .map(link => link.querySelector('.shopping-pack-nav-name')?.textContent?.trim());
+
+      beforeEach(() => {
+        observers = [];
+        (globalThis as { IntersectionObserver?: unknown }).IntersectionObserver = FakeIntersectionObserver;
+        fixture.destroy();
+        fixture = TestBed.createComponent(ShoppingListComponent);
+        fixture.detectChanges();
+      });
+
+      afterEach(() => {
+        delete (globalThis as { IntersectionObserver?: unknown }).IntersectionObserver;
+      });
+
+      it('watches each pack scroll through the list, below its header', () => {
+        expect(latest().options.root).toBe(el());
+        expect(latest().options.rootMargin).toMatch(/^-\d+px 0px 0px 0px$/);
+        expect(latest().observed.length).toBe(2);
+      });
+
+      it('marks every pack with some part on screen, as they come and go', () => {
+        latest().see({ 'pack:Raid Pack': true, 'pack:': true });
+        expect(marked()).toEqual(['Raid Pack', 'Other sources']);
+
+        latest().see({ 'pack:Raid Pack': false });
+        expect(marked()).toEqual(['Other sources']);
+      });
+
+      it('watches again when the packs listed change', () => {
+        latest().see({ 'pack:Raid Pack': true });
+
+        show({}, 'all', [sword]);
+        // A new observer reports on everything it watches at once.
+        latest().see({ 'pack:Raid Pack': false });
+
+        expect(latest().observed.length).toBe(1);
+        expect(marked()).toEqual([]);
+      });
+    });
+
     it('scrolls the pack heading up to just under the sticky header, and moves focus to it', () => {
       const track = vi.spyOn(TestBed.inject(AnalyticsService), 'track').mockReturnValue(undefined);
       const host = el();

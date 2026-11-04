@@ -6,7 +6,7 @@ import { BuildProgressService, buildProgressFailureOf, OwnBuildProgress } from '
 import { CurrentBuildService } from '../../build/current-build.service';
 import { AuthService } from '../../shared/auth.service';
 import type {
-  ShoppingProgress, ShoppingProgressPatch, ShoppingPublished, ShoppingSourcePicks
+  ShoppingProgress, ShoppingProgressPatch, ShoppingPublished, ShoppingRouteOrder, ShoppingSourcePicks
 } from './shopping-list-types';
 import { applyProgressPatch } from './shopping-list-view-model';
 import {
@@ -73,6 +73,7 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
   readonly syncState$: Observable<ShoppingSyncState> = this.syncStateSubject.pipe(distinctUntilChanged());
   readonly progress$ = this.local.progress$;
   readonly picks$ = this.local.picks$;
+  readonly order$ = this.local.order$;
 
   /** The saved build being synced, or null when the current build isn't one of yours. */
   private buildId: string | null = null;
@@ -146,6 +147,10 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
     return this.local.picks;
   }
 
+  get order(): ShoppingRouteOrder | null {
+    return this.local.order;
+  }
+
   get scope(): string {
     return this.local.scope;
   }
@@ -169,6 +174,11 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
     if (Object.keys(forgotten).length) {
       this.queue({ picksPatch: forgotten });
     }
+  }
+
+  /** Kept in this browser only, for now. */
+  setOrder(order: ShoppingRouteOrder | null): void {
+    this.local.setOrder(order);
   }
 
   publish(published: ShoppingPublished): void {

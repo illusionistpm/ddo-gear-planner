@@ -174,6 +174,29 @@ describe('ShoppingListService', () => {
     expect(service.stillNeededKeys()).toEqual(['a|Ring1|Colorless Augment Slot#0|Diamond of Tests']);
   });
 
+  it('lists packs and quests as arranged, remembering it for the build, and the text follows', async () => {
+    vi.spyOn(TestBed.inject(QuestService), 'getPack').mockImplementation(quest =>
+      ({ 'The Snitch': 'Sharn', 'Augment Vendor': 'Sharn', 'Lahar': 'Amber Pack' })[quest] ?? null);
+    equipped.set(ring('Diamond of Tests', ['Augment Vendor']));
+    equipped.set(new Item({ name: 'Amulet of Tests', slot: 'Necklace', type: 'Jewelry', ml: 30, quests: ['Lahar'], crafting: [] }));
+    const outline = async () => (await view()).sections.map(section => [section.label, section.groups.map(group => group.label)]);
+    const textOrder = () => service.stillNeededText().split(String.fromCharCode(10))
+      .filter(line => ['== Sharn ==', '== Amber Pack ==', 'The Snitch', 'Augment Vendor', 'Lahar'].includes(line));
+    expect(await outline()).toEqual([['Amber Pack', ['Lahar']], ['Sharn', ['Augment Vendor', 'The Snitch']]]);
+
+    service.arrangePacks(['Sharn', 'Amber Pack']);
+    service.arrangeQuests(['The Snitch', 'Augment Vendor']);
+
+    expect(await outline()).toEqual([['Sharn', ['The Snitch', 'Augment Vendor']], ['Amber Pack', ['Lahar']]]);
+    expect((await view()).arranged).toBe(true);
+    expect(TestBed.inject(ShoppingProgressStore).order).toEqual({ packs: ['Sharn', 'Amber Pack'], quests: ['The Snitch', 'Augment Vendor'] });
+    expect(textOrder()).toEqual(['== Sharn ==', 'The Snitch', 'Augment Vendor', '== Amber Pack ==', 'Lahar']);
+
+    service.resetOrder();
+    expect(await outline()).toEqual([['Amber Pack', ['Lahar']], ['Sharn', ['Augment Vendor', 'The Snitch']]]);
+    expect((await view()).arranged).toBe(false);
+  });
+
   it('groups the list by quest, and writes the still-needed text', async () => {
     expect((await groups()).map(group => group.label)).toEqual(['The Snitch', 'Augment Vendor']);
     expect(service.stillNeededText()).toContain('Augment Vendor');

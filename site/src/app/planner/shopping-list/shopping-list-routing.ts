@@ -31,6 +31,29 @@ function packRank(pack: string | null): number {
   return TRAILING_PACKS.indexOf(pack ?? '') + 1;
 }
 
+/**
+ * Items in the order the user arranged them, from the default order and the
+ * stored one. What's stored but no longer there is dropped; what's there but
+ * not stored goes just before the item it comes before by default (or last,
+ * if nothing after it is placed) - so a pack that's new to the list lands
+ * among the real packs rather than after the store, and the last resorts
+ * stay last.
+ */
+export function arrangeInOrder(defaultOrder: readonly string[], stored: readonly string[]): string[] {
+  const present = new Set(defaultOrder);
+  const arranged = Array.from(new Set(stored)).filter(item => present.has(item));
+  const placed = new Set(arranged);
+  defaultOrder.forEach((item, index) => {
+    if (placed.has(item)) {
+      return;
+    }
+    const after = defaultOrder.slice(index + 1).find(later => placed.has(later));
+    arranged.splice(after === undefined ? arranged.length : arranged.indexOf(after), 0, item);
+    placed.add(item);
+  });
+  return arranged;
+}
+
 /** The order of pack headings. */
 export function comparePacks(a: string, b: string): number {
   const [rankA, rankB] = [packRank(a), packRank(b)];

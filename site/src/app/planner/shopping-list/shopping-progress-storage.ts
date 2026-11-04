@@ -1,4 +1,4 @@
-import type { ShoppingProgress, ShoppingProgressPatch, ShoppingSourcePicks } from './shopping-list-types';
+import type { ShoppingProgress, ShoppingProgressPatch, ShoppingRouteOrder, ShoppingSourcePicks } from './shopping-list-types';
 import { applyProgressPatch } from './shopping-list-view-model';
 
 /**
@@ -19,6 +19,8 @@ interface StoredScope {
   entries: ShoppingProgress;
   /** Absent when nothing is picked. */
   picks?: ShoppingSourcePicks;
+  /** Absent when the route is in its default order. */
+  order?: ShoppingRouteOrder;
   updatedAt: number;
 }
 
@@ -35,7 +37,19 @@ export function readScopePicks(scope: string): ShoppingSourcePicks {
   return readAll().scopes[scope]?.picks ?? {};
 }
 
-/** Whether a scope has anything stored: ticks or picks. */
+/** The order a scope's route is arranged in; null for the default. */
+export function readScopeOrder(scope: string): ShoppingRouteOrder | null {
+  return readAll().scopes[scope]?.order ?? null;
+}
+
+/** Arranges a scope's route, or (null) puts it back in its default order. */
+export function setScopeOrder(scope: string, order: ShoppingRouteOrder | null): void {
+  const all = readAll();
+  setScope(all, scope, { order });
+  writeAll(all);
+}
+
+/** Whether a scope has anything stored: ticks, picks or an order. */
 export function hasScopeProgress(scope: string): boolean {
   return readAll().scopes[scope] !== undefined;
 }
@@ -44,7 +58,7 @@ export function hasScopeProgress(scope: string): boolean {
 export function patchScopeProgress(scope: string, patch: ShoppingProgressPatch): ShoppingProgress {
   const all = readAll();
   const entries = applyProgressPatch(all.scopes[scope]?.entries ?? {}, patch);
-  setScope(all, scope, entries, all.scopes[scope]?.picks ?? {});
+  setScope(all, scope, { entries });
   writeAll(all);
   return entries;
 }
@@ -58,7 +72,7 @@ export function setScopePick(scope: string, identity: string, quests: readonly s
   } else {
     delete picks[identity];
   }
-  setScope(all, scope, all.scopes[scope]?.entries ?? {}, picks);
+  setScope(all, scope, { picks });
   writeAll(all);
   return picks;
 }
@@ -66,20 +80,21 @@ export function setScopePick(scope: string, identity: string, quests: readonly s
 /** Forgets every pick in a scope, keeping its ticks. */
 export function clearScopePicks(scope: string): void {
   const all = readAll();
-  setScope(all, scope, all.scopes[scope]?.entries ?? {}, {});
+  setScope(all, scope, { picks: {} });
   writeAll(all);
 }
 
-/** Replaces a scope's ticks and picks, as when the server's copy arrives. */
-export function replaceScopeProgress(scope: string, entries: ShoppingProgress, picks: ShoppingSourcePicks): void {
+/** Replaces a scope's ticks and picks, and its order when given, as when the server's copy arrives. */
+export function replaceScopeProgress(scope: string, entries: ShoppingProgress, picks: ShoppingSourcePicks,
+    order?: ShoppingRouteOrder | null): void {
   const all = readAll();
-  setScope(all, scope, entries, picks);
+  setScope(all, scope, order === undefined ? { entries, picks } : { entries, picks, order });
   writeAll(all);
 }
 
 /**
- * Copies one scope's ticks and picks into another (the copy's own win),
- * dropping the source when `moveSource` is set.
+ * Copies one scope's ticks, picks and order into another (the copy's own
+ * win), dropping the source when `moveSource` is set.
  */
 export function copyScopeProgress(from: string, to: string, moveSource: boolean): void {
   const all = readAll();
@@ -88,18 +103,34 @@ export function copyScopeProgress(from: string, to: string, moveSource: boolean)
     return;
   }
   const target = all.scopes[to];
-  setScope(all, to, { ...source.entries, ...(target?.entries ?? {}) }, { ...(source.picks ?? {}), ...(target?.picks ?? {}) });
+  setScope(all, to, {
+    entries: { ...source.entries, ...(target?.entries ?? {}) },
+    picks: { ...(source.picks ?? {}), ...(target?.picks ?? {}) },
+    order: target?.order ?? source.order ?? null,
+  });
   if (moveSource) {
     delete all.scopes[from];
   }
   writeAll(all);
 }
 
-/** Stores a scope, or forgets it when it has nothing in it. */
-function setScope(all: StoredProgress, scope: string, entries: ShoppingProgress, picks: ShoppingSourcePicks): void {
+interface ScopeChanges {
+  entries?: ShoppingProgress;
+  picks?: ShoppingSourcePicks;
+  /** null puts the route back in its default order. */
+  order?: ShoppingRouteOrder | null;
+}
+
+/** Changes a scope, keeping what isn't given, or forgets it when it has nothing in it. */
+function setScope(all: StoredProgress, scope: string, changes: ScopeChanges): void {
+  const stored = all.scopes[scope];
+  const entries = changes.entries ?? stored?.entries ?? {};
+  const picks = changes.picks ?? stored?.picks ?? {};
+  const order = changes.order === undefined ? stored?.order ?? null : changes.order;
   const hasPicks = Object.keys(picks).length > 0;
-  if (Object.keys(entries).length || hasPicks) {
-    all.scopes[scope] = { entries, ...(hasPicks ? { picks } : {}), updatedAt: Date.now() };
+  const hasOrder = !!order && (order.packs.length > 0 || order.quests.length > 0);
+  if (Object.keys(entries).length || hasPicks || hasOrder) {
+    all.scopes[scope] = { entries, ...(hasPicks ? { picks } : {}), ...(hasOrder ? { order } : {}), updatedAt: Date.now() };
   } else {
     delete all.scopes[scope];
   }

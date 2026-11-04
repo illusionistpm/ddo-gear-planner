@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { CurrentBuildService, CurrentBuildState } from '../../build/current-build.service';
 import { LocalShoppingProgressStore, shoppingProgressScope, ShoppingProgressStore } from './shopping-progress-store';
 import {
-  patchScopeProgress, readScopePicks, readScopeProgress, SHOPPING_PROGRESS_STORAGE_KEY
+  patchScopeProgress, readScopeOrder, readScopePicks, readScopeProgress, SHOPPING_PROGRESS_STORAGE_KEY
 } from './shopping-progress-storage';
 
 const UNSAVED: CurrentBuildState = { savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other' };
@@ -66,6 +66,20 @@ describe('LocalShoppingProgressStore', () => {
       { 'augment|Topaz': ['Vendor'] }]);
     expect(store.picks).toEqual({ 'augment|Topaz': ['Vendor'] });
     expect(readScopePicks('draft')).toEqual({});
+  });
+
+  it('stores the order for the current build, swapping it with the build and bringing it along on save', () => {
+    const seen: unknown[] = [];
+    store.order$.subscribe(order => seen.push(order));
+    const order = { packs: ['Pack B', 'Pack A'], quests: [] };
+
+    store.setOrder(order);
+    state.next({ ...UNSAVED, savedBuildId: 'b1', shortId: 's1', ownership: 'owned' });
+    state.next({ ...UNSAVED, shortId: 'other', ownership: 'other' });
+    store.setOrder(null);
+
+    expect(seen).toEqual([null, order, order, null, null]);
+    expect(readScopeOrder('saved:b1')).toEqual(order);
   });
 
   it('moves a draft\'s ticks into the build it is saved as', () => {

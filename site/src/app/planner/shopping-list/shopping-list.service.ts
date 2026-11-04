@@ -65,12 +65,13 @@ export class ShoppingListService {
       this.filterSubject,
       filters.getItemFilters().pipe(map(itemFilters => itemFilters.hiddenPacks), distinctUntilChanged()),
       this.progressStore.picks$,
+      this.progressStore.order$,
       this.replanSubject,
     ]).pipe(
-      map(([entries, progress, , filter, hiddenPacks, picks]) => {
+      map(([entries, progress, , filter, hiddenPacks, picks, order]) => {
         const routeSettled = this.settledForRoute(entries, progress);
         const view = buildShoppingListView(entries, progress, this.trove,
-          { filter, hiddenPacks, picks, packAccents: this.packAccents, routeSettled });
+          { filter, hiddenPacks, picks, packAccents: this.packAccents, routeSettled, order: order ?? undefined });
         this.packAccents = view.packAccents;
         // Only while the build is as saved, so a friend's link (which loads
         // the saved build) lists the same things. So friends see changes
@@ -120,13 +121,30 @@ export class ShoppingListService {
     this.replanSubject.next();
   }
 
-  /** The still-needed list as text, whatever the list on screen shows, routed as it is. */
+  /** Puts the route's packs in this order, by name ('' for quests in no pack). */
+  arrangePacks(packs: readonly string[]): void {
+    this.progressStore.setOrder({ packs: [...packs], quests: [...(this.progressStore.order?.quests ?? [])] });
+  }
+
+  /** Puts one pack's quests in this order. */
+  arrangeQuests(quests: readonly string[]): void {
+    const moved = new Set(quests);
+    const others = (this.progressStore.order?.quests ?? []).filter(quest => !moved.has(quest));
+    this.progressStore.setOrder({ packs: [...(this.progressStore.order?.packs ?? [])], quests: [...others, ...quests] });
+  }
+
+  /** Puts the route back in its default order. */
+  resetOrder(): void {
+    this.progressStore.setOrder(null);
+  }
+
+  /** The still-needed list as text, whatever the list on screen shows, routed and arranged as it is. */
   stillNeededText(): string {
     const entries = this.currentEntries();
     const progress = this.progressStore.progress;
     const view = buildShoppingListView(entries, progress, this.trove, {
       filter: 'needed', hiddenPacks: this.gearDb.getHiddenPacks(), picks: this.progressStore.picks,
-      routeSettled: this.routeSettled ?? settledIdentities(entries, progress, this.trove),
+      routeSettled: this.routeSettled ?? settledIdentities(entries, progress, this.trove), order: this.progressStore.order ?? undefined,
     });
     return formatShoppingListText(view, this.currentBuild.value.name);
   }

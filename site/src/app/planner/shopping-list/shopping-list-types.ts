@@ -53,6 +53,17 @@ export type ShoppingProgressPatch = Record<string, ShoppingProgressValue | null>
 export type ShoppingSourcePicks = Readonly<Record<string, readonly string[]>>;
 
 /**
+ * The order the user arranged the route in: packs by name ('' for quests in
+ * no pack), and quests by name, each pack's in the order they come here.
+ * Anything not listed goes where it would by default, after what it would
+ * follow (see arrangeInOrder). Empty lists: the default order.
+ */
+export interface ShoppingRouteOrder {
+  packs: readonly string[];
+  quests: readonly string[];
+}
+
+/**
  * What a friend's link to the build shows: the keys of the entries still
  * needed, and for each thing still needed the quests the owner's list sends
  * them to - in the shape of picks, so a friend's list routes it the same way.
@@ -119,6 +130,8 @@ export interface ShoppingGroup {
 /** Cards under one heading: a pack's quests. */
 export interface ShoppingSection {
   id: string;
+  /** The pack's name; '' for quests in no pack. */
+  pack: string;
   label: string;
   /** The pack's colour, as its cards have; null for no pack. */
   accent: number | null;
@@ -142,4 +155,6 @@ export interface ShoppingListView {
   replannable: boolean;
   /** Each pack's colour, to hand to the next view so packs keep theirs. */
   packAccents: ReadonlyMap<string, number>;
+  /** True when the user arranged the route, rather than it being in its default order. */
+  arranged: boolean;
 }

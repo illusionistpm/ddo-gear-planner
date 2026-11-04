@@ -1,8 +1,9 @@
 import type { UserItemLocation } from '../user-gear.service';
-import { comparePacks, distinctSources, isSourceHidden, routeSources, ShoppingRouteOptions } from './shopping-list-routing';
+import { arrangeInOrder, comparePacks, distinctSources, isSourceHidden, routeSources, ShoppingRouteOptions } from './shopping-list-routing';
 import type {
   ShoppingEntry, ShoppingFilter, ShoppingGroup, ShoppingListView, ShoppingProgress, ShoppingProgressPatch,
-  ShoppingPublished, ShoppingRow, ShoppingRowState, ShoppingSection, ShoppingSource, ShoppingSourcePicks, ShoppingTroveLookup
+  ShoppingPublished, ShoppingRouteOrder, ShoppingRow, ShoppingRowState, ShoppingSection, ShoppingSource, ShoppingSourcePicks,
+  ShoppingTroveLookup
 } from './shopping-list-types';
 
 /**
@@ -35,6 +36,8 @@ export interface ShoppingListViewOptions {
   routeSettled?: ReadonlySet<string>;
   /** The colour each pack had last time (the last view's `packAccents`), so a pack keeps its colour. */
   packAccents?: ReadonlyMap<string, number>;
+  /** The order the user arranged packs and quests in; by default, comparePacks and quest name. */
+  order?: ShoppingRouteOrder;
 }
 
 /**
@@ -206,7 +209,7 @@ export function buildShoppingListView(entries: readonly ShoppingEntry[], progres
   // where it was ticked.
   const routed = routeSources(things, route);
   const { sections: allSections, packAccents } = sectionsByPack(groupBySource(entries, route, routed, context), context,
-    options.packAccents);
+    options.packAccents, options.order);
   const sections = options.filter === 'needed'
     ? allSections.map(({ groups, ...rest }) => ({
       ...rest,
@@ -220,7 +223,8 @@ export function buildShoppingListView(entries: readonly ShoppingEntry[], progres
   const questsOf = (sources: readonly ShoppingSource[] | undefined) => (sources ?? []).map(source => source.quest).join('|');
   const replannable = Array.from(things.keys())
     .some(identity => !settledNow.has(identity) && questsOf(routed.get(identity)) !== questsOf(replanned.get(identity)));
-  return { sections, acquired, total: entries.length, filter: options.filter, picked, replannable, packAccents };
+  const arranged = !!options.order && (options.order.packs.length > 0 || options.order.quests.length > 0);
+  return { sections, acquired, total: entries.length, filter: options.filter, picked, replannable, packAccents, arranged };
 }
 
 /** Crafting done where its item comes from is listed under the item, and goes wherever it goes. */
@@ -240,7 +244,7 @@ function thingsToRoute(entries: readonly ShoppingEntry[]): Map<string, readonly 
 }
 
 /** Totals count each entry once, though it may be listed under several quests. */
-function section(id: string, label: string, groups: ShoppingGroup[], context: RowContext,
+function section(pack: string, label: string, groups: ShoppingGroup[], context: RowContext,
     accent: number | null): ShoppingSection {
   const keys = new Set<string>();
   const collect = (rows: readonly ShoppingRow[]) => rows.forEach(row => {
@@ -249,28 +253,37 @@ function section(id: string, label: string, groups: ShoppingGroup[], context: Ro
   });
   groups.forEach(group => collect(group.rows));
   const acquired = Array.from(keys).filter(key => isEntryAcquired(key, context.progress, context.covered)).length;
-  return { id, label, accent, groups, acquired, total: keys.size };
+  return { id: packSectionId(pack), pack, label, accent, groups, acquired, total: keys.size };
+}
+
+/** A pack heading's section id, for the pack's name ('' for quests in no pack). */
+export function packSectionId(pack: string): string {
+  return `pack:${pack}`;
 }
 
 /**
  * A heading per pack, in comparePacks order; each pack's quests by name,
- * unknown last. Each pack listed gets a colour (assignPackAccents); quests
- * in no pack get none.
+ * unknown last - each as the user arranged them, where they did. Each pack
+ * listed gets a colour (assignPackAccents); quests in no pack get none.
  */
-function sectionsByPack(groups: readonly SourceGroup[], context: RowContext,
-    previousAccents: ReadonlyMap<string, number> | undefined): { sections: ShoppingSection[]; packAccents: Map<string, number> } {
+function sectionsByPack(groups: readonly SourceGroup[], context: RowContext, previousAccents: ReadonlyMap<string, number> | undefined,
+    order: ShoppingRouteOrder | undefined): { sections: ShoppingSection[]; packAccents: Map<string, number> } {
   const byPack = new Map<string, SourceGroup[]>();
   for (const group of groups) {
     const pack = group.pack ?? '';
     byPack.set(pack, [...(byPack.get(pack) ?? []), group]);
   }
-  const packs = Array.from(byPack.keys()).sort(comparePacks);
+  const packs = arrangeInOrder(Array.from(byPack.keys()).sort(comparePacks), order?.packs ?? []);
   const packAccents = assignPackAccents(packs.filter(Boolean), previousAccents);
   const sections = packs.map(pack => {
     const accent = pack ? packAccents.get(pack)! : null;
-    const members = byPack.get(pack)!.sort((a, b) =>
-      a.unknown !== b.unknown ? (a.unknown ? 1 : -1) : a.group.label.localeCompare(b.group.label));
-    return section(`pack:${pack}`, pack || OTHER_SOURCES_LABEL, members.map(member => ({ ...member.group, accent })),
+    const members = byPack.get(pack)!;
+    // An unknown source has no quest to arrange: it stays last.
+    const known = members.filter(member => !member.unknown);
+    const byQuest = new Map(known.map(member => [member.group.label, member]));
+    const quests = arrangeInOrder(known.map(member => member.group.label).sort((a, b) => a.localeCompare(b)), order?.quests ?? []);
+    const arranged = [...quests.map(quest => byQuest.get(quest)!), ...members.filter(member => member.unknown)];
+    return section(pack, pack || OTHER_SOURCES_LABEL, arranged.map(member => ({ ...member.group, accent })),
       context, accent);
   });
   return { sections, packAccents };

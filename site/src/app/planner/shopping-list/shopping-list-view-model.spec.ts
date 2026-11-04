@@ -378,3 +378,40 @@ describe('publishedProgress', () => {
     expect(questsListedUnder(friendsView)).toEqual(questsListedUnder(ownersView));
   });
 });
+
+describe('buildShoppingListView arranged', () => {
+  const at = (quest: string, pack: string | null) => entry({ key: `g|${quest}`, identity: `gear|${quest}`, label: quest,
+    sources: [from(quest, pack)] });
+  const arrangedEntries = [at('Alpha', 'Pack A'), at('Beta', 'Pack A'), at('Gamma', 'Pack B'), at('Delta', null),
+    entry({ key: 'g|Lost', identity: 'gear|Lost', label: 'Lost', sources: [] })];
+  const outline = (view: ReturnType<typeof buildShoppingListView>) =>
+    view.sections.map(section => [section.label, section.groups.map(group => group.label)]);
+
+  it('lists packs and their quests in the default order until arranged', () => {
+    const view = buildShoppingListView(arrangedEntries, {}, null, { filter: 'all' });
+
+    expect(outline(view)).toEqual([
+      ['Pack A', ['Alpha', 'Beta']], ['Pack B', ['Gamma']], [OTHER_SOURCES_LABEL, ['Delta', UNKNOWN_SOURCE_LABEL]],
+    ]);
+    expect(view.sections.map(section => section.pack)).toEqual(['Pack A', 'Pack B', '']);
+    expect(view.arranged).toBe(false);
+  });
+
+  it('lists them as arranged, with an unknown source still last', () => {
+    const view = buildShoppingListView(arrangedEntries, {}, null,
+      { filter: 'all', order: { packs: ['', 'Pack B', 'Pack A'], quests: ['Beta', 'Delta', 'Alpha'] } });
+
+    expect(outline(view)).toEqual([
+      [OTHER_SOURCES_LABEL, ['Delta', UNKNOWN_SOURCE_LABEL]], ['Pack B', ['Gamma']], ['Pack A', ['Beta', 'Alpha']],
+    ]);
+    expect(view.arranged).toBe(true);
+  });
+
+  it('keeps the arranged order in the still-needed filter, and colours packs as they come', () => {
+    const view = buildShoppingListView(arrangedEntries, { 'g|Alpha': 1 }, null,
+      { filter: 'needed', order: { packs: ['Pack B', 'Pack A'], quests: [] } });
+
+    expect(outline(view)).toEqual([['Pack B', ['Gamma']], ['Pack A', ['Beta']], [OTHER_SOURCES_LABEL, ['Delta', UNKNOWN_SOURCE_LABEL]]]);
+    expect(view.sections.map(section => section.accent)).toEqual([0, 1, null]);
+  });
+});

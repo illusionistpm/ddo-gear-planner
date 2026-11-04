@@ -1,6 +1,6 @@
 import { NO_PACK_KEY } from '../../gear/pack-filter';
 import type { ShoppingSource } from './shopping-list-types';
-import { comparePacks, routeSources, ShoppingRouteOptions } from './shopping-list-routing';
+import { arrangeInOrder, comparePacks, routeSources, ShoppingRouteOptions } from './shopping-list-routing';
 
 function from(quest: string, pack: string | null = 'Pack'): ShoppingSource {
   return { quest, pack, raid: false, wikiUrl: `wiki/${quest}` };
@@ -97,5 +97,25 @@ describe('comparePacks', () => {
   it('puts the packs by name first, then events, quests in no pack, and the store', () => {
     expect(['DDO Store', '', 'Events', 'Sharn', 'Amrath'].sort(comparePacks))
       .toEqual(['Amrath', 'Sharn', 'Events', '', 'DDO Store']);
+  });
+});
+
+describe('arrangeInOrder', () => {
+  it('is the default order with nothing arranged', () => {
+    expect(arrangeInOrder(['A', 'B', 'C'], [])).toEqual(['A', 'B', 'C']);
+  });
+
+  it('is the arranged order, dropping what is no longer there', () => {
+    expect(arrangeInOrder(['A', 'B', 'C'], ['C', 'Gone', 'A', 'B'])).toEqual(['C', 'A', 'B']);
+    expect(arrangeInOrder(['A', 'B'], ['B', 'B', 'A'])).toEqual(['B', 'A']);
+  });
+
+  it('puts what was never arranged just before what it comes before by default, or last', () => {
+    // C is new: by default it comes before the store, so it goes just before it, wherever that was put.
+    expect(arrangeInOrder(['A', 'B', 'C', 'Store'], ['B', 'A', 'Store'])).toEqual(['B', 'A', 'C', 'Store']);
+    // Nothing after it by default is placed, so it stays last: the last resorts stay last.
+    expect(arrangeInOrder(['A', 'B', 'Other'], ['B', 'A'])).toEqual(['B', 'A', 'Other']);
+    expect(arrangeInOrder(['New', 'A', 'B'], ['B', 'A'])).toEqual(['B', 'New', 'A']);
+    expect(arrangeInOrder(['A', 'B', 'C', 'D'], ['C', 'A'])).toEqual(['B', 'C', 'A', 'D']);
   });
 });

@@ -1,6 +1,6 @@
 import {
-  clearScopePicks, copyScopeProgress, hasScopeProgress, MAX_STORED_SCOPES, patchScopeProgress, readScopePicks, readScopeProgress,
-  setScopePick, SHOPPING_PROGRESS_STORAGE_KEY
+  clearScopePicks, copyScopeProgress, hasScopeProgress, MAX_STORED_SCOPES, patchScopeProgress, readScopeOrder, readScopePicks,
+  readScopeProgress, replaceScopeProgress, setScopeOrder, setScopePick, SHOPPING_PROGRESS_STORAGE_KEY
 } from './shopping-progress-storage';
 
 describe('shopping progress storage', () => {
@@ -53,6 +53,38 @@ describe('shopping progress storage', () => {
 
     expect(setScopePick('draft', 'augment|Ruby', null)).toEqual({});
     expect(hasScopeProgress('draft')).toBe(false);
+  });
+
+  it('keeps each build\'s order beside its ticks and picks, forgetting the build once it has none of them', () => {
+    const order = { packs: ['Pack B', 'Pack A'], quests: ['Beta'] };
+    setScopeOrder('draft', order);
+    patchScopeProgress('draft', { a: 1 });
+    clearScopePicks('draft');
+
+    expect(readScopeOrder('draft')).toEqual(order);
+    expect(readScopeOrder('saved:a')).toBeNull();
+
+    patchScopeProgress('draft', { a: null });
+    expect(hasScopeProgress('draft')).toBe(true);
+    setScopeOrder('draft', null);
+    expect(hasScopeProgress('draft')).toBe(false);
+    setScopeOrder('draft', { packs: [], quests: [] });
+    expect(hasScopeProgress('draft')).toBe(false);
+  });
+
+  it('carries the order along when copying, the copy\'s own winning, and keeps it when replacing without one', () => {
+    setScopeOrder('draft', { packs: ['Pack A'], quests: [] });
+    copyScopeProgress('draft', 'saved:x', false);
+    expect(readScopeOrder('saved:x')).toEqual({ packs: ['Pack A'], quests: [] });
+
+    setScopeOrder('draft', { packs: ['Pack B'], quests: [] });
+    copyScopeProgress('draft', 'saved:x', false);
+    expect(readScopeOrder('saved:x')).toEqual({ packs: ['Pack A'], quests: [] });
+
+    replaceScopeProgress('saved:x', { a: 1 }, {});
+    expect(readScopeOrder('saved:x')).toEqual({ packs: ['Pack A'], quests: [] });
+    replaceScopeProgress('saved:x', { a: 1 }, {}, null);
+    expect(readScopeOrder('saved:x')).toBeNull();
   });
 
   it('forgets every pick in a build at once, keeping its ticks', () => {

@@ -2723,6 +2723,25 @@
     },
     {
         "affixes": [
+            "Swim",
+            "Water Breathing"
+        ],
+        "components": [
+            {
+                "name": "Swim",
+                "type": "<TypeAlreadyParsed>",
+                "value": "<ValueAlreadyParsed>"
+            },
+            {
+                "name": "Water Breathing",
+                "type": "Bool",
+                "value": 1
+            }
+        ],
+        "name": "Underwater Action"
+    },
+    {
+        "affixes": [
             "Bluff",
             "Diplomacy",
             "Haggle",

@@ -1,8 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 
+import { EssenceCraftingService } from '../gear/essence-crafting.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { Item } from '../gear/item';
 import { EquippedService } from './equipped.service';
+import { slotsFromParams } from './slots-from-params';
 
 // How EquippedService.updateFromParams turns a build's params into the
 // items in its slots, pinned through the slots it ends up with.
@@ -37,7 +39,7 @@ describe('EquippedService building items from params', () => {
 
     expect(slot('Ring1')?.name).toBe(ring.name);
     expect(slot('Helm')?.name).toBe('Epic Deific Diadem');
-    expect(slot('Feet')).toBeNull();
+    expect(slot('Boots')).toBeNull();
   });
 
   it('empties every slot the params don\'t name, as loading another build does', () => {
@@ -81,13 +83,13 @@ describe('EquippedService building items from params', () => {
   it('skips a crafting choice it can\'t place, applying the rest', () => {
     service.updateFromParams(paramsOf({
       Weapon: 'Essence Crafting Melee',
-      craft_0_slot: 'Feet', craft_0_system: 'Augment Slot 1', craft_0_selected: 'Red Augment Slot (empty)',
+      craft_0_slot: 'Boots', craft_0_system: 'Augment Slot 1', craft_0_selected: 'Red Augment Slot (empty)',
       craft_1_slot: 'Weapon', craft_1_system: 'No Such System', craft_1_selected: 'Anything',
       craft_2_slot: 'Weapon', craft_2_system: 'Augment Slot 1', craft_2_selected: 'No Such Option',
       craft_3_slot: 'Weapon', craft_3_system: 'Augment Slot 1', craft_3_selected: 'Red Augment Slot (empty)',
     }));
 
-    expect(slot('Feet')).toBeNull();
+    expect(slot('Boots')).toBeNull();
     expect(selections(slot('Weapon'))).toContain('Augment Slot 1 = Red Augment Slot (empty)');
   });
 
@@ -120,5 +122,21 @@ describe('EquippedService building items from params', () => {
     service.updateFromParams(paramsOf({ Ring1: 'No Such Ring', ml_Ring1: '3' }));
 
     expect(slot('Ring1')).toBeNull();
+  });
+
+  it('is slotsFromParams, which works the items out without equipping them', () => {
+    const params = paramsOf({ Weapon: 'Cannith Melee', ml_Weapon: '12', Helm: 'Epic Deific Diadem' });
+
+    const slots = slotsFromParams(params, gearDb, TestBed.inject(EssenceCraftingService));
+
+    expect(slots.get('Weapon')?.name).toBe('Essence Crafting Melee');
+    expect(slots.get('Weapon')?.ml).toBe(12);
+    expect(slots.get('Helm')?.name).toBe('Epic Deific Diadem');
+    expect(slots.get('Boots')).toBeNull();
+    expect(Array.from(service.getSlotsSnapshot().values()).every(item => item === null)).toBe(true);
+
+    service.updateFromParams(params);
+    expect(Array.from(service.getSlotsSnapshot(), ([name, item]) => [name, item?.name ?? null, item?.ml ?? null]))
+      .toEqual(Array.from(slots, ([name, item]) => [name, item?.name ?? null, item?.ml ?? null]));
   });
 });

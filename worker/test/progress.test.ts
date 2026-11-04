@@ -32,6 +32,7 @@ function seedProgress(db: FakeD1, buildId: string, overrides: Partial<FakeBuildP
     picks: '{"Secret Ring":["The Secret Quest"]}',
     needed: '["g|Neck|Needed Necklace"]',
     route: '{"Needed Necklace":["The Shared Quest"]}',
+    route_order: '{"packs":["Pack B",""],"quests":["The Shared Quest"]}',
     updated_at: '2026-11-02T12:00:00.000Z',
     write_day: '2026-11-02',
     writes_today: 3,
@@ -40,7 +41,7 @@ function seedProgress(db: FakeD1, buildId: string, overrides: Partial<FakeBuildP
 }
 
 describe('handleGetPublicProgress', () => {
-  it('returns only what is still needed and the owner\'s route - never their ticks or picks', async () => {
+  it('returns only what is still needed and the owner\'s route, in its order - never their ticks or picks', async () => {
     const { env, db } = makeEnv();
     seedBuild(db, 'build-1', 'short01');
     seedProgress(db, 'build-1');
@@ -51,8 +52,17 @@ describe('handleGetPublicProgress', () => {
     expect(await response.json()).toEqual({
       needed: ['g|Neck|Needed Necklace'],
       route: { 'Needed Necklace': ['The Shared Quest'] },
+      order: { packs: ['Pack B', ''], quests: ['The Shared Quest'] },
       updatedAt: '2026-11-02T12:00:00.000Z'
     });
+  });
+
+  it('returns order: null for a route in its default order', async () => {
+    const { env, db } = makeEnv();
+    seedBuild(db, 'build-1', 'short01');
+    seedProgress(db, 'build-1', { route_order: null });
+
+    expect((await (await handleGetPublicProgress('short01', env)).json() as { order: unknown }).order).toBeNull();
   });
 
   it('lets a friend\'s browser cache the answer for a few seconds', async () => {
@@ -72,7 +82,7 @@ describe('handleGetPublicProgress', () => {
     const response = await handleGetPublicProgress('short01', env);
 
     expect(response.status).toBe(200);
-    expect(await response.json()).toEqual({ needed: null, route: {}, updatedAt: null });
+    expect(await response.json()).toEqual({ needed: null, route: {}, order: null, updatedAt: null });
   });
 
   it('404s a private build, even with progress - indistinguishable from one that does not exist', async () => {
@@ -164,7 +174,7 @@ describe('owner progress', () => {
       const response = await handleGetOwnProgress('build-1', owner, env);
 
       expect(response.status).toBe(200);
-      expect(await response.json()).toEqual({ entries: {}, picks: {}, needed: null, route: {}, updatedAt: null });
+      expect(await response.json()).toEqual({ entries: {}, picks: {}, needed: null, route: {}, order: null, updatedAt: null });
     });
 
     it('returns the whole doc, private parts included, to the owner', async () => {
@@ -177,6 +187,7 @@ describe('owner progress', () => {
         picks: { 'Secret Ring': ['The Secret Quest'] },
         needed: ['g|Neck|Needed Necklace'],
         route: { 'Needed Necklace': ['The Shared Quest'] },
+        order: { packs: ['Pack B', ''], quests: ['The Shared Quest'] },
         updatedAt: '2026-11-02T12:00:00.000Z'
       });
     });
@@ -199,10 +210,12 @@ describe('owner progress', () => {
         picks: { Necklace: ['Quest A'] },
         needed: null,
         route: {},
+        order: null,
         updatedAt: '2026-11-02T12:00:00.000Z'
       });
       expect(db.buildProgress).toEqual([expect.objectContaining({
-        build_id: 'build-1', owner_user_id: 'user-1', needed: null, route: null, write_day: '2026-11-02', writes_today: 1
+        build_id: 'build-1', owner_user_id: 'user-1', needed: null, route: null, route_order: null, write_day: '2026-11-02',
+        writes_today: 1
       })]);
     });
 
@@ -230,6 +243,31 @@ describe('owner progress', () => {
 
       expect(response.body.needed).toEqual([]);
       expect(response.body.route).toEqual({});
+    });
+
+    it('arranges the route when given an order, clears it on null, and leaves it alone when not given one', async () => {
+      const order = { packs: ['Pack B', '', 'Pack A'], quests: ['Quest B', 'Quest A'] };
+      expect((await putJson(env, { order })).body.order).toEqual(order);
+      advance(2000);
+
+      const kept = await putJson(env, { patch: { k1: 1 }, needed: ['k2'], route: {} });
+      expect(kept.body.order).toEqual(order);
+      expect(db.buildProgress[0].route_order).toBe(JSON.stringify(order));
+
+      advance(2000);
+      expect((await putJson(env, { order: null })).body.order).toBeNull();
+      expect(db.buildProgress[0].route_order).toBeNull();
+    });
+
+    it('400s an order that isn\'t packs and quests, each a list of names', async () => {
+      for (const order of [
+        [], 'Pack A', { packs: ['Pack A'] }, { quests: [] }, { packs: [], quests: [], extra: [] },
+        { packs: [1], quests: [] }, { packs: [], quests: [''] }, { packs: ['x'.repeat(301)], quests: [] },
+        { packs: Array(201).fill('Pack'), quests: [] }, { packs: [], quests: Array(301).fill('Quest') },
+      ]) {
+        expect((await putJson(env, { order })).status, JSON.stringify(order).slice(0, 40)).toBe(400);
+      }
+      expect(db.buildProgress).toEqual([]);
     });
 
     it('keeps a "__proto__" key as an ordinary key', async () => {
@@ -348,7 +386,7 @@ describe('owner progress', () => {
 
   describe('upsertBuildProgressIfUnchanged', () => {
     const row = {
-      build_id: 'build-1', owner_user_id: 'user-1', entries: '{"new":1}', picks: '{}', needed: null, route: null,
+      build_id: 'build-1', owner_user_id: 'user-1', entries: '{"new":1}', picks: '{}', needed: null, route: null, route_order: null,
       updated_at: '2026-11-02T12:00:00.000Z', write_day: '2026-11-02'
     };
 

@@ -37,6 +37,12 @@ const MAX_WRITES_PER_USER_PER_DAY = sharedConstants.maxProgressWritesPerUserPerD
 
 type QuestLists = Record<string, string[]>;
 
+/** The order the owner arranged the route in (see migrations/0007). */
+interface RouteOrder {
+  packs: string[];
+  quests: string[];
+}
+
 interface ProgressPut {
   /** Tick overrides to set (0 or 1) or forget (null). */
   patch: Map<string, 0 | 1 | null>;
@@ -44,6 +50,8 @@ interface ProgressPut {
   picksPatch: Map<string, string[] | null>;
   /** Replaces what friends see; absent leaves it as it was. */
   published: { needed: string[]; route: QuestLists } | null;
+  /** Arranges the route, or (null) puts it back in its default order; undefined leaves it as it was. */
+  order: RouteOrder | null | undefined;
 }
 
 function toOwnerProgress(row: BuildProgressRow | null) {
@@ -52,13 +60,19 @@ function toOwnerProgress(row: BuildProgressRow | null) {
     picks: row ? JSON.parse(row.picks) as QuestLists : {},
     needed: row?.needed ? JSON.parse(row.needed) as string[] : null,
     route: row?.route ? JSON.parse(row.route) as QuestLists : {},
+    order: orderOf(row?.route_order ?? null),
     updatedAt: row?.updated_at ?? null
   };
 }
 
+function orderOf(text: string | null): RouteOrder | null {
+  return text === null ? null : JSON.parse(text) as RouteOrder;
+}
+
 /**
- * The public half of a build's progress: what's still needed and where the
- * owner's list sends them for it. Never the owner's ticks or picks. 404s
+ * The public half of a build's progress: what's still needed, where the
+ * owner's list sends them for it, and the order it's in. Never the owner's
+ * ticks or picks. 404s
  * exactly where GET /api/build/:shortId does for builds - private ones are
  * indistinguishable from missing ones - and for short links, which are
  * snapshots with no progress of their own.
@@ -74,6 +88,7 @@ export async function handleGetPublicProgress(shortId: string, env: Env): Promis
     {
       needed: row.needed === null ? null : JSON.parse(row.needed) as string[],
       route: row.route === null ? {} : JSON.parse(row.route) as QuestLists,
+      order: orderOf(row.route_order),
       updatedAt: row.updated_at
     },
     { headers: { 'Cache-Control': `public, max-age=${PUBLIC_PROGRESS_MAX_AGE_SECONDS}` } }
@@ -91,8 +106,9 @@ export async function handleGetOwnProgress(buildId: string, user: AuthenticatedU
 
 /**
  * Merges tick and pick patches into the stored doc and, when given,
- * replaces what friends see. Body: {patch?, picksPatch?, needed?, route?},
- * needed and route together or not at all. Answers with the merged doc.
+ * replaces what friends see and the route's order. Body: {patch?,
+ * picksPatch?, needed?, route?, order?}, needed and route together or not
+ * at all, order null to clear it. Answers with the merged doc.
  *
  * Throttled per build to one write every MIN_WRITE_INTERVAL_MS (429 with
  * retryAfterMs) and capped per user per UTC day (429 with
@@ -138,10 +154,12 @@ export async function handlePutProgress(request: Request, buildId: string, user:
     picks: JSON.stringify(picks),
     needed: put.published ? JSON.stringify(put.published.needed) : existing?.needed ?? null,
     route: put.published ? JSON.stringify(put.published.route) : existing?.route ?? null,
+    route_order: put.order === undefined ? existing?.route_order ?? null : put.order && JSON.stringify(put.order),
     updated_at: new Date(now).toISOString(),
     write_day: day
   };
-  if (row.entries.length + row.picks.length + (row.needed?.length ?? 0) + (row.route?.length ?? 0) > MAX_BYTES) {
+  const stored = [row.entries, row.picks, row.needed, row.route, row.route_order];
+  if (stored.reduce((total, column) => total + (column?.length ?? 0), 0) > MAX_BYTES) {
     return errorResponse(413, 'That shopping list is too big to save.');
   }
 
@@ -214,9 +232,14 @@ function parseProgressPut(text: string): ProgressPut | null {
     return null;
   }
 
+  const order = parseOrder(body['order']);
+  if (order === false) {
+    return null;
+  }
+
   const { needed, route } = body;
   if (needed === undefined && route === undefined) {
-    return { patch, picksPatch, published: null };
+    return { patch, picksPatch, published: null, order };
   }
   if (!Array.isArray(needed) || needed.length > MAX_ENTRIES || !needed.every(isKey)) {
     return null;
@@ -225,7 +248,27 @@ function parseProgressPut(text: string): ProgressPut | null {
   if (!routeMap || route === undefined) {
     return null;
   }
-  return { patch, picksPatch, published: { needed, route: Object.fromEntries(routeMap) } };
+  return { patch, picksPatch, published: { needed, route: Object.fromEntries(routeMap) }, order };
+}
+
+/** A route order, null (clear it) or undefined (leave it); false when invalid. */
+function parseOrder(value: unknown): RouteOrder | null | undefined | false {
+  if (value === undefined || value === null) {
+    return value;
+  }
+  if (!isPlainObject(value) || Object.keys(value).some(key => key !== 'packs' && key !== 'quests')) {
+    return false;
+  }
+  const { packs, quests } = value;
+  // A pack may be '': the quests in no pack.
+  const isPack = (pack: unknown) => typeof pack === 'string' && pack.length <= MAX_KEY_LENGTH;
+  if (!Array.isArray(packs) || packs.length > MAX_PICKS || !packs.every(isPack)) {
+    return false;
+  }
+  if (!Array.isArray(quests) || quests.length > MAX_ENTRIES || !quests.every(isKey)) {
+    return false;
+  }
+  return { packs, quests };
 }
 
 /** An object of valid keys to valid values, absent meaning empty; null when invalid. */

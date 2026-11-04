@@ -39,6 +39,7 @@ export interface BuildProgressRow {
   picks: string;
   needed: string | null;
   route: string | null;
+  route_order: string | null;
   updated_at: string;
   write_day: string;
   writes_today: number;
@@ -301,12 +302,13 @@ export async function updateBuild(db: D1Database, id: string, fields: { name?: s
 export interface PublicBuildProgressRow {
   needed: string | null;
   route: string | null;
+  route_order: string | null;
   updated_at: string | null;
 }
 
 export async function getPublicBuildProgressByShortId(db: D1Database, shortId: string): Promise<PublicBuildProgressRow | null> {
   return await db.prepare(
-    `SELECT p.needed, p.route, p.updated_at FROM builds b
+    `SELECT p.needed, p.route, p.route_order, p.updated_at FROM builds b
      LEFT JOIN build_progress p ON p.build_id = b.id
      WHERE b.short_id = ? AND b.visibility = 'public'`
   ).bind(shortId).first();
@@ -340,19 +342,20 @@ export async function upsertBuildProgressIfUnchanged(
   condition: { baseUpdatedAt: string | null; notAfter: string }
 ): Promise<boolean> {
   const result = await db.prepare(
-    `INSERT INTO build_progress (build_id, owner_user_id, entries, picks, needed, route, updated_at, write_day, writes_today)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)
+    `INSERT INTO build_progress (build_id, owner_user_id, entries, picks, needed, route, route_order, updated_at, write_day, writes_today)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
      ON CONFLICT(build_id) DO UPDATE SET
        entries = excluded.entries,
        picks = excluded.picks,
        needed = excluded.needed,
        route = excluded.route,
+       route_order = excluded.route_order,
        updated_at = excluded.updated_at,
        writes_today = CASE WHEN build_progress.write_day = excluded.write_day THEN build_progress.writes_today + 1 ELSE 1 END,
        write_day = excluded.write_day
      WHERE build_progress.updated_at = ? AND build_progress.updated_at <= ?`
   ).bind(
-    row.build_id, row.owner_user_id, row.entries, row.picks, row.needed, row.route, row.updated_at, row.write_day,
+    row.build_id, row.owner_user_id, row.entries, row.picks, row.needed, row.route, row.route_order, row.updated_at, row.write_day,
     condition.baseUpdatedAt, condition.notAfter
   ).run();
   return (result.meta.changes ?? 0) > 0;

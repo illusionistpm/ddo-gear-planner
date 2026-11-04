@@ -47,6 +47,7 @@ export interface FakeBuildProgressRow {
   picks: string;
   needed: string | null;
   route: string | null;
+  route_order: string | null;
   updated_at: string;
   write_day: string;
   writes_today: number;
@@ -170,7 +171,10 @@ export class FakeD1 {
         return null;
       }
       const progress = this.buildProgress.find(p => p.build_id === build.id);
-      return { needed: progress?.needed ?? null, route: progress?.route ?? null, updated_at: progress?.updated_at ?? null };
+      return {
+        needed: progress?.needed ?? null, route: progress?.route ?? null, route_order: progress?.route_order ?? null,
+        updated_at: progress?.updated_at ?? null
+      };
     }
     if (sql.includes('SELECT kind FROM short_ids WHERE short_id')) {
       const row = this.shortIds.find(s => s.short_id === args[0]);
@@ -315,15 +319,15 @@ export class FakeD1 {
     // upsertBuildProgressIfUnchanged: insert, or on a build_id conflict
     // update only while the stored row is the caller's base and old enough.
     if (sql.startsWith('INSERT INTO build_progress') && sql.includes('ON CONFLICT(build_id)')) {
-      const [buildId, ownerUserId, entries, picks, needed, route, updatedAt, writeDay, baseUpdatedAt, notAfter] =
-        args as [string, string, string, string, string | null, string | null, string, string, string | null, string];
+      const [buildId, ownerUserId, entries, picks, needed, route, routeOrder, updatedAt, writeDay, baseUpdatedAt, notAfter] =
+        args as [string, string, string, string, string | null, string | null, string | null, string, string, string | null, string];
       if (!this.builds.some(b => b.id === buildId)) {
         throw new Error('D1_ERROR: FOREIGN KEY constraint failed');
       }
       const existing = this.buildProgress.find(p => p.build_id === buildId);
       if (!existing) {
         this.buildProgress.push({
-          build_id: buildId, owner_user_id: ownerUserId, entries, picks, needed, route,
+          build_id: buildId, owner_user_id: ownerUserId, entries, picks, needed, route, route_order: routeOrder,
           updated_at: updatedAt, write_day: writeDay, writes_today: 1
         });
         return { meta: { changes: 1 } };
@@ -332,7 +336,7 @@ export class FakeD1 {
         return { meta: { changes: 0 } };
       }
       existing.writes_today = existing.write_day === writeDay ? existing.writes_today + 1 : 1;
-      Object.assign(existing, { entries, picks, needed, route, updated_at: updatedAt, write_day: writeDay });
+      Object.assign(existing, { entries, picks, needed, route, route_order: routeOrder, updated_at: updatedAt, write_day: writeDay });
       return { meta: { changes: 1 } };
     }
 

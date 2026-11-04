@@ -237,7 +237,7 @@ describe('handleUpdateBuild / handleDeleteBuild ownership', () => {
     seedBuild(db, { id: 'build-2', short_id: 'short02', owner_user_id: 'user-1', name: 'My Wizard' });
     for (const buildId of ['build-1', 'build-2']) {
       db.buildProgress.push({
-        build_id: buildId, owner_user_id: 'user-1', entries: '{}', picks: '{}', needed: '[]', route: '{}',
+        build_id: buildId, owner_user_id: 'user-1', entries: '{}', picks: '{}', needed: '[]', route: '{}', route_order: null,
         updated_at: 'now', write_day: '2026-11-02', writes_today: 1
       });
     }

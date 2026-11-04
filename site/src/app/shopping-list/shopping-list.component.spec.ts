@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter, RouterLink } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 import { ShoppingListComponent } from './shopping-list.component';
@@ -13,7 +14,6 @@ import { Clipboard } from '../shared/clipboard';
 import { AnalyticsService } from '../shared/analytics.service';
 import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
 import { FriendShoppingList, FriendShoppingListService } from '../planner/shopping-list/friend-shopping-list.service';
-import type { ShoppingListLink } from '../build/shopping-list-link';
 import { ShoppingProgressStore, ShoppingSyncState } from '../planner/shopping-list/shopping-progress-store';
 import { ShoppingListShareMenuComponent } from './shopping-list-share-menu.component';
 
@@ -62,24 +62,22 @@ describe('ShoppingListComponent', () => {
   const rowByName = (name: string) => Array.from(el().querySelectorAll<HTMLElement>('.shopping-row'))
     .find(row => row.querySelector('.shopping-row-name')?.textContent?.trim() === name)!;
 
-  let link: BehaviorSubject<ShoppingListLink | null>;
-  let friendLists: BehaviorSubject<FriendShoppingList>;
-  let friendService: { list: ReturnType<typeof vi.fn>; refresh: ReturnType<typeof vi.fn>; nextRefreshAt: number };
+  let friendService: { refresh: ReturnType<typeof vi.fn>; nextRefreshAt: number };
   let syncStates: BehaviorSubject<ShoppingSyncState>;
 
   beforeEach(async () => {
     views = new BehaviorSubject(buildShoppingListView(entries, {}, trove, { filter: 'all' }));
     service = { view$: views, toggle: vi.fn(), setFilter: vi.fn(), pickSources: vi.fn(), resetRoute: vi.fn(),
       stillNeededText: () => 'Still needed for my build (5):', stillNeededKeys: () => ['k1', 'k2', 'k3', 'k4'] };
-    link = new BehaviorSubject<ShoppingListLink | null>({ kind: 'own' });
-    friendLists = new BehaviorSubject<FriendShoppingList>({ view: null, needed: 0, notShared: false, failed: false });
-    friendService = { list: vi.fn(() => friendLists), refresh: vi.fn(() => true), nextRefreshAt: 0 };
+    friendService = { refresh: vi.fn(() => true), nextRefreshAt: 0 };
     syncStates = new BehaviorSubject<ShoppingSyncState>('off');
     await TestBed.configureTestingModule({
       declarations: [ShoppingListComponent, ShoppingListShareMenuComponent, TapTooltipComponent, UserItemLocationTooltipPipe],
+      imports: [RouterLink],
       providers: [
+        provideRouter([]),
         { provide: ShoppingListService, useValue: service },
-        { provide: ShoppingListViewService, useValue: { link$: link, openedFrom: null } },
+        { provide: ShoppingListViewService, useValue: { openedFrom: null } },
         { provide: FriendShoppingListService, useValue: friendService },
         { provide: ShoppingProgressStore, useValue: { syncState$: syncStates } }
       ]
@@ -483,30 +481,35 @@ describe('ShoppingListComponent', () => {
     expect(closed).toHaveBeenCalled();
   });
 
-  describe('opened from a friend\'s link', () => {
-    // Everything got but the augment and one ring: what the friend service would make of a link saying so.
+  describe('on a friend\'s still-needed page', () => {
+    // Everything got but the augment and one ring: what the friend service would make of an owner's list saying so.
     const stillNeeded = () => buildShoppingListView(entries, { [sword.key]: 1, [step.key]: 1, [ring1.key]: 1 }, null,
       { filter: 'needed' });
     const showFriend = (list: Partial<FriendShoppingList>) => {
-      link.next({ kind: 'live' });
-      friendLists.next({ view: stillNeeded(), needed: 2, notShared: false, failed: false, ...list });
+      fixture.componentRef.setInput('friend', { view: stillNeeded(), needed: 2, notShared: false, failed: false, ...list });
       fixture.detectChanges();
     };
+
+    beforeEach(() => {
+      fixture.destroy();
+      fixture = TestBed.createComponent(ShoppingListComponent);
+      fixture.componentRef.setInput('friendBuild', { name: 'Their Build', plannerPath: '/build/s1/their-build' });
+      fixture.detectChanges();
+    });
     const text = () => el().textContent!.replace(/\s+/g, ' ');
     const refreshButton = () => el().querySelector<HTMLButtonElement>('.shopping-list-refresh');
 
     it('shows only what\'s still needed and where to get it, with nothing to tick, pick or copy', () => {
       showFriend({});
 
-      expect(friendService.list).toHaveBeenCalled();
-      expect(el().querySelector('.shopping-list-title')?.textContent).toBe('Still needed');
+      expect(el().querySelector('.shopping-list-title')?.textContent?.replace(/\s+/g, ' ').trim()).toBe('Still needed for Their Build');
       expect(el().querySelector('.shopping-list-progress-text')?.textContent?.trim()).toBe('2 things still needed');
       expect(Array.from(el().querySelectorAll('.shopping-row:not(.acquired) .shopping-row-name'), name => name.textContent))
         .toEqual(['Ring', 'Ruby']);
       syncStates.next('synced');
       fixture.detectChanges();
-      for (const selector of ['.shopping-check', '.shopping-list-choice', '.shopping-list-share', '.shopping-list-sync', '.shopping-list-progress',
-        '.shopping-list-reset-route', '.shopping-row-sources-toggle', '.owned-badge']) {
+      for (const selector of ['.shopping-list-back', '.shopping-check', '.shopping-list-choice', '.shopping-list-share', '.shopping-list-sync',
+        '.shopping-list-progress', '.shopping-list-reset-route', '.shopping-row-sources-toggle', '.owned-badge']) {
         expect(el().querySelector(selector), selector).toBeNull();
       }
     });
@@ -520,10 +523,7 @@ describe('ShoppingListComponent', () => {
 
     it('says where else something comes from as plain text', () => {
       const both = entry({ ...augment, sources: [from('Quest A'), from('Quest B')] });
-      link.next({ kind: 'live' });
-      friendLists.next({ view: buildShoppingListView([both], {}, null, { filter: 'needed' }), needed: 1,
-        notShared: false, failed: false });
-      fixture.detectChanges();
+      showFriend({ view: buildShoppingListView([both], {}, null, { filter: 'needed' }), needed: 1 });
 
       const listedUnder = el().querySelector('.shopping-group-name')?.textContent?.trim();
       const other = listedUnder === 'Quest A' ? 'Quest B' : 'Quest A';
@@ -531,7 +531,15 @@ describe('ShoppingListComponent', () => {
       expect(el().querySelector('button.shopping-row-also-from')).toBeNull();
     });
 
-    it('fetches a live list again on Refresh, once the service allows', () => {
+    it('opens the build in the planner only when asked, as a link Back undoes', () => {
+      showFriend({});
+
+      const open = el().querySelector<HTMLAnchorElement>('a.shopping-list-open-build');
+      expect(open?.textContent?.trim()).toBe('Open in planner');
+      expect(open?.getAttribute('href')).toBe('/build/s1/their-build');
+    });
+
+    it('fetches the list again on Refresh, once the service allows', () => {
       const track = vi.spyOn(TestBed.inject(AnalyticsService), 'track').mockReturnValue(undefined);
       friendService.nextRefreshAt = Date.now() + 60000;
       showFriend({});
@@ -568,7 +576,6 @@ describe('ShoppingListComponent', () => {
     });
 
     it('tracks opening it as a friend\'s link', () => {
-      TestBed.inject(ShoppingListViewService).openedFrom = 'friend_link';
       const track = vi.spyOn(TestBed.inject(AnalyticsService), 'track').mockReturnValue(undefined);
 
       showFriend({});

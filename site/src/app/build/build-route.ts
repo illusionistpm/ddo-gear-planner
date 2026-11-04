@@ -47,6 +47,25 @@ export function isBuildShortIdRoute(routePath: string): boolean {
 
 /** The app path for a saved build or short link: /build/:shortId/:slug, or /build/:shortId when it has no name. */
 export function buildPath(shortId: string, name: string | null): string {
+  return `/build${shortIdPath(shortId, name)}`;
+}
+
+// A friend's view of what a saved build still needs
+// (StillNeededPageComponent): a page of its own, which never loads the
+// build into the planner. Like a build loaded by shortId, AppComponent
+// must leave it alone.
+const STILL_NEEDED_ROUTE = /^\/still-needed\/[^/]+(?:\/[^/]*)?$/;
+
+export function isStillNeededRoute(routePath: string): boolean {
+  return STILL_NEEDED_ROUTE.test(routePath);
+}
+
+/** The path to a friend's view of what a saved build still needs: /still-needed/:shortId/:slug. */
+export function stillNeededPath(shortId: string, name: string | null): string {
+  return `/still-needed${shortIdPath(shortId, name)}`;
+}
+
+function shortIdPath(shortId: string, name: string | null): string {
   const slugSegment = name ? `/${slugifyBuildName(name)}` : '';
-  return `/build/${encodeURIComponent(shortId)}${slugSegment}`;
+  return `/${encodeURIComponent(shortId)}${slugSegment}`;
 }

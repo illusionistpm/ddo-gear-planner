@@ -44,7 +44,7 @@ describe('ShoppingListShareMenuComponent', () => {
 
     click('Copy link');
 
-    expect(copy).toHaveBeenCalledWith(`${window.location.origin}/build/s1/mine#still-needed`);
+    expect(copy).toHaveBeenCalledWith(`${window.location.origin}/still-needed/s1/mine`);
     expect(labels()[0]).toBe('Copied!');
   });
 
@@ -52,7 +52,7 @@ describe('ShoppingListShareMenuComponent', () => {
     render(yours);
 
     click('Copy list + link');
-    expect(copy).toHaveBeenLastCalledWith(`Still needed (2):\n${window.location.origin}/build/s1/mine#still-needed`);
+    expect(copy).toHaveBeenLastCalledWith(`Still needed (2):\n${window.location.origin}/still-needed/s1/mine`);
 
     click('Copy list');
     expect(copy).toHaveBeenLastCalledWith('Still needed (2):');

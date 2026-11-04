@@ -1,4 +1,6 @@
-import { isBuildShortIdRoute, routePathOf, routeSegmentsOf, urlFragmentOf, urlWithoutFragment } from './build-route';
+import {
+  buildPath, isBuildShortIdRoute, isStillNeededRoute, routePathOf, routeSegmentsOf, stillNeededPath, urlFragmentOf, urlWithoutFragment
+} from './build-route';
 
 describe('routeSegmentsOf and routePathOf', () => {
   it('read the path without its query string or fragment', () => {
@@ -57,5 +59,21 @@ describe('isBuildShortIdRoute', () => {
     expect(isBuildShortIdRoute('/affixes')).toBe(false);
     expect(isBuildShortIdRoute('/build')).toBe(false);
     expect(isBuildShortIdRoute('/build/')).toBe(false);
+  });
+});
+
+describe("a friend's still-needed page", () => {
+  it("is at /still-needed/:shortId/:slug, beside the build's own /build/:shortId/:slug", () => {
+    expect(stillNeededPath('abc123', 'My Build')).toBe('/still-needed/abc123/my-build');
+    expect(stillNeededPath('abc123', null)).toBe('/still-needed/abc123');
+    expect(buildPath('abc123', 'My Build')).toBe('/build/abc123/my-build');
+  });
+
+  it('is recognized with or without its slug, and nothing else is', () => {
+    expect(isStillNeededRoute('/still-needed/abc123')).toBe(true);
+    expect(isStillNeededRoute('/still-needed/abc123/my-build')).toBe(true);
+    for (const path of ['/still-needed', '/still-needed/abc123/my-build/extra', '/build/abc123', '/']) {
+      expect(isStillNeededRoute(path)).toBe(false);
+    }
   });
 });

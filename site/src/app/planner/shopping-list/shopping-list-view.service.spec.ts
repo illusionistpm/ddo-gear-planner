@@ -5,7 +5,6 @@ import { TestBed } from '@angular/core/testing';
 import { NavigationEnd, provideRouter, Router } from '@angular/router';
 import { filter, firstValueFrom } from 'rxjs';
 
-import { CurrentBuildService } from '../../build/current-build.service';
 import { QueryParamsService } from '../../build/query-params.service';
 import { ShoppingListViewService } from './shopping-list-view.service';
 
@@ -134,24 +133,6 @@ describe('ShoppingListViewService', () => {
     expect(view.isOpen).toBe(false);
     await settle();
     expect(path()).toBe('/build/abc123/my-build?b=z1.test');
-  });
-
-  it('opens a friend\'s link as that friend\'s view', async () => {
-    await TestBed.inject(Router).navigateByUrl('/build/abc123/my-build#still-needed');
-    const view = TestBed.inject(ShoppingListViewService);
-
-    expect(view.link).toEqual({ kind: 'live' });
-    expect(view.openedFrom).toBe('friend_link');
-  });
-
-  it('opens your own list instead of a friend\'s view of a build of yours', async () => {
-    await TestBed.inject(Router).navigateByUrl('/build/abc123/my-build#still-needed');
-    const view = TestBed.inject(ShoppingListViewService);
-
-    TestBed.inject(CurrentBuildService).markSaved({ savedBuildId: 'b1', shortId: 'abc123', name: 'My Build' });
-    expect(view.link).toEqual({ kind: 'own' });
-    await settle();
-    expect(path()).toBe('/build/abc123/my-build#shopping-list');
   });
 
   it('closes when a navigation takes the fragment away', async () => {

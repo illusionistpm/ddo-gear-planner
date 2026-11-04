@@ -1,0 +1,108 @@
+/* As the planner's page is laid out (main.component.css): the list scrolls under a fixed header. */
+.still-needed-page {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100svh;
+  max-width: none;
+  overflow: hidden;
+  padding-left: var(--space-16);
+  padding-right: 0;
+  width: 100%;
+}
+
+.still-needed-chrome {
+  align-items: center;
+  border: 1px solid var(--border-color);
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  border-top: 0;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex: 0 0 auto;
+  margin-bottom: var(--space-8);
+  margin-right: var(--space-16);
+  padding: var(--space-8);
+}
+
+.still-needed-brand {
+  align-items: center;
+  color: var(--text-primary);
+  display: flex;
+  font-size: 0.95rem;
+  font-weight: 800;
+  gap: var(--space-8);
+  padding: 0 var(--space-8) 0 var(--space-4);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.still-needed-brand:hover {
+  color: var(--primary-color);
+}
+
+.still-needed-brand-icon {
+  height: 1.4rem;
+  width: 1.4rem;
+}
+
+.still-needed-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-right: var(--space-16);
+  scrollbar-gutter: stable;
+}
+
+.still-needed-error {
+  align-items: center;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--space-8);
+  justify-content: center;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.still-needed-error-title {
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.still-needed-message {
+  color: var(--text-secondary);
+  max-width: 26rem;
+}
+
+p.still-needed-message {
+  margin: 1.5rem auto;
+  text-align: center;
+}
+
+.still-needed-retry {
+  background: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 6px;
+  color: var(--on-accent-text-color);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  margin-top: var(--space-8);
+  padding: var(--space-8) 1.1rem;
+}
+
+@media (max-width: 767.98px) {
+  .still-needed-page {
+    padding-left: var(--space-8);
+  }
+
+  .still-needed-chrome {
+    margin-right: var(--space-8);
+  }
+
+  .still-needed-list {
+    padding-right: var(--space-8);
+  }
+}

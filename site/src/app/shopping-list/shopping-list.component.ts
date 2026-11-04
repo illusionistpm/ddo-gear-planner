@@ -1,11 +1,9 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, OnDestroy, OnInit, Output,
-  QueryList, ViewChild, ViewChildren
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnChanges, OnDestroy,
+  OnInit, Output, QueryList, ViewChild, ViewChildren
 } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
-import type { ShoppingListLink } from '../build/shopping-list-link';
 import { AnalyticsService } from '../shared/analytics.service';
 import { FriendShoppingList, FriendShoppingListService } from '../planner/shopping-list/friend-shopping-list.service';
 import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
@@ -19,11 +17,18 @@ import type {
 /** Room left between the sticky header and a pack's heading scrolled up to it. */
 const SECTION_SCROLL_GAP_PX = 8;
 
+/** A friend's build, as its still-needed page shows it. */
+export interface FriendBuildHeading {
+  name: string;
+  /** Where the planner opens the build. */
+  plannerPath: string;
+}
+
 /**
  * The shopping list: everything the build needs, where it comes from, and a
  * box to tick each off. It takes the planner's place on screen while open.
  *
- * Opened from a friend's link (see shopping-list-link.ts) it's read only:
+ * On a friend's still-needed page (given `friendBuild`) it's read only:
  * just what's still needed and where to get it, without boxes, picks or
  * anything from your own trove.
  */
@@ -34,15 +39,17 @@ const SECTION_SCROLL_GAP_PX = 8;
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false
 })
-export class ShoppingListComponent implements OnInit, OnDestroy {
+export class ShoppingListComponent implements OnInit, OnChanges, OnDestroy {
+  /** A friend's build, making this its read-only still-needed list; null for your own list. */
+  @Input() friendBuild: FriendBuildHeading | null = null;
+  /** A friend's view of the build's list, with friendBuild. */
+  @Input() friend: FriendShoppingList | null = null;
   @Output() closed = new EventEmitter<void>();
   @ViewChild('header') private header?: ElementRef<HTMLElement>;
   @ViewChildren('sectionTitle') private sectionTitles?: QueryList<ElementRef<HTMLElement>>;
 
   view: ShoppingListView | null = null;
-  /** A friend's view of the list, or null for your own. */
-  friend: FriendShoppingList | null = null;
-  /** A friend's live list can be fetched again (not more than every 30 s). */
+  /** A friend's list can be fetched again (not more than every 30 s). */
   canRefresh = false;
   /** The Share menu is open. */
   shareOpen = false;
@@ -66,37 +73,21 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.subscriptions.add(this.shoppingListView.link$.pipe(
-      // Closed: this component is on its way out.
-      filter((link): link is ShoppingListLink => link !== null),
-      switchMap((link): Observable<FriendShoppingList | ShoppingListView> => {
-        // Opened again, as your own list or a friend's: say so once its view arrives.
-        this.view = null;
-        this.friend = null;
-        return link.kind === 'own' ? this.shoppingList.view$ : this.friendList.list().pipe(
-          map(friend => {
-            this.friend = friend;
-            this.scheduleRefresh();
-            return friend;
-          }));
-      }),
-      map(viewOrFriend => 'sections' in viewOrFriend ? viewOrFriend : viewOrFriend.view)
-    ).subscribe(view => {
-      if (view && !this.view) {
-        this.analytics.track('open_shopping_list', {
-          entry_point: this.shoppingListView.openedFrom,
-          item_count: view.total,
-          acquired_count: view.acquired,
-          has_picks: view.picked
-        });
-      }
-      this.view = view;
-      this.cdr.markForCheck();
-    }));
+    if (this.friendBuild) {
+      return;
+    }
+    this.subscriptions.add(this.shoppingList.view$.subscribe(view => this.showView(view)));
     this.subscriptions.add(this.progressStore.syncState$.subscribe(syncState => {
       this.syncState = syncState;
       this.cdr.markForCheck();
     }));
+  }
+
+  ngOnChanges(): void {
+    if (this.friendBuild) {
+      this.showView(this.friend?.view ?? null);
+      this.scheduleRefresh();
+    }
   }
 
   ngOnDestroy(): void {
@@ -130,7 +121,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
     }
   }
 
-  /** Fetches a friend's live list again. */
+  /** Fetches a friend's list again. */
   refresh(): void {
     if (this.friendList.refresh()) {
       this.analytics.track('refresh_shopping_list', { needed_count: this.friend?.needed ?? 0 });
@@ -140,15 +131,29 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
 
   /** How many of a section's things are still needed, or for your own list how many are got. */
   sectionCount(section: ShoppingSection): string {
-    return this.friend ? `${section.total - section.acquired}` : `${section.acquired}/${section.total}`;
+    return this.friendBuild ? `${section.total - section.acquired}` : `${section.acquired}/${section.total}`;
+  }
+
+  /** Shows a view, saying the list opened when its first arrives. */
+  private showView(view: ShoppingListView | null): void {
+    if (view && !this.view) {
+      this.analytics.track('open_shopping_list', {
+        entry_point: this.friendBuild ? 'friend_link' : this.shoppingListView.openedFrom,
+        item_count: view.total,
+        acquired_count: view.acquired,
+        has_picks: view.picked
+      });
+    }
+    this.view = view;
+    this.cdr.markForCheck();
   }
 
   /** Enables Refresh once it may fetch again. */
   private scheduleRefresh(): void {
     clearTimeout(this.refreshTimeout);
     const wait = this.friendList.nextRefreshAt - Date.now();
-    this.canRefresh = !!this.friend && wait <= 0;
-    if (this.friend && wait > 0) {
+    this.canRefresh = !!this.friendBuild && wait <= 0;
+    if (this.friendBuild && wait > 0) {
       this.refreshTimeout = setTimeout(() => this.scheduleRefresh(), wait);
     }
     this.cdr.markForCheck();

@@ -52,6 +52,10 @@
     margin: 0;
 }
 
+.shopping-list-build-name {
+    font-weight: 600;
+}
+
 .shopping-list-progress-text {
     color: var(--text-secondary);
     font-size: 0.85rem;
@@ -61,6 +65,7 @@
 
 .shopping-list-share,
 .shopping-list-refresh,
+.shopping-list-open-build,
 .shopping-list-reset-route {
     align-items: center;
     background: var(--surface-color);
@@ -76,9 +81,14 @@
 .shopping-list-share:hover,
 .shopping-list-share[aria-expanded="true"],
 .shopping-list-refresh:not(:disabled):hover,
+.shopping-list-open-build:hover,
 .shopping-list-reset-route:hover {
     border-color: var(--primary-color);
     color: var(--primary-color);
+}
+
+.shopping-list-open-build {
+    text-decoration: none;
 }
 
 /* Fetched not long ago: the server would answer the same. */

@@ -208,6 +208,22 @@ describe('AppComponent', () => {
     expect(queryParams.updateFromParams).not.toHaveBeenCalled();
   });
 
+  it('leaves the planner as it was for a friend\'s still-needed page, which reads its build itself', async () => {
+    const queryParams = TestBed.inject(QueryParamsService);
+    vi.spyOn(queryParams, 'updateFromParams').mockReturnValue(undefined);
+    const router = TestBed.inject(Router);
+
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    (queryParams.updateFromParams as Mock).mockClear();
+
+    await router.navigateByUrl('/still-needed/abc123/my-build');
+    await router.navigateByUrl('/still-needed/abc123');
+
+    expect(queryParams.updateFromParams).not.toHaveBeenCalled();
+  });
+
   it('treats a /build/:shortId route with a fragment as the bare route, and one with b= and a fragment as carrying b=', async () => {
     const queryParams = TestBed.inject(QueryParamsService);
     vi.spyOn(queryParams, 'updateFromParams').mockReturnValue(undefined);

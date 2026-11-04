@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 
-import { buildPath } from '../build/build-route';
+import { stillNeededPath } from '../build/build-route';
 import { CurrentBuildService } from '../build/current-build.service';
-import { shoppingListFragment } from '../build/shopping-list-link';
 import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
 import { AnalyticsService } from '../shared/analytics.service';
 import { Clipboard } from '../shared/clipboard';
@@ -53,7 +52,7 @@ export class ShoppingListShareMenuComponent implements OnDestroy {
     if (!shortId || ownership !== 'owned') {
       return null;
     }
-    return `${window.location.origin}${buildPath(shortId, name)}#${shoppingListFragment({ kind: 'live' })}`;
+    return `${window.location.origin}${stillNeededPath(shortId, name)}`;
   }
 
   /** A friend's link shows the build as saved, not the changes on screen. */

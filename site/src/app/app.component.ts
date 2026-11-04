@@ -9,7 +9,7 @@ import { EquippedService } from './planner/equipped.service';
 import { FiltersService } from './planner/filters.service';
 import { QueryParamsService } from './build/query-params.service';
 import { CurrentBuildService } from './build/current-build.service';
-import { isBuildShortIdRoute, routePathOf, urlWithoutFragment } from './build/build-route';
+import { isBuildShortIdRoute, isStillNeededRoute, routePathOf, urlWithoutFragment } from './build/build-route';
 import { hasUnsavedWork } from './build/unsaved-changes.guard';
 import { PlannerOnboardingService } from './planner/planner-onboarding.service';
 import { perfAfterFrames, perfStart } from './shared/perf-trace';
@@ -105,6 +105,12 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     const routePath = routePathOf(this.router.url);
+    if (isStillNeededRoute(routePath)) {
+      // A friend's still-needed page reads its build itself, and leaves the
+      // planner as it was - applying this URL's (empty) params would clear it.
+      done({ skipped: 'stillNeededRoute' });
+      return;
+    }
     const queryParamMap = this.router.parseUrl(this.router.url).queryParamMap;
     if (isBuildShortIdRoute(routePath) && !queryParamMap.has('b')) {
       // A bare /build/:shortId(/:slug) URL (no b= at all) is a fresh load -

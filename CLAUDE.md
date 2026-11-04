@@ -89,8 +89,8 @@ list that decides whether a URL key is build data at all. A new param that
 skips it will be dropped by the codec or leak into view state.
 
 **View state rides in the URL fragment, never in query keys.** The shopping
-list's `#shopping-list` / `#still-needed…` (`build/shopping-list-link.ts`) live
-there because the codec never sees a fragment, so build URLs stay as they were.
+list's `#shopping-list` (`build/shopping-list-link.ts`) lives there because the
+codec never sees a fragment, so build URLs stay as they were.
 The app's own URL writes keep it (`preserveFragment`, `urlFragmentOf`); a new
 one must too. And never read the route path with `router.url.split('?')` - a
 fragment with no query string lands in the last segment. Use `routePathOf` /

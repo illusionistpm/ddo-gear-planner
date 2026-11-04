@@ -47,6 +47,7 @@ import { TapTooltipComponent } from './tap-tooltip/tap-tooltip.component';
 import { CraftingOptionPickerComponent } from './crafting-option-picker/crafting-option-picker.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingListShareMenuComponent } from './shopping-list/shopping-list-share-menu.component';
+import { StillNeededPageComponent } from './still-needed-page/still-needed-page.component';
 import { ServerShoppingProgressStore } from './planner/shopping-list/server-shopping-progress-store';
 import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress-store';
 
@@ -87,7 +88,8 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         AutofocusDirective,
         PanelSwipeDirective,
         ShoppingListComponent,
-        ShoppingListShareMenuComponent
+        ShoppingListShareMenuComponent,
+        StillNeededPageComponent
     ],
     imports: [
         AppRoutingModule,

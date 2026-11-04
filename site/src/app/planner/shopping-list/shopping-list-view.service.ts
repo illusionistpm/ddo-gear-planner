@@ -2,44 +2,35 @@ import { Location } from '@angular/common';
 import { inject, Injectable, OnDestroy } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { distinctUntilChanged, filter } from 'rxjs/operators';
 
 import { urlFragmentOf, urlWithoutFragment } from '../../build/build-route';
-import { CurrentBuildService } from '../../build/current-build.service';
 import { QueryParamsService } from '../../build/query-params.service';
-import { parseShoppingListFragment, ShoppingListLink, shoppingListFragment } from '../../build/shopping-list-link';
+import { isShoppingListFragment, SHOPPING_LIST_FRAGMENT } from '../../build/shopping-list-link';
 
-/** What opened the list: a button, a URL saying it's open (a reload, say), or a friend's link. */
+/** What opened a list: a button, a URL saying it's open (a reload, say), or a friend's link to a build's. */
 export type ShoppingListEntryPoint = 'toolbar' | 'menu' | 'url' | 'friend_link';
 
 /**
- * Whether the shopping list has taken the planner's place on screen, and
- * whose: your own, or a friend's view of what's still needed. The URL's
- * fragment says which (see shopping-list-link.ts), so a reload comes back
- * to it, a friend's link opens it, and the app's own URL writes (edits,
- * saves, signing in) keep it.
+ * Whether your shopping list has taken the planner's place on screen. The
+ * URL's fragment says so (see shopping-list-link.ts), so a reload comes back
+ * to it and the app's own URL writes (edits, saves, signing in) keep it.
  *
- * Opening your list is a step in the browser's history, so Back (the
+ * Opening the list is a step in the browser's history, so Back (the
  * browser's, or Android's) returns to the planner, as the list's own
  * Planner button does. Opened from the URL there's no step to go back to,
  * so closing just takes the fragment off.
- *
- * A friend's link to a build of yours opens your own list instead, which
- * says more: opened by its owner, or once a friend saves a copy.
  */
 @Injectable({ providedIn: 'root' })
 export class ShoppingListViewService implements OnDestroy {
   private readonly router = inject(Router);
   private readonly queryParams = inject(QueryParamsService);
-  private readonly currentBuild = inject(CurrentBuildService);
   private readonly location = inject(Location);
-  private readonly linkSubject = new BehaviorSubject<ShoppingListLink | null>(null);
-  /** The list on screen, or null for the planner. */
-  readonly link$: Observable<ShoppingListLink | null> = this.linkSubject.pipe(distinctUntilChanged(sameLink));
-  readonly isOpen$: Observable<boolean> = this.link$.pipe(map(link => link !== null), distinctUntilChanged());
+  private readonly openSubject = new BehaviorSubject<boolean>(false);
+  readonly isOpen$: Observable<boolean> = this.openSubject.pipe(distinctUntilChanged());
   /** What opened the list last, for analytics. */
   openedFrom: ShoppingListEntryPoint | null = null;
-  private readonly subscriptions = new Subscription();
+  private readonly subscription: Subscription;
   /**
    * The URL open() added to history, while it's still the current one. Saving
    * with the list open replaces it with the saved build's, so Back would then
@@ -49,32 +40,24 @@ export class ShoppingListViewService implements OnDestroy {
 
   constructor() {
     this.followUrl();
-    this.subscriptions.add(this.router.events.pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => this.followUrl()));
-    this.subscriptions.add(this.currentBuild.state$.subscribe(() => this.collapseFriendLinkIfYours()));
+    this.subscription = this.router.events.pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => this.followUrl());
   }
 
   get isOpen(): boolean {
-    return this.linkSubject.value !== null;
+    return this.openSubject.value;
   }
 
-  get link(): ShoppingListLink | null {
-    return this.linkSubject.value;
-  }
-
-  /** Opens your own list. */
   open(from: ShoppingListEntryPoint): void {
     this.openedFrom = from;
-    const link: ShoppingListLink = { kind: 'own' };
-    this.linkSubject.next(link);
-    const fragment = shoppingListFragment(link);
-    if (this.queryParams.writeViewFragment(fragment, false)) {
-      this.pushedUrl = `${urlWithoutFragment(this.router.url)}#${fragment}`;
+    this.openSubject.next(true);
+    if (this.queryParams.writeViewFragment(SHOPPING_LIST_FRAGMENT, false)) {
+      this.pushedUrl = `${urlWithoutFragment(this.router.url)}#${SHOPPING_LIST_FRAGMENT}`;
     }
   }
 
   close(): void {
-    this.linkSubject.next(null);
+    this.openSubject.next(false);
     const pushed = this.pushedUrl !== null && this.pushedUrl === this.router.url;
     this.pushedUrl = null;
     if (pushed) {
@@ -85,31 +68,14 @@ export class ShoppingListViewService implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
-  private show(link: ShoppingListLink): void {
-    this.linkSubject.next(link);
-    this.queryParams.writeViewFragment(shoppingListFragment(link), true);
+    this.subscription.unsubscribe();
   }
 
   private followUrl(): void {
-    const link = parseShoppingListFragment(urlFragmentOf(this.router.url));
-    if (link && !sameLink(link, this.linkSubject.value)) {
-      this.openedFrom = link.kind === 'own' ? 'url' : 'friend_link';
+    const open = isShoppingListFragment(urlFragmentOf(this.router.url));
+    if (open && !this.isOpen) {
+      this.openedFrom = 'url';
     }
-    this.linkSubject.next(link);
-    this.collapseFriendLinkIfYours();
+    this.openSubject.next(open);
   }
-
-  private collapseFriendLinkIfYours(): void {
-    const link = this.linkSubject.value;
-    if (link && link.kind !== 'own' && this.currentBuild.value.ownership === 'owned') {
-      this.show({ kind: 'own' });
-    }
-  }
-}
-
-function sameLink(a: ShoppingListLink | null, b: ShoppingListLink | null): boolean {
-  return a === b || (a !== null && b !== null && shoppingListFragment(a) === shoppingListFragment(b));
 }

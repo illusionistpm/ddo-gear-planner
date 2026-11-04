@@ -1,11 +1,12 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { BehaviorSubject, of, Subject, throwError } from 'rxjs';
+import { of, Subject, throwError } from 'rxjs';
 
 import { BuildProgressService, PublicBuildProgress } from '../../build/build-progress.service';
-import { CurrentBuildService, CurrentBuildState } from '../../build/current-build.service';
-import { FiltersService } from '../filters.service';
-import { FRIEND_REFRESH_INTERVAL_MS, FriendShoppingList, FriendShoppingListService } from './friend-shopping-list.service';
-import { ShoppingListService } from './shopping-list.service';
+import { BuildUrlCodecService } from '../../build/build-url-codec.service';
+import { BuildsService } from '../../build/builds.service';
+import { EquippedService } from '../equipped.service';
+import { FRIEND_REFRESH_INTERVAL_MS, FriendBuild, FriendShoppingList, FriendShoppingListService } from './friend-shopping-list.service';
 import type { ShoppingEntry, ShoppingSource } from './shopping-list-types';
 
 function from(quest: string): ShoppingSource {
@@ -25,31 +26,61 @@ const ruby = entry({ key: 'a|Ring1|Red#0|Ruby', kind: 'augment', identity: 'augm
   sources: [from('Quest A'), from('Quest B')], parentKey: ring.key });
 const boots = entry({ key: 'g|Feet|Boots', identity: 'gear|Boots', label: 'Boots', sources: [from('Quest C')] });
 
-const SAVED: CurrentBuildState = { savedBuildId: null, shortId: 's1', name: 'Theirs', isDirty: false, ownership: 'other' };
-
 describe('FriendShoppingListService', () => {
-  let state: BehaviorSubject<CurrentBuildState>;
   let getPublic: ReturnType<typeof vi.fn>;
+  let getByShortId: ReturnType<typeof vi.fn>;
   let service: FriendShoppingListService;
   let latest: FriendShoppingList;
 
   beforeEach(() => {
-    state = new BehaviorSubject(SAVED);
     getPublic = vi.fn();
+    getByShortId = vi.fn();
     TestBed.configureTestingModule({
       providers: [
-        { provide: ShoppingListService, useValue: { entries$: new BehaviorSubject([ring, ruby, boots]) } },
-        { provide: CurrentBuildService, useValue: { state$: state } },
         { provide: BuildProgressService, useValue: { getPublic } },
-        { provide: FiltersService, useValue: { getItemFilters: () => of({ hiddenPacks: new Set() }) } }
+        { provide: BuildsService, useValue: { getByShortId } }
       ]
     });
     service = TestBed.inject(FriendShoppingListService);
   });
 
   function watch(): void {
-    service.list().subscribe(list => latest = list);
+    service.list('s1', [ring, ruby, boots]).subscribe(list => latest = list);
   }
+
+  describe('reading the build', () => {
+    const states = (shortId: string) => {
+      const seen: FriendBuild[] = [];
+      service.build(shortId).subscribe(build => seen.push(build));
+      return seen;
+    };
+
+    it('lists what its gear needs, without loading it into the planner', () => {
+      const blob = TestBed.inject(BuildUrlCodecService).encode({ Helm: 'Epic Deific Diadem' });
+      getByShortId.mockReturnValue(of({ name: 'Theirs', blob }));
+
+      const [loading, ready] = states('s1');
+
+      expect(getByShortId).toHaveBeenCalledWith('s1');
+      expect(loading).toEqual({ status: 'loading' });
+      expect(ready.status).toBe('ready');
+      const { name, entries } = ready as Extract<FriendBuild, { status: 'ready' }>;
+      expect(name).toBe('Theirs');
+      expect(entries.find(entry => entry.kind === 'gear')?.label).toBe('Epic Deific Diadem');
+      expect(TestBed.inject(EquippedService).getSlotsSnapshot().get('Helm')).toBeNull();
+    });
+
+    it("says when there's no such build, when its link is too old to read, and when it couldn't be fetched", () => {
+      getByShortId.mockReturnValue(throwError(() => new HttpErrorResponse({ status: 404 })));
+      expect(states('gone').at(-1)).toEqual({ status: 'error', error: 'not-found' });
+
+      getByShortId.mockReturnValue(of({ name: 'Old', blob: 'not a blob' }));
+      expect(states('old').at(-1)).toEqual({ status: 'error', error: 'invalid-link' });
+
+      getByShortId.mockReturnValue(throwError(() => new HttpErrorResponse({ status: 0 })));
+      expect(states('offline').at(-1)).toEqual({ status: 'error', error: 'network' });
+    });
+  });
 
   /** Each quest card with what's listed there. */
   const listed = () => latest.view!.sections.flatMap(section => section.groups)
@@ -78,13 +109,9 @@ describe('FriendShoppingListService', () => {
     expect(latest.needed).toBe(0);
   });
 
-  it('lists everything the build needs when the owner has shared nothing, or the build isn\'t saved', () => {
+  it('lists everything the build needs when the owner has shared nothing', () => {
     getPublic.mockReturnValue(of({ needed: null, route: {}, updatedAt: null }));
     watch();
-    expect(latest).toMatchObject({ needed: 3, notShared: true });
-
-    state.next({ ...SAVED, shortId: null });
-    expect(getPublic).toHaveBeenCalledTimes(1);
     expect(latest).toMatchObject({ needed: 3, notShared: true });
   });
 

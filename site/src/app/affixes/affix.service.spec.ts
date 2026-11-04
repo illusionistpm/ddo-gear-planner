@@ -75,6 +75,15 @@ describe('AffixService', () => {
     ]);
   });
 
+  it('counts Underwater Action +N as its Swim bonus and water breathing from the real affix groups', () => {
+    const service: AffixService = TestBed.inject(AffixService);
+
+    expect(service.flattenAffixGroups([new Affix({ name: 'Underwater Action', type: 'Competence', value: 17 })])).toEqual([
+      new Affix({ name: 'Swim', type: 'Competence', value: 17 }),
+      new Affix({ name: 'Water Breathing', type: 'Bool', value: 1 }),
+    ]);
+  });
+
   it('preserves non-group affixes when flattening', () => {
     const service: AffixService = TestBed.inject(AffixService);
     const deadly = new Affix({ name: 'Deadly', type: 'Competence', value: 10 });

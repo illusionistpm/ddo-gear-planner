@@ -3181,6 +3181,25 @@
     ],
     "notes": "+20 Competence to Heal and Repair. The 2-4 HP regeneration every 15 seconds is not tracked."
   },
+  "Underwater Action": {
+    "components": [
+      {
+        "name": "Swim",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Water Breathing",
+        "type": "Bool",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ],
+    "notes": "Underwater Action +N is a +N Competence bonus to Swim and the ability to breathe underwater. The unnumbered Underwater Action is the breathing alone and parses as Water Breathing."
+  },
   "Voice of Deceit": {
     "components": [
       {

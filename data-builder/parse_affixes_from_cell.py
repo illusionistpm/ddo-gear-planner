@@ -7,7 +7,7 @@ from roman_numerals import int_from_roman_numeral
 from write_json import write_json
 from read_json import read_json
 from get_inverted_synonym_map import get_inverted_synonym_map
-from allowed_bonus_types import get_parser_bonus_type_regex, normalize_bonus_type
+from allowed_bonus_types import get_allowed_bonus_types, get_parser_bonus_type_regex, normalize_bonus_type
 from compound_affixes import load_compound_affixes
 from build_affix_groups import get_all_skills
 from provenance_io import include_affix_provenance
@@ -79,6 +79,13 @@ def tooltip_bonus_targets_affix(words, affix_name):
 
     target = cleanup_whitespace(BeautifulSoup(search.group(1), 'html.parser').getText()).lower()
     return affix_name.lower() in target
+
+
+TOOLTIP_BONUS_TYPES = get_allowed_bonus_types() | {'Natural Armor'}
+
+
+def is_tooltip_bonus_type(value):
+    return normalize_bonus_type(value) in TOOLTIP_BONUS_TYPES
 
 
 def is_weapon_damage_proc_affix(name):
@@ -330,7 +337,8 @@ def strip_bonus_types(name):
     if search:
         return search.group(1)
 
-    search = re.search(r'^(Artifact|Competence|Enhancement|Equipment|Equipped|Exceptional|Festive|Inherent|Insight|Insightful|Profane(?! Experiment)|Quality|Sacred) (.*)$', name)
+    # "Determined Reflex Save +2" is a +2 Determination bonus to Reflex saves; the tooltip gives the type.
+    search = re.search(r'^(Artifact|Competence|Determined|Enhancement|Equipment|Equipped|Exceptional|Festive|Inherent|Insight|Insightful|Profane(?! Experiment)|Quality|Sacred) (.*)$', name)
     if search:
         return search.group(2)
 
@@ -827,16 +835,22 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
         and ('Augment Slot' not in aff['name'])
         and (not is_compound_affix_name(aff['name']) or 'value' in aff)
     ):
+        # Only a known bonus type counts. The tooltip repeats the affix's own label, so
+        # "Sneak Attack Bonus +2" offers title="Sneak Attack Bonus" and the words "Attack Bonus"
+        # ahead of the "+2 Enhancement bonus" that is its real type.
+        def bonus_types_in(found):
+            return sorted(set(
+                value for value in found
+                if not value.lower() in fakeBonuses and value[0].isupper() and is_tooltip_bonus_type(value)
+            ))
+
         # Sometimes the tooltip has a hyperlink title. Those are convenient for picking up multi-word
         # bonuses like "Natural Armor"
-        bonusTypeSearch = re.findall('title="([a-z ]+) bonus"', words, re.IGNORECASE)
+        bonusTypeSearch = bonus_types_in(re.findall('title="([a-z ]+) bonus"', words, re.IGNORECASE))
 
         # Otherwise, fall back on just grabbing the previous word before "bonus"
         if not bonusTypeSearch:
-            bonusTypeSearch = re.findall('([a-z]+) bonus', words, re.IGNORECASE)
-
-        bonusTypeSearch = list(set([value for value in bonusTypeSearch if not value.lower() in fakeBonuses and value[0].isupper()]))
-        bonusTypeSearch.sort()
+            bonusTypeSearch = bonus_types_in(re.findall('([a-z]+) bonus', words, re.IGNORECASE))
 
         if bonusTypeSearch:
             aff['type'] = bonusTypeSearch[0].strip()

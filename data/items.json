@@ -6778,7 +6778,7 @@
             },
             {
                 "name": "Deception",
-                "type": "Sneak Attack",
+                "type": "Enhancement",
                 "value": "2"
             },
             {
@@ -6813,7 +6813,7 @@
             },
             {
                 "name": "Deception",
-                "type": "Sneak Attack",
+                "type": "Enhancement",
                 "value": "2"
             },
             {
@@ -6848,7 +6848,7 @@
             },
             {
                 "name": "Deception",
-                "type": "Sneak Attack",
+                "type": "Enhancement",
                 "value": "3"
             },
             {
@@ -8951,7 +8951,7 @@
             },
             {
                 "name": "Deception",
-                "type": "Sneak Attack",
+                "type": "Enhancement",
                 "value": "3"
             },
             {
@@ -8978,7 +8978,7 @@
             },
             {
                 "name": "Deception",
-                "type": "Sneak Attack",
+                "type": "Enhancement",
                 "value": "4"
             },
             {
@@ -9005,7 +9005,7 @@
             },
             {
                 "name": "Deception",
-                "type": "Sneak Attack",
+                "type": "Enhancement",
                 "value": "4"
             },
             {
@@ -9035,7 +9035,7 @@
             },
             {
                 "name": "Deception",
-                "type": "Sneak Attack",
+                "type": "Enhancement",
                 "value": "5"
             },
             {
@@ -9070,7 +9070,7 @@
             },
             {
                 "name": "Deception",
-                "type": "Sneak Attack",
+                "type": "Enhancement",
                 "value": "5"
             },
             {
@@ -9105,7 +9105,7 @@
             },
             {
                 "name": "Deception",
-                "type": "Sneak Attack",
+                "type": "Enhancement",
                 "value": "5"
             },
             {
@@ -20633,7 +20633,7 @@
             },
             {
                 "name": "Deception",
-                "type": "Sneak Attack",
+                "type": "Enhancement",
                 "value": "5"
             }
         ],
@@ -55080,7 +55080,7 @@
             },
             {
                 "name": "Deception",
-                "type": "Sneak Attack",
+                "type": "Enhancement",
                 "value": "5"
             }
         ],
@@ -63488,7 +63488,7 @@
                 "value": "3"
             },
             {
-                "name": "Determined Reflex Save",
+                "name": "Reflex Save",
                 "type": "Determination",
                 "value": "2"
             }
@@ -106598,7 +106598,7 @@
         "affixes": [
             {
                 "name": "Deception",
-                "type": "Sneak Attack",
+                "type": "Enhancement",
                 "value": "2"
             }
         ],
@@ -204100,7 +204100,7 @@
             },
             {
                 "name": "Deception",
-                "type": "Sneak Attack",
+                "type": "Enhancement",
                 "value": "3"
             },
             {
@@ -234931,7 +234931,7 @@
             },
             {
                 "name": "Deception",
-                "type": "Sneak Attack",
+                "type": "Enhancement",
                 "value": "3"
             },
             {
@@ -239138,7 +239138,7 @@
             },
             {
                 "name": "Deception",
-                "type": "Sneak Attack",
+                "type": "Enhancement",
                 "value": "5"
             },
             {
@@ -251635,7 +251635,7 @@
         "affixes": [
             {
                 "name": "Deception",
-                "type": "Sneak Attack",
+                "type": "Enhancement",
                 "value": "5"
             },
             {
@@ -254888,7 +254888,7 @@
         "affixes": [
             {
                 "name": "Deception",
-                "type": "Sneak Attack",
+                "type": "Enhancement",
                 "value": "4"
             },
             {
@@ -278202,7 +278202,7 @@
         "affixes": [
             {
                 "name": "Deception",
-                "type": "Sneak Attack",
+                "type": "Enhancement",
                 "value": "5"
             },
             {
@@ -292528,7 +292528,7 @@
             },
             {
                 "name": "Deception",
-                "type": "Sneak Attack",
+                "type": "Enhancement",
                 "value": "3"
             },
             {
@@ -301179,7 +301179,7 @@
             },
             {
                 "name": "Deception",
-                "type": "Sneak Attack",
+                "type": "Enhancement",
                 "value": "4"
             }
         ],

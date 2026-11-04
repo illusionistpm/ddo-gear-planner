@@ -1,10 +1,15 @@
+# "<Type> Natural" and "<Type> Shield" are Armor Class only: a <Type> bonus to natural armor or
+# shield AC, which stacks separately from a plain <Type> bonus to AC.
 ALLOWED_BONUS_TYPES = {
     "Alchemical",
     "Artifact",
+    "Artifact Natural",
+    "Artifact Shield",
     "Armor",
     "Bool",
     "Competence",
     "Deflection",
+    "Determination",
     "Enhancement",
     "Equipment",
     "Exceptional",
@@ -19,6 +24,7 @@ ALLOWED_BONUS_TYPES = {
     "Orb",
     "Penalty",
     "Profane",
+    "Profane Natural",
     "Primal Natural",
     "Psionic",
     "Quality",

@@ -288,6 +288,16 @@ def test_translate_list_tag_detects_unique_property_required():
             '<li><span class="has_tooltip">Rune Arm Imbue: Acid II<span class="tooltip">Rune Arm Imbue: Acid II: Wearing this Rune Arm will imbue any weapon you wield, dealing 2d4 points of Acid damage per hit.</span></span></li>',
             {'name': 'Rune Arm Imbue: Acid', 'type': 'Untyped', 'value': '2'},
         ),
+        (
+            # The prefix names the bonus type, as "Insightful" does; the type is from the tooltip's link.
+            '<li><span class="has_tooltip"><a href="/page/Reflex_save" title="Reflex save">Determined Reflex Save +2</a><span class="tooltip"><b><a href="/page/Reflex_save" title="Reflex save">Determined Reflex Save +2</a>:</b> This item gives a +2 <a href="/page/Determination_bonus" title="Determination bonus">Determination bonus</a> to your Reflex saves.</span></span></li>',
+            {'name': 'Reflex Save', 'type': 'Determination', 'value': '2'},
+        ),
+        (
+            # The tooltip links the affix's own page as title="Sneak Attack Bonus": not a bonus type.
+            '<li><span class="has_tooltip"><a href="/page/Sneak_Attack_Bonus" title="Sneak Attack Bonus">  Sneak Attack Bonus +2</a><span class="tooltip"><b><a href="/page/Sneak_Attack_Bonus" title="Sneak Attack Bonus">  Sneak Attack Bonus +2</a></b> : Provides a +2 Enhancement modifier to your attack bonus and a +3 Enhancement bonus to damage for any attack that would qualify as a Sneak Attack, even if the wielder is not a Rogue.</span></span></li>',
+            {'name': 'Sneak Attack Bonus', 'type': 'Enhancement', 'value': '2'},
+        ),
     ],
 )
 def test_translate_list_tag_parameterized_quality_fixtures(html, expected):

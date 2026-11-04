@@ -655,12 +655,13 @@ describe('ShoppingListComponent', () => {
       expect(el().querySelector('button.shopping-row-also-from')).toBeNull();
     });
 
-    it('opens the build in the planner only when asked, as a link Back undoes', () => {
+    it('opens the build in the planner only when asked, in a new tab, leaving the list where it was', () => {
       showFriend({});
 
       const open = el().querySelector<HTMLAnchorElement>('a.shopping-list-open-build');
       expect(open?.textContent?.trim()).toBe('Open in planner');
       expect(open?.getAttribute('href')).toBe('/build/s1/their-build');
+      expect(open?.getAttribute('target')).toBe('_blank');
     });
 
     it('fetches the list again on Refresh, once the service allows', () => {

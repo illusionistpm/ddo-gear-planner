@@ -7,6 +7,7 @@ import { BehaviorSubject, of, Subject } from 'rxjs';
 import { BuildsService } from '../build/builds.service';
 import { FriendBuild, FriendShoppingList, FriendShoppingListService } from '../planner/shopping-list/friend-shopping-list.service';
 import { AuthService } from '../shared/auth.service';
+import { ThemeService } from '../shared/theme.service';
 import { StillNeededPageComponent } from './still-needed-page.component';
 
 describe('StillNeededPageComponent', () => {
@@ -71,6 +72,19 @@ describe('StillNeededPageComponent', () => {
     expect(el().querySelector('.still-needed-brand')?.getAttribute('href')).toBe('/');
     expect(el().querySelector('app-build-actions')).toBeNull();
     expect(el().querySelector('app-planner-toolbar')).toBeNull();
+  });
+
+  it('has the planner\'s day/night button', () => {
+    const theme = TestBed.inject(ThemeService);
+    const wasDark = theme.isDarkTheme();
+    const toggle = () => el().querySelector<HTMLButtonElement>('.still-needed-chrome .theme-toggle')!;
+
+    toggle().click();
+    fixture.detectChanges();
+
+    expect(theme.isDarkTheme()).toBe(!wasDark);
+    expect(toggle().getAttribute('aria-pressed')).toBe(String(!wasDark));
+    theme.toggleTheme();
   });
 
   it('says when there\'s no such build, or it\'s too old to read', () => {

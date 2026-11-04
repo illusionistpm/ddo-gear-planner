@@ -12,9 +12,6 @@ import { parseShoppingListFragment, ShoppingListLink, shoppingListFragment } fro
 /** What opened the list: a button, a URL saying it's open (a reload, say), or a friend's link. */
 export type ShoppingListEntryPoint = 'toolbar' | 'menu' | 'url' | 'friend_link';
 
-/** A friend's view of the list: live from the server, or a snapshot carried in the link. */
-export type FriendShoppingListLink = Exclude<ShoppingListLink, { kind: 'own' }>;
-
 /**
  * Whether the shopping list has taken the planner's place on screen, and
  * whose: your own, or a friend's view of what's still needed. The URL's

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BehaviorSubject, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { ShoppingListComponent } from './shopping-list.component';
 import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
@@ -14,8 +14,6 @@ import { AnalyticsService } from '../shared/analytics.service';
 import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
 import { FriendShoppingList, FriendShoppingListService } from '../planner/shopping-list/friend-shopping-list.service';
 import type { ShoppingListLink } from '../build/shopping-list-link';
-import { ShareLinkResolverService } from '../build/share-link-resolver.service';
-import { AuthService } from '../shared/auth.service';
 import { ShoppingProgressStore, ShoppingSyncState } from '../planner/shopping-list/shopping-progress-store';
 import { ShoppingListShareMenuComponent } from './shopping-list-share-menu.component';
 
@@ -66,7 +64,7 @@ describe('ShoppingListComponent', () => {
 
   let link: BehaviorSubject<ShoppingListLink | null>;
   let friendLists: BehaviorSubject<FriendShoppingList>;
-  let friendService: { listFor: ReturnType<typeof vi.fn>; refresh: ReturnType<typeof vi.fn>; nextRefreshAt: number };
+  let friendService: { list: ReturnType<typeof vi.fn>; refresh: ReturnType<typeof vi.fn>; nextRefreshAt: number };
   let syncStates: BehaviorSubject<ShoppingSyncState>;
 
   beforeEach(async () => {
@@ -74,8 +72,8 @@ describe('ShoppingListComponent', () => {
     service = { view$: views, toggle: vi.fn(), setFilter: vi.fn(), pickSources: vi.fn(), resetRoute: vi.fn(),
       stillNeededText: () => 'Still needed for my build (5):', stillNeededKeys: () => ['k1', 'k2', 'k3', 'k4'] };
     link = new BehaviorSubject<ShoppingListLink | null>({ kind: 'own' });
-    friendLists = new BehaviorSubject<FriendShoppingList>({ view: null, needed: 0, live: true, notShared: false, failed: false });
-    friendService = { listFor: vi.fn(() => friendLists), refresh: vi.fn(() => true), nextRefreshAt: 0 };
+    friendLists = new BehaviorSubject<FriendShoppingList>({ view: null, needed: 0, notShared: false, failed: false });
+    friendService = { list: vi.fn(() => friendLists), refresh: vi.fn(() => true), nextRefreshAt: 0 };
     syncStates = new BehaviorSubject<ShoppingSyncState>('off');
     await TestBed.configureTestingModule({
       declarations: [ShoppingListComponent, ShoppingListShareMenuComponent, TapTooltipComponent, UserItemLocationTooltipPipe],
@@ -83,10 +81,7 @@ describe('ShoppingListComponent', () => {
         { provide: ShoppingListService, useValue: service },
         { provide: ShoppingListViewService, useValue: { link$: link, openedFrom: null } },
         { provide: FriendShoppingListService, useValue: friendService },
-        { provide: ShoppingProgressStore, useValue: { syncState$: syncStates } },
-        // The Share menu's link: its own spec covers how it's made.
-        { provide: ShareLinkResolverService, useValue: { resolve: () => of({ status: 'pending' }) } },
-        { provide: AuthService, useValue: { isAuthenticated$: of(true) } }
+        { provide: ShoppingProgressStore, useValue: { syncState$: syncStates } }
       ]
     }).compileComponents();
     fixture = TestBed.createComponent(ShoppingListComponent);
@@ -404,7 +399,8 @@ describe('ShoppingListComponent', () => {
   describe('sharing the list', () => {
     const shareButton = () => el().querySelector('.shopping-list-share') as HTMLButtonElement;
     const menu = () => el().querySelector('app-shopping-list-share-menu');
-    const copyListItem = () => Array.from(el().querySelectorAll<HTMLButtonElement>('.share-menu-item'))[2];
+    // An unsaved build's menu has only this; the menu's own spec covers the links.
+    const copyListItem = () => el().querySelector<HTMLButtonElement>('.share-menu-item:last-of-type')!;
     const openMenu = () => {
       shareButton().click();
       fixture.detectChanges();
@@ -491,9 +487,9 @@ describe('ShoppingListComponent', () => {
     // Everything got but the augment and one ring: what the friend service would make of a link saying so.
     const stillNeeded = () => buildShoppingListView(entries, { [sword.key]: 1, [step.key]: 1, [ring1.key]: 1 }, null,
       { filter: 'needed' });
-    const showFriend = (list: Partial<FriendShoppingList>, kind: 'live' | 'snapshot' = 'live') => {
-      link.next(kind === 'live' ? { kind } : { kind, hashes: new Set() });
-      friendLists.next({ view: stillNeeded(), needed: 2, live: kind === 'live', notShared: false, failed: false, ...list });
+    const showFriend = (list: Partial<FriendShoppingList>) => {
+      link.next({ kind: 'live' });
+      friendLists.next({ view: stillNeeded(), needed: 2, notShared: false, failed: false, ...list });
       fixture.detectChanges();
     };
     const text = () => el().textContent!.replace(/\s+/g, ' ');
@@ -502,7 +498,7 @@ describe('ShoppingListComponent', () => {
     it('shows only what\'s still needed and where to get it, with nothing to tick, pick or copy', () => {
       showFriend({});
 
-      expect(friendService.listFor).toHaveBeenCalledWith({ kind: 'live' });
+      expect(friendService.list).toHaveBeenCalled();
       expect(el().querySelector('.shopping-list-title')?.textContent).toBe('Still needed');
       expect(el().querySelector('.shopping-list-progress-text')?.textContent?.trim()).toBe('2 things still needed');
       expect(Array.from(el().querySelectorAll('.shopping-row:not(.acquired) .shopping-row-name'), name => name.textContent))
@@ -525,7 +521,7 @@ describe('ShoppingListComponent', () => {
     it('says where else something comes from as plain text', () => {
       const both = entry({ ...augment, sources: [from('Quest A'), from('Quest B')] });
       link.next({ kind: 'live' });
-      friendLists.next({ view: buildShoppingListView([both], {}, null, { filter: 'needed' }), needed: 1, live: true,
+      friendLists.next({ view: buildShoppingListView([both], {}, null, { filter: 'needed' }), needed: 1,
         notShared: false, failed: false });
       fixture.detectChanges();
 
@@ -547,12 +543,6 @@ describe('ShoppingListComponent', () => {
 
       expect(friendService.refresh).toHaveBeenCalled();
       expect(track).toHaveBeenCalledWith('refresh_shopping_list', { needed_count: 2 });
-    });
-
-    it('has no Refresh for a snapshot, which can\'t change', () => {
-      showFriend({}, 'snapshot');
-
-      expect(refreshButton()).toBeNull();
     });
 
     it('says while it loads, when nothing has been shared, and when it couldn\'t be fetched', () => {

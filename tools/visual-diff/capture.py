@@ -108,23 +108,6 @@ def open_shopping_list(page: Page) -> None:
         page.locator('.build-overflow-item', has_text='Shopping list').first.click()
 
 
-def open_friend_view(page: Page) -> None:
-    """A friend's snapshot link, made as a user makes one: two things ticked
-    off, then Share > Copy link (signed out, so a long link with a snapshot
-    of what's still needed). The copy is caught rather than read back from
-    the clipboard, which headless Chromium won't share."""
-    open_shopping_list(page)
-    settle(page)
-    checks = page.locator('.shopping-check')
-    checks.nth(0).click()
-    checks.nth(1).click()
-    page.evaluate('Object.defineProperty(navigator.clipboard, "writeText",'
-                  ' { value: text => { window.copiedText = text; return Promise.resolve(); } })')
-    page.locator('.shopping-list-share').click()
-    page.locator('.share-menu-item', has_text='Copy link').click()
-    page.goto(page.evaluate('window.copiedText'))
-    page.wait_for_selector('app-shopping-list')
-
 
 @dataclass
 class Scene:
@@ -154,8 +137,6 @@ SCENES = [
     Scene('affix-builder', tab='affixes', steps=[click('.tracked-affix-edit-affixes')]),
     Scene('shopping-list', build=SHOPPING_BUILD, steps=[open_shopping_list]),
     Scene('shopping-list-share', build=SHOPPING_BUILD, steps=[open_shopping_list, click('.shopping-list-share')]),
-    # A live friend's link reads the owner's list from the API, which isn't pinned: snapshot only.
-    Scene('shopping-list-friend', build=SHOPPING_BUILD, steps=[open_friend_view]),
 ]
 
 THEMES = ['light', 'dark']

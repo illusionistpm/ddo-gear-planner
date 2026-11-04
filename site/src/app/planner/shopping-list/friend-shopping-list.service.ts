@@ -4,9 +4,7 @@ import { catchError, distinctUntilChanged, map, scan, startWith, switchMap } fro
 
 import { BuildProgressService } from '../../build/build-progress.service';
 import { CurrentBuildService } from '../../build/current-build.service';
-import { hashNeededKey } from '../../build/shopping-list-link';
 import { FiltersService } from '../filters.service';
-import type { FriendShoppingListLink } from './shopping-list-view.service';
 import type { ShoppingEntry, ShoppingListView, ShoppingProgress, ShoppingSourcePicks } from './shopping-list-types';
 import { buildShoppingListView } from './shopping-list-view-model';
 import { ShoppingListService } from './shopping-list.service';
@@ -19,8 +17,6 @@ export interface FriendShoppingList {
   view: ShoppingListView | null;
   /** How many things are still needed. */
   needed: number;
-  /** A live list, which Refresh fetches again; else a snapshot carried in the link. */
-  live: boolean;
   /** The owner hasn't shared a list for this build: everything it needs is listed. */
   notShared: boolean;
   /** A live list that couldn't be fetched. */
@@ -45,12 +41,9 @@ interface Fetched {
 
 /**
  * A friend's read-only view of what a build still needs, from a link to
- * the owner's list (see shopping-list-link.ts). The build's own entries,
- * cut down to those still needed:
- *
- * - live: the owner's list as last published, routed as theirs is;
- * - snapshot: the entries the link's hashes name, routed as the friend's
- *   own list would route them, since the link carries no route.
+ * the owner's list (see shopping-list-link.ts): the build's own entries,
+ * cut down to those the owner last published as still needed, and routed
+ * as the owner's list is.
  *
  * Read only: nothing here touches progress, picks or the server's copy.
  */
@@ -66,10 +59,8 @@ export class FriendShoppingListService {
     private readonly filters: FiltersService
   ) { }
 
-  listFor(link: FriendShoppingListLink): Observable<FriendShoppingList> {
-    const fetched$: Observable<Fetched> = link.kind === 'snapshot'
-      ? of({ shared: { isNeeded: key => link.hashes.has(hashNeededKey(key)), route: {}, notShared: false }, failed: false })
-      : this.currentBuild.state$.pipe(
+  list(): Observable<FriendShoppingList> {
+    const fetched$: Observable<Fetched> = this.currentBuild.state$.pipe(
         map(state => state.shortId),
         distinctUntilChanged(),
         switchMap(shortId => shortId === null
@@ -86,13 +77,12 @@ export class FriendShoppingListService {
 
     return combineLatest([this.shoppingList.entries$, fetched$, hiddenPacks$]).pipe(
       map(([entries, { shared, failed }, hiddenPacks]): FriendShoppingList => {
-        const live = link.kind === 'live';
         if (!shared) {
-          return { view: null, needed: 0, live, notShared: false, failed };
+          return { view: null, needed: 0, notShared: false, failed };
         }
         const view = buildShoppingListView(entries, progressOf(entries, shared), null,
           { filter: 'needed', hiddenPacks, picks: shared.route });
-        return { view, needed: view.total - view.acquired, live, notShared: shared.notShared, failed };
+        return { view, needed: view.total - view.acquired, notShared: shared.notShared, failed };
       })
     );
   }

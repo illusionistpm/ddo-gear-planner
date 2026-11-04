@@ -131,7 +131,7 @@ export class ShoppingListService {
     return formatShoppingListText(view, this.currentBuild.value.name);
   }
 
-  /** Keys of the entries still needed, for a snapshot link (see shopping-list-link.ts). */
+  /** Keys of the entries still needed. */
   stillNeededKeys(): string[] {
     return stillNeededKeys(this.currentEntries(), this.progressStore.progress, this.trove);
   }

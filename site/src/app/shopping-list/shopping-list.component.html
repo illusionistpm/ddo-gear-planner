@@ -29,13 +29,11 @@
             {{friend.needed}} thing{{friend.needed === 1 ? '' : 's'}} still needed
           }
         </span>
-        @if (friend.live) {
-          <button type="button" class="shopping-list-refresh" (click)="refresh()" [disabled]="!canRefresh"
-            title="Fetch what's still needed again">
-            <i class="fas fa-rotate" aria-hidden="true"></i>
-            <span>Refresh</span>
-          </button>
-        }
+        <button type="button" class="shopping-list-refresh" (click)="refresh()" [disabled]="!canRefresh"
+          title="Fetch what's still needed again">
+          <i class="fas fa-rotate" aria-hidden="true"></i>
+          <span>Refresh</span>
+        </button>
       } @else {
         <h2 id="shoppingListTitle" class="shopping-list-title">Shopping list</h2>
         @if (view) {

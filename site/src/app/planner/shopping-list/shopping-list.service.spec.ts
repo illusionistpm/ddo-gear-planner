@@ -166,7 +166,7 @@ describe('ShoppingListService', () => {
     expect(publish).not.toHaveBeenCalled();
   });
 
-  it('gives the keys of what\'s still needed, for a snapshot link', async () => {
+  it('gives the keys of what\'s still needed', async () => {
     expect(service.stillNeededKeys()).toHaveLength(2);
 
     service.toggle((await rowsOf()).find(row => row.entry.label === 'Ring of Tests')!);

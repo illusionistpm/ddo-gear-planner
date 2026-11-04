@@ -47,10 +47,18 @@
   color: var(--primary-color);
 }
 
+.share-menu-note,
 .share-menu-error {
   border-top: 1px solid var(--border-color);
-  color: var(--danger-color);
   display: block;
   font-size: 0.8rem;
   padding: var(--space-8) var(--space-12);
+}
+
+.share-menu-note {
+  color: var(--text-secondary);
+}
+
+.share-menu-error {
+  color: var(--danger-color);
 }

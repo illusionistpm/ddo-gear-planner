@@ -73,7 +73,7 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
         // Opened again, as your own list or a friend's: say so once its view arrives.
         this.view = null;
         this.friend = null;
-        return link.kind === 'own' ? this.shoppingList.view$ : this.friendList.listFor(link).pipe(
+        return link.kind === 'own' ? this.shoppingList.view$ : this.friendList.list().pipe(
           map(friend => {
             this.friend = friend;
             this.scheduleRefresh();
@@ -147,8 +147,8 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
   private scheduleRefresh(): void {
     clearTimeout(this.refreshTimeout);
     const wait = this.friendList.nextRefreshAt - Date.now();
-    this.canRefresh = !!this.friend?.live && wait <= 0;
-    if (this.friend?.live && wait > 0) {
+    this.canRefresh = !!this.friend && wait <= 0;
+    if (this.friend && wait > 0) {
       this.refreshTimeout = setTimeout(() => this.scheduleRefresh(), wait);
     }
     this.cdr.markForCheck();

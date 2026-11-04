@@ -1,15 +1,10 @@
-import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output
-} from '@angular/core';
-import { Subscription } from 'rxjs';
-import { switchMap, take } from 'rxjs/operators';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 
+import { buildPath } from '../build/build-route';
 import { CurrentBuildService } from '../build/current-build.service';
-import { ShareLinkResolverService, ShareLinkState } from '../build/share-link-resolver.service';
-import { shoppingListFragment, snapshotLink } from '../build/shopping-list-link';
+import { shoppingListFragment } from '../build/shopping-list-link';
 import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
 import { AnalyticsService } from '../shared/analytics.service';
-import { AuthService } from '../shared/auth.service';
 import { Clipboard } from '../shared/clipboard';
 
 export type ShoppingListCopyKind = 'link' | 'text_and_link' | 'text';
@@ -20,12 +15,9 @@ const COPIED_CONFIRMATION_MS = 1500;
  * The shopping list's open Share menu: a link that opens a friend's view of
  * what's still needed, that with the list as text, or the text alone.
  *
- * The link is the build's own share link (ShareLinkResolverService,
- * resolved as the menu opens so each copy stays synchronous inside its
- * click) with a fragment saying what's still needed:
- * - the build's canonical URL gets #still-needed, live from the server,
- *   which the owner's list keeps up to date while the build is as saved;
- * - a short or long link gets a snapshot of what's still needed now.
+ * The link follows the owner's ticks, which only the server can carry, so
+ * it's offered for a saved build of yours. Any other build gets the text
+ * alone: a list that couldn't change after copying would be just that.
  */
 @Component({
   selector: 'app-shopping-list-share-menu',
@@ -34,48 +26,39 @@ const COPIED_CONFIRMATION_MS = 1500;
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false
 })
-export class ShoppingListShareMenuComponent implements OnInit, OnDestroy {
+export class ShoppingListShareMenuComponent implements OnDestroy {
   @Output() closed = new EventEmitter<void>();
 
-  shareLink: ShareLinkState = { status: 'pending' };
-  /** Clipboard.copy() refused, as opposed to the link not being ready. */
+  /** Clipboard.copy() refused. */
   copyError: string | null = null;
   /** Which item last copied something, for its "Copied!". */
   justCopied: ShoppingListCopyKind | null = null;
 
-  private subscription?: Subscription;
   private copiedTimeout?: ReturnType<typeof setTimeout>;
 
   constructor(
-    private readonly shareLinks: ShareLinkResolverService,
     private readonly shoppingList: ShoppingListService,
     private readonly currentBuild: CurrentBuildService,
-    private readonly auth: AuthService,
     private readonly analytics: AnalyticsService,
     private readonly cdr: ChangeDetectorRef
   ) { }
 
-  ngOnInit(): void {
-    this.subscription = this.auth.isAuthenticated$.pipe(
-      take(1),
-      switchMap(isAuthenticated => this.shareLinks.resolve(this.currentBuild.value, isAuthenticated))
-    ).subscribe(shareLink => {
-      this.shareLink = shareLink;
-      this.cdr.markForCheck();
-    });
-  }
-
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
     clearTimeout(this.copiedTimeout);
   }
 
-  get linkLabel(): string {
-    return this.shareLink.status === 'pending' ? 'Preparing link…' : 'Copy link';
+  /** The link to a friend's view of this build's list, or null when it can't have one. */
+  get listUrl(): string | null {
+    const { shortId, name, ownership } = this.currentBuild.value;
+    if (!shortId || ownership !== 'owned') {
+      return null;
+    }
+    return `${window.location.origin}${buildPath(shortId, name)}#${shoppingListFragment({ kind: 'live' })}`;
   }
 
-  get textAndLinkLabel(): string {
-    return this.shareLink.status === 'pending' ? 'Preparing link…' : 'Copy list + link';
+  /** A friend's link shows the build as saved, not the changes on screen. */
+  get hasUnsavedChanges(): boolean {
+    return this.currentBuild.value.isDirty;
   }
 
   copyLink(): void {
@@ -91,18 +74,10 @@ export class ShoppingListShareMenuComponent implements OnInit, OnDestroy {
   }
 
   private copyWithLink(kind: ShoppingListCopyKind, clipboardText: (url: string) => string): void {
-    if (this.shareLink.status !== 'ready') {
-      // Still minting, or failed: the menu says so, and a click once it's ready is the retry.
-      return;
+    const url = this.listUrl;
+    if (url) {
+      this.finishCopy(kind, Clipboard.copy(clipboardText(url)));
     }
-    this.finishCopy(kind, Clipboard.copy(clipboardText(this.listUrl(this.shareLink.url, this.shareLink.kind === 'canonical'))));
-  }
-
-  /** The build's link, opening a friend's view of what's still needed. */
-  private listUrl(buildUrl: string, live: boolean): string {
-    const link = live ? { kind: 'live' as const } : snapshotLink(this.shoppingList.stillNeededKeys());
-    // A long link is this page's own URL, with its own fragment on.
-    return `${buildUrl.split('#')[0]}#${shoppingListFragment(link)}`;
   }
 
   private finishCopy(kind: ShoppingListCopyKind, succeeded: boolean): void {
@@ -112,11 +87,7 @@ export class ShoppingListShareMenuComponent implements OnInit, OnDestroy {
       return;
     }
     this.copyError = null;
-    this.analytics.track('copy_shopping_list', {
-      copy_kind: kind,
-      ...(kind === 'text' || this.shareLink.status !== 'ready' ? {} : { link_kind: this.shareLink.kind }),
-      needed_count: this.shoppingList.stillNeededKeys().length
-    });
+    this.analytics.track('copy_shopping_list', { copy_kind: kind, needed_count: this.shoppingList.stillNeededKeys().length });
     this.justCopied = kind;
     this.cdr.markForCheck();
     clearTimeout(this.copiedTimeout);

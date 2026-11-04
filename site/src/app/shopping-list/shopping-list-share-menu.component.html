@@ -1,9 +1,13 @@
 <div class="share-menu">
-  <button type="button" class="share-menu-item" [disabled]="shareLink.status !== 'ready'" (click)="copyLink()">{{ justCopied === 'link' ? 'Copied!' : linkLabel }}</button>
-  <button type="button" class="share-menu-item" [disabled]="shareLink.status !== 'ready'" (click)="copyTextAndLink()">{{ justCopied === 'text_and_link' ? 'Copied!' : textAndLinkLabel }}</button>
+  @if (listUrl) {
+    <button type="button" class="share-menu-item" (click)="copyLink()">{{ justCopied === 'link' ? 'Copied!' : 'Copy link' }}</button>
+    <button type="button" class="share-menu-item" (click)="copyTextAndLink()">{{ justCopied === 'text_and_link' ? 'Copied!' : 'Copy list + link' }}</button>
+  }
   <button type="button" class="share-menu-item" (click)="copyText()">{{ justCopied === 'text' ? 'Copied!' : 'Copy list' }}</button>
-  @if (shareLink.status === 'error') {
-    <span class="share-menu-error" role="alert">{{ shareLink.message }}</span>
+  @if (!listUrl) {
+    <span class="share-menu-note">Save this build to share a link that follows your ticks.</span>
+  } @else if (hasUnsavedChanges) {
+    <span class="share-menu-note">The link shows the build as last saved.</span>
   }
   @if (copyError) {
     <span class="share-menu-error" role="alert">{{ copyError }}</span>

@@ -3,7 +3,6 @@ import { BehaviorSubject, of, Subject, throwError } from 'rxjs';
 
 import { BuildProgressService, PublicBuildProgress } from '../../build/build-progress.service';
 import { CurrentBuildService, CurrentBuildState } from '../../build/current-build.service';
-import { snapshotLink } from '../../build/shopping-list-link';
 import { FiltersService } from '../filters.service';
 import { FRIEND_REFRESH_INTERVAL_MS, FriendShoppingList, FriendShoppingListService } from './friend-shopping-list.service';
 import { ShoppingListService } from './shopping-list.service';
@@ -48,38 +47,30 @@ describe('FriendShoppingListService', () => {
     service = TestBed.inject(FriendShoppingListService);
   });
 
-  function watch(link: Parameters<FriendShoppingListService['listFor']>[0]): void {
-    service.listFor(link).subscribe(list => latest = list);
+  function watch(): void {
+    service.list().subscribe(list => latest = list);
   }
 
   /** Each quest card with what's listed there. */
   const listed = () => latest.view!.sections.flatMap(section => section.groups)
     .map(group => [group.label, group.rows.flatMap(row => [row.entry.label, ...row.children.map(child => child.entry.label)])]);
 
-  it('lists what a snapshot link names, routed as the friend\'s own list would', () => {
-    watch(snapshotLink([ruby.key, boots.key]));
-
-    expect(listed()).toEqual([['Quest A', ['Ruby']], ['Quest C', ['Boots']]]);
-    expect(latest).toMatchObject({ needed: 2, live: false, notShared: false, failed: false });
-    expect(getPublic).not.toHaveBeenCalled();
-  });
-
-  it('lists what the owner last published for a live link, routed as the owner\'s list is', () => {
+  it('lists what the owner last published for the build, routed as the owner\'s list is', () => {
     const published: PublicBuildProgress = { needed: [ruby.key], route: { 'augment|Ruby': ['Quest B'] }, updatedAt: 'now' };
     getPublic.mockReturnValue(of(published));
 
-    watch({ kind: 'live' });
+    watch();
 
     expect(getPublic).toHaveBeenCalledWith('s1');
     expect(listed()).toEqual([['Quest B', ['Ruby']]]);
-    expect(latest).toMatchObject({ needed: 1, live: true, notShared: false, failed: false });
+    expect(latest).toMatchObject({ needed: 1, notShared: false, failed: false });
   });
 
   it('says it\'s loading until the owner\'s list arrives', () => {
     const response = new Subject<PublicBuildProgress>();
     getPublic.mockReturnValue(response);
 
-    watch({ kind: 'live' });
+    watch();
     expect(latest).toMatchObject({ view: null, failed: false });
 
     response.next({ needed: [], route: {}, updatedAt: 'now' });
@@ -89,7 +80,7 @@ describe('FriendShoppingListService', () => {
 
   it('lists everything the build needs when the owner has shared nothing, or the build isn\'t saved', () => {
     getPublic.mockReturnValue(of({ needed: null, route: {}, updatedAt: null }));
-    watch({ kind: 'live' });
+    watch();
     expect(latest).toMatchObject({ needed: 3, notShared: true });
 
     state.next({ ...SAVED, shortId: null });
@@ -101,7 +92,7 @@ describe('FriendShoppingListService', () => {
     let now = 1_000_000;
     vi.spyOn(Date, 'now').mockImplementation(() => now);
     getPublic.mockReturnValue(of({ needed: [boots.key], route: {}, updatedAt: 'now' }));
-    watch({ kind: 'live' });
+    watch();
 
     now += FRIEND_REFRESH_INTERVAL_MS - 1;
     expect(service.refresh()).toBe(false);
@@ -116,7 +107,7 @@ describe('FriendShoppingListService', () => {
 
   it('keeps the last list when a Refresh fails, saying so, and lets Refresh try again at once', () => {
     getPublic.mockReturnValue(of({ needed: [boots.key], route: {}, updatedAt: 'now' }));
-    watch({ kind: 'live' });
+    watch();
     vi.spyOn(Date, 'now').mockReturnValue(Date.now() + FRIEND_REFRESH_INTERVAL_MS);
 
     getPublic.mockReturnValue(throwError(() => new Error('offline')));
@@ -132,7 +123,7 @@ describe('FriendShoppingListService', () => {
   it('says when the owner\'s list couldn\'t be fetched at all', () => {
     getPublic.mockReturnValue(throwError(() => new Error('offline')));
 
-    watch({ kind: 'live' });
+    watch();
 
     expect(latest).toMatchObject({ view: null, failed: true });
   });

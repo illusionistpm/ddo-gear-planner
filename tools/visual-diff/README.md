@@ -44,8 +44,9 @@ build with augments, so it has crafting rows) with its share menu open and in
 Arrange mode, and a friend's still-needed page for it. Add a scene there when a
 state isn't covered.
 
-The still-needed page reads the build and the owner's list from the API, so
-that scene pins both answers with `page.route` (`open_still_needed`).
+The still-needed page reads the build and the owner's list from the Worker's
+live WebSocket, so that scene answers the socket itself with
+`page.route_web_socket` (`open_still_needed`, Playwright 1.48 or later).
 
 Each scene gets a fresh browser context with localStorage seeded (theme,
 active tab, onboarding), animations disabled, and the data-build timestamp

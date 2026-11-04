@@ -31,7 +31,11 @@ your actual Cloudflare and Auth0 accounts, which I can't act on myself.
    (`src/rateLimit.ts`, ~20 requests/minute per IP via KV) rather than
    Cloudflare's dashboard Rate Limiting Rules, which require a paid add-on
    outside Business/Enterprise plans - nothing to configure here.
-7. `npx wrangler deploy` - ships the Worker.
+7. `npx wrangler deploy` - ships the Worker. The first deploy with the
+   `ProgressRoom` Durable Object (friends' live shopping lists, see
+   `src/live.ts`) also creates its class, from the `[[migrations]]` entry in
+   `wrangler.toml` - nothing to set up by hand. It's SQLite-backed, the only
+   kind the Workers Free plan allows, though it stores nothing.
 
 ## 2. Auth0
 
@@ -117,6 +121,9 @@ your actual Cloudflare and Auth0 accounts, which I can't act on myself.
   `curl -H "Authorization: Bearer <token>" https://api.ddo-gear-planner.com/api/users/me`
   should return `{"id":...,"buildCount":0}` and create a row in the `users`
   table (`npx wrangler d1 execute DB --remote --command "SELECT * FROM users"`).
+- Open a saved build's still-needed link (`/still-needed/<shortId>`) in a
+  browser: its header should say "Live". `curl` can't open the WebSocket,
+  and the Worker refuses one from an origin not in `ALLOWED_ORIGINS`.
 - Open the app in an actual browser (not curl) and confirm a cross-origin
   call with an `Authorization` header succeeds - the CORS preflight path is
   the one thing curl can't validate for you (see `src/index.ts`'s comment on

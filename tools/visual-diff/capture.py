@@ -110,18 +110,18 @@ def open_shopping_list(page: Page) -> None:
 
 
 def open_still_needed(page: Page) -> None:
-    """A friend's still-needed page for the build on screen, its API answers
-    pinned: the build as the planner encodes it (its URL's b=), and an owner
-    who has shared nothing yet, so everything is listed - in an arranged
-    order, so the page is seen to follow one."""
+    """A friend's still-needed page for the build on screen, its live socket
+    pinned (worker/src/live.ts): the build as the planner encodes it (its
+    URL's b=), and an owner who has shared nothing yet, so everything is
+    listed - in an arranged order, so the page is seen to follow one."""
     page.wait_for_function("location.search.includes('b=')")
     blob = page.evaluate("new URLSearchParams(location.search).get('b')")
-    progress = {'needed': None, 'route': {}, 'updatedAt': None,
-                'order': {'packs': ['Sinister Secret of Saltmarsh', 'Hunter and Hunted', 'Fables of the Feywild', ''],
-                          'quests': ['The Haunting of Saltmarsh', 'Saltmarsh']}}
-    cors = {'Access-Control-Allow-Origin': '*'}
-    page.route('**/api/build/s1', lambda route: route.fulfill(json={'name': 'Test Build', 'blob': blob}, headers=cors))
-    page.route('**/api/build/s1/progress', lambda route: route.fulfill(json=progress, headers=cors))
+    message = json.dumps({
+        'kind': 'list', 'name': 'Test Build', 'blob': blob, 'needed': None, 'route': {}, 'version': '2026-01-01T00:00:00.000Z',
+        'order': {'packs': ['Sinister Secret of Saltmarsh', 'Hunter and Hunted', 'Fables of the Feywild', ''],
+                  'quests': ['The Haunting of Saltmarsh', 'Saltmarsh']}})
+    # Never connected to the server: the route answers for it.
+    page.route_web_socket('**/api/build/s1/live', lambda ws: ws.send(message))
     page.goto(page.url.split('/?')[0] + '/still-needed/s1/test-build')
     page.wait_for_selector('.shopping-section')
 

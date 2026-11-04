@@ -20,7 +20,9 @@ no separate value to remember to update.
 ## Shopping-list progress
 
 The `*Progress*` values bound what `PUT /api/builds/:id/progress` stores
-(`worker/src/routes/progress.ts`). The site doesn't read them: its sync
+(`worker/src/routes/progress.ts`), and the shopping list a build save
+carries (`PUT /api/builds/:id`'s `progress`), whose write counts against
+the same interval and daily cap. The site doesn't read them: its sync
 waits out a quiet spell after the last change before writing (2 s, set in
 `SHOPPING_SYNC_TIMING`), which keeps it above the write interval.
 

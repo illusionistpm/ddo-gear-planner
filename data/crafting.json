@@ -54406,7 +54406,7 @@
                 "affixes": [
                     {
                         "name": "Deception",
-                        "type": "Sneak Attack",
+                        "type": "Enhancement",
                         "value": "4"
                     },
                     {
@@ -54465,7 +54465,7 @@
                 "affixes": [
                     {
                         "name": "Deception",
-                        "type": "Sneak Attack",
+                        "type": "Enhancement",
                         "value": "5"
                     },
                     {

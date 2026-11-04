@@ -12,7 +12,7 @@ import { GearDbService } from '../../gear/gear-db.service';
 import { QuestService } from '../../gear/quest.service';
 import { slotsFromParams } from '../slots-from-params';
 import { deriveShoppingEntries, ShoppingSourceLookup } from './shopping-list-entries';
-import type { ShoppingEntry, ShoppingListView, ShoppingProgress, ShoppingSourcePicks } from './shopping-list-types';
+import type { ShoppingEntry, ShoppingListView, ShoppingProgress, ShoppingRouteOrder, ShoppingSourcePicks } from './shopping-list-types';
 import { buildShoppingListView } from './shopping-list-view-model';
 
 /** How often a friend can fetch a build's list again. The worker caches it for 15 s. */
@@ -41,10 +41,12 @@ interface Shared {
   isNeeded: (key: string) => boolean;
   /** In the shape of picks, so the list routes things as the owner's does. */
   route: ShoppingSourcePicks;
+  /** The order the owner arranged it in, if they did. */
+  order: ShoppingRouteOrder | undefined;
   notShared: boolean;
 }
 
-const EVERYTHING: Shared = { isNeeded: () => true, route: {}, notShared: true };
+const EVERYTHING: Shared = { isNeeded: () => true, route: {}, order: undefined, notShared: true };
 
 /** The last list fetched (null before the first arrives), and whether the latest fetch failed. */
 interface Fetched {
@@ -55,7 +57,8 @@ interface Fetched {
 /**
  * A friend's read-only view of what a saved build still needs (see
  * StillNeededPageComponent): the build's own entries, cut down to those the
- * owner last published as still needed, and routed as the owner's list is.
+ * owner last published as still needed, routed and arranged as the owner's
+ * list is.
  *
  * Touches nothing of the planner's or the friend's own: not the equipped
  * gear, progress, picks or the server's copy.
@@ -106,7 +109,8 @@ export class FriendShoppingListService {
         if (!shared) {
           return { view: null, needed: 0, notShared: false, failed };
         }
-        const view = buildShoppingListView(entries, progressOf(entries, shared), null, { filter: 'needed', picks: shared.route });
+        const view = buildShoppingListView(entries, progressOf(entries, shared), null,
+          { filter: 'needed', picks: shared.route, order: shared.order });
         return { view, needed: view.total - view.acquired, notShared: shared.notShared, failed };
       })
     );
@@ -131,11 +135,12 @@ export class FriendShoppingListService {
     this.lastFetchAt = Date.now();
     return this.api.getPublic(shortId).pipe(
       map((published): Shared => {
+        const order = published.order ?? undefined;
         if (published.needed === null) {
-          return EVERYTHING;
+          return { ...EVERYTHING, order };
         }
         const needed = new Set(published.needed);
-        return { isNeeded: key => needed.has(key), route: published.route, notShared: false };
+        return { isNeeded: key => needed.has(key), route: published.route, order, notShared: false };
       }),
       catchError(() => {
         // Nothing came back to cache, so Refresh may try again at once.

@@ -97,6 +97,17 @@ describe('FriendShoppingListService', () => {
     expect(latest).toMatchObject({ needed: 1, notShared: false, failed: false });
   });
 
+  it('lists packs and quests in the order the owner arranged them', () => {
+    const packed = (quest: string, pack: string) => ({ quest, pack, raid: false, wikiUrl: `wiki/${quest}` });
+    const inA = entry({ key: 'g|A', identity: 'gear|A', label: 'A', sources: [packed('Quest A', 'Pack A')] });
+    const inB = entry({ key: 'g|B', identity: 'gear|B', label: 'B', sources: [packed('Quest B', 'Pack B')] });
+    getPublic.mockReturnValue(of({ needed: null, route: {}, order: { packs: ['Pack B', 'Pack A'], quests: [] }, updatedAt: 'now' }));
+
+    service.list('s1', [inA, inB]).subscribe(list => latest = list);
+
+    expect(latest.view!.sections.map(section => section.label)).toEqual(['Pack B', 'Pack A']);
+  });
+
   it('says it\'s loading until the owner\'s list arrives', () => {
     const response = new Subject<PublicBuildProgress>();
     getPublic.mockReturnValue(response);

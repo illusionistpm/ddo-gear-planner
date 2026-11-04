@@ -9,7 +9,9 @@ import { CurrentBuildService, CurrentBuildState } from '../../build/current-buil
 import { AuthService } from '../../shared/auth.service';
 import { SHOPPING_SYNC_TIMING, ServerShoppingProgressStore, ShoppingSyncTiming } from './server-shopping-progress-store';
 import { addToOutbox, readOutbox, SHOPPING_OUTBOX_STORAGE_KEY } from './shopping-progress-outbox';
-import { patchScopeProgress, readScopePicks, readScopeProgress, SHOPPING_PROGRESS_STORAGE_KEY } from './shopping-progress-storage';
+import {
+  patchScopeProgress, readScopeOrder, readScopePicks, readScopeProgress, setScopeOrder, SHOPPING_PROGRESS_STORAGE_KEY
+} from './shopping-progress-storage';
 import { ShoppingSyncState } from './shopping-progress-store';
 
 const UNSAVED: CurrentBuildState = { savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other' };
@@ -158,6 +160,92 @@ describe('ServerShoppingProgressStore', () => {
     expect(second.request.body).toEqual({ patch: { b: 1 } });
     second.flush(doc({ entries: { a: 1, b: 1 } }));
     await settle();
+  });
+
+  describe('the route\'s order', () => {
+    const order = { packs: ['Pack B', 'Pack A'], quests: ['Quest B'] };
+
+    it('sends it when arranged, and null when put back in the default order', async () => {
+      const store = create();
+      await openOwned();
+
+      store.setOrder(order);
+      expect(store.order).toEqual(order);
+      const put = await expectRequest('PUT');
+      expect(put.request.body).toEqual({ order });
+      put.flush(doc({ order }));
+      await settle();
+
+      store.setOrder(null);
+      const cleared = await expectRequest('PUT');
+      expect(cleared.request.body).toEqual({ order: null });
+      cleared.flush(doc({ order: null }));
+      await settle();
+      expect(readOutbox('b1')).toBeNull();
+    });
+
+    it('takes the server\'s, as arranged on another device', async () => {
+      const store = create();
+      setScopeOrder('saved:b1', { packs: ['Stale'], quests: [] });
+
+      await openOwned(doc({ order }));
+
+      expect(store.order).toEqual(order);
+    });
+
+    it('keeps its own when the server says nothing of one, as a worker that predates it doesn\'t', async () => {
+      const store = create();
+      setScopeOrder('saved:b1', order);
+
+      await openOwned(doc());
+
+      expect(store.order).toEqual(order);
+    });
+
+    it('keeps one still queued over the server\'s answer', async () => {
+      const store = create();
+      await openOwned(doc({ order }));
+
+      store.setOrder(null);
+      store.applyPatch({ a: 1 });
+      const put = await expectRequest('PUT');
+      store.setOrder(order);
+      put.flush(doc({ entries: { a: 1 }, order: null }));
+      await settle();
+
+      expect(store.order).toEqual(order);
+      const next = await expectRequest('PUT');
+      expect(next.request.body).toEqual({ order });
+      next.flush(doc({ entries: { a: 1 }, order }));
+      await settle();
+    });
+
+    it('uploads this device\'s when the server has nothing yet', async () => {
+      create();
+      setScopeOrder('saved:b1', order);
+
+      state.next(OWNED);
+      (await expectRequest('GET')).flush(doc({ updatedAt: null }));
+      const put = await expectRequest('PUT');
+
+      expect(put.request.body).toEqual({ order });
+      put.flush(doc({ order }));
+      await settle();
+    });
+
+    it('brings along one arranged before the build turned out to be yours, unless the server has one', async () => {
+      create();
+      setScopeOrder('build:s1', order);
+      state.next({ ...OWNED, ownership: 'unknown', savedBuildId: null });
+      state.next(OWNED);
+      (await expectRequest('GET')).flush(doc());
+      const put = await expectRequest('PUT');
+
+      expect(put.request.body).toEqual({ order });
+      put.flush(doc({ order }));
+      await settle();
+      expect(readScopeOrder('saved:b1')).toEqual(order);
+    });
   });
 
   it('sends forgetting a pick, and Reset route, as nulls', async () => {

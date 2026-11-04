@@ -17,6 +17,28 @@ describe('shopping progress outbox', () => {
     expect(readOutbox('b2')).toEqual({ patch: { z: 0 }, picksPatch: {} });
   });
 
+  it('queues the route\'s order as the latest one set, null clearing it', () => {
+    const order = { packs: ['Pack B', 'Pack A'], quests: ['Quest B'] };
+    addToOutbox('b1', { patch: { a: 1 }, order });
+    addToOutbox('b1', { patch: { b: 1 } });
+    expect(readOutbox('b1')?.order).toEqual(order);
+
+    addToOutbox('b1', { order: null });
+    expect(readOutbox('b1')).toEqual({ patch: { a: 1, b: 1 }, picksPatch: {}, order: null });
+    expect(outboxRequestBody(readOutbox('b1')!)).toEqual({ patch: { a: 1, b: 1 }, order: null });
+  });
+
+  it('settles a sent order unless another was set meanwhile, and empties on it like anything else', () => {
+    addToOutbox('b1', { order: { packs: ['Pack B', 'Pack A'], quests: ['Quest B'] } });
+    const sent = readOutbox('b1')!;
+    addToOutbox('b1', { order: null });
+    settleOutbox('b1', sent);
+    expect(readOutbox('b1')).toEqual({ patch: {}, picksPatch: {}, order: null });
+
+    settleOutbox('b1', readOutbox('b1')!);
+    expect(readOutbox('b1')).toBeNull();
+  });
+
   it('settles only what is still queued as it was sent', () => {
     addToOutbox('b1', { patch: { a: 1, b: 1 }, picksPatch: { Ring: ['Q1'] }, published: { needed: ['a'], route: {} } });
     const sent = readOutbox('b1')!;

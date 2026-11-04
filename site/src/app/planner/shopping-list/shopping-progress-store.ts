@@ -133,9 +133,9 @@ export class LocalShoppingProgressStore extends ShoppingProgressStore implements
     // Intentionally empty.
   }
 
-  /** Replaces a scope's ticks and picks, as when another copy of them wins. */
-  replaceScope(scope: string, entries: ShoppingProgress, picks: ShoppingSourcePicks): void {
-    replaceScopeProgress(scope, entries, picks);
+  /** Replaces a scope's ticks and picks, and its order when given, as when another copy of them wins. */
+  replaceScope(scope: string, entries: ShoppingProgress, picks: ShoppingSourcePicks, order?: ShoppingRouteOrder | null): void {
+    replaceScopeProgress(scope, entries, picks, order);
     if (scope === this.currentScope) {
       this.readScope();
     }

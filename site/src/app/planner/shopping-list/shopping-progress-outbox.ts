@@ -1,5 +1,5 @@
 import type { BuildProgressPut } from '../../build/build-progress.service';
-import type { ShoppingProgressPatch, ShoppingPublished } from './shopping-list-types';
+import type { ShoppingProgressPatch, ShoppingPublished, ShoppingRouteOrder } from './shopping-list-types';
 
 /**
  * Progress changes made on this device and not yet confirmed by the server,
@@ -16,6 +16,8 @@ export interface OutboxWrite {
   picksPatch: Record<string, readonly string[] | null>;
   /** What friends should see now; absent when it hasn't changed. */
   published?: ShoppingPublished;
+  /** The route's order now, null for the default; absent when it hasn't changed. */
+  order?: ShoppingRouteOrder | null;
 }
 
 interface StoredOutbox {
@@ -34,7 +36,8 @@ export function addToOutbox(buildId: string, write: Partial<OutboxWrite>): void 
   all.builds[buildId] = {
     patch: { ...queued?.patch, ...write.patch },
     picksPatch: { ...queued?.picksPatch, ...write.picksPatch },
-    ...(write.published ?? queued?.published ? { published: write.published ?? queued?.published } : {})
+    ...(write.published ?? queued?.published ? { published: write.published ?? queued?.published } : {}),
+    ...('order' in write ? { order: write.order } : queued && 'order' in queued ? { order: queued.order } : {})
   };
   writeAll(all);
 }
@@ -63,6 +66,9 @@ export function settleOutbox(buildId: string, sent: OutboxWrite): void {
   if (queued.published && JSON.stringify(queued.published) === JSON.stringify(sent.published)) {
     delete queued.published;
   }
+  if ('order' in queued && 'order' in sent && JSON.stringify(queued.order) === JSON.stringify(sent.order)) {
+    delete queued.order;
+  }
   if (isEmptyWrite(queued)) {
     delete all.builds[buildId];
   }
@@ -78,7 +84,7 @@ export function dropOutbox(buildId: string): void {
 }
 
 export function isEmptyWrite(write: OutboxWrite): boolean {
-  return !Object.keys(write.patch).length && !Object.keys(write.picksPatch).length && !write.published;
+  return !Object.keys(write.patch).length && !Object.keys(write.picksPatch).length && !write.published && !('order' in write);
 }
 
 /** The request body for a queued write. */
@@ -86,7 +92,8 @@ export function outboxRequestBody(write: OutboxWrite): BuildProgressPut {
   return {
     ...(Object.keys(write.patch).length ? { patch: write.patch } : {}),
     ...(Object.keys(write.picksPatch).length ? { picksPatch: write.picksPatch } : {}),
-    ...(write.published ? { needed: write.published.needed, route: write.published.route } : {})
+    ...(write.published ? { needed: write.published.needed, route: write.published.route } : {}),
+    ...('order' in write ? { order: write.order ?? null } : {})
   };
 }
 

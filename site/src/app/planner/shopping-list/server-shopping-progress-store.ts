@@ -12,7 +12,7 @@ import { applyProgressPatch } from './shopping-list-view-model';
 import {
   addToOutbox, dropOutbox, isEmptyWrite, outboxRequestBody, OutboxWrite, readOutbox, settleOutbox
 } from './shopping-progress-outbox';
-import { readScopePicks, readScopeProgress } from './shopping-progress-storage';
+import { readScopeOrder, readScopePicks, readScopeProgress } from './shopping-progress-storage';
 import {
   LocalShoppingProgressStore, shoppingProgressScope, ShoppingProgressStore, ShoppingSyncState
 } from './shopping-progress-store';
@@ -176,9 +176,9 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
     }
   }
 
-  /** Kept in this browser only, for now. */
   setOrder(order: ShoppingRouteOrder | null): void {
     this.local.setOrder(order);
+    this.queue({ order: this.local.order });
   }
 
   publish(published: ShoppingPublished): void {
@@ -261,16 +261,20 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
     await this.request(buildId, () => this.api.getOwn(buildId), doc => {
       this.fetchWanted = false;
       this.lastFetchAt = Date.now();
-      if (doc.updatedAt === null && (Object.keys(this.local.progress).length || Object.keys(this.local.picks).length)) {
+      const localOrder = this.local.order;
+      if (doc.updatedAt === null && (Object.keys(this.local.progress).length || Object.keys(this.local.picks).length || localOrder)) {
         // Nothing on the server yet: this device's ticks are the first copy.
-        addToOutbox(buildId, { patch: { ...this.local.progress }, picksPatch: { ...this.local.picks } });
+        addToOutbox(buildId, {
+          patch: { ...this.local.progress }, picksPatch: { ...this.local.picks }, ...(localOrder ? { order: localOrder } : {})
+        });
       } else if (doc.updatedAt !== null && this.carriedFrom) {
         // Ticked before it turned out to be yours (signed out, say): bring
         // those along, the server's copy winning where both have a key.
         const patch = Object.fromEntries(Object.entries(readScopeProgress(this.carriedFrom)).filter(([key]) => !(key in doc.entries)));
         const picksPatch = Object.fromEntries(Object.entries(readScopePicks(this.carriedFrom)).filter(([key]) => !(key in doc.picks)));
-        if (Object.keys(patch).length || Object.keys(picksPatch).length) {
-          addToOutbox(buildId, { patch, picksPatch });
+        const carriedOrder = doc.order ? null : readScopeOrder(this.carriedFrom);
+        if (Object.keys(patch).length || Object.keys(picksPatch).length || carriedOrder) {
+          addToOutbox(buildId, { patch, picksPatch, ...(carriedOrder ? { order: carriedOrder } : {}) });
         }
       }
       this.carriedFrom = null;
@@ -336,8 +340,11 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
         picks.delete(identity);
       }
     }
+    // An order still queued wins; a worker that doesn't store one (doc.order
+    // undefined) leaves this device's alone.
+    const order = queued && 'order' in queued ? queued.order : doc.order;
     this.local.replaceScope(
-      SAVED_SCOPE_PREFIX + buildId, applyProgressPatch(doc.entries, queued?.patch ?? {}), Object.fromEntries(picks)
+      SAVED_SCOPE_PREFIX + buildId, applyProgressPatch(doc.entries, queued?.patch ?? {}), Object.fromEntries(picks), order
     );
     this.publishedJson ??= doc.needed === null ? null : JSON.stringify({ needed: doc.needed, route: doc.route });
   }

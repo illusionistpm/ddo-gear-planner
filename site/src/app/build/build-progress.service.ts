@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import type {
-  ShoppingProgress, ShoppingProgressPatch, ShoppingSourcePicks
+  ShoppingProgress, ShoppingProgressPatch, ShoppingRouteOrder, ShoppingSourcePicks
 } from '../planner/shopping-list/shopping-list-types';
 
 /** What a friend's link may see of a saved build's shopping list. */
@@ -13,6 +13,11 @@ export interface PublicBuildProgress {
   needed: readonly string[] | null;
   /** For each still-needed thing, the quests the owner's list sends them to. */
   route: ShoppingSourcePicks;
+  /**
+   * The order the owner arranged the route in; null for the default.
+   * Absent from a worker that predates it, which doesn't store one.
+   */
+  order?: ShoppingRouteOrder | null;
   updatedAt: string | null;
 }
 
@@ -29,6 +34,8 @@ export interface BuildProgressPut {
   picksPatch?: Record<string, readonly string[] | null>;
   needed?: readonly string[];
   route?: ShoppingSourcePicks;
+  /** Arranges the route; null puts it back in its default order. */
+  order?: ShoppingRouteOrder | null;
 }
 
 /** Why a progress request failed, as far as a caller has to act on it. */

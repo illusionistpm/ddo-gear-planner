@@ -12,7 +12,7 @@ import { BuildsService } from './build/builds.service';
 import { CurrentBuildService } from './build/current-build.service';
 import { EquippedService } from './planner/equipped.service';
 import { FiltersService } from './planner/filters.service';
-import { Item } from './gear/item';
+import { GearDbService } from './gear/gear-db.service';
 import { QueryParamsService } from './build/query-params.service';
 
 // Router navigation is promise-driven; wait for it (and anything it scheduled) to finish.
@@ -106,7 +106,7 @@ describe('switching between two saved builds via the real router', () => {
     // then switch to a different saved build (same route config as the
     // just-saved one, so THIS transition relies on route reuse/paramMap).
     // Empty (no gear) blobs - this test is about routing/reactivity, not
-    // gear lookups, and GearDbService has no real item data loaded here.
+    // gear lookups.
     const codec = TestBed.inject(BuildUrlCodecService);
     const blobA = codec.encode({});
     const blobB = codec.encode({});
@@ -126,8 +126,9 @@ describe('switching between two saved builds via the real router', () => {
     // Equip exactly one slot and leave every other slot empty - the actual
     // root cause (see equipped.service.ts's _updateRouterState fix) only
     // showed up when getCombinedParams() included at least one untouched,
-    // empty slot alongside a real item.
-    equipped.set(new Item({ name: 'Test Shield', slot: 'Offhand', type: 'Large shields', ml: 1, affixes: [], crafting: [] }));
+    // empty slot alongside a real item. One the data has, so reapplying the
+    // saved params after the save finds it again.
+    equipped.set(TestBed.inject(GearDbService).getGearBySlot('Offhand').find(item => !item.isRuneArm())!);
     await settle();
     fixture.detectChanges();
     expect(currentBuild.value.isDirty).toBe(true);

@@ -246,6 +246,8 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
             if (item) {
               this._set(item);
             } else {
+              // Empty, as on a fresh load, not the last build's item.
+              this.setSlot(key, null);
               console.log('Can\'t find ' + itemName + ' for slot ' + key);
             }
           } else if (isMlKey(key)) {

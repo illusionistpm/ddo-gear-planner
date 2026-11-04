@@ -113,13 +113,12 @@ describe('EquippedService building items from params', () => {
     expect(slot('Offhand')?.name).toBe(runeArm.name);
   });
 
-  it('leaves a slot as it was when the params name an item the data doesn\'t have', () => {
+  it('empties a slot when the params name an item the data doesn\'t have, not keeping the last build\'s', () => {
     const ring = gearDb.getGearBySlot('Ring1')[0];
     service.updateFromParams(paramsOf({ Ring1: ring.name }));
 
     service.updateFromParams(paramsOf({ Ring1: 'No Such Ring', ml_Ring1: '3' }));
 
-    expect(slot('Ring1')?.name).toBe(ring.name);
-    expect(slot('Ring1')?.ml).toBe(3);
+    expect(slot('Ring1')).toBeNull();
   });
 });

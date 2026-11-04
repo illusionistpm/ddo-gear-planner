@@ -21,6 +21,7 @@ function makeEnv(domain: string): Env {
   return {
     DB: {} as unknown as D1Database,
     BUILD_CACHE: {} as unknown as KVNamespace,
+    PROGRESS_ROOMS: {} as unknown as DurableObjectNamespace,
     AUTH0_DOMAIN: domain,
     AUTH0_AUDIENCE: AUDIENCE,
     ALLOWED_ORIGINS: 'https://ddo-gear-planner.com'

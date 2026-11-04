@@ -1,12 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { Env } from '../src/auth';
 import worker from '../src/index';
-import { createFakeKv, FakeD1 } from './fakes';
+import { createFakeKv, createFakeRooms, FakeD1 } from './fakes';
 
 function makeEnv(): Env {
   return {
     DB: new FakeD1() as unknown as D1Database,
     BUILD_CACHE: createFakeKv(),
+    PROGRESS_ROOMS: createFakeRooms().namespace,
     AUTH0_DOMAIN: 'test-tenant.us.auth0.com',
     AUTH0_AUDIENCE: 'https://api.ddo-gear-planner.com',
     ALLOWED_ORIGINS: 'https://ddo-gear-planner.com,http://localhost:4200'

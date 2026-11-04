@@ -3,6 +3,8 @@ import { createRemoteJWKSet, jwtVerify } from 'jose';
 export interface Env {
   DB: D1Database;
   BUILD_CACHE: KVNamespace;
+  // One ProgressRoom (progress-room.ts) per saved build: its friends' live sockets.
+  PROGRESS_ROOMS: DurableObjectNamespace;
   AUTH0_DOMAIN: string;
   AUTH0_AUDIENCE: string;
   // Comma-separated hosts, accepted as token issuers alongside AUTH0_DOMAIN.

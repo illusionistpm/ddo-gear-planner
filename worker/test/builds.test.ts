@@ -8,11 +8,12 @@ import {
   handleUpdateBuild,
   MAX_BUILDS_PER_USER
 } from '../src/routes/builds';
-import { createFakeKv, FakeD1 } from './fakes';
+import { createFakeKv, createFakeRooms, FakeD1, noWait } from './fakes';
 
-function makeEnv(): { env: Env; db: FakeD1 } {
+function makeEnv(): { env: Env; db: FakeD1; rooms: ReturnType<typeof createFakeRooms> } {
   const db = new FakeD1();
-  return { env: { DB: db as unknown as Env['DB'], BUILD_CACHE: createFakeKv() } as Env, db };
+  const rooms = createFakeRooms();
+  return { env: { DB: db as unknown as Env['DB'], BUILD_CACHE: createFakeKv(), PROGRESS_ROOMS: rooms.namespace } as Env, db, rooms };
 }
 
 const user: AuthenticatedUser = { sub: 'auth0|abc123', email: 'player@example.test', name: 'Player' };
@@ -161,7 +162,7 @@ describe('handleUpdateBuild / handleDeleteBuild ownership', () => {
     seedUser(db, 'user-2', otherUser);
     seedBuild(db, { id: 'build-1', short_id: 'short01', owner_user_id: 'user-1', name: 'My Fighter' });
 
-    const response = await handleUpdateBuild(request({ name: 'Hijacked' }, 'PUT'), 'build-1', otherUser, env);
+    const response = await handleUpdateBuild(request({ name: 'Hijacked' }, 'PUT'), 'build-1', otherUser, env, noWait);
 
     expect(response.status).toBe(403);
     expect(db.builds[0].name).toBe('My Fighter');
@@ -173,7 +174,7 @@ describe('handleUpdateBuild / handleDeleteBuild ownership', () => {
     seedUser(db, 'user-2', otherUser);
     seedBuild(db, { id: 'build-1', short_id: 'short01', owner_user_id: 'user-1', name: 'My Fighter' });
 
-    const response = await handleDeleteBuild('build-1', otherUser, env);
+    const response = await handleDeleteBuild('build-1', otherUser, env, noWait);
 
     expect(response.status).toBe(403);
     expect(db.builds).toHaveLength(1);
@@ -188,8 +189,8 @@ describe('handleUpdateBuild / handleDeleteBuild ownership', () => {
     seedBuild(db, { id: 'build-1', short_id: 'short01', owner_user_id: 'user-1', name: 'My Fighter' });
     const strangerWithNoRow: AuthenticatedUser = { sub: 'auth0|no-row' };
 
-    const updateResponse = await handleUpdateBuild(request({ name: 'Hijacked' }, 'PUT'), 'build-1', strangerWithNoRow, env);
-    const deleteResponse = await handleDeleteBuild('build-1', strangerWithNoRow, env);
+    const updateResponse = await handleUpdateBuild(request({ name: 'Hijacked' }, 'PUT'), 'build-1', strangerWithNoRow, env, noWait);
+    const deleteResponse = await handleDeleteBuild('build-1', strangerWithNoRow, env, noWait);
 
     expect(updateResponse.status).toBe(403);
     expect(deleteResponse.status).toBe(403);
@@ -201,7 +202,7 @@ describe('handleUpdateBuild / handleDeleteBuild ownership', () => {
     seedUser(db, 'user-1', user);
     seedBuild(db, { id: 'build-1', short_id: 'short01', owner_user_id: 'user-1', name: 'My Fighter' });
 
-    const response = await handleUpdateBuild(request({ name: 'Renamed Fighter' }, 'PUT'), 'build-1', user, env);
+    const response = await handleUpdateBuild(request({ name: 'Renamed Fighter' }, 'PUT'), 'build-1', user, env, noWait);
 
     expect(response.status).toBe(200);
     expect(db.builds[0].name).toBe('Renamed Fighter');
@@ -213,7 +214,7 @@ describe('handleUpdateBuild / handleDeleteBuild ownership', () => {
     seedBuild(db, { id: 'build-1', short_id: 'short01', owner_user_id: 'user-1', name: 'My Fighter' });
     seedBuild(db, { id: 'build-2', short_id: 'short02', owner_user_id: 'user-1', name: 'My Wizard' });
 
-    const response = await handleUpdateBuild(request({ name: 'my fighter' }, 'PUT'), 'build-2', user, env);
+    const response = await handleUpdateBuild(request({ name: 'my fighter' }, 'PUT'), 'build-2', user, env, noWait);
 
     expect(response.status).toBe(409);
     expect(db.builds[1].name).toBe('My Wizard');
@@ -224,7 +225,7 @@ describe('handleUpdateBuild / handleDeleteBuild ownership', () => {
     seedUser(db, 'user-1', user);
     seedBuild(db, { id: 'build-1', short_id: 'short01', owner_user_id: 'user-1', name: 'My Fighter' });
 
-    const response = await handleDeleteBuild('build-1', user, env);
+    const response = await handleDeleteBuild('build-1', user, env, noWait);
 
     expect(response.status).toBe(204);
     expect(db.builds).toHaveLength(0);
@@ -242,7 +243,7 @@ describe('handleUpdateBuild / handleDeleteBuild ownership', () => {
       });
     }
 
-    const response = await handleDeleteBuild('build-1', user, env);
+    const response = await handleDeleteBuild('build-1', user, env, noWait);
 
     expect(response.status).toBe(204);
     expect(db.buildProgress.map(p => p.build_id)).toEqual(['build-2']);
@@ -251,8 +252,8 @@ describe('handleUpdateBuild / handleDeleteBuild ownership', () => {
   it('404s an update or delete for a build id that does not exist', async () => {
     const { env } = makeEnv();
 
-    const updateResponse = await handleUpdateBuild(request({ name: 'X' }, 'PUT'), 'nope', user, env);
-    const deleteResponse = await handleDeleteBuild('nope', user, env);
+    const updateResponse = await handleUpdateBuild(request({ name: 'X' }, 'PUT'), 'nope', user, env, noWait);
+    const deleteResponse = await handleDeleteBuild('nope', user, env, noWait);
 
     expect(updateResponse.status).toBe(404);
     expect(deleteResponse.status).toBe(404);
@@ -320,8 +321,8 @@ describe('list/update/delete with a sub moved away by cross-provider linking', (
     const { env, db } = makeEnv();
     seedLinkedAccount(db);
 
-    const updateResponse = await handleUpdateBuild(request({ name: 'Renamed' }, 'PUT'), 'build-1', googleUser, env);
-    const deleteResponse = await handleDeleteBuild('build-1', googleUser, env);
+    const updateResponse = await handleUpdateBuild(request({ name: 'Renamed' }, 'PUT'), 'build-1', googleUser, env, noWait);
+    const deleteResponse = await handleDeleteBuild('build-1', googleUser, env, noWait);
 
     expect(updateResponse.status).toBe(200);
     expect(deleteResponse.status).toBe(204);
@@ -342,8 +343,8 @@ describe('list/update/delete with a sub moved away by cross-provider linking', (
     const unverified: AuthenticatedUser = { ...googleUser, emailVerified: false };
 
     const listResponse = await handleListMine(unverified, env);
-    const updateResponse = await handleUpdateBuild(request({ name: 'Hijacked' }, 'PUT'), 'build-1', unverified, env);
-    const deleteResponse = await handleDeleteBuild('build-1', unverified, env);
+    const updateResponse = await handleUpdateBuild(request({ name: 'Hijacked' }, 'PUT'), 'build-1', unverified, env, noWait);
+    const deleteResponse = await handleDeleteBuild('build-1', unverified, env, noWait);
 
     expect(await listResponse.json()).toEqual([]);
     expect(updateResponse.status).toBe(403);
@@ -356,7 +357,7 @@ describe('list/update/delete with a sub moved away by cross-provider linking', (
     seedLinkedAccount(db);
     db.users[0].email_verified = 0;
 
-    const response = await handleUpdateBuild(request({ name: 'Hijacked' }, 'PUT'), 'build-1', googleUser, env);
+    const response = await handleUpdateBuild(request({ name: 'Hijacked' }, 'PUT'), 'build-1', googleUser, env, noWait);
 
     expect(response.status).toBe(403);
   });
@@ -414,7 +415,7 @@ describe('handleGetByShortId', () => {
     db.shortIds.push({ short_id: 'short01', kind: 'build', created_at: 'now' });
     await handleGetByShortId('short01', env); // populate the cache
 
-    await handleUpdateBuild(request({ blob: 'z1.updated' }, 'PUT'), 'build-1', user, env);
+    await handleUpdateBuild(request({ blob: 'z1.updated' }, 'PUT'), 'build-1', user, env, noWait);
     const response = await handleGetByShortId('short01', env);
 
     expect(await response.json()).toEqual({ name: 'My Fighter', blob: 'z1.updated' });

@@ -2,19 +2,22 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { AuthenticatedUser, Env } from '../src/auth';
 import { upsertBuildProgressIfUnchanged } from '../src/db';
 import worker from '../src/index';
-import { handleGetOwnProgress, handleGetPublicProgress, handlePutProgress } from '../src/routes/progress';
+import { handleGetOwnProgress, handlePutProgress } from '../src/routes/progress';
 import sharedConstants from '../../shared/constants.json';
-import { createFakeKv, FakeBuildProgressRow, FakeD1 } from './fakes';
+import { createFakeKv, createFakeRooms, FakeBuildProgressRow, FakeD1, FakeRooms, noWait } from './fakes';
 
-function makeEnv(): { env: Env; db: FakeD1 } {
+function makeEnv(): { env: Env; db: FakeD1; rooms: FakeRooms } {
   const db = new FakeD1();
+  const rooms = createFakeRooms();
   return {
     env: {
       DB: db as unknown as Env['DB'],
       BUILD_CACHE: createFakeKv(),
+      PROGRESS_ROOMS: rooms.namespace,
       ALLOWED_ORIGINS: 'https://ddo-gear-planner.com'
     } as Env,
-    db
+    db,
+    rooms
   };
 }
 
@@ -40,84 +43,6 @@ function seedProgress(db: FakeD1, buildId: string, overrides: Partial<FakeBuildP
   });
 }
 
-describe('handleGetPublicProgress', () => {
-  it('returns only what is still needed and the owner\'s route, in its order - never their ticks or picks', async () => {
-    const { env, db } = makeEnv();
-    seedBuild(db, 'build-1', 'short01');
-    seedProgress(db, 'build-1');
-
-    const response = await handleGetPublicProgress('short01', env);
-
-    expect(response.status).toBe(200);
-    expect(await response.json()).toEqual({
-      needed: ['g|Neck|Needed Necklace'],
-      route: { 'Needed Necklace': ['The Shared Quest'] },
-      order: { packs: ['Pack B', ''], quests: ['The Shared Quest'] },
-      updatedAt: '2026-11-02T12:00:00.000Z'
-    });
-  });
-
-  it('returns order: null for a route in its default order', async () => {
-    const { env, db } = makeEnv();
-    seedBuild(db, 'build-1', 'short01');
-    seedProgress(db, 'build-1', { route_order: null });
-
-    expect((await (await handleGetPublicProgress('short01', env)).json() as { order: unknown }).order).toBeNull();
-  });
-
-  it('lets a friend\'s browser cache the answer for a few seconds', async () => {
-    const { env, db } = makeEnv();
-    seedBuild(db, 'build-1', 'short01');
-    seedProgress(db, 'build-1');
-
-    const response = await handleGetPublicProgress('short01', env);
-
-    expect(response.headers.get('Cache-Control')).toBe('public, max-age=15');
-  });
-
-  it('returns needed: null for a public build whose owner has never synced a list', async () => {
-    const { env, db } = makeEnv();
-    seedBuild(db, 'build-1', 'short01');
-
-    const response = await handleGetPublicProgress('short01', env);
-
-    expect(response.status).toBe(200);
-    expect(await response.json()).toEqual({ needed: null, route: {}, order: null, updatedAt: null });
-  });
-
-  it('404s a private build, even with progress - indistinguishable from one that does not exist', async () => {
-    const { env, db } = makeEnv();
-    seedBuild(db, 'build-1', 'short01', 'private');
-    seedProgress(db, 'build-1');
-
-    const response = await handleGetPublicProgress('short01', env);
-
-    expect(response.status).toBe(404);
-  });
-
-  it('404s a short link and an unknown shortId', async () => {
-    const { env, db } = makeEnv();
-    db.shortlinks.push({ short_id: 'link0001', blob: '{"name":"x","blob":"z1.abc"}', creator_user_id: null, created_at: 'now' });
-
-    expect((await handleGetPublicProgress('link0001', env)).status).toBe(404);
-    expect((await handleGetPublicProgress('nothing1', env)).status).toBe(404);
-  });
-
-  it('is routed without auth, and writes nothing to KV', async () => {
-    const { env, db } = makeEnv();
-    seedBuild(db, 'build-1', 'short01');
-    seedProgress(db, 'build-1');
-    const kvWrites = countKvWrites(env);
-
-    const response = await worker.fetch(new Request('https://example.test/api/build/short01/progress'), env);
-
-    expect(response.status).toBe(200);
-    expect(response.headers.get('Cache-Control')).toBe('public, max-age=15');
-    expect(response.headers.get('Access-Control-Allow-Origin')).toBe('https://ddo-gear-planner.com');
-    expect(kvWrites()).toBe(0);
-  });
-});
-
 const owner: AuthenticatedUser = { sub: 'auth0|owner', email: 'owner@example.test', name: 'Owner' };
 const stranger: AuthenticatedUser = { sub: 'auth0|stranger', email: 'stranger@example.test', name: 'Stranger' };
 
@@ -135,7 +60,7 @@ function put(body: unknown): Request {
 }
 
 async function putJson(env: Env, body: unknown, buildId = 'build-1', user = owner): Promise<{ status: number; body: any }> {
-  const response = await handlePutProgress(put(body), buildId, user, env);
+  const response = await handlePutProgress(put(body), buildId, user, env, noWait);
   return { status: response.status, body: await response.json() };
 }
 
@@ -318,7 +243,7 @@ describe('owner progress', () => {
       await putJson(env, { patch: { a: 1 } });
       advance(500);
 
-      const response = await handlePutProgress(put({ patch: { b: 1 } }), 'build-1', owner, env);
+      const response = await handlePutProgress(put({ patch: { b: 1 } }), 'build-1', owner, env, noWait);
 
       expect(response.status).toBe(429);
       expect(await response.json()).toEqual(expect.objectContaining({ retryAfterMs: sharedConstants.progressMinWriteIntervalMs - 500 }));

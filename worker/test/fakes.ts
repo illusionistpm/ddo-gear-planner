@@ -163,8 +163,8 @@ export class FakeD1 {
           .reduce((sum, p) => sum + p.writes_today, 0)
       };
     }
-    // getPublicBuildProgressByShortId: builds LEFT JOIN build_progress,
-    // public builds only, and only the public columns.
+    // getLiveBuildByShortId: builds LEFT JOIN build_progress, public
+    // builds only, and only the public columns.
     if (sql.includes('FROM builds b') && sql.includes('LEFT JOIN build_progress p')) {
       const build = this.builds.find(b => b.short_id === args[0] && b.visibility === 'public');
       if (!build) {
@@ -172,6 +172,7 @@ export class FakeD1 {
       }
       const progress = this.buildProgress.find(p => p.build_id === build.id);
       return {
+        name: build.name, blob: build.blob, build_updated_at: build.updated_at,
         needed: progress?.needed ?? null, route: progress?.route ?? null, route_order: progress?.route_order ?? null,
         updated_at: progress?.updated_at ?? null
       };
@@ -391,3 +392,44 @@ export function createFakeKv(): KVNamespace {
     }
   } as unknown as KVNamespace;
 }
+
+/**
+ * Stands in for the PROGRESS_ROOMS namespace: records what the Worker asks
+ * each build's room (live.ts) - the messages sent, and the closes - by the
+ * room's name, the build's shortId. Records synchronously, as the call is
+ * made, so a test needn't wait on the Worker's waitUntil.
+ */
+export interface FakeRooms {
+  namespace: DurableObjectNamespace;
+  /** Each message sent to a room, parsed. */
+  sent: Map<string, unknown[]>;
+  closed: string[];
+  /** The requests forwarded to a room's /connect. */
+  connects: { shortId: string; request: Request }[];
+}
+
+export function createFakeRooms(): FakeRooms {
+  const rooms: FakeRooms = { namespace: null as unknown as DurableObjectNamespace, sent: new Map(), closed: [], connects: [] };
+  rooms.namespace = {
+    idFromName: (name: string) => ({ name }),
+    get: (id: { name: string }) => ({
+      fetch: (input: RequestInfo, init?: RequestInit) => {
+        const request = input instanceof Request ? input : new Request(input, init);
+        const url = new URL(request.url);
+        if (url.pathname === '/send') {
+          const body = init?.body as string;
+          rooms.sent.set(id.name, [...(rooms.sent.get(id.name) ?? []), JSON.parse(body)]);
+        } else if (url.pathname === '/close') {
+          rooms.closed.push(id.name);
+        } else if (url.pathname === '/connect') {
+          rooms.connects.push({ shortId: url.searchParams.get('shortId') ?? '', request });
+        }
+        return Promise.resolve(new Response(null, { status: 204 }));
+      }
+    })
+  } as unknown as DurableObjectNamespace;
+  return rooms;
+}
+
+/** A Waiter for handlers called directly; the fake rooms record without it. */
+export const noWait = { waitUntil: (): void => undefined };

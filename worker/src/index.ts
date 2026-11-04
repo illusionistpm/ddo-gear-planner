@@ -10,11 +10,14 @@ import {
   handleListMine,
   handleUpdateBuild
 } from './routes/builds';
-import { handleGetOwnProgress, handleGetPublicProgress, handlePutProgress } from './routes/progress';
+import { handleLive, Waiter } from './live';
+import { handleGetOwnProgress, handlePutProgress } from './routes/progress';
 import { handleCreateShortLink } from './routes/shortlinks';
 
+export { ProgressRoom } from './progress-room';
+
 const BUILD_SHORT_ID_PATH = /^\/api\/build\/([^/]+)$/;
-const BUILD_SHORT_ID_PROGRESS_PATH = /^\/api\/build\/([^/]+)\/progress$/;
+const BUILD_SHORT_ID_LIVE_PATH = /^\/api\/build\/([^/]+)\/live$/;
 const BUILD_ID_PATH = /^\/api\/builds\/([^/]+)$/;
 const BUILD_ID_PROGRESS_PATH = /^\/api\/builds\/([^/]+)\/progress$/;
 const PREFLIGHT_MAX_AGE_SECONDS = 86400;
@@ -38,7 +41,8 @@ function withCors(response: Response, request: Request, env: Env): Response {
 }
 
 export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
+  // ctx is optional only for the tests, which call this without one.
+  async fetch(request: Request, env: Env, ctx?: ExecutionContext): Promise<Response> {
     // A Bearer Authorization header on a cross-origin request triggers a
     // browser preflight OPTIONS - this must be short-circuited explicitly
     // with the CORS headers rather than falling through to the router,
@@ -54,12 +58,21 @@ export default {
       return new Response(null, { status: 204, headers });
     }
 
-    const response = await route(request, env);
+    // A WebSocket upgrade's 101 can't be copied into a new Response the way
+    // withCors does, and CORS doesn't cover WebSockets anyway: handleLive
+    // checks the Origin itself.
+    const liveMatch = BUILD_SHORT_ID_LIVE_PATH.exec(new URL(request.url).pathname);
+    if (request.method === 'GET' && liveMatch) {
+      return handleLive(request, liveMatch[1], env);
+    }
+
+    const waiter: Waiter = ctx ?? { waitUntil: () => undefined };
+    const response = await route(request, env, waiter);
     return withCors(response, request, env);
   }
 };
 
-async function route(request: Request, env: Env): Promise<Response> {
+async function route(request: Request, env: Env, waiter: Waiter): Promise<Response> {
   const { pathname } = new URL(request.url);
   const { method } = request;
 
@@ -96,11 +109,6 @@ async function route(request: Request, env: Env): Promise<Response> {
     return handleGetByShortId(shortIdMatch[1], env);
   }
 
-  const progressShortIdMatch = BUILD_SHORT_ID_PROGRESS_PATH.exec(pathname);
-  if (method === 'GET' && progressShortIdMatch) {
-    return handleGetPublicProgress(progressShortIdMatch[1], env);
-  }
-
   // Not behind checkMutationRateLimit: it costs a KV write per request, and
   // progress writes are throttled in D1 instead - see routes/progress.ts.
   const progressBuildIdMatch = BUILD_ID_PROGRESS_PATH.exec(pathname);
@@ -109,7 +117,7 @@ async function route(request: Request, env: Env): Promise<Response> {
     if (authResult instanceof Response) return authResult;
     return method === 'GET'
       ? handleGetOwnProgress(progressBuildIdMatch[1], authResult, env)
-      : handlePutProgress(request, progressBuildIdMatch[1], authResult, env);
+      : handlePutProgress(request, progressBuildIdMatch[1], authResult, env, waiter);
   }
 
   const buildIdMatch = BUILD_ID_PATH.exec(pathname);
@@ -119,14 +127,14 @@ async function route(request: Request, env: Env): Promise<Response> {
       if (rateLimitResponse) return rateLimitResponse;
       const authResult = await requireAuth(request, env);
       if (authResult instanceof Response) return authResult;
-      return handleUpdateBuild(request, buildIdMatch[1], authResult, env);
+      return handleUpdateBuild(request, buildIdMatch[1], authResult, env, waiter);
     }
     if (method === 'DELETE') {
       const rateLimitResponse = await checkMutationRateLimit(request, env);
       if (rateLimitResponse) return rateLimitResponse;
       const authResult = await requireAuth(request, env);
       if (authResult instanceof Response) return authResult;
-      return handleDeleteBuild(buildIdMatch[1], authResult, env);
+      return handleDeleteBuild(buildIdMatch[1], authResult, env, waiter);
     }
   }
 

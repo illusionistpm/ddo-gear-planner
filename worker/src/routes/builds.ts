@@ -11,10 +11,13 @@ import {
   listBuildSummariesByOwner,
   reserveAndInsertBuildIfUnderLimit,
   resolveUserId,
-  updateBuild,
-  BuildSummaryRow
+  BuildSummaryRow,
+  getBuildProgress,
+  updateBuildStatement
 } from '../db';
 import { errorResponse, jsonResponse } from '../http';
+import { closeFriends, friendListOf, tellFriends, Waiter } from '../live';
+import { MAX_PROGRESS_BYTES, parseProgressPut, planProgressWrite, ProgressPut } from './progress';
 import { withUniqueShortId } from '../shortId';
 import sharedConstants from '../../../shared/constants.json';
 
@@ -245,11 +248,23 @@ export async function handleGetByShortId(shortId: string, env: Env): Promise<Res
   return errorResponse(404, 'No build found for that link.');
 }
 
+/**
+ * Renames a build or saves new gear into it. Body: {name?, blob?,
+ * progress?}. progress is the shopping list as it is for the build as
+ * saved, {needed, route, order?} as PUT .../progress takes them: a save
+ * changes what's still needed, and sending both together lets a friend's
+ * page switch to the new gear and its list in one step, instead of
+ * briefly showing new gear against the old list. It's written in the same
+ * batch as the build, subject to the same throttle and daily cap; when
+ * those refuse it the build is still saved, and the answer says
+ * progressSaved: false so the client sends the list the usual way.
+ */
 export async function handleUpdateBuild(
   request: Request,
   id: string,
   user: AuthenticatedUser,
-  env: Env
+  env: Env,
+  waiter: Waiter
 ): Promise<Response> {
   const row = await getBuildById(env.DB, id);
   if (!row) {
@@ -260,7 +275,16 @@ export async function handleUpdateBuild(
     return errorResponse(403, 'You do not own this build.');
   }
 
-  const body = await request.json().catch(() => null) as { name?: unknown; blob?: unknown } | null;
+  const text = await request.text();
+  if (text.length > MAX_PROGRESS_BYTES + MAX_BLOB_LENGTH + 1024) {
+    return errorResponse(413, 'That build is too big to save.');
+  }
+  let body: { name?: unknown; blob?: unknown; progress?: unknown } | null;
+  try {
+    body = JSON.parse(text) as typeof body;
+  } catch {
+    body = null;
+  }
   const fields: { name?: string; blob?: string } = {};
 
   if (body?.name !== undefined) {
@@ -277,25 +301,56 @@ export async function handleUpdateBuild(
     }
     fields.blob = blob;
   }
+  let progress: ProgressPut | undefined;
+  if (body?.progress !== undefined) {
+    const parsed = parseSavedProgress(body.progress);
+    if (!parsed) {
+      return errorResponse(400, 'Invalid shopping list progress.');
+    }
+    progress = parsed;
+  }
 
+  const now = Date.now();
+  const plan = progress ? await planProgressWrite(env, row, ownerUserId, progress, now) : null;
+  const statements = [updateBuildStatement(env.DB, id, fields, new Date(now).toISOString())];
+  if (plan && !(plan instanceof Response)) {
+    statements.push(plan.statement);
+  }
+
+  let results: D1Result[];
   try {
-    await updateBuild(env.DB, id, fields);
+    results = await env.DB.batch(statements);
   } catch (err) {
     if (isDuplicateNameViolation(err)) {
       return errorResponse(409, `You already have a build named "${fields.name}". Choose a different name.`);
     }
     throw err;
   }
+  const progressSaved = plan !== null && !(plan instanceof Response) && (results[1]?.meta.changes ?? 0) > 0;
   // Write-through: invalidate rather than pre-populate, since the next
   // GET /api/build/:shortId will repopulate it and this keeps the update
   // path from needing to duplicate the cache payload shape.
   await env.BUILD_CACHE.delete(buildCacheKey(row.short_id));
 
-  const updated = await getBuildById(env.DB, id);
-  return jsonResponse(toBuildResponse(updated as BuildRow));
+  const updated = await getBuildById(env.DB, id) as BuildRow;
+  if (fields.name !== undefined || fields.blob !== undefined || progressSaved) {
+    const stored = progressSaved && plan && !(plan instanceof Response) ? plan.row : await getBuildProgress(env.DB, id);
+    tellFriends(env, waiter, row.short_id, friendListOf(updated, stored));
+  }
+  return jsonResponse(progress ? { ...toBuildResponse(updated), progressSaved } : toBuildResponse(updated));
 }
 
-export async function handleDeleteBuild(id: string, user: AuthenticatedUser, env: Env): Promise<Response> {
+/** A save's progress: what friends see, and only that - never ticks or picks. Null when invalid. */
+function parseSavedProgress(value: unknown): ProgressPut | null {
+  if (typeof value !== 'object' || value === null || Array.isArray(value)) {
+    return null;
+  }
+  const { needed, route, order } = value as Record<string, unknown>;
+  const put = parseProgressPut({ needed, route, order });
+  return put?.published ? put : null;
+}
+
+export async function handleDeleteBuild(id: string, user: AuthenticatedUser, env: Env, waiter: Waiter): Promise<Response> {
   const row = await getBuildById(env.DB, id);
   if (!row) {
     return errorResponse(404, 'Build not found.');
@@ -307,5 +362,6 @@ export async function handleDeleteBuild(id: string, user: AuthenticatedUser, env
 
   await deleteBuild(env.DB, id);
   await env.BUILD_CACHE.delete(buildCacheKey(row.short_id));
+  closeFriends(env, waiter, row.short_id);
   return new Response(null, { status: 204 });
 }

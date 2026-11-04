@@ -1,13 +1,14 @@
 import { AuthenticatedUser, Env } from '../auth';
 import {
   BuildProgressRow,
+  BuildRow,
   countProgressWritesOnDay,
   getBuildById,
   getBuildProgress,
-  getPublicBuildProgressByShortId,
-  upsertBuildProgressIfUnchanged
+  upsertBuildProgressStatement
 } from '../db';
 import { errorResponse, jsonResponse } from '../http';
+import { friendListOf, RouteOrder, tellFriends, Waiter } from '../live';
 import sharedConstants from '../../../shared/constants.json';
 import { resolveOwnerUserId } from './builds';
 
@@ -15,12 +16,8 @@ import { resolveOwnerUserId } from './builds';
 // these routes go through checkMutationRateLimit or touch KV: that limiter
 // costs a KV write per request, and the free tier's 1,000 KV writes a day
 // would run out within about a hundred ticking sessions. Writes are
-// throttled in D1 instead - see handlePutProgress.
-
-// A friend refreshing a live link sees an owner's tick within this long.
-// Short enough to feel live, long enough that a link pasted into a busy
-// Discord channel doesn't cost a Worker request per click.
-const PUBLIC_PROGRESS_MAX_AGE_SECONDS = 15;
+// throttled in D1 instead - see planProgressWrite. Friends get what's
+// still needed over live.ts's sockets, never from these routes.
 
 // Sizing, from the longest names in data/: a key is up to about 230
 // characters (slot, a 59-character item, a craftable, a 110-character
@@ -29,21 +26,16 @@ const PUBLIC_PROGRESS_MAX_AGE_SECONDS = 15;
 const MAX_ENTRIES = sharedConstants.maxProgressEntries;
 const MAX_PICKS = sharedConstants.maxProgressPicks;
 const MAX_KEY_LENGTH = sharedConstants.maxProgressKeyLength;
-// The four stored JSON columns together, and the request body, counted in
+// The stored JSON columns together, and the request body, counted in
 // string length (UTF-16 units) - close enough to bytes for a ceiling.
-const MAX_BYTES = sharedConstants.maxProgressBytes;
+export const MAX_PROGRESS_BYTES = sharedConstants.maxProgressBytes;
+const MAX_BYTES = MAX_PROGRESS_BYTES;
 const MIN_WRITE_INTERVAL_MS = sharedConstants.progressMinWriteIntervalMs;
 const MAX_WRITES_PER_USER_PER_DAY = sharedConstants.maxProgressWritesPerUserPerDay;
 
 type QuestLists = Record<string, string[]>;
 
-/** The order the owner arranged the route in (see migrations/0007). */
-interface RouteOrder {
-  packs: string[];
-  quests: string[];
-}
-
-interface ProgressPut {
+export interface ProgressPut {
   /** Tick overrides to set (0 or 1) or forget (null). */
   patch: Map<string, 0 | 1 | null>;
   /** Picks to set or forget (null). */
@@ -69,37 +61,11 @@ function orderOf(text: string | null): RouteOrder | null {
   return text === null ? null : JSON.parse(text) as RouteOrder;
 }
 
-/**
- * The public half of a build's progress: what's still needed, where the
- * owner's list sends them for it, and the order it's in. Never the owner's
- * ticks or picks. 404s
- * exactly where GET /api/build/:shortId does for builds - private ones are
- * indistinguishable from missing ones - and for short links, which are
- * snapshots with no progress of their own.
- */
-export async function handleGetPublicProgress(shortId: string, env: Env): Promise<Response> {
-  const row = await getPublicBuildProgressByShortId(env.DB, shortId);
-  if (!row) {
-    return errorResponse(404, 'No build found for that link.');
-  }
-  // needed is null, not [], when the owner has never synced a list: a
-  // friend sees "nothing shared yet" rather than "nothing left to get".
-  return jsonResponse(
-    {
-      needed: row.needed === null ? null : JSON.parse(row.needed) as string[],
-      route: row.route === null ? {} : JSON.parse(row.route) as QuestLists,
-      order: orderOf(row.route_order),
-      updatedAt: row.updated_at
-    },
-    { headers: { 'Cache-Control': `public, max-age=${PUBLIC_PROGRESS_MAX_AGE_SECONDS}` } }
-  );
-}
-
 /** The owner's whole progress doc. An empty one when nothing is stored yet. */
 export async function handleGetOwnProgress(buildId: string, user: AuthenticatedUser, env: Env): Promise<Response> {
-  const denied = await checkOwnership(buildId, user, env);
-  if (typeof denied !== 'string') {
-    return denied;
+  const owned = await checkOwnership(buildId, user, env);
+  if (owned instanceof Response) {
+    return owned;
   }
   return jsonResponse(toOwnerProgress(await getBuildProgress(env.DB, buildId)));
 }
@@ -108,7 +74,8 @@ export async function handleGetOwnProgress(buildId: string, user: AuthenticatedU
  * Merges tick and pick patches into the stored doc and, when given,
  * replaces what friends see and the route's order. Body: {patch?,
  * picksPatch?, needed?, route?, order?}, needed and route together or not
- * at all, order null to clear it. Answers with the merged doc.
+ * at all, order null to clear it. Answers with the merged doc, and tells
+ * the build's friends when what they see changed.
  *
  * Throttled per build to one write every MIN_WRITE_INTERVAL_MS (429 with
  * retryAfterMs) and capped per user per UTC day (429 with
@@ -116,23 +83,62 @@ export async function handleGetOwnProgress(buildId: string, user: AuthenticatedU
  * means something is wrong with it or someone is scripting the API. Never
  * touches builds.updated_at or KV.
  */
-export async function handlePutProgress(request: Request, buildId: string, user: AuthenticatedUser, env: Env): Promise<Response> {
-  const ownerUserId = await checkOwnership(buildId, user, env);
-  if (typeof ownerUserId !== 'string') {
-    return ownerUserId;
+export async function handlePutProgress(
+  request: Request, buildId: string, user: AuthenticatedUser, env: Env, waiter: Waiter
+): Promise<Response> {
+  const owned = await checkOwnership(buildId, user, env);
+  if (owned instanceof Response) {
+    return owned;
   }
 
   const text = await request.text();
   if (text.length > MAX_BYTES) {
     return errorResponse(413, 'That shopping list is too big to save.');
   }
-  const put = parseProgressPut(text);
+  let body: unknown;
+  try {
+    body = JSON.parse(text);
+  } catch {
+    return errorResponse(400, 'Invalid shopping list progress.');
+  }
+  const put = parseProgressPut(body);
   if (!put) {
     return errorResponse(400, 'Invalid shopping list progress.');
   }
 
-  const existing = await getBuildProgress(env.DB, buildId);
-  const now = Date.now();
+  const plan = await planProgressWrite(env, owned.build, owned.ownerUserId, put, Date.now());
+  if (plan instanceof Response) {
+    return plan;
+  }
+  const result = await plan.statement.run();
+  if (!result.meta.changes) {
+    // Another write landed between our read and this one.
+    return throttled(MIN_WRITE_INTERVAL_MS);
+  }
+  if (plan.friendsSeeChange) {
+    tellFriends(env, waiter, owned.build.short_id, friendListOf(owned.build, plan.row));
+  }
+  return jsonResponse(toOwnerProgress({ ...plan.row, writes_today: 0 }));
+}
+
+/** A progress write, checked and ready to run: it wrote the row if its statement changed one. */
+export interface ProgressWritePlan {
+  statement: D1PreparedStatement;
+  row: Omit<BuildProgressRow, 'writes_today'>;
+  /** It changes what friends see: needed, route or order. */
+  friendsSeeChange: boolean;
+}
+
+/**
+ * Merges a write into the stored doc, refusing it (the response to send)
+ * when it comes too soon after the last, would make the doc too big, or
+ * passes the owner's writes for today. Shared by PUT .../progress and a
+ * build save that carries its list (routes/builds.ts).
+ */
+export async function planProgressWrite(
+  env: Env, build: BuildRow, ownerUserId: string, put: ProgressPut, now: number
+): Promise<ProgressWritePlan | Response> {
+  const existing = await getBuildProgress(env.DB, build.id);
   if (existing) {
     const waitMs = Date.parse(existing.updated_at) + MIN_WRITE_INTERVAL_MS - now;
     if (waitMs > 0) {
@@ -148,7 +154,7 @@ export async function handlePutProgress(request: Request, buildId: string, user:
 
   const day = new Date(now).toISOString().slice(0, 10);
   const row: Omit<BuildProgressRow, 'writes_today'> = {
-    build_id: buildId,
+    build_id: build.id,
     owner_user_id: ownerUserId,
     entries: JSON.stringify(entries),
     picks: JSON.stringify(picks),
@@ -170,19 +176,20 @@ export async function handlePutProgress(request: Request, buildId: string, user:
     );
   }
 
-  const written = await upsertBuildProgressIfUnchanged(env.DB, row, {
+  const statement = upsertBuildProgressStatement(env.DB, row, {
     baseUpdatedAt: existing?.updated_at ?? null,
     notAfter: new Date(now - MIN_WRITE_INTERVAL_MS).toISOString()
   });
-  if (!written) {
-    // Another write landed between our read and this one.
-    return throttled(MIN_WRITE_INTERVAL_MS);
-  }
-  return jsonResponse(toOwnerProgress({ ...row, writes_today: 0 }));
+  const friendsSeeChange = row.needed !== (existing?.needed ?? null)
+    || row.route !== (existing?.route ?? null)
+    || row.route_order !== (existing?.route_order ?? null);
+  return { statement, row, friendsSeeChange };
 }
 
-/** The owner's user id, or the response refusing them. */
-async function checkOwnership(buildId: string, user: AuthenticatedUser, env: Env): Promise<string | Response> {
+/** The build and its owner's user id, or the response refusing them. */
+async function checkOwnership(
+  buildId: string, user: AuthenticatedUser, env: Env
+): Promise<{ build: BuildRow; ownerUserId: string } | Response> {
   const build = await getBuildById(env.DB, buildId);
   if (!build) {
     return errorResponse(404, 'Build not found.');
@@ -191,7 +198,7 @@ async function checkOwnership(buildId: string, user: AuthenticatedUser, env: Env
   if (!ownerUserId || build.owner_user_id !== ownerUserId) {
     return errorResponse(403, 'You do not own this build.');
   }
-  return ownerUserId;
+  return { build, ownerUserId };
 }
 
 function throttled(retryAfterMs: number): Response {
@@ -215,13 +222,8 @@ function mergePatch<T>(stored: Record<string, T>, patch: Map<string, T | null>):
   return Object.fromEntries(merged);
 }
 
-function parseProgressPut(text: string): ProgressPut | null {
-  let body: unknown;
-  try {
-    body = JSON.parse(text);
-  } catch {
-    return null;
-  }
+/** A parsed request body as a ProgressPut; null when invalid. */
+export function parseProgressPut(body: unknown): ProgressPut | null {
   if (!isPlainObject(body)) {
     return null;
   }

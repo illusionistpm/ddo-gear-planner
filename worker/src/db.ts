@@ -275,7 +275,10 @@ export async function countBuildsByOwner(db: D1Database, ownerUserId: string): P
   return row?.count ?? 0;
 }
 
-export async function updateBuild(db: D1Database, id: string, fields: { name?: string; blob?: string }): Promise<void> {
+/** Renames a build and/or replaces its blob, as a statement to run in a batch with others. */
+export function updateBuildStatement(
+  db: D1Database, id: string, fields: { name?: string; blob?: string }, updatedAt: string
+): D1PreparedStatement {
   const sets: string[] = [];
   const values: unknown[] = [];
 
@@ -288,27 +291,31 @@ export async function updateBuild(db: D1Database, id: string, fields: { name?: s
     values.push(fields.blob);
   }
   sets.push('updated_at = ?');
-  values.push(new Date().toISOString());
+  values.push(updatedAt);
   values.push(id);
 
-  await db.prepare(`UPDATE builds SET ${sets.join(', ')} WHERE id = ?`).bind(...values).run();
+  return db.prepare(`UPDATE builds SET ${sets.join(', ')} WHERE id = ?`).bind(...values);
 }
 
-// What a friend's link may see of a build's progress. Selects only the
-// public columns, so the private ones can't leak through a careless
-// response mapping. Null when there's no public build by that shortId (a
-// private build, a short link, or nothing at all); all-null columns when
-// the build exists but its owner has never synced a list.
-export interface PublicBuildProgressRow {
+// Everything a friend's live list needs (see live.ts): the build itself and
+// the public columns of its progress. Selects only those, so the private
+// ones (ticks, picks) can't leak through a careless mapping. Null when
+// there's no public build by that shortId (a private build, a short link,
+// or nothing at all); null progress columns when the build exists but its
+// owner has never synced a list.
+export interface LiveBuildRow {
+  name: string;
+  blob: string;
+  build_updated_at: string;
   needed: string | null;
   route: string | null;
   route_order: string | null;
   updated_at: string | null;
 }
 
-export async function getPublicBuildProgressByShortId(db: D1Database, shortId: string): Promise<PublicBuildProgressRow | null> {
+export async function getLiveBuildByShortId(db: D1Database, shortId: string): Promise<LiveBuildRow | null> {
   return await db.prepare(
-    `SELECT p.needed, p.route, p.route_order, p.updated_at FROM builds b
+    `SELECT b.name, b.blob, b.updated_at AS build_updated_at, p.needed, p.route, p.route_order, p.updated_at FROM builds b
      LEFT JOIN build_progress p ON p.build_id = b.id
      WHERE b.short_id = ? AND b.visibility = 'public'`
   ).bind(shortId).first();
@@ -341,7 +348,17 @@ export async function upsertBuildProgressIfUnchanged(
   row: Omit<BuildProgressRow, 'writes_today'>,
   condition: { baseUpdatedAt: string | null; notAfter: string }
 ): Promise<boolean> {
-  const result = await db.prepare(
+  const result = await upsertBuildProgressStatement(db, row, condition).run();
+  return (result.meta.changes ?? 0) > 0;
+}
+
+/** upsertBuildProgressIfUnchanged as a statement, to run in a batch; it wrote the row if it changed one. */
+export function upsertBuildProgressStatement(
+  db: D1Database,
+  row: Omit<BuildProgressRow, 'writes_today'>,
+  condition: { baseUpdatedAt: string | null; notAfter: string }
+): D1PreparedStatement {
+  return db.prepare(
     `INSERT INTO build_progress (build_id, owner_user_id, entries, picks, needed, route, route_order, updated_at, write_day, writes_today)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
      ON CONFLICT(build_id) DO UPDATE SET
@@ -357,8 +374,7 @@ export async function upsertBuildProgressIfUnchanged(
   ).bind(
     row.build_id, row.owner_user_id, row.entries, row.picks, row.needed, row.route, row.route_order, row.updated_at, row.write_day,
     condition.baseUpdatedAt, condition.notAfter
-  ).run();
-  return (result.meta.changes ?? 0) > 0;
+  );
 }
 
 // Progress first, in one batch: build_progress references builds, and its

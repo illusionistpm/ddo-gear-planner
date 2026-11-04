@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, combineLatest, Observable, of, Subscription } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, map, switchMap, take } from 'rxjs/operators';
 
 import { buildPath } from '../build/build-route';
 import { BuildsService } from '../build/builds.service';
 import { SHOPPING_LIST_FRAGMENT } from '../build/shopping-list-link';
-import { FriendBuild, FriendShoppingList, FriendShoppingListService } from '../planner/shopping-list/friend-shopping-list.service';
+import { FriendBuild, FriendShoppingList, FriendShoppingListService, FriendView } from '../planner/shopping-list/friend-shopping-list.service';
 import { AnalyticsService } from '../shared/analytics.service';
 import { AuthService } from '../shared/auth.service';
 import { ThemeService } from '../shared/theme.service';
@@ -20,7 +20,8 @@ const SITE_TITLE = 'DDO Gear Planner';
  * /still-needed/:shortId(/:slug): a page of its own, for helping someone
  * farm their gear. It reads the build itself and never loads it into the
  * planner, which is reached only by asking for it: Open in planner opens
- * it in a new tab, leaving this one as it was.
+ * it in a new tab, leaving this one as it was. It's live: the owner's
+ * changes and saves show as they're made.
  *
  * The build's owner, signed in, gets their own list on the planner instead,
  * where they can tick things off.
@@ -55,9 +56,19 @@ export class StillNeededPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const shortId$ = this.route.paramMap.pipe(map(params => params.get('shortId') ?? ''), distinctUntilChanged());
     this.subscription = combineLatest([shortId$, this.retrySubject]).pipe(
-      switchMap(([shortId]) => this.load(shortId))
-    ).subscribe(list => {
-      this.list = list;
+      switchMap(([shortId]) => {
+        let checkedOwner = false;
+        return this.friendList.watch(shortId).pipe(map((view: FriendView) => {
+          if (view.build.status === 'ready' && !checkedOwner) {
+            checkedOwner = true;
+            this.openYourOwnInstead(shortId, view.build.name);
+          }
+          return { shortId, view };
+        }));
+      })
+    ).subscribe(({ shortId, view }) => {
+      this.showBuild(shortId, view.build);
+      this.list = view.list;
       this.cdr.markForCheck();
     });
   }
@@ -71,27 +82,18 @@ export class StillNeededPageComponent implements OnInit, OnDestroy {
     this.retrySubject.next();
   }
 
-  private load(shortId: string): Observable<FriendShoppingList | null> {
-    return this.friendList.build(shortId).pipe(
-      tap(build => this.showBuild(shortId, build)),
-      switchMap(build => {
-        if (build.status !== 'ready') {
-          return of(null);
-        }
-        this.openYourOwnInstead(shortId, build.name);
-        return this.friendList.list(shortId, build.entries);
-      })
-    );
-  }
-
   private showBuild(shortId: string, build: FriendBuild): void {
+    const changed = build.status !== this.build.status || (build.status === 'error' && this.build.status === 'error' && build.error !== this.build.error);
     this.build = build;
-    this.heading = build.status === 'ready' ? { name: build.name, plannerPath: buildPath(shortId, build.name) } : null;
+    if (build.status !== 'ready') {
+      this.heading = null;
+    } else if (this.heading?.name !== build.name) {
+      this.heading = { name: build.name, plannerPath: buildPath(shortId, build.name) };
+    }
     this.title.setTitle(build.status === 'ready' && build.name ? `Still needed for ${build.name} - ${SITE_TITLE}` : SITE_TITLE);
-    if (build.status === 'error') {
+    if (build.status === 'error' && changed) {
       this.analytics.track('still_needed_load_error', { error: build.error });
     }
-    this.cdr.markForCheck();
   }
 
   /** A build of yours: your own list, which you can tick off, says more. */

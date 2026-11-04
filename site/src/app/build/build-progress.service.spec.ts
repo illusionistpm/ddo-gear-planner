@@ -23,16 +23,6 @@ describe('BuildProgressService', () => {
     vi.unstubAllGlobals();
   });
 
-  it('reads a build\'s public progress by its short id', () => {
-    let result: unknown;
-    service.getPublic('ab/c').subscribe(progress => result = progress);
-
-    const req = httpMock.expectOne(`${api}/build/ab%2Fc/progress`);
-    expect(req.request.method).toBe('GET');
-    req.flush({ needed: ['k'], route: {}, updatedAt: 't' });
-    expect(result).toEqual({ needed: ['k'], route: {}, updatedAt: 't' });
-  });
-
   it('reads and writes the owner\'s doc by build id', () => {
     service.getOwn('build-1').subscribe();
     const get = httpMock.expectOne(`${api}/builds/build-1/progress`);

@@ -13,7 +13,7 @@ import { UserItemLocationTooltipPipe } from '../shared/user-item-location-toolti
 import { Clipboard } from '../shared/clipboard';
 import { AnalyticsService } from '../shared/analytics.service';
 import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
-import { FriendShoppingList, FriendShoppingListService } from '../planner/shopping-list/friend-shopping-list.service';
+import { FriendShoppingList } from '../planner/shopping-list/friend-shopping-list.service';
 import { ShoppingProgressStore, ShoppingSyncState } from '../planner/shopping-list/shopping-progress-store';
 import { ShoppingListShareMenuComponent } from './shopping-list-share-menu.component';
 
@@ -63,7 +63,6 @@ describe('ShoppingListComponent', () => {
   const rowByName = (name: string) => Array.from(el().querySelectorAll<HTMLElement>('.shopping-row'))
     .find(row => row.querySelector('.shopping-row-name')?.textContent?.trim() === name)!;
 
-  let friendService: { refresh: ReturnType<typeof vi.fn>; nextRefreshAt: number };
   let syncStates: BehaviorSubject<ShoppingSyncState>;
 
   beforeEach(async () => {
@@ -71,7 +70,6 @@ describe('ShoppingListComponent', () => {
     service = { view$: views, toggle: vi.fn(), setFilter: vi.fn(), pickSources: vi.fn(), resetRoute: vi.fn(),
       resetOrder: vi.fn(), arrangePacks: vi.fn(), arrangeQuests: vi.fn(),
       stillNeededText: () => 'Still needed for my build (5):', stillNeededKeys: () => ['k1', 'k2', 'k3', 'k4'] };
-    friendService = { refresh: vi.fn(() => true), nextRefreshAt: 0 };
     syncStates = new BehaviorSubject<ShoppingSyncState>('off');
     await TestBed.configureTestingModule({
       declarations: [ShoppingListComponent, ShoppingListShareMenuComponent, TapTooltipComponent, UserItemLocationTooltipPipe],
@@ -80,7 +78,6 @@ describe('ShoppingListComponent', () => {
         provideRouter([]),
         { provide: ShoppingListService, useValue: service },
         { provide: ShoppingListViewService, useValue: { openedFrom: null } },
-        { provide: FriendShoppingListService, useValue: friendService },
         { provide: ShoppingProgressStore, useValue: { syncState$: syncStates } }
       ]
     }).compileComponents();
@@ -610,7 +607,7 @@ describe('ShoppingListComponent', () => {
     const stillNeeded = () => buildShoppingListView(entries, { [sword.key]: 1, [step.key]: 1, [ring1.key]: 1 }, null,
       { filter: 'needed' });
     const showFriend = (list: Partial<FriendShoppingList>) => {
-      fixture.componentRef.setInput('friend', { view: stillNeeded(), needed: 2, notShared: false, failed: false, ...list });
+      fixture.componentRef.setInput('friend', { view: stillNeeded(), needed: 2, notShared: false, connection: 'live', ...list });
       fixture.detectChanges();
     };
 
@@ -621,7 +618,7 @@ describe('ShoppingListComponent', () => {
       fixture.detectChanges();
     });
     const text = () => el().textContent!.replace(/\s+/g, ' ');
-    const refreshButton = () => el().querySelector<HTMLButtonElement>('.shopping-list-refresh');
+    const liveStatus = () => el().querySelector<HTMLElement>('.shopping-list-live');
 
     it('shows only what\'s still needed and where to get it, with nothing to tick, pick or copy', () => {
       showFriend({});
@@ -664,32 +661,26 @@ describe('ShoppingListComponent', () => {
       expect(open?.getAttribute('target')).toBe('_blank');
     });
 
-    it('fetches the list again on Refresh, once the service allows', () => {
-      const track = vi.spyOn(TestBed.inject(AnalyticsService), 'track').mockReturnValue(undefined);
-      friendService.nextRefreshAt = Date.now() + 60000;
+    it('says whether the owner\'s changes are arriving as they\'re made, with nothing to refresh', () => {
       showFriend({});
-      expect(refreshButton()?.disabled).toBe(true);
+      expect(liveStatus()?.textContent?.trim()).toBe('Live');
+      expect(liveStatus()?.classList).toContain('live');
+      expect(el().querySelector('.shopping-list-refresh')).toBeNull();
 
-      friendService.nextRefreshAt = 0;
-      showFriend({});
-      refreshButton()!.click();
-
-      expect(friendService.refresh).toHaveBeenCalled();
-      expect(track).toHaveBeenCalledWith('refresh_shopping_list', { needed_count: 2 });
+      showFriend({ connection: 'reconnecting' });
+      expect(liveStatus()?.textContent?.trim()).toBe('Reconnecting…');
+      expect(liveStatus()?.classList).not.toContain('live');
     });
 
-    it('says while it loads, when nothing has been shared, and when it couldn\'t be fetched', () => {
-      showFriend({ view: null });
-      expect(text()).toContain('Loading what\'s still needed');
-
+    it('says when nothing has been shared, and when the connection is lost, keeping the list', () => {
       showFriend({ notShared: true });
       expect(text()).toContain('Nothing ticked off has been shared for this build yet');
 
-      showFriend({ view: null, failed: true });
-      expect(text()).toContain('Could not load what\'s still needed.');
-
-      showFriend({ failed: true });
-      expect(text()).toContain('Could not update the list, so this is what was shared before.');
+      showFriend({ connection: 'offline' });
+      expect(liveStatus()?.textContent?.trim()).toBe('Offline');
+      expect(el().querySelector('.shopping-list-note[role="alert"]')?.textContent)
+        .toContain('Lost the connection, so this is the list as it last arrived.');
+      expect(Array.from(el().querySelectorAll('.shopping-row-name'), name => name.textContent)).toContain('Ruby');
     });
 
     it('says when there\'s nothing left to get', () => {

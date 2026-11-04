@@ -64,7 +64,6 @@
 }
 
 .shopping-list-share,
-.shopping-list-refresh,
 .shopping-list-open-build,
 .shopping-list-arrange,
 .shopping-list-arrange-done,
@@ -82,7 +81,6 @@
 
 .shopping-list-share:hover,
 .shopping-list-share[aria-expanded="true"],
-.shopping-list-refresh:not(:disabled):hover,
 .shopping-list-open-build:hover,
 .shopping-list-arrange:hover,
 .shopping-list-reset-route:hover {
@@ -101,10 +99,14 @@
     text-decoration: none;
 }
 
-/* Fetched not long ago: the server would answer the same. */
-.shopping-list-refresh:disabled {
-    color: var(--text-secondary);
-    cursor: default;
+/* A friend's list: whether the owner's changes arrive as they're made. */
+.shopping-list-live {
+    color: var(--warning-color);
+    font-size: 0.8rem;
+}
+
+.shopping-list-live.live {
+    color: var(--success-color);
 }
 
 /* Why a friend's list shows what it does. */
@@ -667,7 +669,6 @@
 
     .shopping-list-back,
     .shopping-list-share,
-    .shopping-list-refresh,
     .shopping-list-reset-route,
     .shopping-list-choice-option,
     .shopping-sources-reset {

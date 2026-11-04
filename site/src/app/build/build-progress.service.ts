@@ -7,24 +7,17 @@ import type {
   ShoppingProgress, ShoppingProgressPatch, ShoppingRouteOrder, ShoppingSourcePicks
 } from '../planner/shopping-list/shopping-list-types';
 
-/** What a friend's link may see of a saved build's shopping list. */
-export interface PublicBuildProgress {
+/** The owner's whole doc: their ticks and picks, and what friends see (LiveBuildListService). */
+export interface OwnBuildProgress {
+  entries: ShoppingProgress;
+  picks: ShoppingSourcePicks;
   /** Still-needed entry keys; null when the owner has never shared a list. */
   needed: readonly string[] | null;
   /** For each still-needed thing, the quests the owner's list sends them to. */
   route: ShoppingSourcePicks;
-  /**
-   * The order the owner arranged the route in; null for the default.
-   * Absent from a worker that predates it, which doesn't store one.
-   */
-  order?: ShoppingRouteOrder | null;
+  /** The order the owner arranged the route in; null for the default. */
+  order: ShoppingRouteOrder | null;
   updatedAt: string | null;
-}
-
-/** The owner's whole doc: their ticks and picks, and what friends see. */
-export interface OwnBuildProgress extends PublicBuildProgress {
-  entries: ShoppingProgress;
-  picks: ShoppingSourcePicks;
 }
 
 /** A write. needed and route go together or not at all; absent, friends keep seeing what they saw. */
@@ -82,9 +75,9 @@ export function buildProgressFailureOf(error: unknown): BuildProgressFailure {
 }
 
 /**
- * Shopping-list progress for saved builds - worker/src/routes/progress.ts.
- * The owner's routes sit under /api/builds/ and get a token from the auth
- * interceptor; the public one sits under /api/build/ and is sent without.
+ * The owner's shopping-list progress for their saved builds -
+ * worker/src/routes/progress.ts, under /api/builds/, with a token from the
+ * auth interceptor. Friends get theirs over LiveBuildListService instead.
  */
 @Injectable({
   providedIn: 'root'
@@ -93,10 +86,6 @@ export class BuildProgressService {
   private readonly baseUrl = `${environment.apiBaseUrl}/api`;
 
   constructor(private readonly http: HttpClient) {}
-
-  getPublic(shortId: string): Observable<PublicBuildProgress> {
-    return this.http.get<PublicBuildProgress>(`${this.baseUrl}/build/${encodeURIComponent(shortId)}/progress`);
-  }
 
   getOwn(buildId: string): Observable<OwnBuildProgress> {
     return this.http.get<OwnBuildProgress>(this.ownUrl(buildId));

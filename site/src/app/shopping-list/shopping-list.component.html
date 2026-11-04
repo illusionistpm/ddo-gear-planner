@@ -30,11 +30,9 @@
             {{friend?.needed}} thing{{friend?.needed === 1 ? '' : 's'}} still needed
           }
         </span>
-        <button type="button" class="shopping-list-refresh" (click)="refresh()" [disabled]="!canRefresh"
-          title="Fetch what's still needed again">
-          <i class="fas fa-rotate" aria-hidden="true"></i>
-          <span>Refresh</span>
-        </button>
+        @if (liveLabel; as live) {
+          <span class="shopping-list-live" [class.live]="live.live" [title]="live.title">{{live.text}}</span>
+        }
         <a class="shopping-list-open-build" [routerLink]="friendBuild.plannerPath" target="_blank" rel="noopener"
           title="See the whole build in the planner, in a new tab">
           <i class="fas fa-up-right-from-square" aria-hidden="true"></i>
@@ -69,11 +67,8 @@
       }
     </div>
     @if (friendBuild) {
-      @if (friend?.failed) {
-        <p class="shopping-list-note" role="alert">
-          {{view ? 'Could not update the list, so this is what was shared before.' : "Could not load what's still needed."}}
-          Try Refresh in a moment.
-        </p>
+      @if (friend?.connection === 'offline') {
+        <p class="shopping-list-note" role="alert">Lost the connection, so this is the list as it last arrived. It updates once it's back.</p>
       } @else if (friend?.notShared) {
         <p class="shopping-list-note">Nothing ticked off has been shared for this build yet, so this is everything it needs.</p>
       }
@@ -123,7 +118,7 @@
     }
   </header>
 
-  @if (friendBuild && !view && !friend?.failed) {
+  @if (friendBuild && !view) {
     <p class="shopping-list-empty">Loading what's still needed…</p>
   }
   @if (view) {

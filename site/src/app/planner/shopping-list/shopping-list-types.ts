@@ -41,6 +41,12 @@ export interface ShoppingEntry {
   parentKey: string | null;
   /** Random properties the item should roll with (gear only). */
   details: string[];
+  /**
+   * On a group run's list, the build the entry is for (its id); its key is
+   * then prefixed with it too (see group-shopping-list.ts). Absent on a
+   * build's own list.
+   */
+  member?: string;
 }
 
 /** Explicit ticks: 1 = got it, 0 = not got it even though the trove has one. Absent = ask the trove. */
@@ -110,6 +116,16 @@ export interface ShoppingSourceChoice {
   alsoThere: number;
 }
 
+/** On a group run's list, one build's part of a row: who it's for, and how many of theirs are got. */
+export interface ShoppingRowMember {
+  /** The build's id. */
+  member: string;
+  /** The build's entries folded into the row. */
+  keys: string[];
+  quantity: number;
+  acquired: number;
+}
+
 /** One line of the list: one or more entries for the same thing. */
 export interface ShoppingRow {
   id: string;
@@ -128,6 +144,8 @@ export interface ShoppingRow {
   choices: ShoppingSourceChoice[];
   /** True when the user picked where to get it, rather than the list. */
   picked: boolean;
+  /** On a group run's list, each build the row is for, in the order first listed; empty on a build's own. */
+  members: ShoppingRowMember[];
   children: ShoppingRow[];
 }
 

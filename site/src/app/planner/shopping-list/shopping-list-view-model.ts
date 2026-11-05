@@ -2,7 +2,7 @@ import type { UserItemLocation } from '../user-gear.service';
 import { arrangeInOrder, comparePacks, distinctSources, isSourceHidden, routeSources, ShoppingRouteOptions } from './shopping-list-routing';
 import type {
   ShoppingEntry, ShoppingFilter, ShoppingGroup, ShoppingListView, ShoppingProgress, ShoppingProgressPatch,
-  ShoppingPublished, ShoppingRouteOrder, ShoppingRow, ShoppingRowState, ShoppingSection, ShoppingSource, ShoppingSourcePicks,
+  ShoppingPublished, ShoppingRouteOrder, ShoppingRow, ShoppingRowMember, ShoppingRowState, ShoppingSection, ShoppingSource, ShoppingSourcePicks,
   ShoppingTroveLookup
 } from './shopping-list-types';
 
@@ -227,6 +227,27 @@ export function buildShoppingListView(entries: readonly ShoppingEntry[], progres
   return { sections, acquired, total: entries.length, filter: options.filter, picked, replannable, packAccents, arranged };
 }
 
+/**
+ * The quests the route sends you to for every thing it places, got or not,
+ * by identity, in the shape of picks: handed back as picks, a list of some
+ * of the entries routes them exactly as the whole list does.
+ */
+export function routeEveryThing(entries: readonly ShoppingEntry[],
+    options: Pick<ShoppingListViewOptions, 'hiddenPacks' | 'picks' | 'routeSettled'>): Record<string, string[]> {
+  const routed = routeSources(thingsToRoute(entries), {
+    hiddenPacks: options.hiddenPacks ?? new Set<string>(),
+    picks: options.picks ?? {},
+    settled: options.routeSettled ?? new Set<string>(),
+  });
+  const route: Record<string, string[]> = {};
+  for (const [identity, sources] of routed) {
+    if (sources.length) {
+      route[identity] = sources.map(source => source.quest);
+    }
+  }
+  return route;
+}
+
 /** Crafting done where its item comes from is listed under the item, and goes wherever it goes. */
 function nestsUnderItem(entry: ShoppingEntry): boolean {
   return entry.kind === 'step' && entry.sourceInherited;
@@ -333,9 +354,26 @@ function foldRows(entries: readonly ShoppingEntry[], idPrefix: string, context: 
       state: rowState(acquired, folded.length),
       ownedLocations: locations?.length ? locations : null,
       ...sourcingOf(folded),
+      members: membersOf(folded, context),
       children: childrenOf(folded),
     };
   });
+}
+
+/** Each build a row's entries are for, on a group run's list; none on a build's own. */
+function membersOf(folded: readonly ShoppingEntry[], context: RowContext): ShoppingRowMember[] {
+  const byMember = new Map<string, ShoppingRowMember>();
+  for (const entry of folded) {
+    if (entry.member === undefined) {
+      continue;
+    }
+    const part = byMember.get(entry.member) ?? { member: entry.member, keys: [], quantity: 0, acquired: 0 };
+    part.keys.push(entry.key);
+    part.quantity++;
+    part.acquired += isEntryAcquired(entry.key, context.progress, context.covered) ? 1 : 0;
+    byMember.set(entry.member, part);
+  }
+  return Array.from(byMember.values());
 }
 
 function rowState(acquired: number, total: number): ShoppingRowState {

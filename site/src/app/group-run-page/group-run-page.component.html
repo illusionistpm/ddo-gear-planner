@@ -1,0 +1,126 @@
+<div class="container group-run-page">
+  <header class="still-needed-chrome group-run-chrome">
+    <a class="still-needed-brand" routerLink="/" title="Plan a build of your own">
+      <img src="/favicon-96x96.png" alt="" class="still-needed-brand-icon">
+      <span>DDO Gear Planner</span>
+    </a>
+    <button type="button" class="theme-toggle"
+      [class.dark]="theme.isDarkTheme()"
+      [attr.aria-pressed]="theme.isDarkTheme()"
+      [attr.aria-label]="theme.isDarkTheme() ? 'Switch to light mode' : 'Switch to dark mode'"
+      [title]="theme.isDarkTheme() ? 'Switch to light mode' : 'Switch to dark mode'"
+      (click)="theme.toggleTheme()">
+      <i class="fas theme-toggle-icon" [class.fa-sun]="theme.isDarkTheme()" [class.fa-moon]="!theme.isDarkTheme()" aria-hidden="true"></i>
+    </button>
+  </header>
+
+  @if (!token) {
+    <div class="still-needed-error" role="alert">
+      <div class="still-needed-error-title">This link is missing its invite</div>
+      <div class="still-needed-message">A group run's link ends with its invite. Ask whoever sent it for the whole link.</div>
+    </div>
+  } @else if (run?.gone) {
+    <div class="still-needed-error" role="alert">
+      <div class="still-needed-error-title">This group run is over</div>
+      <div class="still-needed-message">
+        It was ended, its link was replaced, or it sat unused for a while. Ask the host for a new link, or start your own from your shopping list.
+      </div>
+    </div>
+  } @else {
+    @if (adding) {
+      <section class="group-run-panel" aria-label="Your builds in this group">
+        <div class="group-run-panel-header">
+          <strong>Your builds</strong>
+          <span class="group-run-panel-note">
+            {{run?.characters?.length ?? 0}}/{{maxBuilds}} builds in the group. Each one's rows are labelled with its character's name.
+          </span>
+          <button type="button" class="group-run-close" aria-label="Close" (click)="toggleAdding()">
+            <i class="fas fa-xmark" aria-hidden="true"></i>
+          </button>
+        </div>
+        @if (choicesError) {
+          <p class="group-run-error" role="alert">{{choicesError}}</p>
+        } @else if (choices === null) {
+          <p class="group-run-panel-note">Loading your builds…</p>
+        } @else if (!choices.length) {
+          <p class="group-run-panel-note">You haven't saved any builds yet. Save one in the planner, then add it here.</p>
+        } @else {
+          <ul class="group-run-builds">
+            @for (choice of choices; track choice.build.id) {
+              <li class="group-run-build" [class.in-group]="choice.inGroup">
+                <span class="group-run-build-name" [title]="choice.build.name">{{choice.build.name}}</span>
+                <label class="group-run-character">
+                  <span class="visually-hidden">Character name for {{choice.build.name}}</span>
+                  <input type="text" class="group-run-character-input" [value]="choice.characterName" [attr.maxlength]="maxNameLength"
+                    placeholder="Character name" (input)="setCharacterName(choice, $any($event.target).value)"
+                    (keydown.enter)="choice.inGroup ? renameBuild(choice) : addBuild(choice)">
+                </label>
+                @if (choice.inGroup) {
+                  <button type="button" class="group-run-button" [disabled]="choice.busy" (click)="renameBuild(choice)">Rename</button>
+                  <button type="button" class="group-run-button" [disabled]="choice.busy" (click)="removeBuild(choice.build.id, choice)">Take out</button>
+                } @else {
+                  <button type="button" class="group-run-button primary" [disabled]="choice.busy || full" (click)="addBuild(choice)">Add</button>
+                }
+                @if (choice.error) {
+                  <span class="group-run-error" role="alert">{{choice.error}}</span>
+                }
+              </li>
+            }
+          </ul>
+        }
+      </section>
+    }
+    @if (actionError) {
+      <p class="group-run-error group-run-action-error" role="alert">{{actionError}}</p>
+    }
+    <app-shopping-list class="still-needed-list" [groupRun]="groupRun" [group]="run">
+      <div groupActions class="group-run-actions">
+        <button type="button" class="group-run-button" (click)="copyInvite()" title="Copy the link friends use to join and add their builds">
+          <i class="fas" [class.fa-link]="!copied" [class.fa-check]="copied" aria-hidden="true"></i>
+          <span>{{copied ? 'Copied' : 'Invite'}}</span>
+        </button>
+        @if (signedIn) {
+          <button type="button" class="group-run-button" [attr.aria-expanded]="adding" (click)="toggleAdding()">
+            <i class="fas fa-user-plus" aria-hidden="true"></i>
+            <span>Your builds</span>
+          </button>
+        } @else {
+          <button type="button" class="group-run-button" (click)="signIn()" title="Sign in to add your builds and tick off your rows">
+            <i class="fas fa-right-to-bracket" aria-hidden="true"></i>
+            <span>Sign in to join</span>
+          </button>
+        }
+        @if (run; as r) {
+        @if (r.isHost) {
+          <div class="group-run-host">
+            <button type="button" class="group-run-button" [attr.aria-expanded]="hostMenuOpen" (click)="toggleHostMenu()"
+              aria-label="Host options">
+              <i class="fas fa-ellipsis" aria-hidden="true"></i>
+            </button>
+            @if (hostMenuOpen) {
+              <div class="group-run-menu" role="menu">
+                @if (r.characters.length) {
+                  <div class="group-run-menu-label">Take out a build</div>
+                  @for (character of r.characters; track character.buildId) {
+                    <button type="button" role="menuitem" class="group-run-menu-item" (click)="removeBuild(character.buildId)">
+                      {{character.characterName}}
+                    </button>
+                  }
+                  <hr class="group-run-menu-rule">
+                }
+                <button type="button" role="menuitem" class="group-run-menu-item" (click)="replaceLink()"
+                  title="Make a new invite link; the old one stops working">Replace the invite link</button>
+                @if (confirmingEnd) {
+                  <button type="button" role="menuitem" class="group-run-menu-item danger" (click)="endGroup()">Yes, end it for everyone</button>
+                } @else {
+                  <button type="button" role="menuitem" class="group-run-menu-item danger" (click)="confirmingEnd = true">End the group run</button>
+                }
+              </div>
+            }
+          </div>
+        }
+        }
+      </div>
+    </app-shopping-list>
+  }
+</div>

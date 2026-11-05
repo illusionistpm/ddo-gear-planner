@@ -6,7 +6,7 @@ non-obvious or have caused real bugs - the rest is discoverable from the code.
 ## Layout
 
 - `site/` — the Angular 22 planner app (projects `site` and `admin`).
-- `worker/` — Cloudflare Worker API: saved builds, short links, auth, and friends' live shopping lists (a Durable Object per build, `worker/src/live.ts`).
+- `worker/` — Cloudflare Worker API: saved builds, short links, auth, friends' live shopping lists (a Durable Object per build, `worker/src/live.ts`), and group runs (several builds as one list, a Durable Object per group; `routes/groups.ts`).
 - `data-builder/` — Python scrapers that regenerate `data/*.json`.
 - `data/` — the generated game-data JSON. Build-time input only: the site imports it via the `@data/*` alias (`site/tsconfig.json`) and it is bundled into JS chunks, never served as raw files.
 - `wiki-snapshot/` — the ddowiki pages `data/` is built from, committed. See "Game data" below.

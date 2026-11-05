@@ -7,6 +7,7 @@ import { BuildsService } from '../build/builds.service';
 import { CurrentBuildService } from '../build/current-build.service';
 import { confirmLeaveUnsavedChanges } from '../build/unsaved-changes.guard';
 import { buildPath } from '../build/build-route';
+import { groupPath, GroupsService, GroupSummary } from '../build/groups.service';
 import { EquippedService } from '../planner/equipped.service';
 
 @Component({
@@ -25,13 +26,16 @@ export class MyBuildsComponent implements OnInit {
   deletingId: string | null = null;
   deleteError: string | null = null;
   confirmingDeleteId: string | null = null;
+  /** The group runs you host or have a build in; null until they've loaded, or if they couldn't be. */
+  groups: GroupSummary[] | null = null;
 
   constructor(
     private readonly buildsService: BuildsService,
     private readonly currentBuild: CurrentBuildService,
     private readonly router: Router,
     private readonly cdr: ChangeDetectorRef,
-    private readonly equipped: EquippedService
+    private readonly equipped: EquippedService,
+    private readonly groupsService: GroupsService
   ) {}
 
   // Not fetched from the constructor: DI construction order isn't the same
@@ -62,6 +66,20 @@ export class MyBuildsComponent implements OnInit {
         this.cdr.markForCheck();
       }
     });
+    // Best effort: without them the panel is just your builds, as it was.
+    this.groupsService.listMine().subscribe({
+      next: groups => {
+        this.groups = groups;
+        this.cdr.markForCheck();
+      },
+      error: () => undefined
+    });
+  }
+
+  /** Opens a group run's page. It leaves the planner as it is, so there's nothing unsaved to lose. */
+  openGroup(group: GroupSummary): void {
+    this.router.navigateByUrl(groupPath(group.shortId, group.inviteToken));
+    this.closed.emit();
   }
 
   isCurrentBuild(build: BuildSummary): boolean {

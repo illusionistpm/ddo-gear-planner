@@ -7,12 +7,15 @@ import { of, throwError } from 'rxjs';
 import { Build } from '../build/build';
 import { BuildsService } from '../build/builds.service';
 import { CurrentBuildService } from '../build/current-build.service';
+import { GroupsService } from '../build/groups.service';
 import { EquippedService } from '../planner/equipped.service';
 import { MyBuildsComponent } from './my-builds.component';
 
 // The confirm specs below are about dirtiness; a build with no gear never
 // prompts at all (see hasUnsavedWork), so give them some.
 const equippedWithGear = { isBuildEmpty: () => false } as unknown as EquippedService;
+// No group runs: the panel is just your builds.
+const noGroups = { listMine: () => of([]) } as unknown as GroupsService;
 
 function makeBuild(overrides: Partial<Build> = {}): Build {
   return {
@@ -56,7 +59,7 @@ describe('MyBuildsComponent', () => {
       ]
     });
 
-    const component = TestBed.runInInjectionContext(() => new MyBuildsComponent(buildsService, currentBuild, router, cdr, equippedWithGear));
+    const component = TestBed.runInInjectionContext(() => new MyBuildsComponent(buildsService, currentBuild, router, cdr, equippedWithGear, noGroups));
     component.ngOnInit();
     return component;
   }
@@ -90,7 +93,7 @@ describe('MyBuildsComponent', () => {
     cdr = {
       markForCheck: vi.fn().mockName('ChangeDetectorRef.markForCheck')
     } as unknown as MockedObject<ChangeDetectorRef>;
-    const component = TestBed.runInInjectionContext(() => new MyBuildsComponent(buildsService, currentBuild, router, cdr, equippedWithGear));
+    const component = TestBed.runInInjectionContext(() => new MyBuildsComponent(buildsService, currentBuild, router, cdr, equippedWithGear, noGroups));
     component.ngOnInit();
 
     expect(component.builds).toBeNull();
@@ -273,7 +276,7 @@ describe('MyBuildsComponent', () => {
     cdr = {
       markForCheck: vi.fn().mockName('ChangeDetectorRef.markForCheck')
     } as unknown as MockedObject<ChangeDetectorRef>;
-    const component = TestBed.runInInjectionContext(() => new MyBuildsComponent(buildsService, currentBuild, router, cdr, equippedWithGear));
+    const component = TestBed.runInInjectionContext(() => new MyBuildsComponent(buildsService, currentBuild, router, cdr, equippedWithGear, noGroups));
     component.ngOnInit();
     const event = {
       stopPropagation: vi.fn().mockName('Event.stopPropagation')

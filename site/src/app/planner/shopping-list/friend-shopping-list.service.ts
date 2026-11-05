@@ -87,13 +87,19 @@ export class FriendShoppingListService {
     );
   }
 
-  private readBuild({ name, blob }: LiveBuildList): FriendBuild {
+  /** Everything a saved build's gear needs, from its blob; null for a blob this client can't read. */
+  entriesOf(blob: string): ShoppingEntry[] | null {
     const decoded = this.codec.decode(blob);
     if (!decoded) {
-      return { status: 'error', error: 'invalid-link' };
+      return null;
     }
     const slots = slotsFromParams(convertToParamMap(decoded), this.gearDb, this.essenceCrafting);
-    return { status: 'ready', name, entries: deriveShoppingEntries(slots, this.sources) };
+    return deriveShoppingEntries(slots, this.sources);
+  }
+
+  private readBuild({ name, blob }: LiveBuildList): FriendBuild {
+    const entries = this.entriesOf(blob);
+    return entries ? { status: 'ready', name, entries } : { status: 'error', error: 'invalid-link' };
   }
 }
 

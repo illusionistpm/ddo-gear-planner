@@ -17,6 +17,11 @@ import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-
 import { FriendShoppingList } from '../planner/shopping-list/friend-shopping-list.service';
 import { ShoppingProgressStore, ShoppingSyncState } from '../planner/shopping-list/shopping-progress-store';
 import { ShoppingListShareMenuComponent } from './shopping-list-share-menu.component';
+import { CurrentBuildService, CurrentBuildState } from '../build/current-build.service';
+import { GroupsService } from '../build/groups.service';
+import { GroupRunService, GroupRunView } from '../planner/shopping-list/group-run.service';
+import { buildGroupListView, GroupMemberEntries } from '../planner/shopping-list/group-shopping-list';
+import { Router } from '@angular/router';
 
 function from(quest: string, pack: string | null = null, raid = false): ShoppingSource {
   return { quest, pack, raid, wikiUrl: `wiki/${quest}` };
@@ -65,6 +70,7 @@ describe('ShoppingListComponent', () => {
     .find(row => row.querySelector('.shopping-row-name')?.textContent?.trim() === name)!;
 
   let syncStates: BehaviorSubject<ShoppingSyncState>;
+  let createGroup: ReturnType<typeof vi.fn>;
 
   beforeEach(async () => {
     views = new BehaviorSubject(buildShoppingListView(entries, {}, trove, { filter: 'all' }));
@@ -72,6 +78,7 @@ describe('ShoppingListComponent', () => {
       resetOrder: vi.fn(), arrangePacks: vi.fn(), arrangeQuests: vi.fn(),
       stillNeededText: () => 'Still needed for my build (5):', stillNeededKeys: () => ['k1', 'k2', 'k3', 'k4'] };
     syncStates = new BehaviorSubject<ShoppingSyncState>('off');
+    createGroup = vi.fn(() => of({ shortId: 'grp1', name: 'Group run', inviteToken: 'tok' }));
     await TestBed.configureTestingModule({
       declarations: [ShoppingListComponent, ShoppingListShareMenuComponent, TapTooltipComponent, UserItemLocationTooltipPipe],
       imports: [RouterLink],
@@ -80,6 +87,7 @@ describe('ShoppingListComponent', () => {
         { provide: ShoppingListService, useValue: service },
         { provide: ShoppingListViewService, useValue: { openedFrom: null } },
         { provide: ShoppingProgressStore, useValue: { syncState$: syncStates } },
+        { provide: GroupsService, useValue: { create: createGroup } },
         // The share menu asks; signed out, it offers the list as text alone.
         { provide: AuthService, useValue: { isAuthenticated$: of(false), signIn: vi.fn() } }
       ]
@@ -702,6 +710,142 @@ describe('ShoppingListComponent', () => {
 
       expect(track).toHaveBeenCalledWith('open_shopping_list',
         { entry_point: 'friend_link', item_count: 5, acquired_count: 3, has_picks: false });
+    });
+  });
+
+  describe('starting a group run', () => {
+    const groupButton = () => el().querySelector<HTMLButtonElement>('.shopping-list-start-group');
+    const own = (state: Partial<CurrentBuildState>) => {
+      const currentBuild = TestBed.inject(CurrentBuildService);
+      Object.defineProperty(currentBuild, 'value', {
+        configurable: true, get: () => ({ savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other', ...state })
+      });
+      fixture.destroy();
+      fixture = TestBed.createComponent(ShoppingListComponent);
+      fixture.detectChanges();
+    };
+
+    it('is offered for a saved build of yours, not for one you haven\'t saved or that isn\'t yours', () => {
+      own({});
+      expect(groupButton()).toBeNull();
+      own({ savedBuildId: 'b1', ownership: 'other' });
+      expect(groupButton()).toBeNull();
+
+      own({ savedBuildId: 'b1', shortId: 's1', name: 'A Very Long Build Name Indeed', ownership: 'owned' });
+      expect(groupButton()?.textContent?.trim()).toBe('Group run');
+    });
+
+    it('starts one with this build in it, as a character named after it, and goes to its page', async () => {
+      own({ savedBuildId: 'b1', shortId: 's1', name: 'A Very Long Build Name Indeed', ownership: 'owned' });
+      const navigate = vi.spyOn(TestBed.inject(Router), 'navigateByUrl').mockResolvedValue(true);
+
+      groupButton()!.click();
+      await fixture.whenStable();
+
+      expect(createGroup).toHaveBeenCalledWith('', [{ buildId: 'b1', characterName: 'A Very Long Build Na' }]);
+      expect(navigate).toHaveBeenCalledWith('/group/grp1#t=tok');
+    });
+  });
+
+  describe('on a group run\'s page', () => {
+    const kira: GroupMemberEntries = { buildId: 'b-kira', characterName: 'Kira', entries: [ring1, ring2, sword], needed: null };
+    const vex: GroupMemberEntries = { buildId: 'b-vex', characterName: 'Vex', entries: [ring1], needed: [] };
+    let groupRun: { toggleChip: ReturnType<typeof vi.fn>; toggleRow: ReturnType<typeof vi.fn>; setFilter: ReturnType<typeof vi.fn>;
+      show: ReturnType<typeof vi.fn>; pickSources: ReturnType<typeof vi.fn>; arrangePacks: ReturnType<typeof vi.fn> };
+    const text = () => el().textContent!.replace(/\s+/g, ' ');
+
+    const showGroup = (run: Partial<GroupRunView> = {}) => {
+      const view = buildGroupListView([kira, vex], { filter: 'all', picks: {}, order: null });
+      fixture.componentRef.setInput('group', {
+        name: 'Reaper night', view, connection: 'live', gone: false, isHost: false, yours: new Set(['b-kira']), showing: 'everyone',
+        unsaved: [],
+        characters: [
+          { buildId: 'b-kira', characterName: 'Kira', accent: 0, mine: true, needed: 3, total: 3, buildName: 'Tank', unreadable: false },
+          { buildId: 'b-vex', characterName: 'Vex', accent: 1, mine: false, needed: 0, total: 1, buildName: 'Archer', unreadable: false }
+        ],
+        ...run
+      } satisfies GroupRunView);
+      fixture.detectChanges();
+    };
+
+    beforeEach(() => {
+      groupRun = { toggleChip: vi.fn(), toggleRow: vi.fn(), setFilter: vi.fn(), show: vi.fn(), pickSources: vi.fn(), arrangePacks: vi.fn() };
+      fixture.destroy();
+      fixture = TestBed.createComponent(ShoppingListComponent);
+      fixture.componentRef.setInput('groupRun', groupRun as unknown as GroupRunService);
+      fixture.detectChanges();
+    });
+
+    const chips = (name: string) => Array.from(rowByName(name).querySelectorAll<HTMLElement>('.shopping-member-chip'));
+
+    it('names the group, and says how much everyone still needs, live', () => {
+      showGroup();
+
+      expect(el().querySelector('.shopping-list-title')?.textContent?.replace(/\s+/g, ' ').trim()).toBe('Reaper night group run');
+      // Kira's two rings and sword; Vex's ring is got.
+      expect(el().querySelector('.shopping-list-progress-text')?.textContent?.trim()).toBe('3 things still needed');
+      expect(el().querySelector('.shopping-list-live')?.textContent?.trim()).toBe('Live');
+      expect(el().querySelector('.shopping-list-back')).toBeNull();
+    });
+
+    it('says on each row whose it is, with your characters\' chips to tap and friends\' to read', () => {
+      showGroup();
+
+      const [kiraChip, vexChip] = chips('Ring');
+      expect(kiraChip.tagName).toBe('BUTTON');
+      expect(kiraChip.querySelector('.shopping-member-count')?.textContent).toBe('×2');
+      expect(vexChip.tagName).toBe('SPAN');
+      expect(vexChip.textContent?.replace(/\s+/g, '')).toBe('Vex✓');
+      expect(vexChip.getAttribute('aria-label')).toBe('Ring for Vex: got');
+
+      kiraChip.click();
+
+      expect(groupRun.toggleChip).toHaveBeenCalledWith(expect.objectContaining({ id: expect.stringContaining('gear|Ring') }), 'b-kira');
+    });
+
+    it('gives a box to rows with some of yours, ticking all of yours', () => {
+      showGroup({ yours: new Set(['b-vex']) });
+
+      expect(rowByName('Sword').querySelector('.shopping-check')).toBeNull();
+      const box = rowByName('Ring').querySelector<HTMLButtonElement>('.shopping-check')!;
+      // Vex's ring is got, whatever Kira's are.
+      expect(box.getAttribute('aria-checked')).toBe('true');
+
+      box.click();
+
+      expect(groupRun.toggleRow).toHaveBeenCalled();
+    });
+
+    it('shows everyone\'s, yours, or one character\'s rows', () => {
+      showGroup();
+
+      const filters = Array.from(el().querySelectorAll<HTMLButtonElement>('.shopping-character-filter'));
+      expect(filters.map(button => button.getAttribute('aria-label') ?? button.textContent?.trim()))
+        .toEqual(['Everyone', 'Mine', 'Kira: 3 still needed', 'Vex: 0 still needed']);
+      filters[3].click();
+
+      expect(groupRun.show).toHaveBeenCalledWith('b-vex');
+    });
+
+    it('lets only the host arrange the route', () => {
+      showGroup();
+      expect(el().querySelector('.shopping-list-arrange')).toBeNull();
+
+      showGroup({ isHost: true });
+      expect(el().querySelector('.shopping-list-arrange')).toBeTruthy();
+    });
+
+    it('says whose ticks couldn\'t be saved, and when the connection is lost', () => {
+      showGroup({ unsaved: ['Kira'], connection: 'offline' });
+
+      expect(text()).toContain('Couldn\'t save the ticks for Kira.');
+      expect(text()).toContain('Lost the connection');
+    });
+
+    it('says when there are no builds in it yet', () => {
+      showGroup({ view: buildGroupListView([], { filter: 'all', picks: {}, order: null }), characters: [] });
+
+      expect(text()).toContain('No builds in this group yet.');
     });
   });
 });

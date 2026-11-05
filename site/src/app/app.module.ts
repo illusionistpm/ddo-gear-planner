@@ -49,6 +49,7 @@ import { CraftingOptionPickerComponent } from './crafting-option-picker/crafting
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingListShareMenuComponent } from './shopping-list/shopping-list-share-menu.component';
 import { StillNeededPageComponent } from './still-needed-page/still-needed-page.component';
+import { GroupRunPageComponent } from './group-run-page/group-run-page.component';
 import { ServerShoppingProgressStore } from './planner/shopping-list/server-shopping-progress-store';
 import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress-store';
 
@@ -90,6 +91,7 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         PanelSwipeDirective,
         ShoppingListComponent,
         ShoppingListShareMenuComponent,
+        GroupRunPageComponent,
         StillNeededPageComponent
     ],
     imports: [

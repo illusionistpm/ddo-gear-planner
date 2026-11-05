@@ -55,9 +55,15 @@ export function buildPath(shortId: string, name: string | null): string {
 // build into the planner. Like a build loaded by shortId, AppComponent
 // must leave it alone.
 const STILL_NEEDED_ROUTE = /^\/still-needed\/[^/]+(?:\/[^/]*)?$/;
+const GROUP_RUN_ROUTE = /^\/group\/[^/]+$/;
 
 export function isStillNeededRoute(routePath: string): boolean {
   return STILL_NEEDED_ROUTE.test(routePath);
+}
+
+/** Whether a route path is a group run's page: /group/:shortId. */
+export function isGroupRunRoute(routePath: string): boolean {
+  return GROUP_RUN_ROUTE.test(routePath);
 }
 
 /** The path to a friend's view of what a saved build still needs: /still-needed/:shortId/:slug. */

@@ -126,6 +126,26 @@ def open_still_needed(page: Page) -> None:
     page.wait_for_selector('.shopping-section')
 
 
+def open_group_run(page: Page) -> None:
+    """A group run's page, its live socket pinned (worker/src/live.ts): two
+    characters sharing the build on screen, one of them having ticked part
+    of it off, so rows carry both characters' chips, one struck through.
+    Signed out, so it's the page as a friend with the link sees it."""
+    page.wait_for_function("location.search.includes('b=')")
+    blob = page.evaluate("new URLSearchParams(location.search).get('b')")
+
+    def member(build_id: str, name: str, needed: object) -> dict:
+        return {'buildId': build_id, 'characterName': name, 'list': {
+            'name': 'Test Build', 'blob': blob, 'needed': needed, 'route': {}, 'order': None,
+            'version': '2026-01-01T00:00:00.000Z'}}
+    message = json.dumps({
+        'kind': 'group', 'name': 'Saturday run', 'picks': {}, 'order': None, 'version': '2026-01-01T00:00:00.000Z',
+        'members': [member('b1', 'Kira', None), member('b2', 'Thane', [])]})
+    page.route_web_socket('**/api/groups/g1/live*', lambda ws: ws.send(message))
+    page.goto(page.url.split('/?')[0] + '/group/g1#t=token')
+    page.wait_for_selector('.shopping-member-chip')
+
+
 @dataclass
 class Scene:
     name: str
@@ -156,6 +176,7 @@ SCENES = [
     Scene('shopping-list-share', build=SHOPPING_BUILD, steps=[open_shopping_list, click('.shopping-list-share')]),
     Scene('shopping-list-arrange', build=SHOPPING_BUILD, steps=[open_shopping_list, click('.shopping-list-arrange')]),
     Scene('still-needed', build=SHOPPING_BUILD, steps=[open_still_needed]),
+    Scene('group-run', build=SHOPPING_BUILD, steps=[open_group_run]),
 ]
 
 THEMES = ['light', 'dark']

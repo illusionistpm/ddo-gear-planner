@@ -7,6 +7,12 @@ import { AnalyticsService } from '../shared/analytics.service';
 
 type ArrangeMethod = 'drag' | 'button';
 
+/** Where Arrange's moves go: ShoppingListService for your own list, GroupRunService for a group run's. */
+export interface ShoppingRouteArranger {
+  arrangePacks(packs: readonly string[]): void;
+  arrangeQuests(quests: readonly string[]): void;
+}
+
 /**
  * The shopping list's Arrange mode: the route as an outline - each pack, its
  * quests under it - to put in the order you'll run them. Drag a pack or a
@@ -27,6 +33,8 @@ type ArrangeMethod = 'drag' | 'button';
 })
 export class ShoppingListArrangeComponent {
   @Input({ required: true }) sections: readonly ShoppingSection[] = [];
+  /** Whose route the moves arrange: by default your own list's; a group run's for its host. */
+  @Input() arranger: ShoppingRouteArranger | null = null;
 
   constructor(
     private readonly shoppingList: ShoppingListService,
@@ -72,7 +80,7 @@ export class ShoppingListArrangeComponent {
     const packs = this.sections.map(section => section.pack);
     moveItemInArray(packs, from, to);
     this.analytics.track('arrange_shopping_route', { moved: 'pack', method });
-    this.shoppingList.arrangePacks(packs);
+    (this.arranger ?? this.shoppingList).arrangePacks(packs);
   }
 
   private moveQuest(section: ShoppingSection, from: number, to: number, method: ArrangeMethod): void {
@@ -82,7 +90,7 @@ export class ShoppingListArrangeComponent {
     }
     moveItemInArray(quests, from, to);
     this.analytics.track('arrange_shopping_route', { moved: 'quest', method });
-    this.shoppingList.arrangeQuests(quests);
+    (this.arranger ?? this.shoppingList).arrangeQuests(quests);
   }
 
   /**

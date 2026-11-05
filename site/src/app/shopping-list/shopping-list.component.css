@@ -183,6 +183,93 @@
     color: var(--on-accent-text-color);
 }
 
+/* A group run's characters: show everyone's rows, yours, or one character's. */
+.shopping-group-characters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+}
+
+.shopping-character-filter {
+    align-items: center;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    color: var(--text-secondary);
+    display: inline-flex;
+    font-size: 0.82rem;
+    gap: var(--space-4);
+    padding: var(--space-2) var(--space-12);
+}
+
+.shopping-character-filter.active {
+    border-color: var(--primary-color);
+    box-shadow: inset 0 0 0 1px var(--primary-color);
+    color: var(--text-primary);
+}
+
+.shopping-character-count {
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+}
+
+/* On a group run's list, whose each row is: a chip per character, yours to tap. */
+.shopping-row-members {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+}
+
+.shopping-member-chip {
+    align-items: center;
+    background: var(--surface-color);
+    border: 1px solid var(--shopping-member, var(--border-color));
+    border-radius: 999px;
+    color: var(--text-primary);
+    display: inline-flex;
+    font-size: 0.78rem;
+    gap: var(--space-4);
+    line-height: 1.4;
+    padding: 0 var(--space-8);
+}
+
+.shopping-row-members .shopping-member-chip.read-only {
+    border-style: dashed;
+    color: var(--text-secondary);
+}
+
+.shopping-member-chip.got {
+    opacity: 0.6;
+    text-decoration: line-through;
+}
+
+.shopping-member-dot {
+    background: var(--shopping-member, var(--border-color));
+    border-radius: 50%;
+    display: inline-block;
+    flex: none;
+    height: 0.55rem;
+    width: 0.55rem;
+}
+
+.shopping-member-count {
+    font-variant-numeric: tabular-nums;
+}
+
+.shopping-member-0 { --shopping-member: var(--member-accent-0); }
+.shopping-member-1 { --shopping-member: var(--member-accent-1); }
+.shopping-member-2 { --shopping-member: var(--member-accent-2); }
+.shopping-member-3 { --shopping-member: var(--member-accent-3); }
+.shopping-member-4 { --shopping-member: var(--member-accent-4); }
+.shopping-member-5 { --shopping-member: var(--member-accent-5); }
+.shopping-member-6 { --shopping-member: var(--member-accent-6); }
+.shopping-member-7 { --shopping-member: var(--member-accent-7); }
+.shopping-member-8 { --shopping-member: var(--member-accent-8); }
+.shopping-member-9 { --shopping-member: var(--member-accent-9); }
+.shopping-member-10 { --shopping-member: var(--member-accent-10); }
+.shopping-member-11 { --shopping-member: var(--member-accent-11); }
+
 /* Only beside the list on wide screens; see the 1200px block. */
 .shopping-pack-nav {
     display: none;
@@ -570,7 +657,8 @@
         justify-content: flex-end;
     }
 
-    .shopping-row-details {
+    .shopping-row-details,
+    .shopping-row-members {
         grid-column: 1 / -1;
     }
 
@@ -671,8 +759,13 @@
     .shopping-list-share,
     .shopping-list-reset-route,
     .shopping-list-choice-option,
+    .shopping-character-filter,
     .shopping-sources-reset {
         min-height: 2.5rem;
+    }
+
+    .shopping-row-members button.shopping-member-chip {
+        min-height: 2rem;
     }
 
     .shopping-source-choice {

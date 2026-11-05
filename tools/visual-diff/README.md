@@ -41,12 +41,13 @@ viewports: empty and richly-populated builds, both tracked-affix group modes,
 hover states, the filters panel, the share menu, all three drawers, an item
 preview, the affix builder, and the shopping list (from a
 build with augments, so it has crafting rows) with its share menu open and in
-Arrange mode, and a friend's still-needed page for it. Add a scene there when a
-state isn't covered.
+Arrange mode, a friend's still-needed page for it, and a group run's page with
+two characters sharing it. Add a scene there when a state isn't covered.
 
-The still-needed page reads the build and the owner's list from the Worker's
-live WebSocket, so that scene answers the socket itself with
-`page.route_web_socket` (`open_still_needed`, Playwright 1.48 or later).
+The still-needed and group-run pages read their builds and lists from the
+Worker's live WebSockets, so those scenes answer the socket themselves with
+`page.route_web_socket` (`open_still_needed`, `open_group_run`; Playwright 1.48
+or later).
 
 Each scene gets a fresh browser context with localStorage seeded (theme,
 active tab, onboarding), animations disabled, and the data-build timestamp

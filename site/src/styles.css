@@ -55,6 +55,19 @@
   --pack-accent-6: #2563eb;
   --pack-accent-7: #65a30d;
   --pack-accent-none: #94a3b8;
+  /* A group run's characters, one each (--member-accent-0 to -11): marks their chips on each row. */
+  --member-accent-0: #2563eb;
+  --member-accent-1: #db2777;
+  --member-accent-2: #059669;
+  --member-accent-3: #d97706;
+  --member-accent-4: #7c3aed;
+  --member-accent-5: #dc2626;
+  --member-accent-6: #0891b2;
+  --member-accent-7: #65a30d;
+  --member-accent-8: #c026d3;
+  --member-accent-9: #ea580c;
+  --member-accent-10: #4f46e5;
+  --member-accent-11: #0d9488;
   --raid-badge-bg: #fef3c7;
   --raid-badge-border-color: #b45309;
   --rare-badge-border-color: #7c3aed;
@@ -208,6 +221,18 @@
   --pack-accent-6: #60a5fa;
   --pack-accent-7: #a3e635;
   --pack-accent-none: #64748b;
+  --member-accent-0: #60a5fa;
+  --member-accent-1: #f472b6;
+  --member-accent-2: #34d399;
+  --member-accent-3: #fbbf24;
+  --member-accent-4: #a78bfa;
+  --member-accent-5: #f87171;
+  --member-accent-6: #22d3ee;
+  --member-accent-7: #a3e635;
+  --member-accent-8: #e879f9;
+  --member-accent-9: #fb923c;
+  --member-accent-10: #818cf8;
+  --member-accent-11: #2dd4bf;
   --raid-badge-bg: rgba(245, 158, 11, 0.16);
   --rare-badge-bg: rgba(124, 58, 237, 0.16);
   --artifact-badge-text-color: #fbbf24;

@@ -2,7 +2,11 @@ import {
   AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, NgZone,
   OnChanges, OnDestroy, OnInit, Output, QueryList, Type, ViewChild, ViewChildren
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { firstValueFrom, Subscription } from 'rxjs';
+
+import { CurrentBuildService } from '../build/current-build.service';
+import { characterNameFor, groupPath, GroupsService } from '../build/groups.service';
 
 import { AnalyticsService } from '../shared/analytics.service';
 import { FriendShoppingList } from '../planner/shopping-list/friend-shopping-list.service';
@@ -10,8 +14,10 @@ import { ShoppingListService } from '../planner/shopping-list/shopping-list.serv
 import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
 import { OTHER_SOURCES_LABEL } from '../planner/shopping-list/shopping-list-view-model';
 import { ShoppingProgressStore, ShoppingSyncState } from '../planner/shopping-list/shopping-progress-store';
+import { GroupCharacter, GroupRunService, GroupRunView, GroupShowing } from '../planner/shopping-list/group-run.service';
+import { ownRowState } from '../planner/shopping-list/group-shopping-list';
 import type {
-  ShoppingFilter, ShoppingListView, ShoppingRow, ShoppingSection, ShoppingSource, ShoppingSourceChoice
+  ShoppingFilter, ShoppingListView, ShoppingRow, ShoppingRowMember, ShoppingSection, ShoppingSource, ShoppingSourceChoice
 } from '../planner/shopping-list/shopping-list-types';
 
 /** Room left between the sticky header and a pack's heading scrolled up to it. */
@@ -44,6 +50,14 @@ export class ShoppingListComponent implements OnInit, OnChanges, AfterViewInit, 
   @Input() friendBuild: FriendBuildHeading | null = null;
   /** A friend's view of the build's list, with friendBuild. */
   @Input() friend: FriendShoppingList | null = null;
+  /**
+   * A group run's page, making this its list: everyone's rows, each saying
+   * which characters it's for. Your own characters' rows tick off; the
+   * host also picks quests and arranges the route, which everyone sees.
+   */
+  @Input() groupRun: GroupRunService | null = null;
+  /** The group run's list as it now is, with groupRun. */
+  @Input() group: GroupRunView | null = null;
   @Output() closed = new EventEmitter<void>();
   @ViewChild('header') private header?: ElementRef<HTMLElement>;
   @ViewChildren('sectionTitle') private sectionTitles?: QueryList<ElementRef<HTMLElement>>;
@@ -77,11 +91,50 @@ export class ShoppingListComponent implements OnInit, OnChanges, AfterViewInit, 
     private readonly analytics: AnalyticsService,
     private readonly cdr: ChangeDetectorRef,
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly zone: NgZone
+    private readonly zone: NgZone,
+    private readonly currentBuild: CurrentBuildService,
+    private readonly groups: GroupsService,
+    private readonly router: Router
   ) { }
 
+  /** A group run is being started from this list. */
+  startingGroup = false;
+  /** Starting one failed: why, to say so. */
+  groupError: string | null = null;
+
+  /** Your own list, for a saved build of yours: it can start a group run, which holds saved builds only. */
+  get canStartGroup(): boolean {
+    const state = this.currentBuild.value;
+    return !this.friendBuild && !this.groupRun && !!state.savedBuildId && state.ownership === 'owned';
+  }
+
+  /**
+   * Starts a group run with this build in it, as a character named after
+   * the build (renamed on the group's page), and goes there to invite
+   * friends. The group lists the build as saved.
+   */
+  async startGroup(): Promise<void> {
+    const { savedBuildId, name } = this.currentBuild.value;
+    if (!savedBuildId || this.startingGroup) {
+      return;
+    }
+    this.startingGroup = true;
+    this.groupError = null;
+    try {
+      const characterName = characterNameFor(name ?? '') || 'Me';
+      const group = await firstValueFrom(this.groups.create('', [{ buildId: savedBuildId, characterName }]));
+      this.analytics.track('start_group_run', {});
+      await this.router.navigateByUrl(groupPath(group.shortId, group.inviteToken));
+    } catch {
+      this.groupError = 'Couldn\'t start a group run. Please try again.';
+    } finally {
+      this.startingGroup = false;
+      this.cdr.markForCheck();
+    }
+  }
+
   ngOnInit(): void {
-    if (this.friendBuild) {
+    if (this.friendBuild || this.groupRun) {
       return;
     }
     this.subscriptions.add(this.shoppingList.view$.subscribe(view => this.showView(view)));
@@ -89,12 +142,90 @@ export class ShoppingListComponent implements OnInit, OnChanges, AfterViewInit, 
       this.syncState = syncState;
       this.cdr.markForCheck();
     }));
+    // Saved, or found to be yours: it can start a group run now.
+    this.subscriptions.add(this.currentBuild.state$.subscribe(() => this.cdr.markForCheck()));
   }
 
   ngOnChanges(): void {
     if (this.friendBuild) {
       this.showView(this.friend?.view ?? null);
+    } else if (this.groupRun) {
+      this.showView(this.group?.view ?? null);
     }
+  }
+
+  /** Read only: a friend's list, or the rows of a group run with none of yours. */
+  get readOnly(): boolean {
+    return !!this.friendBuild;
+  }
+
+  /** On a group run's list, whether you may change where things come from and the order: the host may. */
+  get canRoute(): boolean {
+    return !this.friendBuild && (!this.groupRun || !!this.group?.isHost);
+  }
+
+  /** Each character of the group, by build id, for a row's chips. */
+  get charactersById(): ReadonlyMap<string, GroupCharacter> {
+    const characters = this.group?.characters ?? [];
+    if (this.charactersCache?.list !== characters) {
+      this.charactersCache = { list: characters, byId: new Map(characters.map(character => [character.buildId, character])) };
+    }
+    return this.charactersCache.byId;
+  }
+  private charactersCache?: { list: readonly GroupCharacter[]; byId: ReadonlyMap<string, GroupCharacter> };
+
+  /** How many things are still needed on a group run's list, as shown. */
+  get groupNeeded(): number {
+    return this.view ? this.view.total - this.view.acquired : 0;
+  }
+
+  /** The row's box, on a group run's list: for your characters' copies in it; null when there are none. */
+  groupRowState(row: ShoppingRow): 'checked' | 'mixed' | 'unchecked' | null {
+    return this.group ? ownRowState(row, this.group.yours) : null;
+  }
+
+  /** Whether a row has a box: always on your own list, never on a friend's, and on a group's when some of it is yours. */
+  hasBox(row: ShoppingRow): boolean {
+    return !this.friendBuild && (!this.groupRun || this.groupRowState(row) !== null);
+  }
+
+  /** What a character's chip on a row says of their copies: got, how many of how many, or nothing for one still needed. */
+  chipCount(part: ShoppingRowMember): string {
+    if (part.quantity === 1) {
+      return part.acquired ? '✓' : '';
+    }
+    return part.acquired === part.quantity ? `×${part.quantity} ✓` : part.acquired ? `${part.acquired}/${part.quantity}` : `×${part.quantity}`;
+  }
+
+  chipLabel(part: ShoppingRowMember, row: ShoppingRow): string {
+    const name = this.charactersById.get(part.member)?.characterName ?? '';
+    const got = part.acquired === part.quantity ? 'got' : part.acquired ? `${part.acquired} of ${part.quantity} got` : 'still needed';
+    return `${row.entry.label} for ${name}: ${got}`;
+  }
+
+  /** A tap on one of your characters' chips: its next copy, then all of them off. */
+  toggleChip(row: ShoppingRow, part: ShoppingRowMember): void {
+    this.analytics.track('toggle_group_shopping_item', { item_kind: row.entry.kind, method: 'chip' });
+    this.groupRun?.toggleChip(row, part.member);
+  }
+
+  /** Whose rows a group run's list shows. */
+  show(showing: GroupShowing): void {
+    this.analytics.track('show_group_shopping', { showing: showing === 'everyone' || showing === 'mine' ? showing : 'character' });
+    this.groupRun?.show(showing);
+  }
+
+  /** What a character's button in the legend says about them. */
+  characterTitle(character: GroupCharacter): string {
+    if (character.unreadable) {
+      return `${character.characterName}'s build was saved by a newer version of the site, so its gear isn't listed here`;
+    }
+    return `Only ${character.characterName}'s rows (${character.buildName}): ${character.needed} of ${character.total} still needed`;
+  }
+
+  /** The class giving a character's chip their colour. */
+  memberClass(buildId: string): string {
+    return `shopping-member-${this.charactersById.get(buildId)?.accent ?? 0}`;
   }
 
   ngAfterViewInit(): void {
@@ -178,7 +309,7 @@ export class ShoppingListComponent implements OnInit, OnChanges, AfterViewInit, 
 
   /** A friend's list: whether changes arrive as they're made. */
   get liveLabel(): { text: string; title: string; live: boolean } | null {
-    switch (this.friend?.connection) {
+    switch (this.friend?.connection ?? this.group?.connection) {
       case 'live':
         return { text: 'Live', title: 'Changes show here as they\'re made', live: true };
       case 'connecting':
@@ -193,14 +324,14 @@ export class ShoppingListComponent implements OnInit, OnChanges, AfterViewInit, 
 
   /** How many of a section's things are still needed, or for your own list how many are got. */
   sectionCount(section: ShoppingSection): string {
-    return this.friendBuild ? `${section.total - section.acquired}` : `${section.acquired}/${section.total}`;
+    return this.friendBuild || this.groupRun ? `${section.total - section.acquired}` : `${section.acquired}/${section.total}`;
   }
 
   /** Shows a view, saying the list opened when its first arrives. */
   private showView(view: ShoppingListView | null): void {
     if (view && !this.view) {
       this.analytics.track('open_shopping_list', {
-        entry_point: this.friendBuild ? 'friend_link' : this.shoppingListView.openedFrom,
+        entry_point: this.friendBuild ? 'friend_link' : this.groupRun ? 'group_link' : this.shoppingListView.openedFrom,
         item_count: view.total,
         acquired_count: view.acquired,
         has_picks: view.picked
@@ -216,20 +347,36 @@ export class ShoppingListComponent implements OnInit, OnChanges, AfterViewInit, 
 
   setFilter(filter: ShoppingFilter): void {
     this.analytics.track('set_shopping_filter', { filter });
-    this.shoppingList.setFilter(filter);
+    if (this.groupRun) {
+      this.groupRun.setFilter(filter);
+    } else {
+      this.shoppingList.setFilter(filter);
+    }
   }
 
   toggle(row: ShoppingRow): void {
+    if (this.groupRun) {
+      this.analytics.track('toggle_group_shopping_item', { item_kind: row.entry.kind, method: 'row' });
+      this.groupRun.toggleRow(row);
+      return;
+    }
     this.analytics.track('toggle_shopping_item', { item_kind: row.entry.kind, checked: row.state !== 'checked' });
     this.shoppingList.toggle(row);
   }
 
+  /** The row's box state: the row's own, or on a group run's list, your characters' copies in it. */
+  private boxState(row: ShoppingRow): string {
+    return (this.groupRun ? this.groupRowState(row) : row.state) ?? 'unchecked';
+  }
+
   ariaChecked(row: ShoppingRow): string {
-    return row.state === 'checked' ? 'true' : row.state === 'mixed' ? 'mixed' : 'false';
+    const state = this.boxState(row);
+    return state === 'checked' ? 'true' : state === 'mixed' ? 'mixed' : 'false';
   }
 
   checkIcon(row: ShoppingRow): string {
-    return row.state === 'checked' ? 'fa-square-check' : row.state === 'mixed' ? 'fa-square-minus' : 'fa-square';
+    const state = this.boxState(row);
+    return state === 'checked' ? 'fa-square-check' : state === 'mixed' ? 'fa-square-minus' : 'fa-square';
   }
 
   /** Opens or closes a row's choice of where to get it. */
@@ -259,7 +406,7 @@ export class ShoppingListComponent implements OnInit, OnChanges, AfterViewInit, 
       item_kind: row.entry.kind,
       quest_count: quests.length
     });
-    this.shoppingList.pickSources(row, quests);
+    this.pickSources(row, quests);
   }
 
   async startArranging(): Promise<void> {
@@ -281,20 +428,37 @@ export class ShoppingListComponent implements OnInit, OnChanges, AfterViewInit, 
   /** Puts the packs and quests back in the order the list chose. */
   resetOrder(): void {
     this.analytics.track('arrange_shopping_route', { moved: 'reset' });
-    this.shoppingList.resetOrder();
+    (this.groupRun ?? this.shoppingList).resetOrder();
   }
 
   /** Forgets every pick, and plans the route again around what's still needed. */
   resetRoute(): void {
     this.expandedRowId = null;
     this.analytics.track('reset_shopping_route', { has_picks: !!this.view?.picked });
-    this.shoppingList.resetRoute();
+    if (this.groupRun) {
+      void this.groupRun.clearPicks();
+    } else {
+      this.shoppingList.resetRoute();
+    }
   }
 
   /** Forgets the user's pick, so the list chooses again. */
   resetSources(row: ShoppingRow): void {
     this.analytics.track('pick_shopping_source', { action: 'reset', item_kind: row.entry.kind });
-    this.shoppingList.pickSources(row, null);
+    this.pickSources(row, null);
+  }
+
+  private pickSources(row: ShoppingRow, quests: readonly string[] | null): void {
+    if (this.groupRun) {
+      void this.groupRun.pickSources(row, quests);
+    } else {
+      this.shoppingList.pickSources(row, quests);
+    }
+  }
+
+  /** Who Arrange moves the route for: your own list, or the group run's shared route. */
+  get arranger(): { arrangePacks(packs: readonly string[]): void; arrangeQuests(quests: readonly string[]): void } {
+    return this.groupRun ?? this.shoppingList;
   }
 
   /** What else picking a quest means: its pack, what else you'd get there, whether the pack filter hides it. */

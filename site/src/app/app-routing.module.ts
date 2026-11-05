@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main/main.component';
 import { StillNeededPageComponent } from './still-needed-page/still-needed-page.component';
+import { GroupRunPageComponent } from './group-run-page/group-run-page.component';
 import { MainRouteReuseStrategy } from './build/main-route-reuse-strategy';
 import { redirectLegacyRouteToRootGuard } from './build/redirect-legacy-route.guard';
 import { unsavedChangesGuard } from './build/unsaved-changes.guard';
@@ -22,7 +23,10 @@ const routes: Routes = [
   { path: 'build/:shortId/:slug', component: MainComponent, canDeactivate: [unsavedChangesGuard] },
   // A friend's view of what a saved build still needs; see build-route.ts.
   { path: 'still-needed/:shortId', component: StillNeededPageComponent },
-  { path: 'still-needed/:shortId/:slug', component: StillNeededPageComponent }
+  { path: 'still-needed/:shortId/:slug', component: StillNeededPageComponent },
+  // A group run's list: several friends' builds shopped for as one. The
+  // invite token rides in the fragment (see groups.service.ts's groupPath).
+  { path: 'group/:shortId', component: GroupRunPageComponent }
 ];
 
 @NgModule({

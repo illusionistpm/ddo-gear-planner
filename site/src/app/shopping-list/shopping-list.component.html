@@ -38,6 +38,22 @@
           <i class="fas fa-up-right-from-square" aria-hidden="true"></i>
           <span>Open in planner</span>
         </a>
+      } @else if (groupRun) {
+        <h2 id="shoppingListTitle" class="shopping-list-title">
+          {{group?.name || 'Group run'}}
+          @if (group?.name && group.name !== 'Group run') {
+            <span class="shopping-list-build-name">group run</span>
+          }
+        </h2>
+        <span class="shopping-list-progress-text" aria-live="polite">
+          @if (view) {
+            {{groupNeeded}} thing{{groupNeeded === 1 ? '' : 's'}} still needed
+          }
+        </span>
+        @if (liveLabel; as live) {
+          <span class="shopping-list-live" [class.live]="live.live" [title]="live.title">{{live.text}}</span>
+        }
+        <ng-content select="[groupActions]"></ng-content>
       } @else {
         <button type="button" class="shopping-list-back" (click)="closed.emit()" aria-label="Back to the planner">
           <i class="fas fa-arrow-left" aria-hidden="true"></i>
@@ -64,15 +80,94 @@
             }
           </div>
         }
+        @if (canStartGroup && view?.total) {
+          <button type="button" class="shopping-list-share shopping-list-start-group" [disabled]="startingGroup" (click)="startGroup()"
+            title="Shop for this build together with friends' builds, as one list">
+            <i class="fas fa-people-group" aria-hidden="true"></i>
+            <span>{{startingGroup ? 'Starting…' : 'Group run'}}</span>
+          </button>
+        }
       }
     </div>
-    @if (friendBuild) {
+    @if (groupRun) {
+      @if (group; as g) {
+        @if (g.connection === 'offline') {
+          <p class="shopping-list-note" role="alert">Lost the connection, so this is the list as it last arrived. It updates once it's back.</p>
+        }
+        @if (g.unsaved.length) {
+          <p class="shopping-list-note" role="alert">
+            Couldn't save the ticks for {{g.unsaved.join(', ')}}. Tick them off again from your own shopping list.
+          </p>
+        }
+        @if (g.characters.length) {
+          <div class="shopping-group-characters" role="group" aria-label="Whose rows to show">
+            <button type="button" class="shopping-character-filter" [class.active]="g.showing === 'everyone'"
+              [attr.aria-pressed]="g.showing === 'everyone'" (click)="show('everyone')">Everyone</button>
+            @if (g.yours.size) {
+              <button type="button" class="shopping-character-filter" [class.active]="g.showing === 'mine'"
+                [attr.aria-pressed]="g.showing === 'mine'" (click)="show('mine')">Mine</button>
+            }
+            @for (character of g.characters; track character.buildId) {
+              <button type="button" class="shopping-character-filter shopping-member-chip" [ngClass]="memberClass(character.buildId)"
+                [class.active]="g.showing === character.buildId" [attr.aria-pressed]="g.showing === character.buildId"
+                [title]="characterTitle(character)"
+                [attr.aria-label]="character.characterName + ': ' + (character.unreadable ? 'gear not listed' : character.needed + ' still needed')"
+                (click)="show(character.buildId)">
+                <span class="shopping-member-dot" aria-hidden="true"></span>
+                <span>{{character.characterName}}</span>
+                <span class="shopping-character-count">{{character.unreadable ? '?' : character.needed}}</span>
+              </button>
+            }
+          </div>
+        }
+      }
+      <div class="shopping-list-controls">
+        @if (arranging) {
+          <button type="button" class="shopping-list-arrange-done" (click)="stopArranging()">
+            <i class="fas fa-check" aria-hidden="true"></i>
+            <span>Done</span>
+          </button>
+          @if (view?.arranged) {
+            <button type="button" class="shopping-list-reset-route" (click)="resetOrder()"
+              title="Put the packs and quests back in the order the list chose">
+              <i class="fas fa-arrow-rotate-left" aria-hidden="true"></i>
+              <span>Default order</span>
+            </button>
+          }
+        } @else {
+          <div class="shopping-list-choice" role="group" aria-label="Show">
+            <span class="shopping-list-choice-label">Show</span>
+            <button type="button" class="shopping-list-choice-option" [class.active]="view?.filter === 'all'"
+              [attr.aria-pressed]="view?.filter === 'all'" (click)="setFilter('all')">All</button>
+            <button type="button" class="shopping-list-choice-option" [class.active]="view?.filter === 'needed'"
+              [attr.aria-pressed]="view?.filter === 'needed'" (click)="setFilter('needed')">Still needed</button>
+          </div>
+          @if (canRoute && view?.picked) {
+            <button type="button" class="shopping-list-reset-route" (click)="resetRoute()"
+              title="Forget the quests picked for things, for everyone, and let the list choose again">
+              <i class="fas fa-route" aria-hidden="true"></i>
+              <span>Reset route</span>
+            </button>
+          }
+          @if (canRoute && view?.sections?.length) {
+            <button type="button" class="shopping-list-arrange" (click)="startArranging()"
+              title="Put the packs and quests in the order the group will run them">
+              <i class="fas fa-up-down" aria-hidden="true"></i>
+              <span>Arrange</span>
+            </button>
+          }
+        }
+      </div>
+    } @else if (friendBuild) {
       @if (friend?.connection === 'offline') {
         <p class="shopping-list-note" role="alert">Lost the connection, so this is the list as it last arrived. It updates once it's back.</p>
       } @else if (friend?.notShared) {
         <p class="shopping-list-note">Nothing ticked off has been shared for this build yet, so this is everything it needs.</p>
       }
     } @else {
+      @if (groupError) {
+        <p class="shopping-list-note" role="alert">{{groupError}}</p>
+      }
       @if (view?.total) {
         <div class="shopping-list-progress" role="presentation">
           <span class="shopping-list-progress-fill" [style.width.%]="percentAcquired"></span>
@@ -118,20 +213,21 @@
     }
   </header>
 
-  @if (friendBuild && !view) {
+  @if ((friendBuild || groupRun) && !view) {
     <p class="shopping-list-empty">Loading what's still needed…</p>
   }
   @if (view) {
     @if (!view.total) {
       <p class="shopping-list-empty">
-        {{friendBuild ? 'This build has no gear yet.' : 'Nothing to get yet. Equip some gear and everything it needs shows up here, with where it comes from.'}}
+        {{groupRun ? (group?.characters?.length ? 'Nothing to get here: these builds have no gear yet.' : 'No builds in this group yet. Add yours, and send friends the invite link to add theirs.')
+          : friendBuild ? 'This build has no gear yet.' : 'Nothing to get yet. Equip some gear and everything it needs shows up here, with where it comes from.'}}
       </p>
     } @else if (!view.sections.length) {
-      <p class="shopping-list-empty">{{friendBuild ? 'Nothing left to get: everything is ticked off.' : 'Everything is ticked off.'}}</p>
+      <p class="shopping-list-empty">{{friendBuild || groupRun ? 'Nothing left to get: everything is ticked off.' : 'Everything is ticked off.'}}</p>
     }
     @if (arranging && view.sections.length) {
       @if (arrangeComponent) {
-        <ng-container *ngComponentOutlet="arrangeComponent; inputs: { sections: view.sections }"></ng-container>
+        <ng-container *ngComponentOutlet="arrangeComponent; inputs: { sections: view.sections, arranger: arranger }"></ng-container>
       } @else {
         <p class="shopping-list-empty">Loading…</p>
       }
@@ -218,8 +314,8 @@
 
 <!-- A row's box, label and details. -->
 <ng-template #rowContent let-row>
-  <div class="shopping-row" [class.acquired]="row.state === 'checked'" [class.read-only]="friendBuild">
-    @if (!friendBuild) {
+  <div class="shopping-row" [class.acquired]="row.state === 'checked'" [class.read-only]="!hasBox(row)">
+    @if (hasBox(row)) {
       <button type="button" role="checkbox" class="shopping-check" [attr.aria-checked]="ariaChecked(row)"
         [attr.aria-label]="'Got ' + row.entry.label" (click)="toggle(row)">
         <span class="far shopping-check-icon" [ngClass]="checkIcon(row)" aria-hidden="true"></span>
@@ -235,7 +331,9 @@
         } @else {
           <span class="shopping-row-name">{{row.entry.label}}</span>
         }
-        @if (friendBuild) {
+        @if (groupRun) {
+          <!-- Each character's copies are on their chip, below. -->
+        } @else if (friendBuild) {
           @if (row.quantity - row.acquired > 1) {
             <span class="shopping-row-quantity">×{{row.quantity - row.acquired}}</span>
           }
@@ -246,7 +344,7 @@
       <!-- Under the name on narrow screens; on wide ones, two columns beside it. -->
       <div class="shopping-row-meta">
         <div class="shopping-row-where">
-          @if (friendBuild) {
+          @if (!canRoute) {
             @if (row.alsoFrom.length) {
               <span class="shopping-row-also-from" [title]="alsoFromTooltip(row.alsoFrom)">
                 also from {{row.alsoFrom.length === 1 ? row.alsoFrom[0].quest : row.alsoFrom.length + ' other quests'}}
@@ -277,6 +375,32 @@
       </div>
       @if (row.entry.details.length) {
         <div class="shopping-row-details">Roll: {{row.entry.details.join(', ')}}</div>
+      }
+      @if (row.members.length) {
+        <div class="shopping-row-members">
+          @for (part of row.members; track part.member) {
+            @if (charactersById.get(part.member)?.mine) {
+              <button type="button" class="shopping-member-chip" [ngClass]="memberClass(part.member)"
+                [class.got]="part.acquired === part.quantity" [attr.aria-label]="chipLabel(part, row)"
+                [attr.aria-pressed]="part.acquired === part.quantity" (click)="toggleChip(row, part)">
+                <span class="shopping-member-dot" aria-hidden="true"></span>
+                <span>{{charactersById.get(part.member)?.characterName}}</span>
+                @if (chipCount(part); as count) {
+                  <span class="shopping-member-count">{{count}}</span>
+                }
+              </button>
+            } @else {
+              <span class="shopping-member-chip read-only" [ngClass]="memberClass(part.member)"
+                [class.got]="part.acquired === part.quantity" [attr.aria-label]="chipLabel(part, row)">
+                <span class="shopping-member-dot" aria-hidden="true"></span>
+                <span>{{charactersById.get(part.member)?.characterName}}</span>
+                @if (chipCount(part); as count) {
+                  <span class="shopping-member-count">{{count}}</span>
+                }
+              </span>
+            }
+          }
+        </div>
       }
     </div>
   </div>

@@ -50,3 +50,14 @@ fixed values, which both ends must send and recognise alike:
 |---|---|
 | `livePing` / `livePong` | the page's keepalive, and the answer the room gives without waking |
 | `liveGoneCloseCode` | the close code after a `gone` message: no (longer a) build to show |
+
+## Group runs
+
+Several saved builds shopped for as one list (`worker/src/routes/groups.ts`).
+
+| Key | Bounds |
+|---|---|
+| `maxGroupBuilds` | builds in one group, over all its members |
+| `maxGroupsPerUser` | groups one user hosts at a time |
+| `maxCharacterNameLength` | the character name each of a build's rows is labelled with |
+| `groupIdleDays` | how long a group with no changes and no ticks lasts before it's deleted |

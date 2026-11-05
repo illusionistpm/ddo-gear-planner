@@ -12,6 +12,7 @@ import {
   reserveAndInsertBuildIfUnderLimit,
   BuildSummaryRow,
   getBuildProgress,
+  listGroupShortIdsForBuild,
   updateBuildStatement
 } from '../db';
 import { errorResponse, jsonResponse, readJsonBody } from '../http';
@@ -319,7 +320,7 @@ export async function handleUpdateBuild(
   const updated = await getBuildById(env.DB, id) as BuildRow;
   if (fields.name !== undefined || fields.blob !== undefined || progressSaved) {
     const stored = progressSaved && write ? write.row : await getBuildProgress(env.DB, id);
-    tellFriends(env, waiter, row.short_id, friendListOf(updated, stored));
+    tellFriends(env, waiter, row, friendListOf(updated, stored));
   }
   return jsonResponse(progress ? { ...toBuildResponse(updated), progressSaved } : toBuildResponse(updated));
 }
@@ -341,8 +342,10 @@ export async function handleDeleteBuild(id: string, user: AuthenticatedUser, env
   }
   const row = owned.build;
 
+  // Read before the delete takes the build out of them.
+  const groups = await listGroupShortIdsForBuild(env.DB, id);
   await deleteBuild(env.DB, id);
   await env.BUILD_CACHE.delete(buildCacheKey(row.short_id));
-  closeFriends(env, waiter, row.short_id);
+  closeFriends(env, waiter, row.short_id, groups);
   return new Response(null, { status: 204 });
 }

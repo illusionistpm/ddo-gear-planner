@@ -23,13 +23,13 @@ import { checkOwnership } from './ownership';
 // selection), and a big build lists a few hundred things. These caps sit
 // well above that; they only stop a runaway or scripted client.
 const MAX_ENTRIES = sharedConstants.maxProgressEntries;
-const MAX_PICKS = sharedConstants.maxProgressPicks;
+export const MAX_PICKS = sharedConstants.maxProgressPicks;
 const MAX_KEY_LENGTH = sharedConstants.maxProgressKeyLength;
 // The stored JSON columns together, and the request body, counted in
 // string length (UTF-16 units) - close enough to bytes for a ceiling.
 export const MAX_PROGRESS_BYTES = sharedConstants.maxProgressBytes;
 const TOO_BIG = 'That shopping list is too big to save.';
-const MIN_WRITE_INTERVAL_MS = sharedConstants.progressMinWriteIntervalMs;
+export const MIN_WRITE_INTERVAL_MS = sharedConstants.progressMinWriteIntervalMs;
 const MAX_WRITES_PER_USER_PER_DAY = sharedConstants.maxProgressWritesPerUserPerDay;
 
 type QuestLists = Record<string, string[]>;
@@ -103,7 +103,7 @@ export async function handlePutProgress(
     return throttled(MIN_WRITE_INTERVAL_MS);
   }
   if (plan.friendsSeeChange) {
-    tellFriends(env, waiter, owned.build.short_id, friendListOf(owned.build, plan.row));
+    tellFriends(env, waiter, owned.build, friendListOf(owned.build, plan.row));
   }
   return jsonResponse(toOwnerProgress({ ...plan.row, writes_today: 0 }));
 }
@@ -173,7 +173,7 @@ export async function planProgressWrite(
   return { statement, row, friendsSeeChange };
 }
 
-function throttled(retryAfterMs: number): Response {
+export function throttled(retryAfterMs: number): Response {
   return jsonResponse(
     { error: 'Saving too fast. Please try again shortly.', retryAfterMs },
     { status: 429, headers: { 'Retry-After': String(Math.ceil(retryAfterMs / 1000)) } }
@@ -182,7 +182,7 @@ function throttled(retryAfterMs: number): Response {
 
 // Built through a Map so a key like "__proto__" stays an ordinary key
 // rather than reaching the object's prototype.
-function mergePatch<T>(stored: Record<string, T>, patch: Map<string, T | null>): Record<string, T> {
+export function mergePatch<T>(stored: Record<string, T>, patch: Map<string, T | null>): Record<string, T> {
   const merged = new Map(Object.entries(stored));
   for (const [key, value] of patch) {
     if (value === null) {

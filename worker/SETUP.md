@@ -19,7 +19,7 @@ your actual Cloudflare and Auth0 accounts, which I can't act on myself.
    actually references as `env.BUILD_CACHE`.
 4. `npx wrangler d1 migrations apply DB --remote` - runs every pending file
    under `migrations/` (currently `0001_init.sql` through
-   `0005_user_email_verified.sql`) against the real (not local) database, in
+   `0008_groups.sql`) against the real (not local) database, in
    order, skipping any already applied. Safe to re-run.
 5. In the Cloudflare dashboard, since `ddo-gear-planner.com`'s DNS is already
    on Cloudflare, deploying the Worker (step 7 below) with the
@@ -35,7 +35,10 @@ your actual Cloudflare and Auth0 accounts, which I can't act on myself.
    `ProgressRoom` Durable Object (friends' live shopping lists, see
    `src/live.ts`) also creates its class, from the `[[migrations]]` entry in
    `wrangler.toml` - nothing to set up by hand. It's SQLite-backed, the only
-   kind the Workers Free plan allows, though it stores nothing.
+   kind the Workers Free plan allows, though it stores nothing. The
+   `GroupRoom` Durable Object (group runs' live lists, `src/group-room.ts`)
+   is created the same way, by the `v2` entry. Apply `0008_groups.sql`
+   (step 4) before deploying the Worker that reads it.
 
 ## 2. Auth0
 

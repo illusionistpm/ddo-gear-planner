@@ -32,6 +32,17 @@ class_name = "ProgressRoom"
 tag = "v1"
 new_sqlite_classes = ["ProgressRoom"]
 
+# Group runs' live lists: one GroupRoom (src/group-room.ts) per group,
+# holding the sockets of everyone watching it. Stores nothing, like
+# ProgressRoom.
+[[durable_objects.bindings]]
+name = "GROUP_ROOMS"
+class_name = "GroupRoom"
+
+[[migrations]]
+tag = "v2"
+new_sqlite_classes = ["GroupRoom"]
+
 # No client secret needed here - the Worker only verifies Bearer tokens
 # (see src/auth.ts), it never runs the OAuth flow itself.
 [vars]

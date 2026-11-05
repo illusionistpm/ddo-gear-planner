@@ -55,6 +55,26 @@ export interface FakeBuildProgressRow {
   writes_today: number;
 }
 
+export interface FakeGroupRow {
+  id: string;
+  short_id: string;
+  host_user_id: string;
+  name: string;
+  invite_token: string;
+  picks: string;
+  route_order: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface FakeGroupBuildRow {
+  group_id: string;
+  build_id: string;
+  added_by_user_id: string;
+  character_name: string;
+  added_at: string;
+}
+
 export interface FakeShortIdRow {
   short_id: string;
   kind: string;
@@ -67,6 +87,8 @@ interface FakeD1Snapshot {
   shortlinks: FakeShortLinkRow[];
   shortIds: FakeShortIdRow[];
   buildProgress: FakeBuildProgressRow[];
+  groups: FakeGroupRow[];
+  groupBuilds: FakeGroupBuildRow[];
 }
 
 class FakeD1PreparedStatement {
@@ -99,6 +121,8 @@ export class FakeD1 {
   shortlinks: FakeShortLinkRow[] = [];
   shortIds: FakeShortIdRow[] = [];
   buildProgress: FakeBuildProgressRow[] = [];
+  groups: FakeGroupRow[] = [];
+  groupBuilds: FakeGroupBuildRow[] = [];
 
   prepare(sql: string): FakeD1PreparedStatement {
     return new FakeD1PreparedStatement(this, sql);
@@ -130,7 +154,9 @@ export class FakeD1 {
       builds: [...this.builds],
       shortlinks: [...this.shortlinks],
       shortIds: [...this.shortIds],
-      buildProgress: this.buildProgress.map(row => ({ ...row }))
+      buildProgress: this.buildProgress.map(row => ({ ...row })),
+      groups: this.groups.map(row => ({ ...row })),
+      groupBuilds: this.groupBuilds.map(row => ({ ...row }))
     };
   }
 
@@ -140,6 +166,19 @@ export class FakeD1 {
     this.shortlinks = snapshot.shortlinks;
     this.shortIds = snapshot.shortIds;
     this.buildProgress = snapshot.buildProgress;
+    this.groups = snapshot.groups;
+    this.groupBuilds = snapshot.groupBuilds;
+  }
+
+  /** Inserts a group_builds row, enforcing its primary key and its case-insensitive name index. */
+  private _insertGroupBuild(row: FakeGroupBuildRow): void {
+    if (this.groupBuilds.some(g => g.group_id === row.group_id && g.build_id === row.build_id)) {
+      throw new Error('D1_ERROR: UNIQUE constraint failed: group_builds.group_id, group_builds.build_id');
+    }
+    if (this.groupBuilds.some(g => g.group_id === row.group_id && g.character_name.toLowerCase() === row.character_name.toLowerCase())) {
+      throw new Error('D1_ERROR: UNIQUE constraint failed: group_builds.group_id, group_builds.character_name');
+    }
+    this.groupBuilds.push(row);
   }
 
   _first(sql: string, args: unknown[]): unknown {
@@ -179,6 +218,13 @@ export class FakeD1 {
         updated_at: progress?.updated_at ?? null
       };
     }
+    if (sql.includes('SELECT * FROM groups WHERE short_id')) {
+      const row = this.groups.find(g => g.short_id === args[0]);
+      return row ? { ...row } : null;
+    }
+    if (sql.includes('SELECT COUNT(*) as count FROM groups WHERE host_user_id')) {
+      return { count: this.groups.filter(g => g.host_user_id === args[0]).length };
+    }
     if (sql.includes('SELECT kind FROM short_ids WHERE short_id')) {
       const row = this.shortIds.find(s => s.short_id === args[0]);
       return row ? { kind: row.kind } : null;
@@ -202,6 +248,50 @@ export class FakeD1 {
   }
 
   _all(sql: string, args: unknown[]): unknown[] {
+    // listGroupMembers: group_builds JOIN builds LEFT JOIN build_progress, in the order added.
+    if (sql.includes('FROM group_builds gb') && sql.includes('WHERE gb.group_id')) {
+      return this.groupBuilds
+        .filter(g => g.group_id === args[0])
+        .slice()
+        .sort((a, b) => a.added_at.localeCompare(b.added_at) || a.build_id.localeCompare(b.build_id))
+        .flatMap(g => {
+          const build = this.builds.find(b => b.id === g.build_id);
+          if (!build) {
+            return [];
+          }
+          const progress = this.buildProgress.find(p => p.build_id === g.build_id);
+          return [{
+            build_id: g.build_id, character_name: g.character_name, added_at: g.added_at,
+            short_id: build.short_id, owner_user_id: build.owner_user_id, name: build.name, blob: build.blob,
+            build_updated_at: build.updated_at, needed: progress?.needed ?? null, route: progress?.route ?? null,
+            route_order: progress?.route_order ?? null, updated_at: progress?.updated_at ?? null
+          }];
+        });
+    }
+    if (sql.includes('SELECT g.short_id FROM group_builds gb JOIN groups g')) {
+      return this.groupBuilds
+        .filter(g => g.build_id === args[0])
+        .flatMap(g => this.groups.filter(group => group.id === g.group_id).map(group => ({ short_id: group.short_id })));
+    }
+    // listGroupsForUser: hosted, or holding one of the user's builds; newest change first.
+    if (sql.includes('FROM groups g') && sql.includes('WHERE g.host_user_id')) {
+      const userId = args[0] as string;
+      return this.groups
+        .filter(group => group.host_user_id === userId || this.groupBuilds.some(g => g.group_id === group.id
+          && this.builds.some(b => b.id === g.build_id && b.owner_user_id === userId)))
+        .slice()
+        .sort((a, b) => b.updated_at.localeCompare(a.updated_at))
+        .map(group => {
+          const builds = this.groupBuilds.filter(g => g.group_id === group.id);
+          const progressAt = builds
+            .map(g => this.buildProgress.find(p => p.build_id === g.build_id)?.updated_at ?? null)
+            .reduce<string | null>((latest, at) => at && (!latest || at > latest) ? at : latest, null);
+          return {
+            short_id: group.short_id, name: group.name, invite_token: group.invite_token, host_user_id: group.host_user_id,
+            updated_at: group.updated_at, build_count: builds.length, progress_at: progressAt
+          };
+        });
+    }
     if (sql.includes('FROM builds WHERE owner_user_id')) {
       const rows = this.builds
         .filter(b => b.owner_user_id === args[0])
@@ -356,6 +446,91 @@ export class FakeD1 {
       return { meta: { changes: before - this.builds.length } };
     }
 
+    if (sql.startsWith('INSERT INTO groups')) {
+      const [id, shortId, hostUserId, name, inviteToken, picks, routeOrder, createdAt, updatedAt] =
+        args as [string, string, string, string, string, string, string | null, string, string];
+      if (unique(this.groups, g => g.short_id === shortId)) {
+        throw new Error('D1_ERROR: UNIQUE constraint failed: groups.short_id');
+      }
+      this.groups.push({
+        id, short_id: shortId, host_user_id: hostUserId, name, invite_token: inviteToken, picks, route_order: routeOrder,
+        created_at: createdAt, updated_at: updatedAt
+      });
+      return { meta: { changes: 1 } };
+    }
+
+    // insertGroupBuildIfUnderLimit's guarded insert, and the plain one reserveAndInsertGroup makes.
+    if (sql.startsWith('INSERT INTO group_builds')) {
+      const [groupId, buildId, addedBy, characterName, addedAt, countGroupId, max] =
+        args as [string, string, string, string, string, string?, number?];
+      if (sql.includes('WHERE (SELECT COUNT') && this.groupBuilds.filter(g => g.group_id === countGroupId).length >= (max as number)) {
+        return { meta: { changes: 0 } };
+      }
+      if (!this.builds.some(b => b.id === buildId) || !this.groups.some(g => g.id === groupId)) {
+        throw new Error('D1_ERROR: FOREIGN KEY constraint failed');
+      }
+      this._insertGroupBuild({ group_id: groupId, build_id: buildId, added_by_user_id: addedBy, character_name: characterName, added_at: addedAt });
+      return { meta: { changes: 1 } };
+    }
+
+    if (sql.startsWith('UPDATE group_builds SET character_name')) {
+      const [name, groupId, buildId] = args as [string, string, string];
+      const row = this.groupBuilds.find(g => g.group_id === groupId && g.build_id === buildId);
+      if (!row) {
+        return { meta: { changes: 0 } };
+      }
+      if (this.groupBuilds.some(g => g !== row && g.group_id === groupId && g.character_name.toLowerCase() === name.toLowerCase())) {
+        throw new Error('D1_ERROR: UNIQUE constraint failed: group_builds.group_id, group_builds.character_name');
+      }
+      row.character_name = name;
+      return { meta: { changes: 1 } };
+    }
+
+    if (sql.startsWith('DELETE FROM group_builds')) {
+      const before = this.groupBuilds.length;
+      if (sql.includes('WHERE group_id = ? AND build_id = ?')) {
+        this.groupBuilds = this.groupBuilds.filter(g => !(g.group_id === args[0] && g.build_id === args[1]));
+      } else if (sql.includes('WHERE group_id = ?')) {
+        this.groupBuilds = this.groupBuilds.filter(g => g.group_id !== args[0]);
+      } else {
+        this.groupBuilds = this.groupBuilds.filter(g => g.build_id !== args[0]);
+      }
+      return { meta: { changes: before - this.groupBuilds.length } };
+    }
+
+    if (sql.startsWith('DELETE FROM groups WHERE id')) {
+      const before = this.groups.length;
+      this.groups = this.groups.filter(g => g.id !== args[0]);
+      return { meta: { changes: before - this.groups.length } };
+    }
+
+    if (sql.startsWith('UPDATE groups SET updated_at = ? WHERE id')) {
+      const group = this.groups.find(g => g.id === args[1]);
+      if (group) {
+        group.updated_at = args[0] as string;
+      }
+      return { meta: { changes: group ? 1 : 0 } };
+    }
+
+    if (sql.startsWith('UPDATE groups SET picks')) {
+      const [picks, routeOrder, updatedAt, id, baseUpdatedAt, notAfter] = args as [string, string | null, string, string, string, string];
+      const group = this.groups.find(g => g.id === id);
+      if (!group || group.updated_at !== baseUpdatedAt || group.updated_at > notAfter) {
+        return { meta: { changes: 0 } };
+      }
+      Object.assign(group, { picks, route_order: routeOrder, updated_at: updatedAt });
+      return { meta: { changes: 1 } };
+    }
+
+    if (sql.startsWith('UPDATE groups SET invite_token')) {
+      const [token, updatedAt, id] = args as [string, string, string];
+      const group = this.groups.find(g => g.id === id);
+      if (group) {
+        Object.assign(group, { invite_token: token, updated_at: updatedAt });
+      }
+      return { meta: { changes: group ? 1 : 0 } };
+    }
+
     if (sql.startsWith('INSERT INTO shortlinks')) {
       const [shortId, blob, creatorUserId, createdAt] = args as [string, string, string | null, string];
       if (unique(this.shortlinks, s => s.short_id === shortId)) {
@@ -437,23 +612,42 @@ export function createFakeRooms(): FakeRooms {
 export const noWait = { waitUntil: (): void => undefined };
 
 /**
+ * A Waiter that keeps what it's given, for work done after reading D1 (a
+ * group's room is sent the group as re-read): settle() waits for it all.
+ */
+export function collectingWaiter(): { waitUntil(promise: Promise<unknown>): void; settle(): Promise<void> } {
+  const pending: Promise<unknown>[] = [];
+  return {
+    waitUntil: promise => { pending.push(promise); },
+    settle: async () => {
+      while (pending.length) {
+        await Promise.all(pending.splice(0));
+      }
+    }
+  };
+}
+
+/**
  * An Env over fresh fakes, for the route-handler tests: the D1 and the
  * rooms to inspect, and both allowed origins (production first).
  */
-export function makeEnv(): { env: Env; db: FakeD1; rooms: FakeRooms } {
+export function makeEnv(): { env: Env; db: FakeD1; rooms: FakeRooms; groupRooms: FakeRooms } {
   const db = new FakeD1();
   const rooms = createFakeRooms();
+  const groupRooms = createFakeRooms();
   return {
     env: {
       DB: db as unknown as D1Database,
       BUILD_CACHE: createFakeKv(),
       PROGRESS_ROOMS: rooms.namespace,
+      GROUP_ROOMS: groupRooms.namespace,
       AUTH0_DOMAIN: 'test-tenant.us.auth0.com',
       AUTH0_AUDIENCE: 'https://api.ddo-gear-planner.com',
       ALLOWED_ORIGINS: 'https://ddo-gear-planner.com,http://localhost:4200'
     },
     db,
-    rooms
+    rooms,
+    groupRooms
   };
 }
 

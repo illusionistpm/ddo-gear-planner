@@ -18,7 +18,7 @@ import { GroupRunPageComponent } from './group-run-page.component';
 describe('GroupRunPageComponent', () => {
   let fixture: ComponentFixture<GroupRunPageComponent>;
   let views: Subject<GroupRunView>;
-  let groupRun: { open: ReturnType<typeof vi.fn>; view$: Subject<GroupRunView>; group: LiveGroupList | null; refreshViewer: ReturnType<typeof vi.fn> };
+  let groupRun: { open: ReturnType<typeof vi.fn>; flush: ReturnType<typeof vi.fn>; view$: Subject<GroupRunView>; group: LiveGroupList | null; refreshViewer: ReturnType<typeof vi.fn> };
   let groups: Record<string, ReturnType<typeof vi.fn>>;
   let signedIn: BehaviorSubject<boolean>;
   let signIn: ReturnType<typeof vi.fn>;
@@ -44,7 +44,7 @@ describe('GroupRunPageComponent', () => {
   async function create(fragment: string | null): Promise<void> {
     views = new Subject<GroupRunView>();
     groupRun = {
-      open: vi.fn(), view$: views, refreshViewer: vi.fn(),
+      open: vi.fn(), flush: vi.fn(() => Promise.resolve()), view$: views, refreshViewer: vi.fn(),
       group: { name: 'Reaper night', picks: {}, order: null, version: 'v', members: [
         { buildId: 'b-kira', characterName: 'Kira', list: { name: 'Tank build', blob: 'z1', needed: null, route: {}, order: null, version: 'v' } }
       ] }
@@ -219,12 +219,20 @@ describe('GroupRunPageComponent', () => {
     expect(dialog()).toBeNull();
   });
 
-  it('has the planner catch up with ticks made here, and with your lists, once you leave', async () => {
+  it('has the planner catch up with ticks made here, once they\'ve been sent, and with your lists, once you leave', async () => {
     await create('t=secret');
+    let sent!: () => void;
+    groupRun.flush.mockReturnValue(new Promise<void>(resolve => sent = resolve));
 
     fixture.destroy();
 
-    expect(catchUp).toHaveBeenCalled();
+    expect(groupRun.flush).toHaveBeenCalled();
     expect(refreshLists).toHaveBeenCalled();
+    // Reading the build's ticks back before the group's writes land would miss them.
+    expect(catchUp).not.toHaveBeenCalled();
+    sent();
+    await Promise.resolve();
+    await Promise.resolve();
+    expect(catchUp).toHaveBeenCalled();
   });
 });

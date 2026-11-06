@@ -45,8 +45,12 @@ describe('GroupRunService', () => {
   let latest: GroupRunView;
   let trove: Map<string, UserItemLocation[]>;
   let troveChanged: Subject<void>;
+  let timing: { sendAfterMs: number; retryAfterMs: number[] };
+  let flushWithKeepalive: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
+    timing = { sendAfterMs: 0, retryAfterMs: [0] };
+    flushWithKeepalive = vi.fn(() => true);
     states = new Subject<LiveGroupState>();
     put = vi.fn(() => of({ updatedAt: '2026-11-05T11:00:00.000Z' }));
     putRoute = vi.fn(() => of({}));
@@ -55,12 +59,12 @@ describe('GroupRunService', () => {
     TestBed.configureTestingModule({
       providers: [
         GroupRunService,
-        { provide: GROUP_RUN_TIMING, useValue: { sendAfterMs: 0, retryAfterMs: [0] } },
+        { provide: GROUP_RUN_TIMING, useValue: timing },
         { provide: LiveGroupListService, useValue: { watch: vi.fn(() => states) } },
         { provide: GroupsService, useValue: { viewer: vi.fn(() => of({ isHost: true, yourBuildIds: ['b-kira'] })), putRoute } },
-        { provide: BuildProgressService, useValue: { put } },
+        { provide: BuildProgressService, useValue: { put, flushWithKeepalive } },
         { provide: FriendShoppingListService, useValue: { entriesOf: (blob: string) => ENTRIES[blob] ?? null } },
-        { provide: AuthService, useValue: { isAuthenticated$: new BehaviorSubject(true) } },
+        { provide: AuthService, useValue: { isAuthenticated$: new BehaviorSubject(true), getAccessToken: () => Promise.resolve('tok') } },
         { provide: UserGearService, useValue: { getItemLocations: (name: string) => trove.get(name), userItemsChanged$: troveChanged } }
       ]
     });
@@ -216,6 +220,82 @@ describe('GroupRunService', () => {
     await settle();
 
     expect(latest.view!.arranged).toBe(false);
+  });
+
+  describe('sending what\'s waiting without waiting out the quiet spell', () => {
+    const kiraWrite = {
+      patch: { 'g|Back|Cloak': 1 }, needed: ['g|Ring1|Ring', 'g|Ring2|Ring'], route: { 'gear|Ring': ['The Snitch'] }
+    };
+
+    beforeEach(() => {
+      timing.sendAfterMs = 60000;
+      arrive(group(list('z1.kira', null)));
+    });
+
+    it('sends it when the page goes, settling flush once the server has answered', async () => {
+      const answer = new Subject<object>();
+      put.mockReturnValue(answer);
+      service.toggleChip(row('Cloak'), 'b-kira');
+      let flushed = false;
+
+      service.ngOnDestroy();
+      void service.flush().then(() => flushed = true);
+
+      expect(put).toHaveBeenCalledTimes(1);
+      expect(put).toHaveBeenCalledWith('b-kira', kiraWrite);
+      await settle();
+      expect(flushed).toBe(false);
+      answer.next({ updatedAt: '2026-11-05T11:00:00.000Z' });
+      answer.complete();
+      await settle();
+      expect(flushed).toBe(true);
+    });
+
+    it('sends what was ticked while a write was out straight after it, once the page has gone', async () => {
+      const answer = new Subject<object>();
+      put.mockReturnValueOnce(answer);
+      service.toggleChip(row('Cloak'), 'b-kira');
+      void service.flush();
+      service.toggleChip(row('Ring'), 'b-kira');
+
+      service.ngOnDestroy();
+      answer.next({ updatedAt: '2026-11-05T11:00:00.000Z' });
+      answer.complete();
+      await settle();
+
+      expect(put).toHaveBeenCalledTimes(2);
+      expect(put.mock.calls[1]).toEqual(['b-kira', expect.objectContaining({ patch: { 'g|Ring1|Ring': 1 } })]);
+    });
+
+    it('sends it when the page is hidden', () => {
+      service.toggleChip(row('Cloak'), 'b-kira');
+      const visibility = vi.spyOn(document, 'visibilityState', 'get').mockReturnValue('hidden');
+
+      document.dispatchEvent(new Event('visibilitychange'));
+      visibility.mockRestore();
+
+      expect(put).toHaveBeenCalledWith('b-kira', kiraWrite);
+    });
+
+    it('sends it with keepalive when the page closes', async () => {
+      service.toggleChip(row('Cloak'), 'b-kira');
+      await settle();
+
+      window.dispatchEvent(new Event('pagehide'));
+
+      expect(flushWithKeepalive).toHaveBeenCalledWith('b-kira', kiraWrite, 'tok');
+      expect(put).not.toHaveBeenCalled();
+    });
+
+    it('stops listening for the page closing once it has gone', async () => {
+      service.toggleChip(row('Cloak'), 'b-kira');
+      await settle();
+      service.ngOnDestroy();
+
+      window.dispatchEvent(new Event('pagehide'));
+
+      expect(flushWithKeepalive).not.toHaveBeenCalled();
+    });
   });
 
   it('says the group is gone when it is', async () => {

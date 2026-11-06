@@ -125,8 +125,9 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
     clearTimeout(this.copiedTimeout);
-    // Your ticks here went to the server directly: the planner's copy of the build's catches up.
-    this.progressStore.catchUp();
+    // Your ticks here go to the server directly: the planner's copy of the
+    // build's catches up once the last of them has landed.
+    void this.groupRun.flush().finally(() => this.progressStore.catchUp());
     // Builds may have been added or taken out, or the list ended: the planner's Rejoin follows.
     this.myLists.refresh();
   }

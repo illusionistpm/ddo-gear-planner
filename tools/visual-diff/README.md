@@ -41,7 +41,7 @@ viewports: empty and richly-populated builds, both tracked-affix group modes,
 hover states, the filters panel, the share menu, all three drawers, an item
 preview, the affix builder, and the shopping list (from a
 build with augments, so it has crafting rows) with its share menu open and in
-Arrange mode, a friend's still-needed page for it, and a group run's page with
+Arrange mode, a friend's still-needed page for it, and a list of several builds (`/list/`) with
 two characters sharing it. Add a scene there when a state isn't covered.
 
 The still-needed and group-run pages read their builds and lists from the

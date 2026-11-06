@@ -50,6 +50,17 @@ describe('MyListsService', () => {
     expect(rejoin).toBeNull();
   });
 
+  it('finds none on lists from a Worker that doesn\'t say which builds are yours', () => {
+    const old: Partial<GroupSummary> = list('old', [], '2026-11-01T00:00:00.000Z');
+    delete old.yourBuildIds;
+    listMine.mockReturnValue(of([old]));
+
+    TestBed.inject(MyListsService).refresh();
+
+    expect(rejoin).toBeNull();
+    expect(TestBed.inject(MyListsService).listFor('b1')).toBeNull();
+  });
+
   it('reads the lists again when asked, only while signed in', () => {
     const service = TestBed.inject(MyListsService);
     listMine.mockReturnValue(of([]));

@@ -15,7 +15,8 @@
     </div>
   } @else {
     @if (adding) {
-      <section class="group-run-panel" aria-label="Your builds on this list">
+      <div class="group-run-backdrop" role="presentation" (click)="toggleAdding()"></div>
+      <section class="group-run-panel" role="dialog" aria-modal="true" aria-label="Add builds to this list">
         <div class="group-run-panel-header">
           <strong>Add builds</strong>
           <span class="group-run-panel-note">

@@ -42,7 +42,8 @@ export class MyListsService implements OnDestroy {
     }
     this.groups.listMine().pipe(catchError(() => of(null))).subscribe(lists => {
       if (lists) {
-        this.listsSubject.next(lists);
+        // A Worker from before yourBuildIds (the site and Worker deploy apart) leaves it out.
+        this.listsSubject.next(lists.map(list => ({ ...list, yourBuildIds: list.yourBuildIds ?? [] })));
       }
     });
   }

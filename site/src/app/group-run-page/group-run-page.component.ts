@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom, Subscription } from 'rxjs';
@@ -151,6 +151,14 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
 
   signIn(): void {
     this.auth.signIn();
+  }
+
+  @HostListener('document:keydown.escape')
+  closeAdding(): void {
+    if (this.adding) {
+      this.adding = false;
+      this.cdr.markForCheck();
+    }
   }
 
   toggleAdding(): void {

@@ -200,6 +200,25 @@ describe('GroupRunPageComponent', () => {
     expect(Array.from(el().querySelectorAll('.group-run-build-name'), name => name.textContent)).toEqual(['Tank build', 'My alt with a long name']);
   });
 
+  it('adds builds in a dialog over the list, closed by clicking away or Escape', async () => {
+    await create('t=secret');
+    arrive();
+    const dialog = () => el().querySelector('.group-run-panel[role="dialog"]');
+
+    button('Add builds')!.click();
+    fixture.detectChanges();
+    expect(dialog()).toBeTruthy();
+    el().querySelector<HTMLElement>('.group-run-backdrop')!.click();
+    fixture.detectChanges();
+    expect(dialog()).toBeNull();
+
+    button('Add builds')!.click();
+    fixture.detectChanges();
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    fixture.detectChanges();
+    expect(dialog()).toBeNull();
+  });
+
   it('has the planner catch up with ticks made here, and with your lists, once you leave', async () => {
     await create('t=secret');
 

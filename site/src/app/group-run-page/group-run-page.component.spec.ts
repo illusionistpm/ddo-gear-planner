@@ -10,6 +10,7 @@ import { GroupsService } from '../build/groups.service';
 import type { LiveGroupList } from '../build/live-group-list.service';
 import { GroupRunService, GroupRunView } from '../planner/shopping-list/group-run.service';
 import { ListReturnService } from '../build/list-return.service';
+import { MyListsService } from '../build/my-lists.service';
 import { ShoppingProgressStore } from '../planner/shopping-list/shopping-progress-store';
 import { AuthService } from '../shared/auth.service';
 import { GroupRunPageComponent } from './group-run-page.component';
@@ -22,6 +23,7 @@ describe('GroupRunPageComponent', () => {
   let signedIn: BehaviorSubject<boolean>;
   let signIn: ReturnType<typeof vi.fn>;
   let catchUp: ReturnType<typeof vi.fn>;
+  let refreshLists: ReturnType<typeof vi.fn>;
   let signedInAtCreate = true;
 
   const el = () => fixture.nativeElement as HTMLElement;
@@ -54,6 +56,7 @@ describe('GroupRunPageComponent', () => {
     signedIn = new BehaviorSubject(signedInAtCreate);
     signIn = vi.fn();
     catchUp = vi.fn();
+    refreshLists = vi.fn();
     await TestBed.configureTestingModule({
       declarations: [GroupRunPageComponent],
       imports: [RouterLink],
@@ -69,7 +72,8 @@ describe('GroupRunPageComponent', () => {
         ]) } },
         { provide: AuthService, useValue: { isAuthenticated$: signedIn, signIn } },
         { provide: ListReturnService, useValue: { url: '/build/s1/tank-build' } },
-        { provide: ShoppingProgressStore, useValue: { catchUp } }
+        { provide: ShoppingProgressStore, useValue: { catchUp } },
+        { provide: MyListsService, useValue: { refresh: refreshLists } }
       ]
     }).overrideComponent(GroupRunPageComponent, {
       set: { providers: [{ provide: GroupRunService, useValue: groupRun }] }
@@ -196,11 +200,12 @@ describe('GroupRunPageComponent', () => {
     expect(Array.from(el().querySelectorAll('.group-run-build-name'), name => name.textContent)).toEqual(['Tank build', 'My alt with a long name']);
   });
 
-  it('has the planner catch up with ticks made here once you leave', async () => {
+  it('has the planner catch up with ticks made here, and with your lists, once you leave', async () => {
     await create('t=secret');
 
     fixture.destroy();
 
     expect(catchUp).toHaveBeenCalled();
+    expect(refreshLists).toHaveBeenCalled();
   });
 });

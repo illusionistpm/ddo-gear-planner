@@ -238,6 +238,8 @@ export async function handleListMyGroups(user: AuthenticatedUser, env: Env): Pro
     inviteToken: row.invite_token,
     isHost: row.host_user_id === userId,
     buildCount: row.build_count,
+    // Which of the caller's builds it holds, so the planner can offer to rejoin it from one of them.
+    yourBuildIds: row.your_build_ids ? row.your_build_ids.split(',') : [],
     updatedAt: lastActivityOf(row, [row.progress_at])
   })));
 }

@@ -470,6 +470,8 @@ export interface GroupSummaryRow {
   build_count: number;
   /** The latest progress write of any of its builds; null when none has any. */
   progress_at: string | null;
+  /** The user's own builds in it, comma-separated (build ids are UUIDs); null when none are. */
+  your_build_ids: string | null;
 }
 
 /**
@@ -527,12 +529,14 @@ export async function listGroupsForUser(db: D1Database, userId: string): Promise
     `SELECT g.short_id, g.name, g.invite_token, g.host_user_id, g.updated_at,
        (SELECT COUNT(*) FROM group_builds c WHERE c.group_id = g.id) AS build_count,
        (SELECT MAX(p.updated_at) FROM group_builds pb JOIN build_progress p ON p.build_id = pb.build_id
-         WHERE pb.group_id = g.id) AS progress_at
+         WHERE pb.group_id = g.id) AS progress_at,
+       (SELECT GROUP_CONCAT(yb.build_id) FROM group_builds yb JOIN builds ybb ON ybb.id = yb.build_id
+         WHERE yb.group_id = g.id AND ybb.owner_user_id = ?) AS your_build_ids
      FROM groups g
      WHERE g.host_user_id = ?
        OR EXISTS (SELECT 1 FROM group_builds m JOIN builds mb ON mb.id = m.build_id WHERE m.group_id = g.id AND mb.owner_user_id = ?)
      ORDER BY g.updated_at DESC`
-  ).bind(userId, userId).all<GroupSummaryRow>();
+  ).bind(userId, userId, userId).all<GroupSummaryRow>();
   return result.results ?? [];
 }
 

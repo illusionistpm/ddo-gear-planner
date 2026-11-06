@@ -286,9 +286,12 @@ export class FakeD1 {
           const progressAt = builds
             .map(g => this.buildProgress.find(p => p.build_id === g.build_id)?.updated_at ?? null)
             .reduce<string | null>((latest, at) => at && (!latest || at > latest) ? at : latest, null);
+          const yours = builds.filter(g => this.builds.some(b => b.id === g.build_id && b.owner_user_id === userId))
+            .map(g => g.build_id);
           return {
             short_id: group.short_id, name: group.name, invite_token: group.invite_token, host_user_id: group.host_user_id,
-            updated_at: group.updated_at, build_count: builds.length, progress_at: progressAt
+            updated_at: group.updated_at, build_count: builds.length, progress_at: progressAt,
+            your_build_ids: yours.length ? yours.join(',') : null
           };
         });
     }

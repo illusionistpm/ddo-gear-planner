@@ -325,8 +325,12 @@ describe('group runs', () => {
       const forFriend = await (await handleListMyGroups(friend, made.env)).json();
       const forStranger = await (await handleListMyGroups(stranger, made.env)).json();
 
-      expect(forHost).toEqual([{ shortId, name: 'Reaper night', inviteToken: token, isHost: true, buildCount: 2, updatedAt: NOW }]);
-      expect(forFriend).toEqual([{ shortId, name: 'Reaper night', inviteToken: token, isHost: false, buildCount: 2, updatedAt: NOW }]);
+      expect(forHost).toEqual([
+        { shortId, name: 'Reaper night', inviteToken: token, isHost: true, buildCount: 2, yourBuildIds: ['b-host1'], updatedAt: NOW }
+      ]);
+      expect(forFriend).toEqual([
+        { shortId, name: 'Reaper night', inviteToken: token, isHost: false, buildCount: 2, yourBuildIds: ['b-friend'], updatedAt: NOW }
+      ]);
       expect(forStranger).toEqual([]);
       expect(made.db.groups).toHaveLength(1);
     });

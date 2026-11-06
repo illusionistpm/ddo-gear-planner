@@ -9,6 +9,7 @@ import {
   addBuildsOf, characterNameFor, groupBuildFailureOf, groupPath, GroupsService, inviteTokenOf, MAX_CHARACTER_NAME_LENGTH, MAX_GROUP_BUILDS
 } from '../build/groups.service';
 import { ListReturnService } from '../build/list-return.service';
+import { MyListsService } from '../build/my-lists.service';
 import { GroupRunService, GroupRunView } from '../planner/shopping-list/group-run.service';
 import { ShoppingProgressStore } from '../planner/shopping-list/shopping-progress-store';
 import { UserGearService } from '../planner/user-gear.service';
@@ -85,7 +86,8 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
     private readonly cdr: ChangeDetectorRef,
     private readonly userGear: UserGearService,
     listReturn: ListReturnService,
-    private readonly progressStore: ShoppingProgressStore
+    private readonly progressStore: ShoppingProgressStore,
+    private readonly myLists: MyListsService
   ) {
     this.plannerLink = { label: 'Planner', title: 'Back to the planner', url: listReturn.url };
   }
@@ -125,6 +127,8 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
     clearTimeout(this.copiedTimeout);
     // Your ticks here went to the server directly: the planner's copy of the build's catches up.
     this.progressStore.catchUp();
+    // Builds may have been added or taken out, or the list ended: the planner's Rejoin follows.
+    this.myLists.refresh();
   }
 
   get inviteUrl(): string {

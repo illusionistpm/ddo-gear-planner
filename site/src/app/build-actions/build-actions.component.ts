@@ -8,7 +8,11 @@ import { AuthService } from '../shared/auth.service';
 import { CurrentBuildService, CurrentBuildState } from '../build/current-build.service';
 import { MAX_BUILD_NAME_LENGTH, validateBuildName } from '../save-build-dialog/save-build-dialog.component';
 import { BuildSaveError, BuildSaveService } from './build-save.service';
+import { Router } from '@angular/router';
 import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
+import { groupPath, GroupSummary } from '../build/groups.service';
+import { MyListsService } from '../build/my-lists.service';
+import { AnalyticsService } from '../shared/analytics.service';
 
 type DialogMode = 'create' | 'save-as';
 
@@ -89,6 +93,7 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   private buildStateSub?: Subscription;
   private authSub?: Subscription;
   private userSub?: Subscription;
+  private rejoinSub?: Subscription;
 
   constructor(
     private readonly currentBuild: CurrentBuildService,
@@ -98,10 +103,21 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   ) {}
 
   private readonly shoppingListView = inject(ShoppingListViewService);
+  private readonly analytics = inject(AnalyticsService);
+  private readonly myLists = inject(MyListsService);
+  private readonly router = inject(Router);
+  /** The list of several builds this build is on, to rejoin; null for none. */
+  rejoin: GroupSummary | null = null;
 
   openShoppingList(): void {
     this.closeMenu();
     this.shoppingListView.open('menu');
+  }
+
+  rejoinList(list: GroupSummary): void {
+    this.closeMenu();
+    this.analytics.track('rejoin_list', { from: 'menu' });
+    this.router.navigateByUrl(groupPath(list.shortId, list.inviteToken));
   }
 
   // OnPush doesn't redraw on its own when state is mutated from inside an
@@ -125,12 +141,17 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
       this.userInitial = this.userDisplayName ? this.userDisplayName.charAt(0).toUpperCase() : '?';
       this.cdr.markForCheck();
     });
+    this.rejoinSub = this.myLists.rejoin$.subscribe(list => {
+      this.rejoin = list;
+      this.cdr.markForCheck();
+    });
   }
 
   ngOnDestroy(): void {
     this.buildStateSub?.unsubscribe();
     this.authSub?.unsubscribe();
     this.userSub?.unsubscribe();
+    this.rejoinSub?.unsubscribe();
   }
 
   signIn(): void {

@@ -1,7 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 import { AppModule } from '../app.module';
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
+import { GroupSummary } from '../build/groups.service';
+import { MyListsService } from '../build/my-lists.service';
 import { EquippedService } from '../planner/equipped.service';
 import { PlannerToolbarComponent } from './planner-toolbar.component';
 
@@ -204,5 +208,35 @@ describe('PlannerToolbarComponent', () => {
 
       expect(button().classList).not.toContain('short-label');
     });
+  });
+});
+
+describe('PlannerToolbarComponent rejoining a list', () => {
+  let fixture: ComponentFixture<PlannerToolbarComponent>;
+  let rejoin: BehaviorSubject<GroupSummary | null>;
+  const button = () => (fixture.nativeElement as HTMLElement).querySelector<HTMLButtonElement>('.shopping-list-rejoin');
+
+  beforeEach(async () => {
+    rejoin = new BehaviorSubject<GroupSummary | null>(null);
+    await TestBed.configureTestingModule({
+      imports: [AppModule],
+      providers: [{ provide: MyListsService, useValue: { rejoin$: rejoin } }]
+    }).compileComponents();
+    fixture = TestBed.createComponent(PlannerToolbarComponent);
+    fixture.detectChanges();
+  });
+
+  it('offers to rejoin the list of several builds this build is on, beside the shopping list', async () => {
+    expect(button()).toBeNull();
+
+    rejoin.next({ shortId: 'grp1', name: 'Saturday run', inviteToken: 'tok', isHost: false, buildCount: 3, yourBuildIds: ['b1'], updatedAt: '' });
+    fixture.detectChanges();
+    const navigate = vi.spyOn(TestBed.inject(Router), 'navigateByUrl').mockResolvedValue(true);
+
+    expect(button()?.querySelector('.shopping-list-open-label')?.textContent?.trim()).toBe('Rejoin Saturday run');
+    expect(button()?.querySelector('.shopping-list-rejoin-count')?.textContent?.trim()).toBe('3');
+    button()!.click();
+
+    expect(navigate).toHaveBeenCalledWith('/list/grp1#t=tok');
   });
 });

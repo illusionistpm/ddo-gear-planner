@@ -46,3 +46,13 @@
   <span class="fas fa-cart-shopping" aria-hidden="true"></span>
   <span class="shopping-list-open-label">Shopping list</span>
 </button>
+
+<!-- This build is on a list of several builds: the way back to it, and the reminder that it's going. -->
+@if (rejoin; as list) {
+  <button type="button" class="shopping-list-open shopping-list-rejoin" [title]="'Rejoin ' + list.name + ' (' + list.buildCount + ' builds)'"
+    [attr.aria-label]="'Rejoin ' + list.name + ', a shopping list of ' + list.buildCount + ' builds'" (click)="rejoinList(list)">
+    <span class="fas fa-people-group" aria-hidden="true"></span>
+    <span class="shopping-list-open-label">Rejoin {{list.name}}</span>
+    <span class="shopping-list-rejoin-count" aria-hidden="true">{{list.buildCount}}</span>
+  </button>
+}

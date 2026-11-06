@@ -3,7 +3,8 @@ import { provideRouter, Router } from '@angular/router';
 import { BehaviorSubject, of } from 'rxjs';
 
 import { CurrentBuildService, CurrentBuildState } from '../build/current-build.service';
-import { GroupsService } from '../build/groups.service';
+import { GroupsService, GroupSummary } from '../build/groups.service';
+import { MyListsService } from '../build/my-lists.service';
 import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
 import { AnalyticsService } from '../shared/analytics.service';
 import { AuthService } from '../shared/auth.service';
@@ -17,6 +18,7 @@ describe('OwnListActionsComponent', () => {
   let createGroup: ReturnType<typeof vi.fn>;
   let signIn: ReturnType<typeof vi.fn>;
   let build: CurrentBuildState;
+  let onList: GroupSummary | null;
 
   const el = () => fixture.nativeElement as HTMLElement;
   const shareButton = () => Array.from(el().querySelectorAll<HTMLButtonElement>('.list-action'))
@@ -30,13 +32,15 @@ describe('OwnListActionsComponent', () => {
     createGroup = vi.fn(() => of({ shortId: 'grp1', name: '', inviteToken: 'tok' }));
     signIn = vi.fn();
     build = { savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other' };
+    onList = null;
     await TestBed.configureTestingModule({
       declarations: [OwnListActionsComponent, ShoppingListShareMenuComponent],
       providers: [
         provideRouter([]),
         { provide: ShoppingListService, useValue: { stillNeededText: () => 'Still needed for my build (5):', stillNeededKeys: () => ['k1', 'k2', 'k3', 'k4'] } },
         { provide: GroupsService, useValue: { create: createGroup } },
-        { provide: AuthService, useValue: { isAuthenticated$: signedIn, signIn } }
+        { provide: AuthService, useValue: { isAuthenticated$: signedIn, signIn } },
+        { provide: MyListsService, useValue: { listFor: (buildId: string) => buildId === 'b1' ? onList : null } }
       ]
     }).compileComponents();
     const currentBuild = TestBed.inject(CurrentBuildService);
@@ -146,6 +150,19 @@ describe('OwnListActionsComponent', () => {
       expect(needs()).toBeNull();
       expect(createGroup).toHaveBeenCalledWith('', [{ buildId: 'b1', characterName: 'A Very Long Build Na' }]);
       expect(navigate).toHaveBeenCalledWith('/list/grp1#t=tok&add');
+    });
+
+    it('goes back to a list the build is already on, at Add builds, rather than starting another', async () => {
+      signedIn.next(true);
+      build = { savedBuildId: 'b1', shortId: 's1', name: 'Tank', isDirty: false, ownership: 'owned' };
+      onList = { shortId: 'grp9', name: 'Saturday run', inviteToken: 'tok9', isHost: false, buildCount: 3, yourBuildIds: ['b1'], updatedAt: '' };
+      const navigate = vi.spyOn(TestBed.inject(Router), 'navigateByUrl').mockResolvedValue(true);
+
+      click(addButton());
+      await fixture.whenStable();
+
+      expect(createGroup).not.toHaveBeenCalled();
+      expect(navigate).toHaveBeenCalledWith('/list/grp9#t=tok9&add');
     });
   });
 });

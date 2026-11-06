@@ -21,6 +21,8 @@ export interface CreatedGroup {
 export interface GroupSummary extends CreatedGroup {
   isHost: boolean;
   buildCount: number;
+  /** Which of the viewer's builds it holds. */
+  yourBuildIds: string[];
   /** When it, or any of its builds' lists, last changed. */
   updatedAt: string;
 }

@@ -4,6 +4,7 @@ import { firstValueFrom, Subscription } from 'rxjs';
 
 import { CurrentBuildService } from '../build/current-build.service';
 import { characterNameFor, groupPath, GroupsService } from '../build/groups.service';
+import { MyListsService } from '../build/my-lists.service';
 import { AnalyticsService } from '../shared/analytics.service';
 import { AuthService } from '../shared/auth.service';
 import { LiveShare, liveShareOf } from './shopping-list-share-menu.component';
@@ -45,7 +46,8 @@ export class OwnListActionsComponent implements OnInit, OnDestroy {
     private readonly auth: AuthService,
     private readonly router: Router,
     private readonly analytics: AnalyticsService,
-    private readonly cdr: ChangeDetectorRef
+    private readonly cdr: ChangeDetectorRef,
+    private readonly myLists: MyListsService
   ) { }
 
   ngOnInit(): void {
@@ -88,6 +90,13 @@ export class OwnListActionsComponent implements OnInit, OnDestroy {
     }
     const { savedBuildId, name } = this.currentBuild.value;
     if (!savedBuildId || this.starting) {
+      return;
+    }
+    const onList = this.myLists.listFor(savedBuildId);
+    if (onList) {
+      // Already on one: add the rest there, rather than starting another.
+      this.analytics.track('rejoin_list', { from: 'add_builds' });
+      await this.router.navigateByUrl(groupPath(onList.shortId, onList.inviteToken, { add: true }));
       return;
     }
     this.starting = true;

@@ -605,6 +605,12 @@ describe('ShoppingListComponent', () => {
     });
   });
 
+  it('is titled the shopping list, with no characters to choose between', () => {
+    expect(el().querySelector('.shopping-list-title')?.textContent?.trim()).toBe('Shopping list');
+    expect(el().querySelector('.shopping-group-characters')).toBeNull();
+    expect(el().querySelector('.shopping-list-live')).toBeNull();
+  });
+
   it('goes back to the planner', () => {
     const closed = vi.fn();
     fixture.componentInstance.closed.subscribe(closed);
@@ -859,6 +865,31 @@ describe('ShoppingListComponent', () => {
       filters[3].click();
 
       expect(groupRun.show).toHaveBeenCalledWith('b-vex');
+    });
+
+    it('switches the filter through the group, with nothing of your own list\'s: no Share, sync or progress bar', () => {
+      showGroup();
+
+      el().querySelectorAll<HTMLButtonElement>('.shopping-list-choice-option')[1].click();
+
+      expect(groupRun.setFilter).toHaveBeenCalledWith('needed');
+      expect(service.setFilter).not.toHaveBeenCalled();
+      for (const selector of ['.shopping-list-share', '.shopping-list-sync', '.shopping-list-progress', '.shopping-list-start-group']) {
+        expect(el().querySelector(selector), selector).toBeNull();
+      }
+    });
+
+    it('offers the host, once something is picked, to reset the route for everyone', () => {
+      const picked = { ...buildGroupListView([kira, vex], { filter: 'all', picks: {}, order: null }), picked: true, replannable: true };
+      showGroup({ view: picked });
+      expect(el().querySelector('.shopping-list-reset-route')).toBeNull();
+
+      const clearPicks = vi.fn();
+      (groupRun as unknown as { clearPicks: typeof clearPicks }).clearPicks = clearPicks;
+      showGroup({ view: picked, isHost: true });
+      el().querySelector<HTMLButtonElement>('.shopping-list-reset-route')!.click();
+
+      expect(clearPicks).toHaveBeenCalled();
     });
 
     it('lets only the host arrange the route', () => {

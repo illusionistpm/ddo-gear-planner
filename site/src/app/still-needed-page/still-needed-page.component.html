@@ -1,0 +1,31 @@
+<div class="container still-needed-page">
+  <app-page-chrome [backTo]="plannerLink"></app-page-chrome>
+
+  @switch (build.status) {
+    @case ('ready') {
+      <app-shopping-list class="still-needed-list" [friendBuild]="heading" [friend]="list"></app-shopping-list>
+    }
+    @case ('loading') {
+      <p class="still-needed-message" aria-live="polite">Loading the build…</p>
+    }
+    @case ('error') {
+      <div class="still-needed-error" role="alert">
+        @switch (build.status === 'error' ? build.error : null) {
+          @case ('not-found') {
+            <div class="still-needed-error-title">No build found</div>
+            <div class="still-needed-message">This link doesn't point to a saved build - it may have been deleted, made private, or mistyped.</div>
+          }
+          @case ('invalid-link') {
+            <div class="still-needed-error-title">This build is from an older version</div>
+            <div class="still-needed-message">It was saved in a format this page can no longer read.</div>
+          }
+          @default {
+            <div class="still-needed-error-title">Couldn't load this build</div>
+            <div class="still-needed-message">Check your connection and try again.</div>
+            <button type="button" class="still-needed-retry" (click)="retry()">Try again</button>
+          }
+        }
+      </div>
+    }
+  }
+</div>

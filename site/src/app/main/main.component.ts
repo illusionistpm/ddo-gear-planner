@@ -1,6 +1,5 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, combineLatest, distinctUntilChanged, take } from 'rxjs';
 
@@ -18,9 +17,12 @@ import { AuthService } from '../shared/auth.service';
 import { BuildUrlCodecService } from '../build/build-url-codec.service';
 import { BuildsService } from '../build/builds.service';
 import { CurrentBuildService } from '../build/current-build.service';
+import { ListReturnService } from '../build/list-return.service';
 import { QueryParamsService } from '../build/query-params.service';
 import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
+import { SupportLinkComponent } from '../support-link/support-link.component';
+import { PageChromeBack } from '../page-chrome/page-chrome.component';
 
 @Component({
     selector: 'app-main',
@@ -57,6 +59,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('plannerPage') private plannerPage?: ElementRef<HTMLElement>;
   @ViewChild('plannerChrome') private plannerChrome?: ElementRef<HTMLElement>;
   @ViewChild('tabPanels') private tabPanels?: ElementRef<HTMLElement>;
+  @ViewChild(SupportLinkComponent) private support?: SupportLinkComponent;
 
   private chromeObserver?: ResizeObserver;
 
@@ -121,7 +124,6 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     public theme: ThemeService,
     private affixBuilder: AffixBuilderDrawerService,
     private affixPackages: AffixPackagesService,
-    private sanitizer: DomSanitizer,
     private route: ActivatedRoute,
     private router: Router,
     private buildsService: BuildsService,
@@ -132,11 +134,8 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     private shoppingListView: ShoppingListViewService,
     private suggestionDrawer: SuggestionDrawerService
   ) {
-    this.supportPopoverUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      'https://www.buymeacoffee.com/widget/page/illusionistpm'
-      + '?description=' + encodeURIComponent('Support me on Buy me a coffee!')
-      + '&color=' + encodeURIComponent('#5F7FFF')
-    );
+    // Watching from here on, so a shopping list's page can come back to the planner as it was.
+    inject(ListReturnService);
   }
 
   ngOnInit() {
@@ -252,7 +251,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
       if (open) {
         // Nothing of the planner's stays floating over the list.
         this.closeFilters();
-        this.closeSupportPopover();
+        this.support?.close();
         this.suggestionDrawer.close();
         this.affixBuilder.close();
       }
@@ -582,29 +581,11 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filtersOpen = !this.filtersOpen;
   }
 
+  /** The list's way back to the planner, in the header it shows while open. */
+  readonly plannerBack: PageChromeBack = { label: 'Planner', title: 'Back to the planner' };
+
   toggleTheme() {
     this.theme.toggleTheme();
-  }
-
-  // Buy Me a Coffee's own floating widget always animates in from the bottom
-  // corner (its script hardcodes that), which looked disconnected once the
-  // trigger moved into the top bar. Its support form is just an embeddable
-  // page (https://www.buymeacoffee.com/widget/page/<slug>), so show that in a
-  // small popover anchored under our own button instead.
-  readonly supportPopoverUrl: SafeResourceUrl;
-  supportPopoverOpen = false;
-  /** Where the popover's top goes on a narrow screen, where it is pinned to the viewport's sides. */
-  supportPopoverTop = 0;
-
-  toggleSupportPopover(button?: HTMLElement) {
-    this.supportPopoverOpen = !this.supportPopoverOpen;
-    if (this.supportPopoverOpen && button) {
-      this.supportPopoverTop = button.getBoundingClientRect().bottom + 6;
-    }
-  }
-
-  closeSupportPopover() {
-    this.supportPopoverOpen = false;
   }
 
   closeFilters() {

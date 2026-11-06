@@ -19,7 +19,7 @@ your actual Cloudflare and Auth0 accounts, which I can't act on myself.
    actually references as `env.BUILD_CACHE`.
 4. `npx wrangler d1 migrations apply DB --remote` - runs every pending file
    under `migrations/` (currently `0001_init.sql` through
-   `0005_user_email_verified.sql`) against the real (not local) database, in
+   `0008_groups.sql`) against the real (not local) database, in
    order, skipping any already applied. Safe to re-run.
 5. In the Cloudflare dashboard, since `ddo-gear-planner.com`'s DNS is already
    on Cloudflare, deploying the Worker (step 7 below) with the
@@ -31,7 +31,14 @@ your actual Cloudflare and Auth0 accounts, which I can't act on myself.
    (`src/rateLimit.ts`, ~20 requests/minute per IP via KV) rather than
    Cloudflare's dashboard Rate Limiting Rules, which require a paid add-on
    outside Business/Enterprise plans - nothing to configure here.
-7. `npx wrangler deploy` - ships the Worker.
+7. `npx wrangler deploy` - ships the Worker. The first deploy with the
+   `ProgressRoom` Durable Object (friends' live shopping lists, see
+   `src/live.ts`) also creates its class, from the `[[migrations]]` entry in
+   `wrangler.toml` - nothing to set up by hand. It's SQLite-backed, the only
+   kind the Workers Free plan allows, though it stores nothing. The
+   `GroupRoom` Durable Object (group runs' live lists, `src/group-room.ts`)
+   is created the same way, by the `v2` entry. Apply `0008_groups.sql`
+   (step 4) before deploying the Worker that reads it.
 
 ## 2. Auth0
 
@@ -117,6 +124,9 @@ your actual Cloudflare and Auth0 accounts, which I can't act on myself.
   `curl -H "Authorization: Bearer <token>" https://api.ddo-gear-planner.com/api/users/me`
   should return `{"id":...,"buildCount":0}` and create a row in the `users`
   table (`npx wrangler d1 execute DB --remote --command "SELECT * FROM users"`).
+- Open a saved build's still-needed link (`/still-needed/<shortId>`) in a
+  browser: its header should say "Live". `curl` can't open the WebSocket,
+  and the Worker refuses one from an origin not in `ALLOWED_ORIGINS`.
 - Open the app in an actual browser (not curl) and confirm a cross-origin
   call with an `Authorization` header succeeds - the CORS preflight path is
   the one thing curl can't validate for you (see `src/index.ts`'s comment on

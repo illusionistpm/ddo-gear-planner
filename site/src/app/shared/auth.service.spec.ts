@@ -4,7 +4,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService as Auth0Service } from '@auth0/auth0-angular';
-import { BehaviorSubject, Subject, of } from 'rxjs';
+import { BehaviorSubject, Subject, of, throwError } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
@@ -17,17 +17,20 @@ describe('AuthService', () => {
   let isAuthenticated$: BehaviorSubject<boolean>;
   let auth0: MockedObject<Auth0Service>;
   let error$: Subject<Error>;
+  let isLoading$: BehaviorSubject<boolean>;
 
   function create(): AuthService {
     isAuthenticated$ = new BehaviorSubject<boolean>(false);
     error$ = new Subject<Error>();
+    isLoading$ = new BehaviorSubject<boolean>(false);
     auth0 = {
       loginWithRedirect: vi.fn().mockName('Auth0Service.loginWithRedirect'),
       logout: vi.fn().mockName('Auth0Service.logout'),
+      getAccessTokenSilently: vi.fn().mockName('Auth0Service.getAccessTokenSilently'),
       isAuthenticated$,
       error$,
       user$: of(null),
-      isLoading$: of(false)
+      isLoading$
     } as unknown as MockedObject<Auth0Service>;
     auth0.logout.mockReturnValue(of(undefined));
 
@@ -93,16 +96,19 @@ describe('AuthService', () => {
   });
 
   describe('signOut', () => {
-    it('stashes the current path/query and logs out with a bare-origin returnTo', () => {
-      // window.location isn't configurable in this test environment, so
-      // this asserts against whatever it actually is (the test page's URL)
-      // rather than a mocked build URL - still exercises the real
-      // pathname+search/origin plumbing signOut() does.
+    const originalUrl = window.location.pathname + window.location.search;
+
+    afterEach(() => {
+      window.history.replaceState(null, '', originalUrl);
+    });
+
+    it('stashes the current path, query and fragment and logs out with a bare-origin returnTo', () => {
       const service = create();
+      window.history.replaceState(null, '', '/build/abc123/my-build?b=z1.test#shopping-list');
 
       service.signOut();
 
-      expect(sessionStorage.getItem(POST_LOGOUT_RETURN_TO_KEY)).toBe(window.location.pathname + window.location.search);
+      expect(sessionStorage.getItem(POST_LOGOUT_RETURN_TO_KEY)).toBe('/build/abc123/my-build?b=z1.test#shopping-list');
       expect(auth0.logout).toHaveBeenCalledWith({
         logoutParams: { returnTo: window.location.origin }
       });
@@ -144,12 +150,13 @@ describe('AuthService', () => {
       window.history.replaceState(null, '', originalUrl);
     });
 
-    it('signIn stashes the current path/query alongside appState', () => {
+    it('signIn stashes the current path, query and fragment alongside appState', () => {
       const service = create();
+      window.history.replaceState(null, '', '/build/abc123/my-build?b=z1.test#shopping-list');
 
       service.signIn();
 
-      const target = window.location.pathname + window.location.search;
+      const target = '/build/abc123/my-build?b=z1.test#shopping-list';
       expect(sessionStorage.getItem(SIGN_IN_RETURN_TO_KEY)).toBe(target);
       expect(auth0.loginWithRedirect).toHaveBeenCalledWith({ appState: { target } });
     });
@@ -185,6 +192,52 @@ describe('AuthService', () => {
       httpMock.expectOne(`${environment.apiBaseUrl}/api/users/me`).flush({});
 
       expect(sessionStorage.getItem(SIGN_IN_RETURN_TO_KEY)).toBeNull();
+    });
+  });
+
+  describe('getAccessToken', () => {
+    function signedIn(): AuthService {
+      const service = create();
+      isAuthenticated$.next(true);
+      httpMock.expectOne(`${environment.apiBaseUrl}/api/users/me`).flush({});
+      return service;
+    }
+
+    it('returns a token while signed in', async () => {
+      const service = signedIn();
+      auth0.getAccessTokenSilently.mockReturnValue(of('token-1') as never);
+
+      expect(await service.getAccessToken()).toBe('token-1');
+    });
+
+    it('returns null while signed out, without asking for a token', async () => {
+      const service = create();
+
+      expect(await service.getAccessToken()).toBeNull();
+      expect(auth0.getAccessTokenSilently).not.toHaveBeenCalled();
+    });
+
+    it('waits for the startup session check before deciding', async () => {
+      const service = create();
+      isLoading$.next(true);
+      auth0.getAccessTokenSilently.mockReturnValue(of('token-1') as never);
+
+      const token = service.getAccessToken();
+      isAuthenticated$.next(true);
+      httpMock.expectOne(`${environment.apiBaseUrl}/api/users/me`).flush({});
+      isLoading$.next(false);
+
+      expect(await token).toBe('token-1');
+    });
+
+    it('stops asking for the rest of the page\'s life once an exchange fails', async () => {
+      const service = signedIn();
+      auth0.getAccessTokenSilently.mockReturnValue(throwError(() => ({ error: 'login_required' })) as never);
+
+      expect(await service.getAccessToken()).toBeNull();
+      auth0.getAccessTokenSilently.mockReturnValue(of('token-1') as never);
+      expect(await service.getAccessToken()).toBeNull();
+      expect(auth0.getAccessTokenSilently).toHaveBeenCalledTimes(1);
     });
   });
 

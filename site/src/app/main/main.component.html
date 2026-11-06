@@ -27,13 +27,13 @@
       line on a desktop and the first on a phone, without being in the markup
       twice. .planner-chrome-break is the forced wrap between them.
     -->
-    <header class="planner-chrome" #plannerChrome>
+    <header class="planner-chrome" #plannerChrome [hidden]="shoppingListOpen">
         <div class="planner-brand">
             <img src="/favicon-96x96.png" alt="" class="planner-brand-icon">
             <span class="planner-brand-name">DDO Gear Planner</span>
         </div>
 
-        <app-planner-toolbar [hidden]="shoppingListOpen"></app-planner-toolbar>
+        <app-planner-toolbar></app-planner-toolbar>
 
         <div class="planner-chrome-spacer"></div>
 
@@ -42,27 +42,7 @@
              On a wide screen that menu is display: contents, so they still lay
              out inline here exactly as before. -->
         <app-build-actions>
-        <div class="planner-support-wrap">
-            <button type="button" class="planner-support-link"
-                [class.open]="supportPopoverOpen"
-                [attr.aria-expanded]="supportPopoverOpen"
-                title="Buy me a coffee" aria-label="Support DDO Gear Planner — buy me a coffee"
-                (click)="toggleSupportPopover(supportButton); credits.close()" #supportButton>
-                <i class="fas fa-mug-hot" aria-hidden="true"></i>
-            </button>
-
-            @if (supportPopoverOpen) {
-                <section class="planner-support-popover" aria-label="Support DDO Gear Planner"
-                    [style.--support-popover-top.px]="supportPopoverTop">
-                    <button type="button" class="planner-support-popover-close" aria-label="Close" title="Close"
-                        (click)="closeSupportPopover()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <iframe class="planner-support-iframe" [src]="supportPopoverUrl"
-                        title="Support DDO Gear Planner"></iframe>
-                </section>
-            }
-        </div>
+        <app-support-link #support (opened)="credits.close()"></app-support-link>
 
         <button type="button" class="theme-toggle"
             [class.dark]="theme.isDarkTheme()"
@@ -72,13 +52,13 @@
             (click)="toggleTheme()">
             <i class="fas theme-toggle-icon" [class.fa-sun]="theme.isDarkTheme()" [class.fa-moon]="!theme.isDarkTheme()" aria-hidden="true"></i>
         </button>
-        <app-credits #credits (opened)="closeSupportPopover()"></app-credits>
+        <app-credits #credits (opened)="support.close()"></app-credits>
         <app-admin-link></app-admin-link>
         </app-build-actions>
 
-        <div class="planner-chrome-break" aria-hidden="true" [hidden]="shoppingListOpen"></div>
+        <div class="planner-chrome-break" aria-hidden="true"></div>
 
-        <div class="planner-filter-control" [class.open]="filtersOpen" [hidden]="shoppingListOpen">
+        <div class="planner-filter-control" [class.open]="filtersOpen">
             <button type="button" class="planner-filter-toggle"
                 [class.open]="filtersOpen"
                 [attr.aria-expanded]="filtersOpen"
@@ -167,13 +147,15 @@
         <button type="button" class="planner-filter-backdrop" aria-label="Close filters" (click)="closeFilters()"></button>
     }
 
-    @if (supportPopoverOpen) {
-        <button type="button" class="planner-support-backdrop" aria-label="Close support popover" (click)="closeSupportPopover()"></button>
-    }
 
 
     @if (shoppingListOpen) {
-        <app-shopping-list class="planner-shopping-list" (closed)="closeShoppingList()"></app-shopping-list>
+        <!-- The list is a page of its own while open: the site's header, not the planner's. -->
+        <app-page-chrome [backTo]="plannerBack" (back)="closeShoppingList()"></app-page-chrome>
+        <!-- cdkScrollable: it's what scrolls, so a drag in Arrange mode scrolls it at its edges. -->
+        <app-shopping-list class="planner-shopping-list" cdkScrollable #shoppingList>
+            <app-own-list-actions listActions [hasItems]="!!shoppingList.view?.total" (toPlanner)="closeShoppingList()"></app-own-list-actions>
+        </app-shopping-list>
     }
 
     <div class="planner-tab-panels" #tabPanels appPanelSwipe [hidden]="shoppingListOpen">

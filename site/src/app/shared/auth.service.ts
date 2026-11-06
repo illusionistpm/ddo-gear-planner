@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService as Auth0Service } from '@auth0/auth0-angular';
-import { Observable, distinctUntilChanged, filter } from 'rxjs';
+import { Observable, distinctUntilChanged, filter, firstValueFrom, switchMap } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 
@@ -48,6 +48,9 @@ export class AuthService {
   get isRedirectingAwayForAuth(): boolean {
     return this.redirectingAwayForAuth;
   }
+
+  // Set once a token exchange fails - see getAccessToken().
+  private accessTokenFailed = false;
 
   constructor(
     private readonly auth0: Auth0Service,
@@ -118,16 +121,55 @@ export class AuthService {
     }
   }
 
+  /**
+   * An access token for the API, or null when signed out or when getting
+   * one has failed before in this page's life.
+   *
+   * For code that talks to the API on its own schedule - background sync,
+   * a keepalive flush on pagehide - rather than in answer to a click. It
+   * asks before each request and stays quiet on null: retrying a failing
+   * exchange on a timer once ran through Auth0's rate limit. One failure
+   * is enough to stop, until the page reloads; signing in reloads it.
+   *
+   * Waits out the SDK's startup session check, so a session restored on
+   * load isn't mistaken for signed out.
+   */
+  async getAccessToken(): Promise<string | null> {
+    if (this.accessTokenFailed) {
+      return null;
+    }
+    const isAuthenticated = await firstValueFrom(this.auth0.isLoading$.pipe(
+      filter(isLoading => !isLoading),
+      switchMap(() => this.auth0.isAuthenticated$)
+    ));
+    if (!isAuthenticated || this.accessTokenFailed) {
+      return null;
+    }
+    try {
+      return await firstValueFrom(this.auth0.getAccessTokenSilently()) ?? null;
+    } catch {
+      this.accessTokenFailed = true;
+      return null;
+    }
+  }
+
   signIn(): void {
     this.redirectingAwayForAuth = true;
-    sessionStorage.setItem(SIGN_IN_RETURN_TO_KEY, window.location.pathname + window.location.search);
+    const returnTo = AuthService.currentAppUrl();
+    sessionStorage.setItem(SIGN_IN_RETURN_TO_KEY, returnTo);
     // appState.target is the field the SDK actually reads to decide where to
     // land after the redirect callback (defaults to '/' otherwise, wiping
     // whatever build was in progress) - since build state already lives in
     // the URL, nothing unsaved is lost across the redirect.
     this.auth0.loginWithRedirect({
-      appState: { target: window.location.pathname + window.location.search }
+      appState: { target: returnTo }
     });
+  }
+
+  // Where to come back to after an Auth0 redirect: the build (path and
+  // query) and the view open on it (the fragment).
+  private static currentAppUrl(): string {
+    return window.location.pathname + window.location.search + window.location.hash;
   }
 
   // The SDK's own test (auth0-angular's shouldHandleCallback): Auth0
@@ -147,7 +189,7 @@ export class AuthService {
     // confusingly). So the actual build path/query has to survive some
     // other way: stash it here and restore it in the constructor once the
     // post-logout redirect lands back at the origin.
-    sessionStorage.setItem(POST_LOGOUT_RETURN_TO_KEY, window.location.pathname + window.location.search);
+    sessionStorage.setItem(POST_LOGOUT_RETURN_TO_KEY, AuthService.currentAppUrl());
     this.auth0.logout({
       logoutParams: { returnTo: window.location.origin }
     });

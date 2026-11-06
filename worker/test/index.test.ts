@@ -1,16 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { Env } from '../src/auth';
 import worker from '../src/index';
-import { createFakeKv, FakeD1 } from './fakes';
+import { makeEnv as makeTestEnv } from './fakes';
 
 function makeEnv(): Env {
-  return {
-    DB: new FakeD1() as unknown as D1Database,
-    BUILD_CACHE: createFakeKv(),
-    AUTH0_DOMAIN: 'test-tenant.us.auth0.com',
-    AUTH0_AUDIENCE: 'https://api.ddo-gear-planner.com',
-    ALLOWED_ORIGINS: 'https://ddo-gear-planner.com,http://localhost:4200'
-  };
+  return makeTestEnv().env;
 }
 
 function request(method: string, path: string, init?: RequestInit): Request {
@@ -37,7 +31,9 @@ describe('router', () => {
       ['GET', '/api/builds/mine'],
       ['PUT', '/api/builds/some-id'],
       ['DELETE', '/api/builds/some-id'],
-      ['POST', '/api/shortlinks']
+      ['POST', '/api/shortlinks'],
+      ['GET', '/api/builds/some-id/progress'],
+      ['PUT', '/api/builds/some-id/progress']
     ];
 
     for (const [method, path] of cases) {
@@ -65,6 +61,13 @@ describe('router', () => {
     expect(response.status).toBe(204);
     expect(response.headers.get('Access-Control-Allow-Origin')).toBe('https://ddo-gear-planner.com');
     expect(response.headers.get('Access-Control-Allow-Methods')).toContain('POST');
+    expect(response.headers.get('Access-Control-Max-Age')).toBe('86400');
+  });
+
+  it('does not put a preflight max-age on ordinary responses', async () => {
+    const response = await worker.fetch(request('GET', '/api/nonexistent'), makeEnv());
+
+    expect(response.headers.get('Access-Control-Max-Age')).toBeNull();
   });
 
   it('attaches CORS headers to every response, including a 404', async () => {

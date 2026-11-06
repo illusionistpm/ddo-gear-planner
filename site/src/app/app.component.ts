@@ -9,7 +9,7 @@ import { EquippedService } from './planner/equipped.service';
 import { FiltersService } from './planner/filters.service';
 import { QueryParamsService } from './build/query-params.service';
 import { CurrentBuildService } from './build/current-build.service';
-import { isBuildShortIdRoute } from './build/build-route';
+import { isBuildShortIdRoute, isGroupRunRoute, isStillNeededRoute, routePathOf, urlWithoutFragment } from './build/build-route';
 import { hasUnsavedWork } from './build/unsaved-changes.guard';
 import { PlannerOnboardingService } from './planner/planner-onboarding.service';
 import { perfAfterFrames, perfStart } from './shared/perf-trace';
@@ -30,6 +30,9 @@ export class AppComponent implements OnInit, OnDestroy {
   // Browser back/forward replays the user's own edit history - not a link
   // they followed - so it mustn't switch the intro off mid-way through it.
   private navigationIsPopstate = false;
+  // The last URL navigated to, less its fragment, to tell a navigation that
+  // only changes the view apart from one that changes the build.
+  private lastUrlWithoutFragment: string | null = null;
 
   constructor(
     private readonly router: Router,
@@ -86,13 +89,29 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private updateFromLocation() {
     const done = perfStart('AppComponent.updateFromLocation');
+    const previousUrl = this.lastUrlWithoutFragment;
+    this.lastUrlWithoutFragment = urlWithoutFragment(this.router.url);
     if (this.queryParams.consumeAppUrlWrite()) {
       done({ skipped: 'appUrlWrite' });
       perfAfterFrames('paint after skipped app navigation');
       return;
     }
+    if (this.lastUrlWithoutFragment === previousUrl) {
+      // Only the fragment changed - Back from the shopping list, say. That's
+      // the view, not the build (see shopping-list-link.ts): the build on
+      // screen is already this URL's.
+      done({ skipped: 'fragmentOnly' });
+      return;
+    }
 
-    const routePath = this.router.url.split('?')[0];
+    const routePath = routePathOf(this.router.url);
+    if (isStillNeededRoute(routePath) || isGroupRunRoute(routePath)) {
+      // A friend's still-needed page, or a group run's, reads its builds
+      // itself, and leaves the planner as it was - applying this URL's
+      // (empty) params would clear it.
+      done({ skipped: isStillNeededRoute(routePath) ? 'stillNeededRoute' : 'groupRunRoute' });
+      return;
+    }
     const queryParamMap = this.router.parseUrl(this.router.url).queryParamMap;
     if (isBuildShortIdRoute(routePath) && !queryParamMap.has('b')) {
       // A bare /build/:shortId(/:slug) URL (no b= at all) is a fresh load -

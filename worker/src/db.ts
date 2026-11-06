@@ -28,7 +28,22 @@ export interface BuildRow {
 // just to discard it was up to ~400KB of dead weight per listMine() call.
 export type BuildSummaryRow = Omit<BuildRow, 'blob'>;
 
-export type ShortIdKind = 'build' | 'shortlink';
+export type ShortIdKind = 'build' | 'shortlink' | 'group';
+
+// A saved build's shopping-list progress - see migrations/0006. The four
+// JSON columns are stored as text and parsed by routes/progress.ts.
+export interface BuildProgressRow {
+  build_id: string;
+  owner_user_id: string;
+  entries: string;
+  picks: string;
+  needed: string | null;
+  route: string | null;
+  route_order: string | null;
+  updated_at: string;
+  write_day: string;
+  writes_today: number;
+}
 
 export async function getUserByAuth0Sub(db: D1Database, auth0Sub: string): Promise<UserRow | null> {
   return await db.prepare('SELECT * FROM users WHERE auth0_sub = ?').bind(auth0Sub).first<UserRow>();
@@ -38,7 +53,7 @@ export async function getUserByAuth0Sub(db: D1Database, auth0Sub: string): Promi
 // also covers a sub moved away by cross-provider linking. upsertUser (below) does a write on every call (an UPDATE
 // even when nothing changed), which made every GET/PUT/DELETE pay for a
 // last_login_at bump that has nothing to do with logging in - see
-// resolveOwnerUserId in routes/builds.ts. Returns null rather than creating
+// resolveOwnerUserId in routes/ownership.ts. Returns null rather than creating
 // a row for an unrecognized sub - a route reaching here for a sub with no
 // row yet has nothing to look up anyway (no user row means no builds could
 // exist for it either), and creating one on the fly with fewer defaults
@@ -260,7 +275,10 @@ export async function countBuildsByOwner(db: D1Database, ownerUserId: string): P
   return row?.count ?? 0;
 }
 
-export async function updateBuild(db: D1Database, id: string, fields: { name?: string; blob?: string }): Promise<void> {
+/** Renames a build and/or replaces its blob, as a statement to run in a batch with others. */
+export function updateBuildStatement(
+  db: D1Database, id: string, fields: { name?: string; blob?: string }, updatedAt: string
+): D1PreparedStatement {
   const sets: string[] = [];
   const values: unknown[] = [];
 
@@ -273,14 +291,101 @@ export async function updateBuild(db: D1Database, id: string, fields: { name?: s
     values.push(fields.blob);
   }
   sets.push('updated_at = ?');
-  values.push(new Date().toISOString());
+  values.push(updatedAt);
   values.push(id);
 
-  await db.prepare(`UPDATE builds SET ${sets.join(', ')} WHERE id = ?`).bind(...values).run();
+  return db.prepare(`UPDATE builds SET ${sets.join(', ')} WHERE id = ?`).bind(...values);
 }
 
+// Everything a friend's live list needs (see live.ts): the build itself and
+// the public columns of its progress. Selects only those, so the private
+// ones (ticks, picks) can't leak through a careless mapping. Null when
+// there's no public build by that shortId (a private build, a short link,
+// or nothing at all); null progress columns when the build exists but its
+// owner has never synced a list.
+export interface LiveBuildRow {
+  name: string;
+  blob: string;
+  build_updated_at: string;
+  needed: string | null;
+  route: string | null;
+  route_order: string | null;
+  updated_at: string | null;
+}
+
+export async function getLiveBuildByShortId(db: D1Database, shortId: string): Promise<LiveBuildRow | null> {
+  return await db.prepare(
+    `SELECT b.name, b.blob, b.updated_at AS build_updated_at, p.needed, p.route, p.route_order, p.updated_at FROM builds b
+     LEFT JOIN build_progress p ON p.build_id = b.id
+     WHERE b.short_id = ? AND b.visibility = 'public'`
+  ).bind(shortId).first();
+}
+
+export async function getBuildProgress(db: D1Database, buildId: string): Promise<BuildProgressRow | null> {
+  return await db.prepare('SELECT * FROM build_progress WHERE build_id = ?').bind(buildId).first<BuildProgressRow>();
+}
+
+// Summed over all of an owner's builds - the daily write cap is per user.
+export async function countProgressWritesOnDay(db: D1Database, ownerUserId: string, day: string): Promise<number> {
+  const row = await db.prepare(
+    'SELECT COALESCE(SUM(writes_today), 0) as count FROM build_progress WHERE owner_user_id = ? AND write_day = ?'
+  ).bind(ownerUserId, day).first<{ count: number }>();
+  return row?.count ?? 0;
+}
+
+/**
+ * Inserts or replaces a build's progress, counting the write against
+ * `row.write_day`, but only if the stored row is still the one the caller
+ * read (`baseUpdatedAt`) and was last written no later than `notAfter`.
+ *
+ * That one condition is both the write throttle and the lock: routes/
+ * progress.ts merges a patch into the row it read, so a write that raced
+ * another one would otherwise drop that one's changes. Here it simply
+ * changes nothing. Returns whether the row was written.
+ */
+export async function upsertBuildProgressIfUnchanged(
+  db: D1Database,
+  row: Omit<BuildProgressRow, 'writes_today'>,
+  condition: { baseUpdatedAt: string | null; notAfter: string }
+): Promise<boolean> {
+  const result = await upsertBuildProgressStatement(db, row, condition).run();
+  return (result.meta.changes ?? 0) > 0;
+}
+
+/** upsertBuildProgressIfUnchanged as a statement, to run in a batch; it wrote the row if it changed one. */
+export function upsertBuildProgressStatement(
+  db: D1Database,
+  row: Omit<BuildProgressRow, 'writes_today'>,
+  condition: { baseUpdatedAt: string | null; notAfter: string }
+): D1PreparedStatement {
+  return db.prepare(
+    `INSERT INTO build_progress (build_id, owner_user_id, entries, picks, needed, route, route_order, updated_at, write_day, writes_today)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
+     ON CONFLICT(build_id) DO UPDATE SET
+       entries = excluded.entries,
+       picks = excluded.picks,
+       needed = excluded.needed,
+       route = excluded.route,
+       route_order = excluded.route_order,
+       updated_at = excluded.updated_at,
+       writes_today = CASE WHEN build_progress.write_day = excluded.write_day THEN build_progress.writes_today + 1 ELSE 1 END,
+       write_day = excluded.write_day
+     WHERE build_progress.updated_at = ? AND build_progress.updated_at <= ?`
+  ).bind(
+    row.build_id, row.owner_user_id, row.entries, row.picks, row.needed, row.route, row.route_order, row.updated_at, row.write_day,
+    condition.baseUpdatedAt, condition.notAfter
+  );
+}
+
+// Progress and group places first, in one batch: both reference builds,
+// and their ON DELETE CASCADEs are only backstops (see migrations/0006 and
+// 0008).
 export async function deleteBuild(db: D1Database, id: string): Promise<void> {
-  await db.prepare('DELETE FROM builds WHERE id = ?').bind(id).run();
+  await db.batch([
+    db.prepare('DELETE FROM build_progress WHERE build_id = ?').bind(id),
+    db.prepare('DELETE FROM group_builds WHERE build_id = ?').bind(id),
+    db.prepare('DELETE FROM builds WHERE id = ?').bind(id)
+  ]);
 }
 
 // blob here is the JSON envelope {"name": ..., "blob": ...} (see
@@ -312,4 +417,204 @@ export async function getShortLinkByStoredBlob(db: D1Database, stored: string): 
 
 export async function getShortLinkByShortId(db: D1Database, shortId: string): Promise<ShortLinkRow | null> {
   return await db.prepare('SELECT * FROM shortlinks WHERE short_id = ?').bind(shortId).first<ShortLinkRow>();
+}
+
+// A group run - see migrations/0008 and routes/groups.ts.
+export interface GroupRow {
+  id: string;
+  short_id: string;
+  host_user_id: string;
+  name: string;
+  invite_token: string;
+  picks: string;
+  route_order: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface GroupBuildRow {
+  group_id: string;
+  build_id: string;
+  added_by_user_id: string;
+  character_name: string;
+  added_at: string;
+}
+
+/**
+ * One build of a group, with everything its live room sends of it: the
+ * group_builds row, the build, and the public columns of its progress -
+ * never its ticks or picks. In the order the builds were added.
+ */
+export interface GroupMemberRow {
+  build_id: string;
+  character_name: string;
+  added_at: string;
+  short_id: string;
+  owner_user_id: string;
+  name: string;
+  blob: string;
+  build_updated_at: string;
+  needed: string | null;
+  route: string | null;
+  route_order: string | null;
+  updated_at: string | null;
+}
+
+/** A group someone hosts or has a build in, for their list of group runs. */
+export interface GroupSummaryRow {
+  short_id: string;
+  name: string;
+  invite_token: string;
+  host_user_id: string;
+  updated_at: string;
+  build_count: number;
+  /** The latest progress write of any of its builds; null when none has any. */
+  progress_at: string | null;
+  /** The user's own builds in it, comma-separated (build ids are UUIDs); null when none are. */
+  your_build_ids: string | null;
+}
+
+/**
+ * Reserves the group's shortId and inserts it with its first builds, in one
+ * atomic batch - the same allocator rationale as
+ * reserveAndInsertBuildIfUnderLimit.
+ */
+export async function reserveAndInsertGroup(db: D1Database, group: GroupRow, builds: readonly GroupBuildRow[]): Promise<void> {
+  await db.batch([
+    db.prepare('INSERT INTO short_ids (short_id, kind, created_at) VALUES (?, ?, ?)')
+      .bind(group.short_id, 'group', group.created_at),
+    db.prepare(
+      `INSERT INTO groups (id, short_id, host_user_id, name, invite_token, picks, route_order, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    ).bind(group.id, group.short_id, group.host_user_id, group.name, group.invite_token, group.picks, group.route_order,
+      group.created_at, group.updated_at),
+    ...builds.map(build => insertGroupBuildStatement(db, build))
+  ]);
+}
+
+function insertGroupBuildStatement(db: D1Database, row: GroupBuildRow): D1PreparedStatement {
+  return db.prepare(
+    'INSERT INTO group_builds (group_id, build_id, added_by_user_id, character_name, added_at) VALUES (?, ?, ?, ?, ?)'
+  ).bind(row.group_id, row.build_id, row.added_by_user_id, row.character_name, row.added_at);
+}
+
+export async function getGroupByShortId(db: D1Database, shortId: string): Promise<GroupRow | null> {
+  return await db.prepare('SELECT * FROM groups WHERE short_id = ?').bind(shortId).first<GroupRow>();
+}
+
+export async function listGroupMembers(db: D1Database, groupId: string): Promise<GroupMemberRow[]> {
+  const result = await db.prepare(
+    `SELECT gb.build_id, gb.character_name, gb.added_at, b.short_id, b.owner_user_id, b.name, b.blob,
+       b.updated_at AS build_updated_at, p.needed, p.route, p.route_order, p.updated_at
+     FROM group_builds gb
+     JOIN builds b ON b.id = gb.build_id
+     LEFT JOIN build_progress p ON p.build_id = gb.build_id
+     WHERE gb.group_id = ?
+     ORDER BY gb.added_at, gb.build_id`
+  ).bind(groupId).all<GroupMemberRow>();
+  return result.results ?? [];
+}
+
+/** The groups a build is in, by shortId: where its friends' live list also goes. */
+export async function listGroupShortIdsForBuild(db: D1Database, buildId: string): Promise<string[]> {
+  const result = await db.prepare(
+    'SELECT g.short_id FROM group_builds gb JOIN groups g ON g.id = gb.group_id WHERE gb.build_id = ?'
+  ).bind(buildId).all<{ short_id: string }>();
+  return (result.results ?? []).map(row => row.short_id);
+}
+
+/** The groups a user hosts or has a build in, most recently changed first. */
+export async function listGroupsForUser(db: D1Database, userId: string): Promise<GroupSummaryRow[]> {
+  const result = await db.prepare(
+    `SELECT g.short_id, g.name, g.invite_token, g.host_user_id, g.updated_at,
+       (SELECT COUNT(*) FROM group_builds c WHERE c.group_id = g.id) AS build_count,
+       (SELECT MAX(p.updated_at) FROM group_builds pb JOIN build_progress p ON p.build_id = pb.build_id
+         WHERE pb.group_id = g.id) AS progress_at,
+       (SELECT GROUP_CONCAT(yb.build_id) FROM group_builds yb JOIN builds ybb ON ybb.id = yb.build_id
+         WHERE yb.group_id = g.id AND ybb.owner_user_id = ?) AS your_build_ids
+     FROM groups g
+     WHERE g.host_user_id = ?
+       OR EXISTS (SELECT 1 FROM group_builds m JOIN builds mb ON mb.id = m.build_id WHERE m.group_id = g.id AND mb.owner_user_id = ?)
+     ORDER BY g.updated_at DESC`
+  ).bind(userId, userId, userId).all<GroupSummaryRow>();
+  return result.results ?? [];
+}
+
+export async function countGroupsHostedBy(db: D1Database, userId: string): Promise<number> {
+  const row = await db.prepare('SELECT COUNT(*) as count FROM groups WHERE host_user_id = ?')
+    .bind(userId)
+    .first<{ count: number }>();
+  return row?.count ?? 0;
+}
+
+/**
+ * Adds a build to a group, re-checking the group's build count in the same
+ * statement, as reserveAndInsertBuildIfUnderLimit does for a user's builds,
+ * and bumps the group's updated_at. Returns whether the build was added -
+ * false means the group is full. A build already in the group, or a
+ * character name already taken there, throws a UNIQUE violation.
+ */
+export async function insertGroupBuildIfUnderLimit(db: D1Database, row: GroupBuildRow, max: number): Promise<boolean> {
+  const result = await db.batch<unknown>([
+    db.prepare(
+      `INSERT INTO group_builds (group_id, build_id, added_by_user_id, character_name, added_at)
+       SELECT ?, ?, ?, ?, ?
+       WHERE (SELECT COUNT(*) FROM group_builds WHERE group_id = ?) < ?`
+    ).bind(row.group_id, row.build_id, row.added_by_user_id, row.character_name, row.added_at, row.group_id, max),
+    touchGroupStatement(db, row.group_id, row.added_at)
+  ]);
+  return (result[0]?.meta.changes ?? 0) > 0;
+}
+
+/** Renames a build's character in a group. Throws a UNIQUE violation for a name already taken there. */
+export async function renameGroupBuild(db: D1Database, groupId: string, buildId: string, name: string, now: string): Promise<boolean> {
+  const result = await db.batch<unknown>([
+    db.prepare('UPDATE group_builds SET character_name = ? WHERE group_id = ? AND build_id = ?').bind(name, groupId, buildId),
+    touchGroupStatement(db, groupId, now)
+  ]);
+  return (result[0]?.meta.changes ?? 0) > 0;
+}
+
+export async function deleteGroupBuild(db: D1Database, groupId: string, buildId: string, now: string): Promise<boolean> {
+  const result = await db.batch<unknown>([
+    db.prepare('DELETE FROM group_builds WHERE group_id = ? AND build_id = ?').bind(groupId, buildId),
+    touchGroupStatement(db, groupId, now)
+  ]);
+  return (result[0]?.meta.changes ?? 0) > 0;
+}
+
+function touchGroupStatement(db: D1Database, groupId: string, now: string): D1PreparedStatement {
+  return db.prepare('UPDATE groups SET updated_at = ? WHERE id = ?').bind(now, groupId);
+}
+
+/**
+ * Replaces the group's shared route, but only if the row is still the one
+ * the caller read (`baseUpdatedAt`) and was last written no later than
+ * `notAfter` - the same throttle-and-lock as upsertBuildProgressIfUnchanged.
+ * Returns whether it was written.
+ */
+export async function updateGroupRouteIfUnchanged(
+  db: D1Database, groupId: string, route: { picks: string; route_order: string | null; updated_at: string },
+  condition: { baseUpdatedAt: string; notAfter: string }
+): Promise<boolean> {
+  const result = await db.prepare(
+    'UPDATE groups SET picks = ?, route_order = ?, updated_at = ? WHERE id = ? AND updated_at = ? AND updated_at <= ?'
+  ).bind(route.picks, route.route_order, route.updated_at, groupId, condition.baseUpdatedAt, condition.notAfter).run();
+  return (result.meta.changes ?? 0) > 0;
+}
+
+export async function updateGroupInviteToken(db: D1Database, groupId: string, token: string, now: string): Promise<void> {
+  await db.prepare('UPDATE groups SET invite_token = ?, updated_at = ? WHERE id = ?').bind(token, now, groupId).run();
+}
+
+// Builds first, in one batch: group_builds references groups, and its ON
+// DELETE CASCADE is only a backstop (see migrations/0008).
+export async function deleteGroups(db: D1Database, groupIds: readonly string[]): Promise<void> {
+  if (!groupIds.length) {
+    return;
+  }
+  await db.batch(groupIds.flatMap(id => [
+    db.prepare('DELETE FROM group_builds WHERE group_id = ?').bind(id),
+    db.prepare('DELETE FROM groups WHERE id = ?').bind(id)
+  ]));
 }

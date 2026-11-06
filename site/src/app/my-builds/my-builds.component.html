@@ -56,4 +56,16 @@
       }
     </ul>
   }
+
+  @if (groups?.length) {
+    <h3 class="my-builds-subtitle">Shopping lists</h3>
+    <ul class="my-builds-list my-builds-groups">
+      @for (group of groups; track group.shortId) {
+        <li class="my-builds-row" (click)="openGroup(group)">
+          <span class="my-builds-name">{{ group.name }}</span>
+          <span class="my-builds-group-meta">{{ group.buildCount }} build{{ group.buildCount === 1 ? '' : 's' }}{{ group.isHost ? ' · host' : '' }}</span>
+        </li>
+      }
+    </ul>
+  }
 </section>

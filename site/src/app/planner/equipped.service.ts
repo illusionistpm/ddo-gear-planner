@@ -6,7 +6,6 @@ import { Affix } from '../affixes/affix';
 import { AffixRank } from '../affixes/affix-rank.enum';
 
 import { GearDbService, SetBonusThreshold } from '../gear/gear-db.service';
-import { canonicalizeCraftingSystemName } from '../gear/gear-db.service';
 import { ParamsAdapter, QueryParamsListener, QueryParamsService } from '../build/query-params.service';
 import { QueryParamRecord } from '../build/query-param-types';
 import {
@@ -18,13 +17,12 @@ import {
   storeTrackedAffixGroupMode
 } from './planner-view-state-storage';
 import {
-  craftKey, CRAFT_KEY_PREFIX, getMlSlotFromKey, isCraftKey, isMlKey, ML_KEY_PREFIX, mlKey, NONGEAR_KEY,
-  parseCraftKey, TRACKED_KEY
+  craftKey, mlKey, NONGEAR_KEY, TRACKED_KEY
 } from '../build/build-param-keys';
 import { AffixService } from '../affixes/affix.service';
 import { AffixAvailabilityService } from '../affixes/affix-availability.service';
 import { EssenceCraftingService } from '../gear/essence-crafting.service';
-import { findAugmentUpgradeForLegacySlot } from '../gear/augment-slots';
+import { emptiesOffhand, limitsOffhandToRuneArms, slotsFromParams } from './slots-from-params';
 import { perfCount, perfMeasure, perfStart } from '../shared/perf-trace';
 import { CoveredBonusType, moderateValueThreshold } from '../affixes/tracked-affix-derivation';
 import { ExternalAffixEntry, isExternalAffixEntry, NON_GEAR_SLOT } from '../affixes/external-affix';
@@ -203,100 +201,14 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
   updateFromParams(params: ParamsAdapter) {
     return perfMeasure('EquippedService.updateFromParams', () => {
       this.beginDerivedStateBatch();
-      const craftingParams = [];
-      const minLevels = new Map<string, number>();
 
       try {
         this.setImportantAffixes(params.getAll(TRACKED_KEY));
         this._restoreExternalAffixesFromParam(params.get(NONGEAR_KEY));
 
-        for (const slot of this.gearList.getSlots()) {
-          if (!params.get(slot)) {
-            this.setSlot(slot, null);
-          }
+        for (const [slot, item] of slotsFromParams(params, this.gearList, this.essenceCrafting)) {
+          this.setSlot(slot, item);
         }
-
-        for (const key of params.keys) {
-          if (key === TRACKED_KEY || key === NONGEAR_KEY) {
-            continue;
-          } else if (isCraftKey(key)) {
-            const { index, field } = parseCraftKey(key)!;
-            if (craftingParams.length <= index) {
-              craftingParams.length = index + 1;
-            }
-            let craftingParam = craftingParams[index] as Record<string, string> | undefined;
-            if (!craftingParam) {
-              craftingParam = {};
-              craftingParams[index] = craftingParam;
-            }
-            // key comes from params.keys, so get() finds it
-            craftingParam[field] = params.get(key) ?? '';
-
-          } else if (this.gearList.getSlots().find(v => v === key)) {
-            const itemName = params.get(key);
-            if (!itemName) {
-              // Already handled by the clearing loop above (a slot key
-              // present with a falsy value means "empty", same as the key
-              // being absent) - nothing to look up. Also guards against ever
-              // passing null/'' into findGearBySlot -> canonicalizeGenerated-
-              // CraftedItemName, which assumes a real string.
-              continue;
-            }
-            const item = this.gearList.findGearBySlot(key, itemName);
-            if (item) {
-              this._set(item);
-            } else {
-              console.log('Can\'t find ' + itemName + ' for slot ' + key);
-            }
-          } else if (isMlKey(key)) {
-            minLevels.set(getMlSlotFromKey(key)!, Number(params.get(key)));
-          } else if (key.startsWith(CRAFT_KEY_PREFIX)) {
-            console.log('Bad crafting key: ' + key);
-          } else if (key.startsWith(ML_KEY_PREFIX)) {
-            console.log('Bad ml key: ' + key);
-          }
-        }
-
-        for (const entries of minLevels.entries()) {
-          const item = this.getSlotValue(entries[0]);
-          if (item) {
-            if (item.isEssenceCrafted()) {
-              this.essenceCrafting.setItemToML(item, entries[1]);
-            } else {
-              item.ml = entries[1];
-            }
-            this._set(item);
-          }
-        }
-
-        for (const craftingParam of craftingParams) {
-          if (!craftingParam) {
-            continue;
-          }
-          const item = this.getSlotValue(craftingParam['slot']);
-          if (!item) {
-            console.log('Couldn\'t set craftable. No item in ' + craftingParam['slot']);
-            continue;
-          }
-          let crafting = item.getCraftingByName(canonicalizeCraftingSystemName(craftingParam['system']));
-          let selected = craftingParam['selected'];
-          if (!crafting) {
-            const upgrade = findAugmentUpgradeForLegacySlot(item, craftingParam['system'], selected);
-            crafting = upgrade?.craftable;
-            selected = upgrade?.selection ?? selected;
-          }
-          if (!crafting) {
-            console.log('Couldn\'t set craftable. No system called ' + craftingParam['system']);
-            continue;
-          }
-          if(!crafting.selectByParamDescription(selected)) {
-            console.log('Couldn\'t set craftable. Couldn\'t find option matching ' + craftingParam['selected']);
-            continue;
-          }
-          this._set(item);
-        }
-
-        this._enforceOffhandCompatibility();
       } finally {
         this.endDerivedStateBatch();
       }
@@ -410,14 +322,6 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     return this.getSlotValue('Weapon');
   }
 
-  private shouldEmptyOffhandForMainHand(mainHand: Item | null) {
-    return !!mainHand && mainHand.isTwoHandedWeapon() && !mainHand.isCrossbow();
-  }
-
-  private shouldLimitOffhandToRuneArms(mainHand: Item | null) {
-    return !!mainHand && mainHand.isTwoHandedWeapon() && mainHand.isCrossbow();
-  }
-
   private _enforceOffhandCompatibility() {
     const mainHand = this.getMainHand();
     const offhand = this.getSlotValue('Offhand');
@@ -425,15 +329,15 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
       return;
     }
 
-    if (this.shouldEmptyOffhandForMainHand(mainHand)) {
+    if (emptiesOffhand(mainHand)) {
       this.setSlot('Offhand', null);
-    } else if (this.shouldLimitOffhandToRuneArms(mainHand) && !offhand.isRuneArm()) {
+    } else if (limitsOffhandToRuneArms(mainHand) && !offhand.isRuneArm()) {
       this.setSlot('Offhand', null);
     }
   }
 
   isOffhandDisabled() {
-    return this.shouldEmptyOffhandForMainHand(this.getMainHand());
+    return emptiesOffhand(this.getMainHand());
   }
 
   /** True for a slot that can't take an item right now - only the Offhand, behind a two-hander. */
@@ -442,7 +346,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
   }
 
   isOffhandRuneArmOnly() {
-    return this.shouldLimitOffhandToRuneArms(this.getMainHand());
+    return limitsOffhandToRuneArms(this.getMainHand());
   }
 
   private isOffhandCompatible(item: Item) {

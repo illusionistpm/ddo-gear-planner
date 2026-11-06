@@ -30,26 +30,14 @@
     gap: var(--space-8) var(--space-12);
 }
 
-.shopping-list-back {
-    align-items: center;
-    background: var(--surface-color);
-    border: 1px solid var(--border-color);
-    border-radius: 999px;
-    color: var(--text-primary);
-    display: inline-flex;
-    font-size: 0.85rem;
-    gap: var(--space-4);
-    padding: var(--space-2) var(--space-12);
-}
-
-.shopping-list-back:hover {
-    background: var(--surface-muted-color);
-}
-
 .shopping-list-title {
     font-size: 1.15rem;
     font-weight: 700;
     margin: 0;
+}
+
+.shopping-list-build-name {
+    font-weight: 600;
 }
 
 .shopping-list-progress-text {
@@ -59,7 +47,8 @@
     margin-right: auto;
 }
 
-.shopping-list-copy,
+.shopping-list-arrange,
+.shopping-list-arrange-done,
 .shopping-list-reset-route {
     align-items: center;
     background: var(--surface-color);
@@ -72,16 +61,44 @@
     padding: var(--space-2) var(--space-12);
 }
 
-.shopping-list-copy:hover,
+.shopping-list-arrange:hover,
 .shopping-list-reset-route:hover {
     border-color: var(--primary-color);
     color: var(--primary-color);
 }
 
-.shopping-list-copy-error {
-    color: var(--danger-color);
-    flex-basis: 100%;
+.shopping-list-arrange-done {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--on-accent-text-color);
+    font-weight: 700;
+}
+
+/* A friend's list: whether the owner's changes arrive as they're made. */
+.shopping-list-live {
+    color: var(--warning-color);
     font-size: 0.8rem;
+}
+
+.shopping-list-live.live {
+    color: var(--success-color);
+}
+
+/* Why a friend's list shows what it does. */
+.shopping-list-note {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+/* Where your ticks are kept: with the build on the server, or only on this device. */
+.shopping-list-sync {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+.shopping-list-sync.local {
+    color: var(--warning-color);
 }
 
 .shopping-list-progress {
@@ -136,6 +153,100 @@
     color: var(--on-accent-text-color);
 }
 
+/* A group run's characters: show everyone's rows, yours, or one character's. */
+.shopping-group-characters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+}
+
+.shopping-character-filter {
+    align-items: center;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    color: var(--text-secondary);
+    display: inline-flex;
+    font-size: 0.82rem;
+    gap: var(--space-4);
+    padding: var(--space-2) var(--space-12);
+}
+
+.shopping-character-filter.active {
+    border-color: var(--primary-color);
+    box-shadow: inset 0 0 0 1px var(--primary-color);
+    color: var(--text-primary);
+}
+
+.shopping-character-count {
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+}
+
+/* On a group run's list, whose each row is: a chip per character, yours to tap. */
+.shopping-row-members {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+}
+
+.shopping-member-chip {
+    align-items: center;
+    background: var(--surface-color);
+    border: 1px solid var(--shopping-member, var(--border-color));
+    border-radius: 999px;
+    color: var(--text-primary);
+    display: inline-flex;
+    font-size: 0.78rem;
+    gap: var(--space-4);
+    line-height: 1.4;
+    padding: 0 var(--space-8);
+}
+
+.shopping-row-members .shopping-member-chip.read-only {
+    border-style: dashed;
+    color: var(--text-secondary);
+}
+
+.shopping-member-chip.got {
+    opacity: 0.6;
+    text-decoration: line-through;
+}
+
+.shopping-member-dot {
+    background: var(--shopping-member, var(--border-color));
+    border-radius: 50%;
+    display: inline-block;
+    flex: none;
+    height: 0.55rem;
+    width: 0.55rem;
+}
+
+/* A row's chip is its character's box, in their colour. */
+.shopping-member-check {
+    color: var(--shopping-member, var(--text-secondary));
+    flex: none;
+    font-size: 0.95rem;
+}
+
+.shopping-member-count {
+    font-variant-numeric: tabular-nums;
+}
+
+.shopping-member-0 { --shopping-member: var(--member-accent-0); }
+.shopping-member-1 { --shopping-member: var(--member-accent-1); }
+.shopping-member-2 { --shopping-member: var(--member-accent-2); }
+.shopping-member-3 { --shopping-member: var(--member-accent-3); }
+.shopping-member-4 { --shopping-member: var(--member-accent-4); }
+.shopping-member-5 { --shopping-member: var(--member-accent-5); }
+.shopping-member-6 { --shopping-member: var(--member-accent-6); }
+.shopping-member-7 { --shopping-member: var(--member-accent-7); }
+.shopping-member-8 { --shopping-member: var(--member-accent-8); }
+.shopping-member-9 { --shopping-member: var(--member-accent-9); }
+.shopping-member-10 { --shopping-member: var(--member-accent-10); }
+.shopping-member-11 { --shopping-member: var(--member-accent-11); }
+
 /* Only beside the list on wide screens; see the 1200px block. */
 .shopping-pack-nav {
     display: none;
@@ -172,6 +283,12 @@
 
 .shopping-pack-nav-link:hover {
     background: var(--surface-muted-color);
+}
+
+/* Some of its pack is on screen: where you are in the list. Tinted, not
+   bolded: bold text is wider, and a name rewrapping would shift the list. */
+.shopping-pack-nav-link.in-view {
+    background: rgba(var(--primary-color-rgb), 0.1);
 }
 
 .shopping-pack-nav-name {
@@ -384,6 +501,11 @@
     color: var(--primary-color);
 }
 
+/* A friend's list has no box to tick, so the label starts where the box would be. */
+.shopping-row.read-only {
+    padding-left: var(--space-8);
+}
+
 .shopping-row-sources-toggle .fas {
     font-size: 0.65em;
 }
@@ -512,7 +634,8 @@
         justify-content: flex-end;
     }
 
-    .shopping-row-details {
+    .shopping-row-details,
+    .shopping-row-members {
         grid-column: 1 / -1;
     }
 
@@ -594,10 +717,6 @@
         margin-left: 0;
     }
 
-    .shopping-list-back-label {
-        display: none;
-    }
-
     .shopping-rows-nested {
         padding-left: var(--space-12);
     }
@@ -609,12 +728,15 @@
         --shopping-check-size: 2.75rem;
     }
 
-    .shopping-list-back,
-    .shopping-list-copy,
     .shopping-list-reset-route,
     .shopping-list-choice-option,
+    .shopping-character-filter,
     .shopping-sources-reset {
         min-height: 2.5rem;
+    }
+
+    .shopping-row-members button.shopping-member-chip {
+        min-height: 2rem;
     }
 
     .shopping-source-choice {

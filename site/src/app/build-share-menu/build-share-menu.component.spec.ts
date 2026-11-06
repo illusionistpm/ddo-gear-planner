@@ -9,6 +9,7 @@ import { CurrentBuildState } from '../build/current-build.service';
 import { EquippedService } from '../planner/equipped.service';
 import { QueryParamsService } from '../build/query-params.service';
 import { ShortLinksService } from '../build/short-links.service';
+import { ShareLinkResolverService } from '../build/share-link-resolver.service';
 import { BuildShareMenuComponent } from './build-share-menu.component';
 
 function makeState(overrides: Partial<CurrentBuildState> = {}): CurrentBuildState {
@@ -58,7 +59,7 @@ describe('BuildShareMenuComponent', () => {
     const cdr = {
       markForCheck: vi.fn().mockName('ChangeDetectorRef.markForCheck')
     };
-    const component = new BuildShareMenuComponent(shortLinks, queryParams, equipped, analytics, auth,
+    const component = new BuildShareMenuComponent(new ShareLinkResolverService(shortLinks, queryParams), equipped, analytics, auth,
       cdr as unknown as ChangeDetectorRef);
     component.buildState = makeState(state);
     component.isAuthenticated = isAuthenticated;

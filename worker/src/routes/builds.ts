@@ -10,11 +10,15 @@ import {
   getShortLinkByShortId,
   listBuildSummariesByOwner,
   reserveAndInsertBuildIfUnderLimit,
-  resolveUserId,
-  updateBuild,
-  BuildSummaryRow
+  BuildSummaryRow,
+  getBuildProgress,
+  listGroupShortIdsForBuild,
+  updateBuildStatement
 } from '../db';
-import { errorResponse, jsonResponse } from '../http';
+import { errorResponse, jsonResponse, readJsonBody } from '../http';
+import { closeFriends, friendListOf, tellFriends, Waiter } from '../live';
+import { checkOwnership, resolveOwnerUserId } from './ownership';
+import { MAX_PROGRESS_BYTES, parseProgressPut, planProgressWrite, ProgressPut } from './progress';
 import { withUniqueShortId } from '../shortId';
 import sharedConstants from '../../../shared/constants.json';
 
@@ -103,16 +107,6 @@ function toBuildSummaryResponse(row: BuildSummaryRow) {
     createdAt: row.created_at,
     updatedAt: row.updated_at
   };
-}
-
-// The read-only lookup list/update/delete use - see db.ts's resolveUserId
-// for why it falls back to the verified email.
-async function resolveOwnerUserId(env: Env, user: AuthenticatedUser): Promise<string | null> {
-  return resolveUserId(env.DB, {
-    auth0Sub: user.sub,
-    email: user.email ?? null,
-    emailVerified: user.emailVerified ?? false
-  });
 }
 
 // Insert-if-missing, no write when the row already exists (see
@@ -245,22 +239,35 @@ export async function handleGetByShortId(shortId: string, env: Env): Promise<Res
   return errorResponse(404, 'No build found for that link.');
 }
 
+/**
+ * Renames a build or saves new gear into it. Body: {name?, blob?,
+ * progress?}. progress is the shopping list as it is for the build as
+ * saved, {needed, route, order?} as PUT .../progress takes them: a save
+ * changes what's still needed, and sending both together lets a friend's
+ * page switch to the new gear and its list in one step, instead of
+ * briefly showing new gear against the old list. It's written in the same
+ * batch as the build, subject to the same throttle and daily cap; when
+ * those refuse it the build is still saved, and the answer says
+ * progressSaved: false so the client sends the list the usual way.
+ */
 export async function handleUpdateBuild(
   request: Request,
   id: string,
   user: AuthenticatedUser,
-  env: Env
+  env: Env,
+  waiter: Waiter
 ): Promise<Response> {
-  const row = await getBuildById(env.DB, id);
-  if (!row) {
-    return errorResponse(404, 'Build not found.');
+  const owned = await checkOwnership(id, user, env);
+  if (owned instanceof Response) {
+    return owned;
   }
-  const ownerUserId = await resolveOwnerUserId(env, user);
-  if (!ownerUserId || row.owner_user_id !== ownerUserId) {
-    return errorResponse(403, 'You do not own this build.');
-  }
+  const { build: row, ownerUserId } = owned;
 
-  const body = await request.json().catch(() => null) as { name?: unknown; blob?: unknown } | null;
+  const parsed = await readJsonBody(request, MAX_PROGRESS_BYTES + MAX_BLOB_LENGTH + 1024, 'That build is too big to save.');
+  if (parsed instanceof Response) {
+    return parsed;
+  }
+  const body = parsed as { name?: unknown; blob?: unknown; progress?: unknown } | undefined;
   const fields: { name?: string; blob?: string } = {};
 
   if (body?.name !== undefined) {
@@ -277,35 +284,68 @@ export async function handleUpdateBuild(
     }
     fields.blob = blob;
   }
+  let progress: ProgressPut | undefined;
+  if (body?.progress !== undefined) {
+    const parsed = parseSavedProgress(body.progress);
+    if (!parsed) {
+      return errorResponse(400, 'Invalid shopping list progress.');
+    }
+    progress = parsed;
+  }
 
+  const now = Date.now();
+  // A list the throttle or daily cap refuses is skipped, not the save.
+  const planned = progress ? await planProgressWrite(env, row, ownerUserId, progress, now) : null;
+  const write = planned instanceof Response ? null : planned;
+  const statements = [updateBuildStatement(env.DB, id, fields, new Date(now).toISOString())];
+  if (write) {
+    statements.push(write.statement);
+  }
+
+  let results: D1Result[];
   try {
-    await updateBuild(env.DB, id, fields);
+    results = await env.DB.batch(statements);
   } catch (err) {
     if (isDuplicateNameViolation(err)) {
       return errorResponse(409, `You already have a build named "${fields.name}". Choose a different name.`);
     }
     throw err;
   }
+  const progressSaved = write !== null && (results[1]?.meta.changes ?? 0) > 0;
   // Write-through: invalidate rather than pre-populate, since the next
   // GET /api/build/:shortId will repopulate it and this keeps the update
   // path from needing to duplicate the cache payload shape.
   await env.BUILD_CACHE.delete(buildCacheKey(row.short_id));
 
-  const updated = await getBuildById(env.DB, id);
-  return jsonResponse(toBuildResponse(updated as BuildRow));
+  const updated = await getBuildById(env.DB, id) as BuildRow;
+  if (fields.name !== undefined || fields.blob !== undefined || progressSaved) {
+    const stored = progressSaved && write ? write.row : await getBuildProgress(env.DB, id);
+    tellFriends(env, waiter, row, friendListOf(updated, stored));
+  }
+  return jsonResponse(progress ? { ...toBuildResponse(updated), progressSaved } : toBuildResponse(updated));
 }
 
-export async function handleDeleteBuild(id: string, user: AuthenticatedUser, env: Env): Promise<Response> {
-  const row = await getBuildById(env.DB, id);
-  if (!row) {
-    return errorResponse(404, 'Build not found.');
+/** A save's progress: what friends see, and only that - never ticks or picks. Null when invalid. */
+function parseSavedProgress(value: unknown): ProgressPut | null {
+  if (typeof value !== 'object' || value === null || Array.isArray(value)) {
+    return null;
   }
-  const ownerUserId = await resolveOwnerUserId(env, user);
-  if (!ownerUserId || row.owner_user_id !== ownerUserId) {
-    return errorResponse(403, 'You do not own this build.');
-  }
+  const { needed, route, order } = value as Record<string, unknown>;
+  const put = parseProgressPut({ needed, route, order });
+  return put?.published ? put : null;
+}
 
+export async function handleDeleteBuild(id: string, user: AuthenticatedUser, env: Env, waiter: Waiter): Promise<Response> {
+  const owned = await checkOwnership(id, user, env);
+  if (owned instanceof Response) {
+    return owned;
+  }
+  const row = owned.build;
+
+  // Read before the delete takes the build out of them.
+  const groups = await listGroupShortIdsForBuild(env.DB, id);
   await deleteBuild(env.DB, id);
   await env.BUILD_CACHE.delete(buildCacheKey(row.short_id));
+  closeFriends(env, waiter, row.short_id, groups);
   return new Response(null, { status: 204 });
 }

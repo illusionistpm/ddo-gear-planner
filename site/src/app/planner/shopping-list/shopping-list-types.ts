@@ -41,6 +41,12 @@ export interface ShoppingEntry {
   parentKey: string | null;
   /** Random properties the item should roll with (gear only). */
   details: string[];
+  /**
+   * On a group run's list, the build the entry is for (its id); its key is
+   * then prefixed with it too (see group-shopping-list.ts). Absent on a
+   * build's own list.
+   */
+  member?: string;
 }
 
 /** Explicit ticks: 1 = got it, 0 = not got it even though the trove has one. Absent = ask the trove. */
@@ -51,6 +57,45 @@ export type ShoppingProgressPatch = Record<string, ShoppingProgressValue | null>
 
 /** The quests the user chose to get a thing from, by the thing's identity. */
 export type ShoppingSourcePicks = Readonly<Record<string, readonly string[]>>;
+
+/**
+ * The order the user arranged the route in: packs by name ('' for quests in
+ * no pack), and quests by name, each pack's in the order they come here.
+ * Anything not listed goes where it would by default, after what it would
+ * follow (see arrangeInOrder). Empty lists: the default order.
+ */
+export interface ShoppingRouteOrder {
+  packs: readonly string[];
+  quests: readonly string[];
+}
+
+/**
+ * What a friend's link to the build shows: the keys of the entries still
+ * needed, and for each thing still needed the quests the owner's list sends
+ * them to - in the shape of picks, so a friend's list routes it the same way.
+ */
+export interface ShoppingPublished {
+  needed: readonly string[];
+  route: ShoppingSourcePicks;
+}
+
+/** What friends see of a saved build's list, as the server stores it. */
+export interface SharedShoppingList {
+  /** Still-needed entry keys; null when the owner has never shared a list. */
+  needed: readonly string[] | null;
+  /** For each still-needed thing, the quests the owner's list sends them to. */
+  route: ShoppingSourcePicks;
+  /** The order the owner arranged the route in; null for the default. */
+  order: ShoppingRouteOrder | null;
+}
+
+/**
+ * What friends will see once a build is saved, sent with the save so
+ * their pages switch to the new gear and its list together.
+ */
+export interface ShoppingSaveProgress extends ShoppingPublished {
+  order: ShoppingRouteOrder | null;
+}
 
 export type ShoppingFilter = 'all' | 'needed';
 export type ShoppingRowState = 'checked' | 'mixed' | 'unchecked';
@@ -71,6 +116,16 @@ export interface ShoppingSourceChoice {
   alsoThere: number;
 }
 
+/** On a group run's list, one build's part of a row: who it's for, and how many of theirs are got. */
+export interface ShoppingRowMember {
+  /** The build's id. */
+  member: string;
+  /** The build's entries folded into the row. */
+  keys: string[];
+  quantity: number;
+  acquired: number;
+}
+
 /** One line of the list: one or more entries for the same thing. */
 export interface ShoppingRow {
   id: string;
@@ -89,6 +144,8 @@ export interface ShoppingRow {
   choices: ShoppingSourceChoice[];
   /** True when the user picked where to get it, rather than the list. */
   picked: boolean;
+  /** On a group run's list, each build the row is for, in the order first listed; empty on a build's own. */
+  members: ShoppingRowMember[];
   children: ShoppingRow[];
 }
 
@@ -109,6 +166,8 @@ export interface ShoppingGroup {
 /** Cards under one heading: a pack's quests. */
 export interface ShoppingSection {
   id: string;
+  /** The pack's name; '' for quests in no pack. */
+  pack: string;
   label: string;
   /** The pack's colour, as its cards have; null for no pack. */
   accent: number | null;
@@ -132,4 +191,6 @@ export interface ShoppingListView {
   replannable: boolean;
   /** Each pack's colour, to hand to the next view so packs keep theirs. */
   packAccents: ReadonlyMap<string, number>;
+  /** True when the user arranged the route, rather than it being in its default order. */
+  arranged: boolean;
 }

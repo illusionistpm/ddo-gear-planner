@@ -80,6 +80,25 @@ describe('unsavedChangesGuard', () => {
     expect(window.confirm).not.toHaveBeenCalled();
   });
 
+  it('does not confirm for a build editor route with a fragment after its path or query', () => {
+    currentBuild.value.isDirty = true;
+    vi.spyOn(window, 'confirm').mockReturnValue(false);
+
+    expect(run('/build/abc123/my-build#shopping-list')).toBe(true);
+    expect(run('/build/abc123#shopping-list')).toBe(true);
+    expect(run('/?b=z1.test#shopping-list')).toBe(true);
+    expect(run('/#shopping-list')).toBe(true);
+    expect(window.confirm).not.toHaveBeenCalled();
+  });
+
+  it('does not confirm for a shopping list of several builds, which leaves the planner as it is', () => {
+    currentBuild.value.isDirty = true;
+    vi.spyOn(window, 'confirm').mockReturnValue(false);
+
+    expect(run('/list/grp1#t=tok&add')).toBe(true);
+    expect(window.confirm).not.toHaveBeenCalled();
+  });
+
   it('still confirms when the destination is genuinely outside the build editor', () => {
     currentBuild.value.isDirty = true;
     vi.spyOn(window, 'confirm').mockReturnValue(true);

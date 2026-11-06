@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter, RouterLink } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 import { ShoppingListComponent } from './shopping-list.component';
@@ -9,9 +10,12 @@ import type {
 import { buildShoppingListView, ShoppingListViewOptions } from '../planner/shopping-list/shopping-list-view-model';
 import { TapTooltipComponent } from '../tap-tooltip/tap-tooltip.component';
 import { UserItemLocationTooltipPipe } from '../shared/user-item-location-tooltip.pipe';
-import { Clipboard } from '../shared/clipboard';
 import { AnalyticsService } from '../shared/analytics.service';
 import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
+import { FriendShoppingList } from '../planner/shopping-list/friend-shopping-list.service';
+import { ShoppingProgressStore, ShoppingSyncState } from '../planner/shopping-list/shopping-progress-store';
+import { GroupRunService, GroupRunView } from '../planner/shopping-list/group-run.service';
+import { buildGroupListView, GroupMemberEntries } from '../planner/shopping-list/group-shopping-list';
 
 function from(quest: string, pack: string | null = null, raid = false): ShoppingSource {
   return { quest, pack, raid, wikiUrl: `wiki/${quest}` };
@@ -48,7 +52,8 @@ describe('ShoppingListComponent', () => {
   let views: BehaviorSubject<ShoppingListView>;
   let service: { view$: BehaviorSubject<ShoppingListView>; toggle: ReturnType<typeof vi.fn>;
     setFilter: ReturnType<typeof vi.fn>; pickSources: ReturnType<typeof vi.fn>; resetRoute: ReturnType<typeof vi.fn>;
-    stillNeededText: () => string; };
+    resetOrder: ReturnType<typeof vi.fn>; arrangePacks: ReturnType<typeof vi.fn>; arrangeQuests: ReturnType<typeof vi.fn>;
+    stillNeededText: () => string; stillNeededKeys: () => string[]; };
 
   const show = (progress: ShoppingProgress, filter: 'all' | 'needed' = 'all', list = entries) => {
     views.next(buildShoppingListView(list, progress, trove, { filter }));
@@ -58,13 +63,23 @@ describe('ShoppingListComponent', () => {
   const rowByName = (name: string) => Array.from(el().querySelectorAll<HTMLElement>('.shopping-row'))
     .find(row => row.querySelector('.shopping-row-name')?.textContent?.trim() === name)!;
 
+  let syncStates: BehaviorSubject<ShoppingSyncState>;
+
   beforeEach(async () => {
     views = new BehaviorSubject(buildShoppingListView(entries, {}, trove, { filter: 'all' }));
     service = { view$: views, toggle: vi.fn(), setFilter: vi.fn(), pickSources: vi.fn(), resetRoute: vi.fn(),
-      stillNeededText: () => 'Still needed for my build (5):' };
+      resetOrder: vi.fn(), arrangePacks: vi.fn(), arrangeQuests: vi.fn(),
+      stillNeededText: () => 'Still needed for my build (5):', stillNeededKeys: () => ['k1', 'k2', 'k3', 'k4'] };
+    syncStates = new BehaviorSubject<ShoppingSyncState>('off');
     await TestBed.configureTestingModule({
       declarations: [ShoppingListComponent, TapTooltipComponent, UserItemLocationTooltipPipe],
-      providers: [{ provide: ShoppingListService, useValue: service }]
+      imports: [RouterLink],
+      providers: [
+        provideRouter([]),
+        { provide: ShoppingListService, useValue: service },
+        { provide: ShoppingListViewService, useValue: { openedFrom: null } },
+        { provide: ShoppingProgressStore, useValue: { syncState$: syncStates } }
+      ]
     }).compileComponents();
     fixture = TestBed.createComponent(ShoppingListComponent);
     fixture.detectChanges();
@@ -159,6 +174,82 @@ describe('ShoppingListComponent', () => {
       show({}, 'all', []);
 
       expect(el().querySelector('.shopping-pack-nav')).toBeNull();
+    });
+
+    describe('marking the packs on screen', () => {
+      // jsdom has no IntersectionObserver: this one is driven by hand.
+      let observers: FakeIntersectionObserver[];
+      class FakeIntersectionObserver {
+        readonly observed: Element[] = [];
+        constructor(readonly callback: IntersectionObserverCallback, readonly options: IntersectionObserverInit) {
+          observers.push(this);
+        }
+        observe(target: Element): void {
+          this.observed.push(target);
+        }
+        disconnect(): void {
+          this.observed.length = 0;
+        }
+        see(visible: Record<string, boolean>): void {
+          const entries = this.observed
+            .filter(target => (target as HTMLElement).dataset['sectionId']! in visible)
+            .map(target => ({ target, isIntersecting: visible[(target as HTMLElement).dataset['sectionId']!] }));
+          this.callback(entries as unknown as IntersectionObserverEntry[], this as unknown as IntersectionObserver);
+          fixture.detectChanges();
+        }
+      }
+      const latest = () => observers[observers.length - 1];
+      const marked = () => links().filter(link => link.classList.contains('in-view'))
+        .map(link => link.querySelector('.shopping-pack-nav-name')?.textContent?.trim());
+
+      beforeEach(() => {
+        observers = [];
+        (globalThis as { IntersectionObserver?: unknown }).IntersectionObserver = FakeIntersectionObserver;
+        fixture.destroy();
+        fixture = TestBed.createComponent(ShoppingListComponent);
+        fixture.detectChanges();
+      });
+
+      afterEach(() => {
+        delete (globalThis as { IntersectionObserver?: unknown }).IntersectionObserver;
+      });
+
+      it('watches each pack scroll through the list, below its header', () => {
+        expect(latest().options.root).toBe(el());
+        expect(latest().options.rootMargin).toMatch(/^-\d+px 0px 0px 0px$/);
+        expect(latest().observed.length).toBe(2);
+      });
+
+      it('marks every pack with some part on screen, as they come and go', () => {
+        latest().see({ 'pack:Raid Pack': true, 'pack:': true });
+        expect(marked()).toEqual(['Raid Pack', 'Other sources']);
+
+        latest().see({ 'pack:Raid Pack': false });
+        expect(marked()).toEqual(['Other sources']);
+      });
+
+      it('marks none while no pack\'s cards are listed, as in Arrange mode', async () => {
+        latest().see({ 'pack:Raid Pack': true });
+
+        el().querySelector<HTMLButtonElement>('.shopping-list-arrange')!.click();
+        fixture.detectChanges();
+        await Promise.resolve();
+        fixture.detectChanges();
+
+        expect(links().length).toBe(2);
+        expect(marked()).toEqual([]);
+      });
+
+      it('watches again when the packs listed change', () => {
+        latest().see({ 'pack:Raid Pack': true });
+
+        show({}, 'all', [sword]);
+        // A new observer reports on everything it watches at once.
+        latest().see({ 'pack:Raid Pack': false });
+
+        expect(latest().observed.length).toBe(1);
+        expect(marked()).toEqual([]);
+      });
     });
 
     it('scrolls the pack heading up to just under the sticky header, and moves focus to it', () => {
@@ -378,45 +469,329 @@ describe('ShoppingListComponent', () => {
     expect(el().querySelector('.shopping-list-empty')?.textContent).toContain('Everything is ticked off');
   });
 
-  describe('copying the still-needed list', () => {
-    const copyButton = () => el().querySelector('.shopping-list-copy') as HTMLButtonElement;
-
-    it('copies the text within the click, and says so', () => {
-      const copy = vi.spyOn(Clipboard, 'copy').mockReturnValue(true);
-      const track = vi.spyOn(TestBed.inject(AnalyticsService), 'track').mockReturnValue(undefined);
-
-      copyButton().click();
+  describe('arranging the route', () => {
+    const arrangeButton = () => el().querySelector<HTMLButtonElement>('.shopping-list-arrange');
+    const outline = () => el().querySelector('app-shopping-list-arrange');
+    const startArranging = async () => {
+      arrangeButton()!.click();
       fixture.detectChanges();
+      // The outline is loaded on first use.
+      await vi.waitFor(() => {
+        fixture.detectChanges();
+        expect(outline()).toBeTruthy();
+      });
+    };
 
-      expect(copy).toHaveBeenCalledWith('Still needed for my build (5):');
-      expect(copyButton().textContent?.trim()).toBe('Copied!');
-      // Five things, less the ring the trove covers.
-      expect(track).toHaveBeenCalledWith('copy_shopping_list', { copy_kind: 'text', needed_count: 4 });
+    it('shows the route as an outline in place of the cards, until Done', async () => {
+      await startArranging();
+
+      expect(el().querySelector('.shopping-section')).toBeNull();
+      expect(Array.from(el().querySelectorAll('.shopping-arrange-pack-row .shopping-arrange-name'), name => name.textContent?.trim()))
+        .toEqual(['Raid Pack', 'Other sources']);
+      expect(el().querySelector('.shopping-list-choice')).toBeNull();
+      expect(arrangeButton()).toBeNull();
+
+      (el().querySelector('.shopping-list-arrange-done') as HTMLButtonElement).click();
+      fixture.detectChanges();
+      expect(outline()).toBeNull();
+      expect(el().querySelector('.shopping-section')).toBeTruthy();
     });
 
-    it('says when the clipboard refused', () => {
-      vi.spyOn(Clipboard, 'copy').mockReturnValue(false);
+    it('offers the default order back once arranged', async () => {
+      await startArranging();
+      expect(el().querySelector('.shopping-list-reset-route')).toBeNull();
 
-      copyButton().click();
+      views.next({ ...views.value, arranged: true });
       fixture.detectChanges();
+      (el().querySelector('.shopping-list-reset-route') as HTMLButtonElement).click();
 
-      expect(el().querySelector('.shopping-list-copy-error')?.textContent).toContain('Could not copy');
-      expect(copyButton().textContent?.trim()).toBe('Copy list');
+      expect(service.resetOrder).toHaveBeenCalled();
     });
 
-    it('is not offered with nothing to get', () => {
+    it('is not offered with nothing listed', () => {
       show({}, 'all', []);
 
-      expect(copyButton()).toBeNull();
+      expect(arrangeButton()).toBeNull();
     });
   });
 
-  it('goes back to the planner', () => {
-    const closed = vi.fn();
-    fixture.componentInstance.closed.subscribe(closed);
+  describe('where ticks are kept', () => {
+    const sync = () => el().querySelector('.shopping-list-sync');
 
-    (el().querySelector('.shopping-list-back') as HTMLButtonElement).click();
+    it('says whether they\'re saved with the build or only on this device', () => {
+      const said = (['saving', 'synced', 'offline', 'local'] as const).map(state => {
+        syncStates.next(state);
+        fixture.detectChanges();
+        return [sync()?.textContent?.trim(), sync()?.classList.contains('local')];
+      });
 
-    expect(closed).toHaveBeenCalled();
+      expect(said).toEqual([['Saving…', false], ['Saved', false], ['Offline', true], ['Saved on this device', true]]);
+    });
+
+    it('says nothing when only this device could keep them anyway', () => {
+      syncStates.next('off');
+      fixture.detectChanges();
+
+      expect(sync()).toBeNull();
+    });
+  });
+
+  it('is titled the shopping list, with no characters to choose between', () => {
+    expect(el().querySelector('.shopping-list-title')?.textContent?.trim()).toBe('Shopping list');
+    expect(el().querySelector('.shopping-group-characters')).toBeNull();
+    expect(el().querySelector('.shopping-list-live')).toBeNull();
+  });
+
+  describe('on a friend\'s still-needed page', () => {
+    // Everything got but the augment and one ring: what the friend service would make of an owner's list saying so.
+    const stillNeeded = () => buildShoppingListView(entries, { [sword.key]: 1, [step.key]: 1, [ring1.key]: 1 }, null,
+      { filter: 'needed' });
+    const showFriend = (list: Partial<FriendShoppingList>) => {
+      fixture.componentRef.setInput('friend', { view: stillNeeded(), needed: 2, notShared: false, connection: 'live', ...list });
+      fixture.detectChanges();
+    };
+
+    beforeEach(() => {
+      fixture.destroy();
+      fixture = TestBed.createComponent(ShoppingListComponent);
+      fixture.componentRef.setInput('friendBuild', { name: 'Their Build', plannerPath: '/build/s1/their-build' });
+      fixture.detectChanges();
+    });
+    const text = () => el().textContent!.replace(/\s+/g, ' ');
+    const liveStatus = () => el().querySelector<HTMLElement>('.shopping-list-live');
+
+    it('shows only what\'s still needed and where to get it, with nothing to tick, pick or copy', () => {
+      showFriend({});
+
+      expect(el().querySelector('.shopping-list-title')?.textContent?.replace(/\s+/g, ' ').trim()).toBe('Still needed for Their Build');
+      expect(el().querySelector('.shopping-list-progress-text')?.textContent?.trim()).toBe('2 things still needed');
+      expect(Array.from(el().querySelectorAll('.shopping-row:not(.acquired) .shopping-row-name'), name => name.textContent))
+        .toEqual(['Ring', 'Ruby']);
+      syncStates.next('synced');
+      fixture.detectChanges();
+      for (const selector of ['.shopping-list-back', '.shopping-check', '.shopping-list-choice', '.shopping-list-share', '.shopping-list-sync',
+        '.shopping-list-progress', '.shopping-list-reset-route', '.shopping-row-sources-toggle', '.owned-badge']) {
+        expect(el().querySelector(selector), selector).toBeNull();
+      }
+    });
+
+    it('counts what\'s still needed in each pack, not what\'s got', () => {
+      showFriend({});
+
+      // One ring of two, and the ruby; the sword's pack has nothing left, so isn't listed.
+      expect(Array.from(el().querySelectorAll('.shopping-section-count'), count => count.textContent)).toEqual(['2']);
+    });
+
+    it('says where else something comes from as plain text', () => {
+      const both = entry({ ...augment, sources: [from('Quest A'), from('Quest B')] });
+      showFriend({ view: buildShoppingListView([both], {}, null, { filter: 'needed' }), needed: 1 });
+
+      const listedUnder = el().querySelector('.shopping-group-name')?.textContent?.trim();
+      const other = listedUnder === 'Quest A' ? 'Quest B' : 'Quest A';
+      expect(el().querySelector('.shopping-row-also-from')?.textContent?.trim()).toBe(`also from ${other}`);
+      expect(el().querySelector('button.shopping-row-also-from')).toBeNull();
+    });
+
+    it('says whether the owner\'s changes are arriving as they\'re made, with nothing to refresh', () => {
+      showFriend({});
+      expect(liveStatus()?.textContent?.trim()).toBe('Live');
+      expect(liveStatus()?.classList).toContain('live');
+      expect(el().querySelector('.shopping-list-refresh')).toBeNull();
+
+      showFriend({ connection: 'reconnecting' });
+      expect(liveStatus()?.textContent?.trim()).toBe('Reconnecting…');
+      expect(liveStatus()?.classList).not.toContain('live');
+    });
+
+    it('says when nothing has been shared, and when the connection is lost, keeping the list', () => {
+      showFriend({ notShared: true });
+      expect(text()).toContain('Nothing ticked off has been shared for this build yet');
+
+      showFriend({ connection: 'offline' });
+      expect(liveStatus()?.textContent?.trim()).toBe('Offline');
+      expect(el().querySelector('.shopping-list-note[role="alert"]')?.textContent)
+        .toContain('Lost the connection, so this is the list as it last arrived.');
+      expect(Array.from(el().querySelectorAll('.shopping-row-name'), name => name.textContent)).toContain('Ruby');
+    });
+
+    it('says when there\'s nothing left to get', () => {
+      showFriend({ view: buildShoppingListView(entries, Object.fromEntries(entries.map(e => [e.key, 1 as const])), null,
+        { filter: 'needed' }), needed: 0 });
+
+      expect(text()).toContain('Nothing left to get');
+      expect(el().querySelector('.shopping-list-progress-text')?.textContent?.trim()).toBe('0 things still needed');
+    });
+
+    it('tracks opening it as a friend\'s link', () => {
+      const track = vi.spyOn(TestBed.inject(AnalyticsService), 'track').mockReturnValue(undefined);
+
+      showFriend({});
+
+      expect(track).toHaveBeenCalledWith('open_shopping_list',
+        { entry_point: 'friend_link', item_count: 5, acquired_count: 3, has_picks: false });
+    });
+  });
+
+  describe('on a group run\'s page', () => {
+    const kira: GroupMemberEntries = { buildId: 'b-kira', characterName: 'Kira', entries: [ring1, ring2, sword], needed: null };
+    const vex: GroupMemberEntries = { buildId: 'b-vex', characterName: 'Vex', entries: [ring1], needed: [] };
+    let groupRun: { toggleChip: ReturnType<typeof vi.fn>; toggleRow: ReturnType<typeof vi.fn>; setFilter: ReturnType<typeof vi.fn>;
+      show: ReturnType<typeof vi.fn>; pickSources: ReturnType<typeof vi.fn>; arrangePacks: ReturnType<typeof vi.fn> };
+    const text = () => el().textContent!.replace(/\s+/g, ' ');
+
+    const showGroup = (run: Partial<GroupRunView> = {}) => {
+      const view = buildGroupListView([kira, vex], { filter: 'all', picks: {}, order: null });
+      fixture.componentRef.setInput('group', {
+        name: 'Reaper night', view, connection: 'live', gone: false, isHost: false, yours: new Set(['b-kira']), showing: 'everyone',
+        unsaved: [],
+        characters: [
+          { buildId: 'b-kira', characterName: 'Kira', accent: 0, mine: true, needed: 3, total: 3, buildName: 'Tank', unreadable: false },
+          { buildId: 'b-vex', characterName: 'Vex', accent: 1, mine: false, needed: 0, total: 1, buildName: 'Archer', unreadable: false }
+        ],
+        ...run
+      } satisfies GroupRunView);
+      fixture.detectChanges();
+    };
+
+    beforeEach(() => {
+      groupRun = { toggleChip: vi.fn(), toggleRow: vi.fn(), setFilter: vi.fn(), show: vi.fn(), pickSources: vi.fn(), arrangePacks: vi.fn() };
+      fixture.destroy();
+      fixture = TestBed.createComponent(ShoppingListComponent);
+      fixture.componentRef.setInput('groupRun', groupRun as unknown as GroupRunService);
+      fixture.detectChanges();
+    });
+
+    const chips = (name: string) => Array.from(rowByName(name).querySelectorAll<HTMLElement>('.shopping-member-chip'));
+
+    it('names the group, and says how much everyone still needs, live', () => {
+      showGroup();
+
+      expect(el().querySelector('.shopping-list-title')?.textContent?.trim()).toBe('Reaper night');
+      // Kira's two rings and sword; Vex's ring is got.
+      expect(el().querySelector('.shopping-list-progress-text')?.textContent?.trim()).toBe('3 things still needed');
+      expect(el().querySelector('.shopping-list-live')?.textContent?.trim()).toBe('Live');
+      expect(el().querySelector('.shopping-list-back')).toBeNull();
+    });
+
+    it('makes each character\'s chip on a row their box: yours to tick, friends\' to read', () => {
+      showGroup();
+
+      const [kiraChip, vexChip] = chips('Ring');
+      expect(kiraChip.tagName).toBe('BUTTON');
+      expect(kiraChip.getAttribute('role')).toBe('checkbox');
+      expect(kiraChip.getAttribute('aria-checked')).toBe('false');
+      expect(kiraChip.querySelector('.shopping-member-count')?.textContent).toBe('×2');
+      expect(vexChip.tagName).toBe('SPAN');
+      expect(vexChip.getAttribute('role')).toBeNull();
+      expect(vexChip.querySelector('.shopping-member-check')?.classList).toContain('fa-square-check');
+      expect(vexChip.getAttribute('aria-label')).toBe('Ring for Vex: got');
+
+      kiraChip.click();
+
+      expect(groupRun.toggleChip).toHaveBeenCalledWith(expect.objectContaining({ id: expect.stringContaining('gear|Ring') }), 'b-kira');
+    });
+
+    it('shows a character part way through their copies as mixed', () => {
+      const partWay: GroupMemberEntries = { ...kira, needed: [ring2.key, sword.key] };
+      showGroup({ view: buildGroupListView([partWay, vex], { filter: 'all', picks: {}, order: null }) });
+
+      const kiraChip = chips('Ring')[0];
+      expect(kiraChip.getAttribute('aria-checked')).toBe('mixed');
+      expect(kiraChip.querySelector('.shopping-member-count')?.textContent).toBe('1/2');
+    });
+
+    it('gives rows no box of their own once there are several characters', () => {
+      showGroup({ yours: new Set(['b-kira', 'b-vex']) });
+
+      expect(el().querySelector('.shopping-check')).toBeNull();
+    });
+
+    it('with one character, gives rows a plain box ticking all of theirs, and no chips', () => {
+      showGroup({
+        view: buildGroupListView([kira], { filter: 'all', picks: {}, order: null }),
+        characters: [
+          { buildId: 'b-kira', characterName: 'Kira', accent: 0, mine: true, needed: 3, total: 3, buildName: 'Tank', unreadable: false }
+        ]
+      });
+
+      expect(el().querySelector('.shopping-member-chip:not(.shopping-character-filter)')).toBeNull();
+      // Nothing to choose between: no Everyone, Mine or Kira.
+      expect(el().querySelector('.shopping-group-characters')).toBeNull();
+      const box = rowByName('Ring').querySelector<HTMLButtonElement>('.shopping-check')!;
+      expect(box.getAttribute('aria-checked')).toBe('false');
+      expect(rowByName('Ring').querySelector('.shopping-row-quantity')?.textContent?.trim()).toBe('0/2');
+
+      box.click();
+
+      expect(groupRun.toggleRow).toHaveBeenCalled();
+    });
+
+    it('with one character who isn\'t yours, gives rows no box', () => {
+      showGroup({
+        view: buildGroupListView([vex], { filter: 'all', picks: {}, order: null }),
+        characters: [
+          { buildId: 'b-vex', characterName: 'Vex', accent: 1, mine: false, needed: 0, total: 1, buildName: 'Archer', unreadable: false }
+        ]
+      });
+
+      expect(el().querySelector('.shopping-check')).toBeNull();
+    });
+
+    it('shows everyone\'s, yours, or one character\'s rows', () => {
+      showGroup();
+
+      const filters = Array.from(el().querySelectorAll<HTMLButtonElement>('.shopping-character-filter'));
+      expect(filters.map(button => button.getAttribute('aria-label') ?? button.textContent?.trim()))
+        .toEqual(['Everyone', 'Mine', 'Kira: 3 still needed', 'Vex: 0 still needed']);
+      filters[3].click();
+
+      expect(groupRun.show).toHaveBeenCalledWith('b-vex');
+    });
+
+    it('switches the filter through the group, with nothing of your own list\'s: no Share, sync or progress bar', () => {
+      showGroup();
+
+      el().querySelectorAll<HTMLButtonElement>('.shopping-list-choice-option')[1].click();
+
+      expect(groupRun.setFilter).toHaveBeenCalledWith('needed');
+      expect(service.setFilter).not.toHaveBeenCalled();
+      for (const selector of ['.shopping-list-share', '.shopping-list-sync', '.shopping-list-progress', '.shopping-list-start-group']) {
+        expect(el().querySelector(selector), selector).toBeNull();
+      }
+    });
+
+    it('offers the host, once something is picked, to reset the route for everyone', () => {
+      const picked = { ...buildGroupListView([kira, vex], { filter: 'all', picks: {}, order: null }), picked: true, replannable: true };
+      showGroup({ view: picked });
+      expect(el().querySelector('.shopping-list-reset-route')).toBeNull();
+
+      const clearPicks = vi.fn();
+      (groupRun as unknown as { clearPicks: typeof clearPicks }).clearPicks = clearPicks;
+      showGroup({ view: picked, isHost: true });
+      el().querySelector<HTMLButtonElement>('.shopping-list-reset-route')!.click();
+
+      expect(clearPicks).toHaveBeenCalled();
+    });
+
+    it('lets only the host arrange the route', () => {
+      showGroup();
+      expect(el().querySelector('.shopping-list-arrange')).toBeNull();
+
+      showGroup({ isHost: true });
+      expect(el().querySelector('.shopping-list-arrange')).toBeTruthy();
+    });
+
+    it('says whose ticks couldn\'t be saved, and when the connection is lost', () => {
+      showGroup({ unsaved: ['Kira'], connection: 'offline' });
+
+      expect(text()).toContain('Couldn\'t save the ticks for Kira.');
+      expect(text()).toContain('Lost the connection');
+    });
+
+    it('says when there are no builds in it yet', () => {
+      showGroup({ view: buildGroupListView([], { filter: 'all', picks: {}, order: null }), characters: [] });
+
+      expect(text()).toContain('No builds in this group yet.');
+    });
   });
 });

@@ -1,0 +1,16 @@
+<button type="button" class="support-link"
+  [class.open]="open"
+  [attr.aria-expanded]="open"
+  title="Buy me a coffee" aria-label="Support DDO Gear Planner — buy me a coffee"
+  (click)="toggle(button)" #button>
+  <i class="fas fa-mug-hot" aria-hidden="true"></i>
+</button>
+
+@if (open) {
+  <section class="support-popover" aria-label="Support DDO Gear Planner" [style.--support-popover-top.px]="popoverTop">
+    <button type="button" class="support-popover-close" aria-label="Close" title="Close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <iframe class="support-iframe" [src]="url" title="Support DDO Gear Planner"></iframe>
+  </section>
+}

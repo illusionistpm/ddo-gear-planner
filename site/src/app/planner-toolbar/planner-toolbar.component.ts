@@ -1,9 +1,12 @@
 import {
   AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, NgZone, OnDestroy, OnInit, ViewChild
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
+import { groupPath, GroupSummary } from '../build/groups.service';
+import { MyListsService } from '../build/my-lists.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { Item } from '../gear/item';
 import { EquippedService, PlannerTab, TrackedAffixGroupMode } from '../planner/equipped.service';
@@ -43,6 +46,7 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
 
   private tabSubscription?: Subscription;
   private viewStateSubscription?: Subscription;
+  private rejoinSubscription?: Subscription;
   private switchObserver?: ResizeObserver;
   private workspaceRowObserver?: ResizeObserver;
   // GearDbService builds its unfiltered gear map once, in its constructor, so
@@ -60,6 +64,7 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
   ) { }
 
   ngOnInit() {
+    this.rejoinSubscription = this.myLists.rejoin$.subscribe(list => this.rejoin = list);
     this.tabSubscription = this.equipped.getActiveMainTab().subscribe(tab => {
       this.activeTab = tab;
     });
@@ -102,6 +107,7 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
     this.workspaceRowObserver?.disconnect();
     this.tabSubscription?.unsubscribe();
     this.viewStateSubscription?.unsubscribe();
+    this.rejoinSubscription?.unsubscribe();
   }
 
   /**
@@ -168,9 +174,18 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   private readonly shoppingListView = inject(ShoppingListViewService);
+  private readonly myLists = inject(MyListsService);
+  private readonly router = inject(Router);
+  /** The list of several builds this build is on, to rejoin; null for none. */
+  rejoin: GroupSummary | null = null;
 
   openShoppingList() {
     this.shoppingListView.open('toolbar');
+  }
+
+  rejoinList(list: GroupSummary) {
+    this.analytics.track('rejoin_list', { from: 'toolbar' });
+    this.router.navigateByUrl(groupPath(list.shortId, list.inviteToken));
   }
 
   getAllGear(): Item[] {

@@ -4,10 +4,11 @@ import { Router } from '@angular/router';
 import { Observable, catchError, map, of, switchMap, tap, throwError } from 'rxjs';
 
 import { Build, BuildSummary, MAX_BLOB_LENGTH } from '../build/build';
-import { buildPath } from '../build/build-route';
+import { buildPath, urlFragmentOf } from '../build/build-route';
 import { BuildsService } from '../build/builds.service';
 import { CurrentBuildService } from '../build/current-build.service';
 import { QueryParamsService } from '../build/query-params.service';
+import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
 
 /** A save/rename failure, carrying the message to show the user. */
 export class BuildSaveError extends Error { }
@@ -30,7 +31,8 @@ export class BuildSaveService {
     private readonly buildsService: BuildsService,
     private readonly currentBuild: CurrentBuildService,
     private readonly queryParams: QueryParamsService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly shoppingList: ShoppingListService
   ) { }
 
   /** Creates a new build row from the current build - both "Save…" and Save As. */
@@ -52,13 +54,24 @@ export class BuildSaveService {
     );
   }
 
+  /**
+   * Saves the current build over its saved copy. Its shopping list, as it
+   * is for the build being saved, goes with it, so friends following the
+   * list get the new gear and what it still needs in one step.
+   */
   saveInPlace(savedBuildId: string): Observable<void> {
     return of(null).pipe(
-      map(() => this.encodeWithinLimit()),
-      switchMap(blob => this.buildsService.update(savedBuildId, { blob }).pipe(
-        catchError(() => throwError(() => new BuildSaveError(SAVE_FAILED)))
+      map(() => ({ blob: this.encodeWithinLimit(), progress: this.shoppingList.progressForSave() })),
+      switchMap(({ blob, progress }) => this.buildsService.update(savedBuildId, progress ? { blob, progress } : { blob }).pipe(
+        catchError(() => throwError(() => new BuildSaveError(SAVE_FAILED))),
+        map(build => ({ build, progress }))
       )),
-      tap(build => this.recordSaved(build, true)),
+      tap(({ build, progress }) => {
+        this.recordSaved(build, true);
+        if (progress) {
+          this.shoppingList.savedWithBuild(progress, build.progressSaved === true);
+        }
+      }),
       map(() => undefined)
     );
   }
@@ -107,7 +120,8 @@ export class BuildSaveService {
    * `cacheContent`: a content save also caches the params locally, so browser
    * back to this build's bare URL after further edits reapplies them without a
    * network fetch (see CurrentBuildService.getCanonicalParamsCache). Then
-   * leave the ?b= edit URL for the now-clean /build/:shortId/:slug one.
+   * leave the ?b= edit URL for the now-clean /build/:shortId/:slug one,
+   * keeping its fragment - the view on screen stays open.
    */
   private recordSaved(build: Build, cacheContent: boolean) {
     this.currentBuild.markSaved({
@@ -118,6 +132,6 @@ export class BuildSaveService {
         ? { canonicalParams: this.queryParams.getCombinedParams() as Record<string, string | string[]> }
         : {})
     });
-    this.router.navigateByUrl(buildPath(build.shortId, build.name), { replaceUrl: true });
+    this.router.navigateByUrl(buildPath(build.shortId, build.name) + urlFragmentOf(this.router.url), { replaceUrl: true });
   }
 }

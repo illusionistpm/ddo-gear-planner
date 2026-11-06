@@ -188,3 +188,24 @@
     width: auto;
   }
 }
+
+/* The group runs you host or have a build in, under your builds. */
+.my-builds-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin: var(--space-8) 0 0;
+  text-transform: uppercase;
+}
+
+.my-builds-group-meta {
+  color: var(--text-secondary);
+  flex: none;
+  font-size: 0.8rem;
+}
+
+.my-builds-groups {
+  flex: none;
+  max-height: 9rem;
+}

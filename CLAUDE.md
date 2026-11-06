@@ -6,7 +6,7 @@ non-obvious or have caused real bugs - the rest is discoverable from the code.
 ## Layout
 
 - `site/` — the Angular 22 planner app (projects `site` and `admin`).
-- `worker/` — Cloudflare Worker API: saved builds, short links, auth.
+- `worker/` — Cloudflare Worker API: saved builds, short links, auth, friends' live shopping lists (a Durable Object per build, `worker/src/live.ts`), and shopping lists of several builds (the site's `/list/:shortId`, called groups in the code and API: a Durable Object per group; `routes/groups.ts`).
 - `data-builder/` — Python scrapers that regenerate `data/*.json`.
 - `data/` — the generated game-data JSON. Build-time input only: the site imports it via the `@data/*` alias (`site/tsconfig.json`) and it is bundled into JS chunks, never served as raw files.
 - `wiki-snapshot/` — the ddowiki pages `data/` is built from, committed. See "Game data" below.
@@ -102,6 +102,14 @@ key names, the `ml_<slot>` / `craft_<n>_<field>` builders and parsers, and the
 list that decides whether a URL key is build data at all. A new param that
 skips it will be dropped by the codec or leak into view state.
 
+**View state rides in the URL fragment, never in query keys.** The shopping
+list's `#shopping-list` (`build/shopping-list-link.ts`) lives there because the
+codec never sees a fragment, so build URLs stay as they were.
+The app's own URL writes keep it (`preserveFragment`, `urlFragmentOf`); a new
+one must too. And never read the route path with `router.url.split('?')` - a
+fragment with no query string lands in the last segment. Use `routePathOf` /
+`routeSegmentsOf` (`build/build-route.ts`).
+
 **`Craftable`'s selection strings travel in those URLs**: `"System: Option"`, or
 `"System (empty)"` for a system chosen with nothing in it yet. `craftable.spec.ts`
 pins every shape. Item copies use `Craftable.clone()` - don't route copies back
@@ -149,6 +157,12 @@ on filled buttons - the only literals left in the tree.
   render time. One such change broke 16 specs in a single commit.
 - **`OnPush` components** here mutate state from async callbacks, so they call
   `cdr.markForCheck()` explicitly. Keep that up in new async paths.
+- **`AppModule` is eager**: everything it declares or imports lands in the
+  initial bundle, so a dependency one feature needs (drag-drop, for the
+  shopping list's Arrange mode) would cost every page load. Put it in a
+  standalone component loaded with `import()` and `ngComponentOutlet`, as
+  `ShoppingListComponent.startArranging` does - and check the production
+  build's initial total before and after.
 - Specs that drive a component **through its rendered DOM** survive refactors of
   the component's internals; specs that call its methods do not. Prefer the
   former when the point is to pin behaviour before changing structure.

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, provideAppInitializer, inject, DestroyRef, Injector, runInInjectionContext } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { CdkScrollable } from '@angular/cdk/scrolling';
 import { provideHttpClient, withInterceptorsFromDi, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthModule, AuthHttpInterceptor } from '@auth0/auth0-angular';
 
@@ -37,6 +38,9 @@ import { ExternalAffixFormComponent } from './external-affix-form/external-affix
 import { ExternalAffixValueComponent } from './external-affix-value/external-affix-value.component';
 import { SlotIconComponent } from './slot-icon/slot-icon.component';
 import { CreditsComponent } from './credits/credits.component';
+import { SupportLinkComponent } from './support-link/support-link.component';
+import { PageChromeComponent } from './page-chrome/page-chrome.component';
+import { OwnListActionsComponent } from './shopping-list/own-list-actions.component';
 import { SaveBuildDialogComponent } from './save-build-dialog/save-build-dialog.component';
 import { MyBuildsComponent } from './my-builds/my-builds.component';
 import { BuildActionsComponent } from './build-actions/build-actions.component';
@@ -46,6 +50,11 @@ import { PanelSwipeDirective } from './main/panel-swipe.directive';
 import { TapTooltipComponent } from './tap-tooltip/tap-tooltip.component';
 import { CraftingOptionPickerComponent } from './crafting-option-picker/crafting-option-picker.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
+import { ShoppingListShareMenuComponent } from './shopping-list/shopping-list-share-menu.component';
+import { StillNeededPageComponent } from './still-needed-page/still-needed-page.component';
+import { GroupRunPageComponent } from './group-run-page/group-run-page.component';
+import { ServerShoppingProgressStore } from './planner/shopping-list/server-shopping-progress-store';
+import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress-store';
 
 @NgModule({
     declarations: [
@@ -77,19 +86,26 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
         ExternalAffixValueComponent,
         SlotIconComponent,
         CreditsComponent,
+        SupportLinkComponent,
+        PageChromeComponent,
+        OwnListActionsComponent,
         SaveBuildDialogComponent,
         MyBuildsComponent,
         BuildActionsComponent,
         ShrinkToFitDirective,
         AutofocusDirective,
         PanelSwipeDirective,
-        ShoppingListComponent
+        ShoppingListComponent,
+        ShoppingListShareMenuComponent,
+        GroupRunPageComponent,
+        StillNeededPageComponent
     ],
     imports: [
         AppRoutingModule,
         NgbModule,
         BrowserModule,
         FormsModule,
+        CdkScrollable,
         AuthModule.forRoot({
             domain: environment.auth0Domain,
             clientId: environment.auth0ClientId,
@@ -125,6 +141,9 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
     ],
     providers: [
         provideHttpClient(withInterceptorsFromDi()),
+        // Saved builds' shopping-list progress syncs; the root default keeps
+        // it in this browser only, which is what specs without AppModule get.
+        { provide: ShoppingProgressStore, useExisting: ServerShoppingProgressStore },
         { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
         provideAppInitializer(() => {
             const injector = inject(Injector);

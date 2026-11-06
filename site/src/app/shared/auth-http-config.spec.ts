@@ -54,7 +54,7 @@ describe('authHttpInterceptorConfig', () => {
     }
   }
 
-  async function send(method: 'GET' | 'POST', url: string): Promise<{ error?: unknown }> {
+  async function send(method: 'GET' | 'POST' | 'PUT', url: string): Promise<{ error?: unknown }> {
     const outcome: { error?: unknown } = {};
     http.request(method, url).subscribe({ error: error => outcome.error = error });
     await settle();
@@ -65,7 +65,9 @@ describe('authHttpInterceptorConfig', () => {
     ['GET', `${api}/users/me`],
     ['GET', `${api}/builds/mine`],
     ['POST', `${api}/builds`],
-    ['POST', `${api}/shortlinks`]
+    ['POST', `${api}/shortlinks`],
+    ['GET', `${api}/builds/build-1/progress`],
+    ['PUT', `${api}/builds/build-1/progress`]
   ] as const)('attaches a Bearer token to %s %s', async (method, url) => {
     await send(method, url);
 
@@ -86,10 +88,13 @@ describe('authHttpInterceptorConfig', () => {
   // The worker never reads a token on the public shared-build fetch, so
   // asking Auth0 for one only costs a refresh - or, with a dead refresh
   // token, fails the request outright.
-  it('asks for no token on the public shared-build fetch, even when one is available', async () => {
-    await send('GET', `${api}/build/abc123`);
+  it.each([
+    `${api}/build/abc123`,
+    `${api}/build/abc123/progress`
+  ])('asks for no token on the public %s, even when one is available', async url => {
+    await send('GET', url);
 
-    const req = httpMock.expectOne(`${api}/build/abc123`);
+    const req = httpMock.expectOne(url);
     expect(req.request.headers.has('Authorization')).toBe(false);
     expect(getTokenSilently).not.toHaveBeenCalled();
     req.flush({});

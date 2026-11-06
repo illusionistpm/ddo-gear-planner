@@ -1,0 +1,26 @@
+<div class="share-menu">
+  @if (liveShare === 'ready' || liveShare === 'save-changes') {
+    <button type="button" class="share-menu-item" [disabled]="!listUrl" (click)="copyLink()">{{ justCopied === 'link' ? 'Copied!' : 'Copy link' }}</button>
+    <button type="button" class="share-menu-item" [disabled]="!listUrl" (click)="copyTextAndLink()">{{ justCopied === 'text_and_link' ? 'Copied!' : 'Copy list + link' }}</button>
+  }
+  <button type="button" class="share-menu-item" (click)="copyText()">{{ justCopied === 'text' ? 'Copied!' : 'Copy list' }}</button>
+  @switch (liveShare) {
+    @case ('sign-in') {
+      <span class="share-menu-note">Sign in and save this build to share a live list with friends.</span>
+      <button type="button" class="share-menu-hint" (click)="signIn()">Sign in</button>
+    }
+    @case ('save') {
+      <span class="share-menu-note">Save this build to share a live list with friends.</span>
+    }
+    @case ('save-copy') {
+      <span class="share-menu-note">Save a copy of this build to share a live list of your own.</span>
+    }
+    @case ('save-changes') {
+      <span class="share-menu-note">Save your changes to share a live list. Friends see the build as last saved.</span>
+    }
+  }
+  @if (copyError) {
+    <span class="share-menu-error" role="alert">{{ copyError }}</span>
+  }
+</div>
+<button type="button" class="share-menu-backdrop" aria-label="Close share menu" (click)="closed.emit()"></button>

@@ -62,6 +62,20 @@ describe('migrateLegacyUrlIfNeeded', () => {
     expect(window.location.hash).toBe('#some-anchor');
   });
 
+  it('leaves the shopping list\'s fragments alone, after a path or a query string', () => {
+    for (const url of [
+      '/build/abc123/my-build#shopping-list',
+      '/build/abc123/my-build#still-needed',
+      '/?b=z1.test#still-needed:1.1a.b.zz'
+    ]) {
+      history.replaceState(null, '', url);
+
+      migrateLegacyUrlIfNeeded();
+
+      expect(window.location.pathname + window.location.search + window.location.hash).toBe(url);
+    }
+  });
+
   it('migrates legacy tab/taGroup/taCollapsed query params into localStorage', () => {
     history.replaceState(null, '', '/main?levelrange=1,36&tab=affixes&taGroup=slots&taCollapsed=set-only,2');
 

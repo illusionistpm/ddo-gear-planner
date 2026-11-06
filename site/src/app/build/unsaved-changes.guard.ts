@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { CanDeactivateFn } from '@angular/router';
 
-import { isBuildShortIdRoute } from './build-route';
+import { isBuildShortIdRoute, isGroupRunRoute, routePathOf } from './build-route';
 import { CurrentBuildService } from './current-build.service';
 import { EquippedService } from '../planner/equipped.service';
 import { MainComponent } from '../main/main.component';
@@ -66,8 +66,14 @@ export const unsavedChangesGuard: CanDeactivateFn<MainComponent> = (_component, 
   // Only prompt when the destination is genuinely outside that set (there
   // isn't one today, but this keeps the guard meaningful if one's ever
   // added).
-  const nextPath = nextState.url.split('?')[0];
-  if (nextPath === '' || nextPath === '/' || isBuildShortIdRoute(nextPath)) {
+  const nextPath = routePathOf(nextState.url);
+  if (nextPath === '/' || isBuildShortIdRoute(nextPath)) {
+    return true;
+  }
+  // A shopping list of several builds leaves the planner as it is: the build
+  // stays in its root services, and the list's Planner link comes back to
+  // its URL (ListReturnService). Nothing is lost by going there.
+  if (isGroupRunRoute(nextPath)) {
     return true;
   }
 

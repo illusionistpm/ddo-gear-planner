@@ -1,11 +1,13 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 
 import { CurrentBuildService, CurrentBuildState } from '../../build/current-build.service';
-import type { ShoppingProgress, ShoppingProgressPatch, ShoppingSourcePicks } from './shopping-list-types';
+import type {
+  ShoppingProgress, ShoppingProgressPatch, ShoppingPublished, ShoppingRouteOrder, ShoppingSaveProgress, ShoppingSourcePicks
+} from './shopping-list-types';
 import {
-  clearScopePicks, copyScopeProgress, hasScopeProgress, patchScopeProgress, readScopePicks, readScopeProgress, setScopePick,
-  SHOPPING_PROGRESS_STORAGE_KEY
+  clearScopePicks, copyScopeProgress, hasScopeProgress, patchScopeProgress, readScopeOrder, readScopePicks, readScopeProgress,
+  replaceScopeProgress, setScopeOrder, setScopePick, SHOPPING_PROGRESS_STORAGE_KEY
 } from './shopping-progress-storage';
 
 /**
@@ -21,19 +23,53 @@ export function shoppingProgressScope(state: CurrentBuildState): string {
 
 export const SHOPPING_DRAFT_SCOPE = 'draft';
 
-/** Holds the current build's shopping-list ticks, and the quests picked to get things from. */
+/**
+ * Whether the current build's progress is kept beyond this browser:
+ * - off: it isn't - not a saved build of yours;
+ * - saving / synced: changes are on their way / all on the server;
+ * - offline: the server can't be reached, retrying;
+ * - local: syncing stopped for this build (signed out, or today's writes
+ *   used up), so changes stay on this device.
+ */
+export type ShoppingSyncState = 'off' | 'saving' | 'synced' | 'offline' | 'local';
+
+/** Holds the current build's shopping-list ticks, the quests picked to get things from, and the order of its route. */
 @Injectable({ providedIn: 'root', useFactory: () => inject(LocalShoppingProgressStore) })
 export abstract class ShoppingProgressStore {
   abstract readonly progress$: Observable<ShoppingProgress>;
   abstract readonly picks$: Observable<ShoppingSourcePicks>;
   abstract get progress(): ShoppingProgress;
   abstract get picks(): ShoppingSourcePicks;
+  /** The order the route is arranged in; null for the default. */
+  abstract readonly order$: Observable<ShoppingRouteOrder | null>;
+  abstract get order(): ShoppingRouteOrder | null;
   abstract get scope(): string;
   abstract applyPatch(patch: ShoppingProgressPatch): void;
   /** Sets the quests to get a thing from, or forgets the pick (null) so the list chooses. */
   abstract setPick(identity: string, quests: readonly string[] | null): void;
   /** Forgets every pick, so the list chooses where to get everything. */
   abstract clearPicks(): void;
+  /** Arranges the route, or (null) puts it back in its default order. */
+  abstract setOrder(order: ShoppingRouteOrder | null): void;
+  abstract readonly syncState$: Observable<ShoppingSyncState>;
+  /** Sets what friends' links show, where the build has any. */
+  abstract publish(published: ShoppingPublished): void;
+  /**
+   * What to send with a save of the current build, so friends get the new
+   * gear and its list together: what they'll see (`published`, worked out
+   * for the build as it's being saved) and the route's order. Null when the
+   * build has no friends' link to follow it - not a saved build of yours,
+   * or one whose list was never shared.
+   */
+  abstract progressForSave(published: ShoppingPublished): ShoppingSaveProgress | null;
+  /** A save carrying progressForSave's answer finished; `stored` says whether the server kept the list too. */
+  abstract savedWithBuild(sent: ShoppingSaveProgress, stored: boolean): void;
+  /**
+   * The build's ticks may have changed elsewhere in this tab (a shopping list
+   * of several builds ticks them on the server directly): read them again,
+   * so the next save doesn't send older ones.
+   */
+  abstract catchUp(): void;
 }
 
 /**
@@ -46,8 +82,11 @@ export abstract class ShoppingProgressStore {
 export class LocalShoppingProgressStore extends ShoppingProgressStore implements OnDestroy {
   private readonly progressSubject: BehaviorSubject<ShoppingProgress>;
   private readonly picksSubject: BehaviorSubject<ShoppingSourcePicks>;
+  private readonly orderSubject: BehaviorSubject<ShoppingRouteOrder | null>;
   readonly progress$: Observable<ShoppingProgress>;
   readonly picks$: Observable<ShoppingSourcePicks>;
+  readonly order$: Observable<ShoppingRouteOrder | null>;
+  readonly syncState$: Observable<ShoppingSyncState> = of('off');
   private currentScope: string;
   private readonly subscription: Subscription;
   private readonly onStorage = (event: StorageEvent) => {
@@ -61,8 +100,10 @@ export class LocalShoppingProgressStore extends ShoppingProgressStore implements
     this.currentScope = shoppingProgressScope(currentBuild.value);
     this.progressSubject = new BehaviorSubject(readScopeProgress(this.currentScope));
     this.picksSubject = new BehaviorSubject(readScopePicks(this.currentScope));
+    this.orderSubject = new BehaviorSubject(readScopeOrder(this.currentScope));
     this.progress$ = this.progressSubject.asObservable();
     this.picks$ = this.picksSubject.asObservable();
+    this.order$ = this.orderSubject.asObservable();
     this.subscription = currentBuild.state$.subscribe(state => this.changeScope(shoppingProgressScope(state)));
     window.addEventListener('storage', this.onStorage);
   }
@@ -73,6 +114,10 @@ export class LocalShoppingProgressStore extends ShoppingProgressStore implements
 
   get picks(): ShoppingSourcePicks {
     return this.picksSubject.value;
+  }
+
+  get order(): ShoppingRouteOrder | null {
+    return this.orderSubject.value;
   }
 
   get scope(): string {
@@ -92,6 +137,36 @@ export class LocalShoppingProgressStore extends ShoppingProgressStore implements
   clearPicks(): void {
     clearScopePicks(this.currentScope);
     this.picksSubject.next({});
+  }
+
+  setOrder(order: ShoppingRouteOrder | null): void {
+    setScopeOrder(this.currentScope, order);
+    this.orderSubject.next(readScopeOrder(this.currentScope));
+  }
+
+  /** Nothing to publish to: friends' links need the server. */
+  publish(): void {
+    // Intentionally empty.
+  }
+
+  progressForSave(): ShoppingSaveProgress | null {
+    return null;
+  }
+
+  savedWithBuild(): void {
+    // Nothing was sent.
+  }
+
+  catchUp(): void {
+    // Only this device has them.
+  }
+
+  /** Replaces a scope's ticks and picks, and its order when given, as when another copy of them wins. */
+  replaceScope(scope: string, entries: ShoppingProgress, picks: ShoppingSourcePicks, order?: ShoppingRouteOrder | null): void {
+    replaceScopeProgress(scope, entries, picks, order);
+    if (scope === this.currentScope) {
+      this.readScope();
+    }
   }
 
   ngOnDestroy(): void {
@@ -117,5 +192,6 @@ export class LocalShoppingProgressStore extends ShoppingProgressStore implements
   private readScope(): void {
     this.progressSubject.next(readScopeProgress(this.currentScope));
     this.picksSubject.next(readScopePicks(this.currentScope));
+    this.orderSubject.next(readScopeOrder(this.currentScope));
   }
 }

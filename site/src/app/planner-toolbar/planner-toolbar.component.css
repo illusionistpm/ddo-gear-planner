@@ -23,6 +23,10 @@
     order: 100;
 }
 
+.shopping-list-rejoin {
+    order: 101;
+}
+
 /* The Equipment / Tracked Affixes switch. */
 .planner-view-switch {
     background: var(--surface-subtle-color);
@@ -225,6 +229,27 @@
 .shopping-list-open:focus-visible {
     border-color: var(--primary-color);
     color: var(--primary-color);
+}
+
+/* Something going on: the primary colour at rest, not only on hover. */
+.shopping-list-rejoin {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    max-width: 16rem;
+}
+
+.shopping-list-rejoin .shopping-list-open-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* How many builds the list holds: all a narrow toolbar has room for beside the icon. */
+.shopping-list-rejoin-count {
+    background: rgba(var(--primary-color-rgb), 0.12);
+    border-radius: 999px;
+    font-size: 0.72rem;
+    padding: 0 var(--space-4);
 }
 
 /*

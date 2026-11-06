@@ -1,0 +1,51 @@
+<p class="shopping-arrange-hint">Drag packs and quests into the order you'll run them, or move them with the arrows.</p>
+<ol class="shopping-arrange-packs" cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="dropPack($event)"
+  aria-label="Packs on the route">
+  @for (section of sections; track section.id; let i = $index; let lastPack = $last) {
+    <li class="shopping-arrange-pack" [style.--shopping-accent]="'var(--pack-accent-' + (section.accent ?? 'none') + ')'" cdkDrag
+      [attr.data-arrange-pack]="i">
+      <div class="shopping-arrange-row shopping-arrange-pack-row">
+        <span class="shopping-arrange-handle" cdkDragHandle aria-hidden="true" title="Drag to move">
+          <i class="fas fa-grip-vertical"></i>
+        </span>
+        <span class="shopping-arrange-name">{{section.label}}</span>
+        <button type="button" class="shopping-arrange-up" [disabled]="i === 0" (click)="stepPack(i, -1)"
+          [attr.aria-label]="'Move ' + section.label + ' up'">
+          <i class="fas fa-arrow-up" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="shopping-arrange-down" [disabled]="lastPack" (click)="stepPack(i, 1)"
+          [attr.aria-label]="'Move ' + section.label + ' down'">
+          <i class="fas fa-arrow-down" aria-hidden="true"></i>
+        </button>
+      </div>
+      <ol class="shopping-arrange-quests" cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="dropQuest(section, $event)"
+        [attr.aria-label]="'Quests in ' + section.label">
+        @for (group of quests(section); track group.id; let q = $index; let lastQuest = $last) {
+          <li class="shopping-arrange-quest" cdkDrag [attr.data-arrange-quest]="q">
+            <div class="shopping-arrange-row">
+              <span class="shopping-arrange-handle" cdkDragHandle aria-hidden="true" title="Drag to move">
+                <i class="fas fa-grip-vertical"></i>
+              </span>
+              <span class="shopping-arrange-name">{{group.label}}</span>
+              <button type="button" class="shopping-arrange-up" [disabled]="q === 0" (click)="stepQuest(section, q, -1)"
+                [attr.aria-label]="'Move ' + group.label + ' up'">
+                <i class="fas fa-arrow-up" aria-hidden="true"></i>
+              </button>
+              <button type="button" class="shopping-arrange-down" [disabled]="lastQuest" (click)="stepQuest(section, q, 1)"
+                [attr.aria-label]="'Move ' + group.label + ' down'">
+                <i class="fas fa-arrow-down" aria-hidden="true"></i>
+              </button>
+            </div>
+          </li>
+        }
+        @for (group of unmovable(section); track group.id) {
+          <li class="shopping-arrange-quest shopping-arrange-fixed">
+            <div class="shopping-arrange-row">
+              <span class="shopping-arrange-name">{{group.label}}</span>
+            </div>
+          </li>
+        }
+      </ol>
+    </li>
+  }
+</ol>

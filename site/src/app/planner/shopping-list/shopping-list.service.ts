@@ -11,9 +11,11 @@ import { UserGearService } from '../user-gear.service';
 import { deriveShoppingEntries, ShoppingSourceLookup } from './shopping-list-entries';
 import { formatShoppingListText } from './shopping-list-text';
 import type {
-  ShoppingEntry, ShoppingFilter, ShoppingListView, ShoppingProgress, ShoppingRow, ShoppingTroveLookup
+  ShoppingEntry, ShoppingFilter, ShoppingListView, ShoppingProgress, ShoppingRow, ShoppingSaveProgress, ShoppingTroveLookup
 } from './shopping-list-types';
-import { buildShoppingListView, prunePatch, settledIdentities, togglePatch } from './shopping-list-view-model';
+import {
+  buildShoppingListView, prunePatch, publishedProgress, settledIdentities, stillNeededKeys, togglePatch
+} from './shopping-list-view-model';
 import { SHOPPING_DRAFT_SCOPE, ShoppingProgressStore } from './shopping-progress-store';
 
 /**
@@ -63,12 +65,20 @@ export class ShoppingListService {
       this.filterSubject,
       filters.getItemFilters().pipe(map(itemFilters => itemFilters.hiddenPacks), distinctUntilChanged()),
       this.progressStore.picks$,
+      this.progressStore.order$,
       this.replanSubject,
     ]).pipe(
-      map(([entries, progress, , filter, hiddenPacks, picks]) => {
+      map(([entries, progress, , filter, hiddenPacks, picks, order]) => {
+        const routeSettled = this.settledForRoute(entries, progress);
         const view = buildShoppingListView(entries, progress, this.trove,
-          { filter, hiddenPacks, picks, packAccents: this.packAccents, routeSettled: this.settledForRoute(entries, progress) });
+          { filter, hiddenPacks, picks, packAccents: this.packAccents, routeSettled, order: order ?? undefined });
         this.packAccents = view.packAccents;
+        // Only while the build is as saved, so a friend's link (which shows
+        // the saved build) lists the same things. Saving sends the list for
+        // the build as saved along with it - see progressForSave.
+        if (!this.currentBuild.value.isDirty) {
+          this.progressStore.publish(publishedProgress(entries, progress, this.trove, { hiddenPacks, picks, routeSettled }));
+        }
         return view;
       }),
       // Closing the list forgets the route, so it's planned afresh next time it opens.
@@ -111,15 +121,56 @@ export class ShoppingListService {
     this.replanSubject.next();
   }
 
-  /** The still-needed list as text, whatever the list on screen shows, routed as it is. */
+  /** Puts the route's packs in this order, by name ('' for quests in no pack). */
+  arrangePacks(packs: readonly string[]): void {
+    this.progressStore.setOrder({ packs: [...packs], quests: [...(this.progressStore.order?.quests ?? [])] });
+  }
+
+  /** Puts one pack's quests in this order. */
+  arrangeQuests(quests: readonly string[]): void {
+    const moved = new Set(quests);
+    const others = (this.progressStore.order?.quests ?? []).filter(quest => !moved.has(quest));
+    this.progressStore.setOrder({ packs: [...(this.progressStore.order?.packs ?? [])], quests: [...others, ...quests] });
+  }
+
+  /** Puts the route back in its default order. */
+  resetOrder(): void {
+    this.progressStore.setOrder(null);
+  }
+
+  /** The still-needed list as text, whatever the list on screen shows, routed and arranged as it is. */
   stillNeededText(): string {
     const entries = this.currentEntries();
     const progress = this.progressStore.progress;
     const view = buildShoppingListView(entries, progress, this.trove, {
       filter: 'needed', hiddenPacks: this.gearDb.getHiddenPacks(), picks: this.progressStore.picks,
-      routeSettled: this.routeSettled ?? settledIdentities(entries, progress, this.trove),
+      routeSettled: this.routeSettled ?? settledIdentities(entries, progress, this.trove), order: this.progressStore.order ?? undefined,
     });
     return formatShoppingListText(view, this.currentBuild.value.name);
+  }
+
+  /**
+   * What to send with a save of the build on screen, so friends' pages get
+   * the new gear and its list in one step; null when it has no friends'
+   * link to follow it. Worked out whether or not the list is open.
+   */
+  progressForSave(): ShoppingSaveProgress | null {
+    const entries = this.currentEntries();
+    const progress = this.progressStore.progress;
+    return this.progressStore.progressForSave(publishedProgress(entries, progress, this.trove, {
+      hiddenPacks: this.gearDb.getHiddenPacks(), picks: this.progressStore.picks,
+      routeSettled: this.routeSettled ?? settledIdentities(entries, progress, this.trove),
+    }));
+  }
+
+  /** A save carrying progressForSave's answer finished; `stored` says whether the server kept the list too. */
+  savedWithBuild(sent: ShoppingSaveProgress, stored: boolean): void {
+    this.progressStore.savedWithBuild(sent, stored);
+  }
+
+  /** Keys of the entries still needed. */
+  stillNeededKeys(): string[] {
+    return stillNeededKeys(this.currentEntries(), this.progressStore.progress, this.trove);
   }
 
   /** The things got when the route was planned, planning it now if it isn't. */

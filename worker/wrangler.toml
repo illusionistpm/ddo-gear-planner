@@ -20,6 +20,29 @@ database_id = "44bfa641-a59f-46b4-be82-f81f2b2a8d17"
 binding = "BUILD_CACHE"
 id = "0d0e72e33bd642bbb5ad01a3d3c60cb9"
 
+# Friends' live shopping lists: one ProgressRoom (src/progress-room.ts) per
+# saved build, holding its friends' WebSockets. SQLite-backed, the only kind
+# the Workers Free plan offers; it stores nothing, but the class still has
+# to be declared as one.
+[[durable_objects.bindings]]
+name = "PROGRESS_ROOMS"
+class_name = "ProgressRoom"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["ProgressRoom"]
+
+# Group runs' live lists: one GroupRoom (src/group-room.ts) per group,
+# holding the sockets of everyone watching it. Stores nothing, like
+# ProgressRoom.
+[[durable_objects.bindings]]
+name = "GROUP_ROOMS"
+class_name = "GroupRoom"
+
+[[migrations]]
+tag = "v2"
+new_sqlite_classes = ["GroupRoom"]
+
 # No client secret needed here - the Worker only verifies Bearer tokens
 # (see src/auth.ts), it never runs the OAuth flow itself.
 [vars]

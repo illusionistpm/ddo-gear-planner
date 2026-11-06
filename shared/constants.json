@@ -1,5 +1,18 @@
 {
   "maxNameLength": 60,
   "maxBuildsPerUser": 100,
-  "maxBlobLength": 4096
+  "maxBlobLength": 4096,
+  "maxProgressEntries": 300,
+  "maxProgressPicks": 200,
+  "maxProgressKeyLength": 300,
+  "maxProgressBytes": 65536,
+  "progressMinWriteIntervalMs": 1500,
+  "maxProgressWritesPerUserPerDay": 300,
+  "liveGoneCloseCode": 4404,
+  "livePing": "ping",
+  "livePong": "pong",
+  "maxGroupBuilds": 12,
+  "maxGroupsPerUser": 10,
+  "maxCharacterNameLength": 20,
+  "groupIdleDays": 14
 }

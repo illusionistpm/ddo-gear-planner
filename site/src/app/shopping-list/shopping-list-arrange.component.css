@@ -1,0 +1,130 @@
+:host {
+    display: block;
+    padding-top: var(--space-12);
+}
+
+.shopping-arrange-hint {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin: 0 0 var(--space-12);
+}
+
+.shopping-arrange-packs,
+.shopping-arrange-quests {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Striped in the pack's colour, as its heading and cards are. */
+.shopping-arrange-pack {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--shopping-accent, var(--border-color));
+    border-radius: var(--border-radius);
+    margin-bottom: var(--space-8);
+    padding: var(--space-4) 0;
+}
+
+.shopping-arrange-quests {
+    margin-left: 2rem;
+}
+
+.shopping-arrange-row {
+    align-items: center;
+    display: flex;
+    gap: var(--space-4);
+    min-height: 2.25rem;
+    padding: 0 var(--space-8);
+}
+
+.shopping-arrange-pack-row .shopping-arrange-name {
+    font-weight: 700;
+}
+
+.shopping-arrange-quest {
+    border-top: 1px solid var(--border-color);
+}
+
+.shopping-arrange-name {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.shopping-arrange-fixed .shopping-arrange-name {
+    color: var(--text-secondary);
+    /* Where a handle would be. */
+    padding-left: 1.75rem;
+}
+
+.shopping-arrange-handle {
+    color: var(--text-secondary);
+    cursor: grab;
+    padding: var(--space-4) var(--space-8);
+    /* A touch on the handle drags rather than scrolls. */
+    touch-action: none;
+}
+
+.shopping-arrange-up,
+.shopping-arrange-down {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    color: var(--text-secondary);
+    height: 2rem;
+    width: 2rem;
+}
+
+.shopping-arrange-up:not(:disabled):hover,
+.shopping-arrange-down:not(:disabled):hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.shopping-arrange-up:disabled,
+.shopping-arrange-down:disabled {
+    opacity: 0.35;
+}
+
+/* What's being dragged (appended to the body, so no ancestors to match), and the gap it leaves. */
+.shopping-arrange-pack.cdk-drag-preview,
+.shopping-arrange-quest.cdk-drag-preview {
+    background: var(--surface-elevated-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    list-style: none;
+}
+
+.cdk-drag-placeholder {
+    opacity: 0.3;
+}
+
+.cdk-drag-animating,
+.shopping-arrange-packs.cdk-drop-list-dragging .shopping-arrange-pack:not(.cdk-drag-placeholder),
+.shopping-arrange-quests.cdk-drop-list-dragging .shopping-arrange-quest:not(.cdk-drag-placeholder) {
+    transition: transform 200ms ease;
+}
+
+.cdk-drag-dragging .shopping-arrange-handle {
+    cursor: grabbing;
+}
+
+@media (pointer: coarse) {
+    .shopping-arrange-row {
+        min-height: 2.75rem;
+    }
+
+    .shopping-arrange-up,
+    .shopping-arrange-down {
+        height: 2.5rem;
+        width: 2.5rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cdk-drag-animating,
+    .shopping-arrange-packs.cdk-drop-list-dragging .shopping-arrange-pack:not(.cdk-drag-placeholder),
+    .shopping-arrange-quests.cdk-drop-list-dragging .shopping-arrange-quest:not(.cdk-drag-placeholder) {
+        transition: none;
+    }
+}

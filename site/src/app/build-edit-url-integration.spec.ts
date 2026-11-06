@@ -73,6 +73,22 @@ describe('build edit URL integration (real router)', () => {
     expect(currentBuild.value.shortId).toBe('n11M5Pg9');
   });
 
+  it('keeps the URL fragment - the view on screen - through an edit that drops the shortId', async () => {
+    const router = TestBed.inject(Router);
+    const location = TestBed.inject(Location);
+    const equipped = TestBed.inject(EquippedService);
+
+    router.navigateByUrl('/build/n11M5Pg9/arcane-trickster#shopping-list');
+    await settle();
+    TestBed.inject(QueryParamsService).applyDecodedBuildParams({});
+    TestBed.inject(CurrentBuildService).markLoaded({ shortId: 'n11M5Pg9', name: 'Arcane Trickster', canonicalParams: {} });
+
+    equipped.clearSlot(equipped.getSlots().keys().next().value as string);
+    await settle();
+
+    expect(location.path(true)).toMatch(/^\/?\?b=[^#]+#shopping-list$/);
+  });
+
   it('restores the build\'s identity when browser back returns through the edit history', async () => {
     const router = TestBed.inject(Router);
     const currentBuild = TestBed.inject(CurrentBuildService);

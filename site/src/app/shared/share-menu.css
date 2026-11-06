@@ -1,3 +1,8 @@
+/*
+ * The share menus' look - the build's (build-share-menu) and the shopping
+ * list's (shopping-list-share-menu) - opening under their Share buttons.
+ * Listed first in each one's styleUrls; each adds only its own rules.
+ */
 :host {
   display: contents;
 }
@@ -58,10 +63,19 @@
   color: var(--primary-color);
 }
 
+/* Why a choice isn't offered, or what it takes. */
+.share-menu-note,
 .share-menu-error {
   border-top: 1px solid var(--border-color);
-  color: var(--danger-color);
   display: block;
   font-size: 0.8rem;
   padding: var(--space-8) var(--space-12);
+}
+
+.share-menu-note {
+  color: var(--text-secondary);
+}
+
+.share-menu-error {
+  color: var(--danger-color);
 }

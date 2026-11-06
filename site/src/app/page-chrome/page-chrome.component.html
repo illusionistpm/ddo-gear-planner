@@ -1,0 +1,35 @@
+<header class="page-chrome">
+  <div class="page-chrome-brand">
+    <img src="/favicon-96x96.png" alt="" class="page-chrome-brand-icon">
+    <span class="page-chrome-brand-name">DDO Gear Planner</span>
+  </div>
+  @if (backTo; as to) {
+    @if (to.url) {
+      <a class="page-chrome-back" [routerLink]="to.url" [title]="to.title"
+        [attr.target]="to.newTab ? '_blank' : null" [attr.rel]="to.newTab ? 'noopener' : null">
+        <i class="fas" [class.fa-arrow-left]="!to.newTab" [class.fa-up-right-from-square]="to.newTab" aria-hidden="true"></i>
+        <span>{{to.label}}</span>
+      </a>
+    } @else {
+      <button type="button" class="page-chrome-back" [title]="to.title" (click)="back.emit()">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+        <span>{{to.label}}</span>
+      </button>
+    }
+  }
+  <div class="page-chrome-actions">
+    <ng-content></ng-content>
+  </div>
+  <div class="page-chrome-site">
+    <app-support-link #support (opened)="credits.close()"></app-support-link>
+    <button type="button" class="theme-toggle"
+      [class.dark]="theme.isDarkTheme()"
+      [attr.aria-pressed]="theme.isDarkTheme()"
+      [attr.aria-label]="theme.isDarkTheme() ? 'Switch to light mode' : 'Switch to dark mode'"
+      [title]="theme.isDarkTheme() ? 'Switch to light mode' : 'Switch to dark mode'"
+      (click)="theme.toggleTheme()">
+      <i class="fas theme-toggle-icon" [class.fa-sun]="theme.isDarkTheme()" [class.fa-moon]="!theme.isDarkTheme()" aria-hidden="true"></i>
+    </button>
+    <app-credits #credits (opened)="support.close()"></app-credits>
+  </div>
+</header>

@@ -85,10 +85,16 @@ function sameOrder(a: ShoppingRouteOrder | null, b: ShoppingRouteOrder | null): 
 interface Outgoing {
   ticks: Record<string, 0 | 1>;
   timer: ReturnType<typeof setTimeout> | null;
-  busy: boolean;
-  /** The write that's out, settling once the server has answered either way. */
+  /** The write that's out, settling once the server has answered either way; null when none is. */
   inFlight: Promise<void> | null;
   failures: number;
+}
+
+function cancelTimer(outgoing: Outgoing): void {
+  if (outgoing.timer) {
+    clearTimeout(outgoing.timer);
+    outgoing.timer = null;
+  }
 }
 
 /**
@@ -268,10 +274,7 @@ export class GroupRunService implements OnDestroy {
     document.removeEventListener('visibilitychange', this.onVisibilityChange);
     window.removeEventListener('pagehide', this.onPageHide);
     for (const outgoing of this.outgoing.values()) {
-      if (outgoing.timer) {
-        clearTimeout(outgoing.timer);
-        outgoing.timer = null;
-      }
+      cancelTimer(outgoing);
     }
   }
 
@@ -280,7 +283,7 @@ export class GroupRunService implements OnDestroy {
     if (!outgoing) {
       return;
     }
-    if (outgoing.busy) {
+    if (outgoing.inFlight) {
       // Whatever was ticked meanwhile goes when it lands: on its own timer
       // while the page is open, or straight after it once the page is gone.
       await outgoing.inFlight;
@@ -288,10 +291,7 @@ export class GroupRunService implements OnDestroy {
         return;
       }
     }
-    if (outgoing.timer) {
-      clearTimeout(outgoing.timer);
-      outgoing.timer = null;
-    }
+    cancelTimer(outgoing);
     if (this.outgoing.get(buildId) === outgoing) {
       await this.send(buildId);
     }
@@ -376,7 +376,7 @@ export class GroupRunService implements OnDestroy {
     this.pendingSubject.next(pending);
     this.refreshToken();
     for (const [buildId, ticks] of patchesByBuild(patch)) {
-      const outgoing = this.outgoing.get(buildId) ?? { ticks: {}, timer: null, busy: false, inFlight: null, failures: 0 };
+      const outgoing = this.outgoing.get(buildId) ?? { ticks: {}, timer: null, inFlight: null, failures: 0 };
       outgoing.ticks = { ...outgoing.ticks, ...ticks };
       this.outgoing.set(buildId, outgoing);
       this.scheduleSend(buildId, this.timing.sendAfterMs);
@@ -393,9 +393,7 @@ export class GroupRunService implements OnDestroy {
     if (!outgoing || this.destroyed) {
       return;
     }
-    if (outgoing.timer) {
-      clearTimeout(outgoing.timer);
-    }
+    cancelTimer(outgoing);
     outgoing.timer = setTimeout(() => {
       outgoing.timer = null;
       void this.send(buildId);
@@ -404,7 +402,7 @@ export class GroupRunService implements OnDestroy {
 
   private send(buildId: string): Promise<void> {
     const outgoing = this.outgoing.get(buildId);
-    if (!outgoing || outgoing.busy || !Object.keys(outgoing.ticks).length) {
+    if (!outgoing || outgoing.inFlight || !Object.keys(outgoing.ticks).length) {
       return Promise.resolve();
     }
     const ticks = outgoing.ticks;
@@ -415,7 +413,7 @@ export class GroupRunService implements OnDestroy {
       return Promise.resolve();
     }
     outgoing.ticks = {};
-    outgoing.busy = true;
+    // deliver awaits before anything else, so its finally clears this only after it's set.
     const sending = this.deliver(buildId, outgoing, ticks, body);
     outgoing.inFlight = sending;
     return sending;
@@ -438,7 +436,6 @@ export class GroupRunService implements OnDestroy {
         this.giveUp(buildId);
       }
     } finally {
-      outgoing.busy = false;
       outgoing.inFlight = null;
       if (Object.keys(outgoing.ticks).length && !outgoing.timer) {
         this.scheduleSend(buildId, this.timing.sendAfterMs);

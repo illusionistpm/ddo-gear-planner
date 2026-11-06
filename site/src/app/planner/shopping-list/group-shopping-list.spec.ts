@@ -3,6 +3,7 @@ import {
   patchesByBuild, splitGroupEntryKey
 } from './group-shopping-list';
 import type { ShoppingEntry, ShoppingListView, ShoppingRow, ShoppingSource } from './shopping-list-types';
+import type { UserItemLocation } from '../user-gear.service';
 
 function from(quest: string, pack: string | null = null): ShoppingSource {
   return { quest, pack, raid: false, wikiUrl: `wiki/${quest}` };
@@ -110,6 +111,19 @@ describe('group shopping list', () => {
     expect(where(mine, 'Cloak')).toEqual(where(whole, 'Cloak'));
     expect(rowFor(mine, 'Ring').members.map(part => part.member)).toEqual(['b-vex']);
     expect(mine.total).toBe(2);
+  });
+
+  it('badges what the viewer owns, without ticking it off: ticks are each build\'s owner\'s', () => {
+    const bank: UserItemLocation = { character: 'Khalarim', location: 'Bank', tab: '1' };
+    const owned = { locationsFor: (name: string) => name === 'Ring' ? [bank] : undefined };
+    const withTrove = (init: ShoppingEntry) => ({ ...init, troveName: init.label });
+    const view = buildGroupListView([member('b-kira', 'Kira', [withTrove(ring('Ring1')), withTrove(cloak)])],
+      { filter: 'all', picks: {}, order: null, owned });
+
+    expect(rowFor(view, 'Ring').ownedLocations).toEqual([expect.objectContaining({ character: 'Khalarim' })]);
+    expect(rowFor(view, 'Ring').acquired).toBe(0);
+    expect(rowFor(view, 'Cloak').ownedLocations).toBeNull();
+    expect(view.acquired).toBe(0);
   });
 
   describe('ticking', () => {

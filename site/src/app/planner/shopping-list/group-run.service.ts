@@ -1,18 +1,20 @@
 import { inject, Injectable, InjectionToken, OnDestroy } from '@angular/core';
 import { BehaviorSubject, combineLatest, firstValueFrom, Observable, of, Subscription } from 'rxjs';
-import { catchError, distinctUntilChanged, map, switchMap } from 'rxjs/operators';
+import { catchError, distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
 
 import { BuildProgressService, buildProgressFailureOf } from '../../build/build-progress.service';
 import { GroupsService, GroupViewer } from '../../build/groups.service';
 import { LiveConnection } from '../../build/live-socket';
 import { LiveGroupList, LiveGroupListService, LiveGroupMember, LiveGroupState } from '../../build/live-group-list.service';
 import { AuthService } from '../../shared/auth.service';
+import { UserGearService } from '../user-gear.service';
 import { FriendShoppingListService } from './friend-shopping-list.service';
 import {
   buildGroupListView, chipPatch, GroupMemberEntries, groupProgress, MEMBER_ACCENT_COUNT, neededAfter, ownRowPatch, patchesByBuild
 } from './group-shopping-list';
 import type {
-  ShoppingEntry, ShoppingFilter, ShoppingListView, ShoppingProgress, ShoppingProgressPatch, ShoppingRouteOrder, ShoppingRow
+  ShoppingEntry, ShoppingFilter, ShoppingListView, ShoppingProgress, ShoppingProgressPatch, ShoppingRouteOrder, ShoppingRow,
+  ShoppingTroveLookup
 } from './shopping-list-types';
 
 export interface GroupRunTiming {
@@ -104,6 +106,8 @@ export class GroupRunService implements OnDestroy {
   private token = '';
   private destroyed = false;
   private readonly timing = inject(GROUP_RUN_TIMING);
+  /** The viewer's trove, for Owned badges: it ticks nothing off, as each build's ticks are its owner's. */
+  private readonly owned: ShoppingTroveLookup = { locationsFor: name => this.userGear.getItemLocations(name) };
 
   readonly view$: Observable<GroupRunView>;
 
@@ -112,10 +116,12 @@ export class GroupRunService implements OnDestroy {
     private readonly groups: GroupsService,
     private readonly progressApi: BuildProgressService,
     private readonly friendList: FriendShoppingListService,
-    private readonly auth: AuthService
+    private readonly auth: AuthService,
+    private readonly userGear: UserGearService
   ) {
     this.view$ = combineLatest([
-      this.stateSubject, this.viewerSubject, this.filterSubject, this.showingSubject, this.pendingSubject, this.unsavedSubject
+      this.stateSubject, this.viewerSubject, this.filterSubject, this.showingSubject, this.pendingSubject, this.unsavedSubject,
+      this.userGear.userItemsChanged$.pipe(startWith(undefined))
     ]).pipe(map(([state, viewer, filter, showing, pending, unsaved]) => this.viewOf(state, viewer, filter, showing, pending, unsaved)));
   }
 
@@ -405,7 +411,8 @@ export class GroupRunService implements OnDestroy {
       : showing === 'mine' ? yours
         : new Set([showing]);
     const view = buildGroupListView(members, {
-      filter, picks: group.picks, order: group.order, pending: this.pendingProgress(pending), only, packAccents: this.packAccents
+      filter, picks: group.picks, order: group.order, pending: this.pendingProgress(pending), only, packAccents: this.packAccents,
+      owned: this.owned
     });
     this.packAccents = view.packAccents;
     return { ...base, view, characters };

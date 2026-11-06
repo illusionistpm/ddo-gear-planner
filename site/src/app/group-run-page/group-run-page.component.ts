@@ -9,6 +9,7 @@ import {
   characterNameFor, groupBuildFailureOf, groupPath, GroupsService, inviteTokenOf, MAX_CHARACTER_NAME_LENGTH, MAX_GROUP_BUILDS
 } from '../build/groups.service';
 import { GroupRunService, GroupRunView } from '../planner/shopping-list/group-run.service';
+import { UserGearService } from '../planner/user-gear.service';
 import { AnalyticsService } from '../shared/analytics.service';
 import { AuthService } from '../shared/auth.service';
 import { Clipboard } from '../shared/clipboard';
@@ -76,10 +77,13 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
     private readonly analytics: AnalyticsService,
     private readonly title: Title,
     readonly theme: ThemeService,
-    private readonly cdr: ChangeDetectorRef
+    private readonly cdr: ChangeDetectorRef,
+    private readonly userGear: UserGearService
   ) { }
 
   ngOnInit(): void {
+    // For Owned badges: reached from an invite link, the planner hasn't loaded the trove.
+    this.userGear.loadFromStorage();
     this.shortId = this.route.snapshot.paramMap.get('shortId') ?? '';
     this.token = inviteTokenOf(this.route.snapshot.fragment);
     this.subscriptions.add(this.auth.isAuthenticated$.subscribe(signedIn => {

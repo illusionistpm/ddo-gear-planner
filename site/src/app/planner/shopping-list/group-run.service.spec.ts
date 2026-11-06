@@ -7,6 +7,7 @@ import { GroupsService } from '../../build/groups.service';
 import type { LiveBuildList } from '../../build/live-build-list.service';
 import { LiveGroupList, LiveGroupListService, LiveGroupState } from '../../build/live-group-list.service';
 import { AuthService } from '../../shared/auth.service';
+import { UserGearService, UserItemLocation } from '../user-gear.service';
 import { FriendShoppingListService } from './friend-shopping-list.service';
 import { GROUP_RUN_TIMING, GroupRunService, GroupRunView } from './group-run.service';
 import type { ShoppingEntry, ShoppingRow } from './shopping-list-types';
@@ -15,7 +16,7 @@ function entry(key: string, label: string): ShoppingEntry {
   return {
     key, kind: 'gear', identity: `gear|${label}`, label, system: null, ml: 1,
     sources: [{ quest: 'The Snitch', pack: 'Sharn', raid: false, wikiUrl: 'wiki/The Snitch' }],
-    sourceInherited: false, rare: false, artifact: false, wikiUrl: null, troveName: null, parentKey: null, details: []
+    sourceInherited: false, rare: false, artifact: false, wikiUrl: null, troveName: label, parentKey: null, details: []
   };
 }
 
@@ -42,11 +43,15 @@ describe('GroupRunService', () => {
   let put: ReturnType<typeof vi.fn>;
   let putRoute: ReturnType<typeof vi.fn>;
   let latest: GroupRunView;
+  let trove: Map<string, UserItemLocation[]>;
+  let troveChanged: Subject<void>;
 
   beforeEach(() => {
     states = new Subject<LiveGroupState>();
     put = vi.fn(() => of({ updatedAt: '2026-11-05T11:00:00.000Z' }));
     putRoute = vi.fn(() => of({}));
+    trove = new Map();
+    troveChanged = new Subject<void>();
     TestBed.configureTestingModule({
       providers: [
         GroupRunService,
@@ -55,7 +60,8 @@ describe('GroupRunService', () => {
         { provide: GroupsService, useValue: { viewer: vi.fn(() => of({ isHost: true, yourBuildIds: ['b-kira'] })), putRoute } },
         { provide: BuildProgressService, useValue: { put } },
         { provide: FriendShoppingListService, useValue: { entriesOf: (blob: string) => ENTRIES[blob] ?? null } },
-        { provide: AuthService, useValue: { isAuthenticated$: new BehaviorSubject(true) } }
+        { provide: AuthService, useValue: { isAuthenticated$: new BehaviorSubject(true) } },
+        { provide: UserGearService, useValue: { getItemLocations: (name: string) => trove.get(name), userItemsChanged$: troveChanged } }
       ]
     });
     service = TestBed.inject(GroupRunService);
@@ -107,6 +113,18 @@ describe('GroupRunService', () => {
     // Kira's own list is now what says so: unticked there, it's unticked here.
     arrive(group(list('z1.kira', ['g|Ring1|Ring', 'g|Ring2|Ring', 'g|Back|Cloak'], '2026-11-05T12:00:00.000Z')));
     expect(row('Ring').members[0].acquired).toBe(0);
+  });
+
+  it('badges what you own in your trove, without ticking anyone\'s off, and again when it\'s imported', () => {
+    arrive(group(list('z1.kira', null)));
+    expect(row('Ring').ownedLocations).toBeNull();
+
+    trove.set('Ring', [{ character: 'Khalarim', location: 'Bank', tab: '1' }]);
+    troveChanged.next();
+
+    expect(row('Ring').ownedLocations).toEqual([expect.objectContaining({ character: 'Khalarim' })]);
+    expect(row('Ring').acquired).toBe(0);
+    expect(row('Cloak').ownedLocations).toBeNull();
   });
 
   it('ticks nothing for a character that isn\'t yours', async () => {

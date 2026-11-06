@@ -38,6 +38,12 @@ export interface ShoppingListViewOptions {
   packAccents?: ReadonlyMap<string, number>;
   /** The order the user arranged packs and quests in; by default, comparePacks and quest name. */
   order?: ShoppingRouteOrder;
+  /**
+   * Where the viewer has things, for rows' Owned badges only: unlike the
+   * trove, it ticks nothing off. A group run's list, whose ticks are each
+   * build's owner's, uses it. By default, the trove's.
+   */
+  owned?: ShoppingTroveLookup | null;
 }
 
 /**
@@ -189,13 +195,14 @@ export function applyProgressPatch(progress: ShoppingProgress, patch: ShoppingPr
 interface RowContext {
   progress: ShoppingProgress;
   covered: ReadonlySet<string>;
-  trove: ShoppingTroveLookup | null;
+  /** Where the viewer has things, for Owned badges. */
+  owned: ShoppingTroveLookup | null;
 }
 
 export function buildShoppingListView(entries: readonly ShoppingEntry[], progress: ShoppingProgress,
     trove: ShoppingTroveLookup | null, options: ShoppingListViewOptions): ShoppingListView {
   const covered = troveCoveredKeys(entries, trove);
-  const context: RowContext = { progress, covered, trove };
+  const context: RowContext = { progress, covered, owned: options.owned === undefined ? trove : options.owned };
 
   const settledNow = settledIdentities(entries, progress, trove);
   const route: ShoppingRouteOptions = {
@@ -344,7 +351,7 @@ function foldRows(entries: readonly ShoppingEntry[], idPrefix: string, context: 
   return Array.from(byIdentity.entries(), ([identity, folded]) => {
     const acquired = folded.filter(entry => isEntryAcquired(entry.key, context.progress, context.covered)).length;
     const first = folded[0];
-    const locations = first.troveName ? context.trove?.locationsFor(first.troveName) : undefined;
+    const locations = first.troveName ? context.owned?.locationsFor(first.troveName) : undefined;
     return {
       id: `${idPrefix}|${identity}`,
       entry: first,

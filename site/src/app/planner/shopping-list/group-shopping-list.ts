@@ -1,6 +1,6 @@
 import type {
   ShoppingEntry, ShoppingFilter, ShoppingListView, ShoppingProgress, ShoppingProgressPatch, ShoppingRouteOrder, ShoppingRow,
-  ShoppingSourcePicks
+  ShoppingSourcePicks, ShoppingTroveLookup
 } from './shopping-list-types';
 import { buildShoppingListView, routeEveryThing } from './shopping-list-view-model';
 
@@ -41,6 +41,8 @@ export interface GroupListOptions {
   only?: ReadonlySet<string>;
   /** The colour each pack had last time, so a pack keeps its colour. */
   packAccents?: ReadonlyMap<string, number>;
+  /** Where the viewer has things, for rows' Owned badges: it ticks nothing off, as ticks are each build's owner's. */
+  owned?: ShoppingTroveLookup | null;
 }
 
 /** The key an entry has on a group's list: the build's id, then its own key. */
@@ -90,14 +92,14 @@ export function buildGroupListView(members: readonly GroupMemberEntries[], optio
   const order = options.order ?? undefined;
   if (!options.only) {
     return buildShoppingListView(entries, progress, null,
-      { filter: options.filter, picks: options.picks, order, routeSettled, packAccents: options.packAccents });
+      { filter: options.filter, picks: options.picks, order, routeSettled, packAccents: options.packAccents, owned: options.owned });
   }
   // Some builds' rows only: routed as the whole group's are, by handing
   // their part the whole group's route as picks.
   const only = options.only;
   const route = routeEveryThing(entries, { picks: options.picks, routeSettled });
   const view = buildShoppingListView(entries.filter(entry => entry.member !== undefined && only.has(entry.member)), progress, null,
-    { filter: options.filter, picks: route, order, routeSettled, packAccents: options.packAccents });
+    { filter: options.filter, picks: route, order, routeSettled, packAccents: options.packAccents, owned: options.owned });
   return { ...view, picked: Object.keys(options.picks).length > 0, replannable: false };
 }
 

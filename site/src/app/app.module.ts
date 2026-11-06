@@ -38,6 +38,8 @@ import { ExternalAffixFormComponent } from './external-affix-form/external-affix
 import { ExternalAffixValueComponent } from './external-affix-value/external-affix-value.component';
 import { SlotIconComponent } from './slot-icon/slot-icon.component';
 import { CreditsComponent } from './credits/credits.component';
+import { SupportLinkComponent } from './support-link/support-link.component';
+import { PageChromeComponent } from './page-chrome/page-chrome.component';
 import { SaveBuildDialogComponent } from './save-build-dialog/save-build-dialog.component';
 import { MyBuildsComponent } from './my-builds/my-builds.component';
 import { BuildActionsComponent } from './build-actions/build-actions.component';
@@ -83,6 +85,8 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         ExternalAffixValueComponent,
         SlotIconComponent,
         CreditsComponent,
+        SupportLinkComponent,
+        PageChromeComponent,
         SaveBuildDialogComponent,
         MyBuildsComponent,
         BuildActionsComponent,

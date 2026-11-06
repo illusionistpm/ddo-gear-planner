@@ -9,11 +9,14 @@ import { BuildsService } from '../build/builds.service';
 import { SHOPPING_LIST_FRAGMENT } from '../build/shopping-list-link';
 import { FriendBuild, FriendShoppingList, FriendShoppingListService, FriendView } from '../planner/shopping-list/friend-shopping-list.service';
 import { AnalyticsService } from '../shared/analytics.service';
+import { PageChromeBack } from '../page-chrome/page-chrome.component';
 import { AuthService } from '../shared/auth.service';
-import { ThemeService } from '../shared/theme.service';
 import { FriendBuildHeading } from '../shopping-list/shopping-list.component';
 
 const SITE_TITLE = 'DDO Gear Planner';
+
+/** The header's way back: a build of your own, in the planner. */
+const PLANNER_LINK: PageChromeBack = { label: 'Planner', title: 'Plan a build of your own', url: '/' };
 
 /**
  * A friend's view of what a saved build still needs, at
@@ -34,6 +37,7 @@ const SITE_TITLE = 'DDO Gear Planner';
   standalone: false
 })
 export class StillNeededPageComponent implements OnInit, OnDestroy {
+  readonly plannerLink = PLANNER_LINK;
   build: FriendBuild = { status: 'loading' };
   list: FriendShoppingList | null = null;
   heading: FriendBuildHeading | null = null;
@@ -49,7 +53,6 @@ export class StillNeededPageComponent implements OnInit, OnDestroy {
     private readonly auth: AuthService,
     private readonly analytics: AnalyticsService,
     private readonly title: Title,
-    readonly theme: ThemeService,
     private readonly cdr: ChangeDetectorRef
   ) { }
 

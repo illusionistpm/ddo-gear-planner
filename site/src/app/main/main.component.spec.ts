@@ -189,7 +189,7 @@ describe('MainComponent', () => {
       // display: contents on desktop, so they still lay out inline there.
       const actions: HTMLElement = fixture.nativeElement.querySelector('app-build-actions');
 
-      expect(actions.querySelector('.planner-support-wrap')).not.toBeNull();
+      expect(actions.querySelector('app-support-link')).not.toBeNull();
       expect(actions.querySelector('.theme-toggle')).not.toBeNull();
       expect(actions.querySelector('app-admin-link')).not.toBeNull();
     });

@@ -6,8 +6,11 @@ import { BehaviorSubject, of, Subject } from 'rxjs';
 
 import { BuildsService } from '../build/builds.service';
 import { FriendBuild, FriendShoppingList, FriendShoppingListService, FriendView } from '../planner/shopping-list/friend-shopping-list.service';
+import { CreditsComponent } from '../credits/credits.component';
+import { PageChromeComponent } from '../page-chrome/page-chrome.component';
 import { AuthService } from '../shared/auth.service';
 import { ThemeService } from '../shared/theme.service';
+import { SupportLinkComponent } from '../support-link/support-link.component';
 import { StillNeededPageComponent } from './still-needed-page.component';
 
 describe('StillNeededPageComponent', () => {
@@ -28,7 +31,7 @@ describe('StillNeededPageComponent', () => {
     signedIn = new BehaviorSubject(false);
     listMine = vi.fn(() => of([]));
     await TestBed.configureTestingModule({
-      declarations: [StillNeededPageComponent],
+      declarations: [StillNeededPageComponent, PageChromeComponent, SupportLinkComponent, CreditsComponent],
       imports: [RouterLink],
       // app-shopping-list is ShoppingListComponent's to test.
       schemas: [NO_ERRORS_SCHEMA],
@@ -62,10 +65,12 @@ describe('StillNeededPageComponent', () => {
     expect(TestBed.inject(Title).getTitle()).toBe('Still needed for Their Build - DDO Gear Planner');
   });
 
-  it('has the site\'s name, leading to a build of your own, and nothing of the planner\'s', () => {
+  it('has the site\'s header, leading to a build of your own, and nothing of the planner\'s', () => {
     arrive({ status: 'ready', name: 'Their Build', entries: [] });
 
-    expect(el().querySelector('.still-needed-brand')?.getAttribute('href')).toBe('/');
+    expect(el().querySelector('.page-chrome-back')?.getAttribute('href')).toBe('/');
+    expect(el().querySelector('.page-chrome app-support-link')).toBeTruthy();
+    expect(el().querySelector('.page-chrome app-credits')).toBeTruthy();
     expect(el().querySelector('app-build-actions')).toBeNull();
     expect(el().querySelector('app-planner-toolbar')).toBeNull();
   });
@@ -73,7 +78,7 @@ describe('StillNeededPageComponent', () => {
   it('has the planner\'s day/night button', () => {
     const theme = TestBed.inject(ThemeService);
     const wasDark = theme.isDarkTheme();
-    const toggle = () => el().querySelector<HTMLButtonElement>('.still-needed-chrome .theme-toggle')!;
+    const toggle = () => el().querySelector<HTMLButtonElement>('.page-chrome .theme-toggle')!;
 
     toggle().click();
     fixture.detectChanges();

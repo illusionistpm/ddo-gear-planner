@@ -1,18 +1,5 @@
 <div class="container still-needed-page">
-  <header class="still-needed-chrome">
-    <a class="still-needed-brand" routerLink="/" title="Plan a build of your own">
-      <img src="/favicon-96x96.png" alt="" class="still-needed-brand-icon">
-      <span>DDO Gear Planner</span>
-    </a>
-    <button type="button" class="theme-toggle"
-      [class.dark]="theme.isDarkTheme()"
-      [attr.aria-pressed]="theme.isDarkTheme()"
-      [attr.aria-label]="theme.isDarkTheme() ? 'Switch to light mode' : 'Switch to dark mode'"
-      [title]="theme.isDarkTheme() ? 'Switch to light mode' : 'Switch to dark mode'"
-      (click)="theme.toggleTheme()">
-      <i class="fas theme-toggle-icon" [class.fa-sun]="theme.isDarkTheme()" [class.fa-moon]="!theme.isDarkTheme()" aria-hidden="true"></i>
-    </button>
-  </header>
+  <app-page-chrome [backTo]="plannerLink"></app-page-chrome>
 
   @switch (build.status) {
     @case ('ready') {

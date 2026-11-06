@@ -11,11 +11,14 @@ import {
 import { GroupRunService, GroupRunView } from '../planner/shopping-list/group-run.service';
 import { UserGearService } from '../planner/user-gear.service';
 import { AnalyticsService } from '../shared/analytics.service';
+import { PageChromeBack } from '../page-chrome/page-chrome.component';
 import { AuthService } from '../shared/auth.service';
 import { Clipboard } from '../shared/clipboard';
-import { ThemeService } from '../shared/theme.service';
 
 const SITE_TITLE = 'DDO Gear Planner';
+
+/** The header's way back: a build of your own, in the planner. */
+const PLANNER_LINK: PageChromeBack = { label: 'Planner', title: 'Plan a build of your own', url: '/' };
 
 /** One of your saved builds, in the Add builds panel. */
 interface BuildChoice {
@@ -47,6 +50,7 @@ interface BuildChoice {
   standalone: false
 })
 export class GroupRunPageComponent implements OnInit, OnDestroy {
+  readonly plannerLink = PLANNER_LINK;
   readonly maxBuilds = MAX_GROUP_BUILDS;
   readonly maxNameLength = MAX_CHARACTER_NAME_LENGTH;
   run: GroupRunView | null = null;
@@ -76,7 +80,6 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
     private readonly auth: AuthService,
     private readonly analytics: AnalyticsService,
     private readonly title: Title,
-    readonly theme: ThemeService,
     private readonly cdr: ChangeDetectorRef,
     private readonly userGear: UserGearService
   ) { }

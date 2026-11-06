@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, combineLatest, distinctUntilChanged, take } from 'rxjs';
@@ -17,10 +17,12 @@ import { AuthService } from '../shared/auth.service';
 import { BuildUrlCodecService } from '../build/build-url-codec.service';
 import { BuildsService } from '../build/builds.service';
 import { CurrentBuildService } from '../build/current-build.service';
+import { ListReturnService } from '../build/list-return.service';
 import { QueryParamsService } from '../build/query-params.service';
 import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { SupportLinkComponent } from '../support-link/support-link.component';
+import { PageChromeBack } from '../page-chrome/page-chrome.component';
 
 @Component({
     selector: 'app-main',
@@ -132,6 +134,8 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     private shoppingListView: ShoppingListViewService,
     private suggestionDrawer: SuggestionDrawerService
   ) {
+    // Watching from here on, so a shopping list's page can come back to the planner as it was.
+    inject(ListReturnService);
   }
 
   ngOnInit() {
@@ -576,6 +580,9 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   toggleFilters() {
     this.filtersOpen = !this.filtersOpen;
   }
+
+  /** The list's way back to the planner, in the header it shows while open. */
+  readonly plannerBack: PageChromeBack = { label: 'Planner', title: 'Back to the planner' };
 
   toggleTheme() {
     this.theme.toggleTheme();

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, On
 import { Subscription } from 'rxjs';
 
 import { stillNeededPath } from '../build/build-route';
-import { CurrentBuildService } from '../build/current-build.service';
+import { CurrentBuildService, CurrentBuildState } from '../build/current-build.service';
 import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
 import { AnalyticsService } from '../shared/analytics.service';
 import { AuthService } from '../shared/auth.service';
@@ -20,6 +20,18 @@ export type ShoppingListCopyKind = 'link' | 'text_and_link' | 'text';
  * - ready: a saved build of yours, as saved.
  */
 export type LiveShare = 'sign-in' | 'save' | 'save-copy' | 'save-changes' | 'ready';
+
+/** What a live list - a friend's link, or one with other builds - takes for the build on screen. */
+export function liveShareOf(signedIn: boolean, build: CurrentBuildState): LiveShare {
+  const { savedBuildId, shortId, isDirty, ownership } = build;
+  if (!signedIn) {
+    return 'sign-in';
+  }
+  if (!savedBuildId || !shortId || ownership !== 'owned') {
+    return shortId ? 'save-copy' : 'save';
+  }
+  return isDirty ? 'save-changes' : 'ready';
+}
 
 const COPIED_CONFIRMATION_MS = 1500;
 
@@ -73,14 +85,7 @@ export class ShoppingListShareMenuComponent implements OnInit, OnDestroy {
   }
 
   get liveShare(): LiveShare {
-    const { savedBuildId, shortId, isDirty, ownership } = this.currentBuild.value;
-    if (!this.signedIn) {
-      return 'sign-in';
-    }
-    if (!savedBuildId || !shortId || ownership !== 'owned') {
-      return shortId ? 'save-copy' : 'save';
-    }
-    return isDirty ? 'save-changes' : 'ready';
+    return liveShareOf(this.signedIn, this.currentBuild.value);
   }
 
   /** The link to a friend's live view of this build's list, while it can be shared. */

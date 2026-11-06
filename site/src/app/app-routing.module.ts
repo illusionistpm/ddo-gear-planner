@@ -24,9 +24,10 @@ const routes: Routes = [
   // A friend's view of what a saved build still needs; see build-route.ts.
   { path: 'still-needed/:shortId', component: StillNeededPageComponent },
   { path: 'still-needed/:shortId/:slug', component: StillNeededPageComponent },
-  // A group run's list: several friends' builds shopped for as one. The
-  // invite token rides in the fragment (see groups.service.ts's groupPath).
-  { path: 'group/:shortId', component: GroupRunPageComponent }
+  // A shopping list of several builds, yours and friends', shopped for as
+  // one. The invite token rides in the fragment (see groups.service.ts's
+  // groupPath).
+  { path: 'list/:shortId', component: GroupRunPageComponent }
 ];
 
 @NgModule({

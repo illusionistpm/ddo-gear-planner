@@ -4,22 +4,22 @@
   @if (!token) {
     <div class="still-needed-error" role="alert">
       <div class="still-needed-error-title">This link is missing its invite</div>
-      <div class="still-needed-message">A group run's link ends with its invite. Ask whoever sent it for the whole link.</div>
+      <div class="still-needed-message">A shopping list's link ends with its invite. Ask whoever sent it for the whole link.</div>
     </div>
   } @else if (run?.gone) {
     <div class="still-needed-error" role="alert">
-      <div class="still-needed-error-title">This group run is over</div>
+      <div class="still-needed-error-title">This shopping list is over</div>
       <div class="still-needed-message">
         It was ended, its link was replaced, or it sat unused for a while. Ask the host for a new link, or start your own from your shopping list.
       </div>
     </div>
   } @else {
     @if (adding) {
-      <section class="group-run-panel" aria-label="Your builds in this group">
+      <section class="group-run-panel" aria-label="Your builds on this list">
         <div class="group-run-panel-header">
-          <strong>Your builds</strong>
+          <strong>Add builds</strong>
           <span class="group-run-panel-note">
-            {{run?.characters?.length ?? 0}}/{{maxBuilds}} builds in the group. Each one's rows are labelled with its character's name.
+            {{run?.characters?.length ?? 0}}/{{maxBuilds}} builds on the list. Each one's rows are labelled with its character's name.
           </span>
           <button type="button" class="group-run-close" aria-label="Close" (click)="toggleAdding()">
             <i class="fas fa-xmark" aria-hidden="true"></i>
@@ -61,7 +61,7 @@
       <p class="group-run-error group-run-action-error" role="alert">{{actionError}}</p>
     }
     <app-shopping-list class="still-needed-list" [groupRun]="groupRun" [group]="run">
-      <div groupActions class="group-run-actions">
+      <div listActions class="group-run-actions">
         <button type="button" class="group-run-button" (click)="copyInvite()" title="Copy the link friends use to join and add their builds">
           <i class="fas" [class.fa-link]="!copied" [class.fa-check]="copied" aria-hidden="true"></i>
           <span>{{copied ? 'Copied' : 'Invite'}}</span>
@@ -69,7 +69,7 @@
         @if (signedIn) {
           <button type="button" class="group-run-button" [attr.aria-expanded]="adding" (click)="toggleAdding()">
             <i class="fas fa-user-plus" aria-hidden="true"></i>
-            <span>Your builds</span>
+            <span>Add builds</span>
           </button>
         } @else {
           <button type="button" class="group-run-button" (click)="signIn()" title="Sign in to add your builds and tick off your rows">
@@ -100,7 +100,7 @@
                 @if (confirmingEnd) {
                   <button type="button" role="menuitem" class="group-run-menu-item danger" (click)="endGroup()">Yes, end it for everyone</button>
                 } @else {
-                  <button type="button" role="menuitem" class="group-run-menu-item danger" (click)="confirmingEnd = true">End the group run</button>
+                  <button type="button" role="menuitem" class="group-run-menu-item danger" (click)="confirmingEnd = true">End the list</button>
                 }
               </div>
             }

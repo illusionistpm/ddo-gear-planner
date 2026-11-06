@@ -64,6 +64,12 @@ export abstract class ShoppingProgressStore {
   abstract progressForSave(published: ShoppingPublished): ShoppingSaveProgress | null;
   /** A save carrying progressForSave's answer finished; `stored` says whether the server kept the list too. */
   abstract savedWithBuild(sent: ShoppingSaveProgress, stored: boolean): void;
+  /**
+   * The build's ticks may have changed elsewhere in this tab (a shopping list
+   * of several builds ticks them on the server directly): read them again,
+   * so the next save doesn't send older ones.
+   */
+  abstract catchUp(): void;
 }
 
 /**
@@ -149,6 +155,10 @@ export class LocalShoppingProgressStore extends ShoppingProgressStore implements
 
   savedWithBuild(): void {
     // Nothing was sent.
+  }
+
+  catchUp(): void {
+    // Only this device has them.
   }
 
   /** Replaces a scope's ticks and picks, and its order when given, as when another copy of them wins. */

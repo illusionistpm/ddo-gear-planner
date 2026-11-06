@@ -6,9 +6,11 @@ import { firstValueFrom, Subscription } from 'rxjs';
 import { BuildSummary } from '../build/build';
 import { BuildsService } from '../build/builds.service';
 import {
-  characterNameFor, groupBuildFailureOf, groupPath, GroupsService, inviteTokenOf, MAX_CHARACTER_NAME_LENGTH, MAX_GROUP_BUILDS
+  addBuildsOf, characterNameFor, groupBuildFailureOf, groupPath, GroupsService, inviteTokenOf, MAX_CHARACTER_NAME_LENGTH, MAX_GROUP_BUILDS
 } from '../build/groups.service';
+import { ListReturnService } from '../build/list-return.service';
 import { GroupRunService, GroupRunView } from '../planner/shopping-list/group-run.service';
+import { ShoppingProgressStore } from '../planner/shopping-list/shopping-progress-store';
 import { UserGearService } from '../planner/user-gear.service';
 import { AnalyticsService } from '../shared/analytics.service';
 import { PageChromeBack } from '../page-chrome/page-chrome.component';
@@ -16,9 +18,6 @@ import { AuthService } from '../shared/auth.service';
 import { Clipboard } from '../shared/clipboard';
 
 const SITE_TITLE = 'DDO Gear Planner';
-
-/** The header's way back: a build of your own, in the planner. */
-const PLANNER_LINK: PageChromeBack = { label: 'Planner', title: 'Plan a build of your own', url: '/' };
 
 /** One of your saved builds, in the Add builds panel. */
 interface BuildChoice {
@@ -31,15 +30,15 @@ interface BuildChoice {
 }
 
 /**
- * A group run's page, at /group/:shortId#t=<invite token>: several
- * friends' builds shopped for as one list, each row saying which
- * characters it's for. Anyone with the link watches it live; signed in,
- * they add their own saved builds and tick their own characters' rows off.
- * The host also arranges the shared route, replaces the link, and ends the
- * group.
+ * A shopping list of several builds, at /list/:shortId#t=<invite token>
+ * (`&add` opens Add builds): yours and friends', shopped for as one list,
+ * each row saying which characters it's for. Anyone with the link watches
+ * it live; signed in, they add their own saved builds and tick their own
+ * characters' rows off. The host also arranges the shared route, replaces
+ * the link, and ends the list.
  *
  * Like the still-needed page, it reads the builds itself and leaves the
- * planner as it was.
+ * planner as it was: its Planner link goes back to it.
  */
 @Component({
   selector: 'app-group-run-page',
@@ -50,7 +49,8 @@ interface BuildChoice {
   standalone: false
 })
 export class GroupRunPageComponent implements OnInit, OnDestroy {
-  readonly plannerLink = PLANNER_LINK;
+  /** The header's way back: the planner, as it was before this page. */
+  readonly plannerLink: PageChromeBack;
   readonly maxBuilds = MAX_GROUP_BUILDS;
   readonly maxNameLength = MAX_CHARACTER_NAME_LENGTH;
   run: GroupRunView | null = null;
@@ -70,6 +70,8 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
   actionError: string | null = null;
   private readonly subscriptions = new Subscription();
   private copiedTimeout?: ReturnType<typeof setTimeout>;
+  /** The link asked for Add builds: opened once signed in. */
+  private addWanted = false;
 
   constructor(
     readonly groupRun: GroupRunService,
@@ -81,16 +83,27 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
     private readonly analytics: AnalyticsService,
     private readonly title: Title,
     private readonly cdr: ChangeDetectorRef,
-    private readonly userGear: UserGearService
-  ) { }
+    private readonly userGear: UserGearService,
+    listReturn: ListReturnService,
+    private readonly progressStore: ShoppingProgressStore
+  ) {
+    this.plannerLink = { label: 'Planner', title: 'Back to the planner', url: listReturn.url };
+  }
 
   ngOnInit(): void {
     // For Owned badges: reached from an invite link, the planner hasn't loaded the trove.
     this.userGear.loadFromStorage();
     this.shortId = this.route.snapshot.paramMap.get('shortId') ?? '';
     this.token = inviteTokenOf(this.route.snapshot.fragment);
+    this.addWanted = !!this.token && addBuildsOf(this.route.snapshot.fragment);
     this.subscriptions.add(this.auth.isAuthenticated$.subscribe(signedIn => {
       this.signedIn = signedIn;
+      if (signedIn && this.addWanted) {
+        this.addWanted = false;
+        if (!this.adding) {
+          this.toggleAdding();
+        }
+      }
       this.cdr.markForCheck();
     }));
     if (!this.token) {
@@ -101,7 +114,7 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
     this.groupRun.open(this.shortId, this.token);
     this.subscriptions.add(this.groupRun.view$.subscribe(run => {
       this.run = run;
-      this.title.setTitle(run.name ? `${run.name} - group run - ${SITE_TITLE}` : SITE_TITLE);
+      this.title.setTitle(run.name ? `${run.name} - shopping list - ${SITE_TITLE}` : SITE_TITLE);
       this.syncChoices();
       this.cdr.markForCheck();
     }));
@@ -110,6 +123,8 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
     clearTimeout(this.copiedTimeout);
+    // Your ticks here went to the server directly: the planner's copy of the build's catches up.
+    this.progressStore.catchUp();
   }
 
   get inviteUrl(): string {
@@ -223,13 +238,13 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
     } catch (error) {
       switch (groupBuildFailureOf(error)) {
         case 'name-taken':
-          choice.error = 'A character in this group already has that name.';
+          choice.error = 'A character on this list already has that name.';
           break;
         case 'full':
-          choice.error = `A group run holds up to ${this.maxBuilds} builds.`;
+          choice.error = `A list holds up to ${this.maxBuilds} builds.`;
           break;
         case 'already-in':
-          choice.error = 'That build is in this group already.';
+          choice.error = 'That build is on this list already.';
           break;
         default:
           choice.error = 'Couldn\'t save that. Please try again.';
@@ -267,7 +282,7 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
       this.analytics.track('end_group_run', {});
       this.router.navigateByUrl('/');
     } catch {
-      this.actionError = 'Couldn\'t end the group run. Please try again.';
+      this.actionError = 'Couldn\'t end the list. Please try again.';
       this.cdr.markForCheck();
     }
   }

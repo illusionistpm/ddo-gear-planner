@@ -40,6 +40,7 @@ import { SlotIconComponent } from './slot-icon/slot-icon.component';
 import { CreditsComponent } from './credits/credits.component';
 import { SupportLinkComponent } from './support-link/support-link.component';
 import { PageChromeComponent } from './page-chrome/page-chrome.component';
+import { OwnListActionsComponent } from './shopping-list/own-list-actions.component';
 import { SaveBuildDialogComponent } from './save-build-dialog/save-build-dialog.component';
 import { MyBuildsComponent } from './my-builds/my-builds.component';
 import { BuildActionsComponent } from './build-actions/build-actions.component';
@@ -87,6 +88,7 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         CreditsComponent,
         SupportLinkComponent,
         PageChromeComponent,
+        OwnListActionsComponent,
         SaveBuildDialogComponent,
         MyBuildsComponent,
         BuildActionsComponent,

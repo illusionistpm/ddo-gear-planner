@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter, RouterLink } from '@angular/router';
-import { BehaviorSubject, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { ShoppingListComponent } from './shopping-list.component';
 import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
@@ -10,18 +10,12 @@ import type {
 import { buildShoppingListView, ShoppingListViewOptions } from '../planner/shopping-list/shopping-list-view-model';
 import { TapTooltipComponent } from '../tap-tooltip/tap-tooltip.component';
 import { UserItemLocationTooltipPipe } from '../shared/user-item-location-tooltip.pipe';
-import { Clipboard } from '../shared/clipboard';
 import { AnalyticsService } from '../shared/analytics.service';
-import { AuthService } from '../shared/auth.service';
 import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
 import { FriendShoppingList } from '../planner/shopping-list/friend-shopping-list.service';
 import { ShoppingProgressStore, ShoppingSyncState } from '../planner/shopping-list/shopping-progress-store';
-import { ShoppingListShareMenuComponent } from './shopping-list-share-menu.component';
-import { CurrentBuildService, CurrentBuildState } from '../build/current-build.service';
-import { GroupsService } from '../build/groups.service';
 import { GroupRunService, GroupRunView } from '../planner/shopping-list/group-run.service';
 import { buildGroupListView, GroupMemberEntries } from '../planner/shopping-list/group-shopping-list';
-import { Router } from '@angular/router';
 
 function from(quest: string, pack: string | null = null, raid = false): ShoppingSource {
   return { quest, pack, raid, wikiUrl: `wiki/${quest}` };
@@ -70,7 +64,6 @@ describe('ShoppingListComponent', () => {
     .find(row => row.querySelector('.shopping-row-name')?.textContent?.trim() === name)!;
 
   let syncStates: BehaviorSubject<ShoppingSyncState>;
-  let createGroup: ReturnType<typeof vi.fn>;
 
   beforeEach(async () => {
     views = new BehaviorSubject(buildShoppingListView(entries, {}, trove, { filter: 'all' }));
@@ -78,18 +71,14 @@ describe('ShoppingListComponent', () => {
       resetOrder: vi.fn(), arrangePacks: vi.fn(), arrangeQuests: vi.fn(),
       stillNeededText: () => 'Still needed for my build (5):', stillNeededKeys: () => ['k1', 'k2', 'k3', 'k4'] };
     syncStates = new BehaviorSubject<ShoppingSyncState>('off');
-    createGroup = vi.fn(() => of({ shortId: 'grp1', name: 'Group run', inviteToken: 'tok' }));
     await TestBed.configureTestingModule({
-      declarations: [ShoppingListComponent, ShoppingListShareMenuComponent, TapTooltipComponent, UserItemLocationTooltipPipe],
+      declarations: [ShoppingListComponent, TapTooltipComponent, UserItemLocationTooltipPipe],
       imports: [RouterLink],
       providers: [
         provideRouter([]),
         { provide: ShoppingListService, useValue: service },
         { provide: ShoppingListViewService, useValue: { openedFrom: null } },
-        { provide: ShoppingProgressStore, useValue: { syncState$: syncStates } },
-        { provide: GroupsService, useValue: { create: createGroup } },
-        // The share menu asks; signed out, it offers the list as text alone.
-        { provide: AuthService, useValue: { isAuthenticated$: of(false), signIn: vi.fn() } }
+        { provide: ShoppingProgressStore, useValue: { syncState$: syncStates } }
       ]
     }).compileComponents();
     fixture = TestBed.createComponent(ShoppingListComponent);
@@ -526,64 +515,6 @@ describe('ShoppingListComponent', () => {
     });
   });
 
-  describe('sharing the list', () => {
-    const shareButton = () => el().querySelector('.shopping-list-share') as HTMLButtonElement;
-    const menu = () => el().querySelector('app-shopping-list-share-menu');
-    // An unsaved build's menu has only this; the menu's own spec covers the links.
-    const copyListItem = () => Array.from(el().querySelectorAll<HTMLButtonElement>('.share-menu-item'))
-      .find(item => ['Copy list', 'Copied!'].includes(item.textContent?.trim() ?? ''))!;
-    const openMenu = () => {
-      shareButton().click();
-      fixture.detectChanges();
-    };
-
-    it('opens a Share menu, closed again by clicking away or Escape', () => {
-      openMenu();
-      expect(menu()).toBeTruthy();
-      expect(shareButton().getAttribute('aria-expanded')).toBe('true');
-
-      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
-      fixture.detectChanges();
-      expect(menu()).toBeNull();
-
-      openMenu();
-      (el().querySelector('.share-menu-backdrop') as HTMLButtonElement).click();
-      fixture.detectChanges();
-      expect(menu()).toBeNull();
-    });
-
-    it('copies the list as text from the menu, within the click, and says so', () => {
-      const copy = vi.spyOn(Clipboard, 'copy').mockReturnValue(true);
-      const track = vi.spyOn(TestBed.inject(AnalyticsService), 'track').mockReturnValue(undefined);
-      openMenu();
-
-      copyListItem().click();
-      fixture.detectChanges();
-
-      expect(copy).toHaveBeenCalledWith('Still needed for my build (5):');
-      expect(copyListItem().textContent?.trim()).toBe('Copied!');
-      // Five things, less the ring the trove covers.
-      expect(track).toHaveBeenCalledWith('copy_shopping_list', { copy_kind: 'text', needed_count: 4 });
-    });
-
-    it('says when the clipboard refused', () => {
-      vi.spyOn(Clipboard, 'copy').mockReturnValue(false);
-      openMenu();
-
-      copyListItem().click();
-      fixture.detectChanges();
-
-      expect(el().querySelector('.share-menu-error')?.textContent).toContain('Could not copy');
-      expect(copyListItem().textContent?.trim()).toBe('Copy list');
-    });
-
-    it('is not offered with nothing to get', () => {
-      show({}, 'all', []);
-
-      expect(shareButton()).toBeNull();
-    });
-  });
-
   describe('where ticks are kept', () => {
     const sync = () => el().querySelector('.shopping-list-sync');
 
@@ -609,15 +540,6 @@ describe('ShoppingListComponent', () => {
     expect(el().querySelector('.shopping-list-title')?.textContent?.trim()).toBe('Shopping list');
     expect(el().querySelector('.shopping-group-characters')).toBeNull();
     expect(el().querySelector('.shopping-list-live')).toBeNull();
-  });
-
-  it('goes back to the planner', () => {
-    const closed = vi.fn();
-    fixture.componentInstance.closed.subscribe(closed);
-
-    (el().querySelector('.shopping-list-back') as HTMLButtonElement).click();
-
-    expect(closed).toHaveBeenCalled();
   });
 
   describe('on a friend\'s still-needed page', () => {
@@ -670,15 +592,6 @@ describe('ShoppingListComponent', () => {
       expect(el().querySelector('button.shopping-row-also-from')).toBeNull();
     });
 
-    it('opens the build in the planner only when asked, in a new tab, leaving the list where it was', () => {
-      showFriend({});
-
-      const open = el().querySelector<HTMLAnchorElement>('a.shopping-list-open-build');
-      expect(open?.textContent?.trim()).toBe('Open in planner');
-      expect(open?.getAttribute('href')).toBe('/build/s1/their-build');
-      expect(open?.getAttribute('target')).toBe('_blank');
-    });
-
     it('says whether the owner\'s changes are arriving as they\'re made, with nothing to refresh', () => {
       showFriend({});
       expect(liveStatus()?.textContent?.trim()).toBe('Live');
@@ -719,40 +632,6 @@ describe('ShoppingListComponent', () => {
     });
   });
 
-  describe('starting a group run', () => {
-    const groupButton = () => el().querySelector<HTMLButtonElement>('.shopping-list-start-group');
-    const own = (state: Partial<CurrentBuildState>) => {
-      const currentBuild = TestBed.inject(CurrentBuildService);
-      Object.defineProperty(currentBuild, 'value', {
-        configurable: true, get: () => ({ savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other', ...state })
-      });
-      fixture.destroy();
-      fixture = TestBed.createComponent(ShoppingListComponent);
-      fixture.detectChanges();
-    };
-
-    it('is offered for a saved build of yours, not for one you haven\'t saved or that isn\'t yours', () => {
-      own({});
-      expect(groupButton()).toBeNull();
-      own({ savedBuildId: 'b1', ownership: 'other' });
-      expect(groupButton()).toBeNull();
-
-      own({ savedBuildId: 'b1', shortId: 's1', name: 'A Very Long Build Name Indeed', ownership: 'owned' });
-      expect(groupButton()?.textContent?.trim()).toBe('Group run');
-    });
-
-    it('starts one with this build in it, as a character named after it, and goes to its page', async () => {
-      own({ savedBuildId: 'b1', shortId: 's1', name: 'A Very Long Build Name Indeed', ownership: 'owned' });
-      const navigate = vi.spyOn(TestBed.inject(Router), 'navigateByUrl').mockResolvedValue(true);
-
-      groupButton()!.click();
-      await fixture.whenStable();
-
-      expect(createGroup).toHaveBeenCalledWith('', [{ buildId: 'b1', characterName: 'A Very Long Build Na' }]);
-      expect(navigate).toHaveBeenCalledWith('/group/grp1#t=tok');
-    });
-  });
-
   describe('on a group run\'s page', () => {
     const kira: GroupMemberEntries = { buildId: 'b-kira', characterName: 'Kira', entries: [ring1, ring2, sword], needed: null };
     const vex: GroupMemberEntries = { buildId: 'b-vex', characterName: 'Vex', entries: [ring1], needed: [] };
@@ -787,7 +666,7 @@ describe('ShoppingListComponent', () => {
     it('names the group, and says how much everyone still needs, live', () => {
       showGroup();
 
-      expect(el().querySelector('.shopping-list-title')?.textContent?.replace(/\s+/g, ' ').trim()).toBe('Reaper night group run');
+      expect(el().querySelector('.shopping-list-title')?.textContent?.trim()).toBe('Reaper night');
       // Kira's two rings and sword; Vex's ring is got.
       expect(el().querySelector('.shopping-list-progress-text')?.textContent?.trim()).toBe('3 things still needed');
       expect(el().querySelector('.shopping-list-live')?.textContent?.trim()).toBe('Live');
@@ -836,6 +715,8 @@ describe('ShoppingListComponent', () => {
       });
 
       expect(el().querySelector('.shopping-member-chip:not(.shopping-character-filter)')).toBeNull();
+      // Nothing to choose between: no Everyone, Mine or Kira.
+      expect(el().querySelector('.shopping-group-characters')).toBeNull();
       const box = rowByName('Ring').querySelector<HTMLButtonElement>('.shopping-check')!;
       expect(box.getAttribute('aria-checked')).toBe('false');
       expect(rowByName('Ring').querySelector('.shopping-row-quantity')?.textContent?.trim()).toBe('0/2');

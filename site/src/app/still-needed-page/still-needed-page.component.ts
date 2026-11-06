@@ -15,7 +15,7 @@ import { FriendBuildHeading } from '../shopping-list/shopping-list.component';
 
 const SITE_TITLE = 'DDO Gear Planner';
 
-/** The header's way back: a build of your own, in the planner. */
+/** The header's way to the planner, until the build is here: a build of your own. */
 const PLANNER_LINK: PageChromeBack = { label: 'Planner', title: 'Plan a build of your own', url: '/' };
 
 /**
@@ -37,7 +37,8 @@ const PLANNER_LINK: PageChromeBack = { label: 'Planner', title: 'Plan a build of
   standalone: false
 })
 export class StillNeededPageComponent implements OnInit, OnDestroy {
-  readonly plannerLink = PLANNER_LINK;
+  /** The header's way to the planner: once the build is here, the whole build, in a new tab. */
+  plannerLink: PageChromeBack = PLANNER_LINK;
   build: FriendBuild = { status: 'loading' };
   list: FriendShoppingList | null = null;
   heading: FriendBuildHeading | null = null;
@@ -90,8 +91,12 @@ export class StillNeededPageComponent implements OnInit, OnDestroy {
     this.build = build;
     if (build.status !== 'ready') {
       this.heading = null;
+      this.plannerLink = PLANNER_LINK;
     } else if (this.heading?.name !== build.name) {
       this.heading = { name: build.name, plannerPath: buildPath(shortId, build.name) };
+      this.plannerLink = {
+        label: 'Open in planner', title: 'See the whole build in the planner, in a new tab', url: this.heading.plannerPath, newTab: true
+      };
     }
     this.title.setTitle(build.status === 'ready' && build.name ? `Still needed for ${build.name} - ${SITE_TITLE}` : SITE_TITLE);
     if (build.status === 'error' && newError) {

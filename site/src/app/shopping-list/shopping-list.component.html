@@ -18,12 +18,6 @@
 <section class="shopping-list" aria-labelledby="shoppingListTitle">
   <header class="shopping-list-header" #header>
     <div class="shopping-list-title-row">
-      @if (!friendBuild && !groupRun) {
-        <button type="button" class="shopping-list-back" (click)="closed.emit()" aria-label="Back to the planner">
-          <i class="fas fa-arrow-left" aria-hidden="true"></i>
-          <span class="shopping-list-back-label">Planner</span>
-        </button>
-      }
       <h2 id="shoppingListTitle" class="shopping-list-title">
         {{heading.title}}
         @if (heading.subtitle) {
@@ -39,34 +33,8 @@
       @if (liveLabel; as live) {
         <span class="shopping-list-live" [class.live]="live.live" [title]="live.title">{{live.text}}</span>
       }
-      @if (friendBuild) {
-        <a class="shopping-list-open-build" [routerLink]="friendBuild.plannerPath" target="_blank" rel="noopener"
-          title="See the whole build in the planner, in a new tab">
-          <i class="fas fa-up-right-from-square" aria-hidden="true"></i>
-          <span>Open in planner</span>
-        </a>
-      } @else if (groupRun) {
-        <ng-content select="[groupActions]"></ng-content>
-      } @else {
-        @if (view?.total) {
-          <div class="shopping-list-share-wrap">
-            <button type="button" class="shopping-list-share" [attr.aria-expanded]="shareOpen" (click)="toggleShare()"
-              title="Share what's still needed with friends">
-              <i class="fas fa-share-nodes" aria-hidden="true"></i>
-              <span>Share</span>
-            </button>
-            @if (shareOpen) {
-              <app-shopping-list-share-menu (closed)="closeShare()"></app-shopping-list-share-menu>
-            }
-          </div>
-        }
-        @if (canStartGroup && view?.total) {
-          <button type="button" class="shopping-list-share shopping-list-start-group" [disabled]="startingGroup" (click)="startGroup()"
-            title="Shop for this build together with friends' builds, as one list">
-            <i class="fas fa-people-group" aria-hidden="true"></i>
-            <span>{{startingGroup ? 'Starting…' : 'Group run'}}</span>
-          </button>
-        }
+      @if (!friendBuild) {
+        <ng-content select="[listActions]"></ng-content>
       }
     </div>
     @if ((friend ?? group)?.connection === 'offline') {
@@ -74,16 +42,13 @@
     } @else if (friend?.notShared) {
       <p class="shopping-list-note">Nothing ticked off has been shared for this build yet, so this is everything it needs.</p>
     }
-    @if (groupError) {
-      <p class="shopping-list-note" role="alert">{{groupError}}</p>
-    }
     @if (group; as g) {
       @if (g.unsaved.length) {
         <p class="shopping-list-note" role="alert">
           Couldn't save the ticks for {{g.unsaved.join(', ')}}. Tick them off again from your own shopping list.
         </p>
       }
-      @if (g.characters.length) {
+      @if (multiCharacter) {
         <div class="shopping-group-characters" role="group" aria-label="Whose rows to show">
           <button type="button" class="shopping-character-filter" [class.active]="g.showing === 'everyone'"
             [attr.aria-pressed]="g.showing === 'everyone'" (click)="show('everyone')">Everyone</button>

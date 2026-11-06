@@ -52,9 +52,17 @@ export function characterNameFor(buildName: string): string {
   return buildName.trim().slice(0, MAX_CHARACTER_NAME_LENGTH).trim();
 }
 
-/** A group run's link: its page, with the invite token in the fragment, which never reaches a server. */
-export function groupPath(shortId: string, inviteToken: string): string {
-  return `/group/${encodeURIComponent(shortId)}#t=${encodeURIComponent(inviteToken)}`;
+/**
+ * A shopping list's link: its page, with the invite token in the fragment,
+ * which never reaches a server. `add` opens it at Add builds.
+ */
+export function groupPath(shortId: string, inviteToken: string, options: { add?: boolean } = {}): string {
+  return `/list/${encodeURIComponent(shortId)}#t=${encodeURIComponent(inviteToken)}${options.add ? '&add' : ''}`;
+}
+
+/** Whether a list page's URL fragment asks to open Add builds. */
+export function addBuildsOf(fragment: string | null): boolean {
+  return /(?:^|&)add(?:&|$)/.test(fragment ?? '');
 }
 
 /** The invite token in a group page's URL fragment, or null. */

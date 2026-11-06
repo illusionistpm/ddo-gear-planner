@@ -1,12 +1,8 @@
 import {
-  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, NgZone,
-  OnChanges, OnDestroy, OnInit, Output, QueryList, Type, ViewChild, ViewChildren
+  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, NgZone, OnChanges, OnDestroy, OnInit,
+  QueryList, Type, ViewChild, ViewChildren
 } from '@angular/core';
-import { Router } from '@angular/router';
-import { firstValueFrom, Subscription } from 'rxjs';
-
-import { CurrentBuildService } from '../build/current-build.service';
-import { characterNameFor, groupPath, GroupsService } from '../build/groups.service';
+import { Subscription } from 'rxjs';
 
 import { AnalyticsService } from '../shared/analytics.service';
 import { FriendShoppingList } from '../planner/shopping-list/friend-shopping-list.service';
@@ -58,14 +54,11 @@ export class ShoppingListComponent implements OnInit, OnChanges, AfterViewInit, 
   @Input() groupRun: GroupRunService | null = null;
   /** The group run's list as it now is, with groupRun. */
   @Input() group: GroupRunView | null = null;
-  @Output() closed = new EventEmitter<void>();
   @ViewChild('header') private header?: ElementRef<HTMLElement>;
   @ViewChildren('sectionTitle') private sectionTitles?: QueryList<ElementRef<HTMLElement>>;
   @ViewChildren('sectionElement') private sectionElements?: QueryList<ElementRef<HTMLElement>>;
 
   view: ShoppingListView | null = null;
-  /** The Share menu is open. */
-  shareOpen = false;
   /** Arrange mode: the route as an outline, to put in order. */
   arranging = false;
   /** ShoppingListArrangeComponent, once loaded. */
@@ -91,47 +84,8 @@ export class ShoppingListComponent implements OnInit, OnChanges, AfterViewInit, 
     private readonly analytics: AnalyticsService,
     private readonly cdr: ChangeDetectorRef,
     private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly zone: NgZone,
-    private readonly currentBuild: CurrentBuildService,
-    private readonly groups: GroupsService,
-    private readonly router: Router
+    private readonly zone: NgZone
   ) { }
-
-  /** A group run is being started from this list. */
-  startingGroup = false;
-  /** Starting one failed: why, to say so. */
-  groupError: string | null = null;
-
-  /** Your own list, for a saved build of yours: it can start a group run, which holds saved builds only. */
-  get canStartGroup(): boolean {
-    const state = this.currentBuild.value;
-    return !this.friendBuild && !this.groupRun && !!state.savedBuildId && state.ownership === 'owned';
-  }
-
-  /**
-   * Starts a group run with this build in it, as a character named after
-   * the build (renamed on the group's page), and goes there to invite
-   * friends. The group lists the build as saved.
-   */
-  async startGroup(): Promise<void> {
-    const { savedBuildId, name } = this.currentBuild.value;
-    if (!savedBuildId || this.startingGroup) {
-      return;
-    }
-    this.startingGroup = true;
-    this.groupError = null;
-    try {
-      const characterName = characterNameFor(name ?? '') || 'Me';
-      const group = await firstValueFrom(this.groups.create('', [{ buildId: savedBuildId, characterName }]));
-      this.analytics.track('start_group_run', {});
-      await this.router.navigateByUrl(groupPath(group.shortId, group.inviteToken));
-    } catch {
-      this.groupError = 'Couldn\'t start a group run. Please try again.';
-    } finally {
-      this.startingGroup = false;
-      this.cdr.markForCheck();
-    }
-  }
 
   ngOnInit(): void {
     if (this.friendBuild || this.groupRun) {
@@ -142,8 +96,6 @@ export class ShoppingListComponent implements OnInit, OnChanges, AfterViewInit, 
       this.syncState = syncState;
       this.cdr.markForCheck();
     }));
-    // Saved, or found to be yours: it can start a group run now.
-    this.subscriptions.add(this.currentBuild.state$.subscribe(() => this.cdr.markForCheck()));
   }
 
   ngOnChanges(): void {
@@ -180,8 +132,7 @@ export class ShoppingListComponent implements OnInit, OnChanges, AfterViewInit, 
       return { title: 'Still needed', subtitle: this.friendBuild.name ? `for ${this.friendBuild.name}` : null };
     }
     if (this.groupRun) {
-      const name = this.group?.name;
-      return { title: name || 'Group run', subtitle: name && name !== 'Group run' ? 'group run' : null };
+      return { title: this.group?.name || 'Shopping list', subtitle: null };
     }
     return { title: 'Shopping list', subtitle: null };
   }
@@ -343,16 +294,6 @@ export class ShoppingListComponent implements OnInit, OnChanges, AfterViewInit, 
         this.cdr.markForCheck();
       });
     }
-  }
-
-  toggleShare(): void {
-    this.shareOpen = !this.shareOpen;
-  }
-
-  @HostListener('document:keydown.escape')
-  closeShare(): void {
-    this.shareOpen = false;
-    this.cdr.markForCheck();
   }
 
   /** Where your ticks are kept, when that's worth saying; null to say nothing. */

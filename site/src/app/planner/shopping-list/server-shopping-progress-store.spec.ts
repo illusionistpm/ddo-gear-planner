@@ -447,6 +447,17 @@ describe('ServerShoppingProgressStore', () => {
     expect(readScopeProgress('saved:b1')).toEqual({ fromPhone: 1 });
   });
 
+  it('reads the server again when asked to catch up, however recent the last read', async () => {
+    const store = create();
+    await openOwned();
+
+    store.catchUp();
+    (await expectRequest('GET')).flush(doc({ entries: { fromListPage: 1 } }));
+    await settle();
+
+    expect(readScopeProgress('saved:b1')).toEqual({ fromListPage: 1 });
+  });
+
   describe('saving the build', () => {
     const published = { needed: ['k1'], route: { Thing: ['Quest A'] } };
     const order = { packs: ['Pack B'], quests: [] };

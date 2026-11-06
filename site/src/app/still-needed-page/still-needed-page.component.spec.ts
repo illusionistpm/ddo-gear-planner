@@ -65,14 +65,25 @@ describe('StillNeededPageComponent', () => {
     expect(TestBed.inject(Title).getTitle()).toBe('Still needed for Their Build - DDO Gear Planner');
   });
 
-  it('has the site\'s header, leading to a build of your own, and nothing of the planner\'s', () => {
+  it('has the site\'s header, and nothing of the planner\'s', () => {
     arrive({ status: 'ready', name: 'Their Build', entries: [] });
 
-    expect(el().querySelector('.page-chrome-back')?.getAttribute('href')).toBe('/');
     expect(el().querySelector('.page-chrome app-support-link')).toBeTruthy();
     expect(el().querySelector('.page-chrome app-credits')).toBeTruthy();
     expect(el().querySelector('app-build-actions')).toBeNull();
     expect(el().querySelector('app-planner-toolbar')).toBeNull();
+  });
+
+  it('leads to a build of your own while loading, then opens the build in the planner, in a new tab, leaving the list where it was', () => {
+    const back = () => el().querySelector<HTMLAnchorElement>('.page-chrome-back');
+    expect(back()?.getAttribute('href')).toBe('/');
+    expect(back()?.getAttribute('target')).toBeNull();
+
+    arrive({ status: 'ready', name: 'Their Build', entries: [] });
+
+    expect(back()?.textContent?.trim()).toBe('Open in planner');
+    expect(back()?.getAttribute('href')).toBe('/build/s1/their-build');
+    expect(back()?.getAttribute('target')).toBe('_blank');
   });
 
   it('has the planner\'s day/night button', () => {

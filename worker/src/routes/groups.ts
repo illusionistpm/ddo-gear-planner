@@ -45,7 +45,7 @@ export const MAX_GROUPS_PER_USER = sharedConstants.maxGroupsPerUser;
 export const MAX_CHARACTER_NAME_LENGTH = sharedConstants.maxCharacterNameLength;
 /** A group with no change and no tick for this long is deleted, lazily, the next time it's listed or watched. */
 export const GROUP_IDLE_MS = sharedConstants.groupIdleDays * 24 * 60 * 60 * 1000;
-const DEFAULT_GROUP_NAME = 'Group run';
+const DEFAULT_GROUP_NAME = 'Shopping list';
 // About 131 bits, from shortId.ts's alphabet: a secret, not a name.
 const INVITE_TOKEN_LENGTH = 22;
 const TOO_BIG = 'That route is too big to save.';

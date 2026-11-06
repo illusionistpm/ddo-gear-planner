@@ -236,6 +236,13 @@ export class ServerShoppingProgressStore extends ShoppingProgressStore implement
     this.updateSyncState();
   }
 
+  catchUp(): void {
+    if (this.buildId) {
+      this.fetchWanted = true;
+      this.pump();
+    }
+  }
+
   ngOnDestroy(): void {
     this.destroyed = true;
     this.subscription.unsubscribe();

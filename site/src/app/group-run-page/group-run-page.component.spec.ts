@@ -9,6 +9,8 @@ import { BuildsService } from '../build/builds.service';
 import { GroupsService } from '../build/groups.service';
 import type { LiveGroupList } from '../build/live-group-list.service';
 import { GroupRunService, GroupRunView } from '../planner/shopping-list/group-run.service';
+import { ListReturnService } from '../build/list-return.service';
+import { ShoppingProgressStore } from '../planner/shopping-list/shopping-progress-store';
 import { AuthService } from '../shared/auth.service';
 import { GroupRunPageComponent } from './group-run-page.component';
 
@@ -19,6 +21,8 @@ describe('GroupRunPageComponent', () => {
   let groups: Record<string, ReturnType<typeof vi.fn>>;
   let signedIn: BehaviorSubject<boolean>;
   let signIn: ReturnType<typeof vi.fn>;
+  let catchUp: ReturnType<typeof vi.fn>;
+  let signedInAtCreate = true;
 
   const el = () => fixture.nativeElement as HTMLElement;
   const text = () => el().textContent!.replace(/\s+/g, ' ');
@@ -33,6 +37,8 @@ describe('GroupRunPageComponent', () => {
     ...overrides
   });
 
+  afterEach(() => signedInAtCreate = true);
+
   async function create(fragment: string | null): Promise<void> {
     views = new Subject<GroupRunView>();
     groupRun = {
@@ -45,8 +51,9 @@ describe('GroupRunPageComponent', () => {
       addBuild: vi.fn(() => of({})), renameBuild: vi.fn(() => of({})), removeBuild: vi.fn(() => of(undefined)),
       rotateInvite: vi.fn(() => of({ inviteToken: 'new' })), end: vi.fn(() => of(undefined))
     };
-    signedIn = new BehaviorSubject(true);
+    signedIn = new BehaviorSubject(signedInAtCreate);
     signIn = vi.fn();
+    catchUp = vi.fn();
     await TestBed.configureTestingModule({
       declarations: [GroupRunPageComponent],
       imports: [RouterLink],
@@ -60,7 +67,9 @@ describe('GroupRunPageComponent', () => {
           { id: 'b-kira', shortId: 's1', name: 'Tank build', createdAt: '', updatedAt: '' },
           { id: 'b-alt', shortId: 's2', name: 'My alt with a long name', createdAt: '', updatedAt: '' }
         ]) } },
-        { provide: AuthService, useValue: { isAuthenticated$: signedIn, signIn } }
+        { provide: AuthService, useValue: { isAuthenticated$: signedIn, signIn } },
+        { provide: ListReturnService, useValue: { url: '/build/s1/tank-build' } },
+        { provide: ShoppingProgressStore, useValue: { catchUp } }
       ]
     }).overrideComponent(GroupRunPageComponent, {
       set: { providers: [{ provide: GroupRunService, useValue: groupRun }] }
@@ -81,7 +90,7 @@ describe('GroupRunPageComponent', () => {
 
     expect(groupRun.open).toHaveBeenCalledWith('grp1', 'secret');
     expect(el().querySelector('app-shopping-list')).toBeTruthy();
-    expect(TestBed.inject(Title).getTitle()).toBe('Reaper night - group run - DDO Gear Planner');
+    expect(TestBed.inject(Title).getTitle()).toBe('Reaper night - shopping list - DDO Gear Planner');
   });
 
   it('says when the link is missing its invite, without watching anything', async () => {
@@ -91,12 +100,12 @@ describe('GroupRunPageComponent', () => {
     expect(groupRun.open).not.toHaveBeenCalled();
   });
 
-  it('says when the group run is over', async () => {
+  it('says when the list is over', async () => {
     await create('t=secret');
 
     arrive({ gone: true });
 
-    expect(text()).toContain('This group run is over');
+    expect(text()).toContain('This shopping list is over');
     expect(el().querySelector('app-shopping-list')).toBeNull();
   });
 
@@ -108,14 +117,14 @@ describe('GroupRunPageComponent', () => {
     button('Sign in to join')!.click();
 
     expect(signIn).toHaveBeenCalled();
-    expect(button('Your builds')).toBeUndefined();
+    expect(button('Add builds')).toBeUndefined();
   });
 
   it('lists your builds, adding one as the character you name, and marking the ones in it', async () => {
     await create('t=secret');
     arrive();
 
-    button('Your builds')!.click();
+    button('Add builds')!.click();
     fixture.detectChanges();
 
     const rows = Array.from(el().querySelectorAll<HTMLElement>('.group-run-build'));
@@ -138,14 +147,14 @@ describe('GroupRunPageComponent', () => {
     await create('t=secret');
     groups['addBuild'].mockReturnValue(throwError(() => new HttpErrorResponse({ status: 409, error: { nameTaken: true } })));
     arrive();
-    button('Your builds')!.click();
+    button('Add builds')!.click();
     fixture.detectChanges();
 
     el().querySelectorAll<HTMLElement>('.group-run-build')[1].querySelector<HTMLButtonElement>('.group-run-button.primary')!.click();
     await fixture.whenStable();
     fixture.detectChanges();
 
-    expect(text()).toContain('A character in this group already has that name.');
+    expect(text()).toContain('A character on this list already has that name.');
   });
 
   it('gives the host a way to take a build out, replace the link, and end the group', async () => {
@@ -161,10 +170,37 @@ describe('GroupRunPageComponent', () => {
     expect(groups['removeBuild']).toHaveBeenCalledWith('grp1', 'b-kira');
 
     fixture.detectChanges();
-    button('End the group run')!.click();
+    button('End the list')!.click();
     fixture.detectChanges();
     expect(groups['end']).not.toHaveBeenCalled();
     button('Yes, end it for everyone')!.click();
     expect(groups['end']).toHaveBeenCalledWith('grp1');
+  });
+
+  it('goes back to the planner as it was before this page', async () => {
+    await create('t=secret');
+
+    expect(fixture.componentInstance.plannerLink).toEqual(expect.objectContaining({ label: 'Planner', url: '/build/s1/tank-build' }));
+  });
+
+  it('opens at Add builds when its link asks, once you\'re signed in', async () => {
+    signedInAtCreate = false;
+    await create('t=secret&add');
+    arrive();
+    expect(el().querySelector('.group-run-panel')).toBeNull();
+
+    signedIn.next(true);
+    fixture.detectChanges();
+
+    expect(el().querySelector('.group-run-panel')).toBeTruthy();
+    expect(Array.from(el().querySelectorAll('.group-run-build-name'), name => name.textContent)).toEqual(['Tank build', 'My alt with a long name']);
+  });
+
+  it('has the planner catch up with ticks made here once you leave', async () => {
+    await create('t=secret');
+
+    fixture.destroy();
+
+    expect(catchUp).toHaveBeenCalled();
   });
 });

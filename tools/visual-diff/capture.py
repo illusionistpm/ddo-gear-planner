@@ -142,7 +142,7 @@ def open_group_run(page: Page) -> None:
         'kind': 'group', 'name': 'Saturday run', 'picks': {}, 'order': None, 'version': '2026-01-01T00:00:00.000Z',
         'members': [member('b1', 'Kira', None), member('b2', 'Thane', [])]})
     page.route_web_socket('**/api/groups/g1/live*', lambda ws: ws.send(message))
-    page.goto(page.url.split('/?')[0] + '/group/g1#t=token')
+    page.goto(page.url.split('/?')[0] + '/list/g1#t=token')
     page.wait_for_selector('.shopping-member-chip')
 
 
@@ -173,7 +173,7 @@ SCENES = [
     Scene('set-preview', steps=[click('.set-link'), click('app-items-in-set .item-preview-link')]),
     Scene('affix-builder', tab='affixes', steps=[click('.tracked-affix-edit-affixes')]),
     Scene('shopping-list', build=SHOPPING_BUILD, steps=[open_shopping_list]),
-    Scene('shopping-list-share', build=SHOPPING_BUILD, steps=[open_shopping_list, click('.shopping-list-share')]),
+    Scene('shopping-list-share', build=SHOPPING_BUILD, steps=[open_shopping_list, click('app-own-list-actions .list-action')]),
     Scene('shopping-list-arrange', build=SHOPPING_BUILD, steps=[open_shopping_list, click('.shopping-list-arrange')]),
     Scene('still-needed', build=SHOPPING_BUILD, steps=[open_still_needed]),
     Scene('group-run', build=SHOPPING_BUILD, steps=[open_group_run]),

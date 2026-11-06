@@ -42,10 +42,11 @@ describe('MainComponent with the shopping list', () => {
   const el = () => fixture.nativeElement as HTMLElement;
   const panels = () => el().querySelector('.planner-tab-panels') as HTMLElement;
   const list = () => el().querySelector('app-shopping-list');
-  const toolbar = () => el().querySelector('app-planner-toolbar') as HTMLElement;
+  const plannerChrome = () => el().querySelector('.planner-chrome') as HTMLElement;
+  const pageChrome = () => el().querySelector('app-page-chrome');
   const shoppingListButton = () => el().querySelector('.shopping-list-open') as HTMLButtonElement;
 
-  it('opens the list in the planner\'s place from the toolbar, closing what floats over the planner', () => {
+  it('opens the list in the planner\'s place from the toolbar, under the site\'s header, closing what floats over the planner', () => {
     const drawer = TestBed.inject(AffixBuilderDrawerService);
     expect(drawer.mode).toBe('setup');
 
@@ -54,10 +55,12 @@ describe('MainComponent with the shopping list', () => {
 
     expect(list()).toBeTruthy();
     expect(panels().hidden).toBe(true);
-    expect(toolbar().hidden).toBe(true);
-    // Without the switch to push it there, the break would share the first line and
-    // squeeze the build actions to nothing on a phone.
-    expect((el().querySelector('.planner-chrome-break') as HTMLElement).hidden).toBe(true);
+    // The planner's bar gives way to the site's header: Ko-fi, day/night and info, and the way back.
+    expect(plannerChrome().hidden).toBe(true);
+    for (const selector of ['app-support-link', '.theme-toggle', 'app-credits', '.page-chrome-back']) {
+      expect(pageChrome()?.querySelector(selector), selector).toBeTruthy();
+    }
+    expect(list()?.querySelector('app-own-list-actions')).toBeTruthy();
     expect(drawer.mode).toBeNull();
   });
 
@@ -75,7 +78,7 @@ describe('MainComponent with the shopping list', () => {
 
     shoppingListButton().click();
     fixture.detectChanges();
-    (el().querySelector('.shopping-list-back') as HTMLButtonElement).click();
+    (el().querySelector('.page-chrome-back') as HTMLButtonElement).click();
     fixture.detectChanges();
     (el().querySelector('.build-overflow-item') as HTMLButtonElement).click();
     fixture.detectChanges();
@@ -91,7 +94,7 @@ describe('MainComponent with the shopping list', () => {
     expect(path()).toBe('/#shopping-list');
 
     fixture.detectChanges();
-    (el().querySelector('.shopping-list-back') as HTMLButtonElement).click();
+    (el().querySelector('.page-chrome-back') as HTMLButtonElement).click();
     await TestBed.inject(ApplicationRef).whenStable();
     expect(path()).not.toContain('#');
   });
@@ -129,12 +132,13 @@ describe('MainComponent with the shopping list', () => {
 
     shoppingListButton().click();
     fixture.detectChanges();
-    (el().querySelector('.shopping-list-back') as HTMLButtonElement).click();
+    (el().querySelector('.page-chrome-back') as HTMLButtonElement).click();
     fixture.detectChanges();
 
     expect(list()).toBeNull();
     expect(panels().hidden).toBe(false);
-    expect(toolbar().hidden).toBe(false);
+    expect(plannerChrome().hidden).toBe(false);
+    expect(pageChrome()).toBeNull();
     expect(TestBed.inject(ShoppingListViewService).isOpen).toBe(false);
     expect(el().querySelector('#affixesPanel')?.hasAttribute('hidden')).toBe(false);
   });

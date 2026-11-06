@@ -91,6 +91,14 @@ describe('unsavedChangesGuard', () => {
     expect(window.confirm).not.toHaveBeenCalled();
   });
 
+  it('does not confirm for a shopping list of several builds, which leaves the planner as it is', () => {
+    currentBuild.value.isDirty = true;
+    vi.spyOn(window, 'confirm').mockReturnValue(false);
+
+    expect(run('/list/grp1#t=tok&add')).toBe(true);
+    expect(window.confirm).not.toHaveBeenCalled();
+  });
+
   it('still confirms when the destination is genuinely outside the build editor', () => {
     currentBuild.value.isDirty = true;
     vi.spyOn(window, 'confirm').mockReturnValue(true);

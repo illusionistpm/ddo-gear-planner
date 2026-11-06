@@ -120,7 +120,7 @@ describe('group runs', () => {
       const response = await create({});
 
       expect(response.status).toBe(201);
-      expect(response.body['name']).toBe('Group run');
+      expect(response.body['name']).toBe('Shopping list');
       expect(made.db.groupBuilds).toEqual([]);
     });
 

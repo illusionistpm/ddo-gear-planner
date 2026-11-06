@@ -2,7 +2,7 @@ import { inject, Injectable, InjectionToken, OnDestroy } from '@angular/core';
 import { BehaviorSubject, combineLatest, firstValueFrom, Observable, of, Subscription } from 'rxjs';
 import { catchError, distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
 
-import { BuildProgressService, buildProgressFailureOf } from '../../build/build-progress.service';
+import { BuildProgressPut, BuildProgressService, buildProgressFailureOf } from '../../build/build-progress.service';
 import { GroupsService, GroupViewer } from '../../build/groups.service';
 import { LiveConnection } from '../../build/live-socket';
 import { LiveGroupList, LiveGroupListService, LiveGroupMember, LiveGroupState } from '../../build/live-group-list.service';
@@ -86,6 +86,8 @@ interface Outgoing {
   ticks: Record<string, 0 | 1>;
   timer: ReturnType<typeof setTimeout> | null;
   busy: boolean;
+  /** The write that's out, settling once the server has answered either way. */
+  inFlight: Promise<void> | null;
   failures: number;
 }
 
@@ -99,6 +101,11 @@ interface Outgoing {
  * still-needed list worked out from the one it last shared (neededAfter),
  * with its route as it was. The build's friends, and every group it's in,
  * then get it over their sockets, this page included.
+ *
+ * Leaving the page sends what's waiting at once (flush), rather than
+ * dropping it with the quiet spell, so the build's own list has it when the
+ * planner reads it; hiding the page does the same, and closing it sends it
+ * once more with keepalive, in case that didn't land.
  */
 @Injectable()
 export class GroupRunService implements OnDestroy {
@@ -117,6 +124,14 @@ export class GroupRunService implements OnDestroy {
   private shortId = '';
   private token = '';
   private destroyed = false;
+  /** A token for a keepalive flush on pagehide, which can't wait for one; fetched when a tick is made. */
+  private lastToken: string | null = null;
+  private readonly onVisibilityChange = () => {
+    if (document.visibilityState === 'hidden') {
+      void this.flush();
+    }
+  };
+  private readonly onPageHide = () => this.flushWithKeepalive();
   private readonly timing = inject(GROUP_RUN_TIMING);
   /** The viewer's trove, for Owned badges: it ticks nothing off, as each build's ticks are its owner's. */
   private readonly owned: ShoppingTroveLookup = { locationsFor: name => this.userGear.getItemLocations(name) };
@@ -136,6 +151,8 @@ export class GroupRunService implements OnDestroy {
       this.pendingOrderSubject, this.userGear.userItemsChanged$.pipe(startWith(undefined))
     ]).pipe(map(([state, viewer, filter, showing, pending, unsaved, pendingOrder]) =>
       this.viewOf(state, viewer, filter, showing, pending, unsaved, pendingOrder)));
+    document.addEventListener('visibilitychange', this.onVisibilityChange);
+    window.addEventListener('pagehide', this.onPageHide);
   }
 
   /** Starts watching a group. Once only. */
@@ -233,14 +250,78 @@ export class GroupRunService implements OnDestroy {
     this.putOrder(null);
   }
 
+  /**
+   * Sends every build's waiting ticks now, without waiting out the quiet
+   * spell, and settles once what's out has had its answer - so the planner
+   * can read the builds' lists back after it. A write that fails is retried
+   * as usual while the page is open; once it's gone, it isn't.
+   */
+  flush(): Promise<void> {
+    return Promise.all(Array.from(this.outgoing.keys(), buildId => this.flushBuild(buildId))).then(() => undefined);
+  }
+
+  /** Sends what's waiting, as it would have been sent; the page is going away, so it isn't kept. */
   ngOnDestroy(): void {
+    void this.flush();
     this.destroyed = true;
     this.subscriptions.unsubscribe();
+    document.removeEventListener('visibilitychange', this.onVisibilityChange);
+    window.removeEventListener('pagehide', this.onPageHide);
     for (const outgoing of this.outgoing.values()) {
       if (outgoing.timer) {
         clearTimeout(outgoing.timer);
+        outgoing.timer = null;
       }
     }
+  }
+
+  private async flushBuild(buildId: string): Promise<void> {
+    const outgoing = this.outgoing.get(buildId);
+    if (!outgoing) {
+      return;
+    }
+    if (outgoing.busy) {
+      // Whatever was ticked meanwhile goes when it lands: on its own timer
+      // while the page is open, or straight after it once the page is gone.
+      await outgoing.inFlight;
+      if (!this.destroyed) {
+        return;
+      }
+    }
+    if (outgoing.timer) {
+      clearTimeout(outgoing.timer);
+      outgoing.timer = null;
+    }
+    if (this.outgoing.get(buildId) === outgoing) {
+      await this.send(buildId);
+    }
+  }
+
+  /**
+   * The page is closing: sends each build's waiting ticks with keepalive,
+   * as the planner's own list does. Fire and forget - nothing will see the
+   * answer.
+   */
+  private flushWithKeepalive(): void {
+    if (!this.lastToken) {
+      return;
+    }
+    for (const [buildId, outgoing] of this.outgoing) {
+      const body = Object.keys(outgoing.ticks).length ? this.requestBody(buildId, outgoing.ticks) : null;
+      if (body) {
+        this.progressApi.flushWithKeepalive(buildId, body, this.lastToken);
+      }
+    }
+  }
+
+  /** A build's write as its owner's list would send it, or null when there's nothing to send it against. */
+  private requestBody(buildId: string, ticks: Record<string, 0 | 1>): BuildProgressPut | null {
+    const member = this.group?.members.find(candidate => candidate.buildId === buildId);
+    const entries = member ? this.entriesFor(member) : null;
+    if (!member || !entries) {
+      return null;
+    }
+    return { patch: ticks, needed: neededAfter(entries, member.list.needed, ticks), route: member.list.route };
   }
 
   /**
@@ -293,12 +374,18 @@ export class GroupRunService implements OnDestroy {
       }
     }
     this.pendingSubject.next(pending);
+    this.refreshToken();
     for (const [buildId, ticks] of patchesByBuild(patch)) {
-      const outgoing = this.outgoing.get(buildId) ?? { ticks: {}, timer: null, busy: false, failures: 0 };
+      const outgoing = this.outgoing.get(buildId) ?? { ticks: {}, timer: null, busy: false, inFlight: null, failures: 0 };
       outgoing.ticks = { ...outgoing.ticks, ...ticks };
       this.outgoing.set(buildId, outgoing);
       this.scheduleSend(buildId, this.timing.sendAfterMs);
     }
+  }
+
+  /** Keeps a token to hand for pagehide. */
+  private refreshToken(): void {
+    void this.auth.getAccessToken().then(token => this.lastToken = token, () => undefined);
   }
 
   private scheduleSend(buildId: string, wait: number): void {
@@ -315,27 +402,28 @@ export class GroupRunService implements OnDestroy {
     }, wait);
   }
 
-  private async send(buildId: string): Promise<void> {
+  private send(buildId: string): Promise<void> {
     const outgoing = this.outgoing.get(buildId);
-    const member = this.group?.members.find(candidate => candidate.buildId === buildId);
-    const entries = member ? this.entriesFor(member) : null;
     if (!outgoing || outgoing.busy || !Object.keys(outgoing.ticks).length) {
-      return;
-    }
-    if (!member || !entries) {
-      // Taken out of the group, or its gear can't be read here: nothing to send it against.
-      this.giveUp(buildId);
-      return;
+      return Promise.resolve();
     }
     const ticks = outgoing.ticks;
+    const body = this.requestBody(buildId, ticks);
+    if (!body) {
+      // Taken out of the group, or its gear can't be read here: nothing to send it against.
+      this.giveUp(buildId);
+      return Promise.resolve();
+    }
     outgoing.ticks = {};
     outgoing.busy = true;
+    const sending = this.deliver(buildId, outgoing, ticks, body);
+    outgoing.inFlight = sending;
+    return sending;
+  }
+
+  private async deliver(buildId: string, outgoing: Outgoing, ticks: Record<string, 0 | 1>, body: BuildProgressPut): Promise<void> {
     try {
-      const doc = await firstValueFrom(this.progressApi.put(buildId, {
-        patch: ticks,
-        needed: neededAfter(entries, member.list.needed, ticks),
-        route: member.list.route
-      }));
+      const doc = await firstValueFrom(this.progressApi.put(buildId, body));
       outgoing.failures = 0;
       this.confirm(buildId, ticks, doc.updatedAt);
     } catch (error) {
@@ -351,6 +439,7 @@ export class GroupRunService implements OnDestroy {
       }
     } finally {
       outgoing.busy = false;
+      outgoing.inFlight = null;
       if (Object.keys(outgoing.ticks).length && !outgoing.timer) {
         this.scheduleSend(buildId, this.timing.sendAfterMs);
       }

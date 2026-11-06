@@ -57,6 +57,45 @@
     padding-left: 1.75rem;
 }
 
+/* What's got at a quest: small, wrapping, lined up under its name. */
+.shopping-arrange-things {
+    color: var(--text-secondary);
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.78rem;
+    gap: var(--space-2) var(--space-12);
+    list-style: none;
+    margin: 0;
+    padding: 0 var(--space-8) var(--space-4) calc(var(--space-8) + 1.75rem);
+}
+
+.shopping-arrange-thing {
+    align-items: center;
+    display: inline-flex;
+    gap: var(--space-4);
+    min-width: 0;
+}
+
+/* Struck through like a row that's got. */
+.shopping-arrange-thing.got .shopping-arrange-thing-name {
+    opacity: 0.6;
+    text-decoration: line-through;
+}
+
+.shopping-arrange-dots {
+    display: inline-flex;
+    flex: none;
+    gap: var(--space-2);
+}
+
+/* In the character's colour, as their chips are. */
+.shopping-arrange-dot {
+    background: var(--shopping-member, var(--border-color));
+    border-radius: 50%;
+    height: 0.55rem;
+    width: 0.55rem;
+}
+
 .shopping-arrange-handle {
     color: var(--text-secondary);
     cursor: grab;

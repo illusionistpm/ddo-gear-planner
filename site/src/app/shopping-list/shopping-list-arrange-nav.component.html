@@ -1,0 +1,9 @@
+<ol class="shopping-arrange-nav-list" cdkDropList cdkDropListLockAxis="y" (cdkDropListDropped)="drop($event)">
+  @for (section of sections; track section.id) {
+    <li class="shopping-arrange-nav-pack" cdkDrag [style.--shopping-accent]="'var(--pack-accent-' + (section.accent ?? 'none') + ')'"
+      title="Drag to move">
+      <i class="fas fa-grip-vertical shopping-arrange-nav-grip" aria-hidden="true"></i>
+      <span class="shopping-arrange-nav-name">{{section.label}}</span>
+    </li>
+  }
+</ol>

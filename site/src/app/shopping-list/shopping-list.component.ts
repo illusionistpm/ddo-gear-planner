@@ -63,6 +63,8 @@ export class ShoppingListComponent implements OnInit, OnChanges, AfterViewInit, 
   arranging = false;
   /** ShoppingListArrangeComponent, once loaded. */
   arrangeComponent: Type<unknown> | null = null;
+  /** ShoppingListArrangeNavComponent, loaded with it: the sidebar's packs to drag. */
+  arrangeNavComponent: Type<unknown> | null = null;
   /** Whether your ticks are on the server too, or only on this device. */
   syncState: ShoppingSyncState = 'off';
   /** The packs with some part on screen, below the sticky header, by section id: marked in the pack list. */
@@ -420,8 +422,11 @@ export class ShoppingListComponent implements OnInit, OnChanges, AfterViewInit, 
     this.expandedRowId = null;
     if (!this.arrangeComponent) {
       // Drag-drop is only needed here: loaded on first use.
-      const { ShoppingListArrangeComponent } = await import('./shopping-list-arrange.component');
+      const [{ ShoppingListArrangeComponent }, { ShoppingListArrangeNavComponent }] = await Promise.all([
+        import('./shopping-list-arrange.component'), import('./shopping-list-arrange-nav.component')
+      ]);
       this.arrangeComponent = ShoppingListArrangeComponent;
+      this.arrangeNavComponent = ShoppingListArrangeNavComponent;
       this.cdr.markForCheck();
     }
   }

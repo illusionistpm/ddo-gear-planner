@@ -1,6 +1,8 @@
 import type { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import type { GroupCharacter } from '../planner/shopping-list/group-run.service';
+import { buildGroupListView } from '../planner/shopping-list/group-shopping-list';
 import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
 import type { ShoppingEntry, ShoppingSource } from '../planner/shopping-list/shopping-list-types';
 import { buildShoppingListView, UNKNOWN_SOURCE_LABEL } from '../planner/shopping-list/shopping-list-view-model';
@@ -48,6 +50,45 @@ describe('ShoppingListArrangeComponent', () => {
     const unknown = quest(2, 0);
     expect(unknown.querySelector('.shopping-arrange-handle')).toBeNull();
     expect(unknown.querySelector('button')).toBeNull();
+  });
+
+  it('lists what is got at each quest under it, the unknown source\'s too', () => {
+    const things = (packIndex: number, index: number) =>
+      Array.from(quest(packIndex, index).querySelectorAll('.shopping-arrange-thing'), thing => thing.textContent?.trim());
+
+    expect(things(0, 0)).toEqual(['Alpha']);
+    expect(things(1, 0)).toEqual(['Gamma']);
+    expect(things(2, 0)).toEqual(['Lost']);
+    // Only a group's list of several characters says whose each thing is.
+    expect(el().querySelector('.shopping-arrange-dots')).toBeNull();
+  });
+
+  it('on a group\'s list, dots each thing with the characters it is for, and strikes what is got', () => {
+    const ring = at('Alpha', 'Pack A');
+    const sword = { ...at('Beta', 'Pack A'), key: 'g|Sword', identity: 'gear|Sword', label: 'Sword', sources: ring.sources };
+    const view = buildGroupListView([
+      { buildId: 'b-kira', characterName: 'Kira', entries: [ring, sword], needed: [ring.key, sword.key] },
+      { buildId: 'b-vex', characterName: 'Vex', entries: [ring], needed: [] },
+    ], { filter: 'all', picks: {}, order: null });
+    const character = (buildId: string, characterName: string, accent: number) =>
+      ({ buildId, characterName, accent, mine: false, needed: 0, total: 0, buildName: '', unreadable: false }) satisfies GroupCharacter;
+    fixture.componentRef.setInput('sections', view.sections);
+    fixture.componentRef.setInput('characters', new Map([['b-kira', character('b-kira', 'Kira', 0)], ['b-vex', character('b-vex', 'Vex', 3)]]));
+    fixture.detectChanges();
+
+    const [ringThing, swordThing] = Array.from(el().querySelectorAll<HTMLElement>('.shopping-arrange-thing'));
+    expect(ringThing.querySelector('.shopping-arrange-dots')?.getAttribute('aria-label')).toBe('For Kira, Vex');
+    expect(Array.from(ringThing.querySelectorAll<HTMLElement>('.shopping-arrange-dot'), dot => dot.style.getPropertyValue('--shopping-member')))
+      .toEqual(['var(--member-accent-0)', 'var(--member-accent-3)']);
+    expect(ringThing.classList).not.toContain('got');
+    expect(swordThing.querySelector('.shopping-arrange-dots')?.getAttribute('aria-label')).toBe('For Kira');
+
+    fixture.componentRef.setInput('sections', buildGroupListView([
+      { buildId: 'b-kira', characterName: 'Kira', entries: [ring, sword], needed: [sword.key] },
+      { buildId: 'b-vex', characterName: 'Vex', entries: [ring], needed: [] },
+    ], { filter: 'all', picks: {}, order: null }).sections);
+    fixture.detectChanges();
+    expect(el().querySelector('.shopping-arrange-thing')?.classList).toContain('got');
   });
 
   it('moves a pack a step with its arrows, which stop at the ends', () => {

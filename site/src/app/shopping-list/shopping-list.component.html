@@ -1,18 +1,23 @@
 <!-- The route's packs, to jump to one: wide screens only, beside the list. -->
 @if (view && view.sections.length) {
-  <nav class="shopping-pack-nav" aria-label="Packs on the route">
+  <!-- cdkScrollable: it scrolls on its own when long, so a drag in Arrange mode scrolls it at its edges. -->
+  <nav class="shopping-pack-nav" aria-label="Packs on the route" cdkScrollable>
     <div class="shopping-pack-nav-title">Route</div>
-    <ul class="shopping-pack-nav-list">
-      @for (section of view.sections; track section.id; let i = $index) {
-        <li>
-          <button type="button" class="shopping-pack-nav-link" [ngClass]="accentClass(section.accent)"
-            [class.in-view]="sectionsInView.has(section.id)" [class.done]="section.acquired === section.total" (click)="scrollToSection(i)">
-            <span class="shopping-pack-nav-name">{{section.label}}</span>
-            <span class="shopping-pack-nav-count">{{sectionCount(section)}}</span>
-          </button>
-        </li>
-      }
-    </ul>
+    @if (arranging && arrangeNavComponent) {
+      <ng-container *ngComponentOutlet="arrangeNavComponent; inputs: { sections: view.sections, arranger: arranger }"></ng-container>
+    } @else {
+      <ul class="shopping-pack-nav-list">
+        @for (section of view.sections; track section.id; let i = $index) {
+          <li>
+            <button type="button" class="shopping-pack-nav-link" [ngClass]="accentClass(section.accent)"
+              [class.in-view]="sectionsInView.has(section.id)" [class.done]="section.acquired === section.total" (click)="scrollToSection(i)">
+              <span class="shopping-pack-nav-name">{{section.label}}</span>
+              <span class="shopping-pack-nav-count">{{sectionCount(section)}}</span>
+            </button>
+          </li>
+        }
+      </ul>
+    }
   </nav>
 }
 <section class="shopping-list" aria-labelledby="shoppingListTitle">
@@ -128,7 +133,7 @@
     }
     @if (arranging && view.sections.length) {
       @if (arrangeComponent) {
-        <ng-container *ngComponentOutlet="arrangeComponent; inputs: { sections: view.sections, arranger: arranger }"></ng-container>
+        <ng-container *ngComponentOutlet="arrangeComponent; inputs: { sections: view.sections, arranger: arranger, characters: charactersById }"></ng-container>
       } @else {
         <p class="shopping-list-empty">Loading…</p>
       }
@@ -278,7 +283,7 @@
         <div class="shopping-row-details">Roll: {{row.entry.details.join(', ')}}</div>
       }
       @if (multiCharacter && row.members.length) {
-        <!-- A box per character: yours to tick, friends' to read. -->
+        <!-- A chip per character: yours a box to tick, friends' a dot to read. -->
         <div class="shopping-row-members">
           @for (part of row.members; track part.member) {
             @if (charactersById.get(part.member)?.mine) {
@@ -294,7 +299,7 @@
             } @else {
               <span class="shopping-member-chip read-only" [ngClass]="memberClass(part.member)"
                 [class.got]="part.acquired === part.quantity" [attr.aria-label]="chipLabel(part, row)">
-                <span class="far shopping-member-check" [ngClass]="chipIcon(part)" aria-hidden="true"></span>
+                <span class="shopping-member-dot" aria-hidden="true"></span>
                 <span>{{charactersById.get(part.member)?.characterName}}</span>
                 @if (chipCount(part); as count) {
                   <span class="shopping-member-count">{{count}}</span>

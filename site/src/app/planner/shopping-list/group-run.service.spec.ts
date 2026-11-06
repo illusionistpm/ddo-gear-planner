@@ -181,10 +181,41 @@ describe('GroupRunService', () => {
 
     expect(putRoute.mock.calls.map(([, body]) => body)).toEqual([
       { order: { packs: ['Sharn', ''], quests: ['Q2', 'Q1'] } },
-      { order: { packs: [], quests: ['Q2', 'Q1'] } },
+      // Each move builds on the one before, though the group hasn't come back with it yet.
+      { order: { packs: ['Sharn', ''], quests: ['Q2', 'Q1'] } },
       { order: null },
       { picksPatch: { 'gear|Ring': ['The Snitch'] } }
     ]);
+  });
+
+  it('shows an Arrange move at once, until the group comes back with it', () => {
+    const route = new Subject<object>();
+    putRoute.mockReturnValue(route);
+    arrive(group(list('z1.kira', null)));
+
+    service.arrangePacks(['Sharn']);
+    expect(latest.view!.arranged).toBe(true);
+
+    // A tick arriving meanwhile, with the route as it was, doesn't undo the move.
+    arrive(group(list('z1.kira', ['g|Ring1|Ring'])));
+    expect(latest.view!.arranged).toBe(true);
+
+    arrive({ ...group(list('z1.kira', null)), order: { packs: ['Sharn'], quests: [] } });
+    route.next({});
+    route.complete();
+    // The group's order is now what says so: reset elsewhere, it's reset here.
+    arrive(group(list('z1.kira', null)));
+    expect(latest.view!.arranged).toBe(false);
+  });
+
+  it('puts the group\'s own order back when an Arrange move can\'t be saved', async () => {
+    putRoute.mockReturnValue(throwError(() => new HttpErrorResponse({ status: 429 })));
+    arrive(group(list('z1.kira', null)));
+
+    service.arrangePacks(['Sharn']);
+    await settle();
+
+    expect(latest.view!.arranged).toBe(false);
   });
 
   it('says the group is gone when it is', async () => {

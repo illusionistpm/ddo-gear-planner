@@ -1,0 +1,64 @@
+.shopping-arrange-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* As the sidebar's links look, striped in the pack's colour, but picked up rather than clicked. */
+.shopping-arrange-nav-pack {
+    align-items: baseline;
+    border-left: 4px solid var(--shopping-accent, var(--border-color));
+    border-radius: 0 6px 6px 0;
+    color: var(--text-primary);
+    cursor: grab;
+    display: flex;
+    font-size: 0.85rem;
+    gap: var(--space-8);
+    padding: var(--space-4) var(--space-8);
+}
+
+.shopping-arrange-nav-pack:hover {
+    background: var(--surface-muted-color);
+}
+
+.shopping-arrange-nav-grip {
+    color: var(--text-secondary);
+    flex: none;
+    font-size: 0.75rem;
+}
+
+.shopping-arrange-nav-name {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+/* What's being dragged (appended to the body, so no ancestors to match), and the gap it leaves. */
+.shopping-arrange-nav-pack.cdk-drag-preview {
+    background: var(--surface-elevated-color);
+    box-shadow: var(--shadow-lg);
+    list-style: none;
+}
+
+.shopping-arrange-nav-pack.cdk-drag-dragging {
+    cursor: grabbing;
+}
+
+.cdk-drag-placeholder {
+    opacity: 0.3;
+}
+
+.cdk-drag-animating,
+.shopping-arrange-nav-list.cdk-drop-list-dragging .shopping-arrange-nav-pack:not(.cdk-drag-placeholder) {
+    transition: transform 200ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cdk-drag-animating,
+    .shopping-arrange-nav-list.cdk-drop-list-dragging .shopping-arrange-nav-pack:not(.cdk-drag-placeholder) {
+        transition: none;
+    }
+}

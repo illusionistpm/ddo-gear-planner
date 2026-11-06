@@ -70,6 +70,17 @@ interface Pending {
   confirmedAt: string | null;
 }
 
+/** A route order sent on this page, until the group comes back with it. */
+interface PendingOrder {
+  order: ShoppingRouteOrder | null;
+  /** The group's order when it was sent: once the group's order is anything else, the write has landed. */
+  before: ShoppingRouteOrder | null;
+}
+
+function sameOrder(a: ShoppingRouteOrder | null, b: ShoppingRouteOrder | null): boolean {
+  return JSON.stringify(a) === JSON.stringify(b);
+}
+
 /** Each build's ticks still to be sent, by the build's own keys. */
 interface Outgoing {
   ticks: Record<string, 0 | 1>;
@@ -97,6 +108,7 @@ export class GroupRunService implements OnDestroy {
   private readonly showingSubject = new BehaviorSubject<GroupShowing>('everyone');
   private readonly pendingSubject = new BehaviorSubject<ReadonlyMap<string, Pending>>(new Map());
   private readonly unsavedSubject = new BehaviorSubject<readonly string[]>([]);
+  private readonly pendingOrderSubject = new BehaviorSubject<PendingOrder | null>(null);
   private readonly outgoing = new Map<string, Outgoing>();
   /** Each build's entries, by its blob: worked out again only when its owner saves new gear. */
   private readonly entriesCache = new Map<string, { blob: string; entries: ShoppingEntry[] | null }>();
@@ -121,8 +133,9 @@ export class GroupRunService implements OnDestroy {
   ) {
     this.view$ = combineLatest([
       this.stateSubject, this.viewerSubject, this.filterSubject, this.showingSubject, this.pendingSubject, this.unsavedSubject,
-      this.userGear.userItemsChanged$.pipe(startWith(undefined))
-    ]).pipe(map(([state, viewer, filter, showing, pending, unsaved]) => this.viewOf(state, viewer, filter, showing, pending, unsaved)));
+      this.pendingOrderSubject, this.userGear.userItemsChanged$.pipe(startWith(undefined))
+    ]).pipe(map(([state, viewer, filter, showing, pending, unsaved, pendingOrder]) =>
+      this.viewOf(state, viewer, filter, showing, pending, unsaved, pendingOrder)));
   }
 
   /** Starts watching a group. Once only. */
@@ -130,6 +143,7 @@ export class GroupRunService implements OnDestroy {
     this.shortId = shortId;
     this.token = token;
     this.subscriptions.add(this.live.watch(shortId, token).subscribe(state => {
+      this.forgetLandedOrder(state.group);
       this.stateSubject.next(state);
       this.forgetConfirmed(state.group);
     }));
@@ -151,6 +165,12 @@ export class GroupRunService implements OnDestroy {
   /** The group as it last arrived. */
   get group(): LiveGroupList | null {
     return this.stateSubject.value.group;
+  }
+
+  /** The route's order as this page shows it: one just arranged here, before the group comes back with it. */
+  get order(): ShoppingRouteOrder | null {
+    const pending = this.pendingOrderSubject.value;
+    return pending ? pending.order : this.group?.order ?? null;
   }
 
   get viewer(): GroupViewer {
@@ -199,18 +219,18 @@ export class GroupRunService implements OnDestroy {
 
   /** The host's Arrange: packs in this order. */
   arrangePacks(packs: readonly string[]): void {
-    void this.putRoute({ order: { packs: [...packs], quests: [...(this.group?.order?.quests ?? [])] } });
+    this.putOrder({ packs: [...packs], quests: [...(this.order?.quests ?? [])] });
   }
 
   /** The host's Arrange: one pack's quests in this order. */
   arrangeQuests(quests: readonly string[]): void {
     const moved = new Set(quests);
-    const others = (this.group?.order?.quests ?? []).filter(quest => !moved.has(quest));
-    void this.putRoute({ order: { packs: [...(this.group?.order?.packs ?? [])], quests: [...others, ...quests] } });
+    const others = (this.order?.quests ?? []).filter(quest => !moved.has(quest));
+    this.putOrder({ packs: [...(this.order?.packs ?? [])], quests: [...others, ...quests] });
   }
 
   resetOrder(): void {
-    void this.putRoute({ order: null });
+    this.putOrder(null);
   }
 
   ngOnDestroy(): void {
@@ -224,15 +244,40 @@ export class GroupRunService implements OnDestroy {
   }
 
   /**
-   * The route arrives back over the socket, as everyone else's page gets
-   * it. A host arranging fast is throttled: that step is dropped, and the
-   * next one carries the whole order anyway.
+   * The picks arrive back over the socket, as everyone else's page gets
+   * them. Best effort: a write that fails is just not there.
    */
-  private async putRoute(body: { picksPatch?: Record<string, string[] | null>; order?: ShoppingRouteOrder | null }): Promise<void> {
+  private async putRoute(body: { picksPatch: Record<string, string[] | null> }): Promise<void> {
     try {
       await firstValueFrom(this.groups.putRoute(this.shortId, body));
     } catch {
-      // Best effort: see above.
+      // Best effort.
+    }
+  }
+
+  /**
+   * Shows the order at once, so a dropped quest stays where it was dropped
+   * rather than jumping back until the socket brings it. A write that fails
+   * (a host arranging fast is throttled, say) puts the group's own order
+   * back; the next step carries the whole order anyway.
+   */
+  private putOrder(order: ShoppingRouteOrder | null): void {
+    const pending: PendingOrder = { order, before: this.group?.order ?? null };
+    this.pendingOrderSubject.next(pending);
+    void firstValueFrom(this.groups.putRoute(this.shortId, { order })).then(
+      () => this.forgetLandedOrder(this.group),
+      () => {
+        if (this.pendingOrderSubject.value === pending) {
+          this.pendingOrderSubject.next(null);
+        }
+      });
+  }
+
+  /** Drops the order sent from here once the group's own order has caught up with it, or moved on. */
+  private forgetLandedOrder(group: LiveGroupList | null): void {
+    const pending = this.pendingOrderSubject.value;
+    if (pending && group && (sameOrder(group.order, pending.order) || !sameOrder(group.order, pending.before))) {
+      this.pendingOrderSubject.next(null);
     }
   }
 
@@ -381,7 +426,7 @@ export class GroupRunService implements OnDestroy {
   }
 
   private viewOf(state: LiveGroupState, viewer: GroupViewer, filter: ShoppingFilter, showing: GroupShowing,
-      pending: ReadonlyMap<string, Pending>, unsaved: readonly string[]): GroupRunView {
+      pending: ReadonlyMap<string, Pending>, unsaved: readonly string[], pendingOrder: PendingOrder | null): GroupRunView {
     const group = state.group;
     const yours = new Set(viewer.yourBuildIds);
     const base: GroupRunView = {
@@ -411,7 +456,7 @@ export class GroupRunService implements OnDestroy {
       : showing === 'mine' ? yours
         : new Set([showing]);
     const view = buildGroupListView(members, {
-      filter, picks: group.picks, order: group.order, pending: this.pendingProgress(pending), only, packAccents: this.packAccents,
+      filter, picks: group.picks, order: pendingOrder ? pendingOrder.order : group.order, pending: this.pendingProgress(pending), only, packAccents: this.packAccents,
       owned: this.owned
     });
     this.packAccents = view.packAccents;

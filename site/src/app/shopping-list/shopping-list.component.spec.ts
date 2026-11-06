@@ -497,6 +497,20 @@ describe('ShoppingListComponent', () => {
       expect(el().querySelector('.shopping-section')).toBeTruthy();
     });
 
+    it('makes the sidebar\'s packs draggable in place of its links, until Done', async () => {
+      await startArranging();
+
+      const sidebar = () => el().querySelector('.shopping-pack-nav')!;
+      expect(sidebar().querySelector('.shopping-pack-nav-link')).toBeNull();
+      expect(Array.from(sidebar().querySelectorAll('.shopping-arrange-nav-pack'), pack => pack.textContent?.trim()))
+        .toEqual(['Raid Pack', 'Other sources']);
+
+      (el().querySelector('.shopping-list-arrange-done') as HTMLButtonElement).click();
+      fixture.detectChanges();
+      expect(sidebar().querySelector('.shopping-arrange-nav-pack')).toBeNull();
+      expect(sidebar().querySelectorAll('.shopping-pack-nav-link').length).toBe(2);
+    });
+
     it('offers the default order back once arranged', async () => {
       await startArranging();
       expect(el().querySelector('.shopping-list-reset-route')).toBeNull();
@@ -673,7 +687,7 @@ describe('ShoppingListComponent', () => {
       expect(el().querySelector('.shopping-list-back')).toBeNull();
     });
 
-    it('makes each character\'s chip on a row their box: yours to tick, friends\' to read', () => {
+    it('makes each character\'s chip on a row: yours a box to tick, friends\' a dot to read', () => {
       showGroup();
 
       const [kiraChip, vexChip] = chips('Ring');
@@ -683,7 +697,9 @@ describe('ShoppingListComponent', () => {
       expect(kiraChip.querySelector('.shopping-member-count')?.textContent).toBe('×2');
       expect(vexChip.tagName).toBe('SPAN');
       expect(vexChip.getAttribute('role')).toBeNull();
-      expect(vexChip.querySelector('.shopping-member-check')?.classList).toContain('fa-square-check');
+      expect(vexChip.querySelector('.shopping-member-check')).toBeNull();
+      expect(vexChip.querySelector('.shopping-member-dot')).not.toBeNull();
+      expect(vexChip.classList).toContain('got');
       expect(vexChip.getAttribute('aria-label')).toBe('Ring for Vex: got');
 
       kiraChip.click();

@@ -36,6 +36,7 @@
                 <i class="fas fa-arrow-down" aria-hidden="true"></i>
               </button>
             </div>
+            <ng-container *ngTemplateOutlet="things; context: { $implicit: group }"></ng-container>
           </li>
         }
         @for (group of unmovable(section); track group.id) {
@@ -43,9 +44,28 @@
             <div class="shopping-arrange-row">
               <span class="shopping-arrange-name">{{group.label}}</span>
             </div>
+            <ng-container *ngTemplateOutlet="things; context: { $implicit: group }"></ng-container>
           </li>
         }
       </ol>
     </li>
   }
 </ol>
+
+<!-- What's got at a quest, small: each thing's name, after a dot per character it's for. -->
+<ng-template #things let-group>
+  <ul class="shopping-arrange-things" [attr.aria-label]="'What to get at ' + group.label">
+    @for (row of group.rows; track row.id) {
+      <li class="shopping-arrange-thing" [class.got]="row.state === 'checked'">
+        @if (showsWho && row.members.length) {
+          <span class="shopping-arrange-dots" role="img" [attr.aria-label]="whoFor(row)" [title]="whoFor(row)">
+            @for (part of row.members; track part.member) {
+              <span class="shopping-arrange-dot" [style.--shopping-member]="memberAccent(part.member)"></span>
+            }
+          </span>
+        }
+        <span class="shopping-arrange-thing-name">{{row.entry.label}}</span>
+      </li>
+    }
+  </ul>
+</ng-template>

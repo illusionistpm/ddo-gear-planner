@@ -184,17 +184,43 @@ export class ShoppingListComponent implements OnInit, OnChanges, AfterViewInit, 
     return this.group ? ownRowState(row, this.group.yours) : null;
   }
 
-  /** Whether a row has a box: always on your own list, never on a friend's, and on a group's when some of it is yours. */
-  hasBox(row: ShoppingRow): boolean {
-    return !this.friendBuild && (!this.groupRun || this.groupRowState(row) !== null);
+  /**
+   * A group run's list with several characters: each row's chips are its
+   * boxes, one per character. With one, the row has a plain box and no chips.
+   */
+  get multiCharacter(): boolean {
+    return (this.group?.characters.length ?? 0) > 1;
   }
 
-  /** What a character's chip on a row says of their copies: got, how many of how many, or nothing for one still needed. */
+  /**
+   * Whether a row has a box: always on your own list, never on a friend's, and
+   * on a group's of one character when it's yours. With more, the chips are the boxes.
+   */
+  hasBox(row: ShoppingRow): boolean {
+    return !this.friendBuild && (!this.groupRun || (!this.multiCharacter && this.groupRowState(row) !== null));
+  }
+
+  /** How a character's chip on a row reads: their copies got, all, some or none. */
+  chipState(part: ShoppingRowMember): 'checked' | 'mixed' | 'unchecked' {
+    return part.acquired === part.quantity ? 'checked' : part.acquired ? 'mixed' : 'unchecked';
+  }
+
+  chipAriaChecked(part: ShoppingRowMember): string {
+    const state = this.chipState(part);
+    return state === 'checked' ? 'true' : state === 'mixed' ? 'mixed' : 'false';
+  }
+
+  chipIcon(part: ShoppingRowMember): string {
+    const state = this.chipState(part);
+    return state === 'checked' ? 'fa-square-check' : state === 'mixed' ? 'fa-square-minus' : 'fa-square';
+  }
+
+  /** How many copies a character's chip is for, and how many are got part way; nothing for one. */
   chipCount(part: ShoppingRowMember): string {
     if (part.quantity === 1) {
-      return part.acquired ? '✓' : '';
+      return '';
     }
-    return part.acquired === part.quantity ? `×${part.quantity} ✓` : part.acquired ? `${part.acquired}/${part.quantity}` : `×${part.quantity}`;
+    return this.chipState(part) === 'mixed' ? `${part.acquired}/${part.quantity}` : `×${part.quantity}`;
   }
 
   chipLabel(part: ShoppingRowMember, row: ShoppingRow): string {

@@ -331,7 +331,7 @@
         } @else {
           <span class="shopping-row-name">{{row.entry.label}}</span>
         }
-        @if (groupRun) {
+        @if (multiCharacter) {
           <!-- Each character's copies are on their chip, below. -->
         } @else if (friendBuild) {
           @if (row.quantity - row.acquired > 1) {
@@ -376,14 +376,15 @@
       @if (row.entry.details.length) {
         <div class="shopping-row-details">Roll: {{row.entry.details.join(', ')}}</div>
       }
-      @if (row.members.length) {
+      @if (multiCharacter && row.members.length) {
+        <!-- A box per character: yours to tick, friends' to read. -->
         <div class="shopping-row-members">
           @for (part of row.members; track part.member) {
             @if (charactersById.get(part.member)?.mine) {
-              <button type="button" class="shopping-member-chip" [ngClass]="memberClass(part.member)"
+              <button type="button" role="checkbox" class="shopping-member-chip" [ngClass]="memberClass(part.member)"
                 [class.got]="part.acquired === part.quantity" [attr.aria-label]="chipLabel(part, row)"
-                [attr.aria-pressed]="part.acquired === part.quantity" (click)="toggleChip(row, part)">
-                <span class="shopping-member-dot" aria-hidden="true"></span>
+                [attr.aria-checked]="chipAriaChecked(part)" (click)="toggleChip(row, part)">
+                <span class="far shopping-member-check" [ngClass]="chipIcon(part)" aria-hidden="true"></span>
                 <span>{{charactersById.get(part.member)?.characterName}}</span>
                 @if (chipCount(part); as count) {
                   <span class="shopping-member-count">{{count}}</span>
@@ -392,7 +393,7 @@
             } @else {
               <span class="shopping-member-chip read-only" [ngClass]="memberClass(part.member)"
                 [class.got]="part.acquired === part.quantity" [attr.aria-label]="chipLabel(part, row)">
-                <span class="shopping-member-dot" aria-hidden="true"></span>
+                <span class="far shopping-member-check" [ngClass]="chipIcon(part)" aria-hidden="true"></span>
                 <span>{{charactersById.get(part.member)?.characterName}}</span>
                 @if (chipCount(part); as count) {
                   <span class="shopping-member-count">{{count}}</span>

@@ -253,6 +253,13 @@
     width: 0.55rem;
 }
 
+/* A row's chip is its character's box, in their colour. */
+.shopping-member-check {
+    color: var(--shopping-member, var(--text-secondary));
+    flex: none;
+    font-size: 0.95rem;
+}
+
 .shopping-member-count {
     font-variant-numeric: tabular-nums;
 }

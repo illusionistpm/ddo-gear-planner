@@ -788,14 +788,17 @@ describe('ShoppingListComponent', () => {
       expect(el().querySelector('.shopping-list-back')).toBeNull();
     });
 
-    it('says on each row whose it is, with your characters\' chips to tap and friends\' to read', () => {
+    it('makes each character\'s chip on a row their box: yours to tick, friends\' to read', () => {
       showGroup();
 
       const [kiraChip, vexChip] = chips('Ring');
       expect(kiraChip.tagName).toBe('BUTTON');
+      expect(kiraChip.getAttribute('role')).toBe('checkbox');
+      expect(kiraChip.getAttribute('aria-checked')).toBe('false');
       expect(kiraChip.querySelector('.shopping-member-count')?.textContent).toBe('×2');
       expect(vexChip.tagName).toBe('SPAN');
-      expect(vexChip.textContent?.replace(/\s+/g, '')).toBe('Vex✓');
+      expect(vexChip.getAttribute('role')).toBeNull();
+      expect(vexChip.querySelector('.shopping-member-check')?.classList).toContain('fa-square-check');
       expect(vexChip.getAttribute('aria-label')).toBe('Ring for Vex: got');
 
       kiraChip.click();
@@ -803,17 +806,48 @@ describe('ShoppingListComponent', () => {
       expect(groupRun.toggleChip).toHaveBeenCalledWith(expect.objectContaining({ id: expect.stringContaining('gear|Ring') }), 'b-kira');
     });
 
-    it('gives a box to rows with some of yours, ticking all of yours', () => {
-      showGroup({ yours: new Set(['b-vex']) });
+    it('shows a character part way through their copies as mixed', () => {
+      const partWay: GroupMemberEntries = { ...kira, needed: [ring2.key, sword.key] };
+      showGroup({ view: buildGroupListView([partWay, vex], { filter: 'all', picks: {}, order: null }) });
 
-      expect(rowByName('Sword').querySelector('.shopping-check')).toBeNull();
+      const kiraChip = chips('Ring')[0];
+      expect(kiraChip.getAttribute('aria-checked')).toBe('mixed');
+      expect(kiraChip.querySelector('.shopping-member-count')?.textContent).toBe('1/2');
+    });
+
+    it('gives rows no box of their own once there are several characters', () => {
+      showGroup({ yours: new Set(['b-kira', 'b-vex']) });
+
+      expect(el().querySelector('.shopping-check')).toBeNull();
+    });
+
+    it('with one character, gives rows a plain box ticking all of theirs, and no chips', () => {
+      showGroup({
+        view: buildGroupListView([kira], { filter: 'all', picks: {}, order: null }),
+        characters: [
+          { buildId: 'b-kira', characterName: 'Kira', accent: 0, mine: true, needed: 3, total: 3, buildName: 'Tank', unreadable: false }
+        ]
+      });
+
+      expect(el().querySelector('.shopping-member-chip:not(.shopping-character-filter)')).toBeNull();
       const box = rowByName('Ring').querySelector<HTMLButtonElement>('.shopping-check')!;
-      // Vex's ring is got, whatever Kira's are.
-      expect(box.getAttribute('aria-checked')).toBe('true');
+      expect(box.getAttribute('aria-checked')).toBe('false');
+      expect(rowByName('Ring').querySelector('.shopping-row-quantity')?.textContent?.trim()).toBe('0/2');
 
       box.click();
 
       expect(groupRun.toggleRow).toHaveBeenCalled();
+    });
+
+    it('with one character who isn\'t yours, gives rows no box', () => {
+      showGroup({
+        view: buildGroupListView([vex], { filter: 'all', picks: {}, order: null }),
+        characters: [
+          { buildId: 'b-vex', characterName: 'Vex', accent: 1, mine: false, needed: 0, total: 1, buildName: 'Archer', unreadable: false }
+        ]
+      });
+
+      expect(el().querySelector('.shopping-check')).toBeNull();
     });
 
     it('shows everyone\'s, yours, or one character\'s rows', () => {

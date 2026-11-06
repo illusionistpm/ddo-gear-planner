@@ -29344,7 +29344,7 @@
                 "value": 1
             }
         ],
-        "ml": 12,
+        "ml": 1,
         "name": "Charoush's Inferno (level 12)",
         "quests": [
             "The Prison of the Planes"
@@ -118994,13 +118994,13 @@
             }
         ],
         "ml": 15,
-        "name": "Incandescent Band",
+        "name": "Incandescent Bead",
         "quests": [
             "Advance to level 15"
         ],
         "slot": "Necklace",
         "type": "Neck items",
-        "url": "/page/Item:Incandescent_Band"
+        "url": "/page/Item:Incandescent_Bead"
     },
     {
         "affixes": [
@@ -126740,13 +126740,13 @@
             "Red Augment Slot"
         ],
         "ml": 29,
-        "name": "Legendary Alchemical Battleaxe",
+        "name": "Legendary Alchemical Battle Axe",
         "quests": [
             "Legendary Lord of Blades"
         ],
         "slot": "Weapon",
         "type": "Battle Axes",
-        "url": "/page/Item:Legendary_Alchemical_Battleaxe"
+        "url": "/page/Item:Legendary_Alchemical_Battle_Axe"
     },
     {
         "affixes": [

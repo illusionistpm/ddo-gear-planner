@@ -18,56 +18,36 @@
 <section class="shopping-list" aria-labelledby="shoppingListTitle">
   <header class="shopping-list-header" #header>
     <div class="shopping-list-title-row">
-      @if (friendBuild) {
-        <h2 id="shoppingListTitle" class="shopping-list-title">
-          Still needed
-          @if (friendBuild.name) {
-            <span class="shopping-list-build-name">for {{friendBuild.name}}</span>
-          }
-        </h2>
-        <span class="shopping-list-progress-text" aria-live="polite">
-          @if (view) {
-            {{friend?.needed}} thing{{friend?.needed === 1 ? '' : 's'}} still needed
-          }
-        </span>
-        @if (liveLabel; as live) {
-          <span class="shopping-list-live" [class.live]="live.live" [title]="live.title">{{live.text}}</span>
+      @if (!friendBuild && !groupRun) {
+        <button type="button" class="shopping-list-back" (click)="closed.emit()" aria-label="Back to the planner">
+          <i class="fas fa-arrow-left" aria-hidden="true"></i>
+          <span class="shopping-list-back-label">Planner</span>
+        </button>
+      }
+      <h2 id="shoppingListTitle" class="shopping-list-title">
+        {{heading.title}}
+        @if (heading.subtitle) {
+          <span class="shopping-list-build-name">{{heading.subtitle}}</span>
         }
+      </h2>
+      <span class="shopping-list-progress-text" aria-live="polite">{{progressText}}</span>
+      @if (syncLabel; as sync) {
+        <span class="shopping-list-sync" [class.local]="syncState === 'local' || syncState === 'offline'" [title]="sync.title">
+          {{sync.text}}
+        </span>
+      }
+      @if (liveLabel; as live) {
+        <span class="shopping-list-live" [class.live]="live.live" [title]="live.title">{{live.text}}</span>
+      }
+      @if (friendBuild) {
         <a class="shopping-list-open-build" [routerLink]="friendBuild.plannerPath" target="_blank" rel="noopener"
           title="See the whole build in the planner, in a new tab">
           <i class="fas fa-up-right-from-square" aria-hidden="true"></i>
           <span>Open in planner</span>
         </a>
       } @else if (groupRun) {
-        <h2 id="shoppingListTitle" class="shopping-list-title">
-          {{group?.name || 'Group run'}}
-          @if (group?.name && group.name !== 'Group run') {
-            <span class="shopping-list-build-name">group run</span>
-          }
-        </h2>
-        <span class="shopping-list-progress-text" aria-live="polite">
-          @if (view) {
-            {{groupNeeded}} thing{{groupNeeded === 1 ? '' : 's'}} still needed
-          }
-        </span>
-        @if (liveLabel; as live) {
-          <span class="shopping-list-live" [class.live]="live.live" [title]="live.title">{{live.text}}</span>
-        }
         <ng-content select="[groupActions]"></ng-content>
       } @else {
-        <button type="button" class="shopping-list-back" (click)="closed.emit()" aria-label="Back to the planner">
-          <i class="fas fa-arrow-left" aria-hidden="true"></i>
-          <span class="shopping-list-back-label">Planner</span>
-        </button>
-        <h2 id="shoppingListTitle" class="shopping-list-title">Shopping list</h2>
-        @if (view) {
-          <span class="shopping-list-progress-text" aria-live="polite">{{view.acquired}}/{{view.total}} acquired</span>
-        }
-        @if (syncLabel; as sync) {
-          <span class="shopping-list-sync" [class.local]="syncState === 'local' || syncState === 'offline'" [title]="sync.title">
-            {{sync.text}}
-          </span>
-        }
         @if (view?.total) {
           <div class="shopping-list-share-wrap">
             <button type="button" class="shopping-list-share" [attr.aria-expanded]="shareOpen" (click)="toggleShare()"
@@ -89,38 +69,48 @@
         }
       }
     </div>
-    @if (groupRun) {
-      @if (group; as g) {
-        @if (g.connection === 'offline') {
-          <p class="shopping-list-note" role="alert">Lost the connection, so this is the list as it last arrived. It updates once it's back.</p>
-        }
-        @if (g.unsaved.length) {
-          <p class="shopping-list-note" role="alert">
-            Couldn't save the ticks for {{g.unsaved.join(', ')}}. Tick them off again from your own shopping list.
-          </p>
-        }
-        @if (g.characters.length) {
-          <div class="shopping-group-characters" role="group" aria-label="Whose rows to show">
-            <button type="button" class="shopping-character-filter" [class.active]="g.showing === 'everyone'"
-              [attr.aria-pressed]="g.showing === 'everyone'" (click)="show('everyone')">Everyone</button>
-            @if (g.yours.size) {
-              <button type="button" class="shopping-character-filter" [class.active]="g.showing === 'mine'"
-                [attr.aria-pressed]="g.showing === 'mine'" (click)="show('mine')">Mine</button>
-            }
-            @for (character of g.characters; track character.buildId) {
-              <button type="button" class="shopping-character-filter shopping-member-chip" [ngClass]="memberClass(character.buildId)"
-                [class.active]="g.showing === character.buildId" [attr.aria-pressed]="g.showing === character.buildId"
-                [title]="characterTitle(character)"
-                [attr.aria-label]="character.characterName + ': ' + (character.unreadable ? 'gear not listed' : character.needed + ' still needed')"
-                (click)="show(character.buildId)">
-                <span class="shopping-member-dot" aria-hidden="true"></span>
-                <span>{{character.characterName}}</span>
-                <span class="shopping-character-count">{{character.unreadable ? '?' : character.needed}}</span>
-              </button>
-            }
-          </div>
-        }
+    @if ((friend ?? group)?.connection === 'offline') {
+      <p class="shopping-list-note" role="alert">Lost the connection, so this is the list as it last arrived. It updates once it's back.</p>
+    } @else if (friend?.notShared) {
+      <p class="shopping-list-note">Nothing ticked off has been shared for this build yet, so this is everything it needs.</p>
+    }
+    @if (groupError) {
+      <p class="shopping-list-note" role="alert">{{groupError}}</p>
+    }
+    @if (group; as g) {
+      @if (g.unsaved.length) {
+        <p class="shopping-list-note" role="alert">
+          Couldn't save the ticks for {{g.unsaved.join(', ')}}. Tick them off again from your own shopping list.
+        </p>
       }
+      @if (g.characters.length) {
+        <div class="shopping-group-characters" role="group" aria-label="Whose rows to show">
+          <button type="button" class="shopping-character-filter" [class.active]="g.showing === 'everyone'"
+            [attr.aria-pressed]="g.showing === 'everyone'" (click)="show('everyone')">Everyone</button>
+          @if (g.yours.size) {
+            <button type="button" class="shopping-character-filter" [class.active]="g.showing === 'mine'"
+              [attr.aria-pressed]="g.showing === 'mine'" (click)="show('mine')">Mine</button>
+          }
+          @for (character of g.characters; track character.buildId) {
+            <button type="button" class="shopping-character-filter shopping-member-chip" [ngClass]="memberClass(character.buildId)"
+              [class.active]="g.showing === character.buildId" [attr.aria-pressed]="g.showing === character.buildId"
+              [title]="characterTitle(character)"
+              [attr.aria-label]="character.characterName + ': ' + (character.unreadable ? 'gear not listed' : character.needed + ' still needed')"
+              (click)="show(character.buildId)">
+              <span class="shopping-member-dot" aria-hidden="true"></span>
+              <span>{{character.characterName}}</span>
+              <span class="shopping-character-count">{{character.unreadable ? '?' : character.needed}}</span>
+            </button>
+          }
+        </div>
+      }
+    }
+    @if (!friendBuild && !groupRun && view?.total) {
+      <div class="shopping-list-progress" role="presentation">
+        <span class="shopping-list-progress-fill" [style.width.%]="percentAcquired"></span>
+      </div>
+    }
+    @if (!friendBuild) {
       <div class="shopping-list-controls">
         @if (arranging) {
           <button type="button" class="shopping-list-arrange-done" (click)="stopArranging()">
@@ -142,72 +132,18 @@
             <button type="button" class="shopping-list-choice-option" [class.active]="view?.filter === 'needed'"
               [attr.aria-pressed]="view?.filter === 'needed'" (click)="setFilter('needed')">Still needed</button>
           </div>
-          @if (canRoute && view?.picked) {
-            <button type="button" class="shopping-list-reset-route" (click)="resetRoute()"
-              title="Forget the quests picked for things, for everyone, and let the list choose again">
+          @if (canResetRoute) {
+            <button type="button" class="shopping-list-reset-route" (click)="resetRoute()" [title]="resetRouteTitle">
               <i class="fas fa-route" aria-hidden="true"></i>
               <span>Reset route</span>
             </button>
           }
           @if (canRoute && view?.sections?.length) {
-            <button type="button" class="shopping-list-arrange" (click)="startArranging()"
-              title="Put the packs and quests in the order the group will run them">
+            <button type="button" class="shopping-list-arrange" (click)="startArranging()" [title]="arrangeTitle">
               <i class="fas fa-up-down" aria-hidden="true"></i>
               <span>Arrange</span>
             </button>
           }
-        }
-      </div>
-    } @else if (friendBuild) {
-      @if (friend?.connection === 'offline') {
-        <p class="shopping-list-note" role="alert">Lost the connection, so this is the list as it last arrived. It updates once it's back.</p>
-      } @else if (friend?.notShared) {
-        <p class="shopping-list-note">Nothing ticked off has been shared for this build yet, so this is everything it needs.</p>
-      }
-    } @else {
-      @if (groupError) {
-        <p class="shopping-list-note" role="alert">{{groupError}}</p>
-      }
-      @if (view?.total) {
-        <div class="shopping-list-progress" role="presentation">
-          <span class="shopping-list-progress-fill" [style.width.%]="percentAcquired"></span>
-        </div>
-      }
-      <div class="shopping-list-controls">
-        @if (arranging) {
-          <button type="button" class="shopping-list-arrange-done" (click)="stopArranging()">
-            <i class="fas fa-check" aria-hidden="true"></i>
-            <span>Done</span>
-          </button>
-          @if (view?.arranged) {
-            <button type="button" class="shopping-list-reset-route" (click)="resetOrder()"
-              title="Put the packs and quests back in the order the list chose">
-              <i class="fas fa-arrow-rotate-left" aria-hidden="true"></i>
-              <span>Default order</span>
-            </button>
-          }
-        } @else {
-        <div class="shopping-list-choice" role="group" aria-label="Show">
-          <span class="shopping-list-choice-label">Show</span>
-          <button type="button" class="shopping-list-choice-option" [class.active]="view?.filter === 'all'"
-            [attr.aria-pressed]="view?.filter === 'all'" (click)="setFilter('all')">All</button>
-          <button type="button" class="shopping-list-choice-option" [class.active]="view?.filter === 'needed'"
-            [attr.aria-pressed]="view?.filter === 'needed'" (click)="setFilter('needed')">Still needed</button>
-        </div>
-        @if (view?.picked || view?.replannable) {
-          <button type="button" class="shopping-list-reset-route" (click)="resetRoute()"
-            title="Plan the route again around what's still needed, forgetting any quests you picked">
-            <i class="fas fa-route" aria-hidden="true"></i>
-            <span>Reset route</span>
-          </button>
-        }
-        @if (view?.sections?.length) {
-          <button type="button" class="shopping-list-arrange" (click)="startArranging()"
-            title="Put the packs and quests in the order you'll run them">
-            <i class="fas fa-up-down" aria-hidden="true"></i>
-            <span>Arrange</span>
-          </button>
-        }
         }
       </div>
     }

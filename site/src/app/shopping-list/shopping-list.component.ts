@@ -174,9 +174,47 @@ export class ShoppingListComponent implements OnInit, OnChanges, AfterViewInit, 
   }
   private charactersCache?: { list: readonly GroupCharacter[]; byId: ReadonlyMap<string, GroupCharacter> };
 
-  /** How many things are still needed on a group run's list, as shown. */
-  get groupNeeded(): number {
-    return this.view ? this.view.total - this.view.acquired : 0;
+  /** The list's heading: whose it is. */
+  get heading(): { title: string; subtitle: string | null } {
+    if (this.friendBuild) {
+      return { title: 'Still needed', subtitle: this.friendBuild.name ? `for ${this.friendBuild.name}` : null };
+    }
+    if (this.groupRun) {
+      const name = this.group?.name;
+      return { title: name || 'Group run', subtitle: name && name !== 'Group run' ? 'group run' : null };
+    }
+    return { title: 'Shopping list', subtitle: null };
+  }
+
+  /** How far along the list is: for your own, what's got; for others', what's still needed. Nothing until it arrives. */
+  get progressText(): string {
+    if (!this.view) {
+      return '';
+    }
+    if (!this.friendBuild && !this.groupRun) {
+      return `${this.view.acquired}/${this.view.total} acquired`;
+    }
+    const needed = this.friendBuild ? this.friend?.needed ?? 0 : this.view.total - this.view.acquired;
+    return `${needed} thing${needed === 1 ? '' : 's'} still needed`;
+  }
+
+  /**
+   * Reset route is offered once something is picked; on your own list also
+   * when planning again would list something elsewhere. A group's route only
+   * changes when the host picks, so it has nothing to plan again.
+   */
+  get canResetRoute(): boolean {
+    return this.canRoute && !!(this.view?.picked || (!this.groupRun && this.view?.replannable));
+  }
+
+  get resetRouteTitle(): string {
+    return this.groupRun
+      ? 'Forget the quests picked for things, for everyone, and let the list choose again'
+      : 'Plan the route again around what\'s still needed, forgetting any quests you picked';
+  }
+
+  get arrangeTitle(): string {
+    return this.groupRun ? 'Put the packs and quests in the order the group will run them' : 'Put the packs and quests in the order you\'ll run them';
   }
 
   /** The row's box, on a group run's list: for your characters' copies in it; null when there are none. */

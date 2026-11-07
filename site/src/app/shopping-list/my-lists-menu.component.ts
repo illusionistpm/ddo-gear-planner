@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -99,7 +99,6 @@ export class MyListsMenuComponent implements OnInit, OnDestroy {
     }
   }
 
-  @HostListener('document:keydown.escape')
   close(): void {
     this.open = false;
     this.cdr.markForCheck();

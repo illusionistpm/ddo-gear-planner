@@ -711,6 +711,22 @@ describe('BuildActionsComponent markup', () => {
     expect(fixture.nativeElement.querySelector('app-build-share-menu')).toBeNull();
   });
 
+  it('closes each of its menus on Escape', () => {
+    const escapeCloses = (toggle: string, menu: string) => {
+      (fixture.nativeElement.querySelector(toggle) as HTMLButtonElement).click();
+      fixture.detectChanges();
+      expect(fixture.nativeElement.querySelector(menu)).not.toBeNull();
+
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+      fixture.detectChanges();
+      expect(fixture.nativeElement.querySelector(menu)).toBeNull();
+    };
+
+    escapeCloses('.build-overflow-toggle', '.build-overflow-menu.open');
+    escapeCloses('.avatar-button', '.avatar-menu');
+    escapeCloses('.build-share', 'app-build-share-menu');
+  });
+
   it('keeps the build name group in the DOM, since the panel lives inside it', () => {
     expect(fixture.nativeElement.querySelector('.build-name-group')).not.toBeNull();
   });

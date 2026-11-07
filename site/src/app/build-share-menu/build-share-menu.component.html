@@ -12,4 +12,4 @@
     <button type="button" class="share-menu-hint" (click)="signIn()">Sign in for a short link</button>
   }
 </div>
-<button type="button" class="share-menu-backdrop" aria-label="Close share menu" (click)="closed.emit()"></button>
+<app-menu-backdrop label="Close share menu" (dismiss)="closed.emit()"></app-menu-backdrop>

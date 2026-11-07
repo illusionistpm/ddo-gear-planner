@@ -7,6 +7,7 @@ import { AnalyticsService } from '../shared/analytics.service';
 import { AuthService } from '../shared/auth.service';
 import { Clipboard } from '../shared/clipboard';
 import { ShoppingListShareMenuComponent } from './shopping-list-share-menu.component';
+import { MenuBackdropComponent } from '../menu-backdrop/menu-backdrop.component';
 
 describe('ShoppingListShareMenuComponent', () => {
   let fixture: ComponentFixture<ShoppingListShareMenuComponent>;
@@ -35,6 +36,7 @@ describe('ShoppingListShareMenuComponent', () => {
     signedIn = new BehaviorSubject(true);
     signIn = vi.fn();
     await TestBed.configureTestingModule({
+      imports: [MenuBackdropComponent],
       declarations: [ShoppingListShareMenuComponent],
       providers: [
         { provide: ShoppingListService, useValue: { stillNeededText: () => 'Still needed (2):', stillNeededKeys: () => ['a', 'b'] } },
@@ -129,7 +131,7 @@ describe('ShoppingListShareMenuComponent', () => {
     const closed = vi.fn();
     fixture.componentInstance.closed.subscribe(closed);
 
-    (el().querySelector('.share-menu-backdrop') as HTMLButtonElement).click();
+    (el().querySelector('.menu-backdrop') as HTMLButtonElement).click();
 
     expect(closed).toHaveBeenCalled();
   });

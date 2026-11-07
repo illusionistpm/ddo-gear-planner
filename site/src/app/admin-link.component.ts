@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, HostListener } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { environment } from '../environments/environment';
 import { BuildUrlCodecService, BuildUrlInspection } from './build/build-url-codec.service';
 import { PlannerOnboardingService } from './planner/planner-onboarding.service';
@@ -93,6 +93,7 @@ const FILTER_LABELS: Record<string, string> = {
 
         <a class="admin-panel-link" [href]="adminUrl" role="menuitem">Open admin page</a>
       </div>
+      <app-menu-backdrop *ngIf="panelOpen" label="Close admin menu" (dismiss)="closePanel()"></app-menu-backdrop>
 
       <div *ngIf="inspectorOpen" class="admin-modal-backdrop" role="presentation" (click)="closeUrlInspector()"></div>
       <section
@@ -513,7 +514,6 @@ export class AdminLinkComponent {
     private buildUrlCodec: BuildUrlCodecService
   ) {}
 
-  @HostListener('document:click')
   closePanel() {
     this.panelOpen = false;
   }

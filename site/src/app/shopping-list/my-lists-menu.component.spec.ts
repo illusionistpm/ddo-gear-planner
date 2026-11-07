@@ -7,6 +7,7 @@ import { GroupSummary } from '../build/groups.service';
 import { ListReturnService } from '../build/list-return.service';
 import { MyListsService } from '../build/my-lists.service';
 import { EquippedService } from '../planner/equipped.service';
+import { MenuBackdropComponent } from '../menu-backdrop/menu-backdrop.component';
 import { MyListsMenuComponent } from './my-lists-menu.component';
 
 const list = (shortId: string, name: string, overrides: Partial<GroupSummary> = {}): GroupSummary => ({
@@ -33,6 +34,7 @@ describe('MyListsMenuComponent', () => {
     planner = { hasPlanner: true, listUrl: '/build/s1?b=z1.x#shopping-list' };
     buildEmpty = false;
     await TestBed.configureTestingModule({
+      imports: [MenuBackdropComponent],
       declarations: [MyListsMenuComponent],
       providers: [
         provideRouter([]),

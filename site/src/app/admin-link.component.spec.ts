@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 
 import { AdminLinkComponent } from './admin-link.component';
 import { BuildUrlCodecService } from './build/build-url-codec.service';
+import { MenuBackdropComponent } from './menu-backdrop/menu-backdrop.component';
 import { PlannerOnboardingService } from './planner/planner-onboarding.service';
 import { environment } from '../environments/environment';
 
@@ -14,7 +15,7 @@ describe('AdminLinkComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [AdminLinkComponent],
-      imports: [FormsModule],
+      imports: [FormsModule, MenuBackdropComponent],
       providers: [
         {
           provide: PlannerOnboardingService,
@@ -108,6 +109,26 @@ describe('AdminLinkComponent', () => {
     expect(component.urlInspectionJson).toContain('Not chasing');
     expect(component.urlInspectionJson).not.toContain('"other"');
     expect(component.urlInspectionJson).not.toContain('"nongear"');
+  });
+
+  it('closes the admin menu on a click anywhere else, or Escape', () => {
+    const panel = () => fixture.nativeElement.querySelector('.admin-panel');
+    const open = () => {
+      fixture.nativeElement.querySelector('.admin-button').click();
+      fixture.detectChanges();
+      expect(panel()).not.toBeNull();
+    };
+    fixture.detectChanges();
+
+    open();
+    fixture.nativeElement.querySelector('.menu-backdrop').click();
+    fixture.detectChanges();
+    expect(panel()).toBeNull();
+
+    open();
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    fixture.detectChanges();
+    expect(panel()).toBeNull();
   });
 
   it('opens the URL inspector from the admin menu', () => {

@@ -1,0 +1,12 @@
+.menu-backdrop {
+  background: transparent;
+  border: 0;
+  bottom: 0;
+  cursor: default;
+  left: 0;
+  padding: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 30;
+}

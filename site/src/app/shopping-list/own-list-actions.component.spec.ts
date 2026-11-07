@@ -10,6 +10,7 @@ import { AnalyticsService } from '../shared/analytics.service';
 import { AuthService } from '../shared/auth.service';
 import { Clipboard } from '../shared/clipboard';
 import { MyListsMenuComponent } from './my-lists-menu.component';
+import { MenuBackdropComponent } from '../menu-backdrop/menu-backdrop.component';
 import { OwnListActionsComponent } from './own-list-actions.component';
 import { ShoppingListShareMenuComponent } from './shopping-list-share-menu.component';
 
@@ -35,6 +36,7 @@ describe('OwnListActionsComponent', () => {
     build = { savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other' };
     onList = null;
     await TestBed.configureTestingModule({
+      imports: [MenuBackdropComponent],
       declarations: [OwnListActionsComponent, ShoppingListShareMenuComponent, MyListsMenuComponent],
       providers: [
         provideRouter([]),
@@ -71,7 +73,7 @@ describe('OwnListActionsComponent', () => {
       expect(menu()).toBeNull();
 
       click(shareButton()!);
-      click(el().querySelector<HTMLButtonElement>('.share-menu-backdrop')!);
+      click(el().querySelector<HTMLButtonElement>('.menu-backdrop')!);
       expect(menu()).toBeNull();
     });
 
@@ -125,12 +127,12 @@ describe('OwnListActionsComponent', () => {
       expect(needs()?.textContent).toContain('Save this build first');
 
       build = { savedBuildId: 'b1', shortId: 's1', name: 'Tank', isDirty: false, ownership: 'other' };
-      click(el().querySelector<HTMLButtonElement>('.share-menu-backdrop')!);
+      click(el().querySelector<HTMLButtonElement>('.menu-backdrop')!);
       click(addButton());
       expect(needs()?.textContent).toContain('Save a copy of it first');
 
       build = { savedBuildId: 'b1', shortId: 's1', name: 'Tank', isDirty: true, ownership: 'owned' };
-      click(el().querySelector<HTMLButtonElement>('.share-menu-backdrop')!);
+      click(el().querySelector<HTMLButtonElement>('.menu-backdrop')!);
       click(addButton());
       expect(needs()?.textContent).toContain('Save your changes first');
 

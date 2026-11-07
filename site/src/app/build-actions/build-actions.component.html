@@ -68,7 +68,7 @@
           <div class="save-menu" role="menu" (keydown)="onSaveMenuKeydown($event)">
             <button #saveMenuItem type="button" class="save-menu-item" role="menuitem" (click)="onSaveAsMenuItemClick()">Save As…</button>
           </div>
-          <button type="button" class="save-menu-backdrop" aria-label="Close save options" (click)="closeSaveMenu()"></button>
+          <app-menu-backdrop label="Close save options" (dismiss)="closeSaveMenu()"></app-menu-backdrop>
         }
       }
     </div>
@@ -104,7 +104,7 @@
           <div class="avatar-menu-header">{{ userDisplayName }}</div>
           <button type="button" class="avatar-menu-item" (click)="signOut()">Sign out</button>
         </div>
-        <button type="button" class="avatar-menu-backdrop" aria-label="Close account menu" (click)="closeMenu()"></button>
+        <app-menu-backdrop label="Close account menu" (dismiss)="closeMenu()"></app-menu-backdrop>
       }
     </div>
   } @else {
@@ -145,8 +145,7 @@
     </div>
 
     @if (isMenuOpen('overflow')) {
-      <button type="button" class="build-overflow-backdrop" aria-label="Close more options"
-        (click)="closeMenu()"></button>
+      <app-menu-backdrop label="Close more options" (dismiss)="closeMenu()"></app-menu-backdrop>
     }
   </div>
 </div>

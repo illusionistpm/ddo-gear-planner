@@ -14,6 +14,7 @@ import { MyListsService } from '../build/my-lists.service';
 import { ShoppingProgressStore } from '../planner/shopping-list/shopping-progress-store';
 import { AuthService } from '../shared/auth.service';
 import { GroupRunPageComponent } from './group-run-page.component';
+import { MenuBackdropComponent } from '../menu-backdrop/menu-backdrop.component';
 
 describe('GroupRunPageComponent', () => {
   let fixture: ComponentFixture<GroupRunPageComponent>;
@@ -59,7 +60,7 @@ describe('GroupRunPageComponent', () => {
     refreshLists = vi.fn();
     await TestBed.configureTestingModule({
       declarations: [GroupRunPageComponent],
-      imports: [RouterLink],
+      imports: [MenuBackdropComponent, RouterLink],
       // app-shopping-list is ShoppingListComponent's to test.
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
@@ -181,6 +182,18 @@ describe('GroupRunPageComponent', () => {
     expect(groups['end']).toHaveBeenCalledWith('grp1');
   });
 
+  it('closes the host menu on Escape', async () => {
+    await create('t=secret');
+    arrive({ isHost: true });
+    button('Manage')!.click();
+    fixture.detectChanges();
+
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    fixture.detectChanges();
+
+    expect(el().querySelector('.group-run-menu')).toBeNull();
+  });
+
   it('closes the host menu on a click anywhere else', async () => {
     await create('t=secret');
     arrive({ isHost: true });
@@ -188,7 +201,7 @@ describe('GroupRunPageComponent', () => {
     fixture.detectChanges();
     expect(el().querySelector('.group-run-menu')).toBeTruthy();
 
-    el().querySelector<HTMLButtonElement>('.group-run-menu-backdrop')!.click();
+    el().querySelector<HTMLButtonElement>('.menu-backdrop')!.click();
     fixture.detectChanges();
 
     expect(el().querySelector('.group-run-menu')).toBeNull();

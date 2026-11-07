@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { firstValueFrom, Subscription } from 'rxjs';
 
@@ -66,13 +66,6 @@ export class OwnListActionsComponent implements OnInit, OnDestroy {
   toggleShare(): void {
     this.shareOpen = !this.shareOpen;
     this.needs = null;
-  }
-
-  @HostListener('document:keydown.escape')
-  closeMenus(): void {
-    this.shareOpen = false;
-    this.needs = null;
-    this.cdr.markForCheck();
   }
 
   /**

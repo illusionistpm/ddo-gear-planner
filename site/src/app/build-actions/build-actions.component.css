@@ -188,19 +188,6 @@
   font-weight: 700;
 }
 
-.avatar-menu-backdrop {
-  background: transparent;
-  border: 0;
-  bottom: 0;
-  cursor: default;
-  left: 0;
-  padding: 0;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 30;
-}
-
 .avatar-menu {
   background: var(--surface-elevated-color);
   border: 1px solid var(--border-color);
@@ -308,19 +295,6 @@
 .save-split-caret:hover,
 .save-split-caret:focus {
   opacity: 0.9;
-}
-
-.save-menu-backdrop {
-  background: transparent;
-  border: 0;
-  bottom: 0;
-  cursor: default;
-  left: 0;
-  padding: 0;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 30;
 }
 
 .save-menu {
@@ -579,17 +553,4 @@
   .build-name-cancel {
     display: none;
   }
-}
-
-.build-overflow-backdrop {
-  background: transparent;
-  border: 0;
-  bottom: 0;
-  cursor: default;
-  left: 0;
-  padding: 0;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 30;
 }

@@ -23,4 +23,4 @@
     <span class="share-menu-error" role="alert">{{ copyError }}</span>
   }
 </div>
-<button type="button" class="share-menu-backdrop" aria-label="Close share menu" (click)="closed.emit()"></button>
+<app-menu-backdrop label="Close share menu" (dismiss)="closed.emit()"></app-menu-backdrop>

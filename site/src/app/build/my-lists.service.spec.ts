@@ -40,6 +40,15 @@ describe('MyListsService', () => {
     expect(TestBed.inject(MyListsService).listFor('b9')).toBeNull();
   });
 
+  it('lists them all, most recently active first, and none once signed out', () => {
+    let lists: readonly GroupSummary[] = [];
+    TestBed.inject(MyListsService).lists$.subscribe(found => lists = found);
+    expect(lists.map(found => found.shortId)).toEqual(['other', 'new', 'old']);
+
+    signedIn.next(false);
+    expect(lists).toEqual([]);
+  });
+
   it('offers none for a build that isn\'t a saved build of yours, or once signed out', () => {
     build.next({ ...build.value, ownership: 'other' });
     expect(rejoin).toBeNull();

@@ -9,6 +9,7 @@ import { ShoppingListService } from '../planner/shopping-list/shopping-list.serv
 import { AnalyticsService } from '../shared/analytics.service';
 import { AuthService } from '../shared/auth.service';
 import { Clipboard } from '../shared/clipboard';
+import { MyListsMenuComponent } from './my-lists-menu.component';
 import { OwnListActionsComponent } from './own-list-actions.component';
 import { ShoppingListShareMenuComponent } from './shopping-list-share-menu.component';
 
@@ -34,13 +35,13 @@ describe('OwnListActionsComponent', () => {
     build = { savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other' };
     onList = null;
     await TestBed.configureTestingModule({
-      declarations: [OwnListActionsComponent, ShoppingListShareMenuComponent],
+      declarations: [OwnListActionsComponent, ShoppingListShareMenuComponent, MyListsMenuComponent],
       providers: [
         provideRouter([]),
         { provide: ShoppingListService, useValue: { stillNeededText: () => 'Still needed for my build (5):', stillNeededKeys: () => ['k1', 'k2', 'k3', 'k4'] } },
         { provide: GroupsService, useValue: { create: createGroup } },
         { provide: AuthService, useValue: { isAuthenticated$: signedIn, signIn } },
-        { provide: MyListsService, useValue: { listFor: (buildId: string) => buildId === 'b1' ? onList : null } }
+        { provide: MyListsService, useValue: { listFor: (buildId: string) => buildId === 'b1' ? onList : null, lists$: of([]) } }
       ]
     }).compileComponents();
     const currentBuild = TestBed.inject(CurrentBuildService);

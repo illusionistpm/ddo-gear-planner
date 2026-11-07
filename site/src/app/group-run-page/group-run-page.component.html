@@ -63,6 +63,7 @@
     }
     <app-shopping-list class="still-needed-list" [groupRun]="groupRun" [group]="run">
       <div listActions class="group-run-actions">
+        <app-my-lists-menu [currentShortId]="shortId"></app-my-lists-menu>
         <button type="button" class="group-run-button" (click)="copyInvite()" title="Copy the link friends use to join and add their builds">
           <i class="fas" [class.fa-link]="!copied" [class.fa-check]="copied" aria-hidden="true"></i>
           <span>{{copied ? 'Copied' : 'Invite'}}</span>

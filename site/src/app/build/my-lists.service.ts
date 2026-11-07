@@ -8,14 +8,18 @@ import { GroupsService, GroupSummary } from './groups.service';
 
 /**
  * Your shopping lists of several builds (GET /api/groups/mine), while
- * signed in: for the planner's Rejoin button, and so Add builds goes back
- * to a list the build is already on rather than starting another.
+ * signed in: for the shopping list's Lists menu, the planner's Rejoin
+ * button, and so Add builds goes back to a list the build is already on
+ * rather than starting another.
  */
 @Injectable({ providedIn: 'root' })
 export class MyListsService implements OnDestroy {
   private readonly listsSubject = new BehaviorSubject<readonly GroupSummary[]>([]);
   private readonly subscription: Subscription;
   private signedIn = false;
+
+  /** All your lists, most recently active first; empty while signed out or until they've loaded. */
+  readonly lists$: Observable<readonly GroupSummary[]>;
 
   /** The list the build on screen is on, if it's a saved build of yours on one: the most recently active. */
   readonly rejoin$: Observable<GroupSummary | null>;
@@ -29,6 +33,9 @@ export class MyListsService implements OnDestroy {
         this.listsSubject.next([]);
       }
     });
+    this.lists$ = this.listsSubject.pipe(
+      map(lists => [...lists].sort((a, b) => a.updatedAt < b.updatedAt ? 1 : a.updatedAt > b.updatedAt ? -1 : 0))
+    );
     this.rejoin$ = combineLatest([this.listsSubject, currentBuild.state$]).pipe(
       map(() => this.listFor(this.yourSavedBuildId())),
       distinctUntilChanged()

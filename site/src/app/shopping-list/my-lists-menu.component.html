@@ -1,0 +1,21 @@
+@if (others.length) {
+  <div class="lists-menu-wrap">
+    <button type="button" class="lists-menu-button" [attr.aria-expanded]="open" (click)="toggle()"
+      title="Your shopping lists of several builds">
+      <i class="fas fa-list-check" aria-hidden="true"></i>
+      <span>Lists</span>
+      <span class="lists-menu-count" aria-hidden="true">{{others.length}}</span>
+    </button>
+    @if (open) {
+      <div class="share-menu lists-menu" role="menu" aria-label="Your shopping lists">
+        @for (list of others; track list.shortId) {
+          <button type="button" role="menuitem" class="share-menu-item lists-menu-item" (click)="go(list)">
+            <span class="lists-menu-name">{{list.name || 'Shopping list'}}</span>
+            <span class="lists-menu-meta">{{list.buildCount}} build{{list.buildCount === 1 ? '' : 's'}}{{list.isHost ? ' · host' : ''}}</span>
+          </button>
+        }
+      </div>
+      <button type="button" class="share-menu-backdrop" aria-label="Close" (click)="close()"></button>
+    }
+  </div>
+}

@@ -66,22 +66,65 @@
   position: absolute;
   right: 0;
   top: calc(100% + var(--space-4));
-  z-index: 20;
+  z-index: 40;
+}
+
+/* A click anywhere else closes the menu, as the share menus' backdrop does. */
+.group-run-menu-backdrop {
+  background: transparent;
+  border: 0;
+  bottom: 0;
+  cursor: default;
+  left: 0;
+  padding: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 30;
+}
+
+.group-run-menu-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Each section under a rule of its own, so the builds don't run into the list's actions. */
+.group-run-menu-group + .group-run-menu-group {
+  border-top: 1px solid var(--border-color);
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
 }
 
 .group-run-menu-label {
   color: var(--text-secondary);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
   padding: var(--space-4) var(--space-8);
+  text-transform: uppercase;
 }
 
 .group-run-menu-item {
+  align-items: center;
   background: transparent;
   border: 0;
   border-radius: 4px;
   color: var(--text-primary);
+  display: flex;
+  gap: var(--space-8);
   padding: var(--space-8);
   text-align: left;
+}
+
+.group-run-menu-icon {
+  color: var(--text-secondary);
+  flex: none;
+  text-align: center;
+  width: 1rem;
+}
+
+.group-run-menu-item.danger .group-run-menu-icon {
+  color: inherit;
 }
 
 .group-run-menu-item:hover {
@@ -90,11 +133,6 @@
 
 .group-run-menu-item.danger {
   color: var(--danger-color);
-}
-
-.group-run-menu-rule {
-  border-color: var(--border-color);
-  margin: var(--space-4) 0;
 }
 
 /* Your builds, in a dialog over the list: add them with a character's name, rename, or take them out. */

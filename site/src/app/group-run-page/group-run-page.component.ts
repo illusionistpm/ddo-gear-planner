@@ -274,6 +274,11 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
     this.adding = false;
   }
 
+  closeHostMenu(): void {
+    this.hostMenuOpen = false;
+    this.confirmingEnd = false;
+  }
+
   /** A new invite link: the old one stops working, and everyone watching through it is disconnected. */
   async replaceLink(): Promise<void> {
     this.actionError = null;

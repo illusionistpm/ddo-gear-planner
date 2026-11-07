@@ -91,22 +91,37 @@
             @if (hostMenuOpen) {
               <div class="group-run-menu" role="menu">
                 @if (r.characters.length) {
-                  <div class="group-run-menu-label">Take out a build</div>
-                  @for (character of r.characters; track character.buildId) {
-                    <button type="button" role="menuitem" class="group-run-menu-item" (click)="removeBuild(character.buildId)">
-                      {{character.characterName}}
+                  <div class="group-run-menu-group" role="group" aria-label="Take out a build">
+                    <div class="group-run-menu-label" aria-hidden="true">Take out a build</div>
+                    @for (character of r.characters; track character.buildId) {
+                      <button type="button" role="menuitem" class="group-run-menu-item" (click)="removeBuild(character.buildId)">
+                        <i class="fas fa-user-minus group-run-menu-icon" aria-hidden="true"></i>
+                        <span>{{character.characterName}}</span>
+                      </button>
+                    }
+                  </div>
+                }
+                <div class="group-run-menu-group" role="group" aria-label="The list">
+                  <div class="group-run-menu-label" aria-hidden="true">The list</div>
+                  <button type="button" role="menuitem" class="group-run-menu-item" (click)="replaceLink()"
+                    title="Make a new invite link; the old one stops working">
+                    <i class="fas fa-arrows-rotate group-run-menu-icon" aria-hidden="true"></i>
+                    <span>Replace the invite link</span>
+                  </button>
+                  @if (confirmingEnd) {
+                    <button type="button" role="menuitem" class="group-run-menu-item danger" (click)="endGroup()">
+                      <i class="fas fa-ban group-run-menu-icon" aria-hidden="true"></i>
+                      <span>Yes, end it for everyone</span>
+                    </button>
+                  } @else {
+                    <button type="button" role="menuitem" class="group-run-menu-item danger" (click)="confirmingEnd = true">
+                      <i class="fas fa-ban group-run-menu-icon" aria-hidden="true"></i>
+                      <span>End the list</span>
                     </button>
                   }
-                  <hr class="group-run-menu-rule">
-                }
-                <button type="button" role="menuitem" class="group-run-menu-item" (click)="replaceLink()"
-                  title="Make a new invite link; the old one stops working">Replace the invite link</button>
-                @if (confirmingEnd) {
-                  <button type="button" role="menuitem" class="group-run-menu-item danger" (click)="endGroup()">Yes, end it for everyone</button>
-                } @else {
-                  <button type="button" role="menuitem" class="group-run-menu-item danger" (click)="confirmingEnd = true">End the list</button>
-                }
+                </div>
               </div>
+              <button type="button" class="group-run-menu-backdrop" aria-label="Close" (click)="closeHostMenu()"></button>
             }
           </div>
         }

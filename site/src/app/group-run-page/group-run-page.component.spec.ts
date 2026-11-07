@@ -181,6 +181,19 @@ describe('GroupRunPageComponent', () => {
     expect(groups['end']).toHaveBeenCalledWith('grp1');
   });
 
+  it('closes the host menu on a click anywhere else', async () => {
+    await create('t=secret');
+    arrive({ isHost: true });
+    button('Manage')!.click();
+    fixture.detectChanges();
+    expect(el().querySelector('.group-run-menu')).toBeTruthy();
+
+    el().querySelector<HTMLButtonElement>('.group-run-menu-backdrop')!.click();
+    fixture.detectChanges();
+
+    expect(el().querySelector('.group-run-menu')).toBeNull();
+  });
+
   it('goes back to the planner as it was before this page', async () => {
     await create('t=secret');
 

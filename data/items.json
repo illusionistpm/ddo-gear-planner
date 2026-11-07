@@ -1337,7 +1337,7 @@
             "Orange Augment Slot",
             "Red Augment Slot"
         ],
-        "ml": 12,
+        "ml": 1,
         "name": "Adamantine Knuckles (level 12)",
         "quests": [
             "A Cabal for One"
@@ -43680,7 +43680,7 @@
                 "value": 1
             }
         ],
-        "ml": 12,
+        "ml": 1,
         "name": "Death's Locket (level 12)",
         "quests": [
             "The Prison of the Planes"
@@ -120327,7 +120327,7 @@
         "crafting": [
             "Colorless Augment Slot"
         ],
-        "ml": 12,
+        "ml": 1,
         "name": "Iron Beads (level 12)",
         "quests": [
             "Madstone Crater"
@@ -122261,7 +122261,7 @@
                 "value": "2"
             }
         ],
-        "ml": 12,
+        "ml": 1,
         "name": "Kardin's Eye (level 12)",
         "quests": [
             "The Prison of the Planes"
@@ -242529,7 +242529,7 @@
                 "value": "10"
             }
         ],
-        "ml": 12,
+        "ml": 1,
         "name": "Ring of Shadows (level 12)",
         "quests": [
             "The Prison of the Planes"
@@ -254414,7 +254414,7 @@
                 "value": "66"
             }
         ],
-        "ml": 12,
+        "ml": 1,
         "name": "Shamanic Fetish (level 12)",
         "quests": [
             "A Cabal for One"

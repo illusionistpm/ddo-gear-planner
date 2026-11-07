@@ -86,6 +86,24 @@ describe('MyListsMenuComponent', () => {
     expect(items().length).toBe(0);
   });
 
+  it('closes on a click anywhere else, or Escape', () => {
+    fixture.detectChanges();
+    arrive([list('a', 'Raid night')]);
+    button()!.click();
+    fixture.detectChanges();
+    expect(items().length).toBe(2);
+
+    el().querySelector<HTMLButtonElement>('button[aria-label="Close"]')!.click();
+    fixture.detectChanges();
+    expect(items().length).toBe(0);
+
+    button()!.click();
+    fixture.detectChanges();
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    fixture.detectChanges();
+    expect(items().length).toBe(0);
+  });
+
   it('on a list of several builds, checks it, and goes back to your build\'s list with it open', () => {
     const navigate = vi.spyOn(TestBed.inject(Router), 'navigateByUrl').mockResolvedValue(true);
     onGroup('a');

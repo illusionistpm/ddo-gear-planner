@@ -687,6 +687,30 @@ describe('BuildActionsComponent markup', () => {
     expect(fixture.nativeElement.querySelector('app-my-builds')).not.toBeNull();
   });
 
+  it('closes each of its menus on a click anywhere else', () => {
+    const open = (toggle: string, menu: string) => {
+      (fixture.nativeElement.querySelector(toggle) as HTMLButtonElement).click();
+      fixture.detectChanges();
+      expect(fixture.nativeElement.querySelector(menu)).not.toBeNull();
+    };
+    const clickAway = (label: string) => {
+      (fixture.nativeElement.querySelector(`button[aria-label="${label}"]`) as HTMLButtonElement).click();
+      fixture.detectChanges();
+    };
+
+    open('.build-overflow-toggle', '.build-overflow-menu.open');
+    clickAway('Close more options');
+    expect(fixture.nativeElement.querySelector('.build-overflow-menu.open')).toBeNull();
+
+    open('.avatar-button', '.avatar-menu');
+    clickAway('Close account menu');
+    expect(fixture.nativeElement.querySelector('.avatar-menu')).toBeNull();
+
+    open('.build-share', 'app-build-share-menu');
+    clickAway('Close share menu');
+    expect(fixture.nativeElement.querySelector('app-build-share-menu')).toBeNull();
+  });
+
   it('keeps the build name group in the DOM, since the panel lives inside it', () => {
     expect(fixture.nativeElement.querySelector('.build-name-group')).not.toBeNull();
   });

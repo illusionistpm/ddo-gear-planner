@@ -15,6 +15,7 @@ import {
   renameGroupBuild,
   reserveAndInsertGroup,
   updateGroupInviteToken,
+  updateGroupName,
   updateGroupRouteIfUnchanged
 } from '../db';
 import { errorResponse, jsonResponse, readJsonBody } from '../http';
@@ -240,6 +241,8 @@ export async function handleListMyGroups(user: AuthenticatedUser, env: Env): Pro
     buildCount: row.build_count,
     // Which of the caller's builds it holds, so the planner can offer to rejoin it from one of them.
     yourBuildIds: row.your_build_ids ? row.your_build_ids.split(',') : [],
+    // Who's on it, so a list of lists can tell them apart.
+    characterNames: row.character_names ? JSON.parse(row.character_names) as string[] : [],
     updatedAt: lastActivityOf(row, [row.progress_at])
   })));
 }
@@ -410,6 +413,28 @@ export async function handlePutGroupRoute(
   }
   tellGroup(env, waiter, group.short_id);
   return jsonResponse({ picks, order: orderOf(routeOrder) });
+}
+
+/** PATCH /api/groups/:shortId. Body: {name}, 1-MAX_NAME_LENGTH characters. The host only. */
+export async function handleRenameGroup(
+  request: Request, shortId: string, user: AuthenticatedUser, env: Env, waiter: Waiter
+): Promise<Response> {
+  const hosted = await groupForHost(env, shortId, user);
+  if (hosted instanceof Response) {
+    return hosted;
+  }
+  const body = await readJsonBody(request, 1024, 'That request is too big.');
+  if (body instanceof Response) {
+    return body;
+  }
+  const given = (body as Record<string, unknown> | null)?.['name'];
+  const name = typeof given === 'string' ? given.trim() : '';
+  if (!name || name.length > MAX_NAME_LENGTH) {
+    return errorResponse(400, `A list's name is 1-${MAX_NAME_LENGTH} characters.`);
+  }
+  await updateGroupName(env.DB, hosted.group.id, name, new Date().toISOString());
+  tellGroup(env, waiter, shortId);
+  return jsonResponse({ name });
 }
 
 /** POST /api/groups/:shortId/invite: a new invite token. The old link stops working, and its sockets close. */

@@ -291,7 +291,10 @@ export class FakeD1 {
           return {
             short_id: group.short_id, name: group.name, invite_token: group.invite_token, host_user_id: group.host_user_id,
             updated_at: group.updated_at, build_count: builds.length, progress_at: progressAt,
-            your_build_ids: yours.length ? yours.join(',') : null
+            your_build_ids: yours.length ? yours.join(',') : null,
+            character_names: JSON.stringify(builds.slice()
+              .sort((a, b) => a.added_at.localeCompare(b.added_at) || a.build_id.localeCompare(b.build_id))
+              .map(g => g.character_name))
           };
         });
     }
@@ -523,6 +526,15 @@ export class FakeD1 {
       }
       Object.assign(group, { picks, route_order: routeOrder, updated_at: updatedAt });
       return { meta: { changes: 1 } };
+    }
+
+    if (sql.startsWith('UPDATE groups SET name')) {
+      const [name, updatedAt, id] = args as [string, string, string];
+      const group = this.groups.find(g => g.id === id);
+      if (group) {
+        Object.assign(group, { name, updated_at: updatedAt });
+      }
+      return { meta: { changes: group ? 1 : 0 } };
     }
 
     if (sql.startsWith('UPDATE groups SET invite_token')) {

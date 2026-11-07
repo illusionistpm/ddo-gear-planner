@@ -101,8 +101,9 @@ New constants in `shared/constants.json`: `maxGroupBuilds: 12`,
 | `DELETE /api/groups/:shortId/builds/:buildId` | the build's owner or the host | Removes a build from the group. |
 | `PUT /api/groups/:shortId/route` | host | Sets `{picksPatch?, order?}`, merged the way `handlePutProgress` merges picks. It reuses that file's `parseKeyed`/`parseOrder`/`mergePatch`, moved to a small shared module, and uses the same throttle pattern. |
 | `POST /api/groups/:shortId/invite` | host | Rotates the invite token. |
+| `PATCH /api/groups/:shortId` | host | Renames the group `{name}` (1-60 characters). |
 | `DELETE /api/groups/:shortId` | host | Ends the group. |
-| `GET /api/groups/mine` | signed in | Groups you host or have a build in, for a "Your group runs" list. |
+| `GET /api/groups/mine` | signed in | Groups you host or have a build in, for a "Your group runs" list, with each one's character names so lists can be told apart. |
 
 The token travels as a query param on the API call. In the site URL it rides
 in the fragment, so it never reaches server logs or Referer headers.

@@ -4,8 +4,8 @@
     <span class="page-chrome-brand-name">DDO Gear Planner</span>
   </div>
   @if (backTo; as to) {
-    @if (to.url) {
-      <a class="page-chrome-back" [routerLink]="to.url" [title]="to.title"
+    @if (backTree) {
+      <a class="page-chrome-back" [routerLink]="backTree" [title]="to.title"
         [attr.target]="to.newTab ? '_blank' : null" [attr.rel]="to.newTab ? 'noopener' : null">
         <i class="fas" [class.fa-arrow-left]="!to.newTab" [class.fa-up-right-from-square]="to.newTab" aria-hidden="true"></i>
         <span>{{to.label}}</span>

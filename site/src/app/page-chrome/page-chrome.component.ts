@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router, UrlTree } from '@angular/router';
 
 import { ThemeService } from '../shared/theme.service';
 
@@ -25,8 +26,21 @@ export interface PageChromeBack {
   standalone: false
 })
 export class PageChromeComponent {
-  @Input() backTo: PageChromeBack | null = null;
   @Output() back = new EventEmitter<void>();
+  /**
+   * `backTo.url`, parsed: given as a string, routerLink takes the whole URL
+   * for a path, and a planner URL's `?b=...` ends up encoded into it.
+   */
+  backTree: UrlTree | null = null;
+  private backToValue: PageChromeBack | null = null;
 
-  constructor(readonly theme: ThemeService) { }
+  constructor(readonly theme: ThemeService, private readonly router: Router) { }
+
+  @Input() set backTo(value: PageChromeBack | null) {
+    this.backToValue = value;
+    this.backTree = value?.url ? this.router.parseUrl(value.url) : null;
+  }
+  get backTo(): PageChromeBack | null {
+    return this.backToValue;
+  }
 }

@@ -164,10 +164,10 @@ describe('GroupRunPageComponent', () => {
   it('gives the host a way to take a build out, replace the link, and end the group', async () => {
     await create('t=secret');
     arrive();
-    expect(el().querySelector('[aria-label="Host options"]')).toBeNull();
+    expect(button('Manage')).toBeUndefined();
 
     arrive({ isHost: true });
-    el().querySelector<HTMLButtonElement>('[aria-label="Host options"]')!.click();
+    button('Manage')!.click();
     fixture.detectChanges();
     button('Kira')!.click();
     await fixture.whenStable();

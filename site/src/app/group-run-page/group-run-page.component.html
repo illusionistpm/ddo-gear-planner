@@ -63,7 +63,6 @@
     }
     <app-shopping-list class="still-needed-list" [groupRun]="groupRun" [group]="run">
       <div listActions class="group-run-actions">
-        <app-my-lists-menu [currentShortId]="shortId"></app-my-lists-menu>
         <button type="button" class="group-run-button" (click)="copyInvite()" title="Copy the link friends use to join and add their builds">
           <i class="fas" [class.fa-link]="!copied" [class.fa-check]="copied" aria-hidden="true"></i>
           <span>{{copied ? 'Copied' : 'Invite'}}</span>
@@ -79,12 +78,15 @@
             <span>Sign in to join</span>
           </button>
         }
+        <!-- As on your build's list: share, add builds, switch lists; the host's menu last. -->
+        <app-my-lists-menu [currentShortId]="shortId"></app-my-lists-menu>
         @if (run; as r) {
         @if (r.isHost) {
           <div class="group-run-host">
-            <button type="button" class="group-run-button" [attr.aria-expanded]="hostMenuOpen" (click)="toggleHostMenu()"
-              aria-label="Host options">
-              <i class="fas fa-ellipsis" aria-hidden="true"></i>
+            <button type="button" class="group-run-button group-run-manage" [attr.aria-expanded]="hostMenuOpen" (click)="toggleHostMenu()"
+              title="Take builds out, replace the invite link, or end the list">
+              <i class="fas fa-sliders" aria-hidden="true"></i>
+              <span>Manage</span>
             </button>
             @if (hostMenuOpen) {
               <div class="group-run-menu" role="menu">

@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { isGroupRunRoute, isStillNeededRoute, routePathOf, urlWithoutFragment } from './build-route';
+import { SHOPPING_LIST_FRAGMENT } from './shopping-list-link';
 
 /**
  * Where a shopping list's page goes back to: the planner as it last was,
@@ -19,7 +20,10 @@ export class ListReturnService implements OnDestroy {
   private readonly subscription: Subscription;
 
   constructor(router: Router) {
-    this.remember(router.url);
+    // Before the first navigation ends, router.url is '/' whatever the page.
+    if (router.navigated) {
+      this.remember(router.url);
+    }
     this.subscription = router.events.pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(event => this.remember(event.urlAfterRedirects));
   }
@@ -27,6 +31,16 @@ export class ListReturnService implements OnDestroy {
   /** The planner's URL to go back to. */
   get url(): string {
     return this.plannerUrl ?? '/';
+  }
+
+  /** Whether the planner was shown before, so there's a build to go back to. */
+  get hasPlanner(): boolean {
+    return this.plannerUrl !== null;
+  }
+
+  /** The planner's URL with its build's shopping list open. */
+  get listUrl(): string {
+    return `${this.url}#${SHOPPING_LIST_FRAGMENT}`;
   }
 
   ngOnDestroy(): void {

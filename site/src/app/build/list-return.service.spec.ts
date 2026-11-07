@@ -20,7 +20,10 @@ describe('ListReturnService', () => {
   });
 
   it('goes to a new build when the planner was never shown', () => {
-    expect(TestBed.inject(ListReturnService).url).toBe('/');
+    const service = TestBed.inject(ListReturnService);
+
+    expect(service.url).toBe('/');
+    expect(service.hasPlanner).toBe(false);
   });
 
   it('remembers the planner as it last was, without its open list, through list pages', async () => {
@@ -32,5 +35,7 @@ describe('ListReturnService', () => {
     await router.navigateByUrl('/still-needed/s2');
 
     expect(service.url).toBe('/build/s1?b=z1.x');
+    expect(service.hasPlanner).toBe(true);
+    expect(service.listUrl).toBe('/build/s1?b=z1.x#shopping-list');
   });
 });

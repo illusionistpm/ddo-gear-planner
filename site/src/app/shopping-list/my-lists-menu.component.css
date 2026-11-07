@@ -47,7 +47,24 @@
   border-top: 1px solid var(--border-color);
 }
 
+.lists-menu-item.current {
+  cursor: default;
+  font-weight: 600;
+}
+
+/* Your build's list stands apart from the lists of several builds under it. */
+.lists-menu-item.own + .lists-menu-item {
+  border-top-width: 2px;
+}
+
+.lists-menu-check {
+  color: var(--primary-color);
+  flex: none;
+  font-size: 0.8rem;
+}
+
 .lists-menu-name {
+  flex: 1;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -1,0 +1,43 @@
+@if (loadError) {
+  <p class="list-dialog-error" role="alert">{{loadError}}</p>
+} @else if (choices === null) {
+  <p class="list-dialog-note">Loading your builds…</p>
+} @else if (!choices.length) {
+  <p class="list-dialog-note">You haven't saved any other builds yet. Save one in the planner, then add it here.</p>
+} @else {
+  <ul class="build-choices">
+    @for (choice of choices; track choice.build.id) {
+      <li class="build-choice" [class.in-group]="choice.inGroup">
+        @if (mode === 'pick') {
+          <label class="build-choice-pick">
+            <input type="checkbox" [checked]="choice.picked || choice.inGroup" [disabled]="choice.inGroup || (full && !choice.picked)"
+              (change)="setPicked(choice, $any($event.target).checked)">
+            <span class="build-choice-name" [title]="choice.build.name">{{choice.build.name}}</span>
+          </label>
+        } @else {
+          <span class="build-choice-name" [title]="choice.build.name">{{choice.build.name}}</span>
+        }
+        @if (mode === 'pick' && choice.inGroup) {
+          <span class="build-choice-status">On the list as {{choice.characterName}}</span>
+        } @else {
+          <label class="build-choice-character">
+            <span class="visually-hidden">Character name for {{choice.build.name}}</span>
+            <input type="text" class="list-dialog-input build-choice-input" [value]="choice.characterName" [attr.maxlength]="maxNameLength"
+              placeholder="Character name" (input)="setCharacterName(choice, $any($event.target).value)" (keydown.enter)="submit(choice)">
+          </label>
+        }
+        @if (mode === 'manage') {
+          @if (choice.inGroup) {
+            <button type="button" class="pill-button" [disabled]="choice.busy" (click)="rename.emit(choice)">Rename</button>
+            <button type="button" class="pill-button" [disabled]="choice.busy" (click)="remove.emit(choice)">Take out</button>
+          } @else {
+            <button type="button" class="pill-button primary" [disabled]="choice.busy || full" (click)="add.emit(choice)">Add</button>
+          }
+        }
+        @if (choice.error) {
+          <span class="list-dialog-error" role="alert">{{choice.error}}</span>
+        }
+      </li>
+    }
+  </ul>
+}

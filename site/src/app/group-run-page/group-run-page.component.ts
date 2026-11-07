@@ -1,12 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom, Subscription } from 'rxjs';
 
-import { BuildSummary } from '../build/build';
 import { BuildsService } from '../build/builds.service';
 import {
-  addBuildsOf, characterNameFor, groupBuildFailureOf, groupPath, GroupsService, inviteTokenOf, MAX_CHARACTER_NAME_LENGTH, MAX_GROUP_BUILDS
+  addBuildsOf, groupBuildErrorOf, groupPath, GroupsService, inviteTokenOf, inviteUrlOf, MAX_GROUP_BUILDS, MAX_LIST_NAME_LENGTH
 } from '../build/groups.service';
 import { ListReturnService } from '../build/list-return.service';
 import { MyListsService } from '../build/my-lists.service';
@@ -17,26 +16,17 @@ import { AnalyticsService } from '../shared/analytics.service';
 import { PageChromeBack } from '../page-chrome/page-chrome.component';
 import { AuthService } from '../shared/auth.service';
 import { Clipboard } from '../shared/clipboard';
+import { BuildChoice, buildChoicesOf } from '../shopping-list/build-choices.component';
 
 const SITE_TITLE = 'DDO Gear Planner';
-
-/** One of your saved builds, in the Add builds panel. */
-interface BuildChoice {
-  build: BuildSummary;
-  /** The character name it's in the group as, or would be added as. */
-  characterName: string;
-  inGroup: boolean;
-  busy: boolean;
-  error: string | null;
-}
 
 /**
  * A shopping list of several builds, at /list/:shortId#t=<invite token>
  * (`&add` opens Add builds): yours and friends', shopped for as one list,
  * each row saying which characters it's for. Anyone with the link watches
  * it live; signed in, they add their own saved builds and tick their own
- * characters' rows off. The host also arranges the shared route, replaces
- * the link, and ends the list.
+ * characters' rows off. The host also arranges the shared route, renames
+ * the list, replaces the link, and ends it.
  *
  * Like the still-needed page, it reads the builds itself and leaves the
  * planner as it was: its Planner link goes back to it.
@@ -44,7 +34,7 @@ interface BuildChoice {
 @Component({
   selector: 'app-group-run-page',
   templateUrl: './group-run-page.component.html',
-  styleUrls: ['../still-needed-page/still-needed-page.component.css', './group-run-page.component.css'],
+  styleUrls: ['../still-needed-page/still-needed-page.component.css', '../shared/list-dialog-parts.css', './group-run-page.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [GroupRunService],
   standalone: false
@@ -53,7 +43,7 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
   /** The header's way back: the planner, as it was before this page. */
   readonly plannerLink: PageChromeBack;
   readonly maxBuilds = MAX_GROUP_BUILDS;
-  readonly maxNameLength = MAX_CHARACTER_NAME_LENGTH;
+  readonly maxListNameLength = MAX_LIST_NAME_LENGTH;
   run: GroupRunView | null = null;
   shortId = '';
   token: string | null = null;
@@ -66,6 +56,8 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
   hostMenuOpen = false;
   /** Asking the host to confirm ending the group. */
   confirmingEnd = false;
+  /** The name the host is renaming the list to; null when not renaming. */
+  newName: string | null = null;
   copied = false;
   /** Said once a host action fails. */
   actionError: string | null = null;
@@ -133,7 +125,7 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
   }
 
   get inviteUrl(): string {
-    return `${window.location.origin}${groupPath(this.shortId, this.token ?? '')}`;
+    return inviteUrlOf(this.shortId, this.token ?? '');
   }
 
   get full(): boolean {
@@ -154,12 +146,9 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
     this.auth.signIn();
   }
 
-  @HostListener('document:keydown.escape')
   closeAdding(): void {
-    if (this.adding) {
-      this.adding = false;
-      this.cdr.markForCheck();
-    }
+    this.adding = false;
+    this.cdr.markForCheck();
   }
 
   toggleAdding(): void {
@@ -174,7 +163,7 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
     this.choicesError = null;
     this.builds.listMine().subscribe({
       next: builds => {
-        this.choices = builds.map(build => ({ build, characterName: characterNameFor(build.name), inGroup: false, busy: false, error: null }));
+        this.choices = buildChoicesOf(builds);
         this.syncChoices();
         this.cdr.markForCheck();
       },
@@ -196,11 +185,6 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
       }
       choice.inGroup = name !== undefined;
     }
-  }
-
-  setCharacterName(choice: BuildChoice, value: string): void {
-    choice.characterName = value;
-    choice.error = null;
   }
 
   async addBuild(choice: BuildChoice): Promise<void> {
@@ -249,19 +233,7 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
       this.analytics.track(event, {});
       this.groupRun.refreshViewer();
     } catch (error) {
-      switch (groupBuildFailureOf(error)) {
-        case 'name-taken':
-          choice.error = 'A character on this list already has that name.';
-          break;
-        case 'full':
-          choice.error = `A list holds up to ${this.maxBuilds} builds.`;
-          break;
-        case 'already-in':
-          choice.error = 'That build is on this list already.';
-          break;
-        default:
-          choice.error = 'Couldn\'t save that. Please try again.';
-      }
+      choice.error = groupBuildErrorOf(error);
     } finally {
       choice.busy = false;
       this.cdr.markForCheck();
@@ -271,12 +243,32 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
   toggleHostMenu(): void {
     this.hostMenuOpen = !this.hostMenuOpen;
     this.confirmingEnd = false;
+    this.newName = null;
     this.adding = false;
   }
 
   closeHostMenu(): void {
     this.hostMenuOpen = false;
     this.confirmingEnd = false;
+    this.newName = null;
+  }
+
+  /** Renames the list; everyone watching sees the new name as the group arrives again. */
+  async renameList(): Promise<void> {
+    const name = this.newName?.trim();
+    if (!name) {
+      return;
+    }
+    this.actionError = null;
+    try {
+      await firstValueFrom(this.groups.rename(this.shortId, name));
+      this.analytics.track('rename_group', {});
+      this.closeHostMenu();
+    } catch {
+      this.actionError = 'Couldn\'t rename the list. Please try again.';
+    } finally {
+      this.cdr.markForCheck();
+    }
   }
 
   /** A new invite link: the old one stops working, and everyone watching through it is disconnected. */

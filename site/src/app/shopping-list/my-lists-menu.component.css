@@ -63,9 +63,16 @@
   font-size: 0.8rem;
 }
 
-.lists-menu-name {
+/* The name, and under it who's on the list: each cut short rather than wrapped. */
+.lists-menu-text {
+  display: flex;
   flex: 1;
+  flex-direction: column;
   min-width: 0;
+}
+
+.lists-menu-name,
+.lists-menu-meta {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -73,7 +80,6 @@
 
 .lists-menu-meta {
   color: var(--text-secondary);
-  flex: none;
   font-size: 0.8rem;
 }
 

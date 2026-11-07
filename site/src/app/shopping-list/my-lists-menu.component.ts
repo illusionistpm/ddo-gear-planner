@@ -20,6 +20,11 @@ export interface ListsMenuEntry {
   url: string;
 }
 
+/** Who's on a list, so lists with the same name can be told apart: its characters, or failing those how many builds. */
+function listMembersOf(list: GroupSummary): string {
+  return list.characterNames.length ? list.characterNames.join(', ') : `${list.buildCount} build${list.buildCount === 1 ? '' : 's'}`;
+}
+
 /**
  * Lists, beside a shopping list's title: a switcher between your build's
  * own list and the shopping lists of several builds you host or have a build
@@ -77,7 +82,7 @@ export class MyListsMenuComponent implements OnInit, OnDestroy {
       entries.push({
         key: list.shortId,
         name: list.name || 'Shopping list',
-        meta: `${list.buildCount} build${list.buildCount === 1 ? '' : 's'}${list.isHost ? ' · host' : ''}`,
+        meta: `${listMembersOf(list)}${list.isHost ? ' · host' : ''}`,
         current: list.shortId === this.currentShortId,
         own: false,
         url: groupPath(list.shortId, list.inviteToken)

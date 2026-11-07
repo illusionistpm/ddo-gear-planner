@@ -1,0 +1,11 @@
+<dialog #dialog class="list-dialog-backdrop" [attr.aria-label]="heading" (click)="clickedOutside($event)" (cancel)="cancelled($event)">
+  <section class="list-dialog">
+    <div class="list-dialog-header">
+      <strong>{{heading}}</strong>
+      <button type="button" class="list-dialog-close" aria-label="Close" (click)="closed.emit()">
+        <i class="fas fa-xmark" aria-hidden="true"></i>
+      </button>
+    </div>
+    <ng-content></ng-content>
+  </section>
+</dialog>

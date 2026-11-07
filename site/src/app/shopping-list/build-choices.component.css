@@ -1,0 +1,44 @@
+.build-choices {
+  list-style: none;
+  margin: var(--space-8) 0 0;
+  padding: 0;
+}
+
+.build-choice {
+  align-items: center;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-8);
+  padding: var(--space-8) 0;
+}
+
+.build-choice-pick {
+  align-items: center;
+  display: flex;
+  flex: 1 1 10rem;
+  gap: var(--space-8);
+  margin: 0;
+  min-width: 0;
+}
+
+.build-choice-name {
+  flex: 1 1 10rem;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.build-choice.in-group .build-choice-name {
+  font-weight: 700;
+}
+
+.build-choice-input {
+  width: 11rem;
+}
+
+.build-choice-status {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}

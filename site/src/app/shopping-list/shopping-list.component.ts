@@ -318,7 +318,10 @@ export class ShoppingListComponent implements OnInit, OnChanges, AfterViewInit, 
   get liveLabel(): { text: string; title: string; live: boolean } | null {
     switch (this.friend?.connection ?? this.group?.connection) {
       case 'live':
-        return { text: 'Live', title: 'Changes show here as they\'re made', live: true };
+        // A list of only your own builds has no one else's changes to show: it's your list, not a shared one.
+        return this.group?.characters.every(character => character.mine)
+          ? null
+          : { text: 'Live', title: 'Changes show here as they\'re made', live: true };
       case 'connecting':
       case 'reconnecting':
         return { text: 'Reconnecting…', title: 'Changes made meanwhile show once it\'s back', live: false };

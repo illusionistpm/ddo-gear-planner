@@ -36,11 +36,6 @@
   border-top: 1px solid var(--border-color);
 }
 
-.list-action-error {
-  color: var(--danger-color);
-  font-size: 0.85rem;
-}
-
 /* Thumb-sized on touch screens, as the list's own buttons are. */
 @media (pointer: coarse) {
   .list-action {

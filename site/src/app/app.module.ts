@@ -55,6 +55,8 @@ import { ShoppingListShareMenuComponent } from './shopping-list/shopping-list-sh
 import { StillNeededPageComponent } from './still-needed-page/still-needed-page.component';
 import { GroupRunPageComponent } from './group-run-page/group-run-page.component';
 import { MenuBackdropComponent } from './menu-backdrop/menu-backdrop.component';
+import { BuildChoicesComponent } from './shopping-list/build-choices.component';
+import { ListDialogComponent } from './shopping-list/list-dialog.component';
 import { ServerShoppingProgressStore } from './planner/shopping-list/server-shopping-progress-store';
 import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress-store';
 
@@ -110,6 +112,8 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         FormsModule,
         CdkScrollable,
         MenuBackdropComponent,
+        ListDialogComponent,
+        BuildChoicesComponent,
         AuthModule.forRoot({
             domain: environment.auth0Domain,
             clientId: environment.auth0ClientId,

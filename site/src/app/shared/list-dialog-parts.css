@@ -1,0 +1,93 @@
+/*
+ * What goes in a list dialog (app-list-dialog): notes, a labelled field,
+ * the pill buttons along its foot, and errors. In the styleUrls of each
+ * component that fills one, as its content is styled by whoever projects it.
+ */
+.list-dialog-note {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin: var(--space-4) 0 0;
+}
+
+.list-dialog-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: var(--space-8) 0 0;
+}
+
+.list-dialog-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.list-dialog-input {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-primary);
+  padding: var(--space-2) var(--space-8);
+}
+
+.list-dialog-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin-top: var(--space-12);
+}
+
+.list-dialog-link {
+  background: transparent;
+  border: 0;
+  color: var(--primary-color);
+  font-size: 0.85rem;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.list-dialog-error {
+  color: var(--danger-color);
+  flex-basis: 100%;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* As the list's own pill buttons; the primary one filled. */
+.pill-button {
+  align-items: center;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  color: var(--text-primary);
+  display: inline-flex;
+  font-size: 0.85rem;
+  gap: var(--space-4);
+  padding: var(--space-2) var(--space-12);
+}
+
+.pill-button:hover:not(:disabled) {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.pill-button.primary {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--on-accent-text-color);
+  font-weight: 700;
+}
+
+.pill-button.primary:hover:not(:disabled) {
+  color: var(--on-accent-text-color);
+}
+
+.pill-button:disabled {
+  opacity: 0.6;
+}
+
+@media (pointer: coarse) {
+  .pill-button {
+    min-height: 2.5rem;
+  }
+}

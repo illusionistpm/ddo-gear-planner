@@ -12,8 +12,10 @@
           <button type="button" role="menuitemradio" class="share-menu-item lists-menu-item"
             [class.current]="entry.current" [class.own]="entry.own" [attr.aria-checked]="entry.current" (click)="go(entry)">
             <i class="fas fa-check lists-menu-check" [class.invisible]="!entry.current" aria-hidden="true"></i>
-            <span class="lists-menu-name">{{entry.name}}</span>
-            <span class="lists-menu-meta">{{entry.meta}}</span>
+            <span class="lists-menu-text">
+              <span class="lists-menu-name">{{entry.name}}</span>
+              <span class="lists-menu-meta" [title]="entry.meta">{{entry.meta}}</span>
+            </span>
           </button>
         }
       </div>

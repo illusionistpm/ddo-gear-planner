@@ -229,7 +229,7 @@ describe('PlannerToolbarComponent rejoining a list', () => {
   it('offers to rejoin the list of several builds this build is on, beside the shopping list', async () => {
     expect(button()).toBeNull();
 
-    rejoin.next({ shortId: 'grp1', name: 'Saturday run', inviteToken: 'tok', isHost: false, buildCount: 3, yourBuildIds: ['b1'], updatedAt: '' });
+    rejoin.next({ shortId: 'grp1', name: 'Saturday run', inviteToken: 'tok', isHost: false, buildCount: 3, yourBuildIds: ['b1'], characterNames: [], updatedAt: '' });
     fixture.detectChanges();
     const navigate = vi.spyOn(TestBed.inject(Router), 'navigateByUrl').mockResolvedValue(true);
 

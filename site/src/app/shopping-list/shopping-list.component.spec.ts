@@ -687,6 +687,20 @@ describe('ShoppingListComponent', () => {
       expect(el().querySelector('.shopping-list-back')).toBeNull();
     });
 
+    it('doesn\'t call a list of only your own builds live: no one else is changing it', () => {
+      showGroup({ characters: [
+        { buildId: 'b-kira', characterName: 'Kira', accent: 0, mine: true, needed: 3, total: 3, buildName: 'Tank', unreadable: false },
+        { buildId: 'b-vex', characterName: 'Vex', accent: 1, mine: true, needed: 0, total: 1, buildName: 'Archer', unreadable: false }
+      ] });
+
+      expect(el().querySelector('.shopping-list-live')).toBeNull();
+
+      showGroup({ connection: 'reconnecting', characters: [
+        { buildId: 'b-kira', characterName: 'Kira', accent: 0, mine: true, needed: 3, total: 3, buildName: 'Tank', unreadable: false }
+      ] });
+      expect(el().querySelector('.shopping-list-live')?.textContent?.trim()).toBe('Reconnecting…');
+    });
+
     it('makes each character\'s chip on a row: yours a box to tick, friends\' a dot to read', () => {
       showGroup();
 

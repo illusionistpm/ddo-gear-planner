@@ -15,6 +15,9 @@ import { ShoppingProgressStore } from '../planner/shopping-list/shopping-progres
 import { AuthService } from '../shared/auth.service';
 import { GroupRunPageComponent } from './group-run-page.component';
 import { MenuBackdropComponent } from '../menu-backdrop/menu-backdrop.component';
+import { Clipboard } from '../shared/clipboard';
+import { BuildChoicesComponent } from '../shopping-list/build-choices.component';
+import { ListDialogComponent } from '../shopping-list/list-dialog.component';
 
 describe('GroupRunPageComponent', () => {
   let fixture: ComponentFixture<GroupRunPageComponent>;
@@ -52,7 +55,7 @@ describe('GroupRunPageComponent', () => {
     };
     groups = {
       addBuild: vi.fn(() => of({})), renameBuild: vi.fn(() => of({})), removeBuild: vi.fn(() => of(undefined)),
-      rotateInvite: vi.fn(() => of({ inviteToken: 'new' })), end: vi.fn(() => of(undefined))
+      rotateInvite: vi.fn(() => of({ inviteToken: 'new' })), end: vi.fn(() => of(undefined)), rename: vi.fn(() => of({ name: 'Saturday raid' }))
     };
     signedIn = new BehaviorSubject(signedInAtCreate);
     signIn = vi.fn();
@@ -60,7 +63,7 @@ describe('GroupRunPageComponent', () => {
     refreshLists = vi.fn();
     await TestBed.configureTestingModule({
       declarations: [GroupRunPageComponent],
-      imports: [MenuBackdropComponent, RouterLink],
+      imports: [MenuBackdropComponent, RouterLink, ListDialogComponent, BuildChoicesComponent],
       // app-shopping-list is ShoppingListComponent's to test.
       schemas: [NO_ERRORS_SCHEMA],
       providers: [
@@ -132,8 +135,8 @@ describe('GroupRunPageComponent', () => {
     button('Add builds')!.click();
     fixture.detectChanges();
 
-    const rows = Array.from(el().querySelectorAll<HTMLElement>('.group-run-build'));
-    expect(rows.map(row => row.querySelector('.group-run-build-name')?.textContent)).toEqual(['Tank build', 'My alt with a long name']);
+    const rows = Array.from(el().querySelectorAll<HTMLElement>('.build-choice'));
+    expect(rows.map(row => row.querySelector('.build-choice-name')?.textContent)).toEqual(['Tank build', 'My alt with a long name']);
     expect(rows[0].classList).toContain('in-group');
     const altName = rows[1].querySelector<HTMLInputElement>('input')!;
     // Named after the build, as much of it as fits.
@@ -141,7 +144,7 @@ describe('GroupRunPageComponent', () => {
 
     altName.value = 'Thane';
     altName.dispatchEvent(new Event('input'));
-    rows[1].querySelector<HTMLButtonElement>('.group-run-button.primary')!.click();
+    rows[1].querySelector<HTMLButtonElement>('.pill-button.primary')!.click();
     await fixture.whenStable();
 
     expect(groups['addBuild']).toHaveBeenCalledWith('grp1', 'secret', { buildId: 'b-alt', characterName: 'Thane' });
@@ -155,7 +158,7 @@ describe('GroupRunPageComponent', () => {
     button('Add builds')!.click();
     fixture.detectChanges();
 
-    el().querySelectorAll<HTMLElement>('.group-run-build')[1].querySelector<HTMLButtonElement>('.group-run-button.primary')!.click();
+    el().querySelectorAll<HTMLElement>('.build-choice')[1].querySelector<HTMLButtonElement>('.pill-button.primary')!.click();
     await fixture.whenStable();
     fixture.detectChanges();
 
@@ -180,6 +183,39 @@ describe('GroupRunPageComponent', () => {
     expect(groups['end']).not.toHaveBeenCalled();
     button('Yes, end it for everyone')!.click();
     expect(groups['end']).toHaveBeenCalledWith('grp1');
+  });
+
+  it('invites friends with a link that brings them to adding their builds', async () => {
+    await create('t=secret');
+    arrive();
+    const copy = vi.spyOn(Clipboard, 'copy').mockReturnValue(true);
+
+    button('Invite friends')!.click();
+    fixture.detectChanges();
+
+    expect(copy).toHaveBeenCalledWith(`${window.location.origin}/list/grp1#t=secret&add`);
+    expect(button('Invite link copied')).toBeTruthy();
+  });
+
+  it('lets the host rename the list from Manage', async () => {
+    await create('t=secret');
+    arrive({ isHost: true });
+    button('Manage')!.click();
+    fixture.detectChanges();
+
+    button('Rename the list')!.click();
+    fixture.detectChanges();
+    const input = el().querySelector<HTMLInputElement>('#groupRunName')!;
+    expect(input.value).toBe('Reaper night');
+    input.value = '  Saturday raid ';
+    input.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    button('Save')!.click();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(groups['rename']).toHaveBeenCalledWith('grp1', 'Saturday raid');
+    expect(el().querySelector('.group-run-menu')).toBeNull();
   });
 
   it('closes the host menu on Escape', async () => {
@@ -217,24 +253,28 @@ describe('GroupRunPageComponent', () => {
     signedInAtCreate = false;
     await create('t=secret&add');
     arrive();
-    expect(el().querySelector('.group-run-panel')).toBeNull();
+    expect(el().querySelector('dialog')).toBeNull();
 
     signedIn.next(true);
     fixture.detectChanges();
 
-    expect(el().querySelector('.group-run-panel')).toBeTruthy();
-    expect(Array.from(el().querySelectorAll('.group-run-build-name'), name => name.textContent)).toEqual(['Tank build', 'My alt with a long name']);
+    expect(el().querySelector('dialog')).toBeTruthy();
+    expect(Array.from(el().querySelectorAll('.build-choice-name'), name => name.textContent)).toEqual(['Tank build', 'My alt with a long name']);
   });
 
   it('adds builds in a dialog over the list, closed by clicking away or Escape', async () => {
     await create('t=secret');
     arrive();
-    const dialog = () => el().querySelector('.group-run-panel[role="dialog"]');
+    const dialog = () => el().querySelector<HTMLElement>('dialog[aria-label="Add builds"]');
 
     button('Add builds')!.click();
     fixture.detectChanges();
     expect(dialog()).toBeTruthy();
-    el().querySelector<HTMLElement>('.group-run-backdrop')!.click();
+    // Inside the panel stays open; outside it, on the dimmed rest of the page, closes.
+    dialog()!.querySelector<HTMLElement>('.list-dialog')!.click();
+    fixture.detectChanges();
+    expect(dialog()).toBeTruthy();
+    dialog()!.click();
     fixture.detectChanges();
     expect(dialog()).toBeNull();
 

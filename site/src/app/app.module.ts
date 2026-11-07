@@ -32,6 +32,7 @@ import { UserItemLocationTooltipPipe } from './shared/user-item-location-tooltip
 import { AdminLinkComponent } from './admin-link.component';
 import { SuggestionDrawerComponent } from './suggestion-drawer/suggestion-drawer.component';
 import { AffixBuilderDrawerComponent } from './affix-builder-drawer/affix-builder-drawer.component';
+import { AffixStartPromptComponent } from './affix-start-prompt/affix-start-prompt.component';
 import { EquipmentSlotCardComponent } from './equipment-slot-card/equipment-slot-card.component';
 import { ExternalAffixSlotCardComponent } from './external-affix-slot-card/external-affix-slot-card.component';
 import { ExternalAffixFormComponent } from './external-affix-form/external-affix-form.component';
@@ -80,6 +81,7 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         AdminLinkComponent,
         SuggestionDrawerComponent,
         AffixBuilderDrawerComponent,
+        AffixStartPromptComponent,
         EquipmentSlotCardComponent,
         ExternalAffixSlotCardComponent,
         ExternalAffixFormComponent,

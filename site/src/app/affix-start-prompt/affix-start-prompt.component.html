@@ -1,0 +1,46 @@
+@if (variant === 'card') {
+  <section class="affix-start-card onboarding-instruction-panel" aria-labelledby="affixStartTitle">
+    <div class="onboarding-step-label">Get started</div>
+    <h2 id="affixStartTitle">Choose what your gear should cover</h2>
+    <p class="affix-start-lead">
+      Tell the planner which bonuses your build cares about. It tracks them here while you pick gear,
+      and shows how close each one is to the best available.
+    </p>
+
+    <ol class="affix-start-steps">
+      <li><span class="affix-start-step-number" aria-hidden="true">1</span>Choose the affixes you want.</li>
+      <li><span class="affix-start-step-number" aria-hidden="true">2</span>Equip gear, or search for an item.</li>
+      <li><span class="affix-start-step-number" aria-hidden="true">3</span>Click any bonus here to find the items that supply it.</li>
+    </ol>
+
+    <div class="affix-start-actions">
+      <button type="button" class="onboarding-action-button affix-start-choose" (click)="chooseAffixes()">
+        <span class="fas fa-plus" aria-hidden="true"></span> Choose affixes
+      </button>
+    </div>
+
+    <div class="affix-start-quick" role="group" aria-labelledby="affixStartQuickLabel">
+      <span class="affix-start-quick-label" id="affixStartQuickLabel">Or start from a package:</span>
+      <div class="affix-start-quick-chips">
+        @for (pkg of packageKeys; track pkg) {
+          <button type="button" class="affix-start-package" [class.recommended]="pkg === recommendedPackage"
+            [title]="packageTooltip(pkg)" (click)="quickAdd(pkg)">
+            {{pkg}}
+            @if (pkg === recommendedPackage) {
+              <span class="affix-start-package-badge">Recommended</span>
+            }
+          </button>
+        }
+      </div>
+    </div>
+  </section>
+} @else {
+  <section class="affix-start-banner onboarding-instruction-panel" aria-label="Choose affixes to get started">
+    <p>
+      <strong>New here?</strong> Choose the affixes your build needs, and the planner will track them as you pick gear.
+    </p>
+    <button type="button" class="onboarding-action-button affix-start-choose" (click)="chooseAffixes()">
+      <span class="fas fa-plus" aria-hidden="true"></span> Choose affixes
+    </button>
+  </section>
+}

@@ -67,7 +67,7 @@ describe('MainComponent', () => {
   });
 
   beforeEach(() => {
-    // The empty-URL default adds a whole bundle, which would otherwise queue idle-time availability warmup.
+    // Adding a whole package would otherwise queue idle-time availability warmup.
     vi.spyOn(TestBed.inject(EquippedService) as any, '_scheduleAvailabilityWarmup').mockReturnValue(undefined);
     fixture = TestBed.createComponent(MainComponent);
     component = fixture.componentInstance;
@@ -78,38 +78,49 @@ describe('MainComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('starts an empty URL on the Basic package, in the setup screen', () => {
+  it('opens an empty URL on the planner itself, tracking nothing, with nothing to save', () => {
     const equipped = TestBed.inject(EquippedService);
+    const el: HTMLElement = fixture.nativeElement;
 
-    expect(equipped.getImportantAffixes().has('Dodge')).toBe(true);
-    expect(equipped.getImportantAffixes().has('Melee Power')).toBe(false);
-    expect(TestBed.inject(AffixBuilderDrawerService).mode).toBe('setup');
+    expect(equipped.getImportantAffixes().size).toBe(0);
+    expect(TestBed.inject(AffixBuilderDrawerService).isOpen).toBe(false);
+    expect(TestBed.inject(CurrentBuildService).value.isDirty).toBe(false);
+    expect(el.querySelector('.affix-builder-drawer')).toBeNull();
+    // The way in instead: the start card in the affixes panel, and a highlighted button.
+    expect(el.querySelector('#affixesPanel app-affix-start-prompt .affix-start-card')).not.toBeNull();
+    expect(el.querySelector('.tracked-affix-edit-affixes.needs-attention')).not.toBeNull();
   });
 
-  it('does not count the Basic package it starts an empty URL on as an unsaved change', () => {
-    const currentBuild = TestBed.inject(CurrentBuildService);
-    expect(TestBed.inject(EquippedService).getImportantAffixes().has('Dodge')).toBe(true);
-    expect(currentBuild.value.isDirty).toBe(false);
-
-    // The user's own first edit still counts.
-    TestBed.inject(EquippedService).setImportantAffixes(['Strength']);
-
-    expect(currentBuild.value.isDirty).toBe(true);
-  });
-
-  it('starts a new build (empty URL re-applied) on the Basic package, in the setup screen', () => {
+  it('starts a new build (empty URL re-applied) on the planner, not in the affix builder', () => {
     const equipped = TestBed.inject(EquippedService);
     const drawer = TestBed.inject(AffixBuilderDrawerService);
 
     // What's left over from the build being replaced.
-    drawer.close();
     equipped.setImportantAffixes(['Strength']);
 
     TestBed.inject(QueryParamsService).updateFromParams(convertToParamMap({}));
 
-    expect(equipped.getImportantAffixes().has('Strength')).toBe(false);
-    expect(equipped.getImportantAffixes().has('Dodge')).toBe(true);
-    expect(drawer.mode).toBe('setup');
+    expect(equipped.getImportantAffixes().size).toBe(0);
+    expect(drawer.isOpen).toBe(false);
+  });
+
+  it('opens the affix builder from the start card, and drops the prompts once something is chosen', () => {
+    const el: HTMLElement = fixture.nativeElement;
+    const drawer = TestBed.inject(AffixBuilderDrawerService);
+
+    (el.querySelector('.affix-start-card .affix-start-choose') as HTMLButtonElement).click();
+    expect(drawer.isOpen).toBe(true);
+    drawer.close();
+
+    const basic = Array.from(el.querySelectorAll<HTMLButtonElement>('.affix-start-card .affix-start-package'))
+      .find(button => button.textContent?.includes('Basic'));
+    basic!.click();
+    fixture.detectChanges();
+
+    expect(TestBed.inject(EquippedService).getImportantAffixes().has('Dodge')).toBe(true);
+    expect(drawer.isOpen).toBe(false);
+    expect(el.querySelector('app-affix-start-prompt')).toBeNull();
+    expect(el.querySelector('.tracked-affix-edit-affixes.needs-attention')).toBeNull();
   });
 
   it('renders non-production admin access in the workspace bar', () => {
@@ -300,7 +311,6 @@ describe('MainComponent - loading a build by shortId', () => {
       reset: vi.fn().mockName('CurrentBuildService.reset'),
       restoreIdentity: vi.fn().mockName('CurrentBuildService.restoreIdentity'),
       getCanonicalParamsCache: vi.fn().mockName('CurrentBuildService.getCanonicalParamsCache'),
-      acceptCurrentAsBaseline: vi.fn().mockName('CurrentBuildService.acceptCurrentAsBaseline'),
       value: { savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other' },
       // BuildActionsComponent (rendered inside MainComponent's template)
       // also injects CurrentBuildService and subscribes to state$.
@@ -371,7 +381,7 @@ describe('MainComponent - loading a build by shortId', () => {
     expect(fixture.componentInstance.activeTab).toBe('equipment');
   });
 
-  it('shows a followed short link with gear instead of the setup screen, and keeps the intro out of the way', () => {
+  it('shows a followed short link with gear, and keeps the intro out of the way', () => {
     configure('abc123');
     // configure() marks the intro done; this spec is about it not being.
     localStorage.removeItem(onboardingStateKey);
@@ -383,7 +393,7 @@ describe('MainComponent - loading a build by shortId', () => {
 
     TestBed.createComponent(MainComponent).detectChanges();
 
-    expect(TestBed.inject(AffixBuilderDrawerService).mode).toBeNull();
+    expect(TestBed.inject(AffixBuilderDrawerService).isOpen).toBe(false);
     expect(TestBed.inject(PlannerOnboardingService).shouldShowOnboarding()).toBe(false);
   });
 

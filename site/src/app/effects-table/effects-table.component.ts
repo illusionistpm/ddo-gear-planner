@@ -101,9 +101,12 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   onboardingActive = true;
   trackedAffixGroups: TrackedAffixGroupDisplay[] = [];
   showAffixTypeHint = false;
+  /** Nothing tracked by the user's own choice: the panel shows the start prompt. */
+  hasChosenAffixes = false;
   onboardingTargetChipKey = '';
   recentlyChangedAffixTypes = new Set<string>();
   private onboardingSubscription?: Subscription;
+  private chosenAffixesSubscription?: Subscription;
   private coveredAffixesSubscription?: Subscription;
   private viewStateSubscription?: Subscription;
   private previousAffixTypeValues?: Map<string, number>;
@@ -135,6 +138,12 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
       this.collapsedAffixGroups = new Set(state.collapsed);
     });
 
+    this.chosenAffixesSubscription = this.equipped.hasChosenAffixesObservable()
+      .subscribe(chosen => {
+        this.hasChosenAffixes = chosen;
+        this.refreshTrackedAffixDisplay();
+      });
+
     this.onboardingActive = this.onboarding.shouldShowOnboarding();
     this.onboardingSubscription = this.onboarding.getOnboardingState().subscribe(() => {
       this.onboardingActive = this.onboarding.shouldShowOnboarding();
@@ -164,6 +173,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   ngOnDestroy() {
     this.sourceHighlight.clear();
     this.onboardingSubscription?.unsubscribe();
+    this.chosenAffixesSubscription?.unsubscribe();
     this.coveredAffixesSubscription?.unsubscribe();
     this.viewStateSubscription?.unsubscribe();
     this.itemFiltersSubscription?.unsubscribe();
@@ -823,7 +833,9 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
     this.trackedAffixDisplaySignature = signature;
     this.trackedAffixGroups = this.buildTrackedAffixGroups();
-    this.showAffixTypeHint = this.onboardingActive && this.trackedAffixGroups.some(group => this.getAffixGroupCount(group) > 0);
+    // Not before the user has chosen anything: the derived Max Filigree Slots
+    // alone would otherwise put this step beside the start card.
+    this.showAffixTypeHint = this.onboardingActive && this.hasChosenAffixes && this.trackedAffixGroups.some(group => this.getAffixGroupCount(group) > 0);
     this.refreshOnboardingTarget();
   }
 
@@ -845,6 +857,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
     return [
       this.onboardingActive ? '1' : '0',
+      this.hasChosenAffixes ? '1' : '0',
       Array.from(this.collapsedAffixGroups).sort().join(','),
       boolAffixes.join('|'),
       affixes.join('|')

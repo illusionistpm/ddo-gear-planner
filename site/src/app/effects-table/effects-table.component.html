@@ -98,8 +98,9 @@
 
 <div class="tracked-affixes-workspace">
     <div class="tracked-affixes-content">
+    <app-affix-start-prompt *ngIf="!hasChosenAffixes" variant="card"></app-affix-start-prompt>
     <ng-container *ngIf="groupMode === 'slots'">
-        <p class="tracked-affix-slots-empty" *ngIf="!trackedDisplay.slotGroups.length">
+        <p class="tracked-affix-slots-empty" *ngIf="hasChosenAffixes && !trackedDisplay.slotGroups.length">
             No tracked affixes yet. Add some with Add / edit affixes in the toolbar above.
         </p>
         <div class="tracked-affix-section slot-group-section" [ngClass]="'slot-group-' + group.key" *ngFor="let group of trackedDisplay.slotGroups; trackBy: trackSlotGroup">

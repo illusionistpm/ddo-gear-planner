@@ -11,7 +11,8 @@ export interface AffixPackageExternal {
   label: string;
 }
 
-const DEFAULT_PACKAGE = 'Basic';
+/** The package the planner suggests to someone starting from nothing: survival and utility most builds want. */
+export const RECOMMENDED_PACKAGE = 'Basic';
 
 const TRANCE_INSIGHTFUL_DEADLY: AffixPackageExternal = {
   affixName: 'Deadly',
@@ -93,13 +94,6 @@ export class AffixPackagesService {
 
   removeSpellpower(spellpower: string) {
     this.removeFrom(this.spellpowerPackages, spellpower);
-  }
-
-  /** What a visitor with nothing tracked yet starts out with. */
-  addDefaultPackage() {
-    if (!this.equipped.getImportantAffixes().size) {
-      this.addPackage(DEFAULT_PACKAGE);
-    }
   }
 
   private addFrom(source: Map<string, Array<string>>, key: string) {

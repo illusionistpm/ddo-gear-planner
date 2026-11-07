@@ -35,7 +35,9 @@
 <!-- Outside both view controls: what the planner tracks is worth changing from
      either view, and the affix rail's copy of this button has gone. -->
 <button type="button" class="tracked-affix-edit-affixes" #editAffixes
-  title="Add / edit affixes" aria-label="Add / edit affixes" (click)="openBuilder()">
+  [class.needs-attention]="needsAffixes"
+  [title]="needsAffixes ? 'Start here: choose the affixes your build needs' : 'Add / edit affixes'"
+  aria-label="Add / edit affixes" (click)="openBuilder()">
   <span class="fas fa-plus" aria-hidden="true"></span>
   <span class="tracked-affix-edit-affixes-label">Add / edit affixes</span>
   <span class="tracked-affix-edit-affixes-short">Affixes</span>

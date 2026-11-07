@@ -1,16 +1,16 @@
 <div class="affix-page">
   <main class="affix-layout">
     <section class="affix-builder">
-      <section *ngIf="onboardingActive && !isSetupMode()" class="affix-intro-panel instruction-callout-panel" [class.onboarding-instruction-panel]="shouldShowBasicPackageHint() || shouldShowAdditionalPackageHint() || shouldHighlightEquipmentStep()">
+      <section *ngIf="onboardingActive" class="affix-intro-panel instruction-callout-panel" [class.onboarding-instruction-panel]="shouldShowBasicPackageHint() || shouldShowAdditionalPackageHint() || shouldHighlightEquipmentStep()">
         <div *ngIf="shouldShowBasicPackageHint() || shouldShowAdditionalPackageHint() || shouldHighlightEquipmentStep()" class="onboarding-step-label">Next step</div>
         <ng-container *ngIf="shouldHighlightEquipmentStep(); else affixSetupIntro">
           <h2>Your gear targets are ready</h2>
-          <p>Close this panel to start choosing items. You can reopen it any time with Add / edit affixes in the toolbar.</p>
+          <p>Press Done to start choosing items. You can come back any time with Add / edit affixes in the toolbar.</p>
         </ng-container>
         <ng-template #affixSetupIntro>
           <ng-container *ngIf="shouldShowAdditionalPackageHint(); else basicAffixSetupIntro">
             <h2>Add one build package</h2>
-            <p>Basic is already selected for you - it covers survival and utility. Pick one highlighted combat or role package so the planner can suggest gear for how this character plays.</p>
+            <p>Basic covers survival and utility. Now pick one highlighted combat or role package so the planner can suggest gear for how this character plays.</p>
           </ng-container>
         </ng-template>
         <ng-template #basicAffixSetupIntro>
@@ -22,7 +22,7 @@
         <ng-template #savedAffixSetupIntro>
           <ng-container *ngIf="savedSet.size; else emptyAffixSetupIntro">
             <h2>Your gear targets are ready</h2>
-            <p>Close this panel to start choosing items. You can reopen it any time with Add / edit affixes in the toolbar.</p>
+            <p>Press Done to start choosing items. You can come back any time with Add / edit affixes in the toolbar.</p>
           </ng-container>
         </ng-template>
         <ng-template #emptyAffixSetupIntro>

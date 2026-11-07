@@ -2,38 +2,33 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 /**
- * How the affix builder is presented:
- * - `setup`: full-screen, opaque, no shell behind it, with a "Start planning" primary
- *   action. Used the first time a visitor arrives with no build yet.
- * - `edit`: a slide-over panel over the planner shell. Used for every later edit.
+ * Where the affix builder was opened from, for analytics: the toolbar button,
+ * or one of the "choose affixes" prompts a build with nothing tracked shows.
  */
-export type AffixBuilderMode = 'setup' | 'edit';
+export type AffixBuilderOpenSource = 'toolbar' | 'empty_state' | 'equipment_callout';
 
+/** The affix builder: a slide-over panel over the planner. */
 @Injectable({
   providedIn: 'root'
 })
 export class AffixBuilderDrawerService {
-  private modeSubject = new BehaviorSubject<AffixBuilderMode | null>(null);
+  private openSubject = new BehaviorSubject<boolean>(false);
 
-  readonly mode$ = this.modeSubject.asObservable();
+  readonly isOpen$ = this.openSubject.asObservable();
 
   get isOpen(): boolean {
-    return this.modeSubject.value !== null;
+    return this.openSubject.value;
   }
 
-  get mode(): AffixBuilderMode | null {
-    return this.modeSubject.value;
-  }
-
-  open(mode: AffixBuilderMode = 'edit') {
-    if (this.modeSubject.value !== mode) {
-      this.modeSubject.next(mode);
+  open() {
+    if (!this.openSubject.value) {
+      this.openSubject.next(true);
     }
   }
 
   close() {
-    if (this.modeSubject.value !== null) {
-      this.modeSubject.next(null);
+    if (this.openSubject.value) {
+      this.openSubject.next(false);
     }
   }
 }

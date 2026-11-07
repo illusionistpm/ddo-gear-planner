@@ -24,22 +24,6 @@ describe('AffixPackagesService', () => {
     equipped.setImportantAffixes([]);
   });
 
-  it('starts an empty build on the Basic package', () => {
-    service.addDefaultPackage();
-
-    expect(service.isSelected(service.packages.get('Basic'), equipped.getImportantAffixes())).toBe(true);
-    expect(service.isSelected(service.packages.get('Melee'), equipped.getImportantAffixes())).toBe(false);
-  });
-
-  it('leaves a build that already tracks something alone', () => {
-    equipped.addImportantAffix('Strength');
-
-    service.addDefaultPackage();
-
-    expect(equipped.getImportantAffixes().has('Strength')).toBe(true);
-    expect(equipped.getImportantAffixes().has('Dodge')).toBe(false);
-  });
-
   it('tracks Ghostly through its parts: incorporeality in Basic, the miss-chance bypass in Melee and Ranged', () => {
     expect(service.packages.get('Basic')).toContain('Incorporeality');
     expect(service.packages.get('Basic')).not.toContain('Ghostly');

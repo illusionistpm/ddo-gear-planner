@@ -33,6 +33,18 @@
     padding: var(--space-12) var(--space-12);
 }
 
+/* 995px: both views side by side (the layout breakpoints in styles.css). */
+.equipment-affix-start {
+    margin: 0 auto;
+    max-width: 1800px;
+}
+
+@media (min-width: 995px) {
+    .equipment-affix-start {
+        display: none;
+    }
+}
+
 .equipment-onboarding-hint h2 {
     color: var(--text-primary);
     font-size: 1rem;

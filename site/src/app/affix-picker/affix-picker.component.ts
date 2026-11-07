@@ -7,7 +7,6 @@ import { AffixService } from '../affixes/affix.service';
 import { buildAffixTypeaheadEntries } from '../affixes/affix-typeahead';
 import { AnalyticsService } from '../shared/analytics.service';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
-import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
 import { AffixPackagesService } from '../affixes/affix-packages.service';
 
 import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affixes/affix-organization';
@@ -51,7 +50,6 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
     private affixSvc: AffixService,
     private analytics: AnalyticsService,
     private onboarding: PlannerOnboardingService,
-    private affixBuilder: AffixBuilderDrawerService,
     private affixPackages: AffixPackagesService
   ) {
     this.savedSet = new Set<string>();
@@ -81,10 +79,6 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.importantAffixesSubscription?.unsubscribe();
     this.onboardingSubscription?.unsubscribe();
-  }
-
-  isSetupMode(): boolean {
-    return this.affixBuilder.mode === 'setup';
   }
 
   toggleAttribute(attr: string) {

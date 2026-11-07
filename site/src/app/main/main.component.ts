@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, combineLatest, distinctUntilChanged, take } from 'rxjs';
 
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
-import { AffixPackagesService } from '../affixes/affix-packages.service';
 import { troveNameKey, UserGearService } from '../planner/user-gear.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { AnalyticsService } from '../shared/analytics.service';
@@ -123,7 +122,6 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     private onboarding: PlannerOnboardingService,
     public theme: ThemeService,
     private affixBuilder: AffixBuilderDrawerService,
-    private affixPackages: AffixPackagesService,
     private route: ActivatedRoute,
     private router: Router,
     private buildsService: BuildsService,
@@ -210,8 +208,8 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     //
     // Also gated on auth.isLoading$: while the SDK is still processing a
     // login redirect, the first (empty) navigation's params have already
-    // applied, but the real target navigation hasn't landed yet - opening
-    // setup here would show a real, visible flash of the "no build" screen
+    // applied, but the real target navigation hasn't landed yet - showing
+    // the planner here would flash an empty build
     // for the ~network-round-trip duration of that callback exchange, not a
     // same-tick coincidence like the race above.
     //
@@ -231,12 +229,8 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
       this.auth.isLoading$
     ]).subscribe(([, isLoading]) => {
       if (!isLoading && !this.isOnAuthRedirectCallbackUrl()) {
-        const alreadyReady = this.contentReady;
         this.initialGateReady = true;
         this.updateContentReady();
-        if (alreadyReady) {
-          this.onParamsReapplied();
-        }
       }
     });
     this.tabSubscription = this.equipped.getActiveMainTab().subscribe(tab => {
@@ -301,54 +295,6 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     this.shoppingListSubscription?.unsubscribe();
     for (const slotSubscription of this.slotSubscriptions) {
       slotSubscription.unsubscribe();
-    }
-  }
-
-  // Params applied again after the page was already up - not a one-shot (see
-  // the note above the subscription in ngOnInit). "New build" lands here:
-  // MyBuildsComponent.newBuild() navigates to '/' with reset state, and this
-  // is what treats that as a fresh visit rather than leaving whatever the
-  // previous build applied still on screen.
-  private onParamsReapplied() {
-    if (!this.latestRouteShortId && this.equipped.isBuildEmpty() && !this.equipped.getImportantAffixes().size) {
-      this.maybeOpenAffixBuilderOnLoad();
-    }
-  }
-
-  private maybeOpenAffixBuilderOnLoad() {
-    if (!this.equipped.isBuildEmpty()) {
-      // Gear on screen at load only ever comes from a followed build link
-      // (long or short - a reload is the same thing), so show the build,
-      // not the setup screen, even when it tracks no affixes yet. Checked
-      // here directly rather than via PlannerOnboardingService's link
-      // bypass: for a long link this runs inside updateFromParams, before
-      // AppComponent has armed it. Closes a setup screen an earlier call
-      // opened against the pre-load empty state.
-      if (this.affixBuilder.mode === 'setup') {
-        this.affixBuilder.close();
-      }
-      return;
-    }
-    const firstRun = this.onboarding.shouldShowOnboarding() || !this.equipped.getImportantAffixes().size;
-    if (firstRun) {
-      // A genuinely empty URL - start them on Basic rather than a blank page. A saved build with
-      // no gear but nothing tracked is theirs to leave as it is.
-      if (!this.latestRouteShortId) {
-        this.affixPackages.addDefaultPackage();
-        // The app picked Basic, not the user - it isn't an unsaved change.
-        // Only for a genuinely fresh build: browser back to an edited
-        // build's URL can land here too (with no gear), and its identity
-        // is still set at this point - its dirty state is real.
-        if (!this.currentBuild.value.shortId) {
-          this.currentBuild.acceptCurrentAsBaseline();
-        }
-      }
-      this.affixBuilder.open('setup');
-    } else if (this.affixBuilder.mode === 'setup') {
-      // A prior call (against the pre-load empty state) opened the setup
-      // screen speculatively; real build data has since landed, so correct
-      // course rather than leaving it stuck open over an actual build.
-      this.affixBuilder.close();
     }
   }
 
@@ -446,29 +392,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private updateContentReady(): void {
-    const previous = this.contentReady;
     this.contentReady = this.initialGateReady && !this.isLoadingBuild;
-    // Only on the genuine false->true transition, never on every call - by
-    // this point real build data (or a legitimate empty scratch build) is
-    // already applied, since isLoadingBuild only goes false after
-    // applyDecodedBuildParams has already run (see loadBuildFromRoute).
-    // Previously this ran unconditionally from inside the initialGate
-    // combineLatest subscriber in ngOnInit, which for a build route fires
-    // immediately on subscribe (isLoading$/initialParamsApplied$ already
-    // cached "ready" from the prior root-page instance) - before
-    // getByShortId's fetch had returned. Evaluating the "first-run" heuristic
-    // against that still-empty equipment state opened the affix builder's
-    // setup drawer (which isn't gated by contentReady) for the whole fetch,
-    // then closed it again once real data landed - which is what actually
-    // caused the "start page" flash chased across this whole conversation,
-    // not a contentReady bug at all.
-    // Also skipped on a load error: contentReady going true there means
-    // "stop showing the boot splash, the error panel takes over instead"
-    // (see the template), not "real build data just landed" - there's
-    // nothing here for the first-run heuristic to evaluate.
-    if (!previous && this.contentReady && !this.loadError) {
-      this.maybeOpenAffixBuilderOnLoad();
-    }
   }
 
   // True only on the transient URL Auth0's redirect lands on mid-login -

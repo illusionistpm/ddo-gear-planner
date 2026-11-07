@@ -67,6 +67,10 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
   nonGearCount = 0;
   onboardingActive = true;
   armorStartHint = false;
+  /** Nothing tracked yet and nothing equipped: the tabbed layout shows the start banner. */
+  affixStartBanner = false;
+  private hasChosenAffixes = false;
+  private chosenAffixesSubscription?: Subscription;
   private loggedInitialViewChecked = false;
   private onboardingSubscription?: Subscription;
   private slotSubscriptions: Subscription[] = [];
@@ -87,6 +91,10 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
     });
     this.nonGearSubscription = this.equipped.getExternalAffixesObservable().subscribe(entries => {
       this.nonGearCount = entries.length;
+    });
+    this.chosenAffixesSubscription = this.equipped.hasChosenAffixesObservable().subscribe(chosen => {
+      this.hasChosenAffixes = chosen;
+      this.refreshOnboardingState();
     });
     this.refreshOnboardingState();
     this.sourceHighlightSubscription = this.sourceHighlight.targets$.subscribe(targets => {
@@ -113,6 +121,7 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   ngOnDestroy() {
     this.onboardingSubscription?.unsubscribe();
+    this.chosenAffixesSubscription?.unsubscribe();
     this.sourceHighlightSubscription?.unsubscribe();
     this.nonGearSubscription?.unsubscribe();
     for (const slotSubscription of this.slotSubscriptions) {
@@ -293,6 +302,11 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   private refreshOnboardingState() {
     this.onboardingActive = this.onboarding.shouldShowOnboarding();
-    this.armorStartHint = this.onboardingActive && this.equipped.isBuildEmpty();
+    const buildEmpty = this.equipped.isBuildEmpty();
+    // One step at a time: choosing affixes comes before choosing gear. A build
+    // with gear but nothing tracked (someone else's shared build, say) is left
+    // alone here - the toolbar button and the affixes panel still point the way.
+    this.affixStartBanner = !this.hasChosenAffixes && buildEmpty;
+    this.armorStartHint = this.onboardingActive && this.hasChosenAffixes && buildEmpty;
   }
 }

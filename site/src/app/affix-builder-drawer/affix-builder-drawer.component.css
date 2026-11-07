@@ -11,17 +11,6 @@
   z-index: 1200;
 }
 
-/* Setup mode: an opaque full-bleed surface so nothing of the shell shows through. */
-.affix-builder-scrim {
-  background: var(--background-color);
-  bottom: 0;
-  left: 0;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 1200;
-}
-
 .affix-builder-drawer {
   background: var(--surface-elevated-color);
   border-left: 1px solid var(--border-color);
@@ -36,20 +25,6 @@
   top: 0.5rem;
   width: 72rem;
   z-index: 1210;
-}
-
-.affix-builder-drawer.setup-mode {
-  border: 0;
-  box-shadow: none;
-  height: 100vh;
-  height: 100dvh;
-  left: 50%;
-  margin: 0 auto;
-  max-width: 64rem;
-  right: auto;
-  top: 0;
-  transform: translateX(-50%);
-  width: min(64rem, 100vw);
 }
 
 .affix-builder-drawer-header {
@@ -69,36 +44,6 @@
   font-size: 1rem;
   font-weight: 800;
   margin: 0;
-}
-
-.affix-builder-drawer.setup-mode .affix-builder-drawer-header {
-  align-items: flex-start;
-  background: transparent;
-  border-bottom: 0;
-  flex-direction: column;
-  gap: var(--space-4);
-  padding: 1.4rem 1.1rem var(--space-16);
-  position: static;
-}
-
-.affix-builder-setup-brand {
-  color: var(--text-secondary);
-  font-size: 0.8rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-}
-
-.affix-builder-setup-heading h2 {
-  font-size: 1.35rem;
-  font-weight: 800;
-  margin: 0;
-}
-
-.affix-builder-setup-heading p {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  margin: var(--space-4) 0 0;
 }
 
 .affix-builder-drawer-close {
@@ -129,11 +74,7 @@
   padding: var(--space-8) var(--space-16) var(--space-16);
 }
 
-.affix-builder-drawer.setup-mode .affix-builder-drawer-body {
-  padding: var(--space-8) 1.1rem 1.1rem;
-}
-
-.affix-builder-setup-foot {
+.affix-builder-drawer-foot {
   align-items: center;
   background: var(--surface-elevated-color);
   border-top: 1px solid var(--border-color);
@@ -144,12 +85,12 @@
   padding: var(--space-12) 1.1rem;
 }
 
-.affix-builder-setup-count {
+.affix-builder-drawer-count {
   color: var(--text-secondary);
   font-size: 0.85rem;
 }
 
-.affix-builder-setup-continue {
+.affix-builder-drawer-done {
   background: var(--primary-color);
   border: 0;
   border-radius: 8px;
@@ -157,15 +98,16 @@
   cursor: pointer;
   font-size: 0.95rem;
   font-weight: 800;
+  min-width: 6rem;
   padding: var(--space-8) 1.1rem;
 }
 
-.affix-builder-setup-continue:hover,
-.affix-builder-setup-continue:focus {
+.affix-builder-drawer-done:hover,
+.affix-builder-drawer-done:focus {
   filter: brightness(1.05);
 }
 
-.affix-builder-setup-continue:focus-visible {
+.affix-builder-drawer-done:focus-visible {
   outline: 3px solid var(--focus-ring-color);
   outline-offset: 2px;
 }
@@ -179,15 +121,6 @@
     max-width: none;
     right: 0;
     top: 0;
-    width: 100%;
-  }
-
-  .affix-builder-drawer.setup-mode {
-    height: 100vh;
-    height: 100dvh;
-    left: 0;
-    max-width: none;
-    transform: none;
     width: 100%;
   }
 }

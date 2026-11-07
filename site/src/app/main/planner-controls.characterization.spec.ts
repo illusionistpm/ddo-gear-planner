@@ -211,7 +211,6 @@ describe('Planner workspace controls', () => {
       fixture.detectChanges();
 
       expect(drawer.isOpen).toBe(true);
-      expect(drawer.mode).toBe('edit');
     });
   });
 

@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { AppModule } from '../app.module';
+import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
 import { EquippedService, VisibleSetBonus } from '../planner/equipped.service';
 import { GearListComponent } from './gear-list.component';
 import { Item } from '../gear/item';
@@ -67,9 +68,31 @@ describe('GearListComponent', () => {
     expect(button.querySelector('.item-name').textContent).toBe('Test Set');
   });
 
-  it('pairs the armor green cue with intro text and a skip action', () => {
+  it('asks for affixes before gear when nothing is tracked yet', () => {
+    TestBed.inject(EquippedService).setImportantAffixes([]);
     createComponentWithSetBonuses([]);
     const compiled: HTMLElement = fixture.nativeElement;
+
+    expect(compiled.querySelector('app-affix-start-prompt .affix-start-banner')).not.toBeNull();
+    expect(compiled.querySelector('.equipment-onboarding-hint')).toBeNull();
+    expect(compiled.querySelector('.recommended-start-slot')).toBeNull();
+  });
+
+  it('opens the affix builder from the start banner', () => {
+    TestBed.inject(EquippedService).setImportantAffixes([]);
+    createComponentWithSetBonuses([]);
+
+    (fixture.nativeElement.querySelector('.affix-start-banner .affix-start-choose') as HTMLButtonElement).click();
+
+    expect(TestBed.inject(AffixBuilderDrawerService).isOpen).toBe(true);
+  });
+
+  it('pairs the armor green cue with intro text and a skip action once affixes are chosen', () => {
+    TestBed.inject(EquippedService).setImportantAffixes(['Strength']);
+    createComponentWithSetBonuses([]);
+    const compiled: HTMLElement = fixture.nativeElement;
+
+    expect(compiled.querySelector('app-affix-start-prompt')).toBeNull();
 
     expect(compiled.querySelector('.equipment-onboarding-hint')).not.toBeNull();
     expect(compiled.querySelector('.recommended-start-slot')).not.toBeNull();

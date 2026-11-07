@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, HostListener, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { AffixBuilderDrawerService } from './affix-builder-drawer.service';
@@ -26,13 +26,11 @@ export class AffixBuilderDrawerComponent implements OnDestroy {
     this.subscription.add(equipped.getImportantAffixesObservable()
       .subscribe(affixes => this.trackedCount = affixes.size));
 
-    // Only the edit slide-over is an overlay, so only it claims the back
-    // gesture. Setup mode is the whole page on a first visit; back there
-    // keeps its normal meaning (leaving), and Escape is handled below.
-    this.subscription.add(drawer.mode$.subscribe(mode => {
-      if (mode === 'edit' && !this.releaseCloseRequest) {
+    // An overlay while open, so it claims Escape and the back gesture.
+    this.subscription.add(drawer.isOpen$.subscribe(open => {
+      if (open && !this.releaseCloseRequest) {
         this.releaseCloseRequest = closeRequests.listen(() => this.close());
-      } else if (mode !== 'edit') {
+      } else if (!open) {
         this.release();
       }
     }));
@@ -41,15 +39,6 @@ export class AffixBuilderDrawerComponent implements OnDestroy {
   ngOnDestroy() {
     this.subscription.unsubscribe();
     this.release();
-  }
-
-  @HostListener('document:keydown.escape')
-  onEscape() {
-    // In setup mode the primary "Start planning" action is the way out, but Escape
-    // is still a harmless fallback. Edit mode's Escape arrives via CloseRequestService.
-    if (this.drawer.mode === 'setup') {
-      this.close();
-    }
   }
 
   close() {

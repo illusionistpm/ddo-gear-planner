@@ -1,5 +1,5 @@
 import { Injectable, NgZone, OnDestroy } from '@angular/core';
-import { Observable, BehaviorSubject, Subject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject, distinctUntilChanged, map } from 'rxjs';
 
 import { Item } from '../gear/item';
 import { Affix } from '../affixes/affix';
@@ -899,6 +899,22 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
 
   getImportantAffixesObservable() {
     return this.importantAffixesSubject.asObservable();
+  }
+
+  /**
+   * Whether the user has tracked anything themselves - what decides if the
+   * planner still nudges them toward the affix builder. The derived Max
+   * Filigree Slots isn't in the stored set, so it never counts.
+   */
+  hasChosenAffixes() {
+    return this.importantAffixes.size > 0;
+  }
+
+  hasChosenAffixesObservable(): Observable<boolean> {
+    return this.importantAffixesSubject.pipe(
+      map(affixes => affixes.size > 0),
+      distinctUntilChanged()
+    );
   }
 
   getActiveMainTab() {

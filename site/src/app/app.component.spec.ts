@@ -340,8 +340,8 @@ describe('AppComponent', () => {
   });
 
   it('does not warn on window unload for a dirty build with no gear equipped', () => {
-    // A fresh visit is dirty before the user does anything (first-run setup
-    // adds the Basic affix package) - with no gear there's nothing to save.
+    // Tracking affixes makes a build dirty, but with no gear there's
+    // nothing worth saving.
     const currentBuild = TestBed.inject(CurrentBuildService);
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();

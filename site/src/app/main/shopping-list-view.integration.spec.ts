@@ -48,7 +48,8 @@ describe('MainComponent with the shopping list', () => {
 
   it('opens the list in the planner\'s place from the toolbar, under the site\'s header, closing what floats over the planner', () => {
     const drawer = TestBed.inject(AffixBuilderDrawerService);
-    expect(drawer.mode).toBe('setup');
+    drawer.open();
+    fixture.detectChanges();
 
     shoppingListButton().click();
     fixture.detectChanges();
@@ -61,7 +62,7 @@ describe('MainComponent with the shopping list', () => {
       expect(pageChrome()?.querySelector(selector), selector).toBeTruthy();
     }
     expect(list()?.querySelector('app-own-list-actions')).toBeTruthy();
-    expect(drawer.mode).toBeNull();
+    expect(drawer.isOpen).toBe(false);
   });
 
   it('also opens from the overflow menu', () => {

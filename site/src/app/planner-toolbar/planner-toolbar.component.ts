@@ -39,6 +39,8 @@ import { TypeaheadResult } from '../typeahead/typeahead.component';
 export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy {
   activeTab: PlannerTab = 'equipment';
   groupMode: TrackedAffixGroupMode = 'category';
+  /** Nothing tracked yet: the affix builder button is the place to start, and looks it. */
+  needsAffixes = false;
 
   @ViewChild('viewSwitch') private viewSwitch?: ElementRef<HTMLElement>;
   @ViewChild('gearSearch') private gearSearch?: ElementRef<HTMLElement>;
@@ -47,6 +49,7 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
   private tabSubscription?: Subscription;
   private viewStateSubscription?: Subscription;
   private rejoinSubscription?: Subscription;
+  private chosenAffixesSubscription?: Subscription;
   private switchObserver?: ResizeObserver;
   private workspaceRowObserver?: ResizeObserver;
   // GearDbService builds its unfiltered gear map once, in its constructor, so
@@ -71,6 +74,8 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
     this.viewStateSubscription = this.equipped.getTrackedAffixViewState().subscribe(state => {
       this.groupMode = state.groupMode;
     });
+    this.chosenAffixesSubscription = this.equipped.hasChosenAffixesObservable()
+      .subscribe(chosen => this.needsAffixes = !chosen);
   }
 
   ngAfterViewInit() {
@@ -108,6 +113,7 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
     this.tabSubscription?.unsubscribe();
     this.viewStateSubscription?.unsubscribe();
     this.rejoinSubscription?.unsubscribe();
+    this.chosenAffixesSubscription?.unsubscribe();
   }
 
   /**
@@ -170,7 +176,8 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   openBuilder() {
-    this.affixBuilder.open('edit');
+    this.analytics.track('open_affix_builder', { source: 'toolbar' });
+    this.affixBuilder.open();
   }
 
   private readonly shoppingListView = inject(ShoppingListViewService);

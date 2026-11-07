@@ -210,6 +210,15 @@
     color: var(--primary-color);
 }
 
+/* A build with nothing tracked: this is where to start. The pulsing green
+   background is the shared onboarding cue (styles.css). */
+.tracked-affix-edit-affixes.needs-attention,
+.tracked-affix-edit-affixes.needs-attention:hover,
+.tracked-affix-edit-affixes.needs-attention:focus-visible {
+    border-color: var(--success-color);
+    color: var(--on-accent-text-color);
+}
+
 /* What to fetch for the build: quieter than the affix builder beside it. */
 .shopping-list-open {
     align-items: center;

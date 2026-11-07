@@ -1,0 +1,164 @@
+:host {
+  display: block;
+}
+
+.affix-start-card,
+.affix-start-banner {
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--success-color);
+  border-radius: var(--border-radius);
+  color: var(--text-primary);
+}
+
+.affix-start-card {
+  margin: 0 0 var(--space-12);
+  padding: var(--space-16);
+}
+
+.affix-start-card h2 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 0 0 var(--space-4);
+}
+
+.affix-start-lead {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 0 0 var(--space-12);
+}
+
+.affix-start-steps {
+  display: grid;
+  gap: var(--space-8);
+  list-style: none;
+  margin: 0 0 var(--space-16);
+  padding: 0;
+}
+
+.affix-start-steps li {
+  align-items: center;
+  display: flex;
+  font-size: 0.9rem;
+  gap: var(--space-8);
+  line-height: 1.3;
+}
+
+.affix-start-step-number {
+  align-items: center;
+  background: rgba(var(--primary-color-rgb), 0.12);
+  border-radius: 999px;
+  color: var(--primary-color);
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-size: 0.75rem;
+  font-weight: 800;
+  height: 1.5rem;
+  justify-content: center;
+  width: 1.5rem;
+}
+
+.affix-start-actions {
+  margin-bottom: var(--space-12);
+}
+
+/* Bigger than the shared onboarding button: this is the one thing to do here. */
+.affix-start-card .affix-start-choose {
+  font-size: 0.95rem;
+  padding: var(--space-8) var(--space-16);
+}
+
+.affix-start-quick {
+  border-top: 1px solid var(--border-color);
+  padding-top: var(--space-12);
+}
+
+.affix-start-quick-label {
+  color: var(--text-secondary);
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: var(--space-8);
+}
+
+.affix-start-quick-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.affix-start-package {
+  align-items: center;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.85rem;
+  font-weight: 700;
+  gap: var(--space-8);
+  padding: var(--space-4) var(--space-12);
+}
+
+.affix-start-package.recommended {
+  border-color: var(--success-color);
+}
+
+.affix-start-package:hover,
+.affix-start-package:focus-visible {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.affix-start-package:focus-visible {
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 2px;
+}
+
+.affix-start-package-badge {
+  background: var(--success-color);
+  border-radius: 999px;
+  color: var(--on-accent-text-color);
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 0 var(--space-4);
+  text-transform: uppercase;
+}
+
+.affix-start-banner {
+  align-items: center;
+  display: flex;
+  gap: var(--space-12);
+  justify-content: space-between;
+  margin: 0 0 var(--space-8);
+  padding: var(--space-8) var(--space-12);
+}
+
+.affix-start-banner p {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.affix-start-banner strong {
+  color: var(--text-primary);
+}
+
+/* Touch: tap targets at least 44px tall. */
+@media (pointer: coarse) {
+  .affix-start-choose,
+  .affix-start-package {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .affix-start-banner {
+    align-items: stretch;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+}

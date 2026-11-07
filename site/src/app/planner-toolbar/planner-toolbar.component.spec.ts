@@ -136,7 +136,18 @@ describe('PlannerToolbarComponent', () => {
       fixture.nativeElement.querySelector('.tracked-affix-edit-affixes').click();
 
       expect(drawer.isOpen).toBe(true);
-      expect(drawer.mode).toBe('edit');
+    });
+
+    it('highlights the affix builder button only while nothing is tracked', () => {
+      const button = () => fixture.nativeElement.querySelector('.tracked-affix-edit-affixes') as HTMLElement;
+
+      equipped.setImportantAffixes([]);
+      fixture.detectChanges();
+      expect(button().classList).toContain('needs-attention');
+
+      equipped.addImportantAffix('Strength');
+      fixture.detectChanges();
+      expect(button().classList).not.toContain('needs-attention');
     });
   });
 

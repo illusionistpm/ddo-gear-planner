@@ -9,34 +9,26 @@ describe('AffixBuilderDrawerService', () => {
 
   it('starts closed', () => {
     expect(service.isOpen).toBe(false);
-    expect(service.mode).toBeNull();
   });
 
-  it('opens in edit mode by default and closes', () => {
+  it('opens and closes', () => {
     service.open();
     expect(service.isOpen).toBe(true);
-    expect(service.mode).toBe('edit');
 
     service.close();
     expect(service.isOpen).toBe(false);
-    expect(service.mode).toBeNull();
   });
 
-  it('opens in setup mode when asked', () => {
-    service.open('setup');
-    expect(service.mode).toBe('setup');
-  });
+  it('emits only real changes to subscribers', () => {
+    const seen: boolean[] = [];
+    const sub = service.isOpen$.subscribe(value => seen.push(value));
 
-  it('emits mode changes to subscribers', () => {
-    const seen: (string | null)[] = [];
-    const sub = service.mode$.subscribe(value => seen.push(value));
-
-    service.open('setup');
-    service.open('setup');
-    service.open('edit');
+    service.open();
+    service.open();
+    service.close();
     service.close();
 
-    expect(seen).toEqual([null, 'setup', 'edit', null]);
+    expect(seen).toEqual([false, true, false]);
     sub.unsubscribe();
   });
 });

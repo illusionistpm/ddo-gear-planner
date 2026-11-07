@@ -40,6 +40,7 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
   basicPackageHint = true;
   additionalPackageHint = false;
   equipmentStepHint = false;
+  spellpowerHint = false;
 
   private importantAffixesSubscription?: Subscription;
   private onboardingSubscription?: Subscription;
@@ -182,6 +183,16 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
     return this.equipmentStepHint;
   }
 
+  /** Caster is on but says nothing yet about which spells: the next step is a spell power. */
+  shouldShowSpellpowerHint() {
+    return this.spellpowerHint;
+  }
+
+  /** Any of the intro's steps is showing - each comes with Next step and Skip intro. */
+  hasOnboardingStep() {
+    return this.basicPackageHint || this.additionalPackageHint || this.spellpowerHint || this.equipmentStepHint;
+  }
+
   dismissIntro() {
     this.onboarding.dismissIntro();
     this.onboardingActive = this.onboarding.shouldShowOnboarding();
@@ -272,6 +283,9 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
     const basicSelected = this.isPackageSelected('Basic');
     this.basicPackageHint = this.onboardingActive && !basicSelected;
     this.additionalPackageHint = this.onboardingActive && basicSelected && !this.hasAdditionalStarterPackage();
-    this.equipmentStepHint = this.onboardingActive && basicSelected && this.hasAdditionalStarterPackage();
+    const starterChosen = this.onboardingActive && basicSelected && this.hasAdditionalStarterPackage();
+    this.spellpowerHint = starterChosen && this.isPackageSelected('Caster')
+      && !this.spellpowerPackageKeys.some(key => this.isSpellpowerSelected(key));
+    this.equipmentStepHint = starterChosen && !this.spellpowerHint;
   }
 }

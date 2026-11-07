@@ -7,6 +7,7 @@ import { GearDbService } from '../gear/gear-db.service';
 import { AffixService } from '../affixes/affix.service';
 import { AffixGroupDisplay, getAffixGroupCssClass, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affixes/affix-organization';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
+import { AffixPackagesService } from '../affixes/affix-packages.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { AffixAvailabilityService, RemainingAvailability } from '../affixes/affix-availability.service';
 import { TrackedAffixDerivationService } from '../affixes/tracked-affix-derivation.service';
@@ -101,8 +102,8 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   onboardingActive = true;
   trackedAffixGroups: TrackedAffixGroupDisplay[] = [];
   showAffixTypeHint = false;
-  /** Nothing tracked by the user's own choice: the panel shows the start prompt. */
-  hasChosenAffixes = false;
+  /** No focus chosen yet (AffixPackagesService.needsStart): the panel shows the start prompt. */
+  needsStart = true;
   onboardingTargetChipKey = '';
   recentlyChangedAffixTypes = new Set<string>();
   private onboardingSubscription?: Subscription;
@@ -123,6 +124,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     public gearDB: GearDbService,
     private affixSvc: AffixService,
     private onboarding: PlannerOnboardingService,
+    private affixPackages: AffixPackagesService,
     private suggestionDrawer: SuggestionDrawerService,
     private availability: AffixAvailabilityService,
     private derivation: TrackedAffixDerivationService,
@@ -138,9 +140,9 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
       this.collapsedAffixGroups = new Set(state.collapsed);
     });
 
-    this.chosenAffixesSubscription = this.equipped.hasChosenAffixesObservable()
-      .subscribe(chosen => {
-        this.hasChosenAffixes = chosen;
+    this.chosenAffixesSubscription = this.affixPackages.needsStart$()
+      .subscribe(needsStart => {
+        this.needsStart = needsStart;
         this.refreshTrackedAffixDisplay();
       });
 
@@ -833,9 +835,8 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
     this.trackedAffixDisplaySignature = signature;
     this.trackedAffixGroups = this.buildTrackedAffixGroups();
-    // Not before the user has chosen anything: the derived Max Filigree Slots
-    // alone would otherwise put this step beside the start card.
-    this.showAffixTypeHint = this.onboardingActive && this.hasChosenAffixes && this.trackedAffixGroups.some(group => this.getAffixGroupCount(group) > 0);
+    // Not before the start card has been answered: one next step at a time.
+    this.showAffixTypeHint = this.onboardingActive && !this.needsStart && this.trackedAffixGroups.some(group => this.getAffixGroupCount(group) > 0);
     this.refreshOnboardingTarget();
   }
 
@@ -857,7 +858,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
     return [
       this.onboardingActive ? '1' : '0',
-      this.hasChosenAffixes ? '1' : '0',
+      this.needsStart ? '1' : '0',
       Array.from(this.collapsedAffixGroups).sort().join(','),
       boolAffixes.join('|'),
       affixes.join('|')

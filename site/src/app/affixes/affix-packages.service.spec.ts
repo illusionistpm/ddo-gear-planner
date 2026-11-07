@@ -24,6 +24,46 @@ describe('AffixPackagesService', () => {
     equipped.setImportantAffixes([]);
   });
 
+  it('starts an empty build on the Basic package', () => {
+    service.addDefaultPackage();
+
+    expect(service.isSelected(service.packages.get('Basic'), equipped.getImportantAffixes())).toBe(true);
+    expect(service.isSelected(service.packages.get('Melee'), equipped.getImportantAffixes())).toBe(false);
+  });
+
+  it('leaves a build that already tracks something alone', () => {
+    equipped.addImportantAffix('Strength');
+
+    service.addDefaultPackage();
+
+    expect(equipped.getImportantAffixes().has('Strength')).toBe(true);
+    expect(equipped.getImportantAffixes().has('Dodge')).toBe(false);
+  });
+
+  it('needs a start while nothing, or only Basic, is tracked', () => {
+    expect(service.needsStart()).toBe(true);
+
+    service.addDefaultPackage();
+    expect(service.needsStart()).toBe(true);
+
+    equipped.removeImportantAffix('Dodge');
+    expect(service.needsStart()).toBe(true);
+  });
+
+  it('stops needing a start once anything beyond Basic is tracked', () => {
+    service.addDefaultPackage();
+
+    equipped.addImportantAffix('Strength');
+
+    expect(service.needsStart()).toBe(false);
+  });
+
+  it('counts a focus package on its own as a start', () => {
+    service.addPackage('Melee');
+
+    expect(service.needsStart()).toBe(false);
+  });
+
   it('tracks Ghostly through its parts: incorporeality in Basic, the miss-chance bypass in Melee and Ranged', () => {
     expect(service.packages.get('Basic')).toContain('Incorporeality');
     expect(service.packages.get('Basic')).not.toContain('Ghostly');

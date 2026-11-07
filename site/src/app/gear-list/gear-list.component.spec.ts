@@ -68,8 +68,8 @@ describe('GearListComponent', () => {
     expect(button.querySelector('.item-name').textContent).toBe('Test Set');
   });
 
-  it('asks for affixes before gear when nothing is tracked yet', () => {
-    TestBed.inject(EquippedService).setImportantAffixes([]);
+  it('asks for a focus before gear while only Basic is tracked', () => {
+    TestBed.inject(EquippedService).setImportantAffixes(['Dodge']);
     createComponentWithSetBonuses([]);
     const compiled: HTMLElement = fixture.nativeElement;
 
@@ -87,7 +87,7 @@ describe('GearListComponent', () => {
     expect(TestBed.inject(AffixBuilderDrawerService).isOpen).toBe(true);
   });
 
-  it('pairs the armor green cue with intro text and a skip action once affixes are chosen', () => {
+  it('pairs the armor green cue with intro text and a skip action once a focus is chosen', () => {
     TestBed.inject(EquippedService).setImportantAffixes(['Strength']);
     createComponentWithSetBonuses([]);
     const compiled: HTMLElement = fixture.nativeElement;

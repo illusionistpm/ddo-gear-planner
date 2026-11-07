@@ -67,7 +67,7 @@ describe('MainComponent', () => {
   });
 
   beforeEach(() => {
-    // Adding a whole package would otherwise queue idle-time availability warmup.
+    // The empty-URL default adds a whole bundle, which would otherwise queue idle-time availability warmup.
     vi.spyOn(TestBed.inject(EquippedService) as any, '_scheduleAvailabilityWarmup').mockReturnValue(undefined);
     fixture = TestBed.createComponent(MainComponent);
     component = fixture.componentInstance;
@@ -78,20 +78,28 @@ describe('MainComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('opens an empty URL on the planner itself, tracking nothing, with nothing to save', () => {
+  it('opens an empty URL on the planner itself, on the Basic package, with nothing to save', () => {
     const equipped = TestBed.inject(EquippedService);
     const el: HTMLElement = fixture.nativeElement;
 
-    expect(equipped.getImportantAffixes().size).toBe(0);
+    expect(equipped.getImportantAffixes().has('Dodge')).toBe(true);
+    expect(equipped.getImportantAffixes().has('Melee Power')).toBe(false);
     expect(TestBed.inject(AffixBuilderDrawerService).isOpen).toBe(false);
     expect(TestBed.inject(CurrentBuildService).value.isDirty).toBe(false);
     expect(el.querySelector('.affix-builder-drawer')).toBeNull();
     // The way in instead: the start card in the affixes panel, and a highlighted button.
     expect(el.querySelector('#affixesPanel app-affix-start-prompt .affix-start-card')).not.toBeNull();
+    expect(el.querySelector('.affix-start-default')?.getAttribute('aria-pressed')).toBe('true');
     expect(el.querySelector('.tracked-affix-edit-affixes.needs-attention')).not.toBeNull();
   });
 
-  it('starts a new build (empty URL re-applied) on the planner, not in the affix builder', () => {
+  it('still counts the user\'s own first edit as an unsaved change', () => {
+    TestBed.inject(EquippedService).setImportantAffixes(['Strength']);
+
+    expect(TestBed.inject(CurrentBuildService).value.isDirty).toBe(true);
+  });
+
+  it('starts a new build (empty URL re-applied) on the Basic package, not in the affix builder', () => {
     const equipped = TestBed.inject(EquippedService);
     const drawer = TestBed.inject(AffixBuilderDrawerService);
 
@@ -100,27 +108,58 @@ describe('MainComponent', () => {
 
     TestBed.inject(QueryParamsService).updateFromParams(convertToParamMap({}));
 
-    expect(equipped.getImportantAffixes().size).toBe(0);
+    expect(equipped.getImportantAffixes().has('Strength')).toBe(false);
+    expect(equipped.getImportantAffixes().has('Dodge')).toBe(true);
     expect(drawer.isOpen).toBe(false);
   });
 
-  it('opens the affix builder from the start card, and drops the prompts once something is chosen', () => {
+  const focusChip = (name: string) => Array.from(
+    (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLButtonElement>('.affix-start-card .affix-start-focus-chip'))
+    .find(button => button.textContent?.trim() === name)!;
+
+  it('adds a focus from the start card on top of Basic, and drops the prompts', () => {
     const el: HTMLElement = fixture.nativeElement;
-    const drawer = TestBed.inject(AffixBuilderDrawerService);
+    const equipped = TestBed.inject(EquippedService);
 
-    (el.querySelector('.affix-start-card .affix-start-choose') as HTMLButtonElement).click();
-    expect(drawer.isOpen).toBe(true);
-    drawer.close();
-
-    const basic = Array.from(el.querySelectorAll<HTMLButtonElement>('.affix-start-card .affix-start-package'))
-      .find(button => button.textContent?.includes('Basic'));
-    basic!.click();
+    focusChip('Melee').click();
     fixture.detectChanges();
 
-    expect(TestBed.inject(EquippedService).getImportantAffixes().has('Dodge')).toBe(true);
-    expect(drawer.isOpen).toBe(false);
+    expect(equipped.getImportantAffixes().has('Dodge')).toBe(true);
+    expect(equipped.getImportantAffixes().has('Melee Power')).toBe(true);
+    expect(TestBed.inject(AffixBuilderDrawerService).isOpen).toBe(false);
     expect(el.querySelector('app-affix-start-prompt')).toBeNull();
     expect(el.querySelector('.tracked-affix-edit-affixes.needs-attention')).toBeNull();
+  });
+
+  it('opens the affix builder on the spell power step after the Caster focus', () => {
+    const el: HTMLElement = fixture.nativeElement;
+
+    focusChip('Caster').click();
+    fixture.detectChanges();
+
+    expect(TestBed.inject(AffixBuilderDrawerService).isOpen).toBe(true);
+    expect(el.querySelector('.affix-builder-drawer')?.textContent).toContain('Pick your spell power');
+  });
+
+  it('keeps the start card up when Basic is switched off, and can switch it back on', () => {
+    const el: HTMLElement = fixture.nativeElement;
+    const equipped = TestBed.inject(EquippedService);
+    const basic = () => el.querySelector('.affix-start-default') as HTMLButtonElement;
+
+    basic().click();
+    fixture.detectChanges();
+    expect(equipped.getImportantAffixes().size).toBe(0);
+    expect(basic().getAttribute('aria-pressed')).toBe('false');
+
+    basic().click();
+    fixture.detectChanges();
+    expect(equipped.getImportantAffixes().has('Dodge')).toBe(true);
+  });
+
+  it('opens the affix builder from the start card', () => {
+    (fixture.nativeElement.querySelector('.affix-start-card .affix-start-choose-own') as HTMLButtonElement).click();
+
+    expect(TestBed.inject(AffixBuilderDrawerService).isOpen).toBe(true);
   });
 
   it('renders non-production admin access in the workspace bar', () => {
@@ -311,6 +350,7 @@ describe('MainComponent - loading a build by shortId', () => {
       reset: vi.fn().mockName('CurrentBuildService.reset'),
       restoreIdentity: vi.fn().mockName('CurrentBuildService.restoreIdentity'),
       getCanonicalParamsCache: vi.fn().mockName('CurrentBuildService.getCanonicalParamsCache'),
+      acceptCurrentAsBaseline: vi.fn().mockName('CurrentBuildService.acceptCurrentAsBaseline'),
       value: { savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other' },
       // BuildActionsComponent (rendered inside MainComponent's template)
       // also injects CurrentBuildService and subscribes to state$.
@@ -394,6 +434,8 @@ describe('MainComponent - loading a build by shortId', () => {
     TestBed.createComponent(MainComponent).detectChanges();
 
     expect(TestBed.inject(AffixBuilderDrawerService).isOpen).toBe(false);
+    // Someone else's build, shown as it is: no Basic added to it.
+    expect(TestBed.inject(EquippedService).getImportantAffixes().size).toBe(0);
     expect(TestBed.inject(PlannerOnboardingService).shouldShowOnboarding()).toBe(false);
   });
 

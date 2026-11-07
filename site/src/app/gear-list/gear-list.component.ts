@@ -8,6 +8,7 @@ import { AnalyticsService } from '../shared/analytics.service';
 import { perfAfterFrames, perfStart } from '../shared/perf-trace';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
+import { AffixPackagesService } from '../affixes/affix-packages.service';
 import { slotLabel, sortSlotsForDisplay } from '../gear/slot-display';
 import { AffixSourceHighlightService, NON_GEAR_JUMP_TARGET, setJumpTarget } from '../planner/affix-source-highlight.service';
 
@@ -43,6 +44,7 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
     private analytics: AnalyticsService,
     private suggestionDrawer: SuggestionDrawerService,
     private onboarding: PlannerOnboardingService,
+    private affixPackages: AffixPackagesService,
     private host: ElementRef<HTMLElement>,
     private sourceHighlight: AffixSourceHighlightService
   ) { }
@@ -67,9 +69,9 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
   nonGearCount = 0;
   onboardingActive = true;
   armorStartHint = false;
-  /** Nothing tracked yet and nothing equipped: the tabbed layout shows the start banner. */
+  /** No focus chosen yet and nothing equipped: the tabbed layout shows the start banner. */
   affixStartBanner = false;
-  private hasChosenAffixes = false;
+  private needsStart = true;
   private chosenAffixesSubscription?: Subscription;
   private loggedInitialViewChecked = false;
   private onboardingSubscription?: Subscription;
@@ -92,8 +94,8 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.nonGearSubscription = this.equipped.getExternalAffixesObservable().subscribe(entries => {
       this.nonGearCount = entries.length;
     });
-    this.chosenAffixesSubscription = this.equipped.hasChosenAffixesObservable().subscribe(chosen => {
-      this.hasChosenAffixes = chosen;
+    this.chosenAffixesSubscription = this.affixPackages.needsStart$().subscribe(needsStart => {
+      this.needsStart = needsStart;
       this.refreshOnboardingState();
     });
     this.refreshOnboardingState();
@@ -303,10 +305,10 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
   private refreshOnboardingState() {
     this.onboardingActive = this.onboarding.shouldShowOnboarding();
     const buildEmpty = this.equipped.isBuildEmpty();
-    // One step at a time: choosing affixes comes before choosing gear. A build
-    // with gear but nothing tracked (someone else's shared build, say) is left
-    // alone here - the toolbar button and the affixes panel still point the way.
-    this.affixStartBanner = !this.hasChosenAffixes && buildEmpty;
-    this.armorStartHint = this.onboardingActive && this.hasChosenAffixes && buildEmpty;
+    // One step at a time: a focus comes before gear. A build with gear but no
+    // focus (someone else's shared build, say) is left alone here - the
+    // toolbar button and the affixes panel still point the way.
+    this.affixStartBanner = this.needsStart && buildEmpty;
+    this.armorStartHint = this.onboardingActive && !this.needsStart && buildEmpty;
   }
 }

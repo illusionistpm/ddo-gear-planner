@@ -1,43 +1,53 @@
 @if (variant === 'card') {
   <section class="affix-start-card onboarding-instruction-panel" aria-labelledby="affixStartTitle">
     <div class="onboarding-step-label">Get started</div>
-    <h2 id="affixStartTitle">Choose what your gear should cover</h2>
+    <h2 id="affixStartTitle">What is this build for?</h2>
     <p class="affix-start-lead">
-      Tell the planner which bonuses your build cares about. It tracks them here while you pick gear,
-      and shows how close each one is to the best available.
+      The planner tracks the bonuses your build cares about here while you pick gear, and shows how
+      close each one is to the best available.
     </p>
 
-    <ol class="affix-start-steps">
-      <li><span class="affix-start-step-number" aria-hidden="true">1</span>Choose the affixes you want.</li>
-      <li><span class="affix-start-step-number" aria-hidden="true">2</span>Equip gear, or search for an item.</li>
-      <li><span class="affix-start-step-number" aria-hidden="true">3</span>Click any bonus here to find the items that supply it.</li>
-    </ol>
-
-    <div class="affix-start-actions">
-      <button type="button" class="onboarding-action-button affix-start-choose" (click)="chooseAffixes()">
-        <span class="fas fa-plus" aria-hidden="true"></span> Choose affixes
+    <div class="affix-start-row">
+      <button type="button" class="affix-start-package affix-start-default" [class.selected]="defaultSelected"
+        [attr.aria-pressed]="defaultSelected" [title]="packageTooltip(defaultPackage)" (click)="toggleDefault()">
+        <span class="fas affix-start-check" [class.fa-check]="defaultSelected" [class.fa-plus]="!defaultSelected" aria-hidden="true"></span>
+        {{defaultPackage}}
       </button>
+      <span class="affix-start-row-note">
+        {{defaultSelected ? 'Defenses and utility most builds want - already on.' : 'Defenses and utility most builds want.'}}
+      </span>
     </div>
 
-    <div class="affix-start-quick" role="group" aria-labelledby="affixStartQuickLabel">
-      <span class="affix-start-quick-label" id="affixStartQuickLabel">Or start from a package:</span>
-      <div class="affix-start-quick-chips">
-        @for (pkg of packageKeys; track pkg) {
-          <button type="button" class="affix-start-package" [class.recommended]="pkg === recommendedPackage"
-            [title]="packageTooltip(pkg)" (click)="quickAdd(pkg)">
+    <div class="affix-start-focus" role="group" aria-labelledby="affixStartFocusLabel">
+      <span class="affix-start-focus-label" id="affixStartFocusLabel">
+        {{defaultSelected ? 'Now pick your build\'s focus:' : 'Pick your build\'s focus:'}}
+      </span>
+      <div class="affix-start-focus-chips">
+        @for (pkg of focusKeys; track pkg) {
+          <button type="button" class="affix-start-package affix-start-focus-chip affix-next-chip"
+            [title]="packageTooltip(pkg)" (click)="chooseFocus(pkg)">
             {{pkg}}
-            @if (pkg === recommendedPackage) {
-              <span class="affix-start-package-badge">Recommended</span>
-            }
           </button>
         }
       </div>
+      <span class="affix-start-focus-note">{{focusNeedingBuilder}} goes on to choose a spell power.</span>
+    </div>
+
+    <div class="affix-start-actions">
+      <button type="button" class="affix-start-choose affix-start-choose-own" (click)="chooseAffixes()">
+        <span class="fas fa-sliders" aria-hidden="true"></span> Or choose affixes yourself
+      </button>
     </div>
   </section>
 } @else {
-  <section class="affix-start-banner onboarding-instruction-panel" aria-label="Choose affixes to get started">
+  <section class="affix-start-banner onboarding-instruction-panel" aria-label="Pick a focus to get started">
     <p>
-      <strong>New here?</strong> Choose the affixes your build needs, and the planner will track them as you pick gear.
+      <strong>New here?</strong>
+      @if (defaultSelected) {
+        Basic defenses are on - pick your build's focus to get gear suggestions.
+      } @else {
+        Choose the affixes your build needs to get gear suggestions.
+      }
     </p>
     <button type="button" class="onboarding-action-button affix-start-choose" (click)="chooseAffixes()">
       <span class="fas fa-plus" aria-hidden="true"></span> Choose affixes

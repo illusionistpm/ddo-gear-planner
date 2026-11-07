@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, combineLatest, distinctUntilChanged, take } from 'rxjs';
 
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
+import { AffixPackagesService } from '../affixes/affix-packages.service';
 import { troveNameKey, UserGearService } from '../planner/user-gear.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { AnalyticsService } from '../shared/analytics.service';
@@ -122,6 +123,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     private onboarding: PlannerOnboardingService,
     public theme: ThemeService,
     private affixBuilder: AffixBuilderDrawerService,
+    private affixPackages: AffixPackagesService,
     private route: ActivatedRoute,
     private router: Router,
     private buildsService: BuildsService,
@@ -229,8 +231,14 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
       this.auth.isLoading$
     ]).subscribe(([, isLoading]) => {
       if (!isLoading && !this.isOnAuthRedirectCallbackUrl()) {
+        const alreadyReady = this.contentReady;
         this.initialGateReady = true;
         this.updateContentReady();
+        if (alreadyReady) {
+          // Params applied again after the page was already up: "New build"
+          // (MyBuildsComponent navigates to '/' with reset state) lands here.
+          this.applyFreshBuildDefaults();
+        }
       }
     });
     this.tabSubscription = this.equipped.getActiveMainTab().subscribe(tab => {
@@ -392,7 +400,30 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private updateContentReady(): void {
+    const previous = this.contentReady;
     this.contentReady = this.initialGateReady && !this.isLoadingBuild;
+    // Only once real build data (or a genuinely empty scratch build) has
+    // landed - judged any earlier, a build still being fetched looks empty.
+    if (!previous && this.contentReady && !this.loadError) {
+      this.applyFreshBuildDefaults();
+    }
+  }
+
+  /**
+   * A genuinely empty URL starts on the Basic package. Never a followed link
+   * or a saved build: those are someone's build, to show as it is.
+   */
+  private applyFreshBuildDefaults() {
+    if (this.latestRouteShortId || !this.equipped.isBuildEmpty() || this.equipped.getImportantAffixes().size) {
+      return;
+    }
+    this.affixPackages.addDefaultPackage();
+    // The app picked Basic, not the user - it isn't an unsaved change. Only
+    // for a fresh build: browser back to an edited build's URL can land here
+    // too, with its identity still set, and its dirty state is real.
+    if (!this.currentBuild.value.shortId) {
+      this.currentBuild.acceptCurrentAsBaseline();
+    }
   }
 
   // True only on the transient URL Auth0's redirect lands on mid-login -

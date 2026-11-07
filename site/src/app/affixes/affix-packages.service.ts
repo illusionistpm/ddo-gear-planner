@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, distinctUntilChanged, map } from 'rxjs';
 
 import { AffixService } from './affix.service';
 import { EquippedService } from '../planner/equipped.service';
@@ -11,8 +12,8 @@ export interface AffixPackageExternal {
   label: string;
 }
 
-/** The package the planner suggests to someone starting from nothing: survival and utility most builds want. */
-export const RECOMMENDED_PACKAGE = 'Basic';
+/** What a fresh build starts out tracking: survival and utility most builds want. */
+export const DEFAULT_PACKAGE = 'Basic';
 
 const TRANCE_INSIGHTFUL_DEADLY: AffixPackageExternal = {
   affixName: 'Deadly',
@@ -86,6 +87,44 @@ export class AffixPackagesService {
 
   addSpellpower(spellpower: string) {
     this.addFrom(this.spellpowerPackages, spellpower);
+  }
+
+  /** A fresh build's starting point - only when nothing is tracked yet. */
+  addDefaultPackage() {
+    if (!this.equipped.getImportantAffixes().size) {
+      this.addPackage(DEFAULT_PACKAGE);
+    }
+  }
+
+  /**
+   * True until the user has chosen something beyond the default: nothing is
+   * tracked, or only Basic (all or part of it). While it holds, the planner
+   * points them at a build focus and the affix builder. Read from the tracked
+   * set itself, so a reload or a followed link works it out again rather than
+   * trusting a flag. The derived Max Filigree Slots is never in that set.
+   */
+  needsStart(tracked: ReadonlySet<string> = this.equipped.getImportantAffixes()): boolean {
+    const defaults = this.getDefaultTrackedAffixes();
+    for (const affix of tracked) {
+      if (!defaults.has(affix)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  needsStart$(): Observable<boolean> {
+    return this.equipped.getImportantAffixesObservable().pipe(
+      map(tracked => this.needsStart(tracked)),
+      distinctUntilChanged()
+    );
+  }
+
+  private defaultTrackedAffixes?: Set<string>;
+
+  private getDefaultTrackedAffixes() {
+    this.defaultTrackedAffixes ??= this.equipped.expandTrackedAffixes(this.packages.get(DEFAULT_PACKAGE) ?? []);
+    return this.defaultTrackedAffixes;
   }
 
   removePackage(pkg: string) {

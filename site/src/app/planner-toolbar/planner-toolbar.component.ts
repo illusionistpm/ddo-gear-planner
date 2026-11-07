@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
+import { AffixPackagesService } from '../affixes/affix-packages.service';
 import { groupPath, GroupSummary } from '../build/groups.service';
 import { MyListsService } from '../build/my-lists.service';
 import { GearDbService } from '../gear/gear-db.service';
@@ -39,7 +40,7 @@ import { TypeaheadResult } from '../typeahead/typeahead.component';
 export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy {
   activeTab: PlannerTab = 'equipment';
   groupMode: TrackedAffixGroupMode = 'category';
-  /** Nothing tracked yet: the affix builder button is the place to start, and looks it. */
+  /** No focus chosen yet: the affix builder button is the place to start, and looks it. */
   needsAffixes = false;
 
   @ViewChild('viewSwitch') private viewSwitch?: ElementRef<HTMLElement>;
@@ -62,6 +63,7 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
     public equipped: EquippedService,
     private gearList: GearDbService,
     private affixBuilder: AffixBuilderDrawerService,
+    private affixPackages: AffixPackagesService,
     private analytics: AnalyticsService,
     private zone: NgZone
   ) { }
@@ -74,8 +76,8 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
     this.viewStateSubscription = this.equipped.getTrackedAffixViewState().subscribe(state => {
       this.groupMode = state.groupMode;
     });
-    this.chosenAffixesSubscription = this.equipped.hasChosenAffixesObservable()
-      .subscribe(chosen => this.needsAffixes = !chosen);
+    this.chosenAffixesSubscription = this.affixPackages.needsStart$()
+      .subscribe(needsStart => this.needsAffixes = needsStart);
   }
 
   ngAfterViewInit() {

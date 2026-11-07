@@ -1,16 +1,22 @@
 <div class="affix-page">
   <main class="affix-layout">
     <section class="affix-builder">
-      <section *ngIf="onboardingActive" class="affix-intro-panel instruction-callout-panel" [class.onboarding-instruction-panel]="shouldShowBasicPackageHint() || shouldShowAdditionalPackageHint() || shouldHighlightEquipmentStep()">
-        <div *ngIf="shouldShowBasicPackageHint() || shouldShowAdditionalPackageHint() || shouldHighlightEquipmentStep()" class="onboarding-step-label">Next step</div>
+      <section *ngIf="onboardingActive" class="affix-intro-panel instruction-callout-panel" [class.onboarding-instruction-panel]="hasOnboardingStep()">
+        <div *ngIf="hasOnboardingStep()" class="onboarding-step-label">Next step</div>
+        <ng-container *ngIf="shouldShowSpellpowerHint(); else equipmentStepIntro">
+          <h2>Pick your spell power</h2>
+          <p>Choose the highlighted spell power your spells use - Fire, Healing and the rest - so the planner tracks the lore, power and intensity that go with it.</p>
+        </ng-container>
+        <ng-template #equipmentStepIntro>
         <ng-container *ngIf="shouldHighlightEquipmentStep(); else affixSetupIntro">
           <h2>Your gear targets are ready</h2>
           <p>Press Done to start choosing items. You can come back any time with Add / edit affixes in the toolbar.</p>
         </ng-container>
+        </ng-template>
         <ng-template #affixSetupIntro>
           <ng-container *ngIf="shouldShowAdditionalPackageHint(); else basicAffixSetupIntro">
             <h2>Add one build package</h2>
-            <p>Basic covers survival and utility. Now pick one highlighted combat or role package so the planner can suggest gear for how this character plays.</p>
+            <p>Basic is already selected for you - it covers survival and utility. Pick one highlighted combat or role package so the planner can suggest gear for how this character plays.</p>
           </ng-container>
         </ng-template>
         <ng-template #basicAffixSetupIntro>
@@ -29,7 +35,7 @@
           <h2>Start by choosing your build goals</h2>
           <p>Pick Basic, then add one combat or role package. Once you have selected affixes, the planner can track them while you compare gear.</p>
         </ng-template>
-        <button *ngIf="shouldShowBasicPackageHint() || shouldShowAdditionalPackageHint() || shouldHighlightEquipmentStep()" type="button" class="onboarding-dismiss-button" (click)="dismissIntro()">Skip intro</button>
+        <button *ngIf="hasOnboardingStep()" type="button" class="onboarding-dismiss-button" (click)="dismissIntro()">Skip intro</button>
       </section>
 
       <section class="affix-panel">
@@ -90,6 +96,7 @@
           @for (spellpower of spellpowerPackageKeys; track spellpower) {
               <button type="button" class="affix-chip affix-package-chip"
                 [class.selected]="isSpellpowerSelected(spellpower)"
+                [class.affix-next-chip]="shouldShowSpellpowerHint()"
                 [attr.aria-pressed]="isSpellpowerSelected(spellpower)"
                 [title]="getSpellpowerTooltip(spellpower)"
                 (click)="addSpellpower(spellpower)">{{spellpower}}</button>

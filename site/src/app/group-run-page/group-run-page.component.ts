@@ -5,7 +5,7 @@ import { firstValueFrom, Subscription } from 'rxjs';
 
 import { BuildsService } from '../build/builds.service';
 import {
-  addBuildsOf, groupBuildErrorOf, groupPath, GroupsService, inviteTokenOf, inviteUrlOf, MAX_GROUP_BUILDS, MAX_LIST_NAME_LENGTH
+  addBuildsOf, groupPath, GroupsService, inviteTokenOf, inviteUrlOf, MAX_GROUP_BUILDS, MAX_LIST_NAME_LENGTH
 } from '../build/groups.service';
 import { ListReturnService } from '../build/list-return.service';
 import { MyListsService } from '../build/my-lists.service';
@@ -17,6 +17,7 @@ import { PageChromeBack } from '../page-chrome/page-chrome.component';
 import { AuthService } from '../shared/auth.service';
 import { Clipboard } from '../shared/clipboard';
 import { BuildChoice, buildChoicesOf } from '../shopping-list/build-choices.component';
+import { GroupBuildEditor } from '../shopping-list/group-build-editor';
 
 const SITE_TITLE = 'DDO Gear Planner';
 
@@ -66,6 +67,8 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
   actionError: string | null = null;
   private readonly subscriptions = new Subscription();
   private copiedTimeout?: ReturnType<typeof setTimeout>;
+  /** Adds, takes off and renames your builds' characters, once the page has a link to the list. */
+  private editor: GroupBuildEditor | null = null;
   /** The link asked for Add builds: opened once signed in. */
   private addWanted = false;
 
@@ -108,6 +111,8 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
       return;
     }
     this.analytics.track('open_group_run', {});
+    this.editor = new GroupBuildEditor(this.groups, this.analytics, { shortId: this.shortId, inviteToken: this.token },
+      () => this.groupRun.refreshViewer());
     this.groupRun.open(this.shortId, this.token);
     this.subscriptions.add(this.groupRun.view$.subscribe(run => {
       this.run = run;
@@ -177,68 +182,49 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  /** Marks the builds the group has, with the names they're in it as. */
+  /**
+   * Marks the builds the group has, with the names they're on it as. A row
+   * mid-change is left as it is (its tick shows the change ahead of the
+   * group), and so is a name being typed.
+   */
   private syncChoices(): void {
     const members = new Map((this.groupRun.group?.members ?? []).map(member => [member.buildId, member.characterName]));
     for (const choice of this.choices ?? []) {
+      if (choice.busy) {
+        continue;
+      }
       const name = members.get(choice.build.id);
-      if (name !== undefined && !choice.inGroup) {
-        // Just added, here or elsewhere: show the name it's in the group as.
+      if (name !== undefined && choice.characterName === choice.savedName) {
+        // Added or renamed, here or elsewhere: show the name it's on the list as.
         choice.characterName = name;
       }
+      choice.savedName = name ?? choice.savedName;
       choice.inGroup = name !== undefined;
     }
   }
 
-  async addBuild(choice: BuildChoice): Promise<void> {
-    const characterName = choice.characterName.trim();
-    if (!characterName || !this.token) {
-      choice.error = 'Give the character a name.';
-      return;
-    }
-    await this.groupBuildCall(choice, () => this.groups.addBuild(this.shortId, this.token ?? '', { buildId: choice.build.id, characterName }),
-      'add_group_build');
+  /** A row's tick: puts your build on the list, or takes it off. */
+  async toggleBuild(choice: BuildChoice, on: boolean): Promise<void> {
+    await this.editor?.toggle(choice, on);
+    this.cdr.markForCheck();
   }
 
+  /** A row's character name, once you've stopped typing it. */
   async renameBuild(choice: BuildChoice): Promise<void> {
-    const characterName = choice.characterName.trim();
-    if (!characterName) {
-      choice.error = 'Give the character a name.';
-      return;
-    }
-    await this.groupBuildCall(choice, () => this.groups.renameBuild(this.shortId, choice.build.id, characterName), 'rename_group_build');
+    await this.editor?.rename(choice);
+    this.cdr.markForCheck();
   }
 
-  async removeBuild(buildId: string, choice?: BuildChoice): Promise<void> {
-    if (choice) {
-      choice.busy = true;
-    }
+  /** The host's Manage menu: takes any build off the list. */
+  async removeBuild(buildId: string): Promise<void> {
     this.actionError = null;
     try {
       await firstValueFrom(this.groups.removeBuild(this.shortId, buildId));
-      this.analytics.track('remove_group_build', { own: !!choice });
+      this.analytics.track('remove_group_build', { own: false });
       this.groupRun.refreshViewer();
     } catch {
       this.actionError = 'Couldn\'t take that build out. Please try again.';
     } finally {
-      if (choice) {
-        choice.busy = false;
-      }
-      this.cdr.markForCheck();
-    }
-  }
-
-  private async groupBuildCall(choice: BuildChoice, call: () => ReturnType<GroupsService['addBuild']>, event: string): Promise<void> {
-    choice.busy = true;
-    choice.error = null;
-    try {
-      await firstValueFrom(call());
-      this.analytics.track(event, {});
-      this.groupRun.refreshViewer();
-    } catch (error) {
-      choice.error = groupBuildErrorOf(error);
-    } finally {
-      choice.busy = false;
       this.cdr.markForCheck();
     }
   }

@@ -23,6 +23,7 @@ describe('OwnListActionsComponent', () => {
   let signedIn: BehaviorSubject<boolean>;
   let createGroup: ReturnType<typeof vi.fn>;
   let addBuild: ReturnType<typeof vi.fn>;
+  let removeBuild: ReturnType<typeof vi.fn>;
   let added: ReturnType<typeof vi.fn>;
   let signIn: ReturnType<typeof vi.fn>;
   let build: CurrentBuildState;
@@ -43,6 +44,7 @@ describe('OwnListActionsComponent', () => {
     signedIn = new BehaviorSubject(false);
     createGroup = vi.fn((name: string) => of({ shortId: 'grp1', name, inviteToken: 'tok' }));
     addBuild = vi.fn(() => of({}));
+    removeBuild = vi.fn(() => of(undefined));
     added = vi.fn();
     signIn = vi.fn();
     build = { savedBuildId: null, shortId: null, name: null, isDirty: false, ownership: 'other' };
@@ -53,7 +55,7 @@ describe('OwnListActionsComponent', () => {
       providers: [
         provideRouter([]),
         { provide: ShoppingListService, useValue: { stillNeededText: () => 'Still needed for my build (5):', stillNeededKeys: () => ['k1', 'k2', 'k3', 'k4'] } },
-        { provide: GroupsService, useValue: { create: createGroup, addBuild } },
+        { provide: GroupsService, useValue: { create: createGroup, addBuild, removeBuild } },
         { provide: BuildsService, useValue: { listMine: () => of([
           { id: 'b1', shortId: 's1', name: 'Tank' },
           { id: 'b2', shortId: 's2', name: 'Healer build' },
@@ -139,10 +141,17 @@ describe('OwnListActionsComponent', () => {
       input.dispatchEvent(new Event('input'));
       fixture.detectChanges();
     };
-    const tick = (row: HTMLElement) => {
-      const box = row.querySelector<HTMLInputElement>('input[type="checkbox"]')!;
-      box.checked = true;
-      box.dispatchEvent(new Event('change'));
+    const box = (row: HTMLElement) => row.querySelector<HTMLInputElement>('input[type="checkbox"]')!;
+    const tick = async (row: HTMLElement, checked = true) => {
+      if (box(row).checked !== checked) {
+        box(row).click();
+      }
+      await fixture.whenStable();
+      fixture.detectChanges();
+    };
+    const openAdd = async () => {
+      click(addButton());
+      await fixture.whenStable();
       fixture.detectChanges();
     };
     const ready = () => {
@@ -213,24 +222,23 @@ describe('OwnListActionsComponent', () => {
       expect(addBuild).not.toHaveBeenCalled();
     });
 
-    it('starts a list of the builds you tick, with this one, named after their characters unless you name it', async () => {
+    it('lists your builds, this one first and ticked, and starts a list of the ones ticked, named after their characters unless you name it', async () => {
       ready();
       const navigate = vi.spyOn(TestBed.inject(Router), 'navigateByUrl').mockResolvedValue(true);
 
-      click(addButton());
-      await fixture.whenStable();
-      fixture.detectChanges();
+      await openAdd();
 
-      // Your other builds: not this one.
-      expect(rows().map(row => row.querySelector('.build-choice-name')?.textContent)).toEqual(['Healer build', 'A Very Long Build Name Indeed']);
-      expect(button('Start the list')!.disabled).toBe(true);
+      expect(rows().map(row => row.querySelector('.build-choice-build')?.textContent))
+        .toEqual(['Tank', 'Healer build', 'A Very Long Build Name Indeed']);
+      expect(rows().map(row => box(row).checked)).toEqual([true, false, false]);
+      expect(rows()[0].querySelector('.build-choice-this')).toBeTruthy();
       // "Tank" is one of your lists' names already.
       expect(listName()!.value).toBe('Tank (2)');
 
-      tick(rows()[0]);
+      await tick(rows()[1]);
       expect(listName()!.value).toBe('Tank & Healer build');
       // Typing a character's name picks its build.
-      type(rows()[1].querySelector<HTMLInputElement>('.build-choice-input')!, 'Thane');
+      type(rows()[2].querySelector<HTMLInputElement>('.build-choice-input')!, 'Thane');
       expect(listName()!.value).toBe('Tank & Healer build & Thane');
 
       type(listName()!, 'Alts');
@@ -244,73 +252,79 @@ describe('OwnListActionsComponent', () => {
       expect(navigate).toHaveBeenCalledWith('/list/grp1#t=tok');
     });
 
-    it('says which characters need a different name, rather than starting a list the Worker refuses', async () => {
+    it('starts a list without this build, if you untick it, and with none ticked offers nothing to start', async () => {
       ready();
-      click(addButton());
-      await fixture.whenStable();
-      fixture.detectChanges();
+      vi.spyOn(TestBed.inject(Router), 'navigateByUrl').mockResolvedValue(true);
+      await openAdd();
 
-      type(rows()[0].querySelector<HTMLInputElement>('.build-choice-input')!, 'tank');
+      await tick(rows()[0], false);
+      expect(button('Start the list')!.disabled).toBe(true);
+
+      await tick(rows()[1]);
       await submit('Start the list');
 
-      expect(rows()[0].textContent).toContain('Each character needs a different name.');
+      expect(createGroup).toHaveBeenCalledWith('Healer build', [{ buildId: 'b2', characterName: 'Healer build' }]);
+    });
+
+    it('says which characters need a different name, rather than starting a list the Worker refuses', async () => {
+      ready();
+      await openAdd();
+
+      type(rows()[1].querySelector<HTMLInputElement>('.build-choice-input')!, 'tank');
+      await submit('Start the list');
+
+      expect(rows()[1].textContent).toContain('Each character needs a different name.');
       expect(createGroup).not.toHaveBeenCalled();
     });
 
-    it('adds to the most recently active list the build is on, or starts another if you\'d rather', async () => {
+    it('on the most recently active list the build is on, puts builds on it and takes them off as you tick them', async () => {
       ready();
       onList = list({ yourBuildIds: ['b1', 'b2'] });
       const navigate = vi.spyOn(TestBed.inject(Router), 'navigateByUrl').mockResolvedValue(true);
 
-      click(addButton());
-      await fixture.whenStable();
-      fixture.detectChanges();
+      await openAdd();
 
       expect(dialog()!.textContent).toContain('This build is on Saturday run');
       expect(listName()).toBeNull();
-      // Already on it: shown, not offered.
-      expect(rows()[0].textContent).toContain('On the list as Healer build');
-      expect(rows()[0].querySelector<HTMLInputElement>('input[type="checkbox"]')!.disabled).toBe(true);
+      expect(rows().map(row => box(row).checked)).toEqual([true, true, false]);
 
-      tick(rows()[1]);
-      await submit('Add to the list');
-
+      await tick(rows()[2]);
       expect(addBuild).toHaveBeenCalledWith('grp9', 'tok9', { buildId: 'b3', characterName: 'A Very Long Build Na' });
+      await tick(rows()[1], false);
+      expect(removeBuild).toHaveBeenCalledWith('grp9', 'b2');
       expect(createGroup).not.toHaveBeenCalled();
+
+      await submit('Go to the list');
       expect(navigate).toHaveBeenCalledWith('/list/grp9#t=tok9');
     });
 
-    it('says why a build couldn\'t be added to the list, and stays', async () => {
+    it('says why a build couldn\'t be put on the list, and unticks it again', async () => {
       ready();
       onList = list();
       addBuild.mockReturnValue(throwError(() => new HttpErrorResponse({ status: 409, error: { nameTaken: true } })));
-      const navigate = vi.spyOn(TestBed.inject(Router), 'navigateByUrl').mockResolvedValue(true);
-      click(addButton());
-      await fixture.whenStable();
-      fixture.detectChanges();
+      await openAdd();
 
-      tick(rows()[0]);
-      await submit('Add to the list');
+      await tick(rows()[1]);
 
-      expect(rows()[0].textContent).toContain('A character on this list already has that name.');
-      expect(navigate).not.toHaveBeenCalled();
+      expect(rows()[1].textContent).toContain('A character on this list already has that name.');
+      expect(box(rows()[1]).checked).toBe(false);
     });
 
-    it('starts a new list rather than adding to the one the build is on, when asked', async () => {
+    it('starts a new list rather than changing the one the build is on, when asked', async () => {
       ready();
       onList = list({ yourBuildIds: ['b1', 'b2'] });
       vi.spyOn(TestBed.inject(Router), 'navigateByUrl').mockResolvedValue(true);
-      click(addButton());
-      await fixture.whenStable();
-      fixture.detectChanges();
+      await openAdd();
 
       click(button('Start a new list instead')!);
-      tick(rows()[0]);
+      expect(rows().map(row => box(row).checked)).toEqual([true, false, false]);
+      await tick(rows()[1]);
       await submit('Start the list');
 
       expect(createGroup).toHaveBeenCalledWith('Tank & Healer build', [
         { buildId: 'b1', characterName: 'Tank' }, { buildId: 'b2', characterName: 'Healer build' }
       ]);
+      expect(addBuild).not.toHaveBeenCalled();
     });
 
     it('invites friends to a new list once you\'ve named it, showing its link to copy', async () => {

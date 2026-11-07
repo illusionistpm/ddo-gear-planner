@@ -56,41 +56,40 @@
   <app-menu-backdrop (dismiss)="needs = null"></app-menu-backdrop>
 </ng-template>
 
-<ng-template #newList>
+<ng-template #listNameField>
   <label class="list-dialog-field">
     <span class="list-dialog-label">The list's name</span>
     <input type="text" class="list-dialog-input own-list-name" [value]="listName" [attr.maxlength]="maxListNameLength" required
       (input)="typedName = $any($event.target).value; error = null">
   </label>
-  <label class="list-dialog-field">
-    <span class="list-dialog-label">This build's character</span>
-    <input type="text" class="list-dialog-input own-list-character" [value]="characterName" [attr.maxlength]="maxCharacterNameLength" required
-      (input)="characterName = $any($event.target).value; error = null">
-  </label>
 </ng-template>
 
 @if (dialog === 'add') {
   <app-list-dialog heading="Add builds" (closed)="close()">
-    <form (submit)="$event.preventDefault(); addPicked()">
-      @if (target; as list) {
-        <p class="list-dialog-note">
-          This build is on <strong>{{list.name}}</strong>. Tick your other builds to add them to it.
-          <button type="button" class="list-dialog-link" (click)="startNew()">Start a new list instead</button>
-        </p>
-      } @else {
-        <p class="list-dialog-note">Tick your other builds to shop for them with this one, on a list of their own. Only you add to it.</p>
-        <ng-container *ngTemplateOutlet="newList"></ng-container>
-      }
-      <app-build-choices mode="pick" [choices]="choices" [loadError]="choicesError" [full]="full"></app-build-choices>
+    @if (target; as list) {
+      <p class="list-dialog-note">
+        This build is on <strong>{{list.name}}</strong>. Tick your builds to put them on it, or untick them to take them off.
+        <button type="button" class="list-dialog-link" (click)="startNew()">Start a new list instead</button>
+      </p>
+      <app-build-choices mode="manage" [choices]="choices" [loadError]="choicesError" [full]="full" [currentBuildId]="currentBuildId"
+        (ticked)="toggleOnTarget($event.choice, $event.on)" (rename)="renameOnTarget($event)"></app-build-choices>
       <div class="list-dialog-actions">
-        <button type="submit" class="pill-button primary" [disabled]="busy || !pickedCount">
-          {{busy ? 'Adding…' : target ? 'Add to the list' : 'Start the list'}}
-        </button>
-        @if (error) {
-          <p class="list-dialog-error" role="alert">{{error}}</p>
-        }
+        <button type="button" class="pill-button primary" (click)="goToList()">Go to the list</button>
       </div>
-    </form>
+    } @else {
+      <form (submit)="$event.preventDefault(); startPicked()">
+        <p class="list-dialog-note">Tick the builds to shop for together, on a list of their own. Only you add to it.</p>
+        <ng-container *ngTemplateOutlet="listNameField"></ng-container>
+        <app-build-choices mode="pick" [choices]="choices" [loadError]="choicesError" [full]="full" [currentBuildId]="currentBuildId">
+        </app-build-choices>
+        <div class="list-dialog-actions">
+          <button type="submit" class="pill-button primary" [disabled]="busy || !pickedCount">{{busy ? 'Starting…' : 'Start the list'}}</button>
+          @if (error) {
+            <p class="list-dialog-error" role="alert">{{error}}</p>
+          }
+        </div>
+      </form>
+    }
   </app-list-dialog>
 }
 
@@ -112,7 +111,7 @@
           <i class="fas" [class.fa-link]="!copied" [class.fa-check]="copied" aria-hidden="true"></i>
           <span>{{copied ? 'Copied' : 'Copy invite link'}}</span>
         </button>
-        <button type="button" class="pill-button" (click)="openInvited()">Go to the list</button>
+        <button type="button" class="pill-button" (click)="goToList()">Go to the list</button>
         @if (error) {
           <p class="list-dialog-error" role="alert">{{error}}</p>
         }
@@ -122,7 +121,7 @@
         <p class="list-dialog-note">
           Starts a list with this build on it. Friends with its link add their builds, and you all shop from it together, live.
         </p>
-        <ng-container *ngTemplateOutlet="newList"></ng-container>
+        <ng-container *ngTemplateOutlet="listNameField"></ng-container>
         <div class="list-dialog-actions">
           <button type="submit" class="pill-button primary" [disabled]="busy">{{busy ? 'Starting…' : 'Start the list'}}</button>
           @if (error) {

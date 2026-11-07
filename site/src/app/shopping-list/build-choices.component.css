@@ -1,44 +1,87 @@
+/* The heading and every row on one grid: a box, the build, its character's name - each row alike, so they line up. */
+.build-choices-head,
+.build-choice {
+  align-items: center;
+  column-gap: var(--space-8);
+  display: grid;
+  grid-template-columns: 1rem minmax(0, 1fr) minmax(8rem, 11rem);
+}
+
+.build-choices-head {
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-top: var(--space-12);
+  text-transform: uppercase;
+}
+
 .build-choices {
   list-style: none;
-  margin: var(--space-8) 0 0;
+  margin: var(--space-4) 0 0;
   padding: 0;
 }
 
 .build-choice {
-  align-items: center;
   border-top: 1px solid var(--border-color);
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-4) var(--space-8);
-  padding: var(--space-8) 0;
+  padding: var(--space-4) 0;
+  row-gap: var(--space-2);
 }
 
-.build-choice-pick {
-  align-items: center;
+.build-choice-box {
+  margin: 0;
+}
+
+.build-choice-name {
+  align-items: baseline;
+  cursor: pointer;
   display: flex;
-  flex: 1 1 10rem;
   gap: var(--space-8);
   margin: 0;
   min-width: 0;
 }
 
-.build-choice-name {
-  flex: 1 1 10rem;
-  min-width: 0;
+.build-choice-build {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.build-choice.in-group .build-choice-name {
-  font-weight: 700;
+.build-choice.on .build-choice-build {
+  font-weight: 600;
+}
+
+.build-choice-this {
+  color: var(--text-secondary);
+  flex: none;
+  font-size: 0.75rem;
+}
+
+/* The reset sits inside the name's box, at its end, so it takes no room of its own. */
+.build-choice-character {
+  position: relative;
 }
 
 .build-choice-input {
-  width: 11rem;
+  padding-right: 1.75rem;
+  width: 100%;
 }
 
-.build-choice-status {
+.build-choice-reset {
+  background: transparent;
+  border: 0;
   color: var(--text-secondary);
-  font-size: 0.85rem;
+  padding: 0 var(--space-4);
+  position: absolute;
+  right: var(--space-2);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.build-choice-reset:hover {
+  color: var(--primary-color);
+}
+
+.build-choice-error {
+  grid-column: 2 / -1;
 }

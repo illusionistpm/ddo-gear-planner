@@ -5,14 +5,15 @@ import { firstValueFrom, Subscription } from 'rxjs';
 import { BuildsService } from '../build/builds.service';
 import { CurrentBuildService } from '../build/current-build.service';
 import {
-  characterNameFor, charactersListName, CreatedGroup, createListErrorOf, groupBuildErrorOf, groupPath, groupRunName, GroupsService, GroupSummary,
-  inviteUrlOf, MAX_CHARACTER_NAME_LENGTH, MAX_GROUP_BUILDS, MAX_LIST_NAME_LENGTH, NewGroupBuild, uniqueListName
+  characterNameFor, charactersListName, CreatedGroup, createListErrorOf, groupPath, groupRunName, GroupsService, GroupSummary,
+  inviteUrlOf, MAX_GROUP_BUILDS, MAX_LIST_NAME_LENGTH, NewGroupBuild, uniqueListName
 } from '../build/groups.service';
 import { MyListsService } from '../build/my-lists.service';
 import { AnalyticsService } from '../shared/analytics.service';
 import { AuthService } from '../shared/auth.service';
 import { Clipboard } from '../shared/clipboard';
 import { BuildChoice, buildChoicesOf } from './build-choices.component';
+import { GroupBuildEditor } from './group-build-editor';
 import { LiveShare, liveShareOf } from './shopping-list-share-menu.component';
 
 /** The two ways off your build's own list onto a list of several: your other builds, or friends'. */
@@ -24,9 +25,12 @@ export type ListAction = 'add' | 'invite';
  * theirs to and shop from with you, live. Either list is a page of its own.
  *
  * Nothing is started until you say so: each opens a dialog, and closing it
- * leaves no list behind. A build already on a list is offered that list -
- * the most recently active - with a way to start another instead; a new
- * one needs a name, prefilled with one none of your lists has.
+ * leaves no list behind. Add builds lists your saved builds, this one first
+ * and ticked, to start a list of the ones you tick. A build already on a
+ * list is offered that list instead - the most recently active - where a
+ * tick puts a build on it or takes it off at once, as on the list's own
+ * page; or another list can be started. A new list needs a name,
+ * prefilled with one none of your lists has.
  *
  * Lists hold saved builds only, as that's how the site learns of your
  * others: until this one is a saved build of yours as saved, each says what
@@ -45,7 +49,6 @@ export class OwnListActionsComponent implements OnInit, OnDestroy {
   /** Back to the planner, to save the build first. */
   @Output() toPlanner = new EventEmitter<void>();
 
-  readonly maxCharacterNameLength = MAX_CHARACTER_NAME_LENGTH;
   readonly maxListNameLength = MAX_LIST_NAME_LENGTH;
 
   /** The Share menu is open. */
@@ -54,19 +57,17 @@ export class OwnListActionsComponent implements OnInit, OnDestroy {
   needs: { action: ListAction; what: Exclude<LiveShare, 'ready'> } | null = null;
   /** The dialog open; null for none. */
   dialog: ListAction | null = null;
-  /** The list the dialog adds to or invites to; null to start a new one. */
+  /** The list the dialog changes or invites to; null to start a new one. */
   target: GroupSummary | null = null;
-  /** This build's character name on a new list. */
-  characterName = '';
   /** A new list's name as typed; null until it is, for the default. */
   typedName: string | null = null;
-  /** Your other builds, in Add builds; null while they load. */
+  /** Your saved builds, in Add builds; null while they load. */
   choices: BuildChoice[] | null = null;
   choicesError: string | null = null;
   /** The list whose invite link Invite friends shows - one the build was on, or one just started; null until there is one. */
   invite: CreatedGroup | null = null;
   copied = false;
-  /** A list is being started or added to. */
+  /** A list is being started. */
   busy = false;
   /** Why the dialog's action failed, to say so. */
   error: string | null = null;
@@ -74,6 +75,10 @@ export class OwnListActionsComponent implements OnInit, OnDestroy {
   private takenNames: readonly string[] = [];
   /** When Invite friends opened: what its default name is after. */
   private openedAt = new Date();
+  /** Changes the target list's builds as they're ticked; null with no target. */
+  private editor: GroupBuildEditor | null = null;
+  /** How many builds the target list has, everyone's, as changed here. */
+  private targetCount = 0;
   private readonly subscription = new Subscription();
 
   constructor(
@@ -104,6 +109,11 @@ export class OwnListActionsComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  /** The build on screen, which the lists are started from. */
+  get currentBuildId(): string | null {
+    return this.currentBuild.value.savedBuildId;
+  }
+
   toggleShare(): void {
     this.shareOpen = !this.shareOpen;
     this.needs = null;
@@ -118,18 +128,16 @@ export class OwnListActionsComponent implements OnInit, OnDestroy {
       this.analytics.track('add_builds_blocked', { needs: live, action });
       return;
     }
-    const { savedBuildId, name } = this.currentBuild.value;
     this.needs = null;
     this.dialog = action;
-    this.characterName = characterNameFor(name ?? '') || 'Me';
     this.typedName = null;
     this.error = null;
     this.copied = false;
     this.openedAt = new Date();
-    this.target = this.myLists.listFor(savedBuildId);
+    this.setTarget(this.myLists.listFor(this.currentBuildId));
     this.invite = action === 'invite' ? this.target : null;
     if (action === 'add') {
-      this.loadChoices(savedBuildId);
+      this.loadChoices();
     }
   }
 
@@ -139,12 +147,16 @@ export class OwnListActionsComponent implements OnInit, OnDestroy {
     this.cdr.markForCheck();
   }
 
-  /** Starts a new list rather than using the one the build is on. */
+  /** Starts a new list rather than using the one the build is on: this build ticked, the rest not. */
   startNew(): void {
-    this.target = null;
+    this.setTarget(null);
     this.invite = null;
     this.error = null;
-    this.markOnTarget();
+    for (const choice of this.choices ?? []) {
+      choice.inGroup = false;
+      choice.picked = choice.build.id === this.currentBuildId;
+      choice.error = null;
+    }
   }
 
   /** The new list's name: as typed, or one from who's on it that none of your lists has. */
@@ -154,45 +166,50 @@ export class OwnListActionsComponent implements OnInit, OnDestroy {
     }
     const base = this.dialog === 'invite'
       ? groupRunName(this.openedAt)
-      : charactersListName([this.characterName, ...this.picked().map(choice => choice.characterName)].map(name => name.trim()).filter(Boolean));
+      : charactersListName(this.picked().map(choice => choice.characterName.trim()).filter(Boolean));
     return uniqueListName(base, this.takenNames);
   }
 
-  /** How many builds Add builds would add. */
+  /** How many builds a new list would start with. */
   get pickedCount(): number {
     return this.picked().length;
   }
 
-  /** The list would be full with those added: no more are offered. */
+  /** The list is full, or would be with those ticked: no more are offered. */
   get full(): boolean {
-    const onList = this.target ? this.target.buildCount : 1;
-    return onList + this.pickedCount >= MAX_GROUP_BUILDS;
+    return (this.target ? this.targetCount : this.pickedCount) >= MAX_GROUP_BUILDS;
   }
 
   get inviteUrl(): string {
     return this.invite ? inviteUrlOf(this.invite.shortId, this.invite.inviteToken) : '';
   }
 
-  /** Adds the builds picked: to the list the build is on, or to a new one with this build. */
-  async addPicked(): Promise<void> {
+  /** On the list the build is on: a row's tick puts that build on it or takes it off, at once. */
+  async toggleOnTarget(choice: BuildChoice, on: boolean): Promise<void> {
+    const wasOn = choice.inGroup;
+    await this.editor?.toggle(choice, on);
+    this.targetCount += Number(choice.inGroup) - Number(wasOn);
+    this.cdr.markForCheck();
+  }
+
+  /** On the list the build is on: a row's character name, once you've stopped typing it. */
+  async renameOnTarget(choice: BuildChoice): Promise<void> {
+    await this.editor?.rename(choice);
+    this.cdr.markForCheck();
+  }
+
+  /** Starts a list of the builds ticked, and goes there. */
+  async startPicked(): Promise<void> {
     const picked = this.picked();
-    if (!picked.length || this.busy) {
-      this.error = picked.length ? null : 'Tick the builds to add.';
-      return;
-    }
-    if (!this.namesValid(picked)) {
+    if (this.busy || !this.namesValid(picked)) {
       return;
     }
     this.busy = true;
     this.error = null;
     try {
-      if (this.target) {
-        await this.addTo(this.target, picked);
-      } else {
-        const group = await this.create('add_builds', [this.thisBuild(), ...picked.map(choice => this.memberOf(choice))]);
-        if (group) {
-          await this.router.navigateByUrl(groupPath(group.shortId, group.inviteToken));
-        }
+      const group = await this.create('add_builds', picked.map(choice => ({ buildId: choice.build.id, characterName: choice.characterName.trim() })));
+      if (group) {
+        await this.router.navigateByUrl(groupPath(group.shortId, group.inviteToken));
       }
     } finally {
       this.busy = false;
@@ -208,7 +225,8 @@ export class OwnListActionsComponent implements OnInit, OnDestroy {
     this.busy = true;
     this.error = null;
     try {
-      this.invite = await this.create('invite_friends', [this.thisBuild()]);
+      const characterName = characterNameFor(this.currentBuild.value.name ?? '') || 'Me';
+      this.invite = await this.create('invite_friends', [{ buildId: this.currentBuildId ?? '', characterName }]);
     } finally {
       this.busy = false;
       this.cdr.markForCheck();
@@ -224,10 +242,11 @@ export class OwnListActionsComponent implements OnInit, OnDestroy {
     }
   }
 
-  /** Goes to the list Invite friends showed. */
-  async openInvited(): Promise<void> {
-    if (this.invite) {
-      await this.router.navigateByUrl(groupPath(this.invite.shortId, this.invite.inviteToken));
+  /** Goes to the list the dialog is about: the one Invite friends showed, or the one Add builds changed. */
+  async goToList(): Promise<void> {
+    const list = this.invite ?? this.target;
+    if (list) {
+      await this.router.navigateByUrl(groupPath(list.shortId, list.inviteToken));
     }
   }
 
@@ -240,13 +259,23 @@ export class OwnListActionsComponent implements OnInit, OnDestroy {
     this.toPlanner.emit();
   }
 
-  private loadChoices(savedBuildId: string | null): void {
+  private setTarget(target: GroupSummary | null): void {
+    this.target = target;
+    this.targetCount = target?.buildCount ?? 0;
+    this.editor = target && new GroupBuildEditor(this.groups, this.analytics, target, () => this.myLists.refresh());
+  }
+
+  private loadChoices(): void {
     this.choices = null;
     this.choicesError = null;
     this.builds.listMine().subscribe({
       next: builds => {
-        this.choices = buildChoicesOf(builds.filter(build => build.id !== savedBuildId));
-        this.markOnTarget();
+        this.choices = buildChoicesOf(builds, this.currentBuildId);
+        // Your builds on the list already, ticked; there are no others to start one with.
+        const onTarget = new Set(this.target?.yourBuildIds ?? []);
+        for (const choice of this.choices) {
+          choice.inGroup = onTarget.has(choice.build.id);
+        }
         this.cdr.markForCheck();
       },
       error: () => {
@@ -256,42 +285,21 @@ export class OwnListActionsComponent implements OnInit, OnDestroy {
     });
   }
 
-  /** Marks your builds already on the list being added to, which aren't offered again. */
-  private markOnTarget(): void {
-    const onTarget = new Set(this.target?.yourBuildIds ?? []);
-    for (const choice of this.choices ?? []) {
-      choice.inGroup = onTarget.has(choice.build.id);
-      choice.picked &&= !choice.inGroup;
-    }
-  }
-
   private picked(): BuildChoice[] {
-    return (this.choices ?? []).filter(choice => choice.picked && !choice.inGroup);
-  }
-
-  private thisBuild(): NewGroupBuild {
-    return { buildId: this.currentBuild.value.savedBuildId ?? '', characterName: this.characterName.trim() };
-  }
-
-  private memberOf(choice: BuildChoice): NewGroupBuild {
-    return { buildId: choice.build.id, characterName: choice.characterName.trim() };
+    return (this.choices ?? []).filter(choice => choice.picked);
   }
 
   /**
-   * Whether every character to add has a name, and a different one from
-   * the rest, saying which doesn't: the Worker refuses a new list whose
-   * names clash without saying which. On a list already, it says so per build.
+   * Whether a new list has a name, builds, and a different name for each
+   * build's character, saying which doesn't: the Worker refuses a new list
+   * whose names clash without saying which.
    */
   private namesValid(picked: readonly BuildChoice[]): boolean {
-    let valid = true;
-    if (!this.target && !this.listName.trim()) {
-      this.error = 'Give the list a name.';
-      valid = false;
-    } else if (!this.target && !this.characterName.trim()) {
-      this.error = 'Give this build\'s character a name.';
-      valid = false;
-    }
-    const seen = new Set(this.target ? [] : [this.characterName.trim().toLowerCase()]);
+    this.error = !this.listName.trim() ? 'Give the list a name.'
+      : this.dialog === 'add' && !picked.length ? 'Tick the builds to put on the list.'
+        : null;
+    let valid = !this.error;
+    const seen = new Set<string>();
     for (const choice of picked) {
       const name = choice.characterName.trim().toLowerCase();
       choice.error = !name ? 'Give the character a name.' : seen.has(name) ? 'Each character needs a different name.' : null;
@@ -312,23 +320,5 @@ export class OwnListActionsComponent implements OnInit, OnDestroy {
       this.error = createListErrorOf(error);
       return null;
     }
-  }
-
-  /** Adds the builds to a list one at a time, stopping at one that can't be, and goes there once all are. */
-  private async addTo(list: GroupSummary, picked: readonly BuildChoice[]): Promise<void> {
-    for (const choice of picked) {
-      try {
-        await firstValueFrom(this.groups.addBuild(list.shortId, list.inviteToken, this.memberOf(choice)));
-        choice.inGroup = true;
-        choice.picked = false;
-      } catch (error) {
-        choice.error = groupBuildErrorOf(error);
-        this.myLists.refresh();
-        return;
-      }
-    }
-    this.analytics.track('add_to_list', { builds: picked.length });
-    this.myLists.refresh();
-    await this.router.navigateByUrl(groupPath(list.shortId, list.inviteToken));
   }
 }

@@ -17,10 +17,11 @@
     @if (adding) {
       <app-list-dialog heading="Add builds" (closed)="closeAdding()">
         <p class="list-dialog-note">
-          {{run?.characters?.length ?? 0}}/{{maxBuilds}} builds on the list. Each one's rows are labelled with its character's name.
+          {{run?.characters?.length ?? 0}}/{{maxBuilds}} builds on the list. Tick yours to put them on it; each one's rows are labelled
+          with its character's name.
         </p>
         <app-build-choices [choices]="choices" [loadError]="choicesError" [full]="full"
-          (add)="addBuild($event)" (rename)="renameBuild($event)" (remove)="removeBuild($event.build.id, $event)"></app-build-choices>
+          (ticked)="toggleBuild($event.choice, $event.on)" (rename)="renameBuild($event)"></app-build-choices>
       </app-list-dialog>
     }
     @if (actionError) {

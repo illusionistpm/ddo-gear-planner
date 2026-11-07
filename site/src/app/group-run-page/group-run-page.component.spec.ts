@@ -16,7 +16,7 @@ import { AuthService } from '../shared/auth.service';
 import { GroupRunPageComponent } from './group-run-page.component';
 import { MenuBackdropComponent } from '../menu-backdrop/menu-backdrop.component';
 import { Clipboard } from '../shared/clipboard';
-import { BuildChoicesComponent } from '../shopping-list/build-choices.component';
+import { BuildChoicesComponent, RENAME_DELAY_MS } from '../shopping-list/build-choices.component';
 import { ListDialogComponent } from '../shopping-list/list-dialog.component';
 
 describe('GroupRunPageComponent', () => {
@@ -128,41 +128,71 @@ describe('GroupRunPageComponent', () => {
     expect(button('Add builds')).toBeUndefined();
   });
 
-  it('lists your builds, adding one as the character you name, and marking the ones in it', async () => {
+  const choiceRows = () => Array.from(el().querySelectorAll<HTMLElement>('.build-choice'));
+  const tickRow = async (row: HTMLElement, checked: boolean) => {
+    const box = row.querySelector<HTMLInputElement>('input[type="checkbox"]')!;
+    if (box.checked !== checked) {
+      box.click();
+    }
+    await fixture.whenStable();
+    fixture.detectChanges();
+  };
+
+  it('lists your builds, ticking the ones on it, and adds one as the character you name when you tick it', async () => {
     await create('t=secret');
     arrive();
 
     button('Add builds')!.click();
     fixture.detectChanges();
 
-    const rows = Array.from(el().querySelectorAll<HTMLElement>('.build-choice'));
-    expect(rows.map(row => row.querySelector('.build-choice-name')?.textContent)).toEqual(['Tank build', 'My alt with a long name']);
-    expect(rows[0].classList).toContain('in-group');
-    const altName = rows[1].querySelector<HTMLInputElement>('input')!;
+    const rows = choiceRows();
+    expect(rows.map(row => row.querySelector('.build-choice-build')?.textContent)).toEqual(['Tank build', 'My alt with a long name']);
+    expect(rows.map(row => row.querySelector<HTMLInputElement>('input[type="checkbox"]')!.checked)).toEqual([true, false]);
+    const altName = rows[1].querySelector<HTMLInputElement>('.build-choice-input')!;
     // Named after the build, as much of it as fits.
     expect(altName.value).toBe('My alt with a long n');
 
     altName.value = 'Thane';
     altName.dispatchEvent(new Event('input'));
-    rows[1].querySelector<HTMLButtonElement>('.pill-button.primary')!.click();
-    await fixture.whenStable();
+    await tickRow(rows[1], true);
 
     expect(groups['addBuild']).toHaveBeenCalledWith('grp1', 'secret', { buildId: 'b-alt', characterName: 'Thane' });
     expect(groupRun.refreshViewer).toHaveBeenCalled();
   });
 
-  it('says when the character name is taken', async () => {
+  it('takes your build off when you untick it, and renames its character once you stop typing', async () => {
+    await create('t=secret');
+    arrive();
+    button('Add builds')!.click();
+    fixture.detectChanges();
+    vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] });
+    try {
+      const name = choiceRows()[0].querySelector<HTMLInputElement>('.build-choice-input')!;
+      name.value = 'Kira the Bold';
+      name.dispatchEvent(new Event('input'));
+      expect(groups['renameBuild']).not.toHaveBeenCalled();
+      vi.advanceTimersByTime(RENAME_DELAY_MS);
+    } finally {
+      vi.useRealTimers();
+    }
+    expect(groups['renameBuild']).toHaveBeenCalledWith('grp1', 'b-kira', 'Kira the Bold');
+
+    await tickRow(choiceRows()[0], false);
+
+    expect(groups['removeBuild']).toHaveBeenCalledWith('grp1', 'b-kira');
+  });
+
+  it('says when the character name is taken, and unticks the build again', async () => {
     await create('t=secret');
     groups['addBuild'].mockReturnValue(throwError(() => new HttpErrorResponse({ status: 409, error: { nameTaken: true } })));
     arrive();
     button('Add builds')!.click();
     fixture.detectChanges();
 
-    el().querySelectorAll<HTMLElement>('.build-choice')[1].querySelector<HTMLButtonElement>('.pill-button.primary')!.click();
-    await fixture.whenStable();
-    fixture.detectChanges();
+    await tickRow(choiceRows()[1], true);
 
     expect(text()).toContain('A character on this list already has that name.');
+    expect(choiceRows()[1].querySelector<HTMLInputElement>('input[type="checkbox"]')!.checked).toBe(false);
   });
 
   it('gives the host a way to take a build out, replace the link, and end the group', async () => {
@@ -259,7 +289,7 @@ describe('GroupRunPageComponent', () => {
     fixture.detectChanges();
 
     expect(el().querySelector('dialog')).toBeTruthy();
-    expect(Array.from(el().querySelectorAll('.build-choice-name'), name => name.textContent)).toEqual(['Tank build', 'My alt with a long name']);
+    expect(Array.from(el().querySelectorAll('.build-choice-build'), name => name.textContent)).toEqual(['Tank build', 'My alt with a long name']);
   });
 
   it('adds builds in a dialog over the list, closed by clicking away or Escape', async () => {

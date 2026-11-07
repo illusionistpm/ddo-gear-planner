@@ -35,7 +35,7 @@ function listMembersOf(list: GroupSummary): string {
 @Component({
   selector: 'app-my-lists-menu',
   templateUrl: './my-lists-menu.component.html',
-  styleUrls: ['../shared/share-menu.css', './my-lists-menu.component.css'],
+  styleUrls: ['../shared/share-menu.css', '../shared/pill-button.css', './my-lists-menu.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false
 })

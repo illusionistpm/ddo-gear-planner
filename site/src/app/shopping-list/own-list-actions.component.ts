@@ -5,7 +5,7 @@ import { firstValueFrom, Subscription } from 'rxjs';
 import { BuildsService } from '../build/builds.service';
 import { CurrentBuildService } from '../build/current-build.service';
 import {
-  characterNameFor, charactersListName, createListErrorOf, groupBuildErrorOf, groupPath, groupRunName, GroupsService, GroupSummary,
+  characterNameFor, charactersListName, CreatedGroup, createListErrorOf, groupBuildErrorOf, groupPath, groupRunName, GroupsService, GroupSummary,
   inviteUrlOf, MAX_CHARACTER_NAME_LENGTH, MAX_GROUP_BUILDS, MAX_LIST_NAME_LENGTH, NewGroupBuild, uniqueListName
 } from '../build/groups.service';
 import { MyListsService } from '../build/my-lists.service';
@@ -17,13 +17,6 @@ import { LiveShare, liveShareOf } from './shopping-list-share-menu.component';
 
 /** The two ways off your build's own list onto a list of several: your other builds, or friends'. */
 export type ListAction = 'add' | 'invite';
-
-/** A list whose invite link is on show: one the build was on, or one just started. */
-interface Invite {
-  shortId: string;
-  name: string;
-  inviteToken: string;
-}
 
 /**
  * Your own list's actions, beside its title: Share; Add builds, for a list
@@ -42,7 +35,7 @@ interface Invite {
 @Component({
   selector: 'app-own-list-actions',
   templateUrl: './own-list-actions.component.html',
-  styleUrls: ['../shared/share-menu.css', '../shared/list-dialog-parts.css', './own-list-actions.component.css'],
+  styleUrls: ['../shared/share-menu.css', '../shared/pill-button.css', '../shared/list-dialog-parts.css', './own-list-actions.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false
 })
@@ -70,8 +63,8 @@ export class OwnListActionsComponent implements OnInit, OnDestroy {
   /** Your other builds, in Add builds; null while they load. */
   choices: BuildChoice[] | null = null;
   choicesError: string | null = null;
-  /** The list whose invite link Invite friends shows; null until there is one. */
-  invite: Invite | null = null;
+  /** The list whose invite link Invite friends shows - one the build was on, or one just started; null until there is one. */
+  invite: CreatedGroup | null = null;
   copied = false;
   /** A list is being started or added to. */
   busy = false;
@@ -165,12 +158,12 @@ export class OwnListActionsComponent implements OnInit, OnDestroy {
     return uniqueListName(base, this.takenNames);
   }
 
-  /** The builds Add builds would add: no more than the list has room for. */
+  /** How many builds Add builds would add. */
   get pickedCount(): number {
     return this.picked().length;
   }
 
-  /** Room left on the list for more builds. */
+  /** The list would be full with those added: no more are offered. */
   get full(): boolean {
     const onList = this.target ? this.target.buildCount : 1;
     return onList + this.pickedCount >= MAX_GROUP_BUILDS;
@@ -196,7 +189,10 @@ export class OwnListActionsComponent implements OnInit, OnDestroy {
       if (this.target) {
         await this.addTo(this.target, picked);
       } else {
-        await this.start('add_builds', [this.thisBuild(), ...picked.map(choice => this.memberOf(choice))]);
+        const group = await this.create('add_builds', [this.thisBuild(), ...picked.map(choice => this.memberOf(choice))]);
+        if (group) {
+          await this.router.navigateByUrl(groupPath(group.shortId, group.inviteToken));
+        }
       }
     } finally {
       this.busy = false;
@@ -212,13 +208,7 @@ export class OwnListActionsComponent implements OnInit, OnDestroy {
     this.busy = true;
     this.error = null;
     try {
-      const members = [this.thisBuild()];
-      const group = await firstValueFrom(this.groups.create(this.listName.trim(), members));
-      this.myLists.added(group, members);
-      this.analytics.track('start_group_run', { from: 'invite_friends', builds: 1 });
-      this.invite = group;
-    } catch (error) {
-      this.error = createListErrorOf(error);
+      this.invite = await this.create('invite_friends', [this.thisBuild()]);
     } finally {
       this.busy = false;
       this.cdr.markForCheck();
@@ -311,15 +301,16 @@ export class OwnListActionsComponent implements OnInit, OnDestroy {
     return valid;
   }
 
-  /** Starts a list with these builds, and goes there. */
-  private async start(from: string, members: NewGroupBuild[]): Promise<void> {
+  /** Starts a list with these builds under the name given, remembering it as yours; null, saying why, if it couldn't be. */
+  private async create(from: string, members: NewGroupBuild[]): Promise<CreatedGroup | null> {
     try {
       const group = await firstValueFrom(this.groups.create(this.listName.trim(), members));
       this.myLists.added(group, members);
       this.analytics.track('start_group_run', { from, builds: members.length });
-      await this.router.navigateByUrl(groupPath(group.shortId, group.inviteToken));
+      return group;
     } catch (error) {
       this.error = createListErrorOf(error);
+      return null;
     }
   }
 

@@ -34,7 +34,10 @@ const SITE_TITLE = 'DDO Gear Planner';
 @Component({
   selector: 'app-group-run-page',
   templateUrl: './group-run-page.component.html',
-  styleUrls: ['../still-needed-page/still-needed-page.component.css', '../shared/list-dialog-parts.css', './group-run-page.component.css'],
+  styleUrls: [
+    '../still-needed-page/still-needed-page.component.css', '../shared/pill-button.css', '../shared/list-dialog-parts.css',
+    './group-run-page.component.css'
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [GroupRunService],
   standalone: false

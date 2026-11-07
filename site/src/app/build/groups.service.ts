@@ -42,29 +42,15 @@ export interface NewGroupBuild {
   characterName: string;
 }
 
-/** Why adding or renaming a character failed, as far as the page says so. */
-export type GroupBuildFailure = 'name-taken' | 'full' | 'already-in' | 'other';
-
-export function groupBuildFailureOf(error: unknown): GroupBuildFailure {
+/** What to say when adding or renaming a character failed: the Worker's 409s say which way. */
+export function groupBuildErrorOf(error: unknown): string {
   if (!(error instanceof HttpErrorResponse) || error.status !== 409) {
-    return 'other';
+    return 'Couldn\'t save that. Please try again.';
   }
   const body = error.error as { nameTaken?: unknown; full?: unknown } | null;
-  return body?.nameTaken ? 'name-taken' : body?.full ? 'full' : 'already-in';
-}
-
-/** What to say when adding or renaming a character failed. */
-export function groupBuildErrorOf(error: unknown): string {
-  switch (groupBuildFailureOf(error)) {
-    case 'name-taken':
-      return 'A character on this list already has that name.';
-    case 'full':
-      return `A list holds up to ${MAX_GROUP_BUILDS} builds.`;
-    case 'already-in':
-      return 'That build is on this list already.';
-    default:
-      return 'Couldn\'t save that. Please try again.';
-  }
+  return body?.nameTaken ? 'A character on this list already has that name.'
+    : body?.full ? `A list holds up to ${MAX_GROUP_BUILDS} builds.`
+      : 'That build is on this list already.';
 }
 
 /** A character name from a build's name: as much of it as fits. */
@@ -110,10 +96,8 @@ export function inviteUrlOf(shortId: string, inviteToken: string): string {
 
 /** Why starting a list failed: the Worker's reason when it gives one (too many lists), else to try again. */
 export function createListErrorOf(error: unknown): string {
-  const reason = error instanceof HttpErrorResponse ? (error.error as { error?: unknown } | null)?.error : null;
-  return typeof reason === 'string' && error instanceof HttpErrorResponse && error.status === 409
-    ? reason
-    : 'Couldn\'t start the list. Please try again.';
+  const reason = error instanceof HttpErrorResponse && error.status === 409 ? (error.error as { error?: unknown } | null)?.error : null;
+  return typeof reason === 'string' ? reason : 'Couldn\'t start the list. Please try again.';
 }
 
 /** Whether a list page's URL fragment asks to open Add builds. */

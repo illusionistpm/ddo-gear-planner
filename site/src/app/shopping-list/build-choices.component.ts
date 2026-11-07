@@ -31,7 +31,7 @@ export function buildChoicesOf(builds: readonly BuildSummary[]): BuildChoice[] {
 @Component({
   selector: 'app-build-choices',
   templateUrl: './build-choices.component.html',
-  styleUrls: ['../shared/list-dialog-parts.css', './build-choices.component.css'],
+  styleUrls: ['../shared/pill-button.css', '../shared/list-dialog-parts.css', './build-choices.component.css'],
   // Not OnPush: whoever shows the choices updates them in place (an error, busy, now on the list), and
   // marks itself for check; these are checked along with it.
   changeDetection: ChangeDetectionStrategy.Eager

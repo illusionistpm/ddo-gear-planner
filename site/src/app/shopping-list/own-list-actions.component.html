@@ -1,6 +1,6 @@
 @if (hasItems) {
   <div class="list-action-wrap">
-    <button type="button" class="list-action" [attr.aria-expanded]="shareOpen" (click)="toggleShare()"
+    <button type="button" class="pill-button list-action" [attr.aria-expanded]="shareOpen" (click)="toggleShare()"
       title="Share what's still needed with friends">
       <i class="fas fa-share-nodes" aria-hidden="true"></i>
       <span>Share</span>
@@ -11,7 +11,7 @@
   </div>
 }
 <div class="list-action-wrap">
-  <button type="button" class="list-action list-action-add" [attr.aria-expanded]="needs?.action === 'add' || dialog === 'add'"
+  <button type="button" class="pill-button list-action list-action-add" [attr.aria-expanded]="needs?.action === 'add' || dialog === 'add'"
     (click)="open('add')" title="Shop for several of your builds on one list">
     <i class="fas fa-layer-group" aria-hidden="true"></i>
     <span>Add builds</span>
@@ -21,7 +21,7 @@
   }
 </div>
 <div class="list-action-wrap">
-  <button type="button" class="list-action list-action-invite" [attr.aria-expanded]="needs?.action === 'invite' || dialog === 'invite'"
+  <button type="button" class="pill-button list-action list-action-invite" [attr.aria-expanded]="needs?.action === 'invite' || dialog === 'invite'"
     (click)="open('invite')" title="Shop together with friends: they add their builds to a live list">
     <i class="fas fa-user-plus" aria-hidden="true"></i>
     <span>Invite friends</span>

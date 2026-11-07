@@ -121,6 +121,13 @@ pattern. Tests go in `worker/test/` next to the progress tests.
 ## Site
 
 ### Entry points
+> **Since shipped differently:** your own list has two actions, *Add builds*
+> (your other saved builds, on a list only you add to) and *Invite friends*
+> (a list friends join by link). Neither creates anything until confirmed in
+> its dialog, a new list needs a name (prefilled, unique among yours), and a
+> build already on a list is offered that list first. The host can rename a
+> list (`PATCH /api/groups/:shortId`).
+
 1. **"Start a group run" in the shopping list header.** It goes next to Share
    in `shopping-list.component.html`, and only appears for a saved build that
    is signed in, since a group needs saved builds. It opens the setup dialog

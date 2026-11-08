@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Affix } from './affix';
+import { ItemBonusOption } from '../gear/item-bonus';
 import { AffixRank, HELPFUL_RANKS, rankClassName } from './affix-rank.enum';
 import { EquippedService, RankCandidate } from '../planner/equipped.service';
 import { AffixService } from './affix.service';
@@ -358,6 +359,26 @@ export class AffixUiService {
       return null;
     }
     return { pieces: setReq.currentCount + (alreadyEquipped ? 0 : 1), required: setReq.requiredCount };
+  }
+
+  /**
+   * The rank colour and tooltip of a Mythic Boost, Reaper bonus or Curse an equipped item carries,
+   * ranked like the chosen option of a crafting slot. A curse the planner can't express is irrelevant.
+   */
+  rankItemBonus(option: ItemBonusOption): { className: string; tooltip: string } {
+    if (!option.affixes.length) {
+      return { className: AffixRank[AffixRank.Irrelevant], tooltip: '' };
+    }
+    const affixes = option.affixes.flatMap(affix => {
+      const expandedAffixes = this.affixSvc.ungroupAffix(affix);
+      return expandedAffixes.length ? expandedAffixes : [affix];
+    });
+    const details = this.combineRankDetails(option.affixes.map(affix => this.getAffixRankDetails(affix)), option.affixes[0]);
+    const description = option.name + ' is:\n' + affixes.map(affix => '- ' + this.getAffixDescription(affix)).join('\n');
+    return {
+      className: this.classFor(details),
+      tooltip: [description, this.describeRank(details)].filter(text => text).join('\n\n'),
+    };
   }
 
   getClassForCraftable(craft: Craftable, candidate?: RankCandidate): string {

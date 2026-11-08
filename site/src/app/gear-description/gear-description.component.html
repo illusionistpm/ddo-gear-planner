@@ -137,6 +137,32 @@
         }
       </div>
     }
+    <!-- Mythic Boost, Reaper bonus, Curse -->
+    @for (row of bonusRows; track row.kind) {
+      <div class="row table-striped table-condensed small hover-helper item-bonus-row">
+        @if (!row.selected?.affixes?.length) {
+          <span class="show-never fas fa-heart heart col-1"></span>
+        } @else {
+          <button class="show-on-hover fa-heart heart col-1" [class.fas]="row.important" [class.far]="!row.important"
+            (click)="equipped.toggleImportantAffix(row.selected!.affixes[0].name)"></button>
+        }
+        <div class="col ps-1 pe-0" [ngClass]="row.className" [title]="row.tooltip">{{row.label}}</div>
+        @if (row.options.length) {
+          <div class="col-8 d-flex align-items-center">
+            <select class="form-control SmallFont border border-secondary" [ngClass]="row.className" [title]="row.tooltip"
+              [attr.aria-label]="row.label + ' bonus'"
+              [ngModel]="row.selected" (ngModelChange)="chooseItemBonus(row, $event)">
+              <option [ngValue]="null">None</option>
+              @for (option of row.options; track option.name) {
+                <option [ngValue]="option">{{option.name}}</option>
+              }
+            </select>
+          </div>
+        } @else {
+          <div class="col-8 readonly-crafting-option" [ngClass]="row.className" [title]="row.tooltip">{{row.selected?.name}}</div>
+        }
+      </div>
+    }
     <!-- Sets -->
     @for (set of setRows; track set.name) {
       <div class="row table-striped table-condensed small" >

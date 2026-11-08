@@ -5,6 +5,8 @@ import { AnalyticsService } from '../shared/analytics.service';
 import { preserveScrollOnMouseDown } from '../shared/preserve-scroll-position';
 import { EquippedService } from '../planner/equipped.service';
 import { Item } from '../gear/item';
+import { ITEM_BONUS_KINDS } from '../gear/item-bonus';
+import { ItemBonusService } from '../gear/item-bonus.service';
 import { slotLabel } from '../gear/slot-display';
 import { QuestService } from '../gear/quest.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
@@ -29,6 +31,10 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
   isArtifact = false;
   isRare = false;
   isRaid = false;
+  /** The item carries a Mythic Boost, Reaper bonus or Curse. */
+  hasBonuses = false;
+  /** The Mythic/Reaper/Curse rows are open for editing. */
+  editingBonuses = false;
   private slotSubscription?: Subscription;
   private userItemsChangedSubscription?: Subscription;
 
@@ -38,7 +44,8 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
     private analytics: AnalyticsService,
     private questService: QuestService,
     private suggestionDrawer: SuggestionDrawerService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private itemBonuses: ItemBonusService
   ) { }
 
   /** Lets the gear list's jump bar find this card. */
@@ -121,6 +128,18 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
     return this.isArtifact ? 'artifact' : null;
   }
 
+  /** Every slot but Quiver can carry a Mythic Boost, Reaper bonus or Curse. */
+  canTakeBonuses(): boolean {
+    return ITEM_BONUS_KINDS.some(kind => this.itemBonuses.getOptions(kind, this.slot).length > 0);
+  }
+
+  toggleBonusEditor() {
+    this.editingBonuses = !this.editingBonuses;
+    if (this.editingBonuses) {
+      this.analytics.track('planner_open_item_bonuses', { slot: this.slot });
+    }
+  }
+
   get label() {
     return slotLabel(this.slot);
   }
@@ -143,6 +162,7 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
       this.isArtifact = !!item.artifact;
       this.isRare = !!item.rare;
       this.isRaid = this.questService.isRaidLoot(item);
+      this.hasBonuses = ITEM_BONUS_KINDS.some(kind => item.bonuses[kind]);
       return;
     }
 
@@ -150,5 +170,7 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
     this.isArtifact = false;
     this.isRare = false;
     this.isRaid = false;
+    this.hasBonuses = false;
+    this.editingBonuses = false;
   }
 }

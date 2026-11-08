@@ -75,3 +75,43 @@
     cursor: help;
     pointer-events: auto;
 }
+
+/* Room for the bonus (wand) button as well as the clear (x) button. */
+.slot-select-button.has-bonus-button .item-name {
+    padding-right: 2.75rem;
+}
+
+/*
+ * The Mythic/Reaper/Curse toggle, just left of the clear button and on the same
+ * item-name line (see .slot-clear-button above for the bottom offset). A small
+ * chip like the clear button, so it reads on the header in either theme. Always
+ * there but muted, so it doesn't draw the eye on every card; accented while its
+ * rows are open or the item carries a bonus.
+ */
+.slot-bonus-button {
+    align-items: center;
+    background: var(--surface-elevated-color);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    bottom: 0.5rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 0.5rem;
+    height: 1rem;
+    justify-content: center;
+    line-height: 1;
+    max-width: 1rem;
+    opacity: 0.55;
+    padding: 0;
+    position: absolute;
+    right: 1.75rem;
+    width: 1rem;
+}
+
+.slot-bonus-button:hover,
+.slot-bonus-button:focus-visible,
+.slot-bonus-button.is-active {
+    color: var(--primary-color);
+    opacity: 1;
+}

@@ -9,7 +9,7 @@
       <div *ngIf="hasOnboardingStep()" class="onboarding-step-label">Next step</div>
       <ng-container *ngIf="shouldShowSpellpowerHint(); else equipmentStepIntro">
         <h2>Pick your spell power</h2>
-        <p>Choose the highlighted spell power your spells use - Fire, Healing and the rest - so the planner tracks the lore, power and intensity that go with it.</p>
+        <p>Choose the spell powers your spells use - Fire, Healing and the rest - so the planner tracks the lore, power and intensity that go with it.</p>
       </ng-container>
       <ng-template #equipmentStepIntro>
       <ng-container *ngIf="shouldHighlightEquipmentStep(); else affixSetupIntro">
@@ -20,7 +20,7 @@
       <ng-template #affixSetupIntro>
         <ng-container *ngIf="shouldShowAdditionalPackageHint(); else basicAffixSetupIntro">
           <h2>What is this build for?</h2>
-          <p>Basic is already on - the defenses and utility most builds want. Pick one highlighted focus so the planner can suggest gear for how this character plays. When you're done, press Done to choose gear.</p>
+          <p>Basic is already on - the defenses and utility most builds want. Add the focus (or focuses) that fit how this character plays, and the planner suggests gear for it. When you're done, press Done to choose gear.</p>
         </ng-container>
       </ng-template>
       <ng-template #basicAffixSetupIntro>
@@ -37,7 +37,7 @@
       </ng-template>
       <ng-template #emptyAffixSetupIntro>
         <h2>Start by choosing your build goals</h2>
-        <p>Pick Basic, then add one combat or role package. Once you have selected affixes, the planner can track them while you compare gear.</p>
+        <p>Pick Basic, then the combat or role packages that fit your build. Once you have selected affixes, the planner can track them while you compare gear.</p>
       </ng-template>
       <button *ngIf="hasOnboardingStep()" type="button" class="onboarding-dismiss-button" (click)="dismissIntro()">Skip intro</button>
     </section>
@@ -69,7 +69,7 @@
             [title]="getPackageTooltip(pkg)"
             (click)="addPackage(pkg)">
             {{pkg}}
-            <span *ngIf="shouldHighlightStarterPackage(pkg)" class="affix-next-chip-badge">{{pkg === 'Basic' ? 'Start' : 'Pick one'}}</span>
+            <span *ngIf="shouldHighlightStarterPackage(pkg)" class="affix-next-chip-badge">{{pkg === 'Basic' ? 'Start' : 'Suggested'}}</span>
           </button>
         }
       </div>
@@ -136,12 +136,12 @@
   </section>
 
   <!-- A second way out at the bottom, since the editor is taller than a phone's
-       screen. Clear all lives here, away from the header's Done. Side by side
+       screen. Clear all affixes lives here, away from the header's Done. Side by side
        the gear is already on screen; one view at a time, Done goes to it, and
        says so here. -->
   <footer class="affix-editor-foot">
     @if (savedSet.size) {
-      <button type="button" class="clear-affixes-button" (click)="clearAll()">Clear all</button>
+      <button type="button" class="clear-affixes-button" (click)="clearAll()">Clear all affixes</button>
     }
     <button type="button" class="affix-editor-done" (click)="done()">
       <span class="affix-editor-done-wide">Done</span>

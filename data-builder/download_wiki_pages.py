@@ -6,7 +6,7 @@ import time
 from pathlib import Path
 from urllib.parse import urljoin, urlparse, parse_qs
 
-from filigree_pages import FILIGREE_PAGE, get_filigree_subpages
+from filigree_pages import FILIGREE_PAGE, RAID_FILIGREE_PAGE, get_filigree_subpages
 from parse_quests import get_expansion_pack_pages_from_category
 from source_packs import DEVICE_PAGES_DIR, get_crafting_devices_from_category, get_missing_devices, load_source_packs
 from normalize_wiki_html import normalize_wiki_html
@@ -286,6 +286,7 @@ def download_filigree_pages(session=None):
         os.makedirs(pageDir)
 
     download_page(FILIGREE_PAGE, pageDir, session=session)
+    download_page(RAID_FILIGREE_PAGE, pageDir, session=session)
 
     filigree_path = os.path.join(pageDir, FILIGREE_PAGE.replace('/', '_') + '.html')
     if not os.path.exists(filigree_path):

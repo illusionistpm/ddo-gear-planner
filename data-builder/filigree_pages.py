@@ -7,6 +7,8 @@ subpage names the wiki may rename.
 """
 
 FILIGREE_PAGE = 'Sentient_Weapon/Filigrees'
+# Raid filigrees, bought with Threads of Fate, are listed only here (#Double_filigrees).
+RAID_FILIGREE_PAGE = 'Item:Thread_of_Fate'
 SUBPAGE_PREFIX = 'Sentient_Weapon/'
 # A guard against a page that suddenly links half the wiki under the prefix.
 MAX_SUBPAGES = 40

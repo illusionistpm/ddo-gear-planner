@@ -104,14 +104,9 @@ function generate(random: () => number): Params {
   // dictionary travels as itself.
   if (chance(0.3)) {
     const filigreeName = () => chance(0.9) ? pick(dictionary.filigrees) : 'Some Future Set: Strength';
-    const slots = (max: number) => Array.from({ length: max }, (_, index) => index)
-      .filter(() => chance(0.4))
-      .map(index => chance(0.3) ? [index, filigreeName(), 1] : [index, filigreeName()]);
+    const slots = (max: number) => Array.from({ length: Math.floor(random() * (max + 1)) },
+      () => chance(0.3) ? [filigreeName(), 1] : [filigreeName()]);
     const filigree: Record<string, unknown> = {};
-    if (chance(0.3))
-      filigree['ws'] = Math.floor(random() * 10) + 1;
-    if (chance(0.3))
-      filigree['as'] = Math.floor(random() * 5) + 1;
     const weapon = slots(10);
     const artifact = slots(5);
     if (weapon.length)

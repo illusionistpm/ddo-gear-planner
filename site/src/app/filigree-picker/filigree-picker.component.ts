@@ -1,5 +1,6 @@
 import {
-  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnChanges, ViewChild
+  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnChanges, SimpleChanges,
+  ViewChild
 } from '@angular/core';
 import { NgClass } from '@angular/common';
 
@@ -51,8 +52,11 @@ export class FiligreePickerComponent implements OnChanges, AfterViewInit {
     private changeDetector: ChangeDetectorRef
   ) { }
 
-  ngOnChanges() {
-    this.rare = !!this.current?.rare;
+  ngOnChanges(changes: SimpleChanges) {
+    // Start from the slot's copy only when the slot or its filigree changes, not on every input set.
+    if (changes['current'] || changes['index'] || changes['host']) {
+      this.rare = !!this.current?.rare;
+    }
     this.refresh();
   }
 

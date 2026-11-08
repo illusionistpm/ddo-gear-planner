@@ -40,18 +40,17 @@ export interface CompactPayloadV1 {
    */
   e?: Array<[string, string, string, number, string]>;
   /**
-   * The `filigree` param (planner/filigree-params.ts) with each filigree name replaced by its
-   * index in the dictionary's 'filigrees' list where it has one.
+   * The `filigree` param (planner/filigree-params.ts), each host's filigrees in order: the name, or
+   * its index in the dictionary's 'filigrees' list where it has one, wrapped as [name, 1] for a
+   * rare copy.
    */
   fg?: CompactFiligree;
   x?: DecodedParamRecord;
 }
 
-type CompactFiligreeSlot = [number, DictionaryValue] | [number, DictionaryValue, 1];
+type CompactFiligreeSlot = DictionaryValue | [DictionaryValue, 1];
 
 interface CompactFiligree {
-  ws?: number;
-  as?: number;
   w?: CompactFiligreeSlot[];
   a?: CompactFiligreeSlot[];
 }
@@ -418,14 +417,12 @@ export class BuildUrlCodecService {
       return null;
     }
     const slots = (entries: FiligreeSlotParam[] | undefined) => (Array.isArray(entries) ? entries : [])
-      .filter(entry => Array.isArray(entry) && typeof entry[1] === 'string')
+      .filter(entry => Array.isArray(entry) && typeof entry[0] === 'string')
       .map((entry): CompactFiligreeSlot => {
-        const name = this.encodeDictionaryValue(entry[1], 'filigrees');
-        return entry[2] === 1 ? [entry[0], name, 1] : [entry[0], name];
+        const name = this.encodeDictionaryValue(entry[0], 'filigrees');
+        return entry[1] === 1 ? [name, 1] : name;
       });
     const compact: CompactFiligree = {};
-    if (param.ws !== undefined) compact.ws = param.ws;
-    if (param.as !== undefined) compact.as = param.as;
     const weapon = slots(param.w);
     const artifact = slots(param.a);
     if (weapon.length) compact.w = weapon;
@@ -436,16 +433,15 @@ export class BuildUrlCodecService {
   private decodeFiligree(compact: CompactFiligree): string {
     const slots = (entries: CompactFiligreeSlot[] | undefined) => (entries ?? [])
       .map((entry): FiligreeSlotParam | null => {
-        const name = this.decodeDictionaryValue(entry[1], 'filigrees');
+        const rare = Array.isArray(entry) && entry[1] === 1;
+        const name = this.decodeDictionaryValue(Array.isArray(entry) ? entry[0] : entry, 'filigrees');
         if (!name) {
           return null;
         }
-        return entry[2] === 1 ? [entry[0], name, 1] : [entry[0], name];
+        return rare ? [name, 1] : [name];
       })
       .filter((entry): entry is FiligreeSlotParam => entry !== null);
     const param: FiligreeParam = {};
-    if (compact.ws !== undefined) param.ws = compact.ws;
-    if (compact.as !== undefined) param.as = compact.as;
     const weapon = slots(compact.w);
     const artifact = slots(compact.a);
     if (weapon.length) param.w = weapon;

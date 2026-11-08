@@ -349,11 +349,11 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     if (this.equipped.getCountedFiligree().some(entry => entry.host === host && entry.choice.name === name)) {
       return host === 'weapon' ? 'Already in the weapon' : 'Already in the artifact';
     }
-    return this.equipped.getFirstEmptyFiligreeSlot(host) === null ? 'No empty open slot' : '';
+    return this.equipped.getNextFiligreeSlot(host) === null ? 'No room left' : '';
   }
 
   slotFiligree(name: string, host: FiligreeHost) {
-    const index = this.equipped.getFirstEmptyFiligreeSlot(host);
+    const index = this.equipped.getNextFiligreeSlot(host);
     if (index === null) {
       return;
     }

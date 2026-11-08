@@ -202,16 +202,19 @@ describe('deriveShoppingEntries', () => {
 
     it('lists each counted filigree after the item holding it, duplicates included', () => {
       const entries = deriveShoppingEntries(slots({ Weapon: weapon(), Ring1: item({ name: 'Ring of Things' }) }), sources, lookup(loadout => {
-        loadout.weapon[0] = { name: 'Celerity: Dexterity', rare: true };
-        loadout.weapon[3] = { name: 'Celerity: Reflex', rare: false };
-        loadout.weapon[4] = { name: 'Celerity: Reflex', rare: false };
+        loadout.weapon = [
+          { name: 'Celerity: Dexterity', rare: true },
+          { name: 'Celerity: Reflex', rare: false },
+          { name: 'Celerity: Reflex', rare: false },
+        ];
       }));
 
+      // Keyed by copy rather than slot, so removing one above another keeps the other's progress.
       expect(entries.map(entry => entry.key)).toEqual([
         'g|Weapon|Big Sword',
-        'f|weapon#0|Celerity: Dexterity|r',
-        'f|weapon#3|Celerity: Reflex|n',
-        'f|weapon#4|Celerity: Reflex|n',
+        'f|weapon|Celerity: Dexterity|r#0',
+        'f|weapon|Celerity: Reflex|n#0',
+        'f|weapon|Celerity: Reflex|n#1',
         'g|Ring1|Ring of Things',
       ]);
       expect(entries[1]).toEqual(expect.objectContaining({
@@ -223,14 +226,13 @@ describe('deriveShoppingEntries', () => {
       expect(entries[2].identity).toBe(entries[3].identity);
     });
 
-    it('leaves out filigree with no item to hold it, or past the open slots', () => {
-      const entries = deriveShoppingEntries(slots({ Bracers: artifact(2) }), sources, lookup(loadout => {
-        loadout.weapon[0] = { name: 'Celerity: Dexterity', rare: false };
-        loadout.artifact[0] = { name: 'Zephyr: Tumble', rare: false };
-        loadout.artifact[2] = { name: 'Celerity: Reflex', rare: false };
+    it('leaves out filigree with no item to hold it, or past what the item holds', () => {
+      const entries = deriveShoppingEntries(slots({ Bracers: artifact(1) }), sources, lookup(loadout => {
+        loadout.weapon = [{ name: 'Celerity: Dexterity', rare: false }];
+        loadout.artifact = [{ name: 'Zephyr: Tumble', rare: false }, { name: 'Celerity: Reflex', rare: false }];
       }));
 
-      expect(entries.map(entry => entry.key)).toEqual(['g|Bracers|Old Bracers', 'f|artifact#0|Zephyr: Tumble|n']);
+      expect(entries.map(entry => entry.key)).toEqual(['g|Bracers|Old Bracers', 'f|artifact|Zephyr: Tumble|n#0']);
       expect(entries[1].parentKey).toBe('g|Bracers|Old Bracers');
     });
   });

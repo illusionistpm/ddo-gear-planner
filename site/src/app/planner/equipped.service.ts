@@ -33,9 +33,7 @@ import {
   countFiligreeSetPieces, CountedFiligree, emptyFiligreeLoadout, FiligreeChoice, FiligreeHost, FiligreeLoadout,
   MAX_WEAPON_FILIGREE_SLOTS, SUMMED_FILIGREE_BONUS_TYPES
 } from '../gear/filigree';
-import {
-  countLoadoutFiligree, filigreeCapacity, FiligreeHosts, filigreeSlotSetting, findFiligreeHosts, openFiligreeSlots
-} from './filigree-loadout';
+import { countLoadoutFiligree, filigreeCapacity, FiligreeHosts, findFiligreeHosts } from './filigree-loadout';
 import { parseFiligreeLoadout, serializeFiligreeLoadout } from './filigree-params';
 
 const TRACKED_AFFIX_COMPANIONS = new Map<string, Array<string>>([
@@ -1373,53 +1371,50 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     return this.getFiligreeHosts()[host]?.item ?? null;
   }
 
-  /** The most slots the host can open: 10 for any main-hand weapon, the artifact's Max Filigree Slots, 0 with none equipped. */
+  /** How many filigrees the host holds: 10 for any main-hand weapon, the artifact's Max Filigree Slots, 0 with none equipped. */
   getFiligreeCapacity(host: FiligreeHost): number {
     return filigreeCapacity(host, this.getFiligreeHosts());
   }
 
-  /** How many slots the player has opened, as set (an artifact defaults to all of them), whatever is equipped. */
-  getFiligreeSlotSetting(host: FiligreeHost): number {
-    return filigreeSlotSetting(host, this.filigree, this.getFiligreeHosts());
+  /**
+   * The host's filigrees that show and count: as many as it holds. Any past that are kept for a
+   * host that holds more.
+   */
+  getShownFiligree(host: FiligreeHost): FiligreeChoice[] {
+    return this.filigreeOf(host).slice(0, this.getFiligreeCapacity(host));
   }
 
-  /** The slots that count: the player's setting, within what the equipped host can hold. */
-  getOpenFiligreeSlots(host: FiligreeHost): number {
-    return openFiligreeSlots(host, this.filigree, this.getFiligreeHosts());
+  /** Where the next filigree goes in the host, or null when it's full or not equipped. */
+  getNextFiligreeSlot(host: FiligreeHost): number | null {
+    const count = this.filigreeOf(host).length;
+    return count < this.getFiligreeCapacity(host) ? count : null;
   }
 
-  setFiligreeSlotSetting(host: FiligreeHost, slots: number) {
-    const max = host === 'weapon' ? MAX_WEAPON_FILIGREE_SLOTS : Math.max(1, this.getFiligreeCapacity('artifact'));
-    const clamped = Math.min(Math.max(1, Math.round(slots)), max);
-    this.updateFiligree(loadout => {
-      if (host === 'weapon') {
-        loadout.weaponSlots = clamped;
-      } else {
-        // At the artifact's full capacity it follows the artifact, so a better one opens up too.
-        loadout.artifactSlots = clamped === this.getFiligreeCapacity('artifact') ? null : clamped;
-      }
-    });
-  }
-
-  /** The first open, empty slot of the host, or null when it's full or not equipped. */
-  getFirstEmptyFiligreeSlot(host: FiligreeHost): number | null {
-    const choices = host === 'weapon' ? this.filigree.weapon : this.filigree.artifact;
-    const index = choices.slice(0, this.getOpenFiligreeSlots(host)).findIndex(choice => !choice);
-    return index >= 0 ? index : null;
-  }
-
+  /**
+   * Puts a filigree in a slot, or with null takes it out, the ones after it sliding up. A slot just
+   * past the last filigree adds one there, if the host has room.
+   */
   setFiligree(host: FiligreeHost, index: number, choice: FiligreeChoice | null) {
     this.updateFiligree(loadout => {
       const slots = host === 'weapon' ? loadout.weapon : loadout.artifact;
       if (index >= 0 && index < slots.length) {
-        slots[index] = choice ? { ...choice } : null;
+        if (choice) {
+          slots[index] = { ...choice };
+        } else {
+          slots.splice(index, 1);
+        }
+      } else if (choice && index === slots.length && index < this.getFiligreeCapacity(host)) {
+        slots.push({ ...choice });
       }
     });
   }
 
+  private filigreeOf(host: FiligreeHost): FiligreeChoice[] {
+    return host === 'weapon' ? this.filigree.weapon : this.filigree.artifact;
+  }
+
   private updateFiligree(change: (loadout: FiligreeLoadout) => void) {
     const loadout: FiligreeLoadout = {
-      ...this.filigree,
       weapon: [...this.filigree.weapon],
       artifact: [...this.filigree.artifact],
     };

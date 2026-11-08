@@ -3,7 +3,7 @@ import { Subscription, merge } from 'rxjs';
 
 import { EquippedService } from '../planner/equipped.service';
 import { FiligreeDbService } from '../gear/filigree-db.service';
-import { CountedFiligree, FiligreeChoice, FiligreeHost, MAX_WEAPON_FILIGREE_SLOTS } from '../gear/filigree';
+import { CountedFiligree, FiligreeChoice, FiligreeHost } from '../gear/filigree';
 import { FILIGREE_TRACKING_MIN_LEVEL } from '../affixes/filigree-affix';
 import { GearDbService } from '../gear/gear-db.service';
 import { AnalyticsService } from '../shared/analytics.service';
@@ -11,9 +11,8 @@ import { describeFiligreeAffixes } from './filigree-text';
 
 export interface FiligreeSlotRow {
   index: number;
+  /** Null for the empty slot after the last filigree. */
   choice: FiligreeChoice | null;
-  /** Past the open slots: kept, but not counted. */
-  closed: boolean;
   /** A second copy in this host: a set piece whose bonuses don't count. */
   duplicate: boolean;
   affixText: string;
@@ -25,8 +24,9 @@ const expandedHosts = new Set<FiligreeHost>();
 
 /**
  * The filigrees slotted in the main-hand weapon or the minor artifact, under that item's card.
- * Collapsed by default to one line with a count, as ten rows would swamp the card. Each slot opens
- * the picker, which is loaded on first use.
+ * Collapsed by default to one line with a count, as ten rows would swamp the card. Expanded, it
+ * lists the filigrees and one empty slot after them while the item has room; removing one slides
+ * the rest up. Each slot opens the picker, which is loaded on first use.
  */
 @Component({
   selector: 'app-filigree-slots',
@@ -40,8 +40,6 @@ export class FiligreeSlotsComponent implements OnInit, OnDestroy {
   visible = false;
   expanded = false;
   rows: FiligreeSlotRow[] = [];
-  openSlots = 0;
-  slotSetting = 0;
   capacity = 0;
   filledCount = 0;
 
@@ -49,6 +47,13 @@ export class FiligreeSlotsComponent implements OnInit, OnDestroy {
   pickerComponent: Type<unknown> | null = null;
 
   private subscription?: Subscription;
+  private cachedPickerInputs?: {
+    host: FiligreeHost;
+    index: number;
+    current: FiligreeChoice | null;
+    pick: (choice: FiligreeChoice | null) => void;
+    close: () => void;
+  };
 
   constructor(
     private equipped: EquippedService,
@@ -71,10 +76,6 @@ export class FiligreeSlotsComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
   }
 
-  get maxSlotSetting(): number {
-    return this.host === 'weapon' ? MAX_WEAPON_FILIGREE_SLOTS : this.capacity;
-  }
-
   get title(): string {
     return this.host === 'weapon' ? 'Sentient weapon filigree' : 'Minor artifact filigree';
   }
@@ -87,10 +88,6 @@ export class FiligreeSlotsComponent implements OnInit, OnDestroy {
       expandedHosts.delete(this.host);
       this.pickerIndex = null;
     }
-  }
-
-  changeSlotSetting(step: number) {
-    this.equipped.setFiligreeSlotSetting(this.host, this.slotSetting + step);
   }
 
   async openPicker(index: number) {
@@ -112,14 +109,24 @@ export class FiligreeSlotsComponent implements OnInit, OnDestroy {
     this.changeDetector.markForCheck();
   };
 
+  /**
+   * The open picker's inputs, kept until what they say changes: ngComponentOutlet sets inputs again
+   * whenever the object differs, and the picker starts over from them each time.
+   */
   pickerInputs(row: FiligreeSlotRow) {
-    return {
+    const cached = this.cachedPickerInputs;
+    if (cached && cached.index === row.index && cached.current === row.choice) {
+      return cached;
+    }
+    const index = row.index;
+    this.cachedPickerInputs = {
       host: this.host,
-      index: row.index,
+      index,
       current: row.choice,
-      pick: (choice: FiligreeChoice | null) => this.choose(row.index, choice),
+      pick: (choice: FiligreeChoice | null) => this.choose(index, choice),
       close: this.closePicker,
     };
+    return this.cachedPickerInputs;
   }
 
   choose(index: number, choice: FiligreeChoice | null) {
@@ -140,33 +147,28 @@ export class FiligreeSlotsComponent implements OnInit, OnDestroy {
 
   private refresh() {
     const loadout = this.equipped.getFiligreeLoadout();
-    const choices = this.host === 'weapon' ? loadout.weapon : loadout.artifact;
+    const hasChoices = (this.host === 'weapon' ? loadout.weapon : loadout.artifact).length > 0;
     this.capacity = this.equipped.getFiligreeCapacity(this.host);
-    const hasChoices = choices.some(choice => !!choice);
     // Below level 20 there's no filigree to slot; one already slotted still shows.
     const inRange = this.gearDb.getMaxLevelFilter() >= FILIGREE_TRACKING_MIN_LEVEL;
     this.visible = this.capacity > 0 && (inRange || hasChoices);
-    this.openSlots = this.equipped.getOpenFiligreeSlots(this.host);
-    this.slotSetting = this.equipped.getFiligreeSlotSetting(this.host);
 
+    const shown = this.equipped.getShownFiligree(this.host);
     const counted = new Map<number, CountedFiligree>(this.equipped.getCountedFiligree()
       .filter(entry => entry.host === this.host)
       .map(entry => [entry.index, entry]));
-    const lastFilled = choices.reduce((last, choice, index) => choice ? index : last, -1);
-    const rowCount = Math.min(choices.length, Math.max(this.openSlots, lastFilled + 1));
-    this.rows = choices.slice(0, rowCount).map((choice, index) => {
-      const entry = counted.get(index);
-      return {
-        index,
-        choice,
-        closed: index >= this.openSlots,
-        duplicate: !!entry && !entry.contributes,
-        affixText: choice ? describeFiligreeAffixes(this.filigreeDb.getAffixes(choice)) : '',
-        setText: choice ? this.filigreeDb.getSets(choice.name).join(' / ') : '',
-      };
-    });
-    this.filledCount = this.rows.filter(row => row.choice && !row.closed).length;
-    if (this.pickerIndex !== null && this.pickerIndex >= rowCount) {
+    this.rows = shown.map((choice, index) => ({
+      index,
+      choice,
+      duplicate: !counted.get(index)?.contributes,
+      affixText: describeFiligreeAffixes(this.filigreeDb.getAffixes(choice)),
+      setText: this.filigreeDb.getSets(choice.name).join(' / '),
+    }));
+    if (this.equipped.getNextFiligreeSlot(this.host) !== null) {
+      this.rows.push({ index: shown.length, choice: null, duplicate: false, affixText: '', setText: '' });
+    }
+    this.filledCount = shown.length;
+    if (this.pickerIndex !== null && this.pickerIndex >= this.rows.length) {
       this.pickerIndex = null;
     }
     this.changeDetector.markForCheck();

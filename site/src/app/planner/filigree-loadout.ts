@@ -29,21 +29,11 @@ export function filigreeCapacity(host: FiligreeHost, hosts: FiligreeHosts): numb
   return host === 'weapon' ? MAX_WEAPON_FILIGREE_SLOTS : Math.min(getMaxFiligreeSlots(held.item), MAX_ARTIFACT_FILIGREE_SLOTS);
 }
 
-/** How many slots the player has opened (an artifact defaults to all of them), whatever is equipped. */
-export function filigreeSlotSetting(host: FiligreeHost, loadout: FiligreeLoadout, hosts: FiligreeHosts): number {
-  return host === 'weapon' ? loadout.weaponSlots : loadout.artifactSlots ?? filigreeCapacity('artifact', hosts);
-}
-
-/** The slots that count: the player's setting, within what the equipped host can hold. */
-export function openFiligreeSlots(host: FiligreeHost, loadout: FiligreeLoadout, hosts: FiligreeHosts): number {
-  return Math.min(filigreeSlotSetting(host, loadout, hosts), filigreeCapacity(host, hosts));
-}
-
-/** Every filigree that counts, both hosts. */
+/** Every filigree that counts, both hosts: as many of each host's as it holds. */
 export function countLoadoutFiligree(loadout: FiligreeLoadout, hosts: FiligreeHosts): CountedFiligree[] {
   return FILIGREE_HOSTS.flatMap(host => countHostFiligree(
     host,
     host === 'weapon' ? loadout.weapon : loadout.artifact,
-    openFiligreeSlots(host, loadout, hosts)
+    filigreeCapacity(host, hosts)
   ));
 }

@@ -17,7 +17,7 @@ import type { ShoppingEntry, ShoppingEntryKind, ShoppingSource } from './shoppin
  *   augment: a|<slot>|<crafting slot>#<n>|<selection>
  *   upgrade: u|<slot>|<item>|<crafting slot>#<n>|<selection>
  *   step:    s|<slot>|<item>|<crafting slot>#<n>|<selection>
- *   filigree: f|<weapon|artifact>#<n>|<filigree>|<r|n>
+ *   filigree: f|<weapon|artifact>|<filigree>|<r|n>#<k>
  *
  * `<n>` tells apart same-named crafting slots on one item (two Colorless slots);
  * `<selection>` is Craftable.getSelectedParamDescription(), the same string build
@@ -25,7 +25,8 @@ import type { ShoppingEntry, ShoppingEntryKind, ShoppingSource } from './shoppin
  * swapping the item it goes in doesn't undo having it. Upgrades and steps are
  * crafted onto that item, so a different item starts them over. A filigree's key
  * leaves out the item too, as the filigree moves with the sentient jewel or is fed
- * into whichever artifact is worn; `<n>` is its slot, and `r` marks the rare copy.
+ * into whichever artifact is worn. `r` marks the rare copy, and `<k>` counts copies of the
+ * same filigree in that host, so removing one above it doesn't move its progress.
  */
 
 /** What an entry's source says about it, from quests.json. */
@@ -107,14 +108,18 @@ function filigreeEntriesByHostSlot(
     slots: ReadonlyMap<string, Item | null>, filigree: ShoppingFiligreeLookup): Map<string, ShoppingEntry[]> {
   const hosts = findFiligreeHosts(slots);
   const bySlot = new Map<string, ShoppingEntry[]>();
+  const copies = new Map<string, number>();
   for (const counted of countLoadoutFiligree(filigree.loadout, hosts)) {
     const host = hosts[counted.host];
     if (!host) {
       continue;
     }
     const { name, rare } = counted.choice;
+    const copyKey = `f|${counted.host}|${name}|${rare ? 'r' : 'n'}`;
+    const copy = copies.get(copyKey) ?? 0;
+    copies.set(copyKey, copy + 1);
     const entry: ShoppingEntry = {
-      key: `f|${counted.host}#${counted.index}|${name}|${rare ? 'r' : 'n'}`,
+      key: `${copyKey}#${copy}`,
       kind: 'filigree',
       identity: `filigree|${name}|${rare ? 'rare' : 'normal'}`,
       label: rare ? `${name} (Rare)` : name,

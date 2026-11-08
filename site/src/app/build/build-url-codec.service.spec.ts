@@ -203,7 +203,7 @@ describe('BuildUrlCodecService', () => {
       nongear: JSON.stringify([
         { id: '1', affixName: 'Deadly', bonusType: 'Insightful', kind: 'value', value: 6, label: 'Trance' }
       ]),
-      filigree: JSON.stringify({ w: [[0, 'Celerity: Dexterity']] })
+      filigree: JSON.stringify({ w: [['Celerity: Dexterity']] })
     };
 
     for (const key of FIXED_BUILD_PARAM_KEYS) {
@@ -236,20 +236,17 @@ describe('BuildUrlCodecService', () => {
 
   it('stores filigree names as dictionary indexes, and an unknown one as itself', () => {
     const filigree = JSON.stringify({
-      ws: 7,
-      as: 3,
-      w: [[0, 'Celerity: Dexterity', 1], [4, 'Some Future Set: Strength']],
-      a: [[2, 'Celerity: Dexterity']]
+      w: [['Celerity: Dexterity', 1], ['Some Future Set: Strength']],
+      a: [['Celerity: Dexterity']]
     });
 
     const encoded = service.encode({ filigree });
     const compact = service.inspect(encoded).compactPayload?.fg;
 
-    expect(compact?.ws).toBe(7);
-    expect(compact?.as).toBe(3);
-    expect(typeof compact?.w?.[0][1]).toBe('number');
-    expect(compact?.w?.[0][2]).toBe(1);
-    expect(compact?.w?.[1][1]).toBe('Some Future Set: Strength');
+    // A rare copy is [name, 1]; a normal one is just the name.
+    expect(compact?.w?.[0]).toEqual([expect.any(Number), 1]);
+    expect(compact?.w?.[1]).toBe('Some Future Set: Strength');
+    expect(typeof compact?.a?.[0]).toBe('number');
     expect(service.decode(encoded)).toEqual({ filigree });
   });
 

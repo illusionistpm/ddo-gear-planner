@@ -42,35 +42,6 @@
     font-weight: 400;
 }
 
-.filigree-slots-open {
-    display: flex;
-    gap: var(--space-4);
-    align-items: center;
-    padding: var(--space-4);
-    font-size: 0.8125rem;
-    color: var(--text-secondary);
-}
-
-.filigree-slots-step {
-    min-width: 1.75rem;
-    border: 1px solid var(--border-color);
-    border-radius: 0.375rem;
-    background: var(--surface-color);
-    color: var(--text-primary);
-    line-height: 1.4;
-}
-
-.filigree-slots-step:disabled {
-    opacity: 0.5;
-}
-
-.filigree-slots-open-count {
-    min-width: 1.25rem;
-    text-align: center;
-    color: var(--text-primary);
-    font-weight: 600;
-}
-
 .filigree-slot-row {
     display: flex;
     gap: var(--space-4);
@@ -122,10 +93,6 @@
 .filigree-slot-note,
 .filigree-slot-empty {
     font-style: italic;
-}
-
-.filigree-slot-closed .filigree-slot-text {
-    opacity: 0.6;
 }
 
 .filigree-slot-rare {

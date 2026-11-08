@@ -42,12 +42,43 @@ describe('EquippedService filigree', () => {
     return params as QueryParamRecord | null;
   };
 
-  it('counts nothing while no weapon or artifact holds the filigree', () => {
-    service.setFiligree('weapon', 0, { name: DEX, rare: false });
+  const restore = (filigree: object, slots: Record<string, string> = {}) => service.updateFromParams({
+    keys: [...Object.keys(slots), 'filigree'],
+    get: (key: string) => key === 'filigree' ? JSON.stringify(filigree) : slots[key] ?? null,
+    getAll: () => [],
+  });
 
-    expect(service.getOpenFiligreeSlots('weapon')).toBe(0);
+  it('keeps filigree no weapon holds, counting none of it, until a weapon is equipped', () => {
+    restore({ w: [[DEX]] });
+
+    expect(service.getShownFiligree('weapon')).toEqual([]);
     expect(value('Dexterity')).toBe(0);
-    expect(service.getFiligreeLoadout().weapon[0]).toEqual({ name: DEX, rare: false });
+    expect(service.getFiligreeLoadout().weapon).toEqual([{ name: DEX, rare: false }]);
+
+    service.set(weapon());
+    expect(value('Dexterity')).toBe(1);
+  });
+
+  it('adds a filigree only in the slot after the last one, and only while the host has room', () => {
+    service.set(artifact(2));
+    service.setFiligree('artifact', 1, { name: DEX, rare: false });
+    expect(service.getFiligreeLoadout().artifact).toEqual([]);
+
+    service.setFiligree('artifact', 0, { name: DEX, rare: false });
+    service.setFiligree('artifact', 1, { name: REFLEX, rare: false });
+    expect(service.getNextFiligreeSlot('artifact')).toBeNull();
+    service.setFiligree('artifact', 2, { name: DEX, rare: true });
+    expect(service.getFiligreeLoadout().artifact.map(choice => choice.name)).toEqual([DEX, REFLEX]);
+  });
+
+  it('slides the rest up when one is removed from the middle', () => {
+    service.set(weapon());
+    [DEX, REFLEX, FURY[0]].forEach((name, index) => service.setFiligree('weapon', index, { name, rare: false }));
+
+    service.setFiligree('weapon', 1, null);
+
+    expect(service.getFiligreeLoadout().weapon.map(choice => choice.name)).toEqual([DEX, FURY[0]]);
+    expect(service.getNextFiligreeSlot('weapon')).toBe(2);
   });
 
   it('adds up filigree bonuses of one type instead of taking the best', () => {
@@ -87,33 +118,19 @@ describe('EquippedService filigree', () => {
     expect(value('Strength', FILIGREE_SET_BONUS_TYPE)).toBe(5);
   });
 
-  it('counts only the open slots, and an artifact only up to what it holds', () => {
-    service.set(weapon());
-    service.set(artifact(1));
-    service.setFiligree('weapon', 1, { name: DEX, rare: false });
-    service.setFiligree('artifact', 1, { name: REFLEX, rare: false });
-
-    service.setFiligreeSlotSetting('weapon', 1);
-    expect(value('Dexterity')).toBe(0);
-    expect(service.getOpenFiligreeSlots('artifact')).toBe(1);
-    expect(value('Reflex Save')).toBe(0);
-
-    service.setFiligreeSlotSetting('weapon', 2);
+  it('hides filigree past what a smaller artifact holds, and brings it back with a bigger one', () => {
     service.set(artifact(3));
-    expect(value('Dexterity')).toBe(1);
+    [DEX, FURY[0], REFLEX].forEach((name, index) => service.setFiligree('artifact', index, { name, rare: false }));
     expect(value('Reflex Save')).toBe(2);
-  });
 
-  it('keeps an artifact following its capacity until the player opens fewer slots', () => {
-    service.set(artifact(4));
-    expect(service.getFiligreeSlotSetting('artifact')).toBe(4);
+    service.set(artifact(2));
+    expect(service.getShownFiligree('artifact').map(choice => choice.name)).toEqual([DEX, FURY[0]]);
+    expect(value('Reflex Save')).toBe(0);
+    expect(service.getNextFiligreeSlot('artifact')).toBeNull();
 
-    service.setFiligreeSlotSetting('artifact', 2);
-    service.set(artifact(5));
-    expect(service.getOpenFiligreeSlots('artifact')).toBe(2);
-
-    service.setFiligreeSlotSetting('artifact', 5);
-    expect(service.getFiligreeLoadout().artifactSlots).toBeNull();
+    service.set(artifact(3));
+    expect(service.getShownFiligree('artifact').map(choice => choice.name)).toEqual([DEX, FURY[0], REFLEX]);
+    expect(value('Reflex Save')).toBe(2);
   });
 
   it('lists filigree sets with the gear set bonuses, marked as filigree', () => {
@@ -128,11 +145,11 @@ describe('EquippedService filigree', () => {
 
   it('writes the loadout to the build params and reads it back', () => {
     service.set(weapon());
-    service.setFiligree('weapon', 2, { name: DEX, rare: true });
-    service.setFiligreeSlotSetting('weapon', 8);
+    service.setFiligree('weapon', 0, { name: REFLEX, rare: false });
+    service.setFiligree('weapon', 1, { name: DEX, rare: true });
 
     const params = lastParams();
-    expect(JSON.parse(String(params?.['filigree']))).toEqual({ ws: 8, w: [[2, DEX, 1]] });
+    expect(JSON.parse(String(params?.['filigree']))).toEqual({ w: [[REFLEX], [DEX, 1]] });
 
     const restored = TestBed.inject(EquippedService);
     restored.updateFromParams({
@@ -140,8 +157,7 @@ describe('EquippedService filigree', () => {
       get: (key: string) => key === 'filigree' ? String(params?.['filigree']) : key === 'Weapon' ? 'Test Longsword' : null,
       getAll: () => [],
     });
-    expect(restored.getFiligreeLoadout().weapon[2]).toEqual({ name: DEX, rare: true });
-    expect(restored.getFiligreeLoadout().weaponSlots).toBe(8);
+    expect(restored.getFiligreeLoadout().weapon).toEqual([{ name: REFLEX, rare: false }, { name: DEX, rare: true }]);
   });
 
   it('offers filigree bonus types with their best totals once the level range reaches 20', () => {

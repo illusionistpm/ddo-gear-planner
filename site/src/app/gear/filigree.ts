@@ -28,35 +28,24 @@ export interface FiligreeChoice {
 }
 
 /**
- * What the player has slotted, kept apart from which weapon and artifact are equipped: swapping
- * either keeps the choices, and only the first `open slots` of them count.
+ * What the player has slotted in each host, in order with no gaps, kept apart from which weapon and
+ * artifact are equipped. Only the first as many as the equipped host holds count; any past that
+ * (after a swap to a smaller artifact, say) are kept, unshown, until a host can hold them again.
  */
 export interface FiligreeLoadout {
-  /** Open weapon slots, 1-10. */
-  weaponSlots: number;
-  /** Open artifact slots, or null for as many as the equipped artifact can hold. */
-  artifactSlots: number | null;
-  weapon: Array<FiligreeChoice | null>;
-  artifact: Array<FiligreeChoice | null>;
+  weapon: FiligreeChoice[];
+  artifact: FiligreeChoice[];
 }
 
 export function emptyFiligreeLoadout(): FiligreeLoadout {
-  return {
-    weaponSlots: MAX_WEAPON_FILIGREE_SLOTS,
-    artifactSlots: null,
-    weapon: new Array(MAX_WEAPON_FILIGREE_SLOTS).fill(null),
-    artifact: new Array(MAX_ARTIFACT_FILIGREE_SLOTS).fill(null),
-  };
+  return { weapon: [], artifact: [] };
 }
 
 export function isFiligreeLoadoutEmpty(loadout: FiligreeLoadout): boolean {
-  return loadout.weaponSlots === MAX_WEAPON_FILIGREE_SLOTS
-    && loadout.artifactSlots === null
-    && loadout.weapon.every(choice => !choice)
-    && loadout.artifact.every(choice => !choice);
+  return !loadout.weapon.length && !loadout.artifact.length;
 }
 
-/** One slotted filigree that counts: in an open slot of a host that's equipped. */
+/** One slotted filigree that counts: within what its equipped host holds. */
 export interface CountedFiligree {
   host: FiligreeHost;
   index: number;
@@ -69,19 +58,16 @@ export interface CountedFiligree {
 }
 
 /**
- * The filigrees in a host's first `openSlots` slots, marking which copy of each gives its bonuses.
+ * The first `capacity` of a host's filigrees, marking which copy of each gives its bonuses.
  */
 export function countHostFiligree(
   host: FiligreeHost,
-  choices: ReadonlyArray<FiligreeChoice | null>,
-  openSlots: number
+  choices: ReadonlyArray<FiligreeChoice>,
+  capacity: number
 ): CountedFiligree[] {
   const counted: CountedFiligree[] = [];
   const best = new Map<string, CountedFiligree>();
-  choices.slice(0, Math.max(0, openSlots)).forEach((choice, index) => {
-    if (!choice) {
-      return;
-    }
+  choices.slice(0, Math.max(0, capacity)).forEach((choice, index) => {
     const entry: CountedFiligree = { host, index, choice, contributes: false };
     counted.push(entry);
     const current = best.get(choice.name);

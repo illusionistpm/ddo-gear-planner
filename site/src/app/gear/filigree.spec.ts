@@ -7,10 +7,10 @@ const choice = (name: string, rare = false): FiligreeChoice => ({ name, rare });
 
 describe('filigree rules', () => {
   describe('countHostFiligree', () => {
-    it('counts only the open slots, skipping empty ones', () => {
-      const counted = countHostFiligree('weapon', [choice('A'), null, choice('B'), choice('C')], 3);
+    it('counts only as many as the host holds', () => {
+      const counted = countHostFiligree('weapon', [choice('A'), choice('B'), choice('C')], 2);
 
-      expect(counted.map(entry => [entry.index, entry.choice.name])).toEqual([[0, 'A'], [2, 'B']]);
+      expect(counted.map(entry => [entry.index, entry.choice.name])).toEqual([[0, 'A'], [1, 'B']]);
       expect(counted.every(entry => entry.host === 'weapon' && entry.contributes)).toBe(true);
     });
 
@@ -26,7 +26,7 @@ describe('filigree rules', () => {
       expect(counted.map(entry => entry.contributes)).toEqual([false, true, false]);
     });
 
-    it('counts nothing with no open slots', () => {
+    it('counts nothing in a host that holds none', () => {
       expect(countHostFiligree('artifact', [choice('A')], 0)).toEqual([]);
     });
   });
@@ -102,11 +102,11 @@ describe('filigree rules', () => {
     });
   });
 
-  it('knows an untouched loadout is empty', () => {
+  it('knows a loadout with no filigrees is empty', () => {
     const loadout = emptyFiligreeLoadout();
     expect(isFiligreeLoadoutEmpty(loadout)).toBe(true);
 
-    loadout.weaponSlots = 7;
+    loadout.artifact = [choice('A')];
     expect(isFiligreeLoadoutEmpty(loadout)).toBe(false);
   });
 });

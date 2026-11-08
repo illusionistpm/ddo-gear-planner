@@ -53,21 +53,19 @@ describe('FiligreeSlotsComponent', () => {
     expect(render('weapon').querySelector('.filigree-slots')).toBeNull();
   });
 
-  it('collapses to a count of slotted over open slots', () => {
+  it('collapses to a count of slotted over what the item holds', () => {
     equipped.set(weapon());
     equipped.setFiligree('weapon', 0, { name: 'Celerity: Dexterity', rare: false });
-    equipped.setFiligreeSlotSetting('weapon', 7);
 
     const element = render('weapon');
 
-    expect(element.querySelector('.filigree-slots-count')!.textContent).toBe('1/7');
+    expect(element.querySelector('.filigree-slots-count')!.textContent).toBe('1/10');
     expect(element.querySelector('.filigree-slot-row')).toBeNull();
   });
 
-  it('lists every open slot, with what each filigree gives', () => {
+  it('lists the filigrees, with what each gives, and one empty slot after them', () => {
     equipped.set(weapon());
     equipped.setFiligree('weapon', 0, { name: 'Celerity: Dexterity', rare: true });
-    equipped.setFiligreeSlotSetting('weapon', 3);
 
     const element = render('weapon');
     expand(element);
@@ -77,7 +75,6 @@ describe('FiligreeSlotsComponent', () => {
     expect(rowTexts(element)).toEqual([
       '1 | Celerity: Dexterity | Dexterity +1, Physical Sheltering +2',
       '2 | Empty slot',
-      '3 | Empty slot',
     ]);
   });
 
@@ -96,29 +93,36 @@ describe('FiligreeSlotsComponent', () => {
     expect(rows[1].textContent).toContain('Duplicate: set piece only');
   });
 
-  it('keeps a filigree past the open slots, marked as not counting', () => {
+  it('has no empty slot once the item is full, and hides filigree past what it holds', () => {
+    equipped.set(artifact(3));
+    ['Celerity: Dexterity', 'Celerity: Reflex', 'Zephyr: Tumble'].forEach((name, index) =>
+      equipped.setFiligree('artifact', index, { name, rare: false }));
     equipped.set(artifact(2));
-    equipped.setFiligree('artifact', 2, { name: 'Celerity: Reflex', rare: false });
 
     const element = render('artifact');
     expand(element);
 
-    expect(rowTexts(element)[2]).toContain('Slot not open');
-    expect(element.querySelector('.filigree-slots-count')!.textContent).toBe('0/2');
+    expect(rowTexts(element)).toEqual([
+      '1 | Celerity: Dexterity | Dexterity +1',
+      '2 | Celerity: Reflex | Reflex Save +2',
+    ]);
+    expect(element.querySelector('.filigree-slots-count')!.textContent).toBe('2/2');
+    expect(element.querySelector('.filigree-slots-step')).toBeNull();
   });
 
-  it('opens and closes slots with the stepper, within what the artifact holds', () => {
-    equipped.set(artifact(3));
-    const element = render('artifact');
+  it('slides the rest up when one is removed from the middle', () => {
+    equipped.set(weapon());
+    ['Celerity: Dexterity', 'Celerity: Reflex', 'Zephyr: Tumble'].forEach((name, index) =>
+      equipped.setFiligree('weapon', index, { name, rare: false }));
+    const element = render('weapon');
     expand(element);
-    const [fewer, more] = Array.from(element.querySelectorAll<HTMLButtonElement>('.filigree-slots-step'));
 
-    expect(more.disabled).toBe(true);
-    fewer.click();
+    element.querySelectorAll<HTMLButtonElement>('.filigree-slot-clear')[1].click();
     fixture.detectChanges();
 
-    expect(equipped.getOpenFiligreeSlots('artifact')).toBe(2);
-    expect(element.querySelectorAll('.filigree-slot-row').length).toBe(2);
+    expect(rowTexts(element).map(text => text.split(' | ').slice(0, 2).join(' | '))).toEqual([
+      '1 | Celerity: Dexterity', '2 | Zephyr: Tumble', '3 | Empty slot',
+    ]);
   });
 
   it('marks a filigree rare, and removes one', () => {
@@ -131,7 +135,7 @@ describe('FiligreeSlotsComponent', () => {
     expect(equipped.getFiligreeLoadout().weapon[0]).toEqual({ name: 'Celerity: Dexterity', rare: true });
 
     element.querySelector<HTMLButtonElement>('.filigree-slot-clear')!.click();
-    expect(equipped.getFiligreeLoadout().weapon[0]).toBeNull();
+    expect(equipped.getFiligreeLoadout().weapon).toEqual([]);
   });
 
   it('opens the picker for a slot and puts the chosen filigree in it', async () => {
@@ -140,7 +144,8 @@ describe('FiligreeSlotsComponent', () => {
     const element = render('weapon');
     expand(element);
 
-    element.querySelectorAll<HTMLButtonElement>('.filigree-slot-pick')[2].click();
+    // The one row is the empty slot.
+    element.querySelectorAll<HTMLButtonElement>('.filigree-slot-pick')[0].click();
     // The picker is loaded on first use.
     for (let tries = 0; tries < 50 && !element.querySelector('.filigree-picker'); tries++) {
       await TestBed.inject(ApplicationRef).whenStable();
@@ -155,7 +160,32 @@ describe('FiligreeSlotsComponent', () => {
     element.querySelector<HTMLButtonElement>('.filigree-picker-entry')!.click();
     fixture.detectChanges();
 
-    expect(equipped.getFiligreeLoadout().weapon[2]).toEqual({ name: 'Celerity: Reflex', rare: false });
+    expect(equipped.getFiligreeLoadout().weapon).toEqual([{ name: 'Celerity: Reflex', rare: false }]);
     expect(element.querySelector('.filigree-picker')).toBeNull();
+  });
+
+  it('keeps the picker\'s Rare copy box as ticked through change detection, showing rare bonuses', async () => {
+    equipped.set(weapon());
+    const element = render('weapon');
+    expand(element);
+    element.querySelector<HTMLButtonElement>('.filigree-slot-pick')!.click();
+    for (let tries = 0; tries < 50 && !element.querySelector('.filigree-picker'); tries++) {
+      await TestBed.inject(ApplicationRef).whenStable();
+      await new Promise(resolve => setTimeout(resolve, 20));
+      fixture.detectChanges();
+    }
+    const search = element.querySelector<HTMLInputElement>('.filigree-picker-search')!;
+    search.value = 'celerity: dexterity';
+    search.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    expect(element.querySelector('.filigree-picker-entry-rare')).toBeNull();
+
+    const rareBox = Array.from(element.querySelectorAll<HTMLLabelElement>('.filigree-picker-check'))
+      .find(label => label.textContent!.includes('Rare copy'))!.querySelector('input')!;
+    rareBox.click();
+    fixture.detectChanges();
+    fixture.detectChanges();
+
+    expect(element.querySelector('.filigree-picker-entry-rare')!.textContent).toContain('Physical Sheltering +2');
   });
 });

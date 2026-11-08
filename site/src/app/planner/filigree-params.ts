@@ -1,55 +1,39 @@
-import {
-  emptyFiligreeLoadout, FiligreeChoice, FiligreeLoadout, isFiligreeLoadoutEmpty,
-  MAX_ARTIFACT_FILIGREE_SLOTS, MAX_WEAPON_FILIGREE_SLOTS
-} from '../gear/filigree';
+import { emptyFiligreeLoadout, FiligreeChoice, FiligreeLoadout, isFiligreeLoadoutEmpty } from '../gear/filigree';
 
 /**
- * The `filigree` query param: a FiligreeLoadout as JSON, slot positions kept (the first copy of a
- * duplicate is the one that counts), defaults left out.
+ * The `filigree` query param: a FiligreeLoadout as JSON, each host's filigrees in order (the first
+ * copy of a duplicate is the one that counts), empty hosts left out.
  *
- *   {"ws": 7, "as": 3, "w": [[0, "Celerity: Dexterity", 1], [4, "Zephyr: Tumble"]], "a": [...]}
+ *   {"w": [["Celerity: Dexterity", 1], ["Zephyr: Tumble"]], "a": [["Celerity: Dexterity"]]}
  *
- * ws/as are the open weapon/artifact slots; a slot entry is [index, name] plus 1 for the rare copy.
+ * A slot is [name], plus 1 for the rare copy.
  */
 export interface FiligreeParam {
-  ws?: number;
-  as?: number;
   w?: FiligreeSlotParam[];
   a?: FiligreeSlotParam[];
 }
 
-export type FiligreeSlotParam = [number, string] | [number, string, 1];
+export type FiligreeSlotParam = [string] | [string, 1];
+
+/** Kept long enough for anything a host holds, but no longer: a param can't grow without bound. */
+const MAX_PARAM_FILIGREES_PER_HOST = 20;
 
 export function filigreeLoadoutToParam(loadout: FiligreeLoadout): FiligreeParam | null {
   if (isFiligreeLoadoutEmpty(loadout)) {
     return null;
   }
   const param: FiligreeParam = {};
-  if (loadout.weaponSlots !== MAX_WEAPON_FILIGREE_SLOTS) {
-    param.ws = loadout.weaponSlots;
+  if (loadout.weapon.length) {
+    param.w = slotsToParam(loadout.weapon);
   }
-  if (loadout.artifactSlots !== null) {
-    param.as = loadout.artifactSlots;
-  }
-  const weapon = slotsToParam(loadout.weapon);
-  const artifact = slotsToParam(loadout.artifact);
-  if (weapon.length) {
-    param.w = weapon;
-  }
-  if (artifact.length) {
-    param.a = artifact;
+  if (loadout.artifact.length) {
+    param.a = slotsToParam(loadout.artifact);
   }
   return param;
 }
 
-function slotsToParam(choices: ReadonlyArray<FiligreeChoice | null>): FiligreeSlotParam[] {
-  const out: FiligreeSlotParam[] = [];
-  choices.forEach((choice, index) => {
-    if (choice) {
-      out.push(choice.rare ? [index, choice.name, 1] : [index, choice.name]);
-    }
-  });
-  return out;
+function slotsToParam(choices: ReadonlyArray<FiligreeChoice>): FiligreeSlotParam[] {
+  return choices.map(choice => choice.rare ? [choice.name, 1] : [choice.name]);
 }
 
 export function serializeFiligreeLoadout(loadout: FiligreeLoadout): string | null {
@@ -58,8 +42,8 @@ export function serializeFiligreeLoadout(loadout: FiligreeLoadout): string | nul
 }
 
 /**
- * The loadout a `filigree` param describes. Anything malformed, out of range or naming a filigree
- * `isKnown` rejects is dropped rather than failing the whole build.
+ * The loadout a `filigree` param describes. Anything malformed, or naming a filigree `isKnown`
+ * rejects, is dropped rather than failing the whole build.
  */
 export function parseFiligreeLoadout(raw: string | null | undefined, isKnown: (name: string) => boolean): FiligreeLoadout {
   const loadout = emptyFiligreeLoadout();
@@ -75,32 +59,24 @@ export function parseFiligreeLoadout(raw: string | null | undefined, isKnown: (n
   if (!param || typeof param !== 'object') {
     return loadout;
   }
-  if (isSlotCount(param.ws, MAX_WEAPON_FILIGREE_SLOTS)) {
-    loadout.weaponSlots = param.ws;
-  }
-  if (isSlotCount(param.as, MAX_ARTIFACT_FILIGREE_SLOTS)) {
-    loadout.artifactSlots = param.as;
-  }
-  fillSlots(loadout.weapon, param.w, isKnown);
-  fillSlots(loadout.artifact, param.a, isKnown);
+  loadout.weapon = readSlots(param.w, isKnown);
+  loadout.artifact = readSlots(param.a, isKnown);
   return loadout;
 }
 
-function isSlotCount(value: unknown, max: number): value is number {
-  return Number.isInteger(value) && (value as number) >= 1 && (value as number) <= max;
-}
-
-function fillSlots(target: Array<FiligreeChoice | null>, entries: unknown, isKnown: (name: string) => boolean) {
+function readSlots(entries: unknown, isKnown: (name: string) => boolean): FiligreeChoice[] {
   if (!Array.isArray(entries)) {
-    return;
+    return [];
   }
+  const out: FiligreeChoice[] = [];
   for (const entry of entries) {
     if (!Array.isArray(entry)) {
       continue;
     }
-    const [index, name, rare] = entry;
-    if (Number.isInteger(index) && index >= 0 && index < target.length && typeof name === 'string' && isKnown(name)) {
-      target[index] = { name, rare: rare === 1 };
+    const [name, rare] = entry;
+    if (typeof name === 'string' && isKnown(name) && out.length < MAX_PARAM_FILIGREES_PER_HOST) {
+      out.push({ name, rare: rare === 1 });
     }
   }
+  return out;
 }

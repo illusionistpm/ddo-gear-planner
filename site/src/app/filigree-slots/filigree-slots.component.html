@@ -4,23 +4,13 @@
       <span class="filigree-slots-expander" [class.expanded]="expanded" aria-hidden="true">&#8250;</span>
       <app-slot-icon icon="cut-diamond"></app-slot-icon>
       <span class="filigree-slots-label">Filigree</span>
-      <span class="filigree-slots-count">{{filledCount}}/{{openSlots}}</span>
+      <span class="filigree-slots-count">{{filledCount}}/{{capacity}}</span>
     </button>
     @if (expanded) {
       <div class="filigree-slots-body">
-        <div class="filigree-slots-open">
-          <span>Open slots</span>
-          <button type="button" class="filigree-slots-step" aria-label="Fewer open slots"
-              [disabled]="slotSetting <= 1" (click)="changeSlotSetting(-1)">&minus;</button>
-          <span class="filigree-slots-open-count" aria-live="polite">{{slotSetting}}</span>
-          <button type="button" class="filigree-slots-step" aria-label="More open slots"
-              [disabled]="slotSetting >= maxSlotSetting" (click)="changeSlotSetting(1)">+</button>
-          <span class="filigree-slots-open-max">of {{maxSlotSetting}}</span>
-        </div>
         @for (row of rows; track row.index) {
-          <div class="filigree-slot-row" [class.filigree-slot-closed]="row.closed" [class.filigree-slot-duplicate]="row.duplicate">
+          <div class="filigree-slot-row" [class.filigree-slot-duplicate]="row.duplicate">
             <button type="button" class="filigree-slot-pick" [attr.aria-expanded]="pickerIndex === row.index"
-                [title]="row.closed ? 'This slot is not open, so it does not count' : ''"
                 (click)="openPicker(row.index)">
               <span class="filigree-slot-number">{{row.index + 1}}</span>
               @if (row.choice) {
@@ -29,9 +19,6 @@
                   <span class="filigree-slot-affixes" [class.filigree-struck]="row.duplicate">{{row.affixText}}</span>
                   @if (row.duplicate) {
                     <span class="filigree-slot-note">Duplicate: set piece only</span>
-                  }
-                  @if (row.closed) {
-                    <span class="filigree-slot-note">Slot not open</span>
                   }
                 </span>
               } @else {

@@ -199,7 +199,7 @@
             <div class="col-4 filigree-slot-buttons">
               @for (host of filigreeHosts; track host) {
                 <button type="button" class="equip-button" [disabled]="!!filigreeSlotBlocker(host, match.name)"
-                    [title]="filigreeSlotBlocker(host, match.name) || 'Put it in the first empty open slot'"
+                    [title]="filigreeSlotBlocker(host, match.name) || 'Add it after the filigrees already there'"
                     (click)="slotFiligree(match.name, host)">{{filigreeHostLabel(host)}}</button>
               }
             </div>

@@ -23,6 +23,8 @@ import { DrawerEquipService } from '../suggestion-drawer/drawer-equip.service';
 import { ItemPreviewController } from '../item-preview/item-preview-controller';
 import { isAugmentSystemName, isCraftingSlotAvailable } from '../gear/augment-slots';
 import { isOptionHiddenByPacks } from '../gear/pack-filter';
+import { FiligreeDbService } from '../gear/filigree-db.service';
+import { FILIGREE_HOSTS, FiligreeHost, SUMMED_FILIGREE_BONUS_TYPES } from '../gear/filigree';
 
 /** An open augment slot on an equipped item that could take the chosen augment. */
 interface AugmentSlotChoice {
@@ -109,6 +111,12 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
 
   externalEntries: ExternalAffixEntry[] = [];
 
+  /** Filigrees whose own bonuses give this affix and type, best first. */
+  filigreeMatches: Array<{ name: string; sets: ReadonlyArray<string>; value: number; rareValue: number }> = [];
+  /** Filigree sets whose bonuses give it. */
+  filigreeSetMatches: Array<{ set: string; threshold: number; value: number }> = [];
+  readonly filigreeHosts = FILIGREE_HOSTS;
+
   private collapsedSections = new Set<string>();
 
   selectedAugmentSlot?: AugmentSlotChoice;
@@ -132,7 +140,8 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     private questService: QuestService,
     private suggestionDrawer: SuggestionDrawerService,
     private drawerEquip: DrawerEquipService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private filigreeDb: FiligreeDbService
   ) {
   }
 
@@ -315,6 +324,42 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     this.lockedMatches = this._sortByValue(this.lockedMatches);
 
     this.externalEntries = this.equipped.getExternalAffixesForType(this.affixName, this.bonusType);
+
+    // Filigrees carry only their own bonus types, so only those types list them.
+    const flatten = (affixes: Affix[]) => this.affixSvc.flattenAffixGroups(affixes, true);
+    const filigreeType = SUMMED_FILIGREE_BONUS_TYPES.has(this.bonusType);
+    this.filigreeMatches = filigreeType
+      ? this.filigreeDb.findFiligreesWithAffixAndType(this.affixName, this.bonusType, flatten)
+      : [];
+    this.filigreeSetMatches = filigreeType
+      ? this.filigreeDb.findSetsWithAffixAndType(this.affixName, this.bonusType, flatten)
+      : [];
+  }
+
+  filigreeHostLabel(host: FiligreeHost): string {
+    return host === 'weapon' ? 'Weapon' : 'Artifact';
+  }
+
+  /** Why a filigree can't go into the host now, or '' when it can. */
+  filigreeSlotBlocker(host: FiligreeHost, name: string): string {
+    if (!this.equipped.getFiligreeCapacity(host)) {
+      return host === 'weapon' ? 'Equip a main-hand weapon first' : 'Equip a minor artifact first';
+    }
+    // A second copy is allowed on the card, as a set piece, but would add nothing to this bonus.
+    if (this.equipped.getCountedFiligree().some(entry => entry.host === host && entry.choice.name === name)) {
+      return host === 'weapon' ? 'Already in the weapon' : 'Already in the artifact';
+    }
+    return this.equipped.getFirstEmptyFiligreeSlot(host) === null ? 'No empty open slot' : '';
+  }
+
+  slotFiligree(name: string, host: FiligreeHost) {
+    const index = this.equipped.getFirstEmptyFiligreeSlot(host);
+    if (index === null) {
+      return;
+    }
+    this.equipped.setFiligree(host, index, { name, rare: false });
+    this.analytics.track('slot_filigree_from_bonus_type', { host });
+    this.refreshMatches();
   }
 
   toggleSection(key: string) {

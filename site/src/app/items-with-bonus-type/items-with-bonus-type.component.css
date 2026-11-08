@@ -182,3 +182,20 @@
     font-size: 0.75rem;
     margin-left: var(--space-4);
 }
+
+.filigree-slot-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+}
+
+.filigree-rare-value {
+    color: var(--text-secondary);
+}
+
+.drawer-note {
+    margin: var(--space-4) 0 var(--space-8);
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+    font-style: italic;
+}

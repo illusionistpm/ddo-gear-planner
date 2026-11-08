@@ -61,13 +61,13 @@
         @if (activeSets.length) {
           <span class="slot-jump-divider" aria-hidden="true"></span>
         }
-        @for (setBonus of activeSets; track setBonus.setName) {
+        @for (setBonus of activeSets; track setTarget(setBonus)) {
           <button type="button" class="slot-jump-chip is-equipped is-set is-set-single"
-            [class.is-source]="sourceTargets.has(setTarget(setBonus.setName))"
+            [class.is-source]="sourceTargets.has(setTarget(setBonus))"
             [attr.aria-label]="getSetJumpLabel(setBonus)"
             [title]="getSetJumpLabel(setBonus)"
-            (click)="jumpTo(setTarget(setBonus.setName), jumpBar)">
-            <app-slot-icon icon="linked-rings"></app-slot-icon>
+            (click)="jumpTo(setTarget(setBonus), jumpBar)">
+            <app-slot-icon [icon]="setBonus.filigree ? 'cut-diamond' : 'linked-rings'"></app-slot-icon>
             <span class="slot-jump-number" aria-hidden="true">{{setBonus.pieces}}</span>
           </button>
         }
@@ -87,11 +87,11 @@
 
       @if (setMenuOpen && activeSets.length) {
         <div class="slot-jump-set-menu" role="menu" aria-label="Jump to a set" [style.right.px]="setMenuRight">
-          @for (setBonus of activeSets; track setBonus.setName) {
+          @for (setBonus of activeSets; track setTarget(setBonus)) {
             <button type="button" class="slot-jump-set-item" role="menuitem"
-              [class.is-source]="sourceTargets.has(setTarget(setBonus.setName))"
-              (click)="setMenuOpen = false; jumpTo(setTarget(setBonus.setName), jumpBar)">
-              <app-slot-icon icon="linked-rings"></app-slot-icon>
+              [class.is-source]="sourceTargets.has(setTarget(setBonus))"
+              (click)="setMenuOpen = false; jumpTo(setTarget(setBonus), jumpBar)">
+              <app-slot-icon [icon]="setBonus.filigree ? 'cut-diamond' : 'linked-rings'"></app-slot-icon>
               <span class="slot-jump-set-name">{{setBonus.setName}}</span>
               <span class="slot-jump-set-pieces">{{setBonus.pieces}} pc</span>
             </button>
@@ -115,17 +115,28 @@
         <div class="equipment-set-divider" aria-hidden="true"></div>
       }
 
-      @for (setBonus of visibleSetBonuses; track setBonus.setName) {
-        <div class="card active-set-bonus" [attr.data-jump-target]="setTarget(setBonus.setName)">
+      @for (setBonus of visibleSetBonuses; track setTarget(setBonus)) {
+        <div class="card active-set-bonus" [class.filigree-set-bonus]="setBonus.filigree" [attr.data-jump-target]="setTarget(setBonus)">
           <div class="row slot-header">
-            <button type="button" class="btn set-bonus-button col-12 text-start"
-              (click)="showItemsInSet(setBonus.setName)">
-              <div class="set-name-row">
-                <span class="set-label"><app-slot-icon icon="linked-rings"></app-slot-icon>Set</span>
-                <span class="set-piece-count">{{setBonus.pieces}} Equipped</span>
+            @if (setBonus.filigree) {
+              <!-- No item drawer for a filigree set: its pieces are filigrees, picked on the weapon and artifact cards. -->
+              <div class="set-bonus-button filigree-set-heading col-12 text-start">
+                <div class="set-name-row">
+                  <span class="set-label"><app-slot-icon icon="cut-diamond"></app-slot-icon>Filigree set</span>
+                  <span class="set-piece-count">{{setBonus.pieces}} Slotted</span>
+                </div>
+                <div class="item-name">{{setBonus.setName}}</div>
               </div>
-              <div class="item-name">{{setBonus.setName}}</div>
-            </button>
+            } @else {
+              <button type="button" class="btn set-bonus-button col-12 text-start"
+                (click)="showItemsInSet(setBonus.setName)">
+                <div class="set-name-row">
+                  <span class="set-label"><app-slot-icon icon="linked-rings"></app-slot-icon>Set</span>
+                  <span class="set-piece-count">{{setBonus.pieces}} Equipped</span>
+                </div>
+                <div class="item-name">{{setBonus.setName}}</div>
+              </button>
+            }
           </div>
           <!-- Rows mirror app-gear-description's affix rows, so both kinds of card line up. -->
           <div class="set-bonus-affixes">
@@ -145,7 +156,7 @@
                   }
                   <div class="col-auto ps-1 pe-0 set-threshold">{{tier.threshold}} pc</div>
                   <div class="col">{{affix.name}}</div>
-                  <div class="col-4 ps-1 pe-2">{{affixUi.getAffixValue(affix)}} {{affix.type}}</div>
+                  <div class="col-4 ps-1 pe-2">{{affix.hasRealType() ? affixUi.getAffixValue(affix) + ' ' + affix.type : ''}}</div>
                 </div>
               }
             }

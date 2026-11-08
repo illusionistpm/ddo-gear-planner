@@ -1,0 +1,66 @@
+<div class="filigree-picker" role="dialog" [attr.aria-label]="'Choose filigree for slot ' + (index + 1)" (keydown)="onKeydown($event)">
+  <div class="filigree-picker-header">
+    <input #searchBox type="search" class="form-control form-control-sm filigree-picker-search"
+        placeholder="Search by name, set or bonus" aria-label="Search filigree"
+        [value]="search" (input)="onSearch($any($event.target).value)" />
+    <button type="button" class="icon-x-button filigree-picker-close" aria-label="Close filigree list" title="Close" (click)="close()">
+      <span class="x-glyph" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="filigree-picker-options">
+    <div class="filigree-picker-mode" role="group" aria-label="Group filigree by">
+      <button type="button" class="filigree-picker-mode-button" [class.active]="mode === 'set'"
+          [attr.aria-pressed]="mode === 'set'" (click)="setMode('set')">By set</button>
+      <button type="button" class="filigree-picker-mode-button" [class.active]="mode === 'bonus'"
+          [attr.aria-pressed]="mode === 'bonus'" (click)="setMode('bonus')">By bonus</button>
+    </div>
+    <label class="filigree-picker-check">
+      <input type="checkbox" [checked]="rare" (change)="rare = $any($event.target).checked" />
+      Rare copy
+    </label>
+    <label class="filigree-picker-check">
+      <input type="checkbox" [checked]="hideIrrelevant" (change)="onHideIrrelevant($any($event.target).checked)" />
+      Hide filigree that doesn't help{{hiddenCount ? ' (' + hiddenCount + ')' : ''}}
+    </label>
+  </div>
+  <div class="filigree-picker-list" role="listbox" aria-label="Filigree">
+    @if (current) {
+      <button type="button" role="option" class="filigree-picker-entry filigree-picker-remove" (click)="remove()">
+        Empty this slot
+      </button>
+    }
+    @for (group of groups; track group.key) {
+      <div class="filigree-picker-group" role="group" [attr.aria-label]="group.title">
+        <div class="filigree-picker-group-title">{{group.title}}</div>
+        @for (entry of group.entries; track entry.name) {
+          <button type="button" role="option" class="filigree-picker-entry"
+              [class.selected]="entry.name === current?.name"
+              [attr.aria-selected]="entry.name === current?.name"
+              (click)="choose(entry)">
+            <span class="filigree-picker-entry-name" [ngClass]="entry.className">{{entry.label}}</span>
+            <span class="filigree-picker-entry-affixes" [class.filigree-struck]="entry.duplicate">{{entry.affixText}}</span>
+            @if (entry.rareText) {
+              <span class="filigree-picker-entry-rare" [class.filigree-struck]="entry.duplicate">Rare: {{entry.rareText}}</span>
+            }
+            @if (mode === 'bonus' || entry.setText.includes(' / ')) {
+              <span class="filigree-picker-entry-set">{{entry.setText}}</span>
+            }
+            @if (entry.duplicate) {
+              <span class="filigree-picker-entry-note">Already slotted here: set piece only</span>
+            }
+          </button>
+        }
+      </div>
+    } @empty {
+      <div class="filigree-picker-none">
+        @if (hiddenCount) {
+          <button type="button" class="btn btn-link btn-sm" (click)="onHideIrrelevant(false)">
+            {{hiddenCount}} hidden {{hiddenCount === 1 ? 'match' : 'matches'}} - show them
+          </button>
+        } @else {
+          No matching filigree
+        }
+      </div>
+    }
+  </div>
+</div>

@@ -10,6 +10,7 @@ import { QuestService } from '../gear/quest.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { UserGearService, UserItemLocation } from '../planner/user-gear.service';
 import { perfAfterFrames, perfStart } from '../shared/perf-trace';
+import { FiligreeHost } from '../gear/filigree';
 
 @Component({
   selector: 'app-equipment-slot-card',
@@ -108,6 +109,17 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
   }
 
   readonly preserveScrollOnMouseDown = preserveScrollOnMouseDown;
+
+  /** The filigrees this card's item holds: the main hand is the sentient weapon, and an artifact is an artifact. */
+  get filigreeHost(): FiligreeHost | null {
+    if (!this.itemName) {
+      return null;
+    }
+    if (this.slot === 'Weapon') {
+      return 'weapon';
+    }
+    return this.isArtifact ? 'artifact' : null;
+  }
 
   get label() {
     return slotLabel(this.slot);

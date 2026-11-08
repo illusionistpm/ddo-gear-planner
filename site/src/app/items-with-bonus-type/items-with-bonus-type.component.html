@@ -177,6 +177,54 @@
   </div>
 }
 
+@if (filigreeMatches.length || filigreeSetMatches.length) {
+  <div class="drawer-section filigree-matches">
+    <button type="button" class="drawer-section-title" [attr.aria-expanded]="!isSectionCollapsed('filigree')" (click)="toggleSection('filigree')">
+      <span>Filigree</span>
+      <span class="drawer-section-collapse-indicator" [class.collapsed]="isSectionCollapsed('filigree')" aria-hidden="true">&#8250;</span>
+    </button>
+    @if (!isSectionCollapsed('filigree')) {
+      @if (filigreeMatches.length) {
+        <div class="row">
+          <div class="col-6"><b>Filigree</b></div>
+          <div class="col-2 text-end"><b>Value</b></div>
+          <div class="col-4"><b>Slot into</b></div>
+        </div>
+        @for (match of filigreeMatches; track match.name) {
+          <div class="row item-result-row filigree-match-row">
+            <div class="col-6">{{match.name}}</div>
+            <div class="col-2 text-end" [title]="match.rareValue !== match.value ? 'Rare copy: ' + match.rareValue : ''">
+              {{match.value || '-'}}@if (match.rareValue !== match.value) {<span class="filigree-rare-value"> ({{match.rareValue}})</span>}
+            </div>
+            <div class="col-4 filigree-slot-buttons">
+              @for (host of filigreeHosts; track host) {
+                <button type="button" class="equip-button" [disabled]="!!filigreeSlotBlocker(host, match.name)"
+                    [title]="filigreeSlotBlocker(host, match.name) || 'Put it in the first empty open slot'"
+                    (click)="slotFiligree(match.name, host)">{{filigreeHostLabel(host)}}</button>
+              }
+            </div>
+          </div>
+        }
+        <div class="drawer-note">A filigree's own bonuses add up with every other filigree's. In brackets: a rare copy.</div>
+      }
+      @if (filigreeSetMatches.length) {
+        <div class="row">
+          <div class="col-2"><b>Pieces</b></div>
+          <div class="col-8"><b>Filigree set</b></div>
+          <div class="col-2 text-end"><b>Value</b></div>
+        </div>
+        @for (match of filigreeSetMatches; track match.set) {
+          <div class="row filigree-set-match-row">
+            <div class="col-2">{{match.threshold}}+</div>
+            <div class="col-8">{{match.set}}</div>
+            <div class="col-2 text-end">{{match.value}}</div>
+          </div>
+        }
+      }
+    }
+  </div>
+}
+
 @if (matches.length || lockedMatches.length) {
   <div class="drawer-section">
     <button type="button" class="drawer-section-title" [attr.aria-expanded]="!isSectionCollapsed('items')" (click)="toggleSection('items')">

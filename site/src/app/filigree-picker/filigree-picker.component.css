@@ -1,0 +1,131 @@
+.filigree-picker {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin: var(--space-4) 0;
+    padding: var(--space-8);
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    background: var(--surface-elevated-color);
+}
+
+.filigree-picker-header {
+    display: flex;
+    gap: var(--space-4);
+    align-items: center;
+}
+
+.filigree-picker-search {
+    flex: 1;
+    min-width: 0;
+}
+
+.filigree-picker-close {
+    flex: none;
+}
+
+.filigree-picker-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4) var(--space-8);
+    align-items: center;
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+}
+
+.filigree-picker-mode {
+    display: inline-flex;
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem;
+    overflow: hidden;
+}
+
+.filigree-picker-mode-button {
+    border: 0;
+    padding: 0.125rem var(--space-8);
+    background: transparent;
+    color: var(--text-secondary);
+}
+
+.filigree-picker-mode-button.active {
+    background: var(--surface-muted-color);
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.filigree-picker-check {
+    display: inline-flex;
+    gap: var(--space-4);
+    align-items: center;
+    margin: 0;
+}
+
+.filigree-picker-list {
+    max-height: 20rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.filigree-picker-group-title {
+    position: sticky;
+    top: 0;
+    padding: var(--space-4) var(--space-4) 0.125rem;
+    background: var(--surface-elevated-color);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.filigree-picker-entry {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--space-8);
+    width: 100%;
+    padding: var(--space-4) var(--space-8);
+    border: 0;
+    background: transparent;
+    color: var(--text-primary);
+    text-align: left;
+    font-size: 0.8125rem;
+}
+
+.filigree-picker-entry:hover,
+.filigree-picker-entry:focus-visible {
+    background: var(--surface-muted-color);
+}
+
+.filigree-picker-entry.selected {
+    box-shadow: inset 0.2rem 0 0 var(--primary-color);
+}
+
+.filigree-picker-entry-name {
+    font-weight: 600;
+}
+
+.filigree-picker-entry-affixes,
+.filigree-picker-entry-rare,
+.filigree-picker-entry-set,
+.filigree-picker-entry-note {
+    color: var(--text-secondary);
+}
+
+.filigree-picker-entry-note {
+    flex-basis: 100%;
+    font-style: italic;
+}
+
+.filigree-picker-remove {
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.filigree-picker-none {
+    padding: var(--space-8);
+    color: var(--text-secondary);
+}
+
+.filigree-struck {
+    text-decoration: line-through;
+}

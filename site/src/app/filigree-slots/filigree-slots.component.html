@@ -1,0 +1,62 @@
+@if (visible) {
+  <div class="filigree-slots">
+    <button type="button" class="filigree-slots-toggle" [attr.aria-expanded]="expanded" [title]="title" (click)="toggleExpanded()">
+      <span class="filigree-slots-expander" [class.expanded]="expanded" aria-hidden="true">&#8250;</span>
+      <app-slot-icon icon="cut-diamond"></app-slot-icon>
+      <span class="filigree-slots-label">Filigree</span>
+      <span class="filigree-slots-count">{{filledCount}}/{{openSlots}}</span>
+    </button>
+    @if (expanded) {
+      <div class="filigree-slots-body">
+        <div class="filigree-slots-open">
+          <span>Open slots</span>
+          <button type="button" class="filigree-slots-step" aria-label="Fewer open slots"
+              [disabled]="slotSetting <= 1" (click)="changeSlotSetting(-1)">&minus;</button>
+          <span class="filigree-slots-open-count" aria-live="polite">{{slotSetting}}</span>
+          <button type="button" class="filigree-slots-step" aria-label="More open slots"
+              [disabled]="slotSetting >= maxSlotSetting" (click)="changeSlotSetting(1)">+</button>
+          <span class="filigree-slots-open-max">of {{maxSlotSetting}}</span>
+        </div>
+        @for (row of rows; track row.index) {
+          <div class="filigree-slot-row" [class.filigree-slot-closed]="row.closed" [class.filigree-slot-duplicate]="row.duplicate">
+            <button type="button" class="filigree-slot-pick" [attr.aria-expanded]="pickerIndex === row.index"
+                [title]="row.closed ? 'This slot is not open, so it does not count' : ''"
+                (click)="openPicker(row.index)">
+              <span class="filigree-slot-number">{{row.index + 1}}</span>
+              @if (row.choice) {
+                <span class="filigree-slot-text">
+                  <span class="filigree-slot-name">{{row.choice.name}}@if (row.choice.rare) {<span class="filigree-slot-rare-mark"> (Rare)</span>}</span>
+                  <span class="filigree-slot-affixes" [class.filigree-struck]="row.duplicate">{{row.affixText}}</span>
+                  @if (row.duplicate) {
+                    <span class="filigree-slot-note">Duplicate: set piece only</span>
+                  }
+                  @if (row.closed) {
+                    <span class="filigree-slot-note">Slot not open</span>
+                  }
+                </span>
+              } @else {
+                <span class="filigree-slot-empty">Empty slot</span>
+              }
+            </button>
+            @if (row.choice) {
+              <label class="filigree-slot-rare" title="A rare copy adds its rare bonus">
+                <input type="checkbox" [checked]="row.choice.rare" (change)="setRare(row, $any($event.target).checked)" />
+                Rare
+              </label>
+              <button type="button" class="icon-x-button filigree-slot-clear" aria-label="Remove filigree" title="Remove" (click)="clear(row)">
+                <span class="x-glyph" aria-hidden="true"></span>
+              </button>
+            }
+          </div>
+          @if (pickerIndex === row.index) {
+            @if (pickerComponent) {
+              <ng-container *ngComponentOutlet="pickerComponent; inputs: pickerInputs(row)"></ng-container>
+            } @else {
+              <div class="filigree-slots-loading">Loading…</div>
+            }
+          }
+        }
+      </div>
+    }
+  </div>
+}

@@ -11,7 +11,7 @@ import { PlannerOnboardingService } from '../planner/planner-onboarding.service'
 import { AffixPackagesService } from '../affixes/affix-packages.service';
 import { AffixEditorService } from '../planner/affix-editor.service';
 import { slotLabel, sortSlotsForDisplay } from '../gear/slot-display';
-import { AffixSourceHighlightService, NON_GEAR_JUMP_TARGET, setJumpTarget } from '../planner/affix-source-highlight.service';
+import { AffixSourceHighlightService, NON_GEAR_JUMP_TARGET, setBonusJumpTarget } from '../planner/affix-source-highlight.service';
 
 /** How long a card stays highlighted after the jump bar scrolls to it - matches the CSS animation. */
 const JUMP_HIGHLIGHT_MS = 1200;
@@ -56,7 +56,7 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
   /** The slots head to toe, for the grid and the jump bar - not GearDbService's order, which other code relies on. */
   readonly displaySlots = sortSlotsForDisplay(this.gearList.getSlots());
   readonly nonGearTarget = NON_GEAR_JUMP_TARGET;
-  readonly setTarget = setJumpTarget;
+  readonly setTarget = setBonusJumpTarget;
 
   @ViewChild('jumpBar') private jumpBar?: ElementRef<HTMLElement>;
   setMenuOpen = false;
@@ -259,7 +259,7 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   isAnySetSource(): boolean {
-    return this.activeSets.some(setBonus => this.sourceTargets.has(setJumpTarget(setBonus.setName)));
+    return this.activeSets.some(setBonus => this.sourceTargets.has(setBonusJumpTarget(setBonus)));
   }
 
   getNonGearJumpLabel(): string {
@@ -269,14 +269,16 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
   }
 
   getSetJumpLabel(setBonus: VisibleSetBonus): string {
-    return `Set: ${setBonus.setName} (${setBonus.pieces} equipped)`;
+    return setBonus.filigree
+      ? `Filigree set: ${setBonus.setName} (${setBonus.pieces} slotted)`
+      : `Set: ${setBonus.setName} (${setBonus.pieces} equipped)`;
   }
 
   /**
    * Scrolls a card - a slot's, the non-gear card or a set's - to the top of the
    * panel, clear of the (sticky) jump bar, and flashes it so the eye lands on it.
    * `target` is the card's data-jump-target: a slot name, NON_GEAR_JUMP_TARGET or
-   * setJumpTarget(name).
+   * setBonusJumpTarget(set).
    */
   jumpTo(target: string, bar: HTMLElement) {
     const card = Array.from(this.host.nativeElement.querySelectorAll<HTMLElement>('[data-jump-target]'))

@@ -27,12 +27,15 @@ import { perfCount, perfMeasure, perfStart } from '../shared/perf-trace';
 import { CoveredBonusType, moderateValueThreshold } from '../affixes/tracked-affix-derivation';
 import { ExternalAffixEntry, isExternalAffixEntry, NON_GEAR_SLOT } from '../affixes/external-affix';
 import { affixTypeKey } from '../affixes/affix-type-key';
-import { FILIGREE_TRACKING_MIN_LEVEL, getMaxFiligreeSlots, MAX_FILIGREE_SLOTS_AFFIX } from '../affixes/filigree-affix';
+import { FILIGREE_TRACKING_MIN_LEVEL, MAX_FILIGREE_SLOTS_AFFIX } from '../affixes/filigree-affix';
 import { FiligreeDbService } from '../gear/filigree-db.service';
 import {
-  countFiligreeSetPieces, CountedFiligree, countHostFiligree, emptyFiligreeLoadout, FILIGREE_HOSTS, FiligreeChoice,
-  FiligreeHost, FiligreeLoadout, MAX_ARTIFACT_FILIGREE_SLOTS, MAX_WEAPON_FILIGREE_SLOTS, SUMMED_FILIGREE_BONUS_TYPES
+  countFiligreeSetPieces, CountedFiligree, emptyFiligreeLoadout, FiligreeChoice, FiligreeHost, FiligreeLoadout,
+  MAX_WEAPON_FILIGREE_SLOTS, SUMMED_FILIGREE_BONUS_TYPES
 } from '../gear/filigree';
+import {
+  countLoadoutFiligree, filigreeCapacity, FiligreeHosts, filigreeSlotSetting, findFiligreeHosts, openFiligreeSlots
+} from './filigree-loadout';
 import { parseFiligreeLoadout, serializeFiligreeLoadout } from './filigree-params';
 
 const TRACKED_AFFIX_COMPANIONS = new Map<string, Array<string>>([
@@ -1361,39 +1364,28 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     return this.filigreeSubject.asObservable();
   }
 
+  private getFiligreeHosts(): FiligreeHosts {
+    return findFiligreeHosts(this.getSlotsSnapshot());
+  }
+
   /** The item that holds a host's filigrees: the main-hand weapon, or whichever minor artifact is equipped. */
   getFiligreeHostItem(host: FiligreeHost): Item | null {
-    if (host === 'weapon') {
-      return this.getSlotValue('Weapon');
-    }
-    for (const subject of this.slots.values()) {
-      const item = subject.getValue();
-      if (item?.artifact) {
-        return item;
-      }
-    }
-    return null;
+    return this.getFiligreeHosts()[host]?.item ?? null;
   }
 
   /** The most slots the host can open: 10 for any main-hand weapon, the artifact's Max Filigree Slots, 0 with none equipped. */
   getFiligreeCapacity(host: FiligreeHost): number {
-    const item = this.getFiligreeHostItem(host);
-    if (!item) {
-      return 0;
-    }
-    return host === 'weapon' ? MAX_WEAPON_FILIGREE_SLOTS : Math.min(getMaxFiligreeSlots(item), MAX_ARTIFACT_FILIGREE_SLOTS);
+    return filigreeCapacity(host, this.getFiligreeHosts());
   }
 
   /** How many slots the player has opened, as set (an artifact defaults to all of them), whatever is equipped. */
   getFiligreeSlotSetting(host: FiligreeHost): number {
-    return host === 'weapon'
-      ? this.filigree.weaponSlots
-      : this.filigree.artifactSlots ?? this.getFiligreeCapacity('artifact');
+    return filigreeSlotSetting(host, this.filigree, this.getFiligreeHosts());
   }
 
   /** The slots that count: the player's setting, within what the equipped host can hold. */
   getOpenFiligreeSlots(host: FiligreeHost): number {
-    return Math.min(this.getFiligreeSlotSetting(host), this.getFiligreeCapacity(host));
+    return openFiligreeSlots(host, this.filigree, this.getFiligreeHosts());
   }
 
   setFiligreeSlotSetting(host: FiligreeHost, slots: number) {
@@ -1407,6 +1399,13 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
         loadout.artifactSlots = clamped === this.getFiligreeCapacity('artifact') ? null : clamped;
       }
     });
+  }
+
+  /** The first open, empty slot of the host, or null when it's full or not equipped. */
+  getFirstEmptyFiligreeSlot(host: FiligreeHost): number | null {
+    const choices = host === 'weapon' ? this.filigree.weapon : this.filigree.artifact;
+    const index = choices.slice(0, this.getOpenFiligreeSlots(host)).findIndex(choice => !choice);
+    return index >= 0 ? index : null;
   }
 
   setFiligree(host: FiligreeHost, index: number, choice: FiligreeChoice | null) {
@@ -1433,11 +1432,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
 
   /** Every filigree that counts, both hosts. */
   getCountedFiligree(): CountedFiligree[] {
-    return FILIGREE_HOSTS.flatMap(host => countHostFiligree(
-      host,
-      host === 'weapon' ? this.filigree.weapon : this.filigree.artifact,
-      this.getOpenFiligreeSlots(host)
-    ));
+    return countLoadoutFiligree(this.filigree, this.getFiligreeHosts());
   }
 
   /** Filigree set -> pieces, over both hosts' counted filigrees. */

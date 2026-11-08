@@ -70,6 +70,53 @@ export class FiligreeDbService {
   }
 
   /**
+   * The filigrees whose own bonuses give `affixName` of `bonusType`, best first: what a normal copy
+   * gives, and a rare one. `flatten` expands affix groups (keeping the group), as in getMaxima.
+   */
+  findFiligreesWithAffixAndType(
+    affixName: string,
+    bonusType: string,
+    flatten: (affixes: Affix[]) => Affix[]
+  ): Array<{ name: string; sets: ReadonlyArray<string>; value: number; rareValue: number }> {
+    const total = (affixes: Affix[]) => flatten(affixes)
+      .filter(affix => affix.name === affixName && affix.type === bonusType)
+      .reduce((sum, affix) => sum + affix.value, 0);
+    return this.getNames()
+      .map(name => {
+        const raw = this.get(name)!;
+        return { name, sets: raw.sets, value: total(filigreeAffixes(raw, false)), rareValue: total(filigreeAffixes(raw, true)) };
+      })
+      .filter(match => match.rareValue > 0)
+      .sort((a, b) => b.rareValue - a.rareValue || b.value - a.value || a.name.localeCompare(b.name));
+  }
+
+  /** The filigree sets whose bonuses give `affixName` of `bonusType`: the pieces the first needs, and the full set's total. */
+  findSetsWithAffixAndType(
+    affixName: string,
+    bonusType: string,
+    flatten: (affixes: Affix[]) => Affix[]
+  ): Array<{ set: string; threshold: number; value: number }> {
+    const matches: Array<{ set: string; threshold: number; value: number }> = [];
+    for (const set of Object.keys(this.data.sets)) {
+      let threshold = 0;
+      let value = 0;
+      for (const tier of this.getSetTiers(set, Number.MAX_SAFE_INTEGER)) {
+        const tierValue = flatten(tier.affixes)
+          .filter(affix => affix.name === affixName && affix.type === bonusType)
+          .reduce((sum, affix) => sum + affix.value, 0);
+        if (tierValue > 0) {
+          threshold ||= tier.threshold;
+          value += tierValue;
+        }
+      }
+      if (value > 0) {
+        matches.push({ set, threshold, value });
+      }
+    }
+    return matches.sort((a, b) => b.value - a.value || a.threshold - b.threshold || a.set.localeCompare(b.set));
+  }
+
+  /**
    * The most filigrees can give each affix: their own bonuses summed over the best distinct
    * filigrees for a 10-slot weapon and an `artifactSlots` artifact, the best single set's full
    * bonus, and 1 for an on/off effect. `flatten` expands an affix group onto its members (keeping

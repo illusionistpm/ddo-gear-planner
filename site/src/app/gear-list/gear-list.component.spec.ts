@@ -70,6 +70,20 @@ describe('GearListComponent', () => {
     expect(button.querySelector('.item-name').textContent).toBe('Test Set');
   });
 
+  it('labels a filigree set as one, with no item drawer, apart from a gear set of the same name', () => {
+    createComponentWithSetBonuses([
+      { setName: 'Celerity', pieces: 2, tiers: [], filigree: true },
+      { setName: 'Celerity', pieces: 3, tiers: [] },
+    ]);
+
+    const cards = Array.from<HTMLElement>(fixture.nativeElement.querySelectorAll('.active-set-bonus'));
+    expect(cards.map(card => card.getAttribute('data-jump-target'))).toEqual(['filigree-set:Celerity', 'set:Celerity']);
+    expect(cards[0].querySelector('.set-label')!.textContent!.trim()).toBe('Filigree set');
+    expect(cards[0].querySelector('.set-piece-count')!.textContent!.trim()).toBe('2 Slotted');
+    expect(cards[0].querySelector('button.set-bonus-button')).toBeNull();
+    expect(cards[1].querySelector('.set-label')!.textContent!.trim()).toBe('Set');
+  });
+
   it('asks for a focus before gear while only Basic is tracked', () => {
     TestBed.inject(EquippedService).setImportantAffixes(['Dodge']);
     createComponentWithSetBonuses([]);

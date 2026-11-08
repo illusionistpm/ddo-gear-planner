@@ -41,3 +41,6 @@
   }
 </div>
 <app-gear-description [item]=equipped.getSlot(slot) [showLootBadges]="false"></app-gear-description>
+@if (filigreeHost) {
+  <app-filigree-slots [host]="filigreeHost"></app-filigree-slots>
+}

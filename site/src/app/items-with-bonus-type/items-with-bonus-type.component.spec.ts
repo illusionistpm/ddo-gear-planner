@@ -34,6 +34,60 @@ describe('ItemsWithBonusTypeComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  describe('filigree', () => {
+    const weapon = () => new Item({ name: 'Test Longsword', slot: 'Weapon', type: 'Longswords', ml: 30, affixes: [], crafting: [], quests: [] });
+
+    function show(affixName: string, bonusType: string) {
+      fixture.componentRef.setInput('affixName', affixName);
+      fixture.componentRef.setInput('bonusType', bonusType);
+      fixture.detectChanges();
+      return fixture.nativeElement as HTMLElement;
+    }
+
+    it('lists the filigrees giving a Filigree bonus, best first, with a rare copy\'s value', () => {
+      const element = show('Physical Sheltering', 'Filigree');
+
+      expect(component.filigreeMatches.length).toBeGreaterThan(10);
+      const values = component.filigreeMatches.map(match => match.rareValue);
+      expect(values).toEqual([...values].sort((a, b) => b - a));
+      // Celerity: Dexterity gives Physical Sheltering only as a rare copy.
+      expect(component.filigreeMatches.find(match => match.name === 'Celerity: Dexterity'))
+        .toEqual(expect.objectContaining({ value: 0, rareValue: 2 }));
+      expect(element.querySelector('.filigree-matches')).not.toBeNull();
+    });
+
+    it('lists the filigree sets giving a Filigree Set bonus', () => {
+      show('Strength', 'Filigree Set');
+
+      expect(component.filigreeSetMatches).toContainEqual({ set: 'Ultimate Fury', threshold: 2, value: 5 });
+    });
+
+    it('shows no filigree for a gear bonus type', () => {
+      const element = show('Strength', 'Enhancement');
+
+      expect(component.filigreeMatches).toEqual([]);
+      expect(element.querySelector('.filigree-matches')).toBeNull();
+    });
+
+    it('slots a filigree into the first empty open slot, and not twice into one host', () => {
+      component.equipped.set(weapon());
+      component.equipped.setFiligree('weapon', 0, { name: 'Celerity: Reflex', rare: false });
+      const element = show('Dexterity', 'Filigree');
+      const row = Array.from<HTMLElement>(element.querySelectorAll('.filigree-match-row'))
+        .find(candidate => candidate.textContent!.includes('Celerity: Dexterity'))!;
+      const [weaponButton, artifactButton] = Array.from(row.querySelectorAll<HTMLButtonElement>('.equip-button'));
+
+      expect(artifactButton.disabled).toBe(true);
+      expect(artifactButton.title).toBe('Equip a minor artifact first');
+      weaponButton.click();
+      fixture.detectChanges();
+
+      expect(component.equipped.getFiligreeLoadout().weapon[1]).toEqual({ name: 'Celerity: Dexterity', rare: false });
+      expect(weaponButton.disabled).toBe(true);
+      expect(weaponButton.title).toBe('Already in the weapon');
+    });
+  });
+
   it('splits sets into reachable and out-of-reach by piece threshold', () => {
     component.affixName = 'Kinetic Lore';
     component.bonusType = 'Artifact';

@@ -12,6 +12,11 @@ const ACTIVE_TAB_KEY = 'ddo-gear-planner-active-tab';
 const TRACKED_AFFIX_GROUP_MODE_KEY = 'ddo-gear-planner-tracked-affix-group-mode';
 const TRACKED_AFFIX_COLLAPSED_KEY = 'ddo-gear-planner-tracked-affix-collapsed';
 const HIDE_IRRELEVANT_CRAFTING_OPTIONS_KEY = 'ddo-gear-planner-hide-irrelevant-crafting-options';
+const HIDE_IRRELEVANT_FILIGREE_KEY = 'ddo-gear-planner-hide-irrelevant-filigree';
+const FILIGREE_GROUP_MODE_KEY = 'ddo-gear-planner-filigree-group-mode';
+
+/** How the filigree picker groups its list. */
+export type FiligreeGroupMode = 'set' | 'bonus';
 
 export function getStoredActiveTab(): PlannerTab {
   return readValue(ACTIVE_TAB_KEY) === 'affixes' ? 'affixes' : 'equipment';
@@ -45,6 +50,23 @@ export function getStoredHideIrrelevantCraftingOptions(): boolean {
 
 export function storeHideIrrelevantCraftingOptions(hide: boolean): void {
   writeValue(HIDE_IRRELEVANT_CRAFTING_OPTIONS_KEY, hide ? 'on' : 'off');
+}
+
+// On unless the user has turned it off, as for crafting options.
+export function getStoredHideIrrelevantFiligree(): boolean {
+  return readValue(HIDE_IRRELEVANT_FILIGREE_KEY) !== 'off';
+}
+
+export function storeHideIrrelevantFiligree(hide: boolean): void {
+  writeValue(HIDE_IRRELEVANT_FILIGREE_KEY, hide ? 'on' : 'off');
+}
+
+export function getStoredFiligreeGroupMode(): FiligreeGroupMode {
+  return readValue(FILIGREE_GROUP_MODE_KEY) === 'bonus' ? 'bonus' : 'set';
+}
+
+export function storeFiligreeGroupMode(mode: FiligreeGroupMode): void {
+  writeValue(FILIGREE_GROUP_MODE_KEY, mode);
 }
 
 function readValue(key: string): string | null {

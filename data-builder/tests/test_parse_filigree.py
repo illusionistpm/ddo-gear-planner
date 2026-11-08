@@ -107,8 +107,9 @@ FILIGREE_PAGE = '''<div id="mw-content-text">
 <tr><th rowspan="2">1</th><th rowspan="2">Celerity</th><td>Celerity: Dexterity</td><td>Dexterity +1</td><td>PRR +2</td>
     <td rowspan="2"><ul><li>2 Pieces: +2 Doublestrike</li></ul></td></tr>
 <tr><td>Celerity: Wisdom</td><td>Wisdom +1</td><td>—</td></tr>
-<tr><th rowspan="1">—</th><th rowspan="1">Zephyr (Rare)</th><td>Zephyr: Tumble</td><td>Tumble +2</td><td>MRR +2</td>
-    <td><ul><li>2 Pieces: +5 MRR</li></ul></td></tr>
+<tr><th rowspan="2">—</th><th rowspan="2">Zephyr (Rare)</th><td>Zephyr: Tumble</td><td>Tumble +2</td><td>MRR +2</td>
+    <td rowspan="2"><ul><li>2 Pieces: +5 MRR</li></ul></td></tr>
+<tr><td>Celerity/Zephyr: Wisdom</td><td>+2 Wisdom</td><td>+4 MRR</td></tr>
 </table></div>'''
 
 RAID_PAGE = '''<div id="mw-content-text">
@@ -132,6 +133,7 @@ def test_table_rows_carry_rowspanned_generation_set_and_bonus():
         ('1', 'Celerity', 'Celerity: Dexterity'),
         ('1', 'Celerity', 'Celerity: Wisdom'),
         ('—', 'Zephyr (Rare)', 'Zephyr: Tumble'),
+        ('—', 'Zephyr (Rare)', 'Celerity/Zephyr: Wisdom'),
     ]
     assert rows[0]['setBonusCell'] is rows[1]['setBonusCell']
 
@@ -166,7 +168,14 @@ def test_build_filigree_data_shape(monkeypatch):
     }
     assert data['filigrees']['Celerity: Wisdom']['rareAffixes'] == []
     assert data['filigrees']['Zephyr: Tumble']['generation'] == 'event'
-    assert data['filigrees']['Celerity / Zephyr']['sets'] == ['Celerity', 'Zephyr']
+    # The list's own entry for the raid filigree gains its second set and raid generation.
+    assert data['filigrees']['Celerity/Zephyr: Wisdom'] == {
+        'sets': ['Celerity', 'Zephyr'],
+        'generation': '1 raid',
+        'affixes': [{'name': 'Wisdom', 'type': FILIGREE_TYPE, 'value': 2}],
+        'rareAffixes': [{'name': 'Magical Sheltering', 'type': FILIGREE_TYPE, 'value': 4}],
+    }
+    assert 'Celerity / Zephyr' not in data['filigrees']
     assert data['sets']['Zephyr'] == {
         'rare': True,
         'bonuses': [{'threshold': 2, 'affixes': [{'name': 'Magical Sheltering', 'type': FILIGREE_SET_TYPE, 'value': 5}]}],
@@ -176,6 +185,16 @@ def test_build_filigree_data_shape(monkeypatch):
         '1 raid': {'packs': [], 'source': 'Thread of Fate'},
         'event': {'packs': ['Events']},
     }
+
+
+def test_raid_filigree_missing_from_the_list_is_added_under_both_sets(monkeypatch):
+    monkeypatch.setattr(module, 'check_filigree_data', lambda *args: None)
+    page = FILIGREE_PAGE.replace('Celerity/Zephyr: Wisdom', 'Zephyr: Wisdom')
+
+    data = build_filigree_data(soup(page), soup(RAID_PAGE), {}, CaseInsensitive(SYNONYMS))
+
+    assert data['filigrees']['Celerity / Zephyr']['sets'] == ['Celerity', 'Zephyr']
+    assert data['filigrees']['Zephyr: Wisdom']['sets'] == ['Zephyr']
 
 
 def test_raid_filigree_naming_an_unknown_set_fails(monkeypatch):

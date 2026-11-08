@@ -382,17 +382,28 @@ def build_filigree_data(filigree_soup, raid_soup, pack_aliases, synonyms=None, c
             'rareAffixes': parse_effect_text(row['rare'], FILIGREE_TYPE, synonyms, compounds),
         }
 
+    # The filigree list carries raid filigrees too ("Celerity/Vigilance: Wisdom"), but under one of
+    # their sets only. Thread of Fate's list says which they are and that both sets count.
     raid = get_raid_filigrees(raid_soup)
     for row in raid:
         unknown = [s for s in row['sets'] if s not in sets]
         if unknown:
             raise RuntimeError(f'Raid filigree {row["name"]} names unknown sets {unknown}')
-        filigrees[row['name']] = {
-            'sets': row['sets'],
-            'generation': row['generation'],
-            'affixes': parse_effect_text(row['effect'], FILIGREE_TYPE, synonyms, compounds),
-            'rareAffixes': parse_effect_text(row['rare'], FILIGREE_TYPE, synonyms, compounds),
-        }
+        prefix = '/'.join(row['sets']) + ':'
+        listed = [name for name in filigrees if name.startswith(prefix)]
+        if len(listed) > 1:
+            raise RuntimeError(f'Several filigrees look like raid filigree {row["name"]}: {listed}')
+        if listed:
+            entry = filigrees[listed[0]]
+            entry['sets'] = row['sets']
+            entry['generation'] = row['generation']
+        else:
+            filigrees[row['name']] = {
+                'sets': row['sets'],
+                'generation': row['generation'],
+                'affixes': parse_effect_text(row['effect'], FILIGREE_TYPE, synonyms, compounds),
+                'rareAffixes': parse_effect_text(row['rare'], FILIGREE_TYPE, synonyms, compounds),
+            }
 
     generations = {gen: {'packs': packs} for gen, packs in get_generation_packs(filigree_soup, pack_aliases).items()}
     for gen in sorted({f['generation'] for f in filigrees.values() if f['generation'].endswith(RAID_GENERATION_SUFFIX)}):
@@ -400,12 +411,12 @@ def build_filigree_data(filigree_soup, raid_soup, pack_aliases, synonyms=None, c
     if any(f['generation'] == EVENT_GENERATION for f in filigrees.values()):
         generations[EVENT_GENERATION] = {'packs': ['Events']}
 
-    check_filigree_data(filigrees, sets, len(raid))
+    check_filigree_data(filigrees, sets, sum(1 for f in filigrees.values() if f['generation'].endswith(RAID_GENERATION_SUFFIX)))
     return {'filigrees': filigrees, 'sets': sets, 'generations': generations}
 
 
 def check_filigree_data(filigrees, sets, raid_count):
-    if len(filigrees) - raid_count < MIN_FILIGREES or len(sets) < MIN_SETS or raid_count < MIN_RAID_FILIGREES:
+    if len(filigrees) - raid_count < MIN_FILIGREES - MIN_RAID_FILIGREES or len(sets) < MIN_SETS or raid_count < MIN_RAID_FILIGREES:
         raise RuntimeError(
             f'Only {len(filigrees) - raid_count} filigrees, {len(sets)} sets and {raid_count} raid filigrees parsed '
             f'(expected at least {MIN_FILIGREES}, {MIN_SETS}, {MIN_RAID_FILIGREES}); the wiki layout has probably changed.')

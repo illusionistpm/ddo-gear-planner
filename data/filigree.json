@@ -285,7 +285,7 @@
                 "Bend Fate"
             ]
         },
-        "Bravery Throughout / Shattered Device": {
+        "Bravery Throughout/Shattered Device: Physical Resistance Rating": {
             "affixes": [
                 {
                     "name": "Physical Sheltering",
@@ -303,26 +303,6 @@
             ],
             "sets": [
                 "Bravery Throughout",
-                "Shattered Device"
-            ]
-        },
-        "Bravery Throughout/Shattered Device: Physical Resistance Rating": {
-            "affixes": [
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Filigree",
-                    "value": 6
-                }
-            ],
-            "generation": "2",
-            "rareAffixes": [
-                {
-                    "name": "Magical Sheltering",
-                    "type": "Filigree",
-                    "value": 4
-                }
-            ],
-            "sets": [
                 "Shattered Device"
             ]
         },
@@ -466,7 +446,7 @@
                 "Bravery Throughout"
             ]
         },
-        "Celerity / Vigilance": {
+        "Celerity/Vigilance: Wisdom": {
             "affixes": [
                 {
                     "name": "Wisdom",
@@ -484,26 +464,6 @@
             ],
             "sets": [
                 "Celerity",
-                "Vigilance"
-            ]
-        },
-        "Celerity/Vigilance: Wisdom": {
-            "affixes": [
-                {
-                    "name": "Wisdom",
-                    "type": "Filigree",
-                    "value": 2
-                }
-            ],
-            "generation": "1",
-            "rareAffixes": [
-                {
-                    "name": "Magical Sheltering",
-                    "type": "Filigree",
-                    "value": 4
-                }
-            ],
-            "sets": [
                 "Vigilance"
             ]
         },
@@ -837,7 +797,7 @@
                 "Crackshot Negotiator"
             ]
         },
-        "Dance of the Wind / Next Fall": {
+        "Dance of the Wind/Next Fall: Dexterity": {
             "affixes": [
                 {
                     "name": "Dexterity",
@@ -855,26 +815,6 @@
             ],
             "sets": [
                 "Dance of the Wind",
-                "Next Fall"
-            ]
-        },
-        "Dance of the Wind/Next Fall: Dexterity": {
-            "affixes": [
-                {
-                    "name": "Dexterity",
-                    "type": "Filigree",
-                    "value": 2
-                }
-            ],
-            "generation": "2",
-            "rareAffixes": [
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Filigree",
-                    "value": 4
-                }
-            ],
-            "sets": [
                 "Next Fall"
             ]
         },
@@ -1268,7 +1208,7 @@
                 "Deadly Rain"
             ]
         },
-        "Divinity / Ultimate Fury": {
+        "Divinity/Ultimate Fury: Strength": {
             "affixes": [
                 {
                     "name": "Strength",
@@ -1286,26 +1226,6 @@
             ],
             "sets": [
                 "Divinity",
-                "Ultimate Fury"
-            ]
-        },
-        "Divinity/Ultimate Fury: Strength": {
-            "affixes": [
-                {
-                    "name": "Strength",
-                    "type": "Filigree",
-                    "value": 2
-                }
-            ],
-            "generation": "3",
-            "rareAffixes": [
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Filigree",
-                    "value": 4
-                }
-            ],
-            "sets": [
                 "Ultimate Fury"
             ]
         },
@@ -2269,7 +2189,7 @@
                 "Embraced by Light"
             ]
         },
-        "Eye of the Beholder / The Inevitable Grave": {
+        "Eye of the Beholder/The Inevitable Grave: Intelligence": {
             "affixes": [
                 {
                     "name": "Intelligence",
@@ -2287,26 +2207,6 @@
             ],
             "sets": [
                 "Eye of the Beholder",
-                "The Inevitable Grave"
-            ]
-        },
-        "Eye of the Beholder/The Inevitable Grave: Intelligence": {
-            "affixes": [
-                {
-                    "name": "Intelligence",
-                    "type": "Filigree",
-                    "value": 2
-                }
-            ],
-            "generation": "1",
-            "rareAffixes": [
-                {
-                    "name": "Universal Spell Power",
-                    "type": "Filigree",
-                    "value": 8
-                }
-            ],
-            "sets": [
                 "The Inevitable Grave"
             ]
         },
@@ -2430,7 +2330,7 @@
                 "Eye of the Beholder"
             ]
         },
-        "Final Burial / Coalesced Magic": {
+        "Final Burial/Coalesced Magic: Wisdom": {
             "affixes": [
                 {
                     "name": "Wisdom",
@@ -2441,7 +2341,7 @@
             "generation": "2 raid",
             "rareAffixes": [
                 {
-                    "name": "Physical Sheltering",
+                    "name": "Magical Sheltering",
                     "type": "Filigree",
                     "value": 4
                 }
@@ -2449,26 +2349,6 @@
             "sets": [
                 "Final Burial",
                 "Coalesced Magic"
-            ]
-        },
-        "Final Burial/Coalesced Magic: Wisdom": {
-            "affixes": [
-                {
-                    "name": "Wisdom",
-                    "type": "Filigree",
-                    "value": 2
-                }
-            ],
-            "generation": "2",
-            "rareAffixes": [
-                {
-                    "name": "Magical Sheltering",
-                    "type": "Filigree",
-                    "value": 4
-                }
-            ],
-            "sets": [
-                "Final Burial"
             ]
         },
         "Final Burial: Charisma": {
@@ -2811,7 +2691,7 @@
                 "Grandfather's Shield"
             ]
         },
-        "Keeper of the Curse / Angelic Wings": {
+        "Keeper of the Curse/Angelic Wings: Charisma": {
             "affixes": [
                 {
                     "name": "Charisma",
@@ -2830,26 +2710,6 @@
             "sets": [
                 "Keeper of the Curse",
                 "Angelic Wings"
-            ]
-        },
-        "Keeper of the Curse/Angelic Wings: Charisma": {
-            "affixes": [
-                {
-                    "name": "Charisma",
-                    "type": "Filigree",
-                    "value": 2
-                }
-            ],
-            "generation": "3",
-            "rareAffixes": [
-                {
-                    "name": "Magical Sheltering",
-                    "type": "Filigree",
-                    "value": 4
-                }
-            ],
-            "sets": [
-                "Keeper of the Curse"
             ]
         },
         "Keeper of the Curse: Charisma": {
@@ -3017,7 +2877,7 @@
                 "Keeper of the Curse"
             ]
         },
-        "Lunar Magic / The Serpent": {
+        "Lunar Magic/The Serpent: Intelligence": {
             "affixes": [
                 {
                     "name": "Intelligence",
@@ -3035,26 +2895,6 @@
             ],
             "sets": [
                 "Lunar Magic",
-                "The Serpent"
-            ]
-        },
-        "Lunar Magic/The Serpent: Intelligence": {
-            "affixes": [
-                {
-                    "name": "Intelligence",
-                    "type": "Filigree",
-                    "value": 2
-                }
-            ],
-            "generation": "3",
-            "rareAffixes": [
-                {
-                    "name": "Magical Sheltering",
-                    "type": "Filigree",
-                    "value": 4
-                }
-            ],
-            "sets": [
                 "The Serpent"
             ]
         },
@@ -3555,7 +3395,7 @@
                 "Night Revels' Gifts"
             ]
         },
-        "Nystul's Mystical Defense / Electrocution": {
+        "Nystul's Mystical Defense/Electrocution: Magical Resistance Rating": {
             "affixes": [
                 {
                     "name": "Magical Sheltering",
@@ -3574,26 +3414,6 @@
             "sets": [
                 "Nystul's Mystical Defense",
                 "Electrocution"
-            ]
-        },
-        "Nystul's Mystical Defense/Electrocution: Magical Resistance Rating": {
-            "affixes": [
-                {
-                    "name": "Magical Sheltering",
-                    "type": "Filigree",
-                    "value": 6
-                }
-            ],
-            "generation": "1",
-            "rareAffixes": [
-                {
-                    "name": "Magical Sheltering",
-                    "type": "Filigree",
-                    "value": 4
-                }
-            ],
-            "sets": [
-                "Nystul's Mystical Defense"
             ]
         },
         "Nystul's Mystical Defense: Acid Absorption": {
@@ -4166,7 +3986,7 @@
                 "Prowess"
             ]
         },
-        "Purity / Touch of Grace": {
+        "Purity/Touch of Grace: Healing Amplification": {
             "affixes": [
                 {
                     "name": "Healing Amplification",
@@ -4184,26 +4004,6 @@
             ],
             "sets": [
                 "Purity",
-                "Touch of Grace"
-            ]
-        },
-        "Purity/Touch of Grace: Healing Amplification": {
-            "affixes": [
-                {
-                    "name": "Healing Amplification",
-                    "type": "Filigree",
-                    "value": 20
-                }
-            ],
-            "generation": "1",
-            "rareAffixes": [
-                {
-                    "name": "Magical Sheltering",
-                    "type": "Filigree",
-                    "value": 4
-                }
-            ],
-            "sets": [
                 "Touch of Grace"
             ]
         },
@@ -4567,7 +4367,7 @@
                 "Reverberation"
             ]
         },
-        "Sanctified Fervor / Reverberation": {
+        "Sanctified Fervor/Reverberation: Charisma": {
             "affixes": [
                 {
                     "name": "Charisma",
@@ -4586,26 +4386,6 @@
             "sets": [
                 "Sanctified Fervor",
                 "Reverberation"
-            ]
-        },
-        "Sanctified Fervor/Reverberation: Charisma": {
-            "affixes": [
-                {
-                    "name": "Charisma",
-                    "type": "Filigree",
-                    "value": 2
-                }
-            ],
-            "generation": "2",
-            "rareAffixes": [
-                {
-                    "name": "Magical Sheltering",
-                    "type": "Filigree",
-                    "value": 4
-                }
-            ],
-            "sets": [
-                "Sanctified Fervor"
             ]
         },
         "Sanctified Fervor: Charisma": {
@@ -4748,7 +4528,7 @@
                 "Sanctified Fervor"
             ]
         },
-        "Shadowstrike / Bend Fate": {
+        "Shadowstrike/Bend Fate: Dexterity": {
             "affixes": [
                 {
                     "name": "Dexterity",
@@ -4767,26 +4547,6 @@
             "sets": [
                 "Shadowstrike",
                 "Bend Fate"
-            ]
-        },
-        "Shadowstrike/Bend Fate: Dexterity": {
-            "affixes": [
-                {
-                    "name": "Dexterity",
-                    "type": "Filigree",
-                    "value": 2
-                }
-            ],
-            "generation": "3",
-            "rareAffixes": [
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Filigree",
-                    "value": 4
-                }
-            ],
-            "sets": [
-                "Shadowstrike"
             ]
         },
         "Shadowstrike: Deception": {
@@ -5224,7 +4984,7 @@
                 "Shattered Device"
             ]
         },
-        "Snake Bite / Grandfather's Shield": {
+        "Snake Bite/Grandfather's Shield: Constitution": {
             "affixes": [
                 {
                     "name": "Constitution",
@@ -5243,26 +5003,6 @@
             "sets": [
                 "Snake Bite",
                 "Grandfather's Shield"
-            ]
-        },
-        "Snake Bite/Grandfather's Shield: Constitution": {
-            "affixes": [
-                {
-                    "name": "Constitution",
-                    "type": "Filigree",
-                    "value": 2
-                }
-            ],
-            "generation": "1",
-            "rareAffixes": [
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Filigree",
-                    "value": 4
-                }
-            ],
-            "sets": [
-                "Snake Bite"
             ]
         },
         "Snake Bite: Attack and Damage": {
@@ -5492,7 +5232,7 @@
                 "Snowpeak's Gifts"
             ]
         },
-        "Soulweaver / Splendid Cacophony": {
+        "Soulweaver/Splendid Cacophony: Constitution": {
             "affixes": [
                 {
                     "name": "Constitution",
@@ -5510,26 +5250,6 @@
             ],
             "sets": [
                 "Soulweaver",
-                "Splendid Cacophony"
-            ]
-        },
-        "Soulweaver/Splendid Cacophony: Constitution": {
-            "affixes": [
-                {
-                    "name": "Constitution",
-                    "type": "Filigree",
-                    "value": 2
-                }
-            ],
-            "generation": "2",
-            "rareAffixes": [
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Filigree",
-                    "value": 4
-                }
-            ],
-            "sets": [
                 "Splendid Cacophony"
             ]
         },
@@ -5673,7 +5393,7 @@
                 "Soulweaver"
             ]
         },
-        "Spines of the Manticore / The Wreath of Flame": {
+        "Spines of the Manticore/The Wreath of Flame: Ranged Power": {
             "affixes": [
                 {
                     "name": "Ranged Power",
@@ -5691,26 +5411,6 @@
             ],
             "sets": [
                 "Spines of the Manticore",
-                "The Wreath of Flame"
-            ]
-        },
-        "Spines of the Manticore/The Wreath of Flame: Ranged Power": {
-            "affixes": [
-                {
-                    "name": "Ranged Power",
-                    "type": "Filigree",
-                    "value": 6
-                }
-            ],
-            "generation": "1",
-            "rareAffixes": [
-                {
-                    "name": "Ranged Power",
-                    "type": "Filigree",
-                    "value": 4
-                }
-            ],
-            "sets": [
                 "The Wreath of Flame"
             ]
         },
@@ -5939,7 +5639,7 @@
                 "Splendid Cacophony"
             ]
         },
-        "Sucker Punch / One Against Many": {
+        "Sucker Punch/One Against Many: Strength": {
             "affixes": [
                 {
                     "name": "Strength",
@@ -5958,26 +5658,6 @@
             "sets": [
                 "Sucker Punch",
                 "One Against Many"
-            ]
-        },
-        "Sucker Punch/One Against Many: Strength": {
-            "affixes": [
-                {
-                    "name": "Strength",
-                    "type": "Filigree",
-                    "value": 2
-                }
-            ],
-            "generation": "1",
-            "rareAffixes": [
-                {
-                    "name": "Melee Power",
-                    "type": "Filigree",
-                    "value": 4
-                }
-            ],
-            "sets": [
-                "Sucker Punch"
             ]
         },
         "Sucker Punch: Attack and Damage": {
@@ -6065,7 +5745,7 @@
                 "Sucker Punch"
             ]
         },
-        "Technomage / Unbreakable": {
+        "Technomage/Unbreakable: Constitution": {
             "affixes": [
                 {
                     "name": "Constitution",
@@ -6083,26 +5763,6 @@
             ],
             "sets": [
                 "Technomage",
-                "Unbreakable"
-            ]
-        },
-        "Technomage/Unbreakable: Constitution": {
-            "affixes": [
-                {
-                    "name": "Constitution",
-                    "type": "Filigree",
-                    "value": 2
-                }
-            ],
-            "generation": "3",
-            "rareAffixes": [
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Filigree",
-                    "value": 4
-                }
-            ],
-            "sets": [
                 "Unbreakable"
             ]
         },
@@ -6266,7 +5926,7 @@
                 "Technomage"
             ]
         },
-        "The Abiding Path / Elemental Avatar": {
+        "The Abiding Path/Elemental Avatar: Wisdom": {
             "affixes": [
                 {
                     "name": "Wisdom",
@@ -6284,26 +5944,6 @@
             ],
             "sets": [
                 "The Abiding Path",
-                "Elemental Avatar"
-            ]
-        },
-        "The Abiding Path/Elemental Avatar: Wisdom": {
-            "affixes": [
-                {
-                    "name": "Wisdom",
-                    "type": "Filigree",
-                    "value": 2
-                }
-            ],
-            "generation": "3",
-            "rareAffixes": [
-                {
-                    "name": "Magical Sheltering",
-                    "type": "Filigree",
-                    "value": 4
-                }
-            ],
-            "sets": [
                 "Elemental Avatar"
             ]
         },
@@ -6547,7 +6187,7 @@
                 "The Beast's Mantle"
             ]
         },
-        "The Blood Feast / Frozen Wanderer": {
+        "The Blood Feast/Frozen Wanderer: Physical Resistance Rating": {
             "affixes": [
                 {
                     "name": "Physical Sheltering",
@@ -6565,26 +6205,6 @@
             ],
             "sets": [
                 "The Blood Feast",
-                "Frozen Wanderer"
-            ]
-        },
-        "The Blood Feast/Frozen Wanderer: Physical Resistance Rating": {
-            "affixes": [
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Filigree",
-                    "value": 6
-                }
-            ],
-            "generation": "1",
-            "rareAffixes": [
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Filigree",
-                    "value": 4
-                }
-            ],
-            "sets": [
                 "Frozen Wanderer"
             ]
         },
@@ -6728,7 +6348,7 @@
                 "The Blood Feast"
             ]
         },
-        "The City's Beacon / The Enlightened Step": {
+        "The City's Beacon/The Enlightened Step: Strength": {
             "affixes": [
                 {
                     "name": "Strength",
@@ -6746,26 +6366,6 @@
             ],
             "sets": [
                 "The City's Beacon",
-                "The Enlightened Step"
-            ]
-        },
-        "The City's Beacon/The Enlightened Step: Strength": {
-            "affixes": [
-                {
-                    "name": "Strength",
-                    "type": "Filigree",
-                    "value": 2
-                }
-            ],
-            "generation": "1",
-            "rareAffixes": [
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Filigree",
-                    "value": 4
-                }
-            ],
-            "sets": [
                 "The Enlightened Step"
             ]
         },
@@ -7769,7 +7369,7 @@
                 "Through the Mists"
             ]
         },
-        "To Hell and Back / Embraced by Light": {
+        "To Hell and Back/Embraced by Light: Charisma": {
             "affixes": [
                 {
                     "name": "Charisma",
@@ -7788,26 +7388,6 @@
             "sets": [
                 "To Hell and Back",
                 "Embraced by Light"
-            ]
-        },
-        "To Hell and Back/Embraced by Light: Charisma": {
-            "affixes": [
-                {
-                    "name": "Charisma",
-                    "type": "Filigree",
-                    "value": 2
-                }
-            ],
-            "generation": "1",
-            "rareAffixes": [
-                {
-                    "name": "Magical Sheltering",
-                    "type": "Filigree",
-                    "value": 4
-                }
-            ],
-            "sets": [
-                "To Hell and Back"
             ]
         },
         "To Hell and Back: Charisma": {
@@ -8100,7 +7680,7 @@
                 "Trapper's Delight"
             ]
         },
-        "Treachery / Twilight's Cloak": {
+        "Treachery/Twilight's Cloak: Dexterity": {
             "affixes": [
                 {
                     "name": "Dexterity",
@@ -8118,26 +7698,6 @@
             ],
             "sets": [
                 "Treachery",
-                "Twilight's Cloak"
-            ]
-        },
-        "Treachery/Twilight's Cloak: Dexterity": {
-            "affixes": [
-                {
-                    "name": "Dexterity",
-                    "type": "Filigree",
-                    "value": 2
-                }
-            ],
-            "generation": "1",
-            "rareAffixes": [
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Filigree",
-                    "value": 4
-                }
-            ],
-            "sets": [
                 "Twilight's Cloak"
             ]
         },
@@ -9081,7 +8641,7 @@
                 "Wildhunter"
             ]
         },
-        "Zarigan's Arcane Enlightenment / Voltaic Experiment": {
+        "Zarigan's Arcane Enlightenment/Voltaic Experiment: Intelligence": {
             "affixes": [
                 {
                     "name": "Intelligence",
@@ -9100,26 +8660,6 @@
             "sets": [
                 "Zarigan's Arcane Enlightenment",
                 "Voltaic Experiment"
-            ]
-        },
-        "Zarigan's Arcane Enlightenment/Voltaic Experiment: Intelligence": {
-            "affixes": [
-                {
-                    "name": "Intelligence",
-                    "type": "Filigree",
-                    "value": 2
-                }
-            ],
-            "generation": "2",
-            "rareAffixes": [
-                {
-                    "name": "Magical Sheltering",
-                    "type": "Filigree",
-                    "value": 4
-                }
-            ],
-            "sets": [
-                "Zarigan's Arcane Enlightenment"
             ]
         },
         "Zarigan's Arcane Enlightenment: Charisma": {

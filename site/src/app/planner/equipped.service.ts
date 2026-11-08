@@ -31,7 +31,7 @@ import { FILIGREE_TRACKING_MIN_LEVEL, MAX_FILIGREE_SLOTS_AFFIX } from '../affixe
 import { FiligreeDbService } from '../gear/filigree-db.service';
 import {
   countFiligreeSetPieces, CountedFiligree, emptyFiligreeLoadout, FiligreeChoice, FiligreeHost, FiligreeLoadout,
-  MAX_WEAPON_FILIGREE_SLOTS, SUMMED_FILIGREE_BONUS_TYPES
+  SUMMED_FILIGREE_BONUS_TYPES
 } from '../gear/filigree';
 import { countLoadoutFiligree, filigreeCapacity, FiligreeHosts, findFiligreeHosts } from './filigree-loadout';
 import { parseFiligreeLoadout, serializeFiligreeLoadout } from './filigree-params';

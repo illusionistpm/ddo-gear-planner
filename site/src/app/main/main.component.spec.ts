@@ -101,7 +101,9 @@ describe('MainComponent', () => {
     expect(el.querySelector('#affixesPanel .tracked-affixes-content > app-affix-picker .affix-editor')).not.toBeNull();
     expect(el.querySelector('#affixesPanel .affix-editor')?.textContent).toContain('What is this build for?');
     expect(packageChip('Melee').classList).toContain('affix-next-chip');
-    expect(el.querySelector('.tracked-affix-edit-affixes.needs-attention')).not.toBeNull();
+    // The editor is already open, so the toolbar button reads as pressed, not as a call to action.
+    expect(el.querySelector('.tracked-affix-edit-affixes.open')).not.toBeNull();
+    expect(el.querySelector('.tracked-affix-edit-affixes.needs-attention')).toBeNull();
   });
 
   it('still counts the user\'s own first edit as an unsaved change', () => {
@@ -176,6 +178,34 @@ describe('MainComponent', () => {
     expect(editor.isOpen).toBe(true);
     expect(activeTab()).toBe('affixes');
     expect(el.querySelector('#affixesPanel .affix-editor')).not.toBeNull();
+  });
+
+  it('ends the intro on a wrap-up: sign in (while signed out), the shopping list, and Got it for good', async () => {
+    const el: HTMLElement = fixture.nativeElement;
+    const onboarding = TestBed.inject(PlannerOnboardingService);
+    expect(el.querySelector('.planner-wrap-up')).toBeNull();
+
+    onboarding.completeIntro();
+    // The onboarding state publishes on a timer (see updateOnboardingSubject).
+    await new Promise(resolve => setTimeout(resolve));
+    fixture.detectChanges();
+
+    const wrapUp = el.querySelector('.planner-wrap-up');
+    expect(wrapUp).not.toBeNull();
+    expect(wrapUp?.textContent).toContain('Sign in to save this build');
+    expect(wrapUp?.textContent).toContain('Shopping list');
+
+    // Signed in, there's nothing to suggest about saving.
+    component.signedIn = true;
+    fixture.detectChanges();
+    expect(wrapUp?.textContent).not.toContain('Sign in to save this build');
+
+    (wrapUp?.querySelector('.onboarding-action-button') as HTMLButtonElement).click();
+    await new Promise(resolve => setTimeout(resolve));
+    fixture.detectChanges();
+
+    expect(el.querySelector('.planner-wrap-up')).toBeNull();
+    expect(onboarding.shouldShowWrapUp()).toBe(false);
   });
 
   it('renders non-production admin access in the workspace bar', () => {

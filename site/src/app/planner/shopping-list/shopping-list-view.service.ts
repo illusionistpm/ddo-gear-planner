@@ -9,7 +9,7 @@ import { QueryParamsService } from '../../build/query-params.service';
 import { isShoppingListFragment, SHOPPING_LIST_FRAGMENT } from '../../build/shopping-list-link';
 
 /** What opened a list: a button, a URL saying it's open (a reload, say), or a friend's link to a build's. */
-export type ShoppingListEntryPoint = 'toolbar' | 'menu' | 'url' | 'friend_link';
+export type ShoppingListEntryPoint = 'toolbar' | 'menu' | 'url' | 'friend_link' | 'wrap_up';
 
 /**
  * Whether your shopping list has taken the planner's place on screen. The

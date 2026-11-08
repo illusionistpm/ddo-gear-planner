@@ -33,14 +33,18 @@
 </div>
 
 <!-- Outside both view controls: what the planner tracks is worth changing from
-     either view, and the affix rail's copy of this button has gone. -->
+     either view. Opens and closes the affix editor at the top of the Tracked
+     Affixes panel, whose blue accent it shares. -->
 <button type="button" class="tracked-affix-edit-affixes" #editAffixes
-  [class.needs-attention]="needsAffixes"
-  [title]="needsAffixes ? 'Start here: choose your build\'s focus' : 'Add / edit affixes'"
-  aria-label="Add / edit affixes" (click)="openBuilder()">
-  <span class="fas fa-plus" aria-hidden="true"></span>
-  <span class="tracked-affix-edit-affixes-label">Add / edit affixes</span>
-  <span class="tracked-affix-edit-affixes-short">Affixes</span>
+  [class.open]="editorOpen"
+  [class.needs-attention]="needsAffixes && !editorOpen"
+  [attr.aria-expanded]="editorOpen"
+  aria-controls="affixEditor"
+  [title]="editorOpen ? 'Done editing affixes' : needsAffixes ? 'Start here: choose your build\'s focus' : 'Add / edit affixes'"
+  (click)="toggleEditor()">
+  <span class="fas" [class.fa-plus]="!editorOpen" [class.fa-check]="editorOpen" aria-hidden="true"></span>
+  <span class="tracked-affix-edit-affixes-label">{{editorOpen ? 'Done editing' : 'Add / edit affixes'}}</span>
+  <span class="tracked-affix-edit-affixes-short">{{editorOpen ? 'Done' : 'Affixes'}}</span>
 </button>
 
 <!-- A phone has no room on this line; the build actions' overflow menu carries it there. -->

@@ -39,6 +39,11 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   itemFilters = new ItemFilters();
   onboardingActive = true;
   trackedAffixesHint = false;
+  /** The intro has just been finished: its closing "you're all set" message is up. */
+  wrapUpShown = false;
+  /** For the wrap-up: the sign-in suggestion is only for someone signed out. */
+  signedIn = false;
+  private signedInSubscription?: Subscription;
   // Derived from initialGateReady && !isLoadingBuild (see updateContentReady) -
   // gates the equipment/affix panels so a visitor never sees a flash of
   // empty slots, or another build's data, before the real build has
@@ -260,6 +265,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filterSubscription = this.filters.getItemFilters().subscribe(itemFilters => {
       this.itemFilters = itemFilters;
     });
+    this.signedInSubscription = this.auth.isAuthenticated$.subscribe(signedIn => this.signedIn = signedIn);
     this.refreshOnboardingState();
     this.onboardingSubscription = this.onboarding.getOnboardingState().subscribe(() => {
       this.refreshOnboardingState();
@@ -294,6 +300,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     this.chromeObserver?.disconnect();
     this.filterSubscription?.unsubscribe();
     this.onboardingSubscription?.unsubscribe();
+    this.signedInSubscription?.unsubscribe();
     this.tabSubscription?.unsubscribe();
     this.routeParamsSubscription?.unsubscribe();
     this.buildIdentitySubscription?.unsubscribe();
@@ -658,6 +665,22 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     this.refreshOnboardingState();
   }
 
+  dismissWrapUp() {
+    this.onboarding.dismissWrapUp();
+    this.refreshOnboardingState();
+  }
+
+  wrapUpSignIn() {
+    this.analytics.track('wrap_up_action', { action: 'sign_in' });
+    this.auth.signIn();
+  }
+
+  wrapUpOpenShoppingList() {
+    this.analytics.track('wrap_up_action', { action: 'shopping_list' });
+    this.dismissWrapUp();
+    this.shoppingListView.open('wrap_up');
+  }
+
   onTroveFileSelected(eventOrFile: Event | File) {
     let file: File | null;
     if (eventOrFile instanceof File) {
@@ -722,6 +745,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private refreshOnboardingState() {
     this.onboardingActive = this.onboarding.shouldShowOnboarding();
+    this.wrapUpShown = this.onboarding.shouldShowWrapUp();
     this.trackedAffixesHint = this.isArmorEquipped() && this.onboardingActive && !this.isActiveTab('affixes');
   }
 }

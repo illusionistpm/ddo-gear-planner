@@ -266,7 +266,7 @@ describe('AffixPickerComponent', () => {
     const editor = TestBed.inject(AffixEditorService);
     editor.open();
 
-    (fixture.nativeElement as HTMLElement).querySelector<HTMLButtonElement>('.affix-editor-header .affix-editor-done')!.click();
+    (fixture.nativeElement as HTMLElement).querySelector<HTMLButtonElement>('.affix-editor-foot .affix-editor-done')!.click();
 
     expect(editor.isOpen).toBe(false);
   });

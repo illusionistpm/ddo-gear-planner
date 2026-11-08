@@ -391,6 +391,65 @@ app-admin-link {
   justify-content: flex-end;
 }
 
+/* The intro's closing message: information, not a next step, so the blue
+   callout rather than the green one. */
+.planner-wrap-up-label {
+  color: var(--primary-color);
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: var(--space-4);
+  text-transform: uppercase;
+}
+
+.planner-wrap-up-tips {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.35;
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.planner-wrap-up-tips strong {
+  color: var(--text-primary);
+}
+
+.planner-wrap-up-secondary {
+  background: var(--surface-elevated-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  color: var(--primary-color);
+  cursor: pointer;
+  flex: 0 0 auto;
+  font-size: 0.8rem;
+  font-weight: 800;
+  line-height: 1.2;
+  padding: var(--space-4) var(--space-8);
+  white-space: nowrap;
+}
+
+.planner-wrap-up-secondary:hover,
+.planner-wrap-up-secondary:focus-visible {
+  box-shadow: 0 0 0 2px var(--focus-ring-color);
+}
+
+@media (max-width: 575.98px) {
+  .planner-wrap-up {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .planner-wrap-up .planner-onboarding-actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (pointer: coarse) {
+  .planner-wrap-up button {
+    min-height: 44px;
+  }
+}
+
 .planner-onboarding-hint h2 {
   color: var(--text-primary);
   font-size: 1rem;

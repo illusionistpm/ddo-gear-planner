@@ -175,12 +175,13 @@
     color: var(--on-accent-text-color);
 }
 
+/* Blue, like the affix editor it opens - green is kept for "do this next". */
 .tracked-affix-edit-affixes {
     align-items: center;
-    background: var(--selected-bg);
-    border: 1px solid var(--selected-border-color);
+    background: rgba(var(--primary-color-rgb), 0.1);
+    border: 1px solid var(--primary-color);
     border-radius: 999px;
-    color: var(--selected-text-color);
+    color: var(--primary-color);
     cursor: pointer;
     display: inline-flex;
     font-size: 0.82rem;
@@ -206,8 +207,15 @@
 
 .tracked-affix-edit-affixes:hover,
 .tracked-affix-edit-affixes:focus-visible {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
+    background: rgba(var(--primary-color-rgb), 0.18);
+}
+
+/* Pressed while the editor is open: the same fill as the editor's own Done. */
+.tracked-affix-edit-affixes.open,
+.tracked-affix-edit-affixes.open:hover,
+.tracked-affix-edit-affixes.open:focus-visible {
+    background: var(--primary-color);
+    color: var(--on-accent-text-color);
 }
 
 /* A build with nothing tracked: this is where to start. The pulsing green

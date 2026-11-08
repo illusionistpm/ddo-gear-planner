@@ -129,25 +129,44 @@ describe('PlannerToolbarComponent', () => {
       expect(groupBy()).not.toBeNull();
     });
 
-    it('opens the affix builder for editing', () => {
-      const drawer = TestBed.inject(AffixEditorService);
-      drawer.close();
+    const affixButton = () => fixture.nativeElement.querySelector('.tracked-affix-edit-affixes') as HTMLButtonElement;
 
-      fixture.nativeElement.querySelector('.tracked-affix-edit-affixes').click();
+    it('opens and closes the affix editor, saying which it will do', () => {
+      const editor = TestBed.inject(AffixEditorService);
+      editor.close();
+      fixture.detectChanges();
+      expect(affixButton().getAttribute('aria-expanded')).toBe('false');
+      expect(affixButton().getAttribute('aria-controls')).toBe('affixEditor');
+      expect(affixButton().textContent).toContain('Add / edit affixes');
 
-      expect(drawer.isOpen).toBe(true);
+      affixButton().click();
+      fixture.detectChanges();
+      expect(editor.isOpen).toBe(true);
+      expect(affixButton().getAttribute('aria-expanded')).toBe('true');
+      expect(affixButton().classList).toContain('open');
+      expect(affixButton().textContent).toContain('Done editing');
+
+      affixButton().click();
+      fixture.detectChanges();
+      expect(editor.isOpen).toBe(false);
+      expect(affixButton().textContent).toContain('Add / edit affixes');
     });
 
-    it('highlights the affix builder button only while nothing is tracked', () => {
-      const button = () => fixture.nativeElement.querySelector('.tracked-affix-edit-affixes') as HTMLElement;
+    it('glows only while the editor is shut and the build has no focus yet', () => {
+      const editor = TestBed.inject(AffixEditorService);
 
-      equipped.setImportantAffixes([]);
+      equipped.setImportantAffixes(['Dodge']);
+      editor.open();
       fixture.detectChanges();
-      expect(button().classList).toContain('needs-attention');
+      expect(affixButton().classList).not.toContain('needs-attention');
+
+      editor.close();
+      fixture.detectChanges();
+      expect(affixButton().classList).toContain('needs-attention');
 
       equipped.addImportantAffix('Strength');
       fixture.detectChanges();
-      expect(button().classList).not.toContain('needs-attention');
+      expect(affixButton().classList).not.toContain('needs-attention');
     });
   });
 

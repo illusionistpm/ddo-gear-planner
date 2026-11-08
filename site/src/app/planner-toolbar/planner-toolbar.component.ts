@@ -40,8 +40,10 @@ import { TypeaheadResult } from '../typeahead/typeahead.component';
 export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy {
   activeTab: PlannerTab = 'equipment';
   groupMode: TrackedAffixGroupMode = 'category';
-  /** No focus chosen yet: the affix builder button is the place to start, and looks it. */
+  /** No focus chosen yet: the affix button is the place to start, and looks it (while the editor is shut). */
   needsAffixes = false;
+  /** The affix editor is open: the button reads as pressed, and closes it. */
+  editorOpen = false;
 
   @ViewChild('viewSwitch') private viewSwitch?: ElementRef<HTMLElement>;
   @ViewChild('gearSearch') private gearSearch?: ElementRef<HTMLElement>;
@@ -51,6 +53,8 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
   private viewStateSubscription?: Subscription;
   private rejoinSubscription?: Subscription;
   private chosenAffixesSubscription?: Subscription;
+  private editorSubscription?: Subscription;
+  private fitLabelTimer?: ReturnType<typeof setTimeout>;
   private switchObserver?: ResizeObserver;
   private workspaceRowObserver?: ResizeObserver;
   // GearDbService builds its unfiltered gear map once, in its constructor, so
@@ -78,6 +82,12 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
     });
     this.chosenAffixesSubscription = this.affixPackages.needsStart$()
       .subscribe(needsStart => this.needsAffixes = needsStart);
+    this.editorSubscription = this.affixEditor.isOpen$.subscribe(open => {
+      this.editorOpen = open;
+      // The label changes length with the state, so it may fit (or not) now.
+      clearTimeout(this.fitLabelTimer);
+      this.fitLabelTimer = setTimeout(() => this.fitEditAffixesLabel());
+    });
   }
 
   ngAfterViewInit() {
@@ -116,6 +126,8 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
     this.viewStateSubscription?.unsubscribe();
     this.rejoinSubscription?.unsubscribe();
     this.chosenAffixesSubscription?.unsubscribe();
+    this.editorSubscription?.unsubscribe();
+    clearTimeout(this.fitLabelTimer);
   }
 
   /**
@@ -177,8 +189,12 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
     this.equipped.setTrackedAffixGroupMode(mode);
   }
 
-  openBuilder() {
-    this.affixEditor.reveal('toolbar');
+  toggleEditor() {
+    if (this.editorOpen) {
+      this.affixEditor.finish();
+    } else {
+      this.affixEditor.reveal('toolbar');
+    }
   }
 
   private readonly shoppingListView = inject(ShoppingListViewService);

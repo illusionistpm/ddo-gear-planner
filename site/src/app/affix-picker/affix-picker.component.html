@@ -1,7 +1,11 @@
-<section class="affix-editor" aria-labelledby="affixEditorHeading">
+<!-- The toolbar's Add / edit affixes button opens and closes this (aria-controls),
+     and shares its blue accent, so the two read as one control and its panel. -->
+<section id="affixEditor" class="affix-editor" aria-labelledby="affixEditorHeading">
   <header class="affix-editor-header">
-    <h2 id="affixEditorHeading" class="affix-editor-heading" tabindex="-1">Edit tracked affixes</h2>
-    <button type="button" class="affix-editor-done" (click)="done()">Done</button>
+    <h2 id="affixEditorHeading" class="affix-editor-heading" tabindex="-1">
+      <span class="fas fa-plus affix-editor-heading-icon" aria-hidden="true"></span>
+      Edit tracked affixes
+    </h2>
   </header>
 
   <section class="affix-builder">
@@ -135,10 +139,9 @@
     </section>
   </section>
 
-  <!-- A second way out at the bottom, since the editor is taller than a phone's
-       screen. Clear all affixes lives here, away from the header's Done. Side by side
-       the gear is already on screen; one view at a time, Done goes to it, and
-       says so here. -->
+  <!-- The end of a long form, so a way out here as well as the toolbar button.
+       Side by side the gear is already on screen; one view at a time, Done
+       goes to it, and says so. -->
   <footer class="affix-editor-foot">
     @if (savedSet.size) {
       <button type="button" class="clear-affixes-button" (click)="clearAll()">Clear all affixes</button>

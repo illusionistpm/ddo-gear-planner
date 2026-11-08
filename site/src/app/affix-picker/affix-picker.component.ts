@@ -255,15 +255,8 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
     };
   }
 
-  /**
-   * Close the editor. One view at a time, the gear is on the other one, so
-   * Done goes there too - the same width the CSS uses to swap Done's label.
-   */
   done() {
-    this.editor.close();
-    if (window.matchMedia?.('(max-width: 994.98px)')?.matches) {
-      this.equipped.setActiveMainTab('equipment');
-    }
+    this.editor.finish();
   }
 
   private updateConditionalSections() {

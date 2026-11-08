@@ -143,6 +143,30 @@
         </section>
     }
 
+    @if (wrapUpShown && !shoppingListOpen) {
+        <!-- The intro's last word, after its last step: where to go from here. -->
+        <section class="planner-onboarding-hint planner-wrap-up instruction-callout-panel" aria-label="You're all set">
+            <div>
+                <div class="planner-wrap-up-label">You're all set</div>
+                <h2>Keep building from here</h2>
+                <ul class="planner-wrap-up-tips">
+                    <li>Click any bonus under Tracked Affixes to find the items that supply it.</li>
+                    @if (!signedIn) {
+                        <li>Sign in to save this build and come back to it from any device.</li>
+                    }
+                    <li>Once your gear is picked, the <strong>Shopping list</strong> gathers everything you need and where it drops, so you can plan your route.</li>
+                </ul>
+            </div>
+            <div class="planner-onboarding-actions">
+                @if (!signedIn) {
+                    <button type="button" class="planner-wrap-up-secondary" (click)="wrapUpSignIn()">Sign in</button>
+                }
+                <button type="button" class="planner-wrap-up-secondary" (click)="wrapUpOpenShoppingList()">Shopping list</button>
+                <button type="button" class="onboarding-action-button" (click)="dismissWrapUp()">Got it</button>
+            </div>
+        </section>
+    }
+
     @if (filtersOpen) {
         <button type="button" class="planner-filter-backdrop" aria-label="Close filters" (click)="closeFilters()"></button>
     }

@@ -6,6 +6,8 @@
 .affix-editor {
   background: var(--surface-color);
   border: 1px solid var(--border-color);
+  /* The toolbar button's accent: the two are one control and its panel. */
+  border-top: 3px solid var(--primary-color);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-sm);
   margin: 0 0 var(--space-12);
@@ -22,8 +24,8 @@
 }
 
 .affix-editor-header {
+  background: rgba(var(--primary-color-rgb), 0.06);
   border-bottom: 1px solid var(--border-color);
-  justify-content: space-between;
 }
 
 .affix-editor-foot {
@@ -37,9 +39,17 @@
 }
 
 .affix-editor-heading {
+  align-items: center;
+  color: var(--primary-color);
+  display: flex;
+  gap: var(--space-8);
   font-size: 1rem;
   font-weight: 800;
   margin: 0;
+}
+
+.affix-editor-heading-icon {
+  font-size: 0.8rem;
 }
 
 .affix-editor-heading:focus {

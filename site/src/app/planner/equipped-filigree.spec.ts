@@ -156,7 +156,9 @@ describe('EquippedService filigree', () => {
     // At least one Dexterity filigree in a 10-slot weapon plus the same again in an artifact.
     expect(best).toBeGreaterThan(2);
     expect(gearDb.getTypesForAffix('Strength')).toContain(FILIGREE_SET_BONUS_TYPE);
-    // Ultimate Fury's five +1 Strength tiers.
-    expect(gearDb.getBestValueForAffixType('Strength', FILIGREE_SET_BONUS_TYPE)).toBeGreaterThanOrEqual(5);
+    // Ultimate Fury's five +1 Strength tiers; no other set gives Strength.
+    expect(gearDb.getBestValueForAffixType('Strength', FILIGREE_SET_BONUS_TYPE)).toBe(5);
+    // Several sets give +5 Melee Power, and bonuses from distinct sets stack.
+    expect(gearDb.getBestValueForAffixType('Melee Power', FILIGREE_SET_BONUS_TYPE)).toBeGreaterThan(10);
   });
 });

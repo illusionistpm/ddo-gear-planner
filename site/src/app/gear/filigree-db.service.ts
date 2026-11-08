@@ -5,7 +5,8 @@ import { GameDataService } from './game-data.service';
 import { RawFiligree, RawFiligreeData, RawFiligreeGeneration } from './game-data-types';
 import type { SetBonusThreshold } from './gear-db.service';
 import {
-  FILIGREE_BONUS_TYPE, FILIGREE_SET_BONUS_TYPE, FiligreeChoice, filigreeAffixes, maxFiligreeTotal
+  FILIGREE_BONUS_TYPE, FILIGREE_SET_BONUS_TYPE, FiligreeChoice, filigreeAffixes, MAX_WEAPON_FILIGREE_SLOTS,
+  maxFiligreeSetTotal, maxFiligreeTotal
 } from './filigree';
 
 /** The best a build can get from filigrees for one affix, per bonus type. */
@@ -118,8 +119,8 @@ export class FiligreeDbService {
 
   /**
    * The most filigrees can give each affix: their own bonuses summed over the best distinct
-   * filigrees for a 10-slot weapon and an `artifactSlots` artifact, the best single set's full
-   * bonus, and 1 for an on/off effect. `flatten` expands an affix group onto its members (keeping
+   * filigrees for a 10-slot weapon and an `artifactSlots` artifact, the best spread of set pieces
+   * over those slots across distinct sets (whose bonuses stack), and 1 for an on/off effect. `flatten` expands an affix group onto its members (keeping
    * the group), so a "+1 to all Saving Throws" filigree counts toward Reflex Save too.
    */
   getMaxima(artifactSlots: number, flatten: (affixes: Affix[]) => Affix[]): FiligreeMaxima {
@@ -159,10 +160,23 @@ export class FiligreeDbService {
       offer(affixName, FILIGREE_BONUS_TYPE, maxFiligreeTotal(values, artifactSlots));
     }
 
+    // Bonuses from distinct sets stack, so the best spread of pieces across sets, within every slot
+    // the weapon and artifact have between them. Duplicates count as pieces, so pieces aren't capped
+    // by how many filigrees a set has.
+    const tierValuesByAffix = new Map<string, Array<Array<{ threshold: number; value: number }>>>();
     for (const set of Object.keys(this.data.sets)) {
-      for (const [affixName, value] of totals(this.getSetBonus(set, Number.MAX_SAFE_INTEGER), FILIGREE_SET_BONUS_TYPE)) {
-        offer(affixName, FILIGREE_SET_BONUS_TYPE, value);
+      const perAffix = new Map<string, Array<{ threshold: number; value: number }>>();
+      for (const tier of this.getSetTiers(set, Number.MAX_SAFE_INTEGER)) {
+        for (const [affixName, value] of totals(tier.affixes, FILIGREE_SET_BONUS_TYPE)) {
+          perAffix.set(affixName, [...(perAffix.get(affixName) ?? []), { threshold: tier.threshold, value }]);
+        }
       }
+      for (const [affixName, tiers] of perAffix) {
+        tierValuesByAffix.set(affixName, [...(tierValuesByAffix.get(affixName) ?? []), tiers]);
+      }
+    }
+    for (const [affixName, sets] of tierValuesByAffix) {
+      offer(affixName, FILIGREE_SET_BONUS_TYPE, maxFiligreeSetTotal(sets, MAX_WEAPON_FILIGREE_SLOTS + artifactSlots));
     }
 
     return { byAffix };

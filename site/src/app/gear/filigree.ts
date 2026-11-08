@@ -127,3 +127,35 @@ export function maxFiligreeTotal(valuesByFiligree: ReadonlyArray<number>, artifa
   const sum = (count: number) => sorted.slice(0, Math.max(0, count)).reduce((total, value) => total + value, 0);
   return sum(MAX_WEAPON_FILIGREE_SLOTS) + sum(artifactSlots);
 }
+
+/**
+ * The most filigree set bonuses can give one affix: bonuses from distinct sets stack, so this
+ * spreads `pieces` slots across sets (a knapsack) to maximise their sum. `sets` holds, per set,
+ * the tiers that give the affix; a set's value at k pieces is every such tier at or below k.
+ */
+export function maxFiligreeSetTotal(
+  sets: ReadonlyArray<ReadonlyArray<{ threshold: number; value: number }>>,
+  pieces: number
+): number {
+  // best[p]: the most the sets considered so far give with p pieces.
+  let best = new Array<number>(Math.max(0, pieces) + 1).fill(0);
+  for (const tiers of sets) {
+    const next = [...best];
+    for (const option of setOptions(tiers)) {
+      for (let p = option.pieces; p < best.length; p++) {
+        next[p] = Math.max(next[p], best[p - option.pieces] + option.value);
+      }
+    }
+    best = next;
+  }
+  return best[best.length - 1];
+}
+
+/** A set's worthwhile piece counts: each threshold that gives the affix, with everything up to it. */
+function setOptions(tiers: ReadonlyArray<{ threshold: number; value: number }>): Array<{ pieces: number; value: number }> {
+  let total = 0;
+  return [...tiers]
+    .filter(tier => tier.value > 0)
+    .sort((a, b) => a.threshold - b.threshold)
+    .map(tier => ({ pieces: tier.threshold, value: (total += tier.value) }));
+}

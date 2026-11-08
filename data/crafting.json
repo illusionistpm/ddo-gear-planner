@@ -38005,7 +38005,7 @@
                         "value": "153"
                     },
                     {
-                        "name": "You also gain immunity to Mind-Altering Enchantments as if you were under the effects of the Protection from Evil spell",
+                        "name": "Immunity to Mind-Altering Enchantments",
                         "type": "Bool",
                         "value": 1
                     }

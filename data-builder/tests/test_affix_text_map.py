@@ -26,6 +26,8 @@ def test_convert_affix_text_map_artifact():
     ('Petrification Immunity', 'Immunity to Petrification'),
     ('Web Immunity', 'Immunity to Web'),
     ('Immunity to Fear', 'Immunity to Fear'),
+    ('You also gain immunity to Mind-Altering Enchantments as if you were under the effects of the Protection from Evil spell',
+     'Immunity to Mind-Altering Enchantments'),
 ])
 def test_convert_affix_text_map_names_immunities_immunity_to_x(text, expected):
     am = convert_affix_text_map_to_affix_map({'text': text})

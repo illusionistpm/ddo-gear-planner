@@ -231,6 +231,24 @@
     ]
   },
   {
+    "name": "Immunity to Blindness",
+    "synonyms": [
+      "Blindness Immunity"
+    ]
+  },
+  {
+    "name": "Immunity to Petrification",
+    "synonyms": [
+      "Petrification Immunity"
+    ]
+  },
+  {
+    "name": "Immunity to Web",
+    "synonyms": [
+      "Web Immunity"
+    ]
+  },
+  {
     "name": "Kinetic Intensity",
     "synonyms": [
       "Impulse Intensity",

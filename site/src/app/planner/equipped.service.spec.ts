@@ -100,6 +100,23 @@ describe('EquippedService', () => {
     expect(service.isImportantAffix('Devotion')).toBe(false);
   });
 
+  it('loads tracked affixes and non-gear entries saved under an immunity\'s old name as "Immunity to X"', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+
+    service.updateFromParams(makeParamsAdapter({
+      tracked: ['Blindness Immunity', 'Web Immunity'],
+      nongear: JSON.stringify([
+        { id: '1', affixName: 'Petrification Immunity', bonusType: 'Bool', kind: 'value', value: 1, label: 'Gnome' }
+      ])
+    }));
+
+    expect(service.isImportantAffix('Immunity to Blindness')).toBe(true);
+    expect(service.isImportantAffix('Immunity to Web')).toBe(true);
+    expect(service.isImportantAffix('Blindness Immunity')).toBe(false);
+    expect(service.getExternalAffixesForType('Immunity to Petrification', 'Bool').map(entry => entry.affixName))
+      .toEqual(['Immunity to Petrification']);
+  });
+
   it('does not track universal spell power when a specific spell power is selected', () => {
     const service: EquippedService = TestBed.inject(EquippedService);
 

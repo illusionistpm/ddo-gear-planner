@@ -194,3 +194,11 @@ def test_parse_essence_crafting_rejects_dice_for_non_checklist_affixes(monkeypat
 
     with pytest.raises(ValueError, match='Non-numeric'):
         module.parse_essence_crafting()
+
+
+def test_essence_crafting_names_immunities_as_items_do_but_keeps_its_other_names():
+    assert module.normalize_essence_crafting_wiki_affix('Blindness Immunity') == 'Immunity to Blindness'
+    assert module.normalize_essence_crafting_wiki_affix('Ins. Blindness Immunity') == 'Insightful Immunity to Blindness'
+    # Synonyms that aren't immunities would rename options saved build URLs carry.
+    assert module.normalize_essence_crafting_wiki_affix('Vitality') == 'Vitality'
+    assert module.normalize_essence_crafting_wiki_affix('Striding') == 'Striding'

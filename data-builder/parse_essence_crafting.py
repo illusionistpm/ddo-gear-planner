@@ -3,6 +3,7 @@ from get_most_common_bonus_type import get_most_common_bonus_type
 from write_json import write_json
 from parse_affixes_from_cell import BOOL_VARIANT_NAMES, canonicalize_affix_name
 from get_snapshot_path import get_snapshot_path
+from get_inverted_synonym_map import get_inverted_synonym_map
 
 
 ESSENCE_CRAFTING_SLOTS_PATH = get_snapshot_path('crafting', 'Essence_Crafting_table_1b.html')
@@ -130,7 +131,7 @@ EFFICIENT_METAMAGIC_AFFIXES = [
 ]
 
 NON_SCALING_AFFIXES = {
-    'Blindness Immunity',
+    'Immunity to Blindness',
     'Deathblock',
     *EFFICIENT_METAMAGIC_AFFIXES,
     'Eternal Faith',
@@ -230,8 +231,16 @@ ESSENCE_CRAFTING_LEGACY_COMPATIBILITY_OVERRIDES = {
 
 def canonicalize_essence_crafting_affix_name(affix: str) -> str:
     if affix.startswith('Insightful '):
-        return 'Insightful ' + canonicalize_affix_name(affix.removeprefix('Insightful '))
-    return canonicalize_affix_name(affix)
+        return 'Insightful ' + canonicalize_essence_crafting_affix_name(affix.removeprefix('Insightful '))
+    return standardize_immunity_name(canonicalize_affix_name(affix))
+
+
+def standardize_immunity_name(affix: str) -> str:
+    # Immunities are named "Immunity to X" everywhere (affix_synonyms.json maps
+    # the wiki's "X Immunity"). Only those synonyms apply here: the others would
+    # rename options whose names saved build URLs carry (Vitality, Striding).
+    canonical = get_inverted_synonym_map().get(affix, affix)
+    return canonical if canonical.startswith('Immunity to ') else affix
 
 
 def normalize_wiki_stat_name(stat: str) -> str:

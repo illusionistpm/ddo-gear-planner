@@ -41,7 +41,7 @@ export class AffixPackagesService {
   ) {
     this.packages.set('Basic', ['Healing Amplification', 'Physical Sheltering',
       'Magical Sheltering', 'Constitution', 'Dodge', 'Fortitude Save', 'Reflex Save', 'Will Save', 'Concealment', 'Parrying', 'Incorporeality',
-      'Fortification', 'False Life', 'Speed', 'Freedom of Movement', 'Feather Falling', 'Blindness Immunity',
+      'Fortification', 'False Life', 'Speed', 'Freedom of Movement', 'Feather Falling', 'Immunity to Blindness',
       'Immunity to Fear', 'Heroic Inspiration', 'Undying', 'Acid Absorption', 'Cold Absorption', 'Fire Absorption',
       'Electric Absorption', 'Sonic Absorption']);
     // Not the weaker 'Blood Rage', which is a different effect.

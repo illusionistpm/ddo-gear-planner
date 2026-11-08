@@ -23,6 +23,16 @@ describe('EssenceCraftingService', () => {
     expect(options.some(candidate => candidate.affixes.some(affix => affix.name === 'Underwater Action'))).toBe(false);
   });
 
+  it('offers Blindness Immunity as Immunity to Blindness, still matching old links', () => {
+    const service: EssenceCraftingService = TestBed.inject(EssenceCraftingService);
+    const options = service.getValuesForML('Goggles', 20).flatMap(craftable => craftable.options);
+    const option = options.find(candidate => candidate.affixes.some(affix => affix.name === 'Immunity to Blindness'));
+
+    expect(option?.affixes.map(affix => [affix.name, affix.type])).toEqual([['Immunity to Blindness', 'Bool']]);
+    expect(option?.matchesParamDescription('Blindness Immunity1')).toBe(true);
+    expect(options.some(candidate => candidate.affixes.some(affix => affix.name === 'Blindness Immunity'))).toBe(false);
+  });
+
   it('uses the generated Essence Crafting max level for selectable levels', () => {
     const service: EssenceCraftingService = TestBed.inject(EssenceCraftingService);
     expect(service.maxLevel).toBe(36);

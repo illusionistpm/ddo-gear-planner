@@ -571,6 +571,16 @@ def parse_sacred_turn_undead_bonus(text, tooltip):
     }
 
 
+def parse_immunity_sentence(text):
+    # A sentence granting an immunity, e.g. Facet of Psionic Intrusion's "You also
+    # gain immunity to Mind-Altering Enchantments as if you were under the effects
+    # of the Protection from Evil spell", is the affix "Immunity to X".
+    search = re.fullmatch(r'You (?:also )?gain immunity to (.+?)(?: as if .*)?\.?', text.strip(), re.IGNORECASE)
+    if not search:
+        return None
+    return {'name': 'Immunity to ' + search.group(1).strip(), 'type': 'Bool', 'value': 1}
+
+
 def strip_charges(name):
     newName = re.sub(r'(-? \d+ Charges)?( *\(Recharged/[Dd]ay: *?(\d+|None)\))?', '', name)
     return newName.strip() + " clicky" if newName != name else name
@@ -1210,6 +1220,10 @@ def convert_affix_text_map_to_affix_map(textMap):
     if sacred_turn_undead_affix:
         affixMap.update(sacred_turn_undead_affix)
 
+    immunity_affix = parse_immunity_sentence(textMap['text'])
+    if immunity_affix:
+        affixMap.update(immunity_affix)
+
     compound_affix = parse_compound_affix_text(textMap["text"])
     if compound_affix:
         affixMap.update(compound_affix)
@@ -1363,7 +1377,7 @@ def convert_affix_text_map_to_affix_map(textMap):
     affixMap = apply_known_affix_type_defaults(affixMap)
     affixMap = apply_concealment_value(affixMap, textMap.get('tooltip', ''))
 
-    # try to catch Ghostly, Heroic Inspiration, Blindness Immunity, etc
+    # try to catch Ghostly, Heroic Inspiration, Immunity to Blindness, etc
     if ('type' not in affixMap) and ('value' not in affixMap):
         affixMap['type'] = 'Bool'
         affixMap['value'] = 1

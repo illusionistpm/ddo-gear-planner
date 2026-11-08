@@ -3829,7 +3829,7 @@
     {
         "affixes": [
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -16434,7 +16434,7 @@
                 "value": "2"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             }
@@ -20098,7 +20098,7 @@
                 "value": "5"
             },
             {
-                "name": "Petrification Immunity",
+                "name": "Immunity to Petrification",
                 "type": "Bool",
                 "value": 1
             }
@@ -30750,7 +30750,7 @@
                 "value": "53"
             },
             {
-                "name": "Web Immunity",
+                "name": "Immunity to Web",
                 "type": "Bool",
                 "value": 1
             }
@@ -31392,7 +31392,7 @@
                 "value": "7"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             }
@@ -31481,7 +31481,7 @@
                 "value": "1"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             }
@@ -36430,7 +36430,7 @@
                 "value": "6"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             }
@@ -37473,7 +37473,7 @@
                 "value": "13"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             }
@@ -50448,7 +50448,7 @@
                 "value": "2"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             }
@@ -52681,7 +52681,7 @@
                 "value": "1"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -55288,7 +55288,7 @@
                 "value": "-5"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -63159,7 +63159,7 @@
                 "value": 1
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -64547,7 +64547,7 @@
                 "value": 1
             },
             {
-                "name": "Web Immunity",
+                "name": "Immunity to Web",
                 "type": "Bool",
                 "value": 1
             }
@@ -66859,7 +66859,7 @@
                 "value": "8"
             },
             {
-                "name": "Web Immunity",
+                "name": "Immunity to Web",
                 "type": "Bool",
                 "value": 1
             }
@@ -75391,7 +75391,7 @@
     {
         "affixes": [
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -79491,7 +79491,7 @@
                 "value": 1
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -80835,7 +80835,7 @@
                 "value": 1
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -93716,7 +93716,7 @@
                 "value": 1
             },
             {
-                "name": "Petrification Immunity",
+                "name": "Immunity to Petrification",
                 "type": "Bool",
                 "value": 1
             }
@@ -99751,7 +99751,7 @@
                 "value": "7"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             }
@@ -106713,7 +106713,7 @@
     {
         "affixes": [
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             }
@@ -107397,7 +107397,7 @@
                 "value": "4"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -107443,7 +107443,7 @@
                 "value": "5"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -107489,7 +107489,7 @@
                 "value": "5"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -107536,7 +107536,7 @@
                 "value": "6"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -107583,7 +107583,7 @@
                 "value": "7"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -107630,7 +107630,7 @@
                 "value": "7"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -107677,7 +107677,7 @@
                 "value": "8"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -107724,7 +107724,7 @@
                 "value": "3"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -107770,7 +107770,7 @@
                 "value": "3"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -120591,7 +120591,7 @@
                 "value": "7"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             }
@@ -124354,7 +124354,7 @@
     {
         "affixes": [
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -137784,7 +137784,7 @@
                 "value": "11"
             },
             {
-                "name": "Web Immunity",
+                "name": "Immunity to Web",
                 "type": "Bool",
                 "value": 1
             }
@@ -147926,7 +147926,7 @@
                 "value": "3"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -155415,7 +155415,7 @@
                 "value": 1
             },
             {
-                "name": "Petrification Immunity",
+                "name": "Immunity to Petrification",
                 "type": "Bool",
                 "value": 1
             }
@@ -159007,7 +159007,7 @@
                 "value": 1
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             }
@@ -170540,7 +170540,7 @@
                 "value": "5"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -185083,7 +185083,7 @@
                 "value": 1
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -204166,7 +204166,7 @@
                 "value": "3"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -226206,7 +226206,7 @@
                 "value": "13"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -226237,7 +226237,7 @@
                 "value": "15"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -226268,7 +226268,7 @@
                 "value": "15"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -231371,7 +231371,7 @@
                 "value": "12"
             },
             {
-                "name": "Web Immunity",
+                "name": "Immunity to Web",
                 "type": "Bool",
                 "value": 1
             }
@@ -248983,7 +248983,7 @@
                 "value": 1
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             },
@@ -251357,7 +251357,7 @@
                 "value": "7"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             }
@@ -261590,7 +261590,7 @@
                 "value": "7"
             },
             {
-                "name": "Blindness Immunity",
+                "name": "Immunity to Blindness",
                 "type": "Bool",
                 "value": 1
             }
@@ -293591,7 +293591,7 @@
                 "value": 1
             },
             {
-                "name": "Petrification Immunity",
+                "name": "Immunity to Petrification",
                 "type": "Bool",
                 "value": 1
             }
@@ -299279,7 +299279,7 @@
                 "value": "3"
             },
             {
-                "name": "Web Immunity",
+                "name": "Immunity to Web",
                 "type": "Bool",
                 "value": 1
             },

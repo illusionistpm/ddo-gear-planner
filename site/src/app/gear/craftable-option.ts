@@ -15,6 +15,9 @@ import { getPackKeys } from './pack-filter';
  *   Underwater Action (breathing only) is Water Breathing. Dream Edge's random effects
  *   and the Underwater Action Essence Crafting option carried the old names. Nothing
  *   carries Deception 1, Finesse 1 or Underwater Action 1 any more.
+ * - Immunities became "Immunity to X": Blindness Immunity is Immunity to Blindness on the
+ *   Essence Crafting option and Legendary Green Steel's T1 (Equipment) option. (Petrification
+ *   and Web Immunity are only on named options and items, which don't travel this way.)
  */
 const LEGACY_PARAM_DESCRIPTIONS: Readonly<Record<string, string>> = {
     'Wizardry6': 'Wizardry150',
@@ -22,6 +25,8 @@ const LEGACY_PARAM_DESCRIPTIONS: Readonly<Record<string, string>> = {
     'Deception1': 'Improved Deception3',
     'Finesse1': 'Finesse2',
     'Underwater Action1': 'Water Breathing1',
+    'Blindness Immunity1': 'Immunity to Blindness1',
+    'Blindness Immunity1|Proof Against Disease4': 'Immunity to Blindness1|Proof Against Disease4',
 };
 
 export class CraftableOption {

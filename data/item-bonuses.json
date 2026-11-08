@@ -2225,7 +2225,7 @@
                         "value": "1"
                     }
                 ],
-                "name": "Reaper Ring Boost (1)"
+                "name": "Reaper Ring Boost (+1 Spell, Tactical, and Assassinate DCs)"
             },
             {
                 "affixes": [
@@ -2235,7 +2235,7 @@
                         "value": "10"
                     }
                 ],
-                "name": "Reaper Ring Boost (2)"
+                "name": "Reaper Ring Boost (+10 Universal Spell Power)"
             },
             {
                 "affixes": [
@@ -2250,7 +2250,7 @@
                         "value": "5"
                     }
                 ],
-                "name": "Reaper Ring Boost (3)"
+                "name": "Reaper Ring Boost (+5 Melee / Ranged Power)"
             },
             {
                 "affixes": [
@@ -2265,7 +2265,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Ring Boost (4)"
+                "name": "Reaper Ring Boost (+3% Spell Cost Reduction, +3 MRR)"
             }
         ],
         "Trinket": [

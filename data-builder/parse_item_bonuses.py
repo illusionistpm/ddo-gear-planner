@@ -305,6 +305,13 @@ def get_reaper_slots(label):
     return None
 
 
+def get_reaper_option_name(label, effect):
+    """The wiki numbers the four ring boosts, which says nothing in a list: name those by their effect."""
+    if re.fullmatch(r'Reaper Ring Boost \(\d+\)', label):
+        return f"Reaper Ring Boost ({re.sub(r' Reaper Bonus to ', ' ', effect)})"
+    return label
+
+
 def parse_reaper_bonuses(soup, synonyms=None):
     """Reaper options per slot, plus the bonuses whose label or effect wasn't understood."""
     by_slot = {slot: [] for slot in ITEM_SLOTS}
@@ -326,8 +333,9 @@ def parse_reaper_bonuses(soup, synonyms=None):
             continue
         if missing:
             unmapped[label] = missing
+        name = get_reaper_option_name(label, effect)
         for slot in slots:
-            by_slot[slot].append({'name': label, 'affixes': affixes})
+            by_slot[slot].append({'name': name, 'affixes': affixes})
     return by_slot, unmapped
 
 

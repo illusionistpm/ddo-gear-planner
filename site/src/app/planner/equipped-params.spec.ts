@@ -169,17 +169,17 @@ describe('EquippedService building items from params', () => {
       const ring = gearDb.getGearBySlot('Ring2')[0];
       const item = new Item(ring);
       item.bonuses.curse = TestBed.inject(ItemBonusService).find('curse', 'Ring2', 'Curse of the Unbreakable');
-      item.bonuses.reaper = TestBed.inject(ItemBonusService).find('reaper', 'Ring2', 'Reaper Ring Boost (2)');
+      item.bonuses.reaper = TestBed.inject(ItemBonusService).find('reaper', 'Ring2', 'Reaper Ring Boost (+10 Universal Spell Power)');
 
       service.set(item);
 
       expect(written!['curse_Ring2']).toBe('Curse of the Unbreakable');
-      expect(written!['reaper_Ring2']).toBe('Reaper Ring Boost (2)');
+      expect(written!['reaper_Ring2']).toBe('Reaper Ring Boost (+10 Universal Spell Power)');
       expect(written!['mythic_Ring2']).toBeUndefined();
 
       const record = Object.fromEntries(Object.entries(written!).filter(([, value]) => typeof value === 'string')) as Record<string, string>;
       service.updateFromParams(paramsOf(record));
-      expect(bonusNames(slot('Ring2'))).toEqual({ curse: 'Curse of the Unbreakable', reaper: 'Reaper Ring Boost (2)' });
+      expect(bonusNames(slot('Ring2'))).toEqual({ curse: 'Curse of the Unbreakable', reaper: 'Reaper Ring Boost (+10 Universal Spell Power)' });
     });
   });
 

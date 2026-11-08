@@ -15,13 +15,46 @@
     </div>
   } @else {
     @if (adding) {
-      <app-list-dialog heading="Add builds" (closed)="closeAdding()">
+      <app-list-dialog heading="Manage builds" (closed)="closeAdding()">
         <p class="list-dialog-note">
           {{run?.characters?.length ?? 0}}/{{maxBuilds}} builds on the list. Tick yours to put them on it; each one's rows are labelled
           with its character's name.
         </p>
+        <h3 class="list-dialog-section">Your builds</h3>
         <app-build-choices [choices]="choices" [loadError]="choicesError" [full]="full"
           (ticked)="toggleBuild($event.choice, $event.on)" (rename)="renameBuild($event)"></app-build-choices>
+        @if (run?.isHost && others.length) {
+          <h3 class="list-dialog-section">Other people's builds</h3>
+          <div class="build-grid-head" aria-hidden="true">
+            <span></span>
+            <span>Build</span>
+            <span>Character name</span>
+          </div>
+          <ul class="build-grid-rows">
+            @for (character of others; track character.buildId) {
+              <li class="build-grid-row group-run-other">
+                @if (confirmingRemove === character.buildId) {
+                  <span></span>
+                  <span class="group-run-other-confirm">
+                    Take {{character.characterName}} off the list?
+                    <button type="button" class="pill-button danger" (click)="removeBuild(character.buildId)">Yes, take off</button>
+                    <button type="button" class="list-dialog-link" (click)="confirmingRemove = null">Cancel</button>
+                  </span>
+                } @else {
+                  <button type="button" class="group-run-other-remove" [title]="'Take ' + character.characterName + ' off the list'"
+                    [attr.aria-label]="'Take ' + character.characterName + ' off the list'" (click)="confirmingRemove = character.buildId">
+                    <i class="fas fa-user-minus" aria-hidden="true"></i>
+                  </button>
+                  <span class="group-run-other-build" [title]="character.buildName">{{character.buildName}}</span>
+                  <span class="group-run-other-character">{{character.characterName}}</span>
+                }
+              </li>
+            }
+          </ul>
+          @if (othersError) {
+            <p class="list-dialog-error" role="alert">{{othersError}}</p>
+          }
+        }
       </app-list-dialog>
     }
     @if (actionError) {
@@ -29,14 +62,12 @@
     }
     <app-shopping-list class="still-needed-list" [groupRun]="groupRun" [group]="run">
       <div listActions class="group-run-actions">
-        <button type="button" class="pill-button" (click)="copyInvite()" title="Copy the link friends use to join and add their builds">
-          <i class="fas" [class.fa-user-plus]="!copied" [class.fa-check]="copied" aria-hidden="true"></i>
-          <span>{{copied ? 'Invite link copied' : 'Invite friends'}}</span>
-        </button>
+        <!-- As on your build's list: builds, inviting friends, then the lists - with the host's menu for this one at their end. -->
         @if (signedIn) {
-          <button type="button" class="pill-button" [attr.aria-expanded]="adding" (click)="toggleAdding()">
+          <button type="button" class="pill-button" [attr.aria-expanded]="adding" (click)="toggleAdding()"
+            title="Put your builds on this list or take them off, and name their characters">
             <i class="fas fa-layer-group" aria-hidden="true"></i>
-            <span>Add builds</span>
+            <span>Manage builds</span>
           </button>
         } @else {
           <button type="button" class="pill-button" (click)="signIn()" title="Sign in to add your builds and tick off your rows">
@@ -44,67 +75,49 @@
             <span>Sign in to join</span>
           </button>
         }
-        <!-- As on your build's list: share, add builds, switch lists; the host's menu last. -->
-        <app-my-lists-menu [currentShortId]="shortId"></app-my-lists-menu>
-        @if (run; as r) {
-        @if (r.isHost) {
-          <div class="group-run-host">
-            <button type="button" class="pill-button group-run-manage" [attr.aria-expanded]="hostMenuOpen" (click)="toggleHostMenu()"
-              title="Rename the list, take builds out, replace the invite link, or end it">
-              <i class="fas fa-sliders" aria-hidden="true"></i>
-              <span>Manage</span>
-            </button>
-            @if (hostMenuOpen) {
-              <div class="group-run-menu" role="menu">
-                @if (r.characters.length) {
-                  <div class="group-run-menu-group" role="group" aria-label="Take out a build">
-                    <div class="group-run-menu-label" aria-hidden="true">Take out a build</div>
-                    @for (character of r.characters; track character.buildId) {
-                      <button type="button" role="menuitem" class="group-run-menu-item" (click)="removeBuild(character.buildId)">
-                        <i class="fas fa-user-minus group-run-menu-icon" aria-hidden="true"></i>
-                        <span>{{character.characterName}}</span>
-                      </button>
-                    }
-                  </div>
-                }
-                <div class="group-run-menu-group" role="group" aria-label="The list">
-                  <div class="group-run-menu-label" aria-hidden="true">The list</div>
-                  @if (newName !== null) {
-                    <form class="group-run-rename" (submit)="$event.preventDefault(); renameList()">
-                      <label class="visually-hidden" for="groupRunName">The list's name</label>
-                      <input id="groupRunName" type="text" class="list-dialog-input" [value]="newName" [attr.maxlength]="maxListNameLength"
-                        (input)="newName = $any($event.target).value" required>
-                      <button type="submit" class="pill-button primary" [disabled]="!newName.trim()">Save</button>
-                    </form>
-                  } @else {
-                    <button type="button" role="menuitem" class="group-run-menu-item" (click)="newName = r.name">
-                      <i class="fas fa-pen group-run-menu-icon" aria-hidden="true"></i>
-                      <span>Rename the list</span>
-                    </button>
-                  }
-                  <button type="button" role="menuitem" class="group-run-menu-item" (click)="replaceLink()"
-                    title="Make a new invite link; the old one stops working">
-                    <i class="fas fa-arrows-rotate group-run-menu-icon" aria-hidden="true"></i>
-                    <span>Replace the invite link</span>
+        <button type="button" class="pill-button" (click)="copyInvite()" title="Copy the link friends use to join and add their builds">
+          <i class="fas" [class.fa-user-plus]="!copied" [class.fa-check]="copied" aria-hidden="true"></i>
+          <span>{{copied ? 'Invite link copied' : 'Invite friends'}}</span>
+        </button>
+        <app-my-lists-menu [currentShortId]="shortId" [manage]="!!run?.isHost" [manageOpen]="hostMenuOpen" (manageToggle)="toggleHostMenu()">
+          @if (hostMenuOpen && run; as r) {
+            <div listsMenuManage>
+              <div class="group-run-menu" role="menu" aria-label="Manage this list">
+                <div class="group-run-menu-label" aria-hidden="true">This list</div>
+                @if (newName !== null) {
+                  <form class="group-run-rename" (submit)="$event.preventDefault(); renameList()">
+                    <label class="visually-hidden" for="groupRunName">The list's name</label>
+                    <input id="groupRunName" type="text" class="list-dialog-input" [value]="newName" [attr.maxlength]="maxListNameLength"
+                      (input)="newName = $any($event.target).value" required>
+                    <button type="submit" class="pill-button primary" [disabled]="!newName.trim()">Save</button>
+                  </form>
+                } @else {
+                  <button type="button" role="menuitem" class="group-run-menu-item" (click)="newName = r.name">
+                    <i class="fas fa-pen group-run-menu-icon" aria-hidden="true"></i>
+                    <span>Rename the list</span>
                   </button>
-                  @if (confirmingEnd) {
-                    <button type="button" role="menuitem" class="group-run-menu-item danger" (click)="endGroup()">
-                      <i class="fas fa-ban group-run-menu-icon" aria-hidden="true"></i>
-                      <span>Yes, end it for everyone</span>
-                    </button>
-                  } @else {
-                    <button type="button" role="menuitem" class="group-run-menu-item danger" (click)="confirmingEnd = true">
-                      <i class="fas fa-ban group-run-menu-icon" aria-hidden="true"></i>
-                      <span>End the list</span>
-                    </button>
-                  }
-                </div>
+                }
+                <button type="button" role="menuitem" class="group-run-menu-item" (click)="replaceLink()"
+                  title="Make a new invite link; the old one stops working">
+                  <i class="fas fa-arrows-rotate group-run-menu-icon" aria-hidden="true"></i>
+                  <span>Replace the invite link</span>
+                </button>
+                @if (confirmingEnd) {
+                  <button type="button" role="menuitem" class="group-run-menu-item danger" (click)="endGroup()">
+                    <i class="fas fa-ban group-run-menu-icon" aria-hidden="true"></i>
+                    <span>Yes, end it for everyone</span>
+                  </button>
+                } @else {
+                  <button type="button" role="menuitem" class="group-run-menu-item danger" (click)="confirmingEnd = true">
+                    <i class="fas fa-ban group-run-menu-icon" aria-hidden="true"></i>
+                    <span>End the list</span>
+                  </button>
+                }
               </div>
               <app-menu-backdrop (dismiss)="closeHostMenu()"></app-menu-backdrop>
-            }
-          </div>
-        }
-        }
+            </div>
+          }
+        </app-my-lists-menu>
       </div>
     </app-shopping-list>
   }

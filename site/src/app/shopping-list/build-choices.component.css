@@ -1,32 +1,4 @@
-/* The heading and every row on one grid: a box, the build, its character's name - each row alike, so they line up. */
-.build-choices-head,
-.build-choice {
-  align-items: center;
-  column-gap: var(--space-8);
-  display: grid;
-  grid-template-columns: 1rem minmax(0, 1fr) minmax(8rem, 11rem);
-}
-
-.build-choices-head {
-  color: var(--text-secondary);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  margin-top: var(--space-12);
-  text-transform: uppercase;
-}
-
-.build-choices {
-  list-style: none;
-  margin: var(--space-4) 0 0;
-  padding: 0;
-}
-
-.build-choice {
-  border-top: 1px solid var(--border-color);
-  padding: var(--space-4) 0;
-  row-gap: var(--space-2);
-}
+/* Laid out on shared/list-dialog-parts.css's build grid; these are a row's own parts. */
 
 .build-choice-box {
   margin: 0;
@@ -80,8 +52,4 @@
 
 .build-choice-reset:hover {
   color: var(--primary-color);
-}
-
-.build-choice-error {
-  grid-column: 2 / -1;
 }

@@ -10,7 +10,10 @@ import { GroupsService } from '../build/groups.service';
 import type { LiveGroupList } from '../build/live-group-list.service';
 import { GroupRunService, GroupRunView } from '../planner/shopping-list/group-run.service';
 import { ListReturnService } from '../build/list-return.service';
+import { GroupSummary } from '../build/groups.service';
 import { MyListsService } from '../build/my-lists.service';
+import { EquippedService } from '../planner/equipped.service';
+import { MyListsMenuComponent } from '../shopping-list/my-lists-menu.component';
 import { ShoppingProgressStore } from '../planner/shopping-list/shopping-progress-store';
 import { AuthService } from '../shared/auth.service';
 import { GroupRunPageComponent } from './group-run-page.component';
@@ -28,6 +31,7 @@ describe('GroupRunPageComponent', () => {
   let signIn: ReturnType<typeof vi.fn>;
   let catchUp: ReturnType<typeof vi.fn>;
   let refreshLists: ReturnType<typeof vi.fn>;
+  let lists: BehaviorSubject<readonly GroupSummary[]>;
   let signedInAtCreate = true;
 
   const el = () => fixture.nativeElement as HTMLElement;
@@ -35,6 +39,7 @@ describe('GroupRunPageComponent', () => {
   const button = (label: string) => Array.from(el().querySelectorAll<HTMLButtonElement>('button'))
     .find(candidate => candidate.textContent?.replace(/\s+/g, ' ').trim() === label);
 
+  const manage = () => el().querySelector<HTMLButtonElement>('button[aria-label="Manage this list"]');
   const run = (overrides: Partial<GroupRunView> = {}): GroupRunView => ({
     name: 'Reaper night', view: null, connection: 'live', gone: false, isHost: false, yours: new Set(), showing: 'everyone', unsaved: [],
     characters: [
@@ -61,8 +66,9 @@ describe('GroupRunPageComponent', () => {
     signIn = vi.fn();
     catchUp = vi.fn();
     refreshLists = vi.fn();
+    lists = new BehaviorSubject<readonly GroupSummary[]>([]);
     await TestBed.configureTestingModule({
-      declarations: [GroupRunPageComponent],
+      declarations: [GroupRunPageComponent, MyListsMenuComponent],
       imports: [MenuBackdropComponent, RouterLink, ListDialogComponent, BuildChoicesComponent],
       // app-shopping-list is ShoppingListComponent's to test.
       schemas: [NO_ERRORS_SCHEMA],
@@ -75,9 +81,10 @@ describe('GroupRunPageComponent', () => {
           { id: 'b-alt', shortId: 's2', name: 'My alt with a long name', createdAt: '', updatedAt: '' }
         ]) } },
         { provide: AuthService, useValue: { isAuthenticated$: signedIn, signIn } },
-        { provide: ListReturnService, useValue: { url: '/build/s1/tank-build' } },
+        { provide: ListReturnService, useValue: { url: '/build/s1/tank-build', hasPlanner: false, listUrl: '' } },
+        { provide: EquippedService, useValue: { isBuildEmpty: () => true } },
         { provide: ShoppingProgressStore, useValue: { catchUp } },
-        { provide: MyListsService, useValue: { refresh: refreshLists } }
+        { provide: MyListsService, useValue: { refresh: refreshLists, lists$: lists } }
       ]
     }).overrideComponent(GroupRunPageComponent, {
       set: { providers: [{ provide: GroupRunService, useValue: groupRun }] }
@@ -125,7 +132,7 @@ describe('GroupRunPageComponent', () => {
     button('Sign in to join')!.click();
 
     expect(signIn).toHaveBeenCalled();
-    expect(button('Add builds')).toBeUndefined();
+    expect(button('Manage builds')).toBeUndefined();
   });
 
   const choiceRows = () => Array.from(el().querySelectorAll<HTMLElement>('.build-choice'));
@@ -142,7 +149,7 @@ describe('GroupRunPageComponent', () => {
     await create('t=secret');
     arrive();
 
-    button('Add builds')!.click();
+    button('Manage builds')!.click();
     fixture.detectChanges();
 
     const rows = choiceRows();
@@ -163,7 +170,7 @@ describe('GroupRunPageComponent', () => {
   it('takes your build off when you untick it, and renames its character once you stop typing', async () => {
     await create('t=secret');
     arrive();
-    button('Add builds')!.click();
+    button('Manage builds')!.click();
     fixture.detectChanges();
     vi.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] });
     try {
@@ -186,7 +193,7 @@ describe('GroupRunPageComponent', () => {
     await create('t=secret');
     groups['addBuild'].mockReturnValue(throwError(() => new HttpErrorResponse({ status: 409, error: { nameTaken: true } })));
     arrive();
-    button('Add builds')!.click();
+    button('Manage builds')!.click();
     fixture.detectChanges();
 
     await tickRow(choiceRows()[1], true);
@@ -195,24 +202,65 @@ describe('GroupRunPageComponent', () => {
     expect(choiceRows()[1].querySelector<HTMLInputElement>('input[type="checkbox"]')!.checked).toBe(false);
   });
 
-  it('gives the host a way to take a build out, replace the link, and end the group', async () => {
+  const vex = { buildId: 'b-vex', characterName: 'Vex', accent: 1, mine: false, needed: 1, total: 1, buildName: 'Archer build', unreadable: false };
+
+  it('puts its buttons in your own list\'s order: builds, inviting friends, then the lists', async () => {
+    await create('t=secret');
+    lists.next([{ shortId: 'other', name: 'Alts', inviteToken: 't', isHost: true, buildCount: 1, yourBuildIds: ['b-x'], characterNames: ['X'], updatedAt: '' }]);
+    arrive({ isHost: true });
+
+    const labels = Array.from(el().querySelectorAll<HTMLButtonElement>('.group-run-actions button'),
+      candidate => candidate.getAttribute('aria-label') ?? candidate.textContent?.replace(/\s+/g, ' ').trim());
+    expect(labels).toEqual(['Manage builds', 'Invite friends', 'Lists1', 'Manage this list']);
+  });
+
+  it('gives the host, and only the host, a menu at the end of the Lists pill to replace the link and end the list', async () => {
     await create('t=secret');
     arrive();
-    expect(button('Manage')).toBeUndefined();
+    expect(manage()).toBeNull();
 
+    // With no other list to go to, there's no Lists half: the host's end stands alone.
     arrive({ isHost: true });
-    button('Manage')!.click();
+    expect(el().querySelector('.lists-menu-button')).toBeNull();
+    manage()!.click();
     fixture.detectChanges();
-    button('Kira')!.click();
-    await fixture.whenStable();
-    expect(groups['removeBuild']).toHaveBeenCalledWith('grp1', 'b-kira');
+    expect(button('Kira')).toBeUndefined();
 
-    fixture.detectChanges();
     button('End the list')!.click();
     fixture.detectChanges();
     expect(groups['end']).not.toHaveBeenCalled();
     button('Yes, end it for everyone')!.click();
     expect(groups['end']).toHaveBeenCalledWith('grp1');
+  });
+
+  it('lets the host take other people\'s builds off in Manage builds, once confirmed', async () => {
+    await create('t=secret');
+    arrive({ isHost: true, characters: [...run().characters, vex] });
+    button('Manage builds')!.click();
+    fixture.detectChanges();
+
+    const others = () => Array.from(el().querySelectorAll<HTMLElement>('.group-run-other'));
+    expect(text()).toContain('Other people\'s builds');
+    expect(others().map(row => [row.querySelector('.group-run-other-build')?.textContent, row.querySelector('.group-run-other-character')?.textContent]))
+      .toEqual([['Archer build', 'Vex']]);
+    others()[0].querySelector<HTMLButtonElement>('[aria-label="Take Vex off the list"]')!.click();
+    fixture.detectChanges();
+    expect(groups['removeBuild']).not.toHaveBeenCalled();
+
+    button('Yes, take off')!.click();
+    await fixture.whenStable();
+
+    expect(groups['removeBuild']).toHaveBeenCalledWith('grp1', 'b-vex');
+  });
+
+  it('shows someone who isn\'t the host only their own builds', async () => {
+    await create('t=secret');
+    arrive({ characters: [...run().characters, vex] });
+    button('Manage builds')!.click();
+    fixture.detectChanges();
+
+    expect(text()).not.toContain('Other people\'s builds');
+    expect(el().querySelector('.group-run-other')).toBeNull();
   });
 
   it('invites friends with a link that brings them to adding their builds', async () => {
@@ -230,7 +278,7 @@ describe('GroupRunPageComponent', () => {
   it('lets the host rename the list from Manage', async () => {
     await create('t=secret');
     arrive({ isHost: true });
-    button('Manage')!.click();
+    manage()!.click();
     fixture.detectChanges();
 
     button('Rename the list')!.click();
@@ -251,7 +299,7 @@ describe('GroupRunPageComponent', () => {
   it('closes the host menu on Escape', async () => {
     await create('t=secret');
     arrive({ isHost: true });
-    button('Manage')!.click();
+    manage()!.click();
     fixture.detectChanges();
 
     document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
@@ -263,7 +311,7 @@ describe('GroupRunPageComponent', () => {
   it('closes the host menu on a click anywhere else', async () => {
     await create('t=secret');
     arrive({ isHost: true });
-    button('Manage')!.click();
+    manage()!.click();
     fixture.detectChanges();
     expect(el().querySelector('.group-run-menu')).toBeTruthy();
 
@@ -295,9 +343,9 @@ describe('GroupRunPageComponent', () => {
   it('adds builds in a dialog over the list, closed by clicking away or Escape', async () => {
     await create('t=secret');
     arrive();
-    const dialog = () => el().querySelector<HTMLElement>('dialog[aria-label="Add builds"]');
+    const dialog = () => el().querySelector<HTMLElement>('dialog[aria-label="Manage builds"]');
 
-    button('Add builds')!.click();
+    button('Manage builds')!.click();
     fixture.detectChanges();
     expect(dialog()).toBeTruthy();
     // Inside the panel stays open; outside it, on the dimmed rest of the page, closes.
@@ -308,7 +356,7 @@ describe('GroupRunPageComponent', () => {
     fixture.detectChanges();
     expect(dialog()).toBeNull();
 
-    button('Add builds')!.click();
+    button('Manage builds')!.click();
     fixture.detectChanges();
     document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
     fixture.detectChanges();

@@ -32,6 +32,11 @@
   color: var(--on-accent-text-color);
 }
 
+.pill-button.danger {
+  border-color: var(--danger-color);
+  color: var(--danger-color);
+}
+
 .pill-button:disabled {
   opacity: 0.6;
 }

@@ -69,7 +69,7 @@ describe('BuildChoicesComponent', () => {
   it('heads its columns, and marks this build', () => {
     show('pick');
 
-    expect(Array.from(el().querySelectorAll('.build-choices-head span'), heading => heading.textContent)).toEqual(['', 'Build', 'Character name']);
+    expect(Array.from(el().querySelectorAll('.build-grid-head span'), heading => heading.textContent)).toEqual(['', 'Build', 'Character name']);
     expect(rows()[0].querySelector('.build-choice-this')?.textContent).toBe('this build');
     expect(rows()[1].querySelector('.build-choice-this')).toBeNull();
     // The build's name ticks its box.

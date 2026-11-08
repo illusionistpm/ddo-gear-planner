@@ -5,14 +5,14 @@
 } @else if (!choices.length) {
   <p class="list-dialog-note">You haven't saved any builds yet. Save one in the planner, then add it here.</p>
 } @else {
-  <div class="build-choices-head" aria-hidden="true">
+  <div class="build-grid-head" aria-hidden="true">
     <span></span>
     <span>Build</span>
     <span>Character name</span>
   </div>
-  <ul class="build-choices">
+  <ul class="build-grid-rows">
     @for (choice of choices; track choice.build.id) {
-      <li class="build-choice" [class.on]="isOn(choice)">
+      <li class="build-grid-row build-choice" [class.on]="isOn(choice)">
         <input #box type="checkbox" class="build-choice-box" [id]="idPrefix + choice.build.id" [checked]="isOn(choice)"
           [disabled]="isDisabled(choice)" [title]="full && !isOn(choice) ? fullTitle : ''"
           (click)="setOn(choice, box.checked)">
@@ -34,7 +34,7 @@
           }
         </span>
         @if (choice.error) {
-          <span class="list-dialog-error build-choice-error" role="alert">{{choice.error}}</span>
+          <span class="list-dialog-error build-grid-error" role="alert">{{choice.error}}</span>
         }
       </li>
     }

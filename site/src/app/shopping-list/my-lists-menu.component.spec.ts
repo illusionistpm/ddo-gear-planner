@@ -78,6 +78,21 @@ describe('MyListsMenuComponent', () => {
     expect(checked()).toEqual(['Tank']);
   });
 
+  it('marks the lists other people are on as group runs, saying how', () => {
+    fixture.detectChanges();
+    arrive([
+      list('mine', 'Alts', { isHost: true, buildCount: 2, yourBuildIds: ['b1', 'b2'] }),
+      list('hosted', 'Raid night', { isHost: true, buildCount: 3, yourBuildIds: ['b1'] }),
+      list('theirs', 'Their run', { isHost: false, buildCount: 2, yourBuildIds: ['b3'] })
+    ]);
+    button()!.click();
+    fixture.detectChanges();
+
+    expect(items().map(item => item.querySelector('.lists-menu-group-run')?.getAttribute('title') ?? null)).toEqual([
+      null, null, 'Group run: friends\' builds are on it', 'Group run: hosted by a friend'
+    ]);
+  });
+
   it('goes to the list chosen, and closes', () => {
     const navigate = vi.spyOn(TestBed.inject(Router), 'navigateByUrl').mockResolvedValue(true);
     fixture.detectChanges();

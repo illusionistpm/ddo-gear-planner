@@ -5,6 +5,48 @@
   position: relative;
 }
 
+/*
+ * Lists and, for a list you manage, its icon-only end: one pill, split by
+ * the Lists half's own right border, each half as tall as the other.
+ */
+.lists-menu-group {
+  display: inline-flex;
+}
+
+.lists-menu-group > .lists-menu-wrap {
+  display: flex;
+}
+
+.lists-menu-group.joined .lists-menu-button {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.lists-menu-group.joined .lists-menu-manage {
+  border-bottom-left-radius: 0;
+  border-left-width: 0;
+  border-top-left-radius: 0;
+}
+
+.lists-menu-manage {
+  justify-content: center;
+  min-width: 2.25rem;
+}
+
+/* The name, after a group run's mark. */
+.lists-menu-title {
+  align-items: baseline;
+  display: flex;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.lists-menu-group-run {
+  color: var(--text-secondary);
+  flex: none;
+  font-size: 0.75rem;
+}
+
 .lists-menu-count {
   color: var(--text-secondary);
   font-size: 0.75rem;

@@ -9,7 +9,7 @@ import {
 } from '../build/groups.service';
 import { ListReturnService } from '../build/list-return.service';
 import { MyListsService } from '../build/my-lists.service';
-import { GroupRunService, GroupRunView } from '../planner/shopping-list/group-run.service';
+import { GroupCharacter, GroupRunService, GroupRunView } from '../planner/shopping-list/group-run.service';
 import { ShoppingProgressStore } from '../planner/shopping-list/shopping-progress-store';
 import { UserGearService } from '../planner/user-gear.service';
 import { AnalyticsService } from '../shared/analytics.service';
@@ -26,8 +26,9 @@ const SITE_TITLE = 'DDO Gear Planner';
  * (`&add` opens Add builds): yours and friends', shopped for as one list,
  * each row saying which characters it's for. Anyone with the link watches
  * it live; signed in, they add their own saved builds and tick their own
- * characters' rows off. The host also arranges the shared route, renames
- * the list, replaces the link, and ends it.
+ * characters' rows off. The host also arranges the shared route, takes
+ * other people's builds off (in Manage builds), and from the menu at the
+ * end of the Lists pill renames the list, replaces the link, and ends it.
  *
  * Like the still-needed page, it reads the builds itself and leaves the
  * planner as it was: its Planner link goes back to it.
@@ -60,6 +61,10 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
   hostMenuOpen = false;
   /** Asking the host to confirm ending the group. */
   confirmingEnd = false;
+  /** The other person's build the host is asked to confirm taking off; null for none. */
+  confirmingRemove: string | null = null;
+  /** Taking another person's build off failed: why. */
+  othersError: string | null = null;
   /** The name the host is renaming the list to; null when not renaming. */
   newName: string | null = null;
   copied = false;
@@ -156,6 +161,8 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
 
   closeAdding(): void {
     this.adding = false;
+    this.confirmingRemove = null;
+    this.othersError = null;
     this.cdr.markForCheck();
   }
 
@@ -215,16 +222,22 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
     this.cdr.markForCheck();
   }
 
-  /** The host's Manage menu: takes any build off the list. */
+  /** Other people's builds on the list, for the host to take off in Manage builds. */
+  get others(): GroupCharacter[] {
+    return (this.run?.characters ?? []).filter(character => !character.mine);
+  }
+
+  /** The host takes someone else's build off the list, once they've confirmed it. */
   async removeBuild(buildId: string): Promise<void> {
-    this.actionError = null;
+    this.othersError = null;
     try {
       await firstValueFrom(this.groups.removeBuild(this.shortId, buildId));
       this.analytics.track('remove_group_build', { own: false });
       this.groupRun.refreshViewer();
     } catch {
-      this.actionError = 'Couldn\'t take that build out. Please try again.';
+      this.othersError = 'Couldn\'t take that build off. Please try again.';
     } finally {
+      this.confirmingRemove = null;
       this.cdr.markForCheck();
     }
   }

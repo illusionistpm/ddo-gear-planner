@@ -52,3 +52,52 @@
   font-size: 0.85rem;
   margin: 0;
 }
+
+/* A section of a dialog, under its own small heading. */
+.list-dialog-section {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin: var(--space-16) 0 0;
+  text-transform: uppercase;
+}
+
+/*
+ * Builds in rows, under column headings: a narrow first column (a box, an
+ * icon), the build, its character's name. Every list of builds in a dialog
+ * shares it, so they line up with each other.
+ */
+.build-grid-head,
+.build-grid-row {
+  align-items: center;
+  column-gap: var(--space-8);
+  display: grid;
+  grid-template-columns: 1rem minmax(0, 1fr) minmax(8rem, 11rem);
+}
+
+.build-grid-head {
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-top: var(--space-8);
+  text-transform: uppercase;
+}
+
+.build-grid-rows {
+  list-style: none;
+  margin: var(--space-4) 0 0;
+  padding: 0;
+}
+
+.build-grid-row {
+  border-top: 1px solid var(--border-color);
+  min-height: 2.5rem;
+  padding: var(--space-4) 0;
+  row-gap: var(--space-2);
+}
+
+.build-grid-error {
+  grid-column: 2 / -1;
+}

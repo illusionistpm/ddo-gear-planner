@@ -18,8 +18,9 @@ import { MainComponent } from '../main/main.component';
 // This reuses MainComponent across any pair of its own routes, the same
 // way the default strategy already reuses it across two different shortId
 // values on 'build/:shortId' - MainComponent's own ngOnInit comment
-// documents relying on exactly that. Every other route reuse decision falls
-// back to the default (same-routeConfig) behavior.
+// documents relying on exactly that. Every other page is reused only on
+// the same route with the same params: those pages read their params once,
+// so /list/a -> /list/b reusing the page left it showing list a.
 @Injectable({ providedIn: 'root' })
 export class MainRouteReuseStrategy implements RouteReuseStrategy {
   shouldDetach(): boolean {
@@ -40,13 +41,21 @@ export class MainRouteReuseStrategy implements RouteReuseStrategy {
   }
 
   shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
-    if (future.routeConfig === curr.routeConfig) {
+    if (this.isMainRoute(future) && this.isMainRoute(curr)) {
       return true;
     }
-    return this.isMainRoute(future) && this.isMainRoute(curr);
+    // Any other page - a list of several builds, a friend's still-needed
+    // page - reads its params once, so another list is a page of its own
+    // rather than this one showing the last list's under the new URL.
+    return future.routeConfig === curr.routeConfig && sameParams(future, curr);
   }
 
   private isMainRoute(snapshot: ActivatedRouteSnapshot): boolean {
     return snapshot.routeConfig?.component === MainComponent;
   }
+}
+
+function sameParams(a: ActivatedRouteSnapshot, b: ActivatedRouteSnapshot): boolean {
+  const keys = new Set([...Object.keys(a.params), ...Object.keys(b.params)]);
+  return [...keys].every(key => a.params[key] === b.params[key]);
 }

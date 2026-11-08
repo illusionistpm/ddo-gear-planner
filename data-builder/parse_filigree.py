@@ -4,7 +4,8 @@ and Item:Thread_of_Fate pages, into data/filigree.json.
 Every effect becomes an affix, numeric or not: a filigree's own bonus is of
 type "Filigree" and a set bonus of type "Filigree Set" (every filigree bonus is
 unique and stacks with everything). Text-only effects keep their wiki wording
-as a boolean affix. Combined effects ("+5 Melee and Ranged Power") are split by
+as a "Bool" affix, the type item data gives on/off effects (True Seeing,
+Deathblock), so the two meet in one tracked row. Combined effects ("+5 Melee and Ranged Power") are split by
 filigree_compound_affixes.json, and names are mapped onto the planner's affix
 names by the shared synonym table plus FILIGREE_AFFIX_NAMES.
 """
@@ -23,6 +24,7 @@ import json
 
 FILIGREE_TYPE = 'Filigree'
 FILIGREE_SET_TYPE = 'Filigree Set'
+BOOL_TYPE = 'Bool'
 EVENT_GENERATION = 'event'
 RAID_GENERATION_SUFFIX = ' raid'
 
@@ -154,7 +156,7 @@ def parse_effect_text(text, bonus_type, synonyms=None, compounds=None):
     affixes = []
     for affix in _raw_affixes(text, bonus_type, compounds):
         for part in expand_single_affix(affix, compounds):
-            part['type'] = bonus_type
+            part['type'] = affix['type']
             part['name'] = _canonical_name(part['name'], synonyms)
             if part['name'] in POSITIVE_REDUCTIONS and isinstance(part['value'], (int, float)):
                 part['value'] = abs(part['value'])
@@ -196,9 +198,9 @@ def _raw_affixes(text, bonus_type, compounds):
     return [_flag_affix(text, bonus_type)]
 
 
-def _flag_affix(text, bonus_type):
+def _flag_affix(text, _bonus_type):
     name = text.strip().lstrip('+').strip().rstrip('.').strip()
-    return {'name': _immunity_name(name), 'type': bonus_type, 'value': 1}
+    return {'name': _immunity_name(name), 'type': BOOL_TYPE, 'value': 1}
 
 
 def _immunity_name(name):

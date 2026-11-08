@@ -1813,7 +1813,7 @@
             "affixes": [
                 {
                     "name": "Protects against the knockdown attacks of air elementals",
-                    "type": "Filigree",
+                    "type": "Bool",
                     "value": 1
                 }
             ],
@@ -4231,7 +4231,7 @@
             "affixes": [
                 {
                     "name": "Deathblock",
-                    "type": "Filigree",
+                    "type": "Bool",
                     "value": 1
                 }
             ],
@@ -5359,7 +5359,7 @@
                 },
                 {
                     "name": "You become immune to Natural Poisons and do not automatically fail saves against Poison on a roll of 1",
-                    "type": "Filigree",
+                    "type": "Bool",
                     "value": 1
                 }
             ],
@@ -5454,7 +5454,7 @@
             "affixes": [
                 {
                     "name": "You are warded against Hamstring effects",
-                    "type": "Filigree",
+                    "type": "Bool",
                     "value": 1
                 }
             ],
@@ -9371,7 +9371,7 @@
             "affixes": [
                 {
                     "name": "Feather Falling",
-                    "type": "Filigree",
+                    "type": "Bool",
                     "value": 1
                 }
             ],
@@ -9636,7 +9636,7 @@
                     "affixes": [
                         {
                             "name": "Permanent Haste",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -9751,7 +9751,7 @@
                     "affixes": [
                         {
                             "name": "Whenever you tumble, you gain a 10% Action Boost Bonus to Movement Speed for 10 seconds. This may only trigger once every 30 seconds",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -9786,7 +9786,7 @@
                     "affixes": [
                         {
                             "name": "Your weapon attacks heal you for 1d6 Negative Damage on hit. This damage scales with Negative Spell Power. (1-second internal cooldown)",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -9831,7 +9831,7 @@
                     "affixes": [
                         {
                             "name": "When you use an action boost, gain +20 Ranged power for 20 seconds",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -10016,7 +10016,7 @@
                     "affixes": [
                         {
                             "name": "You gain a permanent Energy Sheath (Electric) (50% absorption but no reactive damage)",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -10426,7 +10426,7 @@
                     "affixes": [
                         {
                             "name": "You gain +5 to Attack and Damage vs. Tripped Targets",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -10541,7 +10541,7 @@
                     "affixes": [
                         {
                             "name": "Melee attacks have a 30% chance to debuff enemies melee and ranged power by 20 for 10 seconds",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -10586,7 +10586,7 @@
                     "affixes": [
                         {
                             "name": "When you activate the epic feats Arcane Insight or Wellspring of Power your Spell Point Cost for all spells is reduced to 0 for 10 seconds",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -10631,7 +10631,7 @@
                     "affixes": [
                         {
                             "name": "Gain +50 Melee Power for 10 seconds when an action boost is used. [stacks with melee power action boosts]",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -10656,12 +10656,12 @@
                     "affixes": [
                         {
                             "name": "Immunity to Mummy Rot",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         },
                         {
                             "name": "Immunity to Natural Diseases",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -10671,7 +10671,7 @@
                     "affixes": [
                         {
                             "name": "Immunity to Energy Drain",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -10706,12 +10706,12 @@
                     "affixes": [
                         {
                             "name": "Intercession Ward",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         },
                         {
                             "name": "Immunity to Quell",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -10801,7 +10801,7 @@
                     "affixes": [
                         {
                             "name": "When you activate Smite Evil, you gain +5 Melee Power +1 per Religious Lore you have for 60 seconds",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -10881,7 +10881,7 @@
                     "affixes": [
                         {
                             "name": "Your weapon attacks heal you for 1d6 Repair Damage on hit. This damage scales with Repair Spell Power. (1-second internal cooldown)",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -10926,7 +10926,7 @@
                     "affixes": [
                         {
                             "name": "Your Melee and Ranged attacks have a chance to reduce enemy PRR and MRR by 10 for 10 seconds",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -10936,7 +10936,7 @@
                     "affixes": [
                         {
                             "name": "Your Melee and Ranged attacks have a chance to reduce enemy Melee Power and Ranged Power by 10 for 10 seconds",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -10996,7 +10996,7 @@
                     "affixes": [
                         {
                             "name": "Immunity to Slow",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -11116,7 +11116,7 @@
                     "affixes": [
                         {
                             "name": "Your Inspire Courage grants +1 Attack, Damage, Save vs. Fear, and +3 Universal Spell Power",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -11321,7 +11321,7 @@
                     "affixes": [
                         {
                             "name": "When you activate Rage: Gain 100 Temporary Hit Points per character Epic Level (an effect called Shield of Rage with 10 minutes duration)",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -11336,7 +11336,7 @@
                     "affixes": [
                         {
                             "name": "Your melee strikes have a chance to give you +20 Magical Resistance Rating for 10 seconds",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -11346,7 +11346,7 @@
                     "affixes": [
                         {
                             "name": "Your melee strikes have a chance to give you +20 Physical Resistance Rating for 10 seconds",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -11356,7 +11356,7 @@
                     "affixes": [
                         {
                             "name": "Your melee strikes have a chance to give you Displacement for 10 seconds",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -11371,7 +11371,7 @@
                     "affixes": [
                         {
                             "name": "Your minions gain +4 to all ability scores and +20 Melee Power, Physical Resistance Rating and Magical Resistance Rating",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -11381,7 +11381,7 @@
                     "affixes": [
                         {
                             "name": "Your minions gain (an additional) +4 to all ability scores and +20 Melee Power, Physical Resistance Rating and Magical Resistance Rating",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -11576,7 +11576,7 @@
                     "affixes": [
                         {
                             "name": "Immunity to Petrification",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -11601,7 +11601,7 @@
                     "affixes": [
                         {
                             "name": "Permanent Fire Shield",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -11631,7 +11631,7 @@
                     "affixes": [
                         {
                             "name": "True Seeing",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -11666,7 +11666,7 @@
                     "affixes": [
                         {
                             "name": "When you use Uncanny Dodge, gain 50 Ranged Power for 15 seconds",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -12036,7 +12036,7 @@
                     "affixes": [
                         {
                             "name": "True Seeing",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -12186,7 +12186,7 @@
                     "affixes": [
                         {
                             "name": "Immunity to Slippery Surfaces",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],
@@ -12196,7 +12196,7 @@
                     "affixes": [
                         {
                             "name": "Immunity to Knockdown",
-                            "type": "Filigree Set",
+                            "type": "Bool",
                             "value": 1
                         }
                     ],

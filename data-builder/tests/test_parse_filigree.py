@@ -66,7 +66,7 @@ def test_arcane_spell_failure_is_arcane_casting_dexterity_stored_positive():
 def test_text_effects_become_flags(text, expected):
     affixes = effect(text)
     assert [a['name'] for a in affixes] == expected
-    assert all(a['value'] == 1 for a in affixes)
+    assert all(a['value'] == 1 and a['type'] == 'Bool' for a in affixes)
 
 
 @pytest.mark.parametrize('text', ['', '—', '-'])
@@ -88,7 +88,8 @@ def test_set_bonus_cell_lists_each_threshold_without_asides():
         (3, [('Permanent Haste', 1)]),
         (4, [('Melee Power', 5), ('Ranged Power', 5)]),
     ]
-    assert all(a['type'] == FILIGREE_SET_TYPE for b in bonuses for a in b['affixes'])
+    assert [a['type'] for b in bonuses for a in b['affixes']] == [
+        FILIGREE_SET_TYPE, FILIGREE_SET_TYPE, 'Bool', FILIGREE_SET_TYPE, FILIGREE_SET_TYPE]
 
 
 FILIGREE_PAGE = '''<div id="mw-content-text">

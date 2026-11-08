@@ -76,3 +76,35 @@ export interface RawEssenceCraftingData {
   /** Option name -> the affix name(s) it grants, when different from the option name. */
   affixes?: Record<string, string | string[]>;
 }
+
+/** One filigree in filigree.json, keyed by its wiki name ("Celerity: Dexterity"). */
+export interface RawFiligree {
+  /** Its set; a raid filigree ("Celerity / Zephyr") belongs to two and counts toward both. */
+  sets: string[];
+  /** A key of RawFiligreeData.generations: "1", "2 raid", "event". */
+  generation: string;
+  affixes: RawAffix[];
+  /** What the (Rare) copy adds on top of `affixes`. */
+  rareAffixes: RawAffix[];
+}
+
+export interface RawFiligreeSet {
+  /** A rarer set ("Zephyr (Rare)" on the wiki); the name drops the suffix. */
+  rare: boolean;
+  /** Cumulative: every tier at or below the piece count applies. */
+  bonuses: RawSetTier[];
+}
+
+export interface RawFiligreeGeneration {
+  /** Adventure packs (quests.json names, or the Events pseudo-pack) whose chests drop it. */
+  packs: string[];
+  /** Set for raid filigrees: what they're bought with, rather than where they drop. */
+  source?: string;
+}
+
+/** filigree.json. */
+export interface RawFiligreeData {
+  filigrees: Record<string, RawFiligree>;
+  sets: Record<string, RawFiligreeSet>;
+  generations: Record<string, RawFiligreeGeneration>;
+}

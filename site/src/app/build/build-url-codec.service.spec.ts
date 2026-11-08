@@ -202,7 +202,8 @@ describe('BuildUrlCodecService', () => {
       hiddenpacks: 'Some Pack',
       nongear: JSON.stringify([
         { id: '1', affixName: 'Deadly', bonusType: 'Insightful', kind: 'value', value: 6, label: 'Trance' }
-      ])
+      ]),
+      filigree: JSON.stringify({ w: [[0, 'Celerity: Dexterity']] })
     };
 
     for (const key of FIXED_BUILD_PARAM_KEYS) {
@@ -231,6 +232,33 @@ describe('BuildUrlCodecService', () => {
     });
     expect(service.inspect(craftEncoded).compactPayload?.c?.length).toBe(1);
     expect(service.inspect(craftEncoded).compactPayload?.x).toBeUndefined();
+  });
+
+  it('stores filigree names as dictionary indexes, and an unknown one as itself', () => {
+    const filigree = JSON.stringify({
+      ws: 7,
+      as: 3,
+      w: [[0, 'Celerity: Dexterity', 1], [4, 'Some Future Set: Strength']],
+      a: [[2, 'Celerity: Dexterity']]
+    });
+
+    const encoded = service.encode({ filigree });
+    const compact = service.inspect(encoded).compactPayload?.fg;
+
+    expect(compact?.ws).toBe(7);
+    expect(compact?.as).toBe(3);
+    expect(typeof compact?.w?.[0][1]).toBe('number');
+    expect(compact?.w?.[0][2]).toBe(1);
+    expect(compact?.w?.[1][1]).toBe('Some Future Set: Strength');
+    expect(service.decode(encoded)).toEqual({ filigree });
+  });
+
+  it('decodes a payload without the fg field to no filigree key', () => {
+    // Every build URL saved before filigree existed is one of these.
+    const decoded = service.decode(service.encode({ Weapon: 'Some Item', tracked: ['Strength'] }));
+
+    expect(decoded).toEqual({ Weapon: 'Some Item', tracked: ['Strength'] });
+    expect(Object.keys(decoded ?? {})).not.toContain('filigree');
   });
 
   it('stores non-gear affix entries as positional tuples, regenerating ids on decode', () => {

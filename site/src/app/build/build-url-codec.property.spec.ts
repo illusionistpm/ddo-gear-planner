@@ -16,7 +16,8 @@ const dictionary = urlCodecDictionary as {
   itemTypes: string[];
   packs: string[];
   craftingSystems: string[];
-  aliases: Record<'itemTypes' | 'packs' | 'craftingSystems', Record<string, string>>;
+  filigrees: string[];
+  aliases: Record<'itemTypes' | 'packs' | 'craftingSystems' | 'filigrees', Record<string, string>>;
 };
 
 // An aliased value decodes to its canonical name by design, so it can't
@@ -98,6 +99,28 @@ function generate(random: () => number): Params {
   // An unrecognised key rides along in the passthrough field.
   if (chance(0.2))
     params['someFutureKey'] = 'value';
+
+  // Drawn last so the cases above stay what they were before filigree. A name outside the
+  // dictionary travels as itself.
+  if (chance(0.3)) {
+    const filigreeName = () => chance(0.9) ? pick(dictionary.filigrees) : 'Some Future Set: Strength';
+    const slots = (max: number) => Array.from({ length: max }, (_, index) => index)
+      .filter(() => chance(0.4))
+      .map(index => chance(0.3) ? [index, filigreeName(), 1] : [index, filigreeName()]);
+    const filigree: Record<string, unknown> = {};
+    if (chance(0.3))
+      filigree['ws'] = Math.floor(random() * 10) + 1;
+    if (chance(0.3))
+      filigree['as'] = Math.floor(random() * 5) + 1;
+    const weapon = slots(10);
+    const artifact = slots(5);
+    if (weapon.length)
+      filigree['w'] = weapon;
+    if (artifact.length)
+      filigree['a'] = artifact;
+    if (Object.keys(filigree).length)
+      params['filigree'] = JSON.stringify(filigree);
+  }
 
   return params;
 }

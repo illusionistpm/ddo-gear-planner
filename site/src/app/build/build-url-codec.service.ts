@@ -4,14 +4,15 @@ import { deflate, inflate } from 'pako';
 import { perfStart } from '../shared/perf-trace';
 import { QueryParamRecord, QueryParamValue } from './query-param-types';
 import { isExternalAffixEntry } from '../affixes/external-affix';
+import { FiligreeParam, FiligreeSlotParam } from '../planner/filigree-params';
 import {
-  craftKey, FILTER_PARAM_KEYS, getMlSlotFromKey, HIDDEN_PACKS_KEY, HIDDEN_TYPES_KEY,
+  craftKey, FILIGREE_KEY, FILTER_PARAM_KEYS, getMlSlotFromKey, HIDDEN_PACKS_KEY, HIDDEN_TYPES_KEY,
   isCraftKey, isMlKey, LEVEL_RANGE_KEY, mlKey, NONGEAR_KEY, parseCraftKey, RAIDS_KEY, RARE_KEY, TRACKED_KEY
 } from './build-param-keys';
 import urlCodecDictionary from '@data/url-codec-dictionary.json';
 
 type DecodedParamRecord = Record<string, string | Array<string>>;
-type DictionaryKey = 'itemTypes' | 'packs' | 'craftingSystems';
+type DictionaryKey = 'itemTypes' | 'packs' | 'craftingSystems' | 'filigrees';
 type DictionaryValue = string | number;
 type DictionarySetValue = string | string[];
 
@@ -38,7 +39,21 @@ export interface CompactPayloadV1 {
    * fresh sequential id is assigned on decode.
    */
   e?: Array<[string, string, string, number, string]>;
+  /**
+   * The `filigree` param (planner/filigree-params.ts) with each filigree name replaced by its
+   * index in the dictionary's 'filigrees' list where it has one.
+   */
+  fg?: CompactFiligree;
   x?: DecodedParamRecord;
+}
+
+type CompactFiligreeSlot = [number, DictionaryValue] | [number, DictionaryValue, 1];
+
+interface CompactFiligree {
+  ws?: number;
+  as?: number;
+  w?: CompactFiligreeSlot[];
+  a?: CompactFiligreeSlot[];
 }
 
 export interface BuildUrlInspection {
@@ -89,17 +104,20 @@ const URL_CODEC_DICTIONARY = urlCodecDictionary as {
   itemTypes: string[];
   packs: string[];
   craftingSystems: string[];
+  filigrees: string[];
   aliases?: {
     itemTypes?: Record<string, string>;
     packs?: Record<string, string>;
     craftingSystems?: Record<string, string>;
+    filigrees?: Record<string, string>;
   };
 };
 
 const DICTIONARY_INDEXES: Record<DictionaryKey, Map<string, number>> = {
   itemTypes: new Map(URL_CODEC_DICTIONARY.itemTypes.map((name, index) => [name, index])),
   packs: new Map(URL_CODEC_DICTIONARY.packs.map((name, index) => [name, index])),
-  craftingSystems: new Map(URL_CODEC_DICTIONARY.craftingSystems.map((name, index) => [name, index]))
+  craftingSystems: new Map(URL_CODEC_DICTIONARY.craftingSystems.map((name, index) => [name, index])),
+  filigrees: new Map(URL_CODEC_DICTIONARY.filigrees.map((name, index) => [name, index]))
 };
 
 @Injectable({
@@ -252,6 +270,11 @@ export class BuildUrlCodecService {
         if (encoded.length) {
           payload.e = encoded;
         }
+      } else if (key === FILIGREE_KEY) {
+        const encoded = this.encodeFiligree(values[0]);
+        if (encoded) {
+          payload.fg = encoded;
+        }
       } else if (isCraftKey(key)) {
         this.collectCraftingParam(craftingByIndex, key, values[0]);
       } else if (!KNOWN_FILTER_KEYS.has(key)) {
@@ -330,6 +353,10 @@ export class BuildUrlCodecService {
       params.nongear = this.decodeExternalAffixes(payload.e);
     }
 
+    if (payload.fg) {
+      params[FILIGREE_KEY] = this.decodeFiligree(payload.fg);
+    }
+
     if (payload.x) {
       for (const [key, value] of Object.entries(payload.x)) {
         params[key] = value;
@@ -378,6 +405,52 @@ export class BuildUrlCodecService {
       label: entry[4]
     }));
     return JSON.stringify(decoded);
+  }
+
+  private encodeFiligree(raw: string): CompactFiligree | null {
+    let param: FiligreeParam;
+    try {
+      param = JSON.parse(raw);
+    } catch {
+      return null;
+    }
+    if (!param || typeof param !== 'object') {
+      return null;
+    }
+    const slots = (entries: FiligreeSlotParam[] | undefined) => (Array.isArray(entries) ? entries : [])
+      .filter(entry => Array.isArray(entry) && typeof entry[1] === 'string')
+      .map((entry): CompactFiligreeSlot => {
+        const name = this.encodeDictionaryValue(entry[1], 'filigrees');
+        return entry[2] === 1 ? [entry[0], name, 1] : [entry[0], name];
+      });
+    const compact: CompactFiligree = {};
+    if (param.ws !== undefined) compact.ws = param.ws;
+    if (param.as !== undefined) compact.as = param.as;
+    const weapon = slots(param.w);
+    const artifact = slots(param.a);
+    if (weapon.length) compact.w = weapon;
+    if (artifact.length) compact.a = artifact;
+    return Object.keys(compact).length ? compact : null;
+  }
+
+  private decodeFiligree(compact: CompactFiligree): string {
+    const slots = (entries: CompactFiligreeSlot[] | undefined) => (entries ?? [])
+      .map((entry): FiligreeSlotParam | null => {
+        const name = this.decodeDictionaryValue(entry[1], 'filigrees');
+        if (!name) {
+          return null;
+        }
+        return entry[2] === 1 ? [entry[0], name, 1] : [entry[0], name];
+      })
+      .filter((entry): entry is FiligreeSlotParam => entry !== null);
+    const param: FiligreeParam = {};
+    if (compact.ws !== undefined) param.ws = compact.ws;
+    if (compact.as !== undefined) param.as = compact.as;
+    const weapon = slots(compact.w);
+    const artifact = slots(compact.a);
+    if (weapon.length) param.w = weapon;
+    if (artifact.length) param.a = artifact;
+    return JSON.stringify(param);
   }
 
   private listParamToArray(values: string[]) {
@@ -503,6 +576,7 @@ export class BuildUrlCodecService {
       crafting: payload.c ? payload.c.length : 0,
       tracked: payload.t ? payload.t.length : 0,
       external: payload.e ? payload.e.length : 0,
+      filigree: payload.fg ? (payload.fg.w?.length ?? 0) + (payload.fg.a?.length ?? 0) : 0,
       unknown: payload.x ? Object.keys(payload.x).length : 0
     };
   }

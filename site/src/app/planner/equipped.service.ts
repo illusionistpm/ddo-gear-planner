@@ -17,7 +17,7 @@ import {
   storeTrackedAffixGroupMode
 } from './planner-view-state-storage';
 import {
-  craftKey, mlKey, NONGEAR_KEY, TRACKED_KEY
+  craftKey, FILIGREE_KEY, mlKey, NONGEAR_KEY, TRACKED_KEY
 } from '../build/build-param-keys';
 import { AffixService } from '../affixes/affix.service';
 import { AffixAvailabilityService } from '../affixes/affix-availability.service';
@@ -27,7 +27,13 @@ import { perfCount, perfMeasure, perfStart } from '../shared/perf-trace';
 import { CoveredBonusType, moderateValueThreshold } from '../affixes/tracked-affix-derivation';
 import { ExternalAffixEntry, isExternalAffixEntry, NON_GEAR_SLOT } from '../affixes/external-affix';
 import { affixTypeKey } from '../affixes/affix-type-key';
-import { FILIGREE_TRACKING_MIN_LEVEL, MAX_FILIGREE_SLOTS_AFFIX } from '../affixes/filigree-affix';
+import { FILIGREE_TRACKING_MIN_LEVEL, getMaxFiligreeSlots, MAX_FILIGREE_SLOTS_AFFIX } from '../affixes/filigree-affix';
+import { FiligreeDbService } from '../gear/filigree-db.service';
+import {
+  countFiligreeSetPieces, CountedFiligree, countHostFiligree, emptyFiligreeLoadout, FILIGREE_HOSTS, FiligreeChoice,
+  FiligreeHost, FiligreeLoadout, MAX_ARTIFACT_FILIGREE_SLOTS, MAX_WEAPON_FILIGREE_SLOTS, SUMMED_FILIGREE_BONUS_TYPES
+} from '../gear/filigree';
+import { parseFiligreeLoadout, serializeFiligreeLoadout } from './filigree-params';
 
 const TRACKED_AFFIX_COMPANIONS = new Map<string, Array<string>>([
   ['Armor Class', ['Armor Class (%)']],
@@ -71,10 +77,27 @@ export interface VisibleSetBonus {
   setName: string;
   pieces: number;
   tiers: Array<SetBonusThreshold>;
+  /** A filigree set, counted over the weapon's and artifact's filigrees; absent for a gear set. */
+  filigree?: boolean;
+}
+
+/** Where filigree sources are reported (AffixSource.slot). */
+export const FILIGREE_SOURCE_SLOTS: Record<FiligreeHost | 'set', string> = {
+  weapon: 'Weapon filigree',
+  artifact: 'Artifact filigree',
+  set: 'Filigree set',
+};
+
+/** One affix a slotted filigree, or an active filigree set, gives the build. */
+interface FiligreeContribution {
+  slot: string;
+  /** The filigree ("Celerity: Dexterity (Rare)") or set name. */
+  itemName: string;
+  affix: Affix;
 }
 
 export interface AffixSource {
-  kind: 'item' | 'set' | 'external';
+  kind: 'item' | 'set' | 'external' | 'filigree';
   slot: string;
   itemName: string;
   affixName: string;
@@ -122,6 +145,10 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
   private externalAffixes: ExternalAffixEntry[] = [];
   private externalAffixesSubject = new BehaviorSubject<ExternalAffixEntry[]>([]);
   private nextExternalAffixId = 1;
+  private filigree: FiligreeLoadout = emptyFiligreeLoadout();
+  private filigreeSubject = new BehaviorSubject<FiligreeLoadout>(this.filigree);
+  // Rebuilt with the derived state: what the counted filigrees and their sets give, groups flattened.
+  private filigreeContributions: FiligreeContribution[] = [];
 
   private coveredAffixes: BehaviorSubject<Map<string, CoveredBonusType[]>>;
   private activeSetBonuses = new BehaviorSubject<Array<[string, Array<Affix>]>>([]);
@@ -154,7 +181,8 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     private affixSvc: AffixService,
     private essenceCrafting: EssenceCraftingService,
     private availability: AffixAvailabilityService,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private filigreeDb: FiligreeDbService
   ) {
     this.coveredAffixes = new BehaviorSubject<Map<string, CoveredBonusType[]>>(new Map<string, CoveredBonusType[]>());
 
@@ -205,6 +233,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
       try {
         this.setImportantAffixes(params.getAll(TRACKED_KEY));
         this._restoreExternalAffixesFromParam(params.get(NONGEAR_KEY));
+        this._restoreFiligreeFromParam(params.get(FILIGREE_KEY));
 
         for (const [slot, item] of slotsFromParams(params, this.gearList, this.essenceCrafting)) {
           this.setSlot(slot, item);
@@ -263,6 +292,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     // Active set bonuses must be recomputed first: covered affix values are
     // derived from them (a set can supply an affix-group bonus like
     // "Spell Critical Damage" that resolves onto tracked member affixes).
+    this._updateFiligreeContributions();
     this._updateActiveSetBonuses();
     this._updateCoveredAffixes(false);
   }
@@ -300,6 +330,11 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
 
     if (this.externalAffixes.length) {
       params[NONGEAR_KEY] = JSON.stringify(this.externalAffixes);
+    }
+
+    const filigree = serializeFiligreeLoadout(this.filigree);
+    if (filigree) {
+      params[FILIGREE_KEY] = filigree;
     }
 
     this.params.next(params);
@@ -510,6 +545,9 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
         tiers: this.gearList.getSetBonusThresholdDetails(pair[0], pair[1])
       });
     }
+    for (const [setName, pieces] of this.getFiligreeSetPieces()) {
+      visibleSetBonuses.push({ setName, pieces, tiers: this.filigreeDb.getSetTiers(setName, pieces), filigree: true });
+    }
     // Slot order would put a set wherever its first piece happens to be; the ones doing most go first.
     visibleSetBonuses.sort((a, b) => b.pieces - a.pieces || a.setName.localeCompare(b.setName));
     this.activeSetBonuses.next(setToAffixes);
@@ -559,7 +597,22 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
       values.push({ slot: NON_GEAR_SLOT, value: entry.value });
     }
 
+    const filigree = this.getFiligreeContributionsFor(affixName, bonusType);
+    if (SUMMED_FILIGREE_BONUS_TYPES.has(bonusType)) {
+      if (filigree.length) {
+        values.push({ slot: 'Filigree', value: filigree.reduce((sum, entry) => sum + entry.affix.value, 0) });
+      }
+    } else {
+      values.push(...filigree.map(entry => ({ slot: entry.slot, value: entry.affix.value })));
+    }
+
     return values.sort((a, b) => b.value - a.value);
+  }
+
+  /** What the counted filigrees and active filigree sets give `affixName` of `bonusType` (any type when omitted). */
+  private getFiligreeContributionsFor(affixName: string, bonusType?: string): FiligreeContribution[] {
+    return this.filigreeContributions.filter(entry => entry.affix.name === affixName
+      && (bonusType === undefined || entry.affix.type === bonusType));
   }
 
   /**
@@ -653,6 +706,21 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
       }
     }
 
+    // A summed type's best value is all of them together, so every one is a source.
+    const summed = SUMMED_FILIGREE_BONUS_TYPES.has(bonusType);
+    for (const entry of this.getFiligreeContributionsFor(affixName, bonusType)) {
+      if (summed || entry.affix.value === bestValue) {
+        sources.push({
+          kind: 'filigree',
+          slot: entry.slot,
+          itemName: entry.itemName,
+          affixName: entry.affix.name,
+          bonusType: entry.affix.type,
+          value: entry.affix.value
+        });
+      }
+    }
+
     return sources;
   }
 
@@ -683,6 +751,16 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     for (const entry of this.getExternalValuesFor(affixName)) {
       offer(entry.bonusType, entry.value);
     }
+
+    const filigreeSums = new Map<string, number>();
+    for (const entry of this.getFiligreeContributionsFor(affixName)) {
+      if (SUMMED_FILIGREE_BONUS_TYPES.has(entry.affix.type)) {
+        filigreeSums.set(entry.affix.type, (filigreeSums.get(entry.affix.type) ?? 0) + entry.affix.value);
+      } else {
+        offer(entry.affix.type, entry.affix.value);
+      }
+    }
+    filigreeSums.forEach((value, type) => offer(type, value));
 
     return Array.from(bestByType.values()).reduce((acc, val) => acc + val, 0);
   }
@@ -1265,6 +1343,126 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     // dozens of ticks' worth of avoidable re-rendering was the majority of the
     // remaining "paint after URL restore" stall.
     this.ngZone.runOutsideAngular(() => scheduleIdleWork(runSlice));
+  }
+
+  // ---- Filigree ----
+
+  private _restoreFiligreeFromParam(raw: string | null) {
+    this.filigree = parseFiligreeLoadout(raw, name => !!this.filigreeDb.get(name));
+    this.filigreeSubject.next(this.filigree);
+    this.refreshDerivedStateAfterSlotChange();
+  }
+
+  getFiligreeLoadout(): FiligreeLoadout {
+    return this.filigree;
+  }
+
+  getFiligreeLoadoutObservable(): Observable<FiligreeLoadout> {
+    return this.filigreeSubject.asObservable();
+  }
+
+  /** The item that holds a host's filigrees: the main-hand weapon, or whichever minor artifact is equipped. */
+  getFiligreeHostItem(host: FiligreeHost): Item | null {
+    if (host === 'weapon') {
+      return this.getSlotValue('Weapon');
+    }
+    for (const subject of this.slots.values()) {
+      const item = subject.getValue();
+      if (item?.artifact) {
+        return item;
+      }
+    }
+    return null;
+  }
+
+  /** The most slots the host can open: 10 for any main-hand weapon, the artifact's Max Filigree Slots, 0 with none equipped. */
+  getFiligreeCapacity(host: FiligreeHost): number {
+    const item = this.getFiligreeHostItem(host);
+    if (!item) {
+      return 0;
+    }
+    return host === 'weapon' ? MAX_WEAPON_FILIGREE_SLOTS : Math.min(getMaxFiligreeSlots(item), MAX_ARTIFACT_FILIGREE_SLOTS);
+  }
+
+  /** How many slots the player has opened, as set (an artifact defaults to all of them), whatever is equipped. */
+  getFiligreeSlotSetting(host: FiligreeHost): number {
+    return host === 'weapon'
+      ? this.filigree.weaponSlots
+      : this.filigree.artifactSlots ?? this.getFiligreeCapacity('artifact');
+  }
+
+  /** The slots that count: the player's setting, within what the equipped host can hold. */
+  getOpenFiligreeSlots(host: FiligreeHost): number {
+    return Math.min(this.getFiligreeSlotSetting(host), this.getFiligreeCapacity(host));
+  }
+
+  setFiligreeSlotSetting(host: FiligreeHost, slots: number) {
+    const max = host === 'weapon' ? MAX_WEAPON_FILIGREE_SLOTS : Math.max(1, this.getFiligreeCapacity('artifact'));
+    const clamped = Math.min(Math.max(1, Math.round(slots)), max);
+    this.updateFiligree(loadout => {
+      if (host === 'weapon') {
+        loadout.weaponSlots = clamped;
+      } else {
+        // At the artifact's full capacity it follows the artifact, so a better one opens up too.
+        loadout.artifactSlots = clamped === this.getFiligreeCapacity('artifact') ? null : clamped;
+      }
+    });
+  }
+
+  setFiligree(host: FiligreeHost, index: number, choice: FiligreeChoice | null) {
+    this.updateFiligree(loadout => {
+      const slots = host === 'weapon' ? loadout.weapon : loadout.artifact;
+      if (index >= 0 && index < slots.length) {
+        slots[index] = choice ? { ...choice } : null;
+      }
+    });
+  }
+
+  private updateFiligree(change: (loadout: FiligreeLoadout) => void) {
+    const loadout: FiligreeLoadout = {
+      ...this.filigree,
+      weapon: [...this.filigree.weapon],
+      artifact: [...this.filigree.artifact],
+    };
+    change(loadout);
+    this.filigree = loadout;
+    this.filigreeSubject.next(loadout);
+    this.refreshDerivedState();
+    this._updateRouterState();
+  }
+
+  /** Every filigree that counts, both hosts. */
+  getCountedFiligree(): CountedFiligree[] {
+    return FILIGREE_HOSTS.flatMap(host => countHostFiligree(
+      host,
+      host === 'weapon' ? this.filigree.weapon : this.filigree.artifact,
+      this.getOpenFiligreeSlots(host)
+    ));
+  }
+
+  /** Filigree set -> pieces, over both hosts' counted filigrees. */
+  getFiligreeSetPieces(): Map<string, number> {
+    return countFiligreeSetPieces(this.getCountedFiligree(), name => this.filigreeDb.getSets(name));
+  }
+
+  private _updateFiligreeContributions() {
+    const contributions: FiligreeContribution[] = [];
+    const add = (slot: string, itemName: string, affixes: Affix[]) => {
+      for (const affix of this.affixSvc.flattenAffixGroups(affixes, true)) {
+        contributions.push({ slot, itemName, affix });
+      }
+    };
+    const counted = this.getCountedFiligree();
+    for (const entry of counted) {
+      if (entry.contributes) {
+        add(FILIGREE_SOURCE_SLOTS[entry.host], entry.choice.name + (entry.choice.rare ? ' (Rare)' : ''),
+          this.filigreeDb.getAffixes(entry.choice));
+      }
+    }
+    for (const [set, pieces] of countFiligreeSetPieces(counted, name => this.filigreeDb.getSets(name))) {
+      add(FILIGREE_SOURCE_SLOTS.set, set, this.filigreeDb.getSetBonus(set, pieces));
+    }
+    this.filigreeContributions = contributions;
   }
 
   public getGearDescription() {

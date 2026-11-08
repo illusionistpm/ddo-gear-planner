@@ -13,6 +13,8 @@
 // than repeating the literals.
 export const TRACKED_KEY = 'tracked';
 export const NONGEAR_KEY = 'nongear';
+/** The slotted filigrees, as JSON (planner/filigree-params.ts). */
+export const FILIGREE_KEY = 'filigree';
 export const LEVEL_RANGE_KEY = 'levelrange';
 export const RAIDS_KEY = 'raids';
 export const RARE_KEY = 'rare';
@@ -31,6 +33,7 @@ export const FILTER_PARAM_KEYS = [
 export const FIXED_BUILD_PARAM_KEYS = [
   TRACKED_KEY,
   NONGEAR_KEY,
+  FILIGREE_KEY,
   ...FILTER_PARAM_KEYS
 ] as const;
 

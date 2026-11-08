@@ -13,6 +13,8 @@ import { isHiddenByPacks, isOptionHiddenByPacks, NO_PACK_KEY } from './pack-filt
 import { classifyCraftSelection } from './crafting-acquisition';
 
 import { GameDataService } from './game-data.service';
+import { FiligreeDbService } from './filigree-db.service';
+import { FILIGREE_TRACKING_MIN_LEVEL, getMaxFiligreeSlots } from '../affixes/filigree-affix';
 import { AffixService, UNIVERSAL_COMPANION_AFFIXES } from '../affixes/affix.service';
 import { perfMeasure, perfStart } from '../shared/perf-trace';
 import { affixTypeKey } from '../affixes/affix-type-key';
@@ -117,7 +119,8 @@ export class GearDbService {
     public filters: FiltersService,
     public quests: QuestService,
     private affixSvc: AffixService,
-    private gameData: GameDataService
+    private gameData: GameDataService,
+    private filigreeDb: FiligreeDbService
   ) {
     this._buildAugmentOptions();
     this._buildEssenceCraftingOptions();
@@ -503,7 +506,34 @@ export class GearDbService {
     this._addAffixesToMap(affixToBonusTypes, essenceCraftingAffixes, universalTracker);
     essenceDone({ affixCount: essenceCraftingAffixes.length });
 
+    if (maxLevel >= FILIGREE_TRACKING_MIN_LEVEL) {
+      perfMeasure('GearDbService.buildAffixToBonusTypes.filigree', () => {
+        const maxima = this.filigreeDb.getMaxima(
+          this._getMaxArtifactFiligreeSlots(gear),
+          affixes => this.affixSvc.flattenAffixGroups(affixes, true)
+        );
+        for (const [name, types] of maxima.byAffix) {
+          for (const [type, value] of types) {
+            this._addAffixToMap(affixToBonusTypes, new Affix({ name, type, value }));
+          }
+        }
+      });
+    }
+
     return affixToBonusTypes;
+  }
+
+  /** The most filigree slots any artifact in `gear` holds: the artifact half of the filigree maxima. */
+  private _getMaxArtifactFiligreeSlots(gear: Map<string, Array<Item>>): number {
+    let most = 0;
+    for (const items of gear.values()) {
+      for (const item of items) {
+        if (item.artifact) {
+          most = Math.max(most, getMaxFiligreeSlots(item));
+        }
+      }
+    }
+    return most;
   }
 
   private _buildEssenceCraftingItems(gear: Map<string, Array<Item>>, maxLevel: number) {

@@ -3,11 +3,12 @@
 
 import { TestBed } from '@angular/core/testing';
 import { GameDataService } from './app/gear/game-data.service';
-import { RawCraftingData, RawEssenceCraftingData, RawItem, RawSetData } from './app/gear/game-data-types';
+import { RawCraftingData, RawEssenceCraftingData, RawFiligreeData, RawItem, RawSetData } from './app/gear/game-data-types';
 import itemsList from '@data/items.json';
 import craftingListRaw from '@data/crafting.json';
 import essenceCraftingList from '@data/essence-crafting.json';
 import setList from '@data/sets.json';
+import filigreeData from '@data/filigree.json';
 
 // GameDataService loads its JSON via dynamic import() in production so the data lands
 // in lazy chunks instead of the initial bundle (see game-data.service.ts). Specs
@@ -19,6 +20,7 @@ const fakeGameData: GameDataService = {
   crafting: craftingListRaw as RawCraftingData,
   essenceCrafting: essenceCraftingList as RawEssenceCraftingData,
   sets: setList as RawSetData,
+  filigree: filigreeData as RawFiligreeData,
   load: () => Promise.resolve(),
 } as GameDataService;
 

@@ -46,18 +46,30 @@
       <button *ngIf="hasOnboardingStep()" type="button" class="onboarding-dismiss-button" (click)="dismissIntro()">Skip intro</button>
     </section>
 
-    <section class="affix-panel">
+    <!-- First, so it never moves however many package rows are open below it:
+         once packages are picked, this is the fine-tuning tool. -->
+    <section class="affix-panel affix-search-panel" aria-labelledby="affixSearchHeading">
       <div class="affix-panel-header">
-        <h3>Core Stats</h3>
+        <h3 id="affixSearchHeading">Find an affix</h3>
       </div>
-      <div class="chip-grid">
-        @for (attr of attributes; track attr) {
-          <button type="button" class="affix-chip affix-selectable-chip"
-            [class.selected]="isAttributeSelected(attr)"
-            [attr.aria-pressed]="isAttributeSelected(attr)"
-            (click)="toggleAttribute(attr)">{{attr}}</button>
+      <div class="affix-search">
+        <i class="fas fa-search affix-search-icon" aria-hidden="true"></i>
+        <app-typeahead id="effect-search" type="text" placeholder="Search any affix"
+          [source]=allAffixes searchType="affix" [onChange]=onChange()>
+        </app-typeahead>
+      </div>
+      <!-- The tracked list can be well below a tall editor: say here what a pick did. -->
+      <p class="affix-search-status" aria-live="polite">
+        @if (lastSearchResult; as result) {
+          @if (result.added) {
+            <span class="affix-search-added"><span class="fas fa-check" aria-hidden="true"></span> Added {{result.name}}</span>
+          } @else {
+            {{result.name}} is already tracked
+          }
+        } @else {
+          Packages add whole sets; search adds a single affix, like Doublestrike or Fire Absorption.
         }
-      </div>
+      </p>
     </section>
 
     <section class="affix-panel">
@@ -131,11 +143,16 @@
 
     <section class="affix-panel">
       <div class="affix-panel-header">
-        <h3>Manual Search</h3>
+        <h3>Core Stats</h3>
       </div>
-      <app-typeahead id="effect-search" type="text" placeholder="Enter an affix" [source]=allAffixes searchType="affix"
-        [onChange]=onChange()>
-      </app-typeahead>
+      <div class="chip-grid">
+        @for (attr of attributes; track attr) {
+          <button type="button" class="affix-chip affix-selectable-chip"
+            [class.selected]="isAttributeSelected(attr)"
+            [attr.aria-pressed]="isAttributeSelected(attr)"
+            (click)="toggleAttribute(attr)">{{attr}}</button>
+        }
+      </div>
     </section>
   </section>
 

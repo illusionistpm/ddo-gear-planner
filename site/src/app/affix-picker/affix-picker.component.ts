@@ -41,6 +41,8 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
   additionalPackageHint = false;
   equipmentStepHint = false;
   spellpowerHint = false;
+  /** What the last search pick did, shown under the search until the next one. */
+  lastSearchResult: { name: string; added: boolean } | null = null;
 
   private importantAffixesSubscription?: Subscription;
   private onboardingSubscription?: Subscription;
@@ -251,7 +253,10 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
 
   onChange() {
     return (affix: TypeaheadResult) => {
-      this.add('original' in affix ? affix.original : affix.name, 'manual_search');
+      const name = 'original' in affix ? affix.original : affix.name;
+      const alreadyTracked = this.equipped.isImportantAffix(name);
+      this.add(name, 'manual_search');
+      this.lastSearchResult = { name, added: !alreadyTracked };
     };
   }
 

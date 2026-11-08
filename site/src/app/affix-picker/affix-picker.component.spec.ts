@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AppModule } from '../app.module';
 import { AffixEditorService } from '../planner/affix-editor.service';
+import { TypeaheadResult } from '../typeahead/typeahead.component';
 import { AffixPickerComponent } from './affix-picker.component';
 import { EquippedService } from '../planner/equipped.service';
 
@@ -260,6 +261,32 @@ describe('AffixPickerComponent', () => {
 
     const chips = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll('.affix-selectable-chip.selected'));
     expect(chips.some(chip => chip.textContent?.trim() === 'Evocation')).toBe(true);
+  });
+
+  const panelHeadings = () => Array.from((fixture.nativeElement as HTMLElement).querySelectorAll('.affix-panel h3'))
+    .map(heading => heading.textContent?.trim());
+
+  it('puts the affix search first, and the rows packages reveal right under Build Packages', () => {
+    component.addPackage('Melee');
+    component.addPackage('Caster');
+    refreshView();
+
+    expect(panelHeadings()).toEqual(['Find an affix', 'Build Packages', 'Tactics', 'Spell Power', 'Spell Schools', 'Core Stats']);
+  });
+
+  it('says under the search what a pick did', () => {
+    const status = () => (fixture.nativeElement as HTMLElement).querySelector('.affix-search-status')?.textContent?.trim();
+    TestBed.inject(EquippedService).setImportantAffixes([]);
+    refreshView();
+    expect(status()).toContain('Packages add whole sets');
+
+    component.onChange()({ name: 'Doublestrike' } as TypeaheadResult);
+    refreshView();
+    expect(status()).toBe('Added Doublestrike');
+
+    component.onChange()({ name: 'Doublestrike' } as TypeaheadResult);
+    refreshView();
+    expect(status()).toBe('Doublestrike is already tracked');
   });
 
   it('closes the editor from Done', () => {

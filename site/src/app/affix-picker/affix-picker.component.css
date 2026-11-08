@@ -5,11 +5,11 @@
  */
 .affix-editor {
   background: var(--surface-color);
-  border: 1px solid var(--border-color);
-  /* The toolbar button's accent: the two are one control and its panel. */
-  border-top: 3px solid var(--primary-color);
+  /* The toolbar button's accent, all the way round: the two are one control
+     and its panel, and the open editor stands out from the page around it. */
+  border: 2px solid var(--primary-color);
   border-radius: var(--border-radius);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.12), var(--shadow-sm);
   margin: 0 0 var(--space-12);
   /* Clear of the sticky planner bar when revealed with scrollIntoView. */
   scroll-margin-top: var(--space-16);
@@ -110,6 +110,40 @@
   gap: var(--space-12);
   min-width: 0;
   padding: var(--space-12);
+}
+
+/* Doubled class: it has to beat .affix-panel's own background, which comes later. */
+.affix-panel.affix-search-panel {
+  background: rgba(var(--primary-color-rgb), 0.05);
+  border-color: rgba(var(--primary-color-rgb), 0.35);
+}
+
+/* Laid out like the toolbar's gear search, so the two read as the same kind of control. */
+.affix-search {
+  align-items: center;
+  display: flex;
+  gap: var(--space-8);
+}
+
+.affix-search-icon {
+  color: var(--primary-color);
+  flex: 0 0 auto;
+}
+
+.affix-search app-typeahead {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.affix-search-status {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  margin: var(--space-8) 0 0;
+}
+
+.affix-search-added {
+  color: var(--success-color);
+  font-weight: 700;
 }
 
 .affix-intro-panel {

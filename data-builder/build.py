@@ -10,7 +10,7 @@ from build_synonyms import build_synonyms
 from build_url_codec_dictionary import build_url_codec_dictionary
 from get_data_stats import get_data_stats, diff_data_stats, get_data_stats_description, check_stats_thresholds, get_unresolved_sources_in_data
 from validate_data import audit_data
-from build_problems import describe_new_problems, post_to_discord
+from build_problems import describe_problems, post_to_discord
 import argparse
 from get_output_path import get_output_path
 from get_snapshot_path import get_snapshot_path
@@ -53,7 +53,7 @@ def fail(reason, details=(), code=1):
 
 
 def build_data(clearSnapshot, previewDir=None, offline=False):
-    """Build data/ and return the problems it introduced (see build_problems)."""
+    """Build data/ and return its problems (see build_problems)."""
     ensure_data_builder_cwd()
 
     if offline and not os.path.isdir(get_snapshot_path()):
@@ -78,10 +78,9 @@ def build_data(clearSnapshot, previewDir=None, offline=False):
         raise
 
     oldStats = get_data_stats()
-    # Problems already in the data aren't reported again; only what this
-    # build adds to them.
+    # Warnings already in the data aren't reported again; only the ones this
+    # build adds.
     oldIssues = audit_data()
-    oldUnresolved = get_unresolved_sources_in_data()
 
     if offline:
         print('#### Offline: building from the committed wiki snapshot')
@@ -121,7 +120,7 @@ def build_data(clearSnapshot, previewDir=None, offline=False):
 
     # Not failures: an unresolved source shows as free on the site until
     # source_packs.json names its pack.
-    problems = describe_new_problems(oldIssues, audit_data(), oldUnresolved, get_unresolved_sources_in_data())
+    problems = describe_problems(oldIssues, audit_data(), get_unresolved_sources_in_data())
     for problem in problems:
         print(problem)
 
@@ -159,7 +158,7 @@ def run(clearSnapshot, discordURL, previewDir=None, offline=False):
         raise
 
     if problems and discordURL:
-        post_to_discord(discordURL, 'Data build introduced problems', problems)
+        post_to_discord(discordURL, 'Data build has problems', problems)
 
 
 if __name__ == "__main__":
@@ -169,7 +168,7 @@ if __name__ == "__main__":
                       help='delete wiki-snapshot/ and download every page again')
     mode.add_argument('--offline', default=False, action='store_true',
                       help='build from the committed wiki-snapshot/ without contacting the wiki')
-    parser.add_argument('--discord', help='webhook to post to when the build fails or introduces problems')
+    parser.add_argument('--discord', help='webhook to post to when the build fails or has problems')
     parser.add_argument('--preview-dir', help='write the build output, a diff and a summary here; skips Discord')
     args = parser.parse_args()
 

@@ -68,20 +68,20 @@ def test_a_clean_build_posts_nothing(stubbed_build, posts):
     assert posts == []
 
 
-def test_a_build_that_introduces_problems_posts_them(stubbed_build, posts, monkeypatch):
-    unresolved = iter([[], ['A New Vendor']])
-    monkeypatch.setattr(build, 'get_unresolved_sources_in_data', lambda: next(unresolved))
+def test_a_build_with_problems_posts_them(stubbed_build, posts, monkeypatch):
+    monkeypatch.setattr(build, 'get_unresolved_sources_in_data', lambda: ['A Vendor'])
 
     build.run(False, 'https://discord.example/hook', offline=True)
 
     assert len(posts) == 1
     title, sections = posts[0]
-    assert title == 'Data build introduced problems'
-    assert 'A New Vendor' in sections[0]
+    assert title == 'Data build has problems'
+    assert 'A Vendor' in sections[0]
 
 
-def test_problems_already_in_the_data_are_not_posted_again(stubbed_build, posts, monkeypatch):
-    monkeypatch.setattr(build, 'get_unresolved_sources_in_data', lambda: ['An Old Vendor'])
+def test_warnings_already_in_the_data_are_not_posted_again(stubbed_build, posts, monkeypatch):
+    warning = {'severity': 'warning', 'category': 'duplicate-affix', 'item': 'Sword', 'affix': 'Strength', 'issue': 'twice'}
+    monkeypatch.setattr(build, 'audit_data', lambda: [warning])
 
     build.run(False, 'https://discord.example/hook', offline=True)
 

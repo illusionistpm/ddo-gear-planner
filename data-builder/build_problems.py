@@ -1,9 +1,13 @@
 """What a data build reports to Discord: only problems.
 
-A clean build posts nothing. A build that fails posts why; one that succeeds
-posts only what it made worse - validator errors and warnings, and item
-sources, that the data from before the build didn't have. Problems that were
-already there aren't posted again every night.
+A clean build posts nothing. A build that fails posts why. One that succeeds
+posts its problems:
+
+- validator errors and unresolved item sources, every night until they're
+  fixed - each one is something wrong on the site;
+- validator warnings only when the build adds them. There are hundreds of
+  long-standing ones (mostly duplicate affixes), and repeating them nightly
+  would bury everything else.
 """
 import os
 
@@ -15,39 +19,37 @@ from validate_data import format_issue
 DISCORD_MESSAGE_LIMIT = 2000
 MAX_LISTED = 15
 
-REPORTED_SEVERITIES = ('error', 'warning')
-
 
 def _issue_key(issue):
     return (issue['severity'], issue['category'], issue['item'], issue['affix'], issue['issue'])
 
 
-def new_audit_issues(before, after):
-    """Errors and warnings in `after` that `before` didn't have, errors first."""
+def new_warnings(before, after):
+    """Warnings in `after` that `before` didn't have."""
     known = {_issue_key(issue) for issue in before}
-    new = [issue for issue in after
-           if issue['severity'] in REPORTED_SEVERITIES and _issue_key(issue) not in known]
-    new.sort(key=lambda issue: REPORTED_SEVERITIES.index(issue['severity']))
-    return new
+    return [issue for issue in after if issue['severity'] == 'warning' and _issue_key(issue) not in known]
 
 
-def describe_new_problems(issues_before, issues_after, unresolved_before, unresolved_after):
-    """Problems this build introduced, as Markdown sections; empty when there are none."""
+def describe_problems(issues_before, issues_after, unresolved_sources):
+    """The build's problems, as Markdown sections; empty when there are none."""
     sections = []
 
-    issues = new_audit_issues(issues_before, issues_after)
-    if issues:
-        errors = sum(1 for issue in issues if issue['severity'] == 'error')
-        warnings = len(issues) - errors
+    errors = [issue for issue in issues_after if issue['severity'] == 'error']
+    if errors:
         sections.append(_section(
-            f"New validation issues ({errors} errors, {warnings} warnings; run validate_data.py for the full report)",
-            [format_issue(issue) for issue in issues]))
+            f"Validation errors ({len(errors)}; run validate_data.py for the full report)",
+            [format_issue(issue) for issue in errors]))
 
-    unresolved = sorted(set(unresolved_after) - set(unresolved_before))
-    if unresolved:
+    warnings = new_warnings(issues_before, issues_after)
+    if warnings:
         sections.append(_section(
-            'New unresolved sources (the site shows them as free until data-builder/source_packs.json names their pack)',
-            unresolved))
+            f"New validation warnings ({len(warnings)})",
+            [format_issue(issue) for issue in warnings]))
+
+    if unresolved_sources:
+        sections.append(_section(
+            'Unresolved sources (the site shows them as free until data-builder/source_packs.json names their pack)',
+            sorted(unresolved_sources)))
 
     return sections
 

@@ -1363,7 +1363,7 @@ def convert_affix_text_map_to_affix_map(textMap):
     affixMap = apply_known_affix_type_defaults(affixMap)
     affixMap = apply_concealment_value(affixMap, textMap.get('tooltip', ''))
 
-    # try to catch Ghostly, Heroic Inspiration, Blindness Immunity, etc
+    # try to catch Ghostly, Heroic Inspiration, Immunity to Blindness, etc
     if ('type' not in affixMap) and ('value' not in affixMap):
         affixMap['type'] = 'Bool'
         affixMap['value'] = 1

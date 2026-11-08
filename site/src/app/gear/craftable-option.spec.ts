@@ -32,6 +32,21 @@ describe('CraftableOption', () => {
     expect(option.matchesParamDescription(legacy)).toBe(true);
   });
 
+  it('still matches the descriptions saved builds carry from before immunities became "Immunity to X"', () => {
+    const essence = new CraftableOption({ affixes: [{ name: 'Immunity to Blindness', type: 'Bool', value: 1 }] });
+    const greenSteel = new CraftableOption({
+      affixes: [
+        { name: 'Immunity to Blindness', type: 'Bool', value: 1 },
+        { name: 'Proof Against Disease', type: 'Insight', value: '4' },
+      ]
+    });
+
+    expect(essence.getParamDescription()).toBe('Immunity to Blindness1');
+    expect(essence.matchesParamDescription('Blindness Immunity1')).toBe(true);
+    expect(greenSteel.getParamDescription()).toBe('Immunity to Blindness1|Proof Against Disease4');
+    expect(greenSteel.matchesParamDescription('Blindness Immunity1|Proof Against Disease4')).toBe(true);
+  });
+
   it('carries the quests it comes from, sharing the data array', () => {
     const quests = ['One Dame Thing After Another'];
     const option = new CraftableOption({ name: 'Crystallized Unicorn Tear', quests });

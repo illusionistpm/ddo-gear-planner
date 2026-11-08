@@ -10121,7 +10121,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Petrification Immunity",
+                        "name": "Immunity to Petrification",
                         "type": "Bool",
                         "value": 1
                     }
@@ -46972,23 +46972,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Blindness Immunity",
-                        "type": "Bool",
-                        "value": 1
-                    },
-                    {
-                        "name": "Proof Against Disease",
-                        "type": "Insight",
-                        "value": "4"
-                    }
-                ],
-                "quests": [
-                    "Legendary Altar of Invasion"
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Cold Resistance",
                         "type": "Enhancement",
                         "value": "50"
@@ -47163,6 +47146,23 @@
                         "name": "Ice Intensity",
                         "type": "Enhancement",
                         "value": "20"
+                    }
+                ],
+                "quests": [
+                    "Legendary Altar of Invasion"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Immunity to Blindness",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Proof Against Disease",
+                        "type": "Insight",
+                        "value": "4"
                     }
                 ],
                 "quests": [
@@ -55615,7 +55615,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Blindness Immunity",
+                        "name": "Immunity to Blindness",
                         "type": "Bool",
                         "value": 1
                     }

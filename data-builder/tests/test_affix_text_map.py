@@ -21,6 +21,18 @@ def test_convert_affix_text_map_artifact():
     assert am['value'] == '20'
 
 
+@pytest.mark.parametrize('text, expected', [
+    ('Blindness Immunity', 'Immunity to Blindness'),
+    ('Petrification Immunity', 'Immunity to Petrification'),
+    ('Web Immunity', 'Immunity to Web'),
+    ('Immunity to Fear', 'Immunity to Fear'),
+])
+def test_convert_affix_text_map_names_immunities_immunity_to_x(text, expected):
+    am = convert_affix_text_map_to_affix_map({'text': text})
+    assert am['name'] == expected
+    assert am['type'] == 'Bool'
+
+
 def test_convert_affix_text_map_roman_numeral_and_tooltip_value():
     # Roman numeral in text but numeric value in tooltip
     tm = {'text': 'Insightful Spell Power V', 'tooltip': '+10% Insight bonus to Spell Power'}

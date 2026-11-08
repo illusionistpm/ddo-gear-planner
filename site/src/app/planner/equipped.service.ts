@@ -975,7 +975,11 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
       try {
         const parsed = JSON.parse(raw);
         if (Array.isArray(parsed)) {
-          entries = parsed.filter((entry): entry is ExternalAffixEntry => isExternalAffixEntry(entry));
+          // Canonicalized so an entry saved under an affix's old name (Blindness Immunity,
+          // now Immunity to Blindness) still counts toward it.
+          entries = parsed
+            .filter((entry): entry is ExternalAffixEntry => isExternalAffixEntry(entry))
+            .map(entry => ({ ...entry, affixName: this.affixSvc.getCanonicalName(entry.affixName) }));
         }
       } catch {
         console.log('Bad ext param, ignoring external affix entries: ' + raw);

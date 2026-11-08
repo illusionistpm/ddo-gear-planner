@@ -207796,45 +207796,6 @@
     {
         "affixes": [
             {
-                "name": "",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "ml": 1,
-        "name": "Lousy Chain Docent?",
-        "quests": [
-            "Special event items"
-        ],
-        "slot": "Armor",
-        "type": "Docents",
-        "url": "/page/Item:Lousy_Chain_Docent%3F"
-    },
-    {
-        "affixes": [
-            {
-                "name": "Armor Class",
-                "type": "Armor",
-                "value": "4"
-            },
-            {
-                "name": "",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "ml": 1,
-        "name": "Lousy Chainshirt",
-        "quests": [
-            "Special event items"
-        ],
-        "slot": "Armor",
-        "type": "Light armor",
-        "url": "/page/Item:Lousy_Chainshirt"
-    },
-    {
-        "affixes": [
-            {
                 "name": "Enchantment Focus",
                 "type": "Equipment",
                 "value": "2"
@@ -207932,23 +207893,6 @@
         "slot": "Weapon",
         "type": "Short Swords",
         "url": "/page/Item:Luck_Blade"
-    },
-    {
-        "affixes": [
-            {
-                "name": "",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "ml": 1,
-        "name": "Lucky Hat",
-        "quests": [
-            "Special event items"
-        ],
-        "slot": "Helm",
-        "type": "Head items",
-        "url": "/page/Item:Lucky_Hat"
     },
     {
         "affixes": [
@@ -236714,20 +236658,6 @@
     {
         "affixes": [
             {
-                "name": "",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "ml": 1,
-        "name": "Pumpkin Head",
-        "slot": "Weapon",
-        "type": "Darts",
-        "url": "/page/Item:Pumpkin_Head"
-    },
-    {
-        "affixes": [
-            {
                 "name": "Quell clicky",
                 "type": "Bool",
                 "value": 1
@@ -262651,20 +262581,6 @@
         "slot": "Helm",
         "type": "Head items",
         "url": "/page/Item:Skull_Fetish_Mask"
-    },
-    {
-        "affixes": [
-            {
-                "name": "",
-                "type": "Bool",
-                "value": 1
-            }
-        ],
-        "ml": 1,
-        "name": "Skull Head",
-        "slot": "Weapon",
-        "type": "Darts",
-        "url": "/page/Item:Skull_Head"
     },
     {
         "affixes": [

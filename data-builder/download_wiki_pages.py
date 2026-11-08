@@ -380,6 +380,19 @@ def download_crafting_pages(session=None):
         download_page(f'Legendary_Green_Steel_items/Tier_{tier}', pageDir, session=session)
 
 
+# Bonuses an item can carry on top of its fixed affixes: Mythic Boosts and
+# Reaper bonuses roll on named loot from higher difficulties, and Curses are
+# applied with a Deck of Many Curses. No parser reads these yet (issue #266).
+def download_item_bonus_pages(session=None):
+    pageDir = get_snapshot_path('item_bonuses')
+    if not os.path.exists(pageDir):
+        os.makedirs(pageDir)
+
+    download_page('Mythic_Boost', pageDir, session=session)
+    download_page('Reaper_bonus', pageDir, session=session)
+    download_page('Item:Deck_of_Many_Curses', pageDir, session=session)
+
+
 def download_wiki_pages():
     print('Using download backend: requests-with-playwright-cookie')
     session = _create_requests_session_from_playwright('https://ddowiki.com/index.php?DPL_offset=0&DPL_refresh=yes&title=Raw data/Sets v2')
@@ -394,6 +407,7 @@ def download_wiki_pages():
     download_item_augments_page(session=session)
     download_quest_pages(session=session)
     download_crafting_pages(session=session)
+    download_item_bonus_pages(session=session)
 
 
 def clear_wiki_snapshot():

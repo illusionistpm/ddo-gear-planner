@@ -23,7 +23,7 @@ def get_all_spell_crit_damage_types() -> list[str]:
     return [
         'Acid Intensity', 'Fire Intensity', 'Healing Intensity', 'Ice Intensity',
         'Kinetic Intensity', 'Lightning Intensity', 'Radiance Intensity', 'Repair Intensity',
-        'Sonic Intensity', 'Void Intensity',
+        'Sonic Intensity', 'Void Intensity', 'Poison Intensity',
     ]
 
 

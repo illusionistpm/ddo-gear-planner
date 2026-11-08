@@ -419,7 +419,8 @@
             "Radiance Intensity",
             "Repair Intensity",
             "Sonic Intensity",
-            "Void Intensity"
+            "Void Intensity",
+            "Poison Intensity"
         ],
         "name": "Spell Critical Damage"
     },
@@ -434,7 +435,8 @@
             "Radiance Intensity",
             "Repair Intensity",
             "Sonic Intensity",
-            "Void Intensity"
+            "Void Intensity",
+            "Poison Intensity"
         ],
         "name": "Universal Spell Critical Damage"
     },

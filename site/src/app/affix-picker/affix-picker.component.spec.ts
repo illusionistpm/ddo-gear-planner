@@ -105,7 +105,8 @@ describe('AffixPickerComponent', () => {
 
     expect(component.spellpowerPackages.get('Poison')).toContain('Poison Spell Power');
     expect(component.spellpowerPackages.get('Poison')).toContain('Poison Lore');
-    expect(component.spellpowerPackages.get('Poison')).toContain('Void Intensity');
+    expect(component.spellpowerPackages.get('Poison')).toContain('Poison Intensity');
+    expect(component.spellpowerPackages.get('Poison')).not.toContain('Void Intensity');
 
     expect(component.spellpowerPackages.get('Repair')).toContain('Repair Spell Power');
     expect(component.spellpowerPackages.get('Repair')).toContain('Rust Spell Power');

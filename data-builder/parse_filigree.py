@@ -52,7 +52,8 @@ FILIGREE_AFFIX_NAMES = {
     'Light Spell Critical Damage': 'Radiance Intensity',
     'Positive Spell Crit Damage': 'Healing Intensity',
     'Sonic Spell Crit Damage': 'Sonic Intensity',
-    'Poison Spell Critical Damage': 'Void Intensity',
+    # Void Intensity covers Negative as well as Poison; this is Poison's alone.
+    'Poison Spell Critical Damage': 'Poison Intensity',
     'Spell Points': 'Wizardry',
     'Maximum Spellpoints': 'Wizardry',
     'Fortitude Saving Throws': 'Fortitude Save',

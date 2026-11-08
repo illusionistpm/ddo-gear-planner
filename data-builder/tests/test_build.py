@@ -11,7 +11,7 @@ from build import DATA_BUILDER_DIR, ensure_data_builder_cwd, write_build_info
 
 BUILD_STEPS = [
     'build_synonyms', 'parse_essence_crafting', 'build_affix_groups', 'parse_set_page', 'parse_quests',
-    'build_crafting', 'parse_item_augment_page', 'parse_items', 'parse_minor_artifacts', 'parse_item_types',
+    'build_crafting', 'parse_item_augment_page', 'parse_items', 'parse_minor_artifacts', 'parse_filigree', 'parse_item_types',
     'build_url_codec_dictionary',
 ]
 

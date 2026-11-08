@@ -1,0 +1,282 @@
+{
+  "Attack and Damage with weapons": {
+    "components": [
+      {
+        "name": "Accuracy",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Deadly",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Dodge and Max Dodge": {
+    "components": [
+      {
+        "name": "Dodge",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Dodge Cap",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Dodge and Maximum Dodge": {
+    "components": [
+      {
+        "name": "Dodge",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Dodge Cap",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Doublestrike and Doubleshot": {
+    "components": [
+      {
+        "name": "Doublestrike",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Doubleshot",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Hide and Move Silently": {
+    "components": [
+      {
+        "name": "Hide",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Move Silently",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Hit and Damage": {
+    "components": [
+      {
+        "name": "Accuracy",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Deadly",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Immune to Mummy Rot and Natural Diseases": {
+    "components": [
+      {
+        "name": "Immunity to Mummy Rot",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "boolean_one"
+        }
+      },
+      {
+        "name": "Immunity to Natural Diseases",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ]
+  },
+  "Melee and Ranged Power": {
+    "components": [
+      {
+        "name": "Melee Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Ranged Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Negative and Poison Spell Power": {
+    "components": [
+      {
+        "name": "Negative Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Poison Spell Power",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Open Locks, Disable Device, Search, Spot, Trap Saves": {
+    "components": [
+      {
+        "name": "Open Lock",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Disable Device",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Search",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Spot",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Saves vs. Traps",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Search, Spot, Listen": {
+    "components": [
+      {
+        "name": "Search",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Spot",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Listen",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Sneak Attack and Sneak Attack Damage": {
+    "components": [
+      {
+        "name": "Sneak Attack Accuracy",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Sneak Attack Damage",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "Transmutation and Conjuration DCs": {
+    "components": [
+      {
+        "name": "Transmutation Focus",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Conjuration Focus",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ]
+  },
+  "You have Intercession Ward, and are immune to being Quelled": {
+    "components": [
+      {
+        "name": "Intercession Ward",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "boolean_one"
+        }
+      },
+      {
+        "name": "Immunity to Quell",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "boolean_one"
+        }
+      }
+    ]
+  }
+}

@@ -13,7 +13,7 @@ NO_PACK_FILTER = '__NO_PACK__'
 # Aliases are hand-maintained, so they live here and replace whatever the
 # data/ copy holds on every build.
 ALIASES_SOURCE_PATH = os.path.join(os.path.dirname(__file__), 'url_codec_aliases.json')
-DICTIONARY_KEYS = ('itemTypes', 'packs', 'craftingSystems')
+DICTIONARY_KEYS = ('itemTypes', 'packs', 'craftingSystems', 'filigrees')
 
 # Adventure packs release only a handful of times a year, so more than this
 # many new pack names that aren't on the wiki's own pack list, in a single
@@ -111,6 +111,10 @@ def _discover_crafting_systems():
     return systems
 
 
+def _discover_filigrees():
+    return set((_read_json_or_empty('filigree').get('filigrees') or {}).keys())
+
+
 def _pack_name_key(pack):
     # "The Vault of Night", "Vault of Night" and "vault of night" are one pack.
     key = pack.casefold()
@@ -161,7 +165,8 @@ def build_url_codec_dictionary():
     existing_dictionary = _read_json_or_empty('url-codec-dictionary')
     existing_packs = existing_dictionary.get('packs', [])
     discovered_packs = _discover_packs()
-    aliases = load_aliases()
+    # Every key present, so an alias file from before a key existed still loads.
+    aliases = {key: dict(load_aliases().get(key) or {}) for key in DICTIONARY_KEYS}
 
     _check_new_packs(
         existing_packs,
@@ -183,6 +188,10 @@ def build_url_codec_dictionary():
         'craftingSystems': _append_new_values(
             existing_dictionary.get('craftingSystems', []),
             _discover_crafting_systems()
+        ),
+        'filigrees': _append_new_values(
+            existing_dictionary.get('filigrees', []),
+            _discover_filigrees()
         ),
         'aliases': aliases
     }

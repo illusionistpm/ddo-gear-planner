@@ -3,6 +3,7 @@ from parse_set_page import parse_set_page
 from parse_item_augment_page import parse_item_augment_page
 from parse_items import parse_items
 from parse_minor_artifacts import parse_minor_artifacts
+from parse_filigree import parse_filigree
 from parse_essence_crafting import parse_essence_crafting
 from build_affix_groups import build_affix_groups
 from build_crafting import build_crafting
@@ -107,6 +108,8 @@ def build_data(clearSnapshot, previewDir=None, offline=False):
     parse_item_augment_page()
     parse_items()
     parse_minor_artifacts()
+    # after parse_quests: generations resolve pack names against quests.json
+    parse_filigree()
 
     parse_item_types()
     build_url_codec_dictionary()

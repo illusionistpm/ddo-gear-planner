@@ -3,6 +3,11 @@ import pytest
 import build_url_codec_dictionary as module
 
 
+def read_assets(assets):
+    # Fixtures that predate filigree have none; anything else missing is a test bug.
+    return lambda name: assets[name] if name in assets or name != 'filigree' else {}
+
+
 def test_build_url_codec_dictionary_preserves_existing_indexes_and_appends_new(monkeypatch):
     assets = {
         'url-codec-dictionary': {
@@ -43,7 +48,7 @@ def test_build_url_codec_dictionary_preserves_existing_indexes_and_appends_new(m
     }
     written = {}
 
-    monkeypatch.setattr(module, 'read_json', lambda name: assets[name])
+    monkeypatch.setattr(module, 'read_json', read_assets(assets))
     monkeypatch.setattr(module, 'write_json', lambda data, name: written.setdefault(name, data))
     monkeypatch.setattr(module, 'load_aliases', lambda: {
         'itemTypes': {'Existing Type': 'New Type'},
@@ -85,7 +90,7 @@ def test_build_url_codec_dictionary_rejects_too_many_new_packs(monkeypatch):
         'essence-crafting': {}
     }
 
-    monkeypatch.setattr(module, 'read_json', lambda name: assets[name])
+    monkeypatch.setattr(module, 'read_json', read_assets(assets))
     monkeypatch.setattr(module, 'write_json', lambda data, name: pytest.fail('should not write on violation'))
 
     with pytest.raises(module.TooManyNewPacksError, match='New Pack A.*New Pack B'):
@@ -105,7 +110,7 @@ def test_build_url_codec_dictionary_creates_empty_alias_maps(monkeypatch):
     def fake_read_json(name):
         if name == 'url-codec-dictionary':
             raise FileNotFoundError(name)
-        return assets[name]
+        return read_assets(assets)(name)
 
     monkeypatch.setattr(module, 'read_json', fake_read_json)
     monkeypatch.setattr(module, 'write_json', lambda data, name: written.setdefault(name, data))
@@ -118,7 +123,23 @@ def test_build_url_codec_dictionary_creates_empty_alias_maps(monkeypatch):
     assert dictionary['itemTypes'] == ['Bastard Swords']
     assert dictionary['packs'] == ['Masterminds of Sharn']
     assert dictionary['craftingSystems'] == ['Blue Augment Slot']
-    assert dictionary['aliases'] == {'itemTypes': {}, 'packs': {}, 'craftingSystems': {}}
+    assert dictionary['aliases'] == {'itemTypes': {}, 'packs': {}, 'craftingSystems': {}, 'filigrees': {}}
+    assert dictionary['filigrees'] == []
+
+
+def test_build_url_codec_dictionary_appends_new_filigrees_after_existing_ones(monkeypatch):
+    assets = alias_assets()
+    assets['url-codec-dictionary']['filigrees'] = ['Zephyr: Dexterity']
+    assets['filigree'] = {'filigrees': {'Celerity: Dexterity': {}, 'Zephyr: Dexterity': {}, 'Aardvark: Strength': {}}}
+    written = {}
+
+    monkeypatch.setattr(module, 'read_json', read_assets(assets))
+    monkeypatch.setattr(module, 'write_json', lambda data, name: written.setdefault(name, data))
+    monkeypatch.setattr(module, 'load_aliases', lambda: {})
+
+    module.build_url_codec_dictionary()
+
+    assert written['url-codec-dictionary']['filigrees'] == ['Zephyr: Dexterity', 'Aardvark: Strength', 'Celerity: Dexterity']
 
 
 def alias_assets(existing_aliases=None):
@@ -143,7 +164,7 @@ def test_build_url_codec_dictionary_takes_aliases_from_the_source_file(monkeypat
     assets = alias_assets({'itemTypes': {}, 'packs': {'Stale': 'New Pack'}, 'craftingSystems': {}})
     written = {}
 
-    monkeypatch.setattr(module, 'read_json', lambda name: assets[name])
+    monkeypatch.setattr(module, 'read_json', read_assets(assets))
     monkeypatch.setattr(module, 'write_json', lambda data, name: written.setdefault(name, data))
     monkeypatch.setattr(module, 'load_aliases', lambda: {
         'itemTypes': {}, 'packs': {'Old Pack': 'New Pack'}, 'craftingSystems': {}
@@ -161,7 +182,7 @@ def test_build_url_codec_dictionary_takes_aliases_from_the_source_file(monkeypat
 def test_build_url_codec_dictionary_rejects_aliases_that_would_not_resolve(monkeypatch, packs_alias, message):
     assets = alias_assets()
 
-    monkeypatch.setattr(module, 'read_json', lambda name: assets[name])
+    monkeypatch.setattr(module, 'read_json', read_assets(assets))
     monkeypatch.setattr(module, 'write_json', lambda data, name: pytest.fail('should not write on violation'))
     monkeypatch.setattr(module, 'load_aliases', lambda: {
         'itemTypes': {}, 'packs': packs_alias, 'craftingSystems': {}
@@ -192,7 +213,7 @@ def new_pack_assets(item_packs, official_packs=None):
 
 def run_with(monkeypatch, assets, pack_aliases=None):
     written = {}
-    monkeypatch.setattr(module, 'read_json', lambda name: assets[name])
+    monkeypatch.setattr(module, 'read_json', read_assets(assets))
     monkeypatch.setattr(module, 'write_json', lambda data, name: written.setdefault(name, data))
     monkeypatch.setattr(module, 'load_aliases', lambda: {
         'itemTypes': {}, 'packs': pack_aliases or {}, 'craftingSystems': {}

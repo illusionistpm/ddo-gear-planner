@@ -42,9 +42,17 @@
   aria-controls="affixEditor"
   [title]="editorOpen ? 'Done editing affixes' : needsAffixes ? 'Start here: choose your build\'s focus' : 'Add / edit affixes'"
   (click)="toggleEditor()">
-  <span class="fas" [class.fa-plus]="!editorOpen" [class.fa-check]="editorOpen" aria-hidden="true"></span>
-  <span class="tracked-affix-edit-affixes-label">{{editorOpen ? 'Done editing' : 'Add / edit affixes'}}</span>
-  <span class="tracked-affix-edit-affixes-short">{{editorOpen ? 'Done' : 'Affixes'}}</span>
+  <span class="fas fa-fw" [class.fa-plus]="!editorOpen" [class.fa-check]="editorOpen" aria-hidden="true"></span>
+  <!-- Both wordings always laid out, one hidden: the button keeps one width
+       open or closed, so the bar doesn't reflow under the pointer. -->
+  <span class="tracked-affix-edit-affixes-label"><span class="affix-toggle-label">
+    <span [class.inactive]="editorOpen">Add / edit affixes</span>
+    <span [class.inactive]="!editorOpen">Done editing</span>
+  </span></span>
+  <span class="tracked-affix-edit-affixes-short"><span class="affix-toggle-label">
+    <span [class.inactive]="editorOpen">Affixes</span>
+    <span [class.inactive]="!editorOpen">Done</span>
+  </span></span>
 </button>
 
 <!-- A phone has no room on this line; the build actions' overflow menu carries it there. -->

@@ -210,6 +210,20 @@
     background: rgba(var(--primary-color-rgb), 0.18);
 }
 
+/* Both wordings share one grid cell; the hidden one still sets the width. */
+.affix-toggle-label {
+    display: inline-grid;
+    justify-items: center;
+}
+
+.affix-toggle-label > span {
+    grid-area: 1 / 1;
+}
+
+.affix-toggle-label > .inactive {
+    visibility: hidden;
+}
+
 /* Pressed while the editor is open: the same fill as the editor's own Done. */
 .tracked-affix-edit-affixes.open,
 .tracked-affix-edit-affixes.open:hover,

@@ -54,7 +54,6 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
   private rejoinSubscription?: Subscription;
   private chosenAffixesSubscription?: Subscription;
   private editorSubscription?: Subscription;
-  private fitLabelTimer?: ReturnType<typeof setTimeout>;
   private switchObserver?: ResizeObserver;
   private workspaceRowObserver?: ResizeObserver;
   // GearDbService builds its unfiltered gear map once, in its constructor, so
@@ -82,12 +81,7 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
     });
     this.chosenAffixesSubscription = this.affixPackages.needsStart$()
       .subscribe(needsStart => this.needsAffixes = needsStart);
-    this.editorSubscription = this.affixEditor.isOpen$.subscribe(open => {
-      this.editorOpen = open;
-      // The label changes length with the state, so it may fit (or not) now.
-      clearTimeout(this.fitLabelTimer);
-      this.fitLabelTimer = setTimeout(() => this.fitEditAffixesLabel());
-    });
+    this.editorSubscription = this.affixEditor.isOpen$.subscribe(open => this.editorOpen = open);
   }
 
   ngAfterViewInit() {
@@ -127,7 +121,6 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
     this.rejoinSubscription?.unsubscribe();
     this.chosenAffixesSubscription?.unsubscribe();
     this.editorSubscription?.unsubscribe();
-    clearTimeout(this.fitLabelTimer);
   }
 
   /**

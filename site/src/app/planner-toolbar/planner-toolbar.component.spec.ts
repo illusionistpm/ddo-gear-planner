@@ -130,6 +130,9 @@ describe('PlannerToolbarComponent', () => {
     });
 
     const affixButton = () => fixture.nativeElement.querySelector('.tracked-affix-edit-affixes') as HTMLButtonElement;
+    /** The wordings on show (one per label slot): the others are laid out but hidden. */
+    const shownLabels = () => Array.from(affixButton().querySelectorAll('.affix-toggle-label > span:not(.inactive)'))
+      .map(span => span.textContent?.trim());
 
     it('opens and closes the affix editor, saying which it will do', () => {
       const editor = TestBed.inject(AffixEditorService);
@@ -137,19 +140,33 @@ describe('PlannerToolbarComponent', () => {
       fixture.detectChanges();
       expect(affixButton().getAttribute('aria-expanded')).toBe('false');
       expect(affixButton().getAttribute('aria-controls')).toBe('affixEditor');
-      expect(affixButton().textContent).toContain('Add / edit affixes');
+      expect(shownLabels()).toEqual(['Add / edit affixes', 'Affixes']);
 
       affixButton().click();
       fixture.detectChanges();
       expect(editor.isOpen).toBe(true);
       expect(affixButton().getAttribute('aria-expanded')).toBe('true');
       expect(affixButton().classList).toContain('open');
-      expect(affixButton().textContent).toContain('Done editing');
+      expect(shownLabels()).toEqual(['Done editing', 'Done']);
 
       affixButton().click();
       fixture.detectChanges();
       expect(editor.isOpen).toBe(false);
-      expect(affixButton().textContent).toContain('Add / edit affixes');
+      expect(shownLabels()).toEqual(['Add / edit affixes', 'Affixes']);
+    });
+
+    it('lays out both wordings in both states, so the button keeps one width', () => {
+      const editor = TestBed.inject(AffixEditorService);
+      for (const open of [false, true]) {
+        if (open) {
+          editor.open();
+        } else {
+          editor.close();
+        }
+        fixture.detectChanges();
+        const all = Array.from(affixButton().querySelectorAll('.affix-toggle-label > span')).map(span => span.textContent?.trim());
+        expect(all).toEqual(['Add / edit affixes', 'Done editing', 'Affixes', 'Done']);
+      }
     });
 
     it('glows only while the editor is shut and the build has no focus yet', () => {

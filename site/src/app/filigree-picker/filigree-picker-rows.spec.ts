@@ -6,7 +6,7 @@ const affix = (name: string, value: number, type = 'Filigree') => new Affix({ na
 function facts(name: string, sets: string[], own: Affix[], setBonusNames: string[] = [], rare: Affix[] = []): FiligreeFacts {
   return {
     name, sets, affixes: own, rareAffixes: rare,
-    bonusNames: [...own, ...rare].map(a => a.name), setBonusNames,
+    ownBonusNames: own.map(a => a.name), rareBonusNames: rare.map(a => a.name), setBonusNames,
   };
 }
 
@@ -23,6 +23,7 @@ const base = {
   inHost: new Set<string>(),
   search: '',
   hideIrrelevant: false,
+  rare: true,
 };
 
 const summary = (groups: ReturnType<typeof buildFiligreeGroups>['groups']) =>
@@ -45,7 +46,21 @@ describe('buildFiligreeGroups', () => {
     expect(groups.map(group => group.title)).toEqual(['Dexterity', 'Reflex Save', 'Tumble', 'Wisdom']);
   });
 
-  it('searches names, sets and bonuses, rare ones included', () => {
+  it('leaves the rare bonus out of the text, search and helping unless choosing a rare copy', () => {
+    const normal = buildFiligreeGroups(FILIGREES, { ...base, rare: false, isTracked: name => name === 'Physical Sheltering' });
+    const dexterity = normal.groups.flatMap(group => group.entries).find(entry => entry.name === 'Celerity: Dexterity')!;
+
+    expect(dexterity.rareText).toBe('');
+    expect(dexterity.relevant).toBe(false);
+    expect(buildFiligreeGroups(FILIGREES, { ...base, rare: false, search: 'sheltering' }).groups).toEqual([]);
+
+    const rare = buildFiligreeGroups(FILIGREES, { ...base, rare: true, isTracked: name => name === 'Physical Sheltering' });
+    expect(rare.groups[0].entries[0]).toEqual(expect.objectContaining({
+      name: 'Celerity: Dexterity', rareText: 'Physical Sheltering +2', relevant: true, className: 'Best',
+    }));
+  });
+
+  it('searches names and bonuses, rare ones included for a rare copy', () => {
     expect(summary(buildFiligreeGroups(FILIGREES, { ...base, search: 'sheltering' }).groups))
       .toEqual(['Celerity: Dexterity']);
     expect(summary(buildFiligreeGroups(FILIGREES, { ...base, search: 'zephyr' }).groups))

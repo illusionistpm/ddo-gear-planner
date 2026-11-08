@@ -15,7 +15,7 @@
           [attr.aria-pressed]="mode === 'bonus'" (click)="setMode('bonus')">By bonus</button>
     </div>
     <label class="filigree-picker-check">
-      <input type="checkbox" [checked]="rare" (change)="rare = $any($event.target).checked" />
+      <input type="checkbox" [checked]="rare" (change)="onRare($any($event.target).checked)" />
       Rare copy
     </label>
     <label class="filigree-picker-check">
@@ -41,9 +41,6 @@
             <span class="filigree-picker-entry-affixes" [class.filigree-struck]="entry.duplicate">{{entry.affixText}}</span>
             @if (entry.rareText) {
               <span class="filigree-picker-entry-rare" [class.filigree-struck]="entry.duplicate">Rare: {{entry.rareText}}</span>
-            }
-            @if (mode === 'bonus' || entry.setText.includes(' / ')) {
-              <span class="filigree-picker-entry-set">{{entry.setText}}</span>
             }
             @if (entry.duplicate) {
               <span class="filigree-picker-entry-note">Already slotted here: set piece only</span>

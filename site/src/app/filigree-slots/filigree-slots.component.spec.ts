@@ -72,8 +72,10 @@ describe('FiligreeSlotsComponent', () => {
     const element = render('weapon');
     expand(element);
 
+    // The checked Rare box marks the rare copy; the name doesn't repeat it.
+    expect(element.querySelector<HTMLInputElement>('.filigree-slot-rare input')!.checked).toBe(true);
     expect(rowTexts(element)).toEqual([
-      '1 | Celerity: Dexterity (Rare) | Dexterity +1, Physical Sheltering +2',
+      '1 | Celerity: Dexterity | Dexterity +1, Physical Sheltering +2',
       '2 | Empty slot',
       '3 | Empty slot',
     ]);

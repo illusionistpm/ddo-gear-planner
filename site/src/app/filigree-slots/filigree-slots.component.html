@@ -25,7 +25,7 @@
               <span class="filigree-slot-number">{{row.index + 1}}</span>
               @if (row.choice) {
                 <span class="filigree-slot-text">
-                  <span class="filigree-slot-name">{{row.choice.name}}@if (row.choice.rare) {<span class="filigree-slot-rare-mark"> (Rare)</span>}</span>
+                  <span class="filigree-slot-name">{{row.choice.name}}</span>
                   <span class="filigree-slot-affixes" [class.filigree-struck]="row.duplicate">{{row.affixText}}</span>
                   @if (row.duplicate) {
                     <span class="filigree-slot-note">Duplicate: set piece only</span>

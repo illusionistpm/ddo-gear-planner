@@ -69,6 +69,11 @@ export class FiligreePickerComponent implements OnChanges, AfterViewInit {
     this.refresh();
   }
 
+  onRare(rare: boolean) {
+    this.rare = rare;
+    this.refresh();
+  }
+
   onHideIrrelevant(hide: boolean) {
     this.hideIrrelevant = hide;
     storeHideIrrelevantFiligree(hide);
@@ -111,6 +116,7 @@ export class FiligreePickerComponent implements OnChanges, AfterViewInit {
       inHost,
       search: this.search,
       hideIrrelevant: this.hideIrrelevant,
+      rare: this.rare,
       current: this.current?.name,
     });
     this.groups = groups;
@@ -129,7 +135,8 @@ export class FiligreePickerComponent implements OnChanges, AfterViewInit {
         sets: raw.sets,
         affixes: filigreeAffixes(raw, false),
         rareAffixes: filigreeAffixes({ ...raw, affixes: [] }, true),
-        bonusNames: names(filigreeAffixes(raw, true)),
+        ownBonusNames: names(filigreeAffixes(raw, false)),
+        rareBonusNames: names(filigreeAffixes({ ...raw, affixes: [] }, true)),
         setBonusNames: names(setBonuses),
       };
     });

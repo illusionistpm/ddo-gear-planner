@@ -266,12 +266,12 @@ describe('AffixPickerComponent', () => {
   const panelHeadings = () => Array.from((fixture.nativeElement as HTMLElement).querySelectorAll('.affix-panel h3'))
     .map(heading => heading.textContent?.trim());
 
-  it('puts the affix search first, and the rows packages reveal right under Build Packages', () => {
+  it('puts the rows packages reveal right under Build Packages, and the affix search last', () => {
     component.addPackage('Melee');
     component.addPackage('Caster');
     refreshView();
 
-    expect(panelHeadings()).toEqual(['Find an affix', 'Build Packages', 'Tactics', 'Spell Power', 'Spell Schools', 'Core Stats']);
+    expect(panelHeadings()).toEqual(['Build Packages', 'Tactics', 'Spell Power', 'Spell Schools', 'Key Attributes', 'Find an affix']);
   });
 
   it('says under the search what a pick did', () => {

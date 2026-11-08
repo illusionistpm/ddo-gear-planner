@@ -6,6 +6,7 @@ import time
 from pathlib import Path
 from urllib.parse import urljoin, urlparse, parse_qs
 
+from filigree_pages import FILIGREE_PAGE, get_filigree_subpages
 from parse_quests import get_expansion_pack_pages_from_category
 from source_packs import DEVICE_PAGES_DIR, get_crafting_devices_from_category, get_missing_devices, load_source_packs
 from normalize_wiki_html import normalize_wiki_html
@@ -279,6 +280,21 @@ def download_minor_artifacts_page(session=None):
     download_page('Category:Minor_Artifacts', pageDir, session=session)
 
 
+def download_filigree_pages(session=None):
+    pageDir = get_snapshot_path('filigree')
+    if not os.path.exists(pageDir):
+        os.makedirs(pageDir)
+
+    download_page(FILIGREE_PAGE, pageDir, session=session)
+
+    filigree_path = os.path.join(pageDir, FILIGREE_PAGE.replace('/', '_') + '.html')
+    if not os.path.exists(filigree_path):
+        return
+    filigree_page = open(filigree_path, 'r', encoding='utf-8').read()
+    for page in get_filigree_subpages(BeautifulSoup(filigree_page, 'html.parser')):
+        download_page(page, pageDir, session=session)
+
+
 def download_set_page(session=None):
     pageDir = get_snapshot_path('sets')
     if not os.path.exists(pageDir):
@@ -372,6 +388,7 @@ def download_wiki_pages():
     download_rare_loot_pages(session=session)
     download_vota_pages(session=session)
     download_minor_artifacts_page(session=session)
+    download_filigree_pages(session=session)
     download_set_page(session=session)
     download_item_augments_page(session=session)
     download_quest_pages(session=session)

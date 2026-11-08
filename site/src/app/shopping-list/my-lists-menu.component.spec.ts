@@ -11,7 +11,7 @@ import { MenuBackdropComponent } from '../menu-backdrop/menu-backdrop.component'
 import { MyListsMenuComponent } from './my-lists-menu.component';
 
 const list = (shortId: string, name: string, overrides: Partial<GroupSummary> = {}): GroupSummary => ({
-  shortId, name, inviteToken: `tok-${shortId}`, isHost: false, buildCount: 2, yourBuildIds: [], updatedAt: '', ...overrides
+  shortId, name, inviteToken: `tok-${shortId}`, isHost: false, buildCount: 2, yourBuildIds: [], characterNames: [], updatedAt: '', ...overrides
 });
 
 describe('MyListsMenuComponent', () => {
@@ -60,9 +60,13 @@ describe('MyListsMenuComponent', () => {
     expect(button()).toBeNull();
   });
 
-  it('on your build\'s list, checks it above yours of several builds, each with its builds and whether you host it, reading them again as it opens', () => {
+  it('on your build\'s list, checks it above yours of several builds, each with who\'s on it and whether you host it, reading them again as it opens', () => {
     fixture.detectChanges();
-    arrive([list('a', 'Raid night', { isHost: true, buildCount: 3 }), list('b', 'Alts', { buildCount: 1 })]);
+    arrive([
+      list('a', 'Raid night', { isHost: true, buildCount: 3, characterNames: ['Kira', 'Thane', 'Vex'] }),
+      // From a Worker that doesn't name them: how many there are.
+      list('b', 'Alts', { buildCount: 1 })
+    ]);
     expect(button()!.textContent).toContain('2');
 
     button()!.click();
@@ -70,8 +74,23 @@ describe('MyListsMenuComponent', () => {
 
     expect(refresh).toHaveBeenCalled();
     expect(items().map(item => [item.querySelector('.lists-menu-name')?.textContent, item.querySelector('.lists-menu-meta')?.textContent]))
-      .toEqual([['Tank', 'this build'], ['Raid night', '3 builds · host'], ['Alts', '1 build']]);
+      .toEqual([['Tank', 'this build'], ['Raid night', 'Kira, Thane, Vex · host'], ['Alts', '1 build']]);
     expect(checked()).toEqual(['Tank']);
+  });
+
+  it('marks the lists other people are on as group runs, saying how', () => {
+    fixture.detectChanges();
+    arrive([
+      list('mine', 'Alts', { isHost: true, buildCount: 2, yourBuildIds: ['b1', 'b2'] }),
+      list('hosted', 'Raid night', { isHost: true, buildCount: 3, yourBuildIds: ['b1'] }),
+      list('theirs', 'Their run', { isHost: false, buildCount: 2, yourBuildIds: ['b3'] })
+    ]);
+    button()!.click();
+    fixture.detectChanges();
+
+    expect(items().map(item => item.querySelector('.lists-menu-group-run')?.getAttribute('title') ?? null)).toEqual([
+      null, null, 'Group run: friends\' builds are on it', 'Group run: hosted by a friend'
+    ]);
   });
 
   it('goes to the list chosen, and closes', () => {

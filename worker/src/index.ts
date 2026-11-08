@@ -19,6 +19,7 @@ import {
   handleListMyGroups,
   handlePutGroupRoute,
   handleRemoveGroupBuild,
+  handleRenameGroup,
   handleRenameGroupBuild,
   handleRotateGroupInvite
 } from './routes/groups';
@@ -221,6 +222,9 @@ async function routeGroups(request: Request, env: Env, waiter: Waiter): Promise<
   const groupMatch = GROUP_PATH.exec(pathname);
   if (groupMatch && groupMatch[1] !== 'mine' && method === 'DELETE') {
     return authed(user => handleDeleteGroup(groupMatch[1], user, env, waiter), true);
+  }
+  if (groupMatch && groupMatch[1] !== 'mine' && method === 'PATCH') {
+    return authed(user => handleRenameGroup(request, groupMatch[1], user, env, waiter), true);
   }
   return null;
 }

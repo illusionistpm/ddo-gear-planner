@@ -13,6 +13,7 @@ import {
   handleListMyGroups,
   handlePutGroupRoute,
   handleRemoveGroupBuild,
+  handleRenameGroup,
   handleRenameGroupBuild,
   handleRotateGroupInvite,
   MAX_GROUP_BUILDS,
@@ -294,6 +295,22 @@ describe('group runs', () => {
       expect((await add(shortId, fresh, friend, 'b-friend', 'Vex')).status).toBe(201);
     });
 
+    it('lets the host rename it, and tells its watchers', async () => {
+      const { shortId } = await created();
+      const rename = (user: AuthenticatedUser, name: unknown) =>
+        handleRenameGroup(json(`/api/groups/${shortId}`, { name }, 'PATCH'), shortId, user, made.env, waiter);
+
+      expect((await rename(friend, 'Mine now')).status).toBe(403);
+      expect((await rename(host, '   ')).status).toBe(400);
+      expect((await rename(host, 'x'.repeat(61))).status).toBe(400);
+      const response = await rename(host, '  Saturday raid ');
+
+      expect(response.status).toBe(200);
+      expect(await bodyOf(response)).toEqual({ name: 'Saturday raid' });
+      expect(made.db.groups[0].name).toBe('Saturday raid');
+      expect((await groupSent(shortId)).map(message => message.kind === 'group' && message.name)).toEqual(['Saturday raid']);
+    });
+
     it('lets the host end it, leaving the builds as they were', async () => {
       const { shortId } = await created();
 
@@ -325,11 +342,14 @@ describe('group runs', () => {
       const forFriend = await (await handleListMyGroups(friend, made.env)).json();
       const forStranger = await (await handleListMyGroups(stranger, made.env)).json();
 
+      // Characters in the order they joined; these two joined at the same moment, so by build id.
       expect(forHost).toEqual([
-        { shortId, name: 'Reaper night', inviteToken: token, isHost: true, buildCount: 2, yourBuildIds: ['b-host1'], updatedAt: NOW }
+        { shortId, name: 'Reaper night', inviteToken: token, isHost: true, buildCount: 2, yourBuildIds: ['b-host1'],
+          characterNames: ['Vex', 'Kira'], updatedAt: NOW }
       ]);
       expect(forFriend).toEqual([
-        { shortId, name: 'Reaper night', inviteToken: token, isHost: false, buildCount: 2, yourBuildIds: ['b-friend'], updatedAt: NOW }
+        { shortId, name: 'Reaper night', inviteToken: token, isHost: false, buildCount: 2, yourBuildIds: ['b-friend'],
+          characterNames: ['Vex', 'Kira'], updatedAt: NOW }
       ]);
       expect(forStranger).toEqual([]);
       expect(made.db.groups).toHaveLength(1);

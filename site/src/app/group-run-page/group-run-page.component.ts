@@ -1,42 +1,34 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom, Subscription } from 'rxjs';
 
-import { BuildSummary } from '../build/build';
 import { BuildsService } from '../build/builds.service';
 import {
-  addBuildsOf, characterNameFor, groupBuildFailureOf, groupPath, GroupsService, inviteTokenOf, MAX_CHARACTER_NAME_LENGTH, MAX_GROUP_BUILDS
+  addBuildsOf, groupPath, GroupsService, inviteTokenOf, inviteUrlOf, MAX_GROUP_BUILDS, MAX_LIST_NAME_LENGTH
 } from '../build/groups.service';
 import { ListReturnService } from '../build/list-return.service';
 import { MyListsService } from '../build/my-lists.service';
-import { GroupRunService, GroupRunView } from '../planner/shopping-list/group-run.service';
+import { GroupCharacter, GroupRunService, GroupRunView } from '../planner/shopping-list/group-run.service';
 import { ShoppingProgressStore } from '../planner/shopping-list/shopping-progress-store';
 import { UserGearService } from '../planner/user-gear.service';
 import { AnalyticsService } from '../shared/analytics.service';
 import { PageChromeBack } from '../page-chrome/page-chrome.component';
 import { AuthService } from '../shared/auth.service';
 import { Clipboard } from '../shared/clipboard';
+import { BuildChoice, buildChoicesOf } from '../shopping-list/build-choices.component';
+import { GroupBuildEditor } from '../shopping-list/group-build-editor';
 
 const SITE_TITLE = 'DDO Gear Planner';
-
-/** One of your saved builds, in the Add builds panel. */
-interface BuildChoice {
-  build: BuildSummary;
-  /** The character name it's in the group as, or would be added as. */
-  characterName: string;
-  inGroup: boolean;
-  busy: boolean;
-  error: string | null;
-}
 
 /**
  * A shopping list of several builds, at /list/:shortId#t=<invite token>
  * (`&add` opens Add builds): yours and friends', shopped for as one list,
  * each row saying which characters it's for. Anyone with the link watches
  * it live; signed in, they add their own saved builds and tick their own
- * characters' rows off. The host also arranges the shared route, replaces
- * the link, and ends the list.
+ * characters' rows off. The host also arranges the shared route, takes
+ * other people's builds off (in Manage builds), and from the menu at the
+ * end of the Lists pill renames the list, replaces the link, and ends it.
  *
  * Like the still-needed page, it reads the builds itself and leaves the
  * planner as it was: its Planner link goes back to it.
@@ -44,7 +36,10 @@ interface BuildChoice {
 @Component({
   selector: 'app-group-run-page',
   templateUrl: './group-run-page.component.html',
-  styleUrls: ['../still-needed-page/still-needed-page.component.css', './group-run-page.component.css'],
+  styleUrls: [
+    '../still-needed-page/still-needed-page.component.css', '../shared/pill-button.css', '../shared/list-dialog-parts.css',
+    './group-run-page.component.css'
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [GroupRunService],
   standalone: false
@@ -53,7 +48,7 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
   /** The header's way back: the planner, as it was before this page. */
   readonly plannerLink: PageChromeBack;
   readonly maxBuilds = MAX_GROUP_BUILDS;
-  readonly maxNameLength = MAX_CHARACTER_NAME_LENGTH;
+  readonly maxListNameLength = MAX_LIST_NAME_LENGTH;
   run: GroupRunView | null = null;
   shortId = '';
   token: string | null = null;
@@ -66,11 +61,19 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
   hostMenuOpen = false;
   /** Asking the host to confirm ending the group. */
   confirmingEnd = false;
+  /** The other person's build the host is asked to confirm taking off; null for none. */
+  confirmingRemove: string | null = null;
+  /** Taking another person's build off failed: why. */
+  othersError: string | null = null;
+  /** The name the host is renaming the list to; null when not renaming. */
+  newName: string | null = null;
   copied = false;
   /** Said once a host action fails. */
   actionError: string | null = null;
   private readonly subscriptions = new Subscription();
   private copiedTimeout?: ReturnType<typeof setTimeout>;
+  /** Adds, takes off and renames your builds' characters, once the page has a link to the list. */
+  private editor: GroupBuildEditor | null = null;
   /** The link asked for Add builds: opened once signed in. */
   private addWanted = false;
 
@@ -113,6 +116,8 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
       return;
     }
     this.analytics.track('open_group_run', {});
+    this.editor = new GroupBuildEditor(this.groups, this.analytics, { shortId: this.shortId, inviteToken: this.token },
+      () => this.groupRun.refreshViewer());
     this.groupRun.open(this.shortId, this.token);
     this.subscriptions.add(this.groupRun.view$.subscribe(run => {
       this.run = run;
@@ -133,7 +138,7 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
   }
 
   get inviteUrl(): string {
-    return `${window.location.origin}${groupPath(this.shortId, this.token ?? '')}`;
+    return inviteUrlOf(this.shortId, this.token ?? '');
   }
 
   get full(): boolean {
@@ -154,12 +159,11 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
     this.auth.signIn();
   }
 
-  @HostListener('document:keydown.escape')
   closeAdding(): void {
-    if (this.adding) {
-      this.adding = false;
-      this.cdr.markForCheck();
-    }
+    this.adding = false;
+    this.confirmingRemove = null;
+    this.othersError = null;
+    this.cdr.markForCheck();
   }
 
   toggleAdding(): void {
@@ -174,7 +178,7 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
     this.choicesError = null;
     this.builds.listMine().subscribe({
       next: builds => {
-        this.choices = builds.map(build => ({ build, characterName: characterNameFor(build.name), inGroup: false, busy: false, error: null }));
+        this.choices = buildChoicesOf(builds);
         this.syncChoices();
         this.cdr.markForCheck();
       },
@@ -185,85 +189,55 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  /** Marks the builds the group has, with the names they're in it as. */
+  /**
+   * Marks the builds the group has, with the names they're on it as. A row
+   * mid-change is left as it is (its tick shows the change ahead of the
+   * group), and so is a name being typed.
+   */
   private syncChoices(): void {
     const members = new Map((this.groupRun.group?.members ?? []).map(member => [member.buildId, member.characterName]));
     for (const choice of this.choices ?? []) {
+      if (choice.busy) {
+        continue;
+      }
       const name = members.get(choice.build.id);
-      if (name !== undefined && !choice.inGroup) {
-        // Just added, here or elsewhere: show the name it's in the group as.
+      if (name !== undefined && choice.characterName === choice.savedName) {
+        // Added or renamed, here or elsewhere: show the name it's on the list as.
         choice.characterName = name;
       }
+      choice.savedName = name ?? choice.savedName;
       choice.inGroup = name !== undefined;
     }
   }
 
-  setCharacterName(choice: BuildChoice, value: string): void {
-    choice.characterName = value;
-    choice.error = null;
+  /** A row's tick: puts your build on the list, or takes it off. */
+  async toggleBuild(choice: BuildChoice, on: boolean): Promise<void> {
+    await this.editor?.toggle(choice, on);
+    this.cdr.markForCheck();
   }
 
-  async addBuild(choice: BuildChoice): Promise<void> {
-    const characterName = choice.characterName.trim();
-    if (!characterName || !this.token) {
-      choice.error = 'Give the character a name.';
-      return;
-    }
-    await this.groupBuildCall(choice, () => this.groups.addBuild(this.shortId, this.token ?? '', { buildId: choice.build.id, characterName }),
-      'add_group_build');
-  }
-
+  /** A row's character name, once you've stopped typing it. */
   async renameBuild(choice: BuildChoice): Promise<void> {
-    const characterName = choice.characterName.trim();
-    if (!characterName) {
-      choice.error = 'Give the character a name.';
-      return;
-    }
-    await this.groupBuildCall(choice, () => this.groups.renameBuild(this.shortId, choice.build.id, characterName), 'rename_group_build');
+    await this.editor?.rename(choice);
+    this.cdr.markForCheck();
   }
 
-  async removeBuild(buildId: string, choice?: BuildChoice): Promise<void> {
-    if (choice) {
-      choice.busy = true;
-    }
-    this.actionError = null;
+  /** Other people's builds on the list, for the host to take off in Manage builds. */
+  get others(): GroupCharacter[] {
+    return (this.run?.characters ?? []).filter(character => !character.mine);
+  }
+
+  /** The host takes someone else's build off the list, once they've confirmed it. */
+  async removeBuild(buildId: string): Promise<void> {
+    this.othersError = null;
     try {
       await firstValueFrom(this.groups.removeBuild(this.shortId, buildId));
-      this.analytics.track('remove_group_build', { own: !!choice });
+      this.analytics.track('remove_group_build', { own: false });
       this.groupRun.refreshViewer();
     } catch {
-      this.actionError = 'Couldn\'t take that build out. Please try again.';
+      this.othersError = 'Couldn\'t take that build off. Please try again.';
     } finally {
-      if (choice) {
-        choice.busy = false;
-      }
-      this.cdr.markForCheck();
-    }
-  }
-
-  private async groupBuildCall(choice: BuildChoice, call: () => ReturnType<GroupsService['addBuild']>, event: string): Promise<void> {
-    choice.busy = true;
-    choice.error = null;
-    try {
-      await firstValueFrom(call());
-      this.analytics.track(event, {});
-      this.groupRun.refreshViewer();
-    } catch (error) {
-      switch (groupBuildFailureOf(error)) {
-        case 'name-taken':
-          choice.error = 'A character on this list already has that name.';
-          break;
-        case 'full':
-          choice.error = `A list holds up to ${this.maxBuilds} builds.`;
-          break;
-        case 'already-in':
-          choice.error = 'That build is on this list already.';
-          break;
-        default:
-          choice.error = 'Couldn\'t save that. Please try again.';
-      }
-    } finally {
-      choice.busy = false;
+      this.confirmingRemove = null;
       this.cdr.markForCheck();
     }
   }
@@ -271,12 +245,32 @@ export class GroupRunPageComponent implements OnInit, OnDestroy {
   toggleHostMenu(): void {
     this.hostMenuOpen = !this.hostMenuOpen;
     this.confirmingEnd = false;
+    this.newName = null;
     this.adding = false;
   }
 
   closeHostMenu(): void {
     this.hostMenuOpen = false;
     this.confirmingEnd = false;
+    this.newName = null;
+  }
+
+  /** Renames the list; everyone watching sees the new name as the group arrives again. */
+  async renameList(): Promise<void> {
+    const name = this.newName?.trim();
+    if (!name) {
+      return;
+    }
+    this.actionError = null;
+    try {
+      await firstValueFrom(this.groups.rename(this.shortId, name));
+      this.analytics.track('rename_group', {});
+      this.closeHostMenu();
+    } catch {
+      this.actionError = 'Couldn\'t rename the list. Please try again.';
+    } finally {
+      this.cdr.markForCheck();
+    }
   }
 
   /** A new invite link: the old one stops working, and everyone watching through it is disconnected. */

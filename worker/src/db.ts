@@ -472,6 +472,8 @@ export interface GroupSummaryRow {
   progress_at: string | null;
   /** The user's own builds in it, comma-separated (build ids are UUIDs); null when none are. */
   your_build_ids: string | null;
+  /** Its characters' names as a JSON array, in the order they joined; null when it has none. */
+  character_names: string | null;
 }
 
 /**
@@ -531,7 +533,9 @@ export async function listGroupsForUser(db: D1Database, userId: string): Promise
        (SELECT MAX(p.updated_at) FROM group_builds pb JOIN build_progress p ON p.build_id = pb.build_id
          WHERE pb.group_id = g.id) AS progress_at,
        (SELECT GROUP_CONCAT(yb.build_id) FROM group_builds yb JOIN builds ybb ON ybb.id = yb.build_id
-         WHERE yb.group_id = g.id AND ybb.owner_user_id = ?) AS your_build_ids
+         WHERE yb.group_id = g.id AND ybb.owner_user_id = ?) AS your_build_ids,
+       (SELECT json_group_array(n.character_name) FROM (SELECT character_name FROM group_builds
+         WHERE group_id = g.id ORDER BY added_at, build_id) n) AS character_names
      FROM groups g
      WHERE g.host_user_id = ?
        OR EXISTS (SELECT 1 FROM group_builds m JOIN builds mb ON mb.id = m.build_id WHERE m.group_id = g.id AND mb.owner_user_id = ?)
@@ -601,6 +605,10 @@ export async function updateGroupRouteIfUnchanged(
     'UPDATE groups SET picks = ?, route_order = ?, updated_at = ? WHERE id = ? AND updated_at = ? AND updated_at <= ?'
   ).bind(route.picks, route.route_order, route.updated_at, groupId, condition.baseUpdatedAt, condition.notAfter).run();
   return (result.meta.changes ?? 0) > 0;
+}
+
+export async function updateGroupName(db: D1Database, groupId: string, name: string, now: string): Promise<void> {
+  await db.prepare('UPDATE groups SET name = ?, updated_at = ? WHERE id = ?').bind(name, now, groupId).run();
 }
 
 export async function updateGroupInviteToken(db: D1Database, groupId: string, token: string, now: string): Promise<void> {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -17,7 +17,22 @@ export interface ListsMenuEntry {
   current: boolean;
   /** Your build's own list, as against one of several builds. */
   own: boolean;
+  /** Other people are on it - a group run - and how, to say so; null for a list of only yours. */
+  group: string | null;
   url: string;
+}
+
+/** Who's on a list, so lists with the same name can be told apart: its characters, or failing those how many builds. */
+function listMembersOf(list: GroupSummary): string {
+  return list.characterNames.length ? list.characterNames.join(', ') : `${list.buildCount} build${list.buildCount === 1 ? '' : 's'}`;
+}
+
+/** Whether other people are on a list, and how: a list you host with friends' builds on it, or someone else's. */
+function groupRunOf(list: GroupSummary): string | null {
+  if (!list.isHost) {
+    return 'Group run: hosted by a friend';
+  }
+  return list.buildCount > list.yourBuildIds.length ? 'Group run: friends\' builds are on it' : null;
 }
 
 /**
@@ -30,13 +45,22 @@ export interface ListsMenuEntry {
 @Component({
   selector: 'app-my-lists-menu',
   templateUrl: './my-lists-menu.component.html',
-  styleUrls: ['../shared/share-menu.css', './my-lists-menu.component.css'],
+  styleUrls: ['../shared/share-menu.css', '../shared/pill-button.css', './my-lists-menu.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false
 })
 export class MyListsMenuComponent implements OnInit, OnDestroy {
   /** The list on screen; null on your own build's list. */
   @Input() currentShortId: string | null = null;
+  /**
+   * The list on screen is yours to manage: an icon-only end to the Lists
+   * pill opens your menu for it, which goes in `[listsMenuManage]`. Shown
+   * with or without Lists.
+   */
+  @Input() manage = false;
+  /** That menu is open. */
+  @Input() manageOpen = false;
+  @Output() readonly manageToggle = new EventEmitter<void>();
 
   open = false;
   private lists: readonly GroupSummary[] = [];
@@ -70,16 +94,17 @@ export class MyListsMenuComponent implements OnInit, OnDestroy {
     if (onOwn || (this.listReturn.hasPlanner && !this.equipped.isBuildEmpty())) {
       entries.push({
         key: '', name: this.currentBuild.value.name || 'Your build', meta: 'this build',
-        current: onOwn, own: true, url: this.listReturn.listUrl
+        current: onOwn, own: true, group: null, url: this.listReturn.listUrl
       });
     }
     for (const list of this.lists) {
       entries.push({
         key: list.shortId,
         name: list.name || 'Shopping list',
-        meta: `${list.buildCount} build${list.buildCount === 1 ? '' : 's'}${list.isHost ? ' · host' : ''}`,
+        meta: `${listMembersOf(list)}${list.isHost ? ' · host' : ''}`,
         current: list.shortId === this.currentShortId,
         own: false,
+        group: groupRunOf(list),
         url: groupPath(list.shortId, list.inviteToken)
       });
     }

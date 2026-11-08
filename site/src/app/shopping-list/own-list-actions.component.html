@@ -1,6 +1,6 @@
 @if (hasItems) {
   <div class="list-action-wrap">
-    <button type="button" class="list-action" [attr.aria-expanded]="shareOpen" (click)="toggleShare()"
+    <button type="button" class="pill-button list-action" [attr.aria-expanded]="shareOpen" (click)="toggleShare()"
       title="Share what's still needed with friends">
       <i class="fas fa-share-nodes" aria-hidden="true"></i>
       <span>Share</span>
@@ -11,36 +11,124 @@
   </div>
 }
 <div class="list-action-wrap">
-  <button type="button" class="list-action list-action-add" [attr.aria-expanded]="needs !== null" [disabled]="starting"
-    (click)="addBuilds()" title="Shop for your other builds, and friends', on one list">
-    <i class="fas fa-user-plus" aria-hidden="true"></i>
-    <span>{{starting ? 'Starting…' : 'Add builds'}}</span>
+  <button type="button" class="pill-button list-action list-action-add" [attr.aria-expanded]="needs?.action === 'add' || dialog === 'add'"
+    (click)="open('add')" title="Shop for several of your builds on one list">
+    <i class="fas fa-layer-group" aria-hidden="true"></i>
+    <span>Add builds</span>
   </button>
-  @if (needs) {
-    <div class="share-menu add-builds-needs" role="dialog" aria-label="What adding builds takes">
-      @switch (needs) {
-        @case ('sign-in') {
-          <span class="share-menu-note">Sign in to add your other saved builds, and friends', to this list.</span>
-          <button type="button" class="share-menu-item" (click)="signIn()">Sign in</button>
-        }
-        @case ('save') {
-          <span class="share-menu-note">Save this build first: a list of several builds holds saved builds.</span>
-          <button type="button" class="share-menu-item" (click)="backToPlanner()">Back to the planner to save</button>
-        }
-        @case ('save-copy') {
-          <span class="share-menu-note">This build isn't yours. Save a copy of it first to put it on a list with your others.</span>
-          <button type="button" class="share-menu-item" (click)="backToPlanner()">Back to the planner to save</button>
-        }
-        @case ('save-changes') {
-          <span class="share-menu-note">Save your changes first: the list holds the build as saved.</span>
-          <button type="button" class="share-menu-item" (click)="backToPlanner()">Back to the planner to save</button>
-        }
-      }
-    </div>
-    <app-menu-backdrop (dismiss)="needs = null"></app-menu-backdrop>
+  @if (needs?.action === 'add') {
+    <ng-container *ngTemplateOutlet="needsMenu"></ng-container>
+  }
+</div>
+<div class="list-action-wrap">
+  <button type="button" class="pill-button list-action list-action-invite" [attr.aria-expanded]="needs?.action === 'invite' || dialog === 'invite'"
+    (click)="open('invite')" title="Shop together with friends: they add their builds to a live list">
+    <i class="fas fa-user-plus" aria-hidden="true"></i>
+    <span>Invite friends</span>
+  </button>
+  @if (needs?.action === 'invite') {
+    <ng-container *ngTemplateOutlet="needsMenu"></ng-container>
   }
 </div>
 <app-my-lists-menu></app-my-lists-menu>
-@if (error) {
-  <span class="list-action-error" role="alert">{{error}}</span>
+
+<ng-template #needsMenu>
+  <div class="share-menu add-builds-needs" role="dialog" aria-label="What this takes first">
+    @switch (needs?.what) {
+      @case ('sign-in') {
+        <span class="share-menu-note">Sign in to put this build on a list with your other saved builds, or friends'.</span>
+        <button type="button" class="share-menu-item" (click)="signIn()">Sign in</button>
+      }
+      @case ('save') {
+        <span class="share-menu-note">Save this build first: a list of several builds holds saved builds.</span>
+        <button type="button" class="share-menu-item" (click)="backToPlanner()">Back to the planner to save</button>
+      }
+      @case ('save-copy') {
+        <span class="share-menu-note">This build isn't yours. Save a copy of it first to put it on a list with others.</span>
+        <button type="button" class="share-menu-item" (click)="backToPlanner()">Back to the planner to save</button>
+      }
+      @case ('save-changes') {
+        <span class="share-menu-note">Save your changes first: the list holds the build as saved.</span>
+        <button type="button" class="share-menu-item" (click)="backToPlanner()">Back to the planner to save</button>
+      }
+    }
+  </div>
+  <app-menu-backdrop (dismiss)="needs = null"></app-menu-backdrop>
+</ng-template>
+
+<ng-template #listNameField>
+  <label class="list-dialog-field">
+    <span class="list-dialog-label">The list's name</span>
+    <input type="text" class="list-dialog-input own-list-name" [value]="listName" [attr.maxlength]="maxListNameLength" required
+      (input)="typedName = $any($event.target).value; error = null">
+  </label>
+</ng-template>
+
+@if (dialog === 'add') {
+  <app-list-dialog heading="Add builds" (closed)="close()">
+    @if (target; as list) {
+      <p class="list-dialog-note">
+        This build is on <strong>{{list.name}}</strong>. Tick your builds to put them on it, or untick them to take them off.
+        <button type="button" class="list-dialog-link" (click)="startNew()">Start a new list instead</button>
+      </p>
+      <app-build-choices mode="manage" [choices]="choices" [loadError]="choicesError" [full]="full" [currentBuildId]="currentBuildId"
+        (ticked)="toggleOnTarget($event.choice, $event.on)" (rename)="renameOnTarget($event)"></app-build-choices>
+      <div class="list-dialog-actions">
+        <button type="button" class="pill-button primary" (click)="goToList()">Go to the list</button>
+      </div>
+    } @else {
+      <form (submit)="$event.preventDefault(); startPicked()">
+        <p class="list-dialog-note">Tick the builds to shop for together, on a list of their own. Only you add to it.</p>
+        <ng-container *ngTemplateOutlet="listNameField"></ng-container>
+        <app-build-choices mode="pick" [choices]="choices" [loadError]="choicesError" [full]="full" [currentBuildId]="currentBuildId">
+        </app-build-choices>
+        <div class="list-dialog-actions">
+          <button type="submit" class="pill-button primary" [disabled]="busy || !pickedCount">{{busy ? 'Starting…' : 'Start the list'}}</button>
+          @if (error) {
+            <p class="list-dialog-error" role="alert">{{error}}</p>
+          }
+        </div>
+      </form>
+    }
+  </app-list-dialog>
+}
+
+@if (dialog === 'invite') {
+  <app-list-dialog heading="Invite friends" (closed)="close()">
+    @if (invite; as list) {
+      <p class="list-dialog-note">
+        Friends with this link add their saved builds to <strong>{{list.name}}</strong>, and you all shop from it together, live.
+        @if (target) {
+          <button type="button" class="list-dialog-link" (click)="startNew()">Start a new list instead</button>
+        }
+      </p>
+      <label class="list-dialog-field">
+        <span class="list-dialog-label">Invite link</span>
+        <input type="text" class="list-dialog-input own-list-invite-url" [value]="inviteUrl" readonly (focus)="$any($event.target).select()">
+      </label>
+      <div class="list-dialog-actions">
+        <button type="button" class="pill-button primary" (click)="copyInvite()">
+          <i class="fas" [class.fa-link]="!copied" [class.fa-check]="copied" aria-hidden="true"></i>
+          <span>{{copied ? 'Copied' : 'Copy invite link'}}</span>
+        </button>
+        <button type="button" class="pill-button" (click)="goToList()">Go to the list</button>
+        @if (error) {
+          <p class="list-dialog-error" role="alert">{{error}}</p>
+        }
+      </div>
+    } @else {
+      <form (submit)="$event.preventDefault(); startInvite()">
+        <p class="list-dialog-note">
+          Starts a list with this build on it. Friends with its link add their builds, and you all shop from it together, live.
+        </p>
+        <ng-container *ngTemplateOutlet="listNameField"></ng-container>
+        <div class="list-dialog-actions">
+          <button type="submit" class="pill-button primary" [disabled]="busy">{{busy ? 'Starting…' : 'Start the list'}}</button>
+          @if (error) {
+            <p class="list-dialog-error" role="alert">{{error}}</p>
+          }
+        </div>
+      </form>
+    }
+  </app-list-dialog>
 }

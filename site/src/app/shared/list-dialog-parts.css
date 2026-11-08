@@ -1,0 +1,103 @@
+/*
+ * What goes in a list dialog (app-list-dialog): notes, labelled fields,
+ * a row of actions along its foot (shared/pill-button.css), and errors. In the styleUrls of each
+ * component that fills one, as its content is styled by whoever projects it.
+ */
+.list-dialog-note {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin: var(--space-4) 0 0;
+}
+
+.list-dialog-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: var(--space-8) 0 0;
+}
+
+.list-dialog-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.list-dialog-input {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-primary);
+  padding: var(--space-2) var(--space-8);
+}
+
+.list-dialog-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin-top: var(--space-12);
+}
+
+.list-dialog-link {
+  background: transparent;
+  border: 0;
+  color: var(--primary-color);
+  font-size: 0.85rem;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.list-dialog-error {
+  color: var(--danger-color);
+  flex-basis: 100%;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* A section of a dialog, under its own small heading. */
+.list-dialog-section {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin: var(--space-16) 0 0;
+  text-transform: uppercase;
+}
+
+/*
+ * Builds in rows, under column headings: a narrow first column (a box, an
+ * icon), the build, its character's name. Every list of builds in a dialog
+ * shares it, so they line up with each other.
+ */
+.build-grid-head,
+.build-grid-row {
+  align-items: center;
+  column-gap: var(--space-8);
+  display: grid;
+  grid-template-columns: 1rem minmax(0, 1fr) minmax(8rem, 11rem);
+}
+
+.build-grid-head {
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-top: var(--space-8);
+  text-transform: uppercase;
+}
+
+.build-grid-rows {
+  list-style: none;
+  margin: var(--space-4) 0 0;
+  padding: 0;
+}
+
+.build-grid-row {
+  border-top: 1px solid var(--border-color);
+  min-height: 2.5rem;
+  padding: var(--space-4) 0;
+  row-gap: var(--space-2);
+}
+
+.build-grid-error {
+  grid-column: 2 / -1;
+}

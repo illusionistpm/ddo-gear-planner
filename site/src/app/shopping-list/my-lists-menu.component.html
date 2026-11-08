@@ -1,23 +1,46 @@
-@if (elsewhere; as count) {
-  <div class="lists-menu-wrap">
-    <button type="button" class="lists-menu-button" [attr.aria-expanded]="open" (click)="toggle()"
-      title="Switch between your build's shopping list and your lists of several builds">
-      <i class="fas fa-list-check" aria-hidden="true"></i>
-      <span>Lists</span>
-      <span class="lists-menu-count" aria-hidden="true">{{count}}</span>
-    </button>
-    @if (open) {
-      <div class="share-menu lists-menu" role="menu" aria-label="Your shopping lists">
-        @for (entry of entries; track entry.key) {
-          <button type="button" role="menuitemradio" class="share-menu-item lists-menu-item"
-            [class.current]="entry.current" [class.own]="entry.own" [attr.aria-checked]="entry.current" (click)="go(entry)">
-            <i class="fas fa-check lists-menu-check" [class.invisible]="!entry.current" aria-hidden="true"></i>
-            <span class="lists-menu-name">{{entry.name}}</span>
-            <span class="lists-menu-meta">{{entry.meta}}</span>
-          </button>
+@if (elsewhere || manage) {
+  <div class="lists-menu-group" [class.joined]="elsewhere && manage">
+    @if (elsewhere; as count) {
+      <div class="lists-menu-wrap">
+        <button type="button" class="pill-button lists-menu-button" [attr.aria-expanded]="open" (click)="toggle()"
+          title="Switch between your build's shopping list and your lists of several builds">
+          <i class="fas fa-list-check" aria-hidden="true"></i>
+          <span>Lists</span>
+          <span class="lists-menu-count" aria-hidden="true">{{count}}</span>
+        </button>
+        @if (open) {
+          <div class="share-menu lists-menu" role="menu" aria-label="Your shopping lists">
+            @for (entry of entries; track entry.key) {
+              <button type="button" role="menuitemradio" class="share-menu-item lists-menu-item"
+                [class.current]="entry.current" [class.own]="entry.own" [attr.aria-checked]="entry.current" (click)="go(entry)">
+                <i class="fas fa-check lists-menu-check" [class.invisible]="!entry.current" aria-hidden="true"></i>
+                <span class="lists-menu-text">
+                  <span class="lists-menu-title">
+                    @if (entry.group) {
+                      <span class="lists-menu-group-run" [title]="entry.group">
+                        <i class="fas fa-user-group" aria-hidden="true"></i>
+                        <span class="visually-hidden">{{entry.group}}:</span>
+                      </span>
+                    }
+                    <span class="lists-menu-name">{{entry.name}}</span>
+                  </span>
+                  <span class="lists-menu-meta" [title]="entry.meta">{{entry.meta}}</span>
+                </span>
+              </button>
+            }
+          </div>
+          <app-menu-backdrop (dismiss)="close()"></app-menu-backdrop>
         }
       </div>
-      <app-menu-backdrop (dismiss)="close()"></app-menu-backdrop>
+    }
+    @if (manage) {
+      <div class="lists-menu-wrap">
+        <button type="button" class="pill-button lists-menu-manage" [attr.aria-expanded]="manageOpen" (click)="manageToggle.emit()"
+          title="Manage this list: rename it, replace its invite link, or end it" aria-label="Manage this list">
+          <i class="fas fa-sliders" aria-hidden="true"></i>
+        </button>
+        <ng-content select="[listsMenuManage]"></ng-content>
+      </div>
     }
   </div>
 }

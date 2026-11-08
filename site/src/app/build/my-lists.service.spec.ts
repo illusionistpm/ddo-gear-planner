@@ -7,7 +7,7 @@ import { GroupsService, GroupSummary } from './groups.service';
 import { MyListsService } from './my-lists.service';
 
 function list(shortId: string, yourBuildIds: string[], updatedAt: string): GroupSummary {
-  return { shortId, name: `List ${shortId}`, inviteToken: 'tok', isHost: true, buildCount: 2, yourBuildIds, updatedAt };
+  return { shortId, name: `List ${shortId}`, inviteToken: 'tok', isHost: true, buildCount: 2, yourBuildIds, characterNames: [], updatedAt };
 }
 
 describe('MyListsService', () => {
@@ -68,6 +68,23 @@ describe('MyListsService', () => {
 
     expect(rejoin).toBeNull();
     expect(TestBed.inject(MyListsService).listFor('b1')).toBeNull();
+  });
+
+  it('knows a list you just started at once, before it\'s read back', () => {
+    const service = TestBed.inject(MyListsService);
+    // The read back hasn't landed yet.
+    listMine.mockReturnValue(of());
+    let lists: readonly GroupSummary[] = [];
+    service.lists$.subscribe(found => lists = found);
+
+    service.added({ shortId: 'fresh', name: 'Kira & Thane', inviteToken: 'tok2' },
+      [{ buildId: 'b9', characterName: 'Kira' }, { buildId: 'b8', characterName: 'Thane' }]);
+
+    expect(lists[0]).toEqual(expect.objectContaining({
+      shortId: 'fresh', name: 'Kira & Thane', isHost: true, buildCount: 2, yourBuildIds: ['b9', 'b8'], characterNames: ['Kira', 'Thane']
+    }));
+    expect(service.listFor('b9')?.shortId).toBe('fresh');
+    expect(listMine).toHaveBeenCalledTimes(2);
   });
 
   it('reads the lists again when asked, only while signed in', () => {

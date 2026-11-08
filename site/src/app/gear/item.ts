@@ -3,6 +3,7 @@ import { AffixService } from '../affixes/affix.service';
 import { Craftable } from './craftable';
 import { CraftableOption } from './craftable-option';
 import { CraftableInit, RawItem } from './game-data-types';
+import { ITEM_BONUS_KINDS, ItemBonuses } from './item-bonus';
 import { getPackKeys } from './pack-filter';
 
 /** Raw item data, optionally with crafting slots given as objects rather than system names. */
@@ -25,6 +26,8 @@ export class Item {
     /** The pack filter keys of its sources (see pack-filter.ts), worked out once. */
     packKeys!: ReadonlyArray<string>;
     artifact!: boolean;
+    /** The Mythic Boost, Reaper bonus and Curse this copy carries. Game data's items carry none. */
+    bonuses: ItemBonuses = {};
 
     rawCrafting: Array<string> = Array<string>();
 
@@ -55,6 +58,8 @@ export class Item {
 
         if (json instanceof Item) {
             this.rawCrafting = json.rawCrafting;
+            // The options are immutable and shared, so copying the map is a full copy.
+            this.bonuses = { ...json.bonuses };
         }
         for (const crafting of json.crafting || []) {
             if (typeof crafting === 'string') {
@@ -122,6 +127,13 @@ export class Item {
                 if (craftable.selected && craftable.selected.affixes) {
                     activeAffixes = activeAffixes.concat(craftable.selected.affixes);
                 }
+            }
+        }
+
+        for (const kind of ITEM_BONUS_KINDS) {
+            const bonus = this.bonuses[kind];
+            if (bonus) {
+                activeAffixes = activeAffixes.concat(bonus.affixes);
             }
         }
 

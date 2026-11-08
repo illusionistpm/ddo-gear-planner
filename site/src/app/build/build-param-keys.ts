@@ -8,6 +8,8 @@
 // assertion is what would have caught the tab/taGroup/taCollapsed
 // view-state gap automatically instead of requiring a manual trace.
 
+import { ITEM_BONUS_KINDS, ItemBonusKind } from '../gear/item-bonus';
+
 // Keys with a fixed, literal name - one per key, independent of loaded game
 // data or item count. Producers and the codec use these constants rather
 // than repeating the literals.
@@ -42,6 +44,7 @@ export const ML_KEY_PREFIX = 'ml_';
 export const CRAFT_KEY_PREFIX = 'craft_';
 
 const ML_KEY_PATTERN = /^ml_(.+)$/;
+const ITEM_BONUS_KEY_PATTERN = new RegExp(`^(${ITEM_BONUS_KINDS.join('|')})_(.+)$`);
 const CRAFT_KEY_PATTERN = /^craft_(\d+)_(slot|system|selected)$/;
 
 /** The minimum-level key for a slot: `ml_Weapon`. */
@@ -56,6 +59,25 @@ export function isMlKey(key: string): boolean {
 export function getMlSlotFromKey(key: string): string | null {
   const match = ML_KEY_PATTERN.exec(key);
   return match ? match[1] : null;
+}
+
+export interface ParsedItemBonusKey {
+  kind: ItemBonusKind;
+  slot: string;
+}
+
+/** The key for the Mythic Boost, Reaper bonus or Curse on a slot's item: `curse_Ring1`. Its value is the option's name. */
+export function itemBonusKey(kind: ItemBonusKind, slot: string): string {
+  return `${kind}_${slot}`;
+}
+
+export function isItemBonusKey(key: string): boolean {
+  return ITEM_BONUS_KEY_PATTERN.test(key);
+}
+
+export function parseItemBonusKey(key: string): ParsedItemBonusKey | null {
+  const match = ITEM_BONUS_KEY_PATTERN.exec(key);
+  return match ? { kind: match[1] as ItemBonusKind, slot: match[2] } : null;
 }
 
 export const CRAFT_KEY_FIELDS = ['slot', 'system', 'selected'] as const;
@@ -93,5 +115,6 @@ export function isBuildParamKey(key: string, slots: ReadonlyArray<string>): bool
   return (FIXED_BUILD_PARAM_KEYS as ReadonlyArray<string>).includes(key)
     || isMlKey(key)
     || isCraftKey(key)
+    || isItemBonusKey(key)
     || slots.includes(key);
 }

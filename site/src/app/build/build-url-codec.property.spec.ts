@@ -51,7 +51,23 @@ function makeRandom(seed: number) {
 
 type Params = Record<string, string | number | boolean | string[]>;
 
-function generate(random: () => number): Params {
+const ITEM_BONUS_NAMES = ['Mythic +4 (Melee/Ranged/Spell Power)', 'Reaper Ring Boost (2)', "Curse of the Anger's Heart"];
+
+/**
+ * Mythic Boosts, Reaper bonuses and Curses on some equipped slots. Drawn from their own stream, so
+ * adding them left the cases the main stream generates as they were.
+ */
+function addItemBonuses(params: Params, random: () => number) {
+  for (const slot of SLOTS.filter(slot => slot in params)) {
+    for (const kind of ['mythic', 'reaper', 'curse']) {
+      if (random() < 0.2) {
+        params[`${kind}_${slot}`] = ITEM_BONUS_NAMES[Math.floor(random() * ITEM_BONUS_NAMES.length)];
+      }
+    }
+  }
+}
+
+function generate(random: () => number, bonusRandom?: () => number): Params {
   const pick = <T>(list: T[]): T => list[Math.floor(random() * list.length)];
   const chance = (p: number) => random() < p;
   const params: Params = {};
@@ -117,6 +133,10 @@ function generate(random: () => number): Params {
       params['filigree'] = JSON.stringify(filigree);
   }
 
+  if (bonusRandom) {
+    addItemBonuses(params, bonusRandom);
+  }
+
   return params;
 }
 
@@ -146,9 +166,10 @@ describe('BuildUrlCodecService round-trip properties', () => {
 
   it('preserves every kept param across encode/decode, for 200 generated builds', () => {
     const random = makeRandom(20260919);
+    const bonusRandom = makeRandom(266);
 
     for (let i = 0; i < 200; i++) {
-      const params = generate(random);
+      const params = generate(random, bonusRandom);
       const decoded = service.decode(service.encode(params));
       const want = expected(params);
       const context = `case ${i}: ${JSON.stringify(params)}`;
@@ -171,9 +192,10 @@ describe('BuildUrlCodecService round-trip properties', () => {
 
   it('is stable: re-encoding a decoded record reproduces it exactly', () => {
     const random = makeRandom(7);
+    const bonusRandom = makeRandom(266);
 
     for (let i = 0; i < 50; i++) {
-      const once = service.decode(service.encode(generate(random)));
+      const once = service.decode(service.encode(generate(random, bonusRandom)));
       const twice = service.decode(service.encode(once ?? {}));
 
       expect(twice, `case ${i}: ${JSON.stringify(once)}`).toEqual(once);

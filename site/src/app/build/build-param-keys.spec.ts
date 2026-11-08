@@ -1,4 +1,7 @@
-import { FIXED_BUILD_PARAM_KEYS, getMlSlotFromKey, isBuildParamKey, isCraftKey, isMlKey, parseCraftKey } from './build-param-keys';
+import {
+  FIXED_BUILD_PARAM_KEYS, getMlSlotFromKey, isBuildParamKey, isCraftKey, isItemBonusKey, isMlKey, itemBonusKey, parseCraftKey,
+  parseItemBonusKey
+} from './build-param-keys';
 
 describe('build-param-keys', () => {
   it('recognizes every fixed key', () => {
@@ -25,6 +28,18 @@ describe('build-param-keys', () => {
 
     expect(parseCraftKey('craft_3_selected')).toEqual({ index: 3, field: 'selected' });
     expect(parseCraftKey('not_a_craft_key')).toBeNull();
+  });
+
+  it('recognizes item bonus keys', () => {
+    expect(itemBonusKey('curse', 'Ring1')).toBe('curse_Ring1');
+    expect(isItemBonusKey('mythic_Weapon')).toBe(true);
+    expect(isItemBonusKey('reaper_Helm')).toBe(true);
+    expect(isItemBonusKey('curse_')).toBe(false);
+    expect(isItemBonusKey('fortune_Helm')).toBe(false);
+    expect(isBuildParamKey('reaper_Helm', [])).toBe(true);
+
+    expect(parseItemBonusKey('curse_Ring1')).toEqual({ kind: 'curse', slot: 'Ring1' });
+    expect(parseItemBonusKey('Weapon')).toBeNull();
   });
 
   it('recognizes data-driven slot names', () => {

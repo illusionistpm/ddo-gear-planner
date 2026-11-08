@@ -1,9 +1,12 @@
-import { CRAFT_KEY_PREFIX, getMlSlotFromKey, isCraftKey, isMlKey, ML_KEY_PREFIX, parseCraftKey } from '../build/build-param-keys';
+import {
+  CRAFT_KEY_PREFIX, getMlSlotFromKey, isCraftKey, isMlKey, ML_KEY_PREFIX, parseCraftKey, parseItemBonusKey, ParsedItemBonusKey
+} from '../build/build-param-keys';
 import type { ParamsAdapter } from '../build/query-params.service';
 import { findAugmentUpgradeForLegacySlot } from '../gear/augment-slots';
 import type { EssenceCraftingService } from '../gear/essence-crafting.service';
 import { canonicalizeCraftingSystemName, GearDbService } from '../gear/gear-db.service';
 import { Item } from '../gear/item';
+import type { ItemBonusService } from '../gear/item-bonus.service';
 
 /** A main hand that leaves no room for an offhand: a two-hander, bar a crossbow. */
 export function emptiesOffhand(mainHand: Item | null): boolean {
@@ -17,7 +20,8 @@ export function limitsOffhandToRuneArms(mainHand: Item | null): boolean {
 
 /**
  * The items a build's params put in each slot: a copy of each item they
- * name, at its minimum level, with its crafting chosen. Every slot is in the
+ * name, at its minimum level, with its crafting chosen and - given
+ * `itemBonuses` - its Mythic Boost, Reaper bonus and Curse. Every slot is in the
  * map, null when empty - including one naming an item the data doesn't
  * have, and an offhand the main hand leaves no room for.
  *
@@ -25,11 +29,13 @@ export function limitsOffhandToRuneArms(mainHand: Item | null): boolean {
  * page reads a build's gear without loading it into the planner.
  */
 export function slotsFromParams(params: ParamsAdapter, gearDb: Pick<GearDbService, 'getSlots' | 'findGearBySlot'>,
-    essenceCrafting: Pick<EssenceCraftingService, 'setItemToML'>): Map<string, Item | null> {
+    essenceCrafting: Pick<EssenceCraftingService, 'setItemToML'>,
+    itemBonuses?: Pick<ItemBonusService, 'find'>): Map<string, Item | null> {
   const slotNames = gearDb.getSlots();
   const slots = new Map<string, Item | null>(slotNames.map(slot => [slot, null]));
   const craftingParams: Array<Record<string, string> | undefined> = [];
   const minLevels = new Map<string, number>();
+  const bonusParams: Array<ParsedItemBonusKey & { name: string }> = [];
 
   for (const key of params.keys) {
     if (isCraftKey(key)) {
@@ -54,6 +60,8 @@ export function slotsFromParams(params: ParamsAdapter, gearDb: Pick<GearDbServic
       }
     } else if (isMlKey(key)) {
       minLevels.set(getMlSlotFromKey(key)!, Number(params.get(key)));
+    } else if (parseItemBonusKey(key)) {
+      bonusParams.push({ ...parseItemBonusKey(key)!, name: params.get(key) ?? '' });
     } else if (key.startsWith(CRAFT_KEY_PREFIX)) {
       console.log('Bad crafting key: ' + key);
     } else if (key.startsWith(ML_KEY_PREFIX)) {
@@ -73,6 +81,18 @@ export function slotsFromParams(params: ParamsAdapter, gearDb: Pick<GearDbServic
   for (const craftingParam of craftingParams) {
     if (craftingParam) {
       applyCraftingParam(slots, craftingParam);
+    }
+  }
+
+  if (itemBonuses) {
+    for (const { kind, slot, name } of bonusParams) {
+      const item = slots.get(slot);
+      const option = item ? itemBonuses.find(kind, slot, name) : undefined;
+      if (item && option) {
+        item.bonuses[kind] = option;
+      } else {
+        console.log(`Couldn't set ${kind} "${name}" on ${slot}`);
+      }
     }
   }
 

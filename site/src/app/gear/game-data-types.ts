@@ -108,3 +108,17 @@ export interface RawFiligreeData {
   sets: Record<string, RawFiligreeSet>;
   generations: Record<string, RawFiligreeGeneration>;
 }
+
+/** One Mythic Boost, Reaper bonus or Curse a player's copy of an item can carry. */
+export interface RawItemBonusOption {
+  name: string;
+  /** Empty for a curse whose effect the planner can't express. */
+  affixes: RawAffix[];
+}
+
+/** item-bonuses.json: curses fit every slot but Quiver; Mythic and Reaper options are per slot. */
+export interface RawItemBonusData {
+  curses: RawItemBonusOption[];
+  mythic: Record<string, RawItemBonusOption[]>;
+  reaper: Record<string, RawItemBonusOption[]>;
+}

@@ -6,9 +6,10 @@ import { QueryParamRecord, QueryParamValue } from './query-param-types';
 import { isExternalAffixEntry } from '../affixes/external-affix';
 import { filigreeParamOf, FiligreeSlotParam, readFiligreeParam } from '../planner/filigree-params';
 import {
-  craftKey, FILIGREE_KEY, FILTER_PARAM_KEYS, getMlSlotFromKey, HIDDEN_PACKS_KEY, HIDDEN_TYPES_KEY,
-  isCraftKey, isMlKey, LEVEL_RANGE_KEY, mlKey, NONGEAR_KEY, parseCraftKey, RAIDS_KEY, RARE_KEY, TRACKED_KEY
+  craftKey, FILIGREE_KEY, FILTER_PARAM_KEYS, getMlSlotFromKey, HIDDEN_PACKS_KEY, HIDDEN_TYPES_KEY, isCraftKey, isMlKey,
+  itemBonusKey, LEVEL_RANGE_KEY, mlKey, NONGEAR_KEY, parseCraftKey, parseItemBonusKey, RAIDS_KEY, RARE_KEY, TRACKED_KEY
 } from './build-param-keys';
+import { ITEM_BONUS_KINDS, ItemBonusKind } from '../gear/item-bonus';
 import urlCodecDictionary from '@data/url-codec-dictionary.json';
 
 type DecodedParamRecord = Record<string, string | Array<string>>;
@@ -31,6 +32,10 @@ export interface CompactPayloadV1 {
   g?: Record<string, string>;
   ml?: Record<string, string>;
   c?: Array<[string, DictionaryValue, string]>;
+  /** Mythic Boost, Reaper bonus and Curse option names, by slot code, like `ml`. Absent from links made before them. */
+  my?: Record<string, string>;
+  rp?: Record<string, string>;
+  cu?: Record<string, string>;
   t?: string[];
   /**
    * Non-gear affix entries (EquippedService.ExternalAffixEntry), positionally
@@ -97,6 +102,12 @@ const CODE_TO_SLOT = Object.keys(SLOT_TO_CODE)
   }, {});
 
 const KNOWN_FILTER_KEYS = new Set<string>(FILTER_PARAM_KEYS);
+
+const ITEM_BONUS_PAYLOAD_FIELDS: Record<ItemBonusKind, 'my' | 'rp' | 'cu'> = {
+  mythic: 'my',
+  reaper: 'rp',
+  curse: 'cu',
+};
 
 const URL_CODEC_DICTIONARY = urlCodecDictionary as {
   version: number;
@@ -229,6 +240,7 @@ export class BuildUrlCodecService {
     const gearPayload: Record<string, string> = {};
     const minLevelPayload: Record<string, string> = {};
     const craftingPayload: Array<[string, DictionaryValue, string]> = [];
+    const itemBonusPayload: Partial<Record<ItemBonusKind, Record<string, string>>> = {};
     const unknownPayload: DecodedParamRecord = {};
     const craftingByIndex = new Map<number, Record<string, string>>();
 
@@ -276,6 +288,9 @@ export class BuildUrlCodecService {
         }
       } else if (isCraftKey(key)) {
         this.collectCraftingParam(craftingByIndex, key, values[0]);
+      } else if (parseItemBonusKey(key)) {
+        const { kind, slot } = parseItemBonusKey(key)!;
+        (itemBonusPayload[kind] ??= {})[SLOT_TO_CODE[slot] || slot] = values[0];
       } else if (!KNOWN_FILTER_KEYS.has(key)) {
         unknownPayload[key] = values.length === 1 ? values[0] : values;
       }
@@ -304,6 +319,11 @@ export class BuildUrlCodecService {
     }
     if (craftingPayload.length) {
       payload.c = craftingPayload;
+    }
+    for (const kind of ITEM_BONUS_KINDS) {
+      if (itemBonusPayload[kind]) {
+        payload[ITEM_BONUS_PAYLOAD_FIELDS[kind]] = itemBonusPayload[kind];
+      }
     }
     if (Object.keys(unknownPayload).length) {
       payload.x = unknownPayload;
@@ -342,6 +362,12 @@ export class BuildUrlCodecService {
         params[craftKey(index, 'system')] = this.decodeDictionaryValue(craftingParam[1], 'craftingSystems') || '';
         params[craftKey(index, 'selected')] = craftingParam[2];
       });
+    }
+
+    for (const kind of ITEM_BONUS_KINDS) {
+      for (const [code, name] of Object.entries(payload[ITEM_BONUS_PAYLOAD_FIELDS[kind]] ?? {})) {
+        params[itemBonusKey(kind, CODE_TO_SLOT[code] || code)] = name;
+      }
     }
 
     if (payload.t?.length) {

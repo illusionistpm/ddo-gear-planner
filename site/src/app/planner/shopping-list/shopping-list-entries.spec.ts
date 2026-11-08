@@ -1,7 +1,9 @@
 import { Craftable } from '../../gear/craftable';
 import { CraftableOption } from '../../gear/craftable-option';
 import { Item, ItemInit } from '../../gear/item';
-import { CANNITH_CRAFTING_SOURCE, deriveShoppingEntries, ShoppingSourceLookup } from './shopping-list-entries';
+import { CANNITH_CRAFTING_SOURCE, deriveShoppingEntries, ShoppingFiligreeLookup, ShoppingSourceLookup } from './shopping-list-entries';
+import { emptyFiligreeLoadout } from '../../gear/filigree';
+import { MAX_FILIGREE_SLOTS_AFFIX } from '../../affixes/filigree-affix';
 
 const sources: ShoppingSourceLookup = {
   isRaid: quest => quest === 'The Raid',
@@ -183,5 +185,53 @@ describe('deriveShoppingEntries', () => {
     }), sources);
 
     expect(entries.map(entry => entry.label)).toEqual(['Blank Ring', 'Diamond']);
+  });
+
+  describe('filigree', () => {
+    const packSource = (pack: string) => ({ quest: `Any ${pack} quest`, pack, raid: false, wikiUrl: search(pack) });
+    function lookup(fill: (loadout: ReturnType<typeof emptyFiligreeLoadout>) => void): ShoppingFiligreeLookup {
+      const loadout = emptyFiligreeLoadout();
+      fill(loadout);
+      return { loadout, sourcesOf: () => [packSource('Mists of Ravenloft')], wikiUrlOf: name => `wiki:${name}` };
+    }
+    const weapon = () => item({ name: 'Big Sword', slot: 'Weapon' });
+    const artifact = (slots: number) => item({
+      name: 'Old Bracers', slot: 'Bracers', artifact: true,
+      affixes: [{ name: MAX_FILIGREE_SLOTS_AFFIX, type: 'Untyped', value: slots }],
+    });
+
+    it('lists each counted filigree after the item holding it, duplicates included', () => {
+      const entries = deriveShoppingEntries(slots({ Weapon: weapon(), Ring1: item({ name: 'Ring of Things' }) }), sources, lookup(loadout => {
+        loadout.weapon[0] = { name: 'Celerity: Dexterity', rare: true };
+        loadout.weapon[3] = { name: 'Celerity: Reflex', rare: false };
+        loadout.weapon[4] = { name: 'Celerity: Reflex', rare: false };
+      }));
+
+      expect(entries.map(entry => entry.key)).toEqual([
+        'g|Weapon|Big Sword',
+        'f|weapon#0|Celerity: Dexterity|r',
+        'f|weapon#3|Celerity: Reflex|n',
+        'f|weapon#4|Celerity: Reflex|n',
+        'g|Ring1|Ring of Things',
+      ]);
+      expect(entries[1]).toEqual(expect.objectContaining({
+        kind: 'filigree', identity: 'filigree|Celerity: Dexterity|rare', label: 'Celerity: Dexterity (Rare)',
+        rare: true, sources: [packSource('Mists of Ravenloft')], wikiUrl: 'wiki:Celerity: Dexterity',
+        troveName: 'Celerity: Dexterity (Rare)', parentKey: 'g|Weapon|Big Sword',
+      }));
+      // The two copies are one thing to get, twice.
+      expect(entries[2].identity).toBe(entries[3].identity);
+    });
+
+    it('leaves out filigree with no item to hold it, or past the open slots', () => {
+      const entries = deriveShoppingEntries(slots({ Bracers: artifact(2) }), sources, lookup(loadout => {
+        loadout.weapon[0] = { name: 'Celerity: Dexterity', rare: false };
+        loadout.artifact[0] = { name: 'Zephyr: Tumble', rare: false };
+        loadout.artifact[2] = { name: 'Celerity: Reflex', rare: false };
+      }));
+
+      expect(entries.map(entry => entry.key)).toEqual(['g|Bracers|Old Bracers', 'f|artifact#0|Zephyr: Tumble|n']);
+      expect(entries[1].parentKey).toBe('g|Bracers|Old Bracers');
+    });
   });
 });

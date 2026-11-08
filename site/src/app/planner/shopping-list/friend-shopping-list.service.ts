@@ -10,6 +10,10 @@ import { GearDbService } from '../../gear/gear-db.service';
 import { QuestService } from '../../gear/quest.service';
 import { slotsFromParams } from '../slots-from-params';
 import { deriveShoppingEntries, ShoppingSourceLookup } from './shopping-list-entries';
+import { FiligreeDbService } from '../../gear/filigree-db.service';
+import { FILIGREE_KEY } from '../../build/build-param-keys';
+import { parseFiligreeLoadout } from '../filigree-params';
+import { shoppingFiligreeLookup } from './filigree-sources';
 import type { ShoppingEntry, ShoppingListView, ShoppingProgress } from './shopping-list-types';
 import { buildShoppingListView } from './shopping-list-view-model';
 
@@ -57,7 +61,8 @@ export class FriendShoppingListService {
     private readonly codec: BuildUrlCodecService,
     private readonly gearDb: GearDbService,
     private readonly essenceCrafting: EssenceCraftingService,
-    quests: QuestService
+    quests: QuestService,
+    private readonly filigreeDb: FiligreeDbService
   ) {
     this.sources = { isRaid: quest => quests.isRaid(quest), packOf: quest => quests.getPack(quest) };
   }
@@ -93,8 +98,10 @@ export class FriendShoppingListService {
     if (!decoded) {
       return null;
     }
-    const slots = slotsFromParams(convertToParamMap(decoded), this.gearDb, this.essenceCrafting);
-    return deriveShoppingEntries(slots, this.sources);
+    const params = convertToParamMap(decoded);
+    const slots = slotsFromParams(params, this.gearDb, this.essenceCrafting);
+    const loadout = parseFiligreeLoadout(params.get(FILIGREE_KEY), name => !!this.filigreeDb.get(name));
+    return deriveShoppingEntries(slots, this.sources, shoppingFiligreeLookup(this.filigreeDb, loadout));
   }
 
   private readBuild({ name, blob }: LiveBuildList): FriendBuild {

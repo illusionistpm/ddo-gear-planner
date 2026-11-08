@@ -36,8 +36,8 @@ function pushRow(lines: string[], row: ShoppingRow, indent: string): void {
   } else if (row.entry.kind === 'gear' && row.entry.ml) {
     notes.push(`ML ${row.entry.ml}`);
   }
-  if (row.entry.kind === 'augment') {
-    notes.push('augment');
+  if (row.entry.kind === 'augment' || row.entry.kind === 'filigree') {
+    notes.push(row.entry.kind);
   }
   if (row.alsoFrom.length) {
     notes.push(`also from ${alsoFromText(row.alsoFrom.map(source => source.quest))}`);

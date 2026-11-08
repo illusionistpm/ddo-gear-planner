@@ -5,8 +5,9 @@ import type { UserItemLocation } from '../user-gear.service';
  * - `augment`: an augment slotted into it - fetched on its own.
  * - `upgrade`: a named, sourced piece crafted onto it (Dolorous, Fang, ...).
  * - `step`: crafting done to the item (Lost Purpose, Green Steel tiers, ...).
+ * - `filigree`: a filigree slotted into the weapon or artifact - fetched on its own.
  */
-export type ShoppingEntryKind = 'gear' | 'augment' | 'upgrade' | 'step';
+export type ShoppingEntryKind = 'gear' | 'augment' | 'upgrade' | 'step' | 'filigree';
 
 /** One place a thing comes from. */
 export interface ShoppingSource {

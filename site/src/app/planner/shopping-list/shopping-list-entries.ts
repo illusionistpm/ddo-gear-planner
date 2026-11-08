@@ -3,6 +3,8 @@ import { classifyCraftSelection, craftSystemName } from '../../gear/crafting-acq
 import type { Craftable } from '../../gear/craftable';
 import type { Item } from '../../gear/item';
 import { sortSlotsForDisplay } from '../../gear/slot-display';
+import type { FiligreeLoadout } from '../../gear/filigree';
+import { countLoadoutFiligree, findFiligreeHosts } from '../filigree-loadout';
 import type { ShoppingEntry, ShoppingEntryKind, ShoppingSource } from './shopping-list-types';
 
 /**
@@ -15,12 +17,15 @@ import type { ShoppingEntry, ShoppingEntryKind, ShoppingSource } from './shoppin
  *   augment: a|<slot>|<crafting slot>#<n>|<selection>
  *   upgrade: u|<slot>|<item>|<crafting slot>#<n>|<selection>
  *   step:    s|<slot>|<item>|<crafting slot>#<n>|<selection>
+ *   filigree: f|<weapon|artifact>#<n>|<filigree>|<r|n>
  *
  * `<n>` tells apart same-named crafting slots on one item (two Colorless slots);
  * `<selection>` is Craftable.getSelectedParamDescription(), the same string build
  * URLs carry. An augment's key leaves out the item: it is fetched on its own, so
  * swapping the item it goes in doesn't undo having it. Upgrades and steps are
- * crafted onto that item, so a different item starts them over.
+ * crafted onto that item, so a different item starts them over. A filigree's key
+ * leaves out the item too, as the filigree moves with the sentient jewel or is fed
+ * into whichever artifact is worn; `<n>` is its slot, and `r` marks the rare copy.
  */
 
 /** What an entry's source says about it, from quests.json. */
@@ -74,16 +79,60 @@ export function shoppingGearKey(slot: string, itemName: string): string {
   return `g|${slot}|${itemName}`;
 }
 
+/** Where filigrees drop and their wiki page, for the filigree entries. */
+export interface ShoppingFiligreeLookup {
+  loadout: FiligreeLoadout;
+  sourcesOf(name: string): ShoppingSource[];
+  wikiUrlOf(name: string): string;
+}
+
 export function deriveShoppingEntries(
-    slots: ReadonlyMap<string, Item | null>, sources: ShoppingSourceLookup): ShoppingEntry[] {
+    slots: ReadonlyMap<string, Item | null>, sources: ShoppingSourceLookup, filigree?: ShoppingFiligreeLookup): ShoppingEntry[] {
   const entries: ShoppingEntry[] = [];
+  const filigreeEntries = filigree ? filigreeEntriesByHostSlot(slots, filigree) : new Map<string, ShoppingEntry[]>();
   for (const slot of sortSlotsForDisplay(Array.from(slots.keys()))) {
     const item = slots.get(slot);
     if (item) {
-      entries.push(...entriesForItem(slot, item, sources));
+      entries.push(...entriesForItem(slot, item, sources), ...(filigreeEntries.get(slot) ?? []));
     }
   }
   return entries;
+}
+
+/**
+ * One entry per counted filigree - a duplicate is a filigree to get too - under the item that
+ * holds it, keyed by that item's slot.
+ */
+function filigreeEntriesByHostSlot(
+    slots: ReadonlyMap<string, Item | null>, filigree: ShoppingFiligreeLookup): Map<string, ShoppingEntry[]> {
+  const hosts = findFiligreeHosts(slots);
+  const bySlot = new Map<string, ShoppingEntry[]>();
+  for (const counted of countLoadoutFiligree(filigree.loadout, hosts)) {
+    const host = hosts[counted.host];
+    if (!host) {
+      continue;
+    }
+    const { name, rare } = counted.choice;
+    const entry: ShoppingEntry = {
+      key: `f|${counted.host}#${counted.index}|${name}|${rare ? 'r' : 'n'}`,
+      kind: 'filigree',
+      identity: `filigree|${name}|${rare ? 'rare' : 'normal'}`,
+      label: rare ? `${name} (Rare)` : name,
+      system: null,
+      // Filigrees drop in level 20+ content.
+      ml: 20,
+      sources: filigree.sourcesOf(name),
+      sourceInherited: false,
+      rare,
+      artifact: false,
+      wikiUrl: filigree.wikiUrlOf(name),
+      troveName: rare ? `${name} (Rare)` : name,
+      parentKey: shoppingGearKey(host.slot, host.item.name),
+      details: [],
+    };
+    bySlot.set(host.slot, [...(bySlot.get(host.slot) ?? []), entry]);
+  }
+  return bySlot;
 }
 
 function entriesForItem(slot: string, item: Item, sources: ShoppingSourceLookup): ShoppingEntry[] {

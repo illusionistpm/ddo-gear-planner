@@ -382,7 +382,7 @@ def download_crafting_pages(session=None):
 
 # Bonuses an item can carry on top of its fixed affixes: Mythic Boosts and
 # Reaper bonuses roll on named loot from higher difficulties, and Curses are
-# applied with a Deck of Many Curses. No parser reads these yet (issue #266).
+# applied with a Deck of Many Curses. parse_item_bonuses reads them.
 def download_item_bonus_pages(session=None):
     pageDir = get_snapshot_path('item_bonuses')
     if not os.path.exists(pageDir):

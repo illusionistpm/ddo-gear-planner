@@ -156,6 +156,19 @@ def get_data_stats():
         'multi-source items': sum(1 for item in items if len(item.get('quests', [])) > 1),
     }
 
+    try:
+        item_bonuses = read_json('item-bonuses')
+    except FileNotFoundError:
+        item_bonuses = {'curses': [], 'mythic': {}, 'reaper': {}}
+    # Curses the parser understood: a reworded effect column drops this
+    # without dropping the curse count.
+    stats['item bonuses'] = {
+        'curses': len(item_bonuses['curses']),
+        'curses with affixes': sum(1 for curse in item_bonuses['curses'] if curse['affixes']),
+        'mythic options': sum(len(options) for options in item_bonuses['mythic'].values()),
+        'reaper options': sum(len(options) for options in item_bonuses['reaper'].values()),
+    }
+
     # A source nothing names - not the wiki's lists, source_packs.json or the
     # free list - is shown as free. The parser prints each one.
     stats['sources'] = {

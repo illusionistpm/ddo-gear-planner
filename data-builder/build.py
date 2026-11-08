@@ -5,6 +5,7 @@ from parse_items import parse_items
 from parse_minor_artifacts import parse_minor_artifacts
 from parse_filigree import parse_filigree
 from parse_essence_crafting import parse_essence_crafting
+from parse_item_bonuses import parse_item_bonuses
 from build_affix_groups import build_affix_groups
 from build_crafting import build_crafting
 from build_synonyms import build_synonyms
@@ -114,6 +115,8 @@ def build_data(clearSnapshot, previewDir=None, offline=False):
     parse_item_types()
     build_url_codec_dictionary()
 
+    itemBonusWarnings = parse_item_bonuses()
+
     # builtAt records when the snapshot was fetched. An offline rebuild of the
     # same snapshot keeps it, so it reproduces data/ byte for byte.
     if not offline:
@@ -126,6 +129,13 @@ def build_data(clearSnapshot, previewDir=None, offline=False):
     problems = describe_problems(oldIssues, audit_data(), get_unresolved_sources_in_data())
     for problem in problems:
         print(problem)
+
+    # The Mythic Boost rules are written out in parse_item_bonuses; a change
+    # to the page they came from, or a Reaper bonus it can't place, needs a
+    # person to look.
+    if itemBonusWarnings:
+        diffStr += 'Item bonuses to check (data-builder/parse_item_bonuses.py):\n'
+        diffStr += ''.join(f" - {warning}\n" for warning in itemBonusWarnings)
 
     # Before the threshold check, so a build it aborts still leaves its
     # output to inspect.

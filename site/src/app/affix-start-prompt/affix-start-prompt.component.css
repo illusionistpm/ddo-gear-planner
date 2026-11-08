@@ -2,131 +2,12 @@
   display: block;
 }
 
-.affix-start-card,
 .affix-start-banner {
+  align-items: center;
   border: 1px solid var(--border-color);
   border-left: 4px solid var(--success-color);
   border-radius: var(--border-radius);
   color: var(--text-primary);
-}
-
-.affix-start-card {
-  margin: 0 0 var(--space-12);
-  padding: var(--space-16);
-}
-
-.affix-start-card h2 {
-  font-size: 1.1rem;
-  font-weight: 800;
-  line-height: 1.25;
-  margin: 0 0 var(--space-4);
-}
-
-.affix-start-lead {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  line-height: 1.4;
-  margin: 0 0 var(--space-12);
-}
-
-.affix-start-row {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-8) var(--space-12);
-  margin-bottom: var(--space-12);
-}
-
-.affix-start-row-note,
-.affix-start-focus-note {
-  color: var(--text-secondary);
-  font-size: 0.8rem;
-}
-
-.affix-start-focus {
-  margin-bottom: var(--space-12);
-}
-
-.affix-start-focus-label {
-  display: block;
-  font-size: 0.9rem;
-  font-weight: 800;
-  margin-bottom: var(--space-8);
-}
-
-.affix-start-focus-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-8);
-  margin-bottom: var(--space-4);
-}
-
-.affix-start-focus-note {
-  display: block;
-}
-
-.affix-start-package {
-  align-items: center;
-  background: var(--surface-color);
-  border: 1px solid var(--border-color);
-  border-radius: 999px;
-  color: var(--text-primary);
-  cursor: pointer;
-  display: inline-flex;
-  font-size: 0.9rem;
-  font-weight: 700;
-  gap: var(--space-8);
-  padding: var(--space-4) var(--space-16);
-}
-
-.affix-start-package:focus-visible,
-.affix-start-choose:focus-visible {
-  outline: 3px solid var(--focus-ring-color);
-  outline-offset: 2px;
-}
-
-/* Basic, already on: the picker's selected-chip look, so it reads as a setting, not a step. */
-.affix-start-default.selected {
-  background: var(--selected-bg);
-  border-color: var(--selected-border-color);
-  color: var(--selected-text-color);
-}
-
-.affix-start-default:hover {
-  border-color: var(--primary-color);
-}
-
-/* The focus chips are the step: the shared pulsing onboarding cue (styles.css). */
-.affix-start-focus-chip {
-  border-color: var(--success-color);
-  color: var(--on-accent-text-color);
-}
-
-.affix-start-focus-chip:hover {
-  filter: brightness(1.08);
-}
-
-.affix-start-actions {
-  border-top: 1px solid var(--border-color);
-  padding-top: var(--space-12);
-}
-
-.affix-start-choose-own {
-  background: transparent;
-  border: 0;
-  color: var(--primary-color);
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 700;
-  padding: var(--space-4) 0;
-}
-
-.affix-start-choose-own:hover {
-  text-decoration: underline;
-}
-
-.affix-start-banner {
-  align-items: center;
   display: flex;
   gap: var(--space-12);
   justify-content: space-between;
@@ -147,8 +28,7 @@
 
 /* Touch: tap targets at least 44px tall. */
 @media (pointer: coarse) {
-  .affix-start-choose,
-  .affix-start-package {
+  .affix-start-choose {
     min-height: 44px;
   }
 }

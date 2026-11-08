@@ -98,7 +98,7 @@
 
 <div class="tracked-affixes-workspace">
     <div class="tracked-affixes-content">
-    <app-affix-start-prompt *ngIf="needsStart" variant="card"></app-affix-start-prompt>
+    <app-affix-picker *ngIf="editorOpen"></app-affix-picker>
     <ng-container *ngIf="groupMode === 'slots'">
         <p class="tracked-affix-slots-empty" *ngIf="!needsStart && !trackedDisplay.slotGroups.length">
             No tracked affixes yet. Add some with Add / edit affixes in the toolbar above.

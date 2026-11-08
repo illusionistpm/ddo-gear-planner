@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 import { AppModule } from '../app.module';
-import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
+import { AffixEditorService } from '../planner/affix-editor.service';
 import { GroupSummary } from '../build/groups.service';
 import { MyListsService } from '../build/my-lists.service';
 import { EquippedService } from '../planner/equipped.service';
@@ -130,7 +130,7 @@ describe('PlannerToolbarComponent', () => {
     });
 
     it('opens the affix builder for editing', () => {
-      const drawer = TestBed.inject(AffixBuilderDrawerService);
+      const drawer = TestBed.inject(AffixEditorService);
       drawer.close();
 
       fixture.nativeElement.querySelector('.tracked-affix-edit-affixes').click();

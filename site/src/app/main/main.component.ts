@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, combineLatest, distinctUntilChanged, take } from 'rxjs';
 
-import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
+import { AffixEditorService } from '../planner/affix-editor.service';
 import { AffixPackagesService } from '../affixes/affix-packages.service';
 import { troveNameKey, UserGearService } from '../planner/user-gear.service';
 import { GearDbService } from '../gear/gear-db.service';
@@ -122,7 +122,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     private equipped: EquippedService,
     private onboarding: PlannerOnboardingService,
     public theme: ThemeService,
-    private affixBuilder: AffixBuilderDrawerService,
+    private affixEditor: AffixEditorService,
     private affixPackages: AffixPackagesService,
     private route: ActivatedRoute,
     private router: Router,
@@ -237,7 +237,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
         if (alreadyReady) {
           // Params applied again after the page was already up: "New build"
           // (MyBuildsComponent navigates to '/' with reset state) lands here.
-          this.applyFreshBuildDefaults();
+          this.applyFreshBuildDefaults(false);
         }
       }
     });
@@ -255,7 +255,6 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
         this.closeFilters();
         this.support?.close();
         this.suggestionDrawer.close();
-        this.affixBuilder.close();
       }
     });
     this.filterSubscription = this.filters.getItemFilters().subscribe(itemFilters => {
@@ -405,24 +404,38 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     // Only once real build data (or a genuinely empty scratch build) has
     // landed - judged any earlier, a build still being fetched looks empty.
     if (!previous && this.contentReady && !this.loadError) {
-      this.applyFreshBuildDefaults();
+      this.applyFreshBuildDefaults(true);
     }
   }
 
   /**
-   * A genuinely empty URL starts on the Basic package. Never a followed link
-   * or a saved build: those are someone's build, to show as it is.
+   * A genuinely empty URL starts on the Basic package, on the Affixes view
+   * with the editor open - asking what the build is for comes first. Never a
+   * followed link or a saved build: those are someone's build, to show as it is.
+   *
+   * On the first load, an untouched fresh build reloaded (Basic already in its
+   * URL, no focus yet) gets the same welcome. Later re-applications - a real
+   * navigation, browser back - only do when they just started one afresh,
+   * so the editor never jumps open over someone already looking at the gear.
    */
-  private applyFreshBuildDefaults() {
-    if (this.latestRouteShortId || !this.equipped.isBuildEmpty() || this.equipped.getImportantAffixes().size) {
+  private applyFreshBuildDefaults(firstLoad: boolean) {
+    if (this.latestRouteShortId || !this.equipped.isBuildEmpty()) {
       return;
     }
-    this.affixPackages.addDefaultPackage();
-    // The app picked Basic, not the user - it isn't an unsaved change. Only
-    // for a fresh build: browser back to an edited build's URL can land here
-    // too, with its identity still set, and its dirty state is real.
-    if (!this.currentBuild.value.shortId) {
-      this.currentBuild.acceptCurrentAsBaseline();
+    let startedFresh = false;
+    if (!this.equipped.getImportantAffixes().size) {
+      this.affixPackages.addDefaultPackage();
+      startedFresh = true;
+      // The app picked Basic, not the user - it isn't an unsaved change. Only
+      // for a fresh build: browser back to an edited build's URL can land here
+      // too, with its identity still set, and its dirty state is real.
+      if (!this.currentBuild.value.shortId) {
+        this.currentBuild.acceptCurrentAsBaseline();
+      }
+    }
+    if (startedFresh || (firstLoad && this.affixPackages.needsStart())) {
+      this.equipped.setActiveMainTab('affixes');
+      this.affixEditor.open();
     }
   }
 

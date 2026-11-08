@@ -4,7 +4,7 @@ import {
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
+import { AffixEditorService } from '../planner/affix-editor.service';
 import { AffixPackagesService } from '../affixes/affix-packages.service';
 import { groupPath, GroupSummary } from '../build/groups.service';
 import { MyListsService } from '../build/my-lists.service';
@@ -62,7 +62,7 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
   constructor(
     public equipped: EquippedService,
     private gearList: GearDbService,
-    private affixBuilder: AffixBuilderDrawerService,
+    private affixEditor: AffixEditorService,
     private affixPackages: AffixPackagesService,
     private analytics: AnalyticsService,
     private zone: NgZone
@@ -178,8 +178,7 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   openBuilder() {
-    this.analytics.track('open_affix_builder', { source: 'toolbar' });
-    this.affixBuilder.open();
+    this.affixEditor.reveal('toolbar');
   }
 
   private readonly shoppingListView = inject(ShoppingListViewService);

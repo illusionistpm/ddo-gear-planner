@@ -8,8 +8,8 @@ import { buildAffixTypeaheadEntries } from '../affixes/affix-typeahead';
 import { AnalyticsService } from '../shared/analytics.service';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
 import { AffixPackagesService } from '../affixes/affix-packages.service';
+import { AffixEditorService } from '../planner/affix-editor.service';
 
-import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affixes/affix-organization';
 import { TypeaheadEntry, TypeaheadResult } from '../typeahead/typeahead.component';
 
 @Component({
@@ -51,7 +51,8 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
     private affixSvc: AffixService,
     private analytics: AnalyticsService,
     private onboarding: PlannerOnboardingService,
-    private affixPackages: AffixPackagesService
+    private affixPackages: AffixPackagesService,
+    private editor: AffixEditorService
   ) {
     this.savedSet = new Set<string>();
 
@@ -254,11 +255,15 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
     };
   }
 
-  getSavedAffixGroups(): AffixGroupDisplay[] {
-    return groupAffixNames(this.savedSet, '', this.affixSvc, affixName => {
-      const types = this.gearDB.getTypesForAffix(affixName);
-      return types.length === 1 && types[0] === 'Bool' ? UTILITY_CHECKLIST_CATEGORY : null;
-    });
+  /**
+   * Close the editor. One view at a time, the gear is on the other one, so
+   * Done goes there too - the same width the CSS uses to swap Done's label.
+   */
+  done() {
+    this.editor.close();
+    if (window.matchMedia?.('(max-width: 994.98px)')?.matches) {
+      this.equipped.setActiveMainTab('equipment');
+    }
   }
 
   private updateConditionalSections() {

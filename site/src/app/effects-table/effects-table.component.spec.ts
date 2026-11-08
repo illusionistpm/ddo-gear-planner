@@ -4,6 +4,7 @@ import { AppModule } from '../app.module';
 import { EffectsTableComponent } from './effects-table.component';
 import { FiltersService } from '../planner/filters.service';
 import { EquippedService } from '../planner/equipped.service';
+import { AffixEditorService } from '../planner/affix-editor.service';
 import { Item } from '../gear/item';
 import { AffixSourceHighlightService } from '../planner/affix-source-highlight.service';
 
@@ -74,15 +75,26 @@ describe('EffectsTableComponent', () => {
     expect(component.shouldShowAffixTypeHint()).toBe(false);
   });
 
-  it('shows the start card only until something beyond Basic is chosen', () => {
-    const equipped = TestBed.inject(EquippedService);
-    equipped.setImportantAffixes(['Dodge']);
+  it('shows the affix editor at the top of the panel while it is open', () => {
+    const editor = TestBed.inject(AffixEditorService);
+    editor.open();
     fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('app-affix-start-prompt .affix-start-card')).not.toBeNull();
+    expect(fixture.nativeElement.querySelector('.tracked-affixes-content > app-affix-picker .affix-editor')).not.toBeNull();
 
-    equipped.addImportantAffix('Strength');
+    editor.close();
     fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('app-affix-start-prompt')).toBeNull();
+    expect(fixture.nativeElement.querySelector('app-affix-picker')).toBeNull();
+  });
+
+  it('holds the bonus-chip step back while the editor is open', () => {
+    component.onboardingActive = true;
+    component.needsStart = false;
+    component.editorOpen = true;
+    component.affixNames = ['Strength'];
+    component.affixMap.set('Strength', [{ bonusType: 'Enhancement', value: 0 }]);
+    (component as any).refreshTrackedAffixDisplay();
+
+    expect(component.shouldShowAffixTypeHint()).toBe(false);
   });
 
   it('targets the first missing-value chip in the first non-utility onboarding group', () => {

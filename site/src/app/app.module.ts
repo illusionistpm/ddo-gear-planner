@@ -31,7 +31,6 @@ import { FilterItemTypeComponent } from './filter-item-type/filter-item-type.com
 import { UserItemLocationTooltipPipe } from './shared/user-item-location-tooltip.pipe';
 import { AdminLinkComponent } from './admin-link.component';
 import { SuggestionDrawerComponent } from './suggestion-drawer/suggestion-drawer.component';
-import { AffixBuilderDrawerComponent } from './affix-builder-drawer/affix-builder-drawer.component';
 import { AffixStartPromptComponent } from './affix-start-prompt/affix-start-prompt.component';
 import { EquipmentSlotCardComponent } from './equipment-slot-card/equipment-slot-card.component';
 import { ExternalAffixSlotCardComponent } from './external-affix-slot-card/external-affix-slot-card.component';
@@ -80,7 +79,6 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         UserItemLocationTooltipPipe,
         AdminLinkComponent,
         SuggestionDrawerComponent,
-        AffixBuilderDrawerComponent,
         AffixStartPromptComponent,
         EquipmentSlotCardComponent,
         ExternalAffixSlotCardComponent,

@@ -13,7 +13,7 @@ import { BuildUrlIdentity, QueryParamsService } from '../build/query-params.serv
 import { MainComponent } from './main.component';
 import { EquippedService } from '../planner/equipped.service';
 import { FiltersService } from '../planner/filters.service';
-import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
+import { AffixEditorService } from '../planner/affix-editor.service';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
 
 describe('MainComponent', () => {
@@ -78,18 +78,29 @@ describe('MainComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('opens an empty URL on the planner itself, on the Basic package, with nothing to save', () => {
+  const activeTab = () => {
+    let tab: string | undefined;
+    TestBed.inject(EquippedService).getActiveMainTab().subscribe(value => tab = value).unsubscribe();
+    return tab;
+  };
+
+  const packageChip = (name: string) => Array.from(
+    (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLButtonElement>('#affixesPanel .affix-editor .affix-package-chip'))
+    .find(button => button.textContent?.trim().startsWith(name))!;
+
+  it('opens an empty URL on the Basic package, on the Affixes view with the editor open, with nothing to save', () => {
     const equipped = TestBed.inject(EquippedService);
     const el: HTMLElement = fixture.nativeElement;
 
     expect(equipped.getImportantAffixes().has('Dodge')).toBe(true);
     expect(equipped.getImportantAffixes().has('Melee Power')).toBe(false);
-    expect(TestBed.inject(AffixBuilderDrawerService).isOpen).toBe(false);
     expect(TestBed.inject(CurrentBuildService).value.isDirty).toBe(false);
-    expect(el.querySelector('.affix-builder-drawer')).toBeNull();
-    // The way in instead: the start card in the affixes panel, and a highlighted button.
-    expect(el.querySelector('#affixesPanel app-affix-start-prompt .affix-start-card')).not.toBeNull();
-    expect(el.querySelector('.affix-start-default')?.getAttribute('aria-pressed')).toBe('true');
+    expect(activeTab()).toBe('affixes');
+    expect(TestBed.inject(AffixEditorService).isOpen).toBe(true);
+    // Inline at the top of the panel, asking what the build is for - no overlay.
+    expect(el.querySelector('#affixesPanel .tracked-affixes-content > app-affix-picker .affix-editor')).not.toBeNull();
+    expect(el.querySelector('#affixesPanel .affix-editor')?.textContent).toContain('What is this build for?');
+    expect(packageChip('Melee').classList).toContain('affix-next-chip');
     expect(el.querySelector('.tracked-affix-edit-affixes.needs-attention')).not.toBeNull();
   });
 
@@ -99,67 +110,72 @@ describe('MainComponent', () => {
     expect(TestBed.inject(CurrentBuildService).value.isDirty).toBe(true);
   });
 
-  it('starts a new build (empty URL re-applied) on the Basic package, not in the affix builder', () => {
+  it('starts a new build (empty URL re-applied) on Basic, with the editor open again', () => {
     const equipped = TestBed.inject(EquippedService);
-    const drawer = TestBed.inject(AffixBuilderDrawerService);
+    const editor = TestBed.inject(AffixEditorService);
 
     // What's left over from the build being replaced.
+    editor.close();
+    equipped.setActiveMainTab('equipment');
     equipped.setImportantAffixes(['Strength']);
 
     TestBed.inject(QueryParamsService).updateFromParams(convertToParamMap({}));
 
     expect(equipped.getImportantAffixes().has('Strength')).toBe(false);
     expect(equipped.getImportantAffixes().has('Dodge')).toBe(true);
-    expect(drawer.isOpen).toBe(false);
+    expect(editor.isOpen).toBe(true);
+    expect(activeTab()).toBe('affixes');
   });
 
-  const focusChip = (name: string) => Array.from(
-    (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLButtonElement>('.affix-start-card .affix-start-focus-chip'))
-    .find(button => button.textContent?.trim() === name)!;
+  it('leaves the editor shut when params re-apply to a build that keeps its affixes', () => {
+    // A real navigation or browser back re-applying a build that still has
+    // only Basic: they may be looking at the gear, so nothing jumps open.
+    const editor = TestBed.inject(AffixEditorService);
+    editor.close();
+    TestBed.inject(EquippedService).setImportantAffixes(['Dodge']);
 
-  it('adds a focus from the start card on top of Basic, and drops the prompts', () => {
+    (component as any).applyFreshBuildDefaults(false);
+
+    expect(editor.isOpen).toBe(false);
+  });
+
+  it('adds a focus from the editor on top of Basic; the tracked list below updates and the prompt goes', () => {
     const el: HTMLElement = fixture.nativeElement;
     const equipped = TestBed.inject(EquippedService);
 
-    focusChip('Melee').click();
+    packageChip('Melee').click();
     fixture.detectChanges();
 
     expect(equipped.getImportantAffixes().has('Dodge')).toBe(true);
     expect(equipped.getImportantAffixes().has('Melee Power')).toBe(true);
-    expect(TestBed.inject(AffixBuilderDrawerService).isOpen).toBe(false);
-    expect(el.querySelector('app-affix-start-prompt')).toBeNull();
+    expect(el.querySelector('#affixesPanel')?.textContent).toContain('Melee Power');
     expect(el.querySelector('.tracked-affix-edit-affixes.needs-attention')).toBeNull();
   });
 
-  it('opens the affix builder on the spell power step after the Caster focus', () => {
-    const el: HTMLElement = fixture.nativeElement;
-
-    focusChip('Caster').click();
+  it('shows the spell power step inline after Caster', () => {
+    packageChip('Caster').click();
     fixture.detectChanges();
 
-    expect(TestBed.inject(AffixBuilderDrawerService).isOpen).toBe(true);
-    expect(el.querySelector('.affix-builder-drawer')?.textContent).toContain('Pick your spell power');
+    expect((fixture.nativeElement as HTMLElement).querySelector('#affixesPanel .affix-editor')?.textContent)
+      .toContain('Pick your spell power');
   });
 
-  it('keeps the start card up when Basic is switched off, and can switch it back on', () => {
+  it('closes the editor from Done, and the toolbar button brings it back on the Affixes view', () => {
     const el: HTMLElement = fixture.nativeElement;
-    const equipped = TestBed.inject(EquippedService);
-    const basic = () => el.querySelector('.affix-start-default') as HTMLButtonElement;
+    const editor = TestBed.inject(AffixEditorService);
 
-    basic().click();
+    (el.querySelector('.affix-editor-foot .affix-editor-done') as HTMLButtonElement).click();
     fixture.detectChanges();
-    expect(equipped.getImportantAffixes().size).toBe(0);
-    expect(basic().getAttribute('aria-pressed')).toBe('false');
+    expect(editor.isOpen).toBe(false);
+    expect(el.querySelector('.affix-editor')).toBeNull();
 
-    basic().click();
+    TestBed.inject(EquippedService).setActiveMainTab('equipment');
+    (el.querySelector('.tracked-affix-edit-affixes') as HTMLButtonElement).click();
     fixture.detectChanges();
-    expect(equipped.getImportantAffixes().has('Dodge')).toBe(true);
-  });
 
-  it('opens the affix builder from the start card', () => {
-    (fixture.nativeElement.querySelector('.affix-start-card .affix-start-choose-own') as HTMLButtonElement).click();
-
-    expect(TestBed.inject(AffixBuilderDrawerService).isOpen).toBe(true);
+    expect(editor.isOpen).toBe(true);
+    expect(activeTab()).toBe('affixes');
+    expect(el.querySelector('#affixesPanel .affix-editor')).not.toBeNull();
   });
 
   it('renders non-production admin access in the workspace bar', () => {
@@ -189,14 +205,15 @@ describe('MainComponent', () => {
     component.toggleFilters();
     fixture.detectChanges();
 
-    (fixture.nativeElement.querySelector('#affixesTab') as HTMLButtonElement).click();
+    // A fresh build opens on Affixes; switching to the gear is the move here.
+    (fixture.nativeElement.querySelector('#equipmentTab') as HTMLButtonElement).click();
     fixture.detectChanges();
 
     expect(component.filtersOpen).toBe(false);
   });
 
-  it('starts on the equipment tab', () => {
-    expect(component.activeTab).toBe('equipment');
+  it('starts a fresh build on the affixes tab, where the editor asks what it is for', () => {
+    expect(component.activeTab).toBe('affixes');
     expect(component.filtersOpen).toBe(false);
   });
 
@@ -433,7 +450,7 @@ describe('MainComponent - loading a build by shortId', () => {
 
     TestBed.createComponent(MainComponent).detectChanges();
 
-    expect(TestBed.inject(AffixBuilderDrawerService).isOpen).toBe(false);
+    expect(TestBed.inject(AffixEditorService).isOpen).toBe(false);
     // Someone else's build, shown as it is: no Basic added to it.
     expect(TestBed.inject(EquippedService).getImportantAffixes().size).toBe(0);
     expect(TestBed.inject(PlannerOnboardingService).shouldShowOnboarding()).toBe(false);

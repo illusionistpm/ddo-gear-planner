@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
 import { AppModule } from '../app.module';
-import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
+import { AffixEditorService } from '../planner/affix-editor.service';
 import { EquippedService, VisibleSetBonus } from '../planner/equipped.service';
 import { GearListComponent } from './gear-list.component';
 import { Item } from '../gear/item';
@@ -78,13 +78,16 @@ describe('GearListComponent', () => {
     expect(compiled.querySelector('.recommended-start-slot')).toBeNull();
   });
 
-  it('opens the affix builder from the start banner', () => {
+  it('opens the affix editor on the Affixes view from the start banner', () => {
     TestBed.inject(EquippedService).setImportantAffixes([]);
     createComponentWithSetBonuses([]);
 
     (fixture.nativeElement.querySelector('.affix-start-banner .affix-start-choose') as HTMLButtonElement).click();
 
-    expect(TestBed.inject(AffixBuilderDrawerService).isOpen).toBe(true);
+    expect(TestBed.inject(AffixEditorService).isOpen).toBe(true);
+    let tab: string | undefined;
+    TestBed.inject(EquippedService).getActiveMainTab().subscribe(value => tab = value).unsubscribe();
+    expect(tab).toBe('affixes');
   });
 
   it('pairs the armor green cue with intro text and a skip action once a focus is chosen', () => {

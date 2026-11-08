@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AppModule } from '../app.module';
+import { AffixEditorService } from '../planner/affix-editor.service';
 import { AffixPickerComponent } from './affix-picker.component';
 import { EquippedService } from '../planner/equipped.service';
 
@@ -158,25 +159,6 @@ describe('AffixPickerComponent', () => {
     expect(component.savedSet.has('Armor Class (%)')).toBe(true);
   });
 
-  it('groups saved affixes for easier scanning', () => {
-    component.savedSet.add('Strength');
-    component.savedSet.add('Armor-Piercing');
-
-    const groups = component.getSavedAffixGroups();
-
-    expect(groups).toContainEqual({ name: 'Attributes', affixes: ['Strength'] });
-    expect(groups).toContainEqual({ name: 'Offense', affixes: ['Armor-Piercing'] });
-  });
-
-  it('groups bool-only saved affixes with utility and checklist', () => {
-    component.savedSet.add('Heroic Inspiration');
-
-    expect(component.getSavedAffixGroups()).toContainEqual({
-      name: 'Utility & Checklist',
-      affixes: ['Heroic Inspiration']
-    });
-  });
-
   it('includes Seeker in both the melee and ranged bundles', () => {
     expect(component.packages.get('Melee')).toContain('Seeker');
     expect(component.packages.get('Ranged')).toContain('Seeker');
@@ -280,13 +262,28 @@ describe('AffixPickerComponent', () => {
     expect(chips.some(chip => chip.textContent?.trim() === 'Evocation')).toBe(true);
   });
 
-  it('labels selected affix chips as removable', () => {
-    component.add('Strength');
+  it('closes the editor from Done', () => {
+    const editor = TestBed.inject(AffixEditorService);
+    editor.open();
+
+    (fixture.nativeElement as HTMLElement).querySelector<HTMLButtonElement>('.affix-editor-header .affix-editor-done')!.click();
+
+    expect(editor.isOpen).toBe(false);
+  });
+
+  it('cues a spell power once Caster joins Basic, then the gear', () => {
+    component.addPackage('Basic');
+    component.addPackage('Caster');
     refreshView();
 
-    const chip = (fixture.nativeElement as HTMLElement).querySelector('.selected-affix-chip')!;
-    expect(chip.getAttribute('aria-label')).toBe('Remove Strength');
-    expect(chip.querySelector('.selected-affix-chip-remove')).not.toBeNull();
+    expect(component.shouldShowSpellpowerHint()).toBe(true);
+    expect((fixture.nativeElement as HTMLElement).textContent).toContain('Pick your spell power');
+
+    component.addSpellpower('Fire');
+    refreshView();
+
+    expect(component.shouldShowSpellpowerHint()).toBe(false);
+    expect(component.shouldHighlightEquipmentStep()).toBe(true);
   });
 
   it('clears saved affixes when tracked URL state is cleared', () => {

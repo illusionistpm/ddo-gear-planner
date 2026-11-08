@@ -15,7 +15,7 @@ import { convertToParamMap } from '@angular/router';
 import { of } from 'rxjs';
 
 import { AppModule } from '../app.module';
-import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
+import { AffixEditorService } from '../planner/affix-editor.service';
 import { QueryParamsService } from '../build/query-params.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { Item } from '../gear/item';
@@ -200,7 +200,7 @@ describe('Planner workspace controls', () => {
     it('opens the affix builder for editing from Add / edit affixes', () => {
       const fixture = createMain();
       showAffixesView(fixture);
-      const drawer = TestBed.inject(AffixBuilderDrawerService);
+      const drawer = TestBed.inject(AffixEditorService);
       drawer.close();
       fixture.detectChanges();
 
@@ -221,11 +221,13 @@ describe('Planner workspace controls', () => {
       return panel.hasAttribute('hidden');
     }
 
-    it('starts on the equipment view', () => {
+    // Changed on purpose: a fresh build used to open on Equipment with a
+    // setup screen over it; now it opens on Affixes, where the editor is.
+    it('starts a fresh build on the tracked affixes view', () => {
       const fixture = createMain();
 
-      expect(panelHidden(fixture, 'equipmentPanel')).toBe(false);
-      expect(panelHidden(fixture, 'affixesPanel')).toBe(true);
+      expect(panelHidden(fixture, 'equipmentPanel')).toBe(true);
+      expect(panelHidden(fixture, 'affixesPanel')).toBe(false);
     });
 
     it('shows the tracked affixes view once selected', () => {

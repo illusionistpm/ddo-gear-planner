@@ -906,4 +906,51 @@ describe('EquippedService', () => {
       expect(TestBed.inject(AffixUiService).getClassForCraftingOption(command)).toBe('Penalty');
     });
   });
+
+  // Two values of one bonus type don't stack: only the best counts.
+  describe('a bonus type that does not stack', () => {
+    const strength = (value: number) => new Affix({ name: 'Strength', type: 'Enhancement', value });
+    let service: EquippedService;
+
+    beforeEach(() => {
+      service = TestBed.inject(EquippedService);
+      vi.spyOn(TestBed.inject(AffixAvailabilityService), 'getScarcityWeight').mockReturnValue(1);
+      service.setImportantAffixes(['Strength']);
+      service.set(makeItem('Belt', 'Belt', 'Belts', [{ name: 'Strength', type: 'Enhancement', value: 5 }]));
+      service.set(makeItem('Gloves', 'Gloves', 'Gloves', [{ name: 'Strength', type: 'Enhancement', value: 3 }]));
+    });
+
+    it('is worth its best value', () => {
+      expect(service.getCurrentValueForAffixType('Strength', 'Enhancement')).toBe(5);
+    });
+
+    it('ranks the best value as best and a weaker one as outranked', () => {
+      expect(service.getAffixRanking(strength(5))).toBe(AffixRank.Best);
+      expect(service.getAffixRanking(strength(3))).toBe(AffixRank.Outranked);
+    });
+
+    it('ranks a value equal to the best as tied', () => {
+      service.set(makeItem('Gloves', 'Gloves', 'Gloves', [{ name: 'Strength', type: 'Enhancement', value: 5 }]));
+
+      expect(service.getAffixRanking(strength(5))).toBe(AffixRank.BestTied);
+    });
+
+    it('gives an item no credit for a value below the best and credit for one above it', () => {
+      const weakBracers = makeItem('Weak Bracers', 'Bracers', 'Bracers', [{ name: 'Strength', type: 'Enhancement', value: 4 }]);
+      const strongBracers = makeItem('Strong Bracers', 'Bracers', 'Bracers', [{ name: 'Strength', type: 'Enhancement', value: 7 }]);
+
+      expect(service.getScore(weakBracers)).toBe(0);
+      expect(service.getScore(strongBracers)).toBeGreaterThan(0);
+    });
+
+    it('is covered at its best value, beside the other types game data has for the affix', () => {
+      let covered = new Map<string, Array<{ bonusType: string; value: number }>>();
+      service.getCoveredAffixes().subscribe(map => (covered = map)).unsubscribe();
+
+      const types = covered.get('Strength') ?? [];
+      expect(types.find(type => type.bonusType === 'Enhancement')?.value).toBe(5);
+      expect(types.map(type => type.bonusType).sort())
+        .toEqual([...(service as any).gearList.affixToBonusTypes.get('Strength').keys()].sort());
+    });
+  });
 });

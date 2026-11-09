@@ -142,8 +142,9 @@ from ~97 places. When you need a colour:
    what it means rather than what it looks like (`--chip-eliminated-bg`, not
    `--grey-400`). For a translucent tint of an existing colour, use the
    `rgba(var(--primary-color-rgb), 0.1)` pattern.
-3. Don't add a `:host-context(.dark-theme)` block to a component. One survives,
-   in `equipment-slot-card`, and it swaps tokens rather than hardcoding colours.
+3. Don't add a `:host-context(.dark-theme)` block to a component; put a
+   `:root.dark-theme ...` rule in `styles.css` instead, as the shared slot-header
+   button rules do.
 4. Verify with `tools/visual-diff` if the change is meant to look identical.
 
 `npm run lint` enforces this: `site/tools/check-css-colors.js` fails on a hex,

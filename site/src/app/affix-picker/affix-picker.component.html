@@ -1,4 +1,4 @@
-<!-- The toolbar's Build Goals button opens and closes this (aria-controls),
+<!-- The toolbar's + Build Goals button opens and closes this (aria-controls),
      and shares its blue accent, so the two read as one control and its panel. -->
 <section id="affixEditor" class="affix-editor" aria-labelledby="affixEditorHeading">
   <header class="affix-editor-header">
@@ -35,7 +35,7 @@
       <ng-template #equipmentStepIntro>
       <ng-container *ngIf="shouldHighlightEquipmentStep(); else affixSetupIntro">
         <h2>Your gear targets are ready</h2>
-        <p>Choose gear when you're ready. Build Goals in the toolbar brings this back any time.</p>
+        <p>Choose gear when you're ready. <strong><app-goals-label for="editor-button"></app-goals-label></strong> in the toolbar brings this back any time.</p>
       </ng-container>
       </ng-template>
       <ng-template #affixSetupIntro>
@@ -53,7 +53,7 @@
       <ng-template #savedAffixSetupIntro>
         <ng-container *ngIf="savedSet.size; else emptyAffixSetupIntro">
           <h2>Your gear targets are ready</h2>
-          <p>Choose gear when you're ready. Build Goals in the toolbar brings this back any time.</p>
+          <p>Choose gear when you're ready. <strong><app-goals-label for="editor-button"></app-goals-label></strong> in the toolbar brings this back any time.</p>
         </ng-container>
       </ng-template>
       <ng-template #emptyAffixSetupIntro>

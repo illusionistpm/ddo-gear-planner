@@ -210,6 +210,13 @@
     background: rgba(var(--primary-color-rgb), 0.18);
 }
 
+/* "+ Build Goals": the plus sits tight against the label, as the old
+   "+ Affixes" did; the chevron keeps the button's full gap. */
+.affix-toggle-plus {
+    font-size: 0.75rem;
+    margin-right: calc(-1 * var(--space-4));
+}
+
 /* Points down to open, up to close. */
 .affix-toggle-chevron {
     font-size: 0.7rem;

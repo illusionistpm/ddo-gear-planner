@@ -134,10 +134,10 @@
             <div>
                 <div class="onboarding-step-label">Next step</div>
                 <h2>Check which bonuses your gear covers</h2>
-                <p>Switch to Build Goals to see what your equipped items already satisfy and what still needs better gear.</p>
+                <p>Switch to <strong><app-goals-label for="view-tab"></app-goals-label></strong> to see what your equipped items already satisfy and what still needs better gear.</p>
             </div>
             <div class="planner-onboarding-actions">
-                <button type="button" class="onboarding-action-button" (click)="selectTab('affixes')">Build Goals</button>
+                <button type="button" class="onboarding-action-button" (click)="selectTab('affixes')"><app-goals-label for="view-tab"></app-goals-label></button>
                 <button type="button" class="onboarding-dismiss-button" (click)="dismissIntro()">Skip intro</button>
             </div>
         </section>
@@ -150,7 +150,7 @@
                 <div class="planner-wrap-up-label">You're all set</div>
                 <h2>Keep building from here</h2>
                 <ul class="planner-wrap-up-tips">
-                    <li>Click any bonus under Build Goals to find the items that supply it.</li>
+                    <li>Click any bonus under <strong><app-goals-label for="view-tab"></app-goals-label></strong> to find the items that supply it.</li>
                     @if (!signedIn) {
                         <li>Sign in to save this build and come back to it from any device.</li>
                     }

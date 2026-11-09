@@ -117,7 +117,7 @@ describe('GearListComponent', () => {
 
       expect(gearArea().classList).toContain('is-dimmed');
       expect(inert()).toEqual([true, true]);
-      expect(gearArea().querySelector('.equipment-gear-area-hint')?.textContent).toContain('Build Goals');
+      expect(gearArea().querySelector('.equipment-gear-area-hint')?.textContent).toContain('your build goals');
     });
 
     it('comes back once the editor closes (Choose gear)', () => {

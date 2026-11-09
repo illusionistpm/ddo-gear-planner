@@ -1,3 +1,4 @@
+import { GoalsLabelComponent } from './goals-label/goals-label.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, provideAppInitializer, inject, DestroyRef, Injector, runInInjectionContext } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -59,6 +60,7 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
 @NgModule({
     declarations: [
         AppComponent,
+        GoalsLabelComponent,
         GearListComponent,
         TypeaheadComponent,
         GearDescriptionComponent,

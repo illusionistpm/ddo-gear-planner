@@ -101,7 +101,7 @@
     <app-affix-picker *ngIf="editorOpen"></app-affix-picker>
     <ng-container *ngIf="groupMode === 'slots'">
         <p class="tracked-affix-slots-empty" *ngIf="!needsStart && !trackedDisplay.slotGroups.length">
-            No build goals yet. Add some with Build Goals in the toolbar above.
+            No build goals yet. Add some with <strong><app-goals-label for="editor-button"></app-goals-label></strong> in the toolbar above.
         </p>
         <div class="tracked-affix-section slot-group-section" [ngClass]="'slot-group-' + group.key" *ngFor="let group of trackedDisplay.slotGroups; trackBy: trackSlotGroup">
             <button type="button" class="tracked-affix-group-title" (click)="toggleAffixGroup(group.key)"

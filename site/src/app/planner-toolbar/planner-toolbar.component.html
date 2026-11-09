@@ -34,7 +34,8 @@
 
 <!-- Outside both view controls: what the planner tracks is worth changing from
      either view. Opens and closes the Build Goals editor at the top of the
-     Build Goals panel, whose blue accent it shares. One label either way -
+     Build Goals panel, whose blue accent it shares. "+ Goals" on a phone, so it is not
+     mistaken for the view switch's Goals tab. One label either way -
      the chevron and aria-expanded say whether it's open. -->
 <button type="button" class="tracked-affix-edit-affixes" #editAffixes
   [class.open]="editorOpen"
@@ -43,6 +44,7 @@
   aria-controls="affixEditor"
   [title]="needsAffixes && !editorOpen ? 'Start here: choose your build\'s goals' : 'Show or hide your build goals'"
   (click)="toggleEditor()">
+  <span class="fas fa-plus affix-toggle-plus" aria-hidden="true"></span>
   <span class="tracked-affix-edit-affixes-label">Build Goals</span>
   <span class="tracked-affix-edit-affixes-short">Goals</span>
   <span class="fas fa-chevron-down affix-toggle-chevron" aria-hidden="true"></span>

@@ -154,6 +154,11 @@ describe('PlannerToolbarComponent', () => {
       expect(label()).toBe('Build Goals');
     });
 
+    it('reads + Build Goals, + Goals when short, so it is not taken for the Goals tab', () => {
+      expect(affixButton().querySelector('.affix-toggle-plus.fa-plus')).not.toBeNull();
+      expect(affixButton().querySelector('.tracked-affix-edit-affixes-short')?.textContent?.trim()).toBe('Goals');
+    });
+
     it('glows only while the editor is shut and the build has no focus yet', () => {
       const editor = TestBed.inject(AffixEditorService);
 

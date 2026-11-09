@@ -140,7 +140,7 @@ describe('EffectsTableComponent', () => {
     expect(component.isOnboardingTargetChip('Feather Falling', 'Bool')).toBe(true);
   });
 
-  it('pairs the tracked affix chip green cue with intro text and a skip action', () => {
+  it('pairs the tracked affix chip tutorial cue with intro text and a skip action', () => {
     component.onboardingActive = true;
     component.needsStart = false;
     component.affixNames = ['Strength'];

@@ -328,7 +328,7 @@ describe('MainComponent', () => {
     });
   });
 
-  it('pairs the tracked affixes tab green cue with intro text and a skip action', () => {
+  it('pairs the tracked affixes tab tutorial cue with intro text and a skip action', () => {
     component.trackedAffixesHint = true;
 
     expect(component.shouldHighlightTrackedAffixes()).toBe(true);

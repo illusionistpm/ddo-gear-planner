@@ -5,7 +5,7 @@
 .affix-start-banner {
   align-items: center;
   border: 1px solid var(--border-color);
-  border-left: 4px solid var(--success-color);
+  border-left: 4px solid var(--tutorial-accent);
   border-radius: var(--border-radius);
   color: var(--text-primary);
   display: flex;

@@ -23,7 +23,7 @@
     align-items: center;
     background: var(--surface-color);
     border: 1px solid var(--border-color);
-    border-left: 4px solid var(--success-color);
+    border-left: 4px solid var(--tutorial-accent);
     border-radius: var(--border-radius);
     display: flex;
     gap: var(--space-12);

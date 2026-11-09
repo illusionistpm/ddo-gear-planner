@@ -90,7 +90,7 @@ describe('GearListComponent', () => {
     expect(tab).toBe('affixes');
   });
 
-  it('pairs the armor green cue with intro text and a skip action once a focus is chosen', () => {
+  it('pairs the armor tutorial cue with intro text and a skip action once a focus is chosen', () => {
     TestBed.inject(EquippedService).setImportantAffixes(['Strength']);
     createComponentWithSetBonuses([]);
     const compiled: HTMLElement = fixture.nativeElement;

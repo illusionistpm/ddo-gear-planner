@@ -1,6 +1,6 @@
 :host(.recommended-start-slot) {
-    border: 1px solid var(--selected-border-color);
-    box-shadow: 0 0 0 3px rgba(var(--success-color-rgb), 0.16), var(--shadow-md);
+    border: 1px solid var(--tutorial-accent);
+    box-shadow: 0 0 0 3px rgba(var(--tutorial-accent-rgb), 0.16), var(--shadow-md);
 }
 
 :host(.disabled-slot) {
@@ -55,7 +55,7 @@
 }
 
 :host(.recommended-start-slot) .btn-secondary {
-    background: linear-gradient(135deg, var(--success-color) 0%, var(--success-gradient-end) 100%);
+    background: linear-gradient(135deg, var(--tutorial-accent-fill) 0%, var(--tutorial-accent-strong) 100%);
     color: var(--on-accent-text-color);
 }
 

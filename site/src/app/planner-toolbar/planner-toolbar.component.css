@@ -232,12 +232,12 @@
     color: var(--on-accent-text-color);
 }
 
-/* A build with nothing tracked: this is where to start. The pulsing green
-   background is the shared onboarding cue (styles.css). */
+/* A build with nothing tracked: this is where to start. The pulsing
+   magenta background is the shared onboarding cue (styles.css). */
 .tracked-affix-edit-affixes.needs-attention,
 .tracked-affix-edit-affixes.needs-attention:hover,
 .tracked-affix-edit-affixes.needs-attention:focus-visible {
-    border-color: var(--success-color);
+    border-color: var(--tutorial-accent-strong);
     color: var(--on-accent-text-color);
 }
 

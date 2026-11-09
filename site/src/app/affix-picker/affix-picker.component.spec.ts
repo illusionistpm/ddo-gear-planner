@@ -44,7 +44,7 @@ describe('AffixPickerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('pairs the starter package green cue with intro text and a skip action', () => {
+  it('pairs the starter package tutorial cue with intro text and a skip action', () => {
     const compiled: HTMLElement = fixture.nativeElement;
 
     expect(compiled.querySelector('.affix-next-chip')).not.toBeNull();
@@ -61,7 +61,7 @@ describe('AffixPickerComponent', () => {
     expect(component.shouldShowAdditionalPackageHint()).toBe(true);
   });
 
-  it('pairs the equipment tab green cue with intro text after Basic and another package are selected', () => {
+  it('pairs the equipment tab tutorial cue with intro text after Basic and another package are selected', () => {
     component.addPackage('Basic');
     component.addPackage('Melee');
 

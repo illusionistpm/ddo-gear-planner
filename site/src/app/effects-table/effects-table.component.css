@@ -28,7 +28,7 @@
     align-items: center;
     background: linear-gradient(90deg, rgba(var(--primary-color-rgb), 0.08), var(--surface-color) 55%);
     border: 1px solid var(--border-color);
-    border-left: 4px solid var(--success-color);
+    border-left: 4px solid var(--tutorial-accent);
     border-radius: var(--border-radius);
     display: flex;
     gap: var(--space-12);

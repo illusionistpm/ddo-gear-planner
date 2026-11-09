@@ -59,7 +59,6 @@
             [title]="getPackageTooltip(pkg)"
             (click)="addPackage(pkg)">
             {{pkg}}
-            <span *ngIf="shouldHighlightStarterPackage(pkg)" class="affix-next-chip-badge">{{pkg === 'Basic' ? 'Start' : 'Suggested'}}</span>
           </button>
         }
       </div>

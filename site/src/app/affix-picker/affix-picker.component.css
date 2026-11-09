@@ -237,25 +237,31 @@
   background: var(--surface-muted-color);
 }
 
-.affix-next-chip,
-.affix-next-chip:hover,
-.affix-next-chip:focus {
-  background: linear-gradient(135deg, var(--success-color) 0%, var(--success-gradient-end) 100%);
-  border-color: var(--success-gradient-end);
-  box-shadow: 0 0 0 3px rgba(var(--success-glow-rgb), 0.2);
-  color: var(--on-accent-text-color);
+/*
+ * The tutorial's suggestion: an ordinary unselected chip with a slow magenta
+ * shimmer round its edge - a pointer, not a fill, so a selected chip (green
+ * with a check) stays the only one that looks "on". Gone once selected.
+ */
+.affix-next-chip:not(.selected) {
+  animation: affix-next-chip-shimmer 2.4s ease-in-out infinite;
+  border-color: rgba(var(--tutorial-accent-rgb), 0.7);
 }
 
-.affix-next-chip-badge {
-  background: rgba(255, 255, 255, 0.22);
-  border: 1px solid rgba(255, 255, 255, 0.42);
-  border-radius: 999px;
-  color: var(--on-accent-text-color);
-  font-size: 0.68rem;
-  font-weight: 900;
-  line-height: 1;
-  padding: var(--space-2) var(--space-8);
-  text-transform: uppercase;
+@keyframes affix-next-chip-shimmer {
+  0%, 100% {
+    box-shadow: 0 0 0 1px rgba(var(--tutorial-accent-rgb), 0.15);
+  }
+
+  50% {
+    box-shadow: 0 0 0 3px rgba(var(--tutorial-accent-rgb), 0.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .affix-next-chip:not(.selected) {
+    animation: none;
+    box-shadow: 0 0 0 2px rgba(var(--tutorial-accent-rgb), 0.3);
+  }
 }
 
 .affix-selectable-chip.selected,

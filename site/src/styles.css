@@ -273,7 +273,6 @@
 :where(
   .planner-next-tab:not(.active),
   .affix-next-tab,
-  .affix-next-chip,
   .tracked-bonus-chip-onboarding-target,
   .recommended-start-slot .slot-select-button,
   .tracked-affix-edit-affixes.needs-attention
@@ -287,8 +286,7 @@
   :where(
     .planner-next-tab,
     .affix-next-tab,
-    .affix-next-chip,
-    .tracked-bonus-chip-onboarding-target,
+      .tracked-bonus-chip-onboarding-target,
     .recommended-start-slot .slot-select-button,
     .tracked-affix-edit-affixes.needs-attention
   ) {

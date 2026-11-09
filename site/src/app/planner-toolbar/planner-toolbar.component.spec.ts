@@ -58,8 +58,8 @@ describe('PlannerToolbarComponent', () => {
       // this switch shares its line with Share and the save/sign-in control.
       expect(tab('equipmentTab').textContent).toContain('Equipment');
       expect(tab('equipmentTab').querySelector('.planner-view-option-short')?.textContent).toBe('Gear');
-      expect(tab('affixesTab').textContent).toContain('Tracked Affixes');
-      expect(tab('affixesTab').querySelector('.planner-view-option-short')?.textContent).toBe('Affixes');
+      expect(tab('affixesTab').textContent).toContain('Build Goals');
+      expect(tab('affixesTab').querySelector('.planner-view-option-short')?.textContent).toBe('Goals');
     });
 
     it('points each tab at the panel it controls', () => {

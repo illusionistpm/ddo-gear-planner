@@ -13,7 +13,7 @@
     [attr.aria-selected]="isActiveTab('affixes')"
     [attr.tabindex]="isActiveTab('affixes') ? 0 : -1"
     aria-controls="affixesPanel"
-    (click)="selectTab('affixes')"><span class="planner-view-option-full">Tracked Affixes</span><span class="planner-view-option-short">Affixes</span></button>
+    (click)="selectTab('affixes')"><span class="planner-view-option-full">Build Goals</span><span class="planner-view-option-short">Goals</span></button>
 </div>
 
 <div class="equipment-search" [hidden]="!isActiveTab('equipment')" #gearSearch>
@@ -23,7 +23,7 @@
     [inputClass]="'form-control form-control-sm'" searchType="global_item"></app-typeahead>
 </div>
 
-<div class="tracked-affix-groupby" role="group" aria-label="Group tracked affixes by"
+<div class="tracked-affix-groupby" role="group" aria-label="Group build goals by"
   [hidden]="!isActiveTab('affixes')">
   <span class="tracked-affix-groupby-label">Group by</span>
   <button type="button" class="tracked-affix-groupby-option" [class.active]="groupMode === 'category'"

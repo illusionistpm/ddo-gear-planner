@@ -2,10 +2,13 @@
      and shares its blue accent, so the two read as one control and its panel. -->
 <section id="affixEditor" class="affix-editor" aria-labelledby="affixEditorHeading">
   <header class="affix-editor-header">
-    <h2 id="affixEditorHeading" class="affix-editor-heading" tabindex="-1">
-      <span class="fas fa-plus affix-editor-heading-icon" aria-hidden="true"></span>
-      Edit tracked affixes
-    </h2>
+    <div class="affix-editor-title">
+      <h2 id="affixEditorHeading" class="affix-editor-heading" tabindex="-1">
+        <span class="fas fa-bullseye affix-editor-heading-icon" aria-hidden="true"></span>
+        Edit build goals
+      </h2>
+      <p class="affix-editor-lede">Tell the planner what your character needs, like Melee Power or Fortification, and it ranks gear by how much of that each piece gives you.</p>
+    </div>
     <!-- Out of the way during the intro, and asks first: it empties the whole list. -->
     @if (savedSet.size && !hasOnboardingStep()) {
       <div class="affix-editor-clear">
@@ -38,7 +41,7 @@
       <ng-template #affixSetupIntro>
         <ng-container *ngIf="shouldShowAdditionalPackageHint(); else basicAffixSetupIntro">
           <h2>What is this build for?</h2>
-          <p>Basic is already on - the defenses and utility most builds want. Add the focus (or focuses) that fit how this character plays, and the planner suggests gear for it.</p>
+          <p>Basic is already on: Constitution plus the defenses and utility most builds want. Add the focus (or focuses) that fit how this character plays.</p>
         </ng-container>
       </ng-template>
       <ng-template #basicAffixSetupIntro>
@@ -55,7 +58,7 @@
       </ng-template>
       <ng-template #emptyAffixSetupIntro>
         <h2>Start by choosing your build goals</h2>
-        <p>Pick Basic, then the combat or role packages that fit your build. Once you have selected affixes, the planner can track them while you compare gear.</p>
+        <p>Pick Basic, then the combat or role packages that fit your build. Once you have build goals, the planner tracks them while you compare gear.</p>
       </ng-template>
       <div *ngIf="hasOnboardingStep()" class="affix-intro-actions">
         <!-- The way on from the editor, side by side or one view at a time. -->

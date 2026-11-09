@@ -1,5 +1,5 @@
 /*
- * The affix editor: the top of the Tracked Affixes panel while it's open.
+ * The Build Goals editor: the top of the Build Goals panel while it's open.
  * It lives in that panel's column, so nothing here is sized off the viewport.
  */
 .affix-editor {
@@ -66,6 +66,18 @@
   font-size: 1rem;
   font-weight: 800;
   margin: 0;
+}
+
+.affix-editor-title {
+  flex: 1 1 16rem;
+  min-width: 0;
+}
+
+.affix-editor-lede {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.35;
+  margin: var(--space-2) 0 0;
 }
 
 .affix-editor-heading-icon {

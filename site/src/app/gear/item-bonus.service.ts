@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import { GameDataService } from './game-data.service';
-import { ItemBonusKind, ItemBonusOption } from './item-bonus';
+import { CraftableOption } from './craftable-option';
+import { ItemBonusKind } from './item-bonus';
 import { RawItemBonusOption } from './game-data-types';
 
 /** Slots that can't carry a Mythic Boost, Reaper bonus or Curse. */
@@ -17,13 +18,16 @@ function dataSlotFor(slot: string): string {
   providedIn: 'root'
 })
 export class ItemBonusService {
-  private index?: Map<ItemBonusKind, Map<string, readonly ItemBonusOption[]>>;
-  private curses?: readonly ItemBonusOption[];
+  /** What a bonus dropdown lists first, as a crafting slot lists its empty option. Never stored on an item. */
+  readonly none = new CraftableOption(null, 'None');
+
+  private index?: Map<ItemBonusKind, Map<string, readonly CraftableOption[]>>;
+  private curses?: readonly CraftableOption[];
 
   constructor(private gameData: GameDataService) {}
 
   /** The options of one kind an item in `slot` can carry, in data order; none for a slot that can't take bonuses. */
-  getOptions(kind: ItemBonusKind, slot: string): readonly ItemBonusOption[] {
+  getOptions(kind: ItemBonusKind, slot: string): readonly CraftableOption[] {
     if (SLOTS_WITHOUT_BONUSES.has(slot)) {
       return [];
     }
@@ -34,8 +38,8 @@ export class ItemBonusService {
   }
 
   /** The option called `name`, if an item in `slot` can carry it. */
-  find(kind: ItemBonusKind, slot: string, name: string): ItemBonusOption | undefined {
-    return this.getOptions(kind, slot).find(option => option.name === name);
+  find(kind: ItemBonusKind, slot: string, name: string): CraftableOption | undefined {
+    return name ? this.getOptions(kind, slot).find(option => option.name === name) : undefined;
   }
 
   // Built on first use: game data is loaded by then, but not when services are constructed.
@@ -51,11 +55,11 @@ export class ItemBonusService {
   }
 
   private getCurses() {
-    this.curses ??= this.gameData.itemBonuses.curses.map(raw => new ItemBonusOption(raw));
+    this.curses ??= this.gameData.itemBonuses.curses.map(raw => new CraftableOption(raw));
     return this.curses;
   }
 
-  private buildSlotIndex(bySlot: Record<string, RawItemBonusOption[]>): Map<string, readonly ItemBonusOption[]> {
-    return new Map(Object.entries(bySlot).map(([slot, options]) => [slot, options.map(raw => new ItemBonusOption(raw))]));
+  private buildSlotIndex(bySlot: Record<string, RawItemBonusOption[]>): Map<string, readonly CraftableOption[]> {
+    return new Map(Object.entries(bySlot).map(([slot, options]) => [slot, options.map(raw => new CraftableOption(raw))]));
   }
 }

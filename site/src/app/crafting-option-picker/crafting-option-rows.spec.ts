@@ -89,6 +89,14 @@ describe('buildFamilyRows', () => {
     expect(byLabel('Quickblade set', list).hideable).toBe(true);
   });
 
+  it('lets a named option with no affixes be hidden, and names it once', () => {
+    const masterworks = option({ name: 'Curse of Minor Masterworks' });
+    const row = byLabel('Curse of Minor Masterworks', rows([masterworks]));
+
+    expect(row.hideable).toBe(true);
+    expect(row.aside).toBe('');
+  });
+
   it('searches the label, the detail and every tier\'s own name', () => {
     const row = byLabel('Charisma', rows(charisma));
 

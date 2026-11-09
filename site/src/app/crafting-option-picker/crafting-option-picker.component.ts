@@ -6,7 +6,7 @@ import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 
 import { CraftableOption } from '../gear/craftable-option';
 import { CraftingOptionFamily, groupCraftingOptions } from '../gear/crafting-option-families';
-import { AffixUiService, CraftingOptionContext } from '../affixes/affix-ui.service';
+import { AffixUiService, contextCraftable, CraftingOptionContext } from '../affixes/affix-ui.service';
 import { getStoredHideIrrelevantCraftingOptions, storeHideIrrelevantCraftingOptions } from '../planner/planner-view-state-storage';
 import { buildFamilyRows, defaultTier, FamilyRow, TierRow } from './crafting-option-rows';
 import { craftSystemName } from '../gear/crafting-acquisition';
@@ -172,7 +172,11 @@ export class CraftingOptionPickerComponent implements OnChanges {
     this.families = buildFamilyRows(this.groups,
       option => this.affixUi.rankCraftingOption(option, this.slot, this.itemIsEquipped && option === this.selected, this.context),
       this.affixUi,
-      option => !!this.userGear.getCraftingOptionLocations(this.context ? craftSystemName(this.context.craft) : '', option));
+      option => {
+        // Only a crafting option is something the player can own; a bonus belongs to their copy of the item.
+        const craft = contextCraftable(this.context);
+        return !!craft && !!this.userGear.getCraftingOptionLocations(craftSystemName(craft), option);
+      });
     this.selectedFamily = this.families.find(family => family.tiers.some(tier => tier.option === this.selected)) ?? null;
     this.expandedFamily = this.selectedFamily && this.selectedFamily.tiers.length > 1 ? this.selectedFamily : null;
     this.applyFilter();

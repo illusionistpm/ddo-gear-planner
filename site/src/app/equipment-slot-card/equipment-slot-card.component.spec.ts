@@ -4,6 +4,8 @@ import { AppModule } from '../app.module';
 import { EquipmentSlotCardComponent } from './equipment-slot-card.component';
 import { EquippedService } from '../planner/equipped.service';
 import { GearDbService } from '../gear/gear-db.service';
+import { By } from '@angular/platform-browser';
+import { CraftingOptionPickerComponent } from '../crafting-option-picker/crafting-option-picker.component';
 
 describe('EquipmentSlotCardComponent', () => {
   let fixture: ComponentFixture<EquipmentSlotCardComponent>;
@@ -44,15 +46,27 @@ describe('EquipmentSlotCardComponent', () => {
       return render(slot);
     }
 
+    function openEditor(card: HTMLElement) {
+      bonusButton(card)!.click();
+      fixture.detectChanges();
+    }
+
     const bonusButton = (card: HTMLElement) => card.querySelector<HTMLButtonElement>('.slot-bonus-button');
     const bonusRows = (card: HTMLElement) => Array.from(card.querySelectorAll<HTMLElement>('.item-bonus-row'));
     const rowLabels = (card: HTMLElement) => bonusRows(card).map(row => row.querySelector('.col')!.textContent!.trim());
+    const optionClass = (row: HTMLElement, name: string) => Array.from(row.querySelectorAll('option'))
+      .find(option => option.textContent!.trim() === name)!.className;
 
     function choose(row: HTMLElement, optionName: string) {
       const select = row.querySelector('select')!;
-      const index = Array.from(select.options).findIndex(option => option.textContent!.trim() === optionName);
-      select.selectedIndex = index;
+      select.selectedIndex = Array.from(select.options).findIndex(option => option.textContent!.trim() === optionName);
       select.dispatchEvent(new Event('change'));
+      fixture.detectChanges();
+    }
+
+    function chooseCurse(card: HTMLElement, name: string) {
+      const picker = fixture.debugElement.query(By.directive(CraftingOptionPickerComponent)).componentInstance as CraftingOptionPickerComponent;
+      picker.selectedChange.emit(picker.options.find(option => option.name === name));
       fixture.detectChanges();
     }
 
@@ -65,33 +79,59 @@ describe('EquipmentSlotCardComponent', () => {
       const card = equip('Helm');
       expect(bonusRows(card)).toEqual([]);
 
-      bonusButton(card)!.click();
-      fixture.detectChanges();
+      openEditor(card);
 
       expect(rowLabels(card)).toEqual(['Mythic', 'Reaper', 'Curse']);
       expect(bonusButton(card)!.getAttribute('aria-pressed')).toBe('true');
     });
 
-    it('puts a chosen bonus on the equipped item and keeps only its row once closed', () => {
+    it('colours each option by what it would do for the tracked affixes, as a crafting list does', () => {
+      equipped.setImportantAffixes(['Physical Sheltering']);
       const card = equip('Helm');
-      bonusButton(card)!.click();
-      fixture.detectChanges();
+      openEditor(card);
+      const [mythic, reaper] = bonusRows(card);
 
-      choose(bonusRows(card)[2], 'Curse of Major Strength');
+      expect(optionClass(mythic, 'Mythic +3 (PRR/MRR)')).toBe('BetterThanBest');
+      expect(optionClass(mythic, 'None')).toBe('Irrelevant');
+      expect(optionClass(reaper, 'Reaper Enchantment: Physical Resistance Rating')).toBe('BetterThanBest');
+      expect(optionClass(reaper, 'Reaper Enchantment: Power')).toBe('Irrelevant');
+    });
+
+    it('ranks an option against the bonus it would replace', () => {
+      equipped.setImportantAffixes(['Physical Sheltering']);
+      const card = equip('Helm');
+      openEditor(card);
+      choose(bonusRows(card)[0], 'Mythic +3 (PRR/MRR)');
+
+      expect(optionClass(bonusRows(card)[0], 'Mythic +3 (PRR/MRR)')).toBe('Best');
+      expect(optionClass(bonusRows(card)[0], 'Mythic +1 (PRR/MRR)')).toBe('Outranked');
+    });
+
+    it('picks a curse from the searchable list long crafting lists use', () => {
+      const card = equip('Helm');
+      openEditor(card);
+
+      expect(bonusRows(card)[2].querySelector('app-crafting-option-picker')).not.toBeNull();
+
+      chooseCurse(card, 'Curse of Major Strength');
 
       expect(equipped.getSlotsSnapshot().get('Helm')?.bonuses.curse?.name).toBe('Curse of Major Strength');
+    });
 
-      bonusButton(card)!.click();
-      fixture.detectChanges();
+    it('keeps only the chosen rows once closed', () => {
+      const card = equip('Helm');
+      openEditor(card);
+      choose(bonusRows(card)[1], 'Reaper Helmet Enchantment');
 
-      expect(rowLabels(card)).toEqual(['Curse']);
+      openEditor(card);
+
+      expect(rowLabels(card)).toEqual(['Reaper']);
       expect(bonusButton(card)!.classList).toContain('is-active');
     });
 
     it('takes a bonus off again with None', () => {
       const card = equip('Helm');
-      bonusButton(card)!.click();
-      fixture.detectChanges();
+      openEditor(card);
       choose(bonusRows(card)[0], 'Mythic +3 (PRR/MRR)');
 
       choose(bonusRows(card)[0], 'None');

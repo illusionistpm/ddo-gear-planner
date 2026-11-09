@@ -294,9 +294,15 @@
     padding: var(--space-8) var(--space-8) var(--space-8);
 }
 
+/*
+ * Sticky within its section, so the section being scrolled through stays
+ * named. The scroller is .planner-tab-panel in both layouts (side by side
+ * each panel scrolls; one view at a time the active one does), and nothing
+ * else in it sticks, so top: 0. Opaque, and above the chips scrolling under it.
+ */
 .tracked-affix-group-title {
     align-items: center;
-    background: transparent;
+    background: var(--panel-bg);
     border: 0;
     color: var(--text-primary);
     display: flex;
@@ -305,20 +311,23 @@
     gap: var(--space-8);
     justify-content: space-between;
     margin-bottom: var(--space-4);
-    padding: 0;
+    padding: var(--space-4) 0;
+    position: sticky;
     text-align: left;
     text-transform: uppercase;
+    top: 0;
     width: 100%;
+    z-index: 2;
 }
 
 .tracked-affix-group-title:hover,
 .tracked-affix-group-title:focus {
-    color: var(--tracked-affix-accent, var(--primary-color));
+    color: var(--primary-color);
 }
 
 .tracked-affix-group-title:focus-visible {
-    outline: 3px solid var(--tracked-affix-accent-soft, rgba(var(--primary-color-rgb), 0.1));
-    outline-offset: 3px;
+    outline: 3px solid var(--focus-ring-color);
+    outline-offset: 1px;
 }
 
 .tracked-affix-header-actions {

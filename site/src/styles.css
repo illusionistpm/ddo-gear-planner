@@ -16,6 +16,9 @@
   --tutorial-accent-rgb: 192, 38, 211;
   --tutorial-accent-fill: #c026d3;
   --tutorial-accent-strong: #86198f;
+  /* Section edges that name nothing but "a section": readable as text too. */
+  --section-accent-neutral: #64748b;
+  --section-accent-neutral-rgb: 100, 116, 139;
   --warning-color: #d97706;
   --danger-color: #ef4444;
   --danger-color-rgb: 239, 68, 68;
@@ -169,6 +172,8 @@
   --tutorial-accent-rgb: 232, 121, 249;
   --tutorial-accent-fill: #a21caf;
   --tutorial-accent-strong: #86198f;
+  --section-accent-neutral: #94a3b8;
+  --section-accent-neutral-rgb: 148, 163, 184;
   --warning-color: #f59e0b;
   --danger-color: #f87171;
   --danger-color-rgb: 248, 113, 113;
@@ -1169,49 +1174,23 @@ select.form-control {
   text-transform: uppercase;
 }
 
-.tracked-affix-section-attributes {
-  --tracked-affix-accent: #7c3aed;
-  --tracked-affix-accent-soft: rgba(124, 58, 237, 0.1);
-}
-
-.tracked-affix-section-defense {
-  --tracked-affix-accent: #0891b2;
-  --tracked-affix-accent-soft: rgba(8, 145, 178, 0.1);
-}
-
-.tracked-affix-section-offense {
-  --tracked-affix-accent: #dc2626;
-  --tracked-affix-accent-soft: rgba(220, 38, 38, 0.1);
-}
-
-.tracked-affix-section-casting {
-  --tracked-affix-accent: #2563eb;
-  --tracked-affix-accent-soft: rgba(37, 99, 235, 0.1);
-}
-
-.tracked-affix-section-saves {
-  --tracked-affix-accent: #16a34a;
-  --tracked-affix-accent-soft: rgba(22, 163, 74, 0.1);
-}
-
-.tracked-affix-section-skills {
-  --tracked-affix-accent: #65a30d;
-  --tracked-affix-accent-soft: rgba(101, 163, 13, 0.1);
-}
-
-.tracked-affix-section-utility-checklist {
-  --tracked-affix-accent: #d97706;
-  --tracked-affix-accent-soft: rgba(217, 119, 6, 0.1);
-}
-
-.tracked-affix-section-immunities {
-  --tracked-affix-accent: #0f766e;
-  --tracked-affix-accent-soft: rgba(15, 118, 110, 0.1);
-}
-
+/*
+ * Category sections: one neutral accent for all of them. They used to be a
+ * colour each, three of them status colours (red, green, amber) that meant
+ * nothing about the category - and the Scarcity view uses this same accent
+ * slot to mean pressure. Shared with the sidebar's .affix-summary-group.
+ */
+.tracked-affix-section-attributes,
+.tracked-affix-section-defense,
+.tracked-affix-section-offense,
+.tracked-affix-section-casting,
+.tracked-affix-section-saves,
+.tracked-affix-section-skills,
+.tracked-affix-section-utility-checklist,
+.tracked-affix-section-immunities,
 .tracked-affix-section-other {
-  --tracked-affix-accent: #64748b;
-  --tracked-affix-accent-soft: rgba(100, 116, 139, 0.12);
+  --tracked-affix-accent: var(--section-accent-neutral);
+  --tracked-affix-accent-soft: rgba(var(--section-accent-neutral-rgb), 0.12);
 }
 
 /* Responsive improvements */
@@ -1231,10 +1210,10 @@ select.form-control {
   }
 }
 
-/* Each category gets its own bordered card with an accent stripe (colors come
-   from the .tracked-affix-section-* classes applied via [ngClass], shared with
-   the Tracked Affixes page) so a scroll through the list reads as distinct
-   categories rather than one long run of rows. */
+/* Each category gets its own bordered card with an accent stripe (the neutral
+   accent from the .tracked-affix-section-* classes applied via [ngClass],
+   shared with the Build Goals panel) so a scroll through the list reads as
+   distinct categories rather than one long run of rows. */
 .affix-summary-group {
   background: var(--surface-color);
   border: 1px solid var(--border-color);

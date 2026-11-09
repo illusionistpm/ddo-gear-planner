@@ -313,6 +313,43 @@ describe('AffixPickerComponent', () => {
     expect(component.shouldHighlightEquipmentStep()).toBe(true);
   });
 
+  // Characterization: what finishing and clearing do, pinned before the
+  // controls for them move (the footer goes; Clear moves to the header).
+  describe('finishing and clearing', () => {
+    const button = (label: string) => Array.from((fixture.nativeElement as HTMLElement).querySelectorAll<HTMLButtonElement>('button'))
+      .find(b => b.textContent?.replace(/\s+/g, ' ').trim().startsWith(label));
+
+    it('finishing the gear-targets step closes the editor through AffixEditorService.finish', () => {
+      const editor = TestBed.inject(AffixEditorService);
+      const finish = vi.spyOn(editor, 'finish');
+      editor.open();
+      component.addPackage('Basic');
+      component.addPackage('Melee');
+      refreshView();
+      expect(component.shouldHighlightEquipmentStep()).toBe(true);
+
+      component.done();
+
+      expect(finish).toHaveBeenCalled();
+      expect(editor.isOpen).toBe(false);
+    });
+
+    it('clearing removes every tracked affix', () => {
+      component.dismissIntro();
+      component.addPackage('Basic');
+      component.toggleAttribute('Strength');
+      refreshView();
+      expect(component.savedSet.size).toBeGreaterThan(0);
+
+      component.clearAll();
+      refreshView();
+
+      expect(component.savedSet.size).toBe(0);
+      expect(TestBed.inject(EquippedService).getImportantAffixes().size).toBe(0);
+      expect(button('Clear')).toBeUndefined();
+    });
+  });
+
   it('clears saved affixes when tracked URL state is cleared', () => {
     const equipped = TestBed.inject(EquippedService);
 

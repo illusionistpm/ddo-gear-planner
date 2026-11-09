@@ -4,7 +4,8 @@ import {
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
+import { AffixEditorService } from '../planner/affix-editor.service';
+import { AffixPackagesService } from '../affixes/affix-packages.service';
 import { groupPath, GroupSummary } from '../build/groups.service';
 import { MyListsService } from '../build/my-lists.service';
 import { GearDbService } from '../gear/gear-db.service';
@@ -39,6 +40,10 @@ import { TypeaheadResult } from '../typeahead/typeahead.component';
 export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy {
   activeTab: PlannerTab = 'equipment';
   groupMode: TrackedAffixGroupMode = 'category';
+  /** No focus chosen yet: the affix button is the place to start, and looks it (while the editor is shut). */
+  needsAffixes = false;
+  /** The affix editor is open: the button reads as pressed, and closes it. */
+  editorOpen = false;
 
   @ViewChild('viewSwitch') private viewSwitch?: ElementRef<HTMLElement>;
   @ViewChild('gearSearch') private gearSearch?: ElementRef<HTMLElement>;
@@ -47,6 +52,8 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
   private tabSubscription?: Subscription;
   private viewStateSubscription?: Subscription;
   private rejoinSubscription?: Subscription;
+  private chosenAffixesSubscription?: Subscription;
+  private editorSubscription?: Subscription;
   private switchObserver?: ResizeObserver;
   private workspaceRowObserver?: ResizeObserver;
   // GearDbService builds its unfiltered gear map once, in its constructor, so
@@ -58,7 +65,8 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
   constructor(
     public equipped: EquippedService,
     private gearList: GearDbService,
-    private affixBuilder: AffixBuilderDrawerService,
+    private affixEditor: AffixEditorService,
+    private affixPackages: AffixPackagesService,
     private analytics: AnalyticsService,
     private zone: NgZone
   ) { }
@@ -71,6 +79,9 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
     this.viewStateSubscription = this.equipped.getTrackedAffixViewState().subscribe(state => {
       this.groupMode = state.groupMode;
     });
+    this.chosenAffixesSubscription = this.affixPackages.needsStart$()
+      .subscribe(needsStart => this.needsAffixes = needsStart);
+    this.editorSubscription = this.affixEditor.isOpen$.subscribe(open => this.editorOpen = open);
   }
 
   ngAfterViewInit() {
@@ -108,6 +119,8 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
     this.tabSubscription?.unsubscribe();
     this.viewStateSubscription?.unsubscribe();
     this.rejoinSubscription?.unsubscribe();
+    this.chosenAffixesSubscription?.unsubscribe();
+    this.editorSubscription?.unsubscribe();
   }
 
   /**
@@ -169,8 +182,12 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
     this.equipped.setTrackedAffixGroupMode(mode);
   }
 
-  openBuilder() {
-    this.affixBuilder.open('edit');
+  toggleEditor() {
+    if (this.editorOpen) {
+      this.affixEditor.finish();
+    } else {
+      this.affixEditor.reveal('toolbar');
+    }
   }
 
   private readonly shoppingListView = inject(ShoppingListViewService);

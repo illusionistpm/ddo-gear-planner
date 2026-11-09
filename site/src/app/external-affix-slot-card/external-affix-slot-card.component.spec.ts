@@ -105,9 +105,12 @@ describe('ExternalAffixSlotCardComponent', () => {
     });
   });
 
-  it('shows its title and a hint when there are no entries', () => {
-    expect(el().querySelector('.external-slot-title')?.textContent?.trim()).toBe('Non-gear');
-    expect(el().querySelector('.external-affix-empty')).not.toBeNull();
+  it('heads itself like a slot card, with what it is for behind the eye tooltip', () => {
+    expect(el().querySelector('.external-slot-title .slot-name .slot-name-text')?.textContent?.trim()).toBe('Non-gear');
+    const tooltip = el().querySelector('.external-slot-title app-tap-tooltip');
+    expect(tooltip).not.toBeNull();
+    expect(tooltip?.querySelector('.fa-eye')).not.toBeNull();
+    expect(el().querySelector('.external-affix-empty')).toBeNull();
     expect(el().querySelector('.external-affix-row')).toBeNull();
   });
 

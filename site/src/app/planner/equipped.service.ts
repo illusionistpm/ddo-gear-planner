@@ -954,7 +954,8 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     return Array.from(trackedAffixes);
   }
 
-  private expandTrackedAffixes(affixes: Iterable<string>) {
+  /** What tracking these affixes actually tracks: each one along with its family. */
+  expandTrackedAffixes(affixes: Iterable<string>) {
     const expanded = new Set<string>();
     for (const affix of affixes) {
       for (const trackedAffix of this.getTrackedAffixFamily(affix)) {

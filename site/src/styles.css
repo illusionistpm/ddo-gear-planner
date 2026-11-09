@@ -10,6 +10,21 @@
   --success-color: #16a34a;
   --success-color-rgb: 22, 163, 74;
   --success-gradient-end: #059669;
+  /* The tutorial's "look here" colour - its own hue, because green already
+     means selected and met. -fill/-strong carry white text in both themes. */
+  --tutorial-accent: #c026d3;
+  --tutorial-accent-rgb: 192, 38, 211;
+  --tutorial-accent-fill: #c026d3;
+  --tutorial-accent-strong: #86198f;
+  /* Section edges that name nothing but "a section": readable as text too. */
+  --section-accent-neutral: #64748b;
+  --section-accent-neutral-rgb: 100, 116, 139;
+  /* Build Goals' category sections alternate a lighter and a darker edge, so
+     a scroll through them keeps your place. */
+  --section-accent-neutral-light: #94a3b8;
+  --section-accent-neutral-light-rgb: 148, 163, 184;
+  --section-accent-neutral-dark: #475569;
+  --section-accent-neutral-dark-rgb: 71, 85, 105;
   --warning-color: #d97706;
   --danger-color: #ef4444;
   --danger-color-rgb: 239, 68, 68;
@@ -159,6 +174,16 @@
   --success-color: #22c55e;
   --success-color-rgb: 34, 197, 94;
   --success-gradient-end: #059669;
+  --tutorial-accent: #e879f9;
+  --tutorial-accent-rgb: 232, 121, 249;
+  --tutorial-accent-fill: #a21caf;
+  --tutorial-accent-strong: #86198f;
+  --section-accent-neutral: #94a3b8;
+  --section-accent-neutral-rgb: 148, 163, 184;
+  --section-accent-neutral-light: #cbd5e1;
+  --section-accent-neutral-light-rgb: 203, 213, 225;
+  --section-accent-neutral-dark: #64748b;
+  --section-accent-neutral-dark-rgb: 100, 116, 139;
   --warning-color: #f59e0b;
   --danger-color: #f87171;
   --danger-color-rgb: 248, 113, 113;
@@ -250,7 +275,7 @@
   --shadow-lg: 0 18px 32px -12px rgb(0 0 0 / 0.65);
 }
 
-@keyframes onboarding-green-pulse {
+@keyframes onboarding-pulse {
   0%, 100% {
     background-position: 0% 50%;
   }
@@ -263,12 +288,12 @@
 :where(
   .planner-next-tab:not(.active),
   .affix-next-tab,
-  .affix-next-chip,
   .tracked-bonus-chip-onboarding-target,
-  .recommended-start-slot .slot-select-button
+  .recommended-start-slot .slot-select-button,
+  .tracked-affix-edit-affixes.needs-attention
 ) {
-  animation: onboarding-green-pulse 2.4s ease-in-out infinite;
-  background-image: linear-gradient(135deg, var(--success-color) 0%, #059669 35%, #22c55e 70%, #047857 100%) !important;
+  animation: onboarding-pulse 2.4s ease-in-out infinite;
+  background-image: linear-gradient(135deg, var(--tutorial-accent-fill) 0%, var(--tutorial-accent-strong) 35%, var(--tutorial-accent-fill) 70%, var(--tutorial-accent-strong) 100%) !important;
   background-size: 220% 220% !important;
 }
 
@@ -276,9 +301,9 @@
   :where(
     .planner-next-tab,
     .affix-next-tab,
-    .affix-next-chip,
-    .tracked-bonus-chip-onboarding-target,
-    .recommended-start-slot .slot-select-button
+      .tracked-bonus-chip-onboarding-target,
+    .recommended-start-slot .slot-select-button,
+    .tracked-affix-edit-affixes.needs-attention
   ) {
     animation: none !important;
   }
@@ -800,14 +825,14 @@ select.form-control {
 }
 
 .onboarding-instruction-panel {
-  background: linear-gradient(90deg, rgba(22, 163, 74, 0.2), var(--surface-color) 72%) !important;
-  border-color: rgba(22, 163, 74, 0.68) !important;
-  border-left-color: var(--success-color) !important;
-  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.16), var(--shadow-md);
+  background: linear-gradient(90deg, rgba(var(--tutorial-accent-rgb), 0.14), var(--surface-color) 72%) !important;
+  border-color: rgba(var(--tutorial-accent-rgb), 0.6) !important;
+  border-left-color: var(--tutorial-accent) !important;
+  box-shadow: 0 0 0 3px rgba(var(--tutorial-accent-rgb), 0.14), var(--shadow-md);
 }
 
 .onboarding-step-label {
-  color: var(--success-color);
+  color: var(--tutorial-accent);
   font-size: 0.72rem;
   font-weight: 900;
   line-height: 1;
@@ -1121,8 +1146,8 @@ select.form-control {
 .tracked-bonus-chip-onboarding-target.max-value,
 .tracked-bonus-chip-onboarding-target.mid-value,
 .tracked-bonus-chip-onboarding-target.low-value {
-  background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
-  border-color: #059669;
+  background: linear-gradient(135deg, var(--tutorial-accent-fill) 0%, var(--tutorial-accent-strong) 100%);
+  border-color: var(--tutorial-accent-strong);
   box-shadow: none;
   color: #ffffff;
   font-weight: 700;
@@ -1131,7 +1156,7 @@ select.form-control {
 
 .tracked-bonus-chip-onboarding-target:hover,
 .tracked-bonus-chip-onboarding-target:focus {
-  border-color: #047857;
+  border-color: var(--tutorial-accent-strong);
   box-shadow: var(--shadow-sm);
   color: #ffffff;
 }
@@ -1159,49 +1184,23 @@ select.form-control {
   text-transform: uppercase;
 }
 
-.tracked-affix-section-attributes {
-  --tracked-affix-accent: #7c3aed;
-  --tracked-affix-accent-soft: rgba(124, 58, 237, 0.1);
-}
-
-.tracked-affix-section-defense {
-  --tracked-affix-accent: #0891b2;
-  --tracked-affix-accent-soft: rgba(8, 145, 178, 0.1);
-}
-
-.tracked-affix-section-offense {
-  --tracked-affix-accent: #dc2626;
-  --tracked-affix-accent-soft: rgba(220, 38, 38, 0.1);
-}
-
-.tracked-affix-section-casting {
-  --tracked-affix-accent: #2563eb;
-  --tracked-affix-accent-soft: rgba(37, 99, 235, 0.1);
-}
-
-.tracked-affix-section-saves {
-  --tracked-affix-accent: #16a34a;
-  --tracked-affix-accent-soft: rgba(22, 163, 74, 0.1);
-}
-
-.tracked-affix-section-skills {
-  --tracked-affix-accent: #65a30d;
-  --tracked-affix-accent-soft: rgba(101, 163, 13, 0.1);
-}
-
-.tracked-affix-section-utility-checklist {
-  --tracked-affix-accent: #d97706;
-  --tracked-affix-accent-soft: rgba(217, 119, 6, 0.1);
-}
-
-.tracked-affix-section-immunities {
-  --tracked-affix-accent: #0f766e;
-  --tracked-affix-accent-soft: rgba(15, 118, 110, 0.1);
-}
-
+/*
+ * Category sections: one neutral accent for all of them. They used to be a
+ * colour each, three of them status colours (red, green, amber) that meant
+ * nothing about the category - and the Scarcity view uses this same accent
+ * slot to mean pressure. Shared with the sidebar's .affix-summary-group.
+ */
+.tracked-affix-section-attributes,
+.tracked-affix-section-defense,
+.tracked-affix-section-offense,
+.tracked-affix-section-casting,
+.tracked-affix-section-saves,
+.tracked-affix-section-skills,
+.tracked-affix-section-utility-checklist,
+.tracked-affix-section-immunities,
 .tracked-affix-section-other {
-  --tracked-affix-accent: #64748b;
-  --tracked-affix-accent-soft: rgba(100, 116, 139, 0.12);
+  --tracked-affix-accent: var(--section-accent-neutral);
+  --tracked-affix-accent-soft: rgba(var(--section-accent-neutral-rgb), 0.12);
 }
 
 /* Responsive improvements */
@@ -1221,10 +1220,10 @@ select.form-control {
   }
 }
 
-/* Each category gets its own bordered card with an accent stripe (colors come
-   from the .tracked-affix-section-* classes applied via [ngClass], shared with
-   the Tracked Affixes page) so a scroll through the list reads as distinct
-   categories rather than one long run of rows. */
+/* Each category gets its own bordered card with an accent stripe (the neutral
+   accent from the .tracked-affix-section-* classes applied via [ngClass],
+   shared with the Build Goals panel) so a scroll through the list reads as
+   distinct categories rather than one long run of rows. */
 .affix-summary-group {
   background: var(--surface-color);
   border: 1px solid var(--border-color);

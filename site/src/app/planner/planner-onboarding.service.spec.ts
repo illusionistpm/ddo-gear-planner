@@ -112,7 +112,8 @@ describe('PlannerOnboardingService', () => {
     expect(service.shouldShowOnboarding()).toBe(false);
     expect(JSON.parse(localStorage.getItem(stateKey) || '{}')).toEqual({
       completed: true,
-      dismissed: false
+      dismissed: false,
+      wrapUpPending: true
     });
     expect(newService().shouldShowOnboarding()).toBe(false);
   });
@@ -125,9 +126,38 @@ describe('PlannerOnboardingService', () => {
     expect(service.shouldShowOnboarding()).toBe(false);
     expect(JSON.parse(localStorage.getItem(stateKey) || '{}')).toEqual({
       completed: false,
-      dismissed: true
+      dismissed: true,
+      wrapUpPending: false
     });
     expect(newService().shouldShowOnboarding()).toBe(false);
+  });
+
+  it('closes a finished intro with a wrap-up message that survives a reload until dismissed', () => {
+    const service = newService();
+    expect(service.shouldShowWrapUp()).toBe(false);
+
+    service.completeIntro();
+    expect(service.shouldShowWrapUp()).toBe(true);
+    // A reload - say, the sign-in redirect the message offers.
+    expect(newService().shouldShowWrapUp()).toBe(true);
+
+    service.dismissWrapUp();
+    expect(service.shouldShowWrapUp()).toBe(false);
+    expect(service.shouldShowOnboarding()).toBe(false);
+    expect(newService().shouldShowWrapUp()).toBe(false);
+  });
+
+  it('shows no wrap-up after a skipped intro, or for an intro finished before it existed', () => {
+    const skipped = newService();
+    skipped.dismissIntro();
+    expect(skipped.shouldShowWrapUp()).toBe(false);
+
+    localStorage.setItem(stateKey, JSON.stringify({ completed: true, dismissed: false }));
+    expect(newService().shouldShowWrapUp()).toBe(false);
+
+    localStorage.removeItem(stateKey);
+    localStorage.setItem(legacyKey, '1');
+    expect(newService().shouldShowWrapUp()).toBe(false);
   });
 
   it('treats the old affix-type flag as completed onboarding', () => {

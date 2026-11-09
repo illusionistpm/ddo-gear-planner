@@ -10,7 +10,6 @@ import { AuthService } from '../shared/auth.service';
 import { QueryParamsService } from '../build/query-params.service';
 import { MainComponent } from './main.component';
 import { EquippedService } from '../planner/equipped.service';
-import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
 import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
 import { AnalyticsService } from '../shared/analytics.service';
 
@@ -46,10 +45,7 @@ describe('MainComponent with the shopping list', () => {
   const pageChrome = () => el().querySelector('app-page-chrome');
   const shoppingListButton = () => el().querySelector('.shopping-list-open') as HTMLButtonElement;
 
-  it('opens the list in the planner\'s place from the toolbar, under the site\'s header, closing what floats over the planner', () => {
-    const drawer = TestBed.inject(AffixBuilderDrawerService);
-    expect(drawer.mode).toBe('setup');
-
+  it('opens the list in the planner\'s place from the toolbar, under the site\'s header', () => {
     shoppingListButton().click();
     fixture.detectChanges();
 
@@ -61,7 +57,6 @@ describe('MainComponent with the shopping list', () => {
       expect(pageChrome()?.querySelector(selector), selector).toBeTruthy();
     }
     expect(list()?.querySelector('app-own-list-actions')).toBeTruthy();
-    expect(drawer.mode).toBeNull();
   });
 
   it('also opens from the overflow menu', () => {

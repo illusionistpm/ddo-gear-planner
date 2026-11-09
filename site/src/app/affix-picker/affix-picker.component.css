@@ -1,21 +1,145 @@
-.affix-page {
-  box-sizing: border-box;
-  padding: 0;
+/*
+ * The Build Goals editor: the top of the Build Goals panel while it's open.
+ * It lives in that panel's column, so nothing here is sized off the viewport.
+ */
+.affix-editor {
+  background: var(--surface-color);
+  /* The toolbar button's accent, all the way round: the two are one control
+     and its panel, and the open editor stands out from the page around it. */
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.12), var(--shadow-sm);
+  margin: 0 0 var(--space-12);
+  /* Clear of the sticky planner bar when revealed with scrollIntoView. */
+  scroll-margin-top: var(--space-16);
 }
 
-.affix-layout {
-  align-items: start;
-  display: grid;
-  gap: var(--space-16);
-  grid-template-columns: minmax(0, 1fr) minmax(20rem, 24rem);
-  margin: 0 auto;
-  max-width: 1400px;
+.affix-editor-header {
+  background: rgba(var(--primary-color-rgb), 0.06);
+  border-bottom: 1px solid var(--border-color);
+  padding: var(--space-8) var(--space-12);
+}
+
+.affix-editor-title-row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-12);
+  justify-content: space-between;
+}
+
+.affix-editor-clear {
+  margin-left: auto;
+}
+
+.affix-editor-clear-question {
+  align-items: center;
+  color: var(--text-primary);
+  display: inline-flex;
+  font-size: 0.78rem;
+  font-weight: 700;
+  gap: var(--space-8);
+}
+
+.clear-affixes-cancel {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.2;
+  padding: var(--space-2) var(--space-12);
+}
+
+.clear-affixes-cancel:hover,
+.clear-affixes-cancel:focus {
+  color: var(--text-primary);
+}
+
+.clear-affixes-button:focus-visible,
+.clear-affixes-cancel:focus-visible {
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 2px;
+}
+
+.affix-editor-heading {
+  align-items: center;
+  color: var(--primary-color);
+  display: flex;
+  gap: var(--space-8);
+  font-size: 1rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.affix-editor-lede {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.35;
+  margin: var(--space-2) 0 0;
+}
+
+.affix-editor-heading-icon {
+  font-size: 0.8rem;
+}
+
+.affix-editor-heading:focus {
+  outline: none;
+}
+
+.affix-editor-heading:focus-visible {
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 2px;
+}
+
+@media (pointer: coarse) {
+  .clear-affixes-button,
+  .clear-affixes-cancel {
+    min-height: 44px;
+    min-width: 44px;
+  }
 }
 
 .affix-builder {
   display: grid;
   gap: var(--space-12);
   min-width: 0;
+  padding: var(--space-12);
+}
+
+/* Doubled class: it has to beat .affix-panel's own background, which comes later. */
+.affix-panel.affix-search-panel {
+  background: rgba(var(--primary-color-rgb), 0.05);
+  border-color: rgba(var(--primary-color-rgb), 0.35);
+}
+
+/* Laid out like the toolbar's gear search, so the two read as the same kind of control. */
+.affix-search {
+  align-items: center;
+  display: flex;
+  gap: var(--space-8);
+}
+
+.affix-search-icon {
+  color: var(--primary-color);
+  flex: 0 0 auto;
+}
+
+.affix-search app-typeahead {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.affix-search-status {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  margin: var(--space-8) 0 0;
+}
+
+.affix-search-added {
+  color: var(--success-color);
+  font-weight: 700;
 }
 
 .affix-intro-panel {
@@ -40,8 +164,15 @@
   margin: 0;
 }
 
-.affix-panel,
-.selected-affixes-panel {
+.affix-intro-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin-top: var(--space-8);
+}
+
+.affix-panel {
   background: var(--panel-bg);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
@@ -50,69 +181,46 @@
   padding: var(--space-12);
 }
 
-.affix-panel-header,
-.selected-affixes-header {
+.affix-panel-header {
   align-items: center;
   display: flex;
   justify-content: space-between;
   margin-bottom: var(--space-12);
 }
 
-.affix-panel h3,
-.selected-affixes-header h3 {
+.affix-panel h3 {
   color: var(--text-primary);
   font-size: 0.95rem;
   font-weight: 800;
   margin: 0;
 }
 
-.selected-affixes-actions {
-  align-items: center;
-  display: flex;
-  gap: var(--space-8);
-}
-
-.selected-affixes-actions span {
-  background: var(--surface-muted-color);
-  border-radius: 999px;
-  color: var(--text-secondary);
-  font-size: 0.78rem;
-  font-weight: 800;
-  min-width: 1.75rem;
-  padding: var(--space-2) var(--space-8);
-  text-align: center;
-}
-
+/* A small outlined pill: clearly a button, but quiet - it's a danger action
+   that sits beside the heading, not the editor's main control. */
 .clear-affixes-button {
-  background: transparent;
-  border: 0;
+  background: var(--surface-color);
+  border: 1px solid rgba(var(--danger-color-rgb), 0.55);
+  border-radius: 999px;
   color: var(--danger-color);
   font-size: 0.78rem;
   font-weight: 800;
-  padding: 0;
+  line-height: 1.2;
+  padding: var(--space-2) var(--space-12);
 }
 
 .clear-affixes-button:hover,
 .clear-affixes-button:focus {
-  color: var(--danger-strong-text-color);
+  background: rgba(var(--danger-color-rgb), 0.08);
+  border-color: var(--danger-color);
 }
 
-.selected-affixes-panel {
-  max-height: calc(100vh - 5.2rem);
-  overflow-y: auto;
-  position: sticky;
-  top: 5rem;
-}
-
-.chip-grid,
-.selected-chip-grid {
+.chip-grid {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-4);
 }
 
-.affix-chip,
-.selected-affix-chip {
+.affix-chip {
   align-items: center;
   background: var(--chip-bg);
   border: 1px solid var(--border-color);
@@ -138,25 +246,31 @@
   background: var(--surface-muted-color);
 }
 
-.affix-next-chip,
-.affix-next-chip:hover,
-.affix-next-chip:focus {
-  background: linear-gradient(135deg, var(--success-color) 0%, var(--success-gradient-end) 100%);
-  border-color: var(--success-gradient-end);
-  box-shadow: 0 0 0 3px rgba(var(--success-glow-rgb), 0.2);
-  color: var(--on-accent-text-color);
+/*
+ * The tutorial's suggestion: an ordinary unselected chip with a slow magenta
+ * shimmer round its edge - a pointer, not a fill, so a selected chip (green
+ * with a check) stays the only one that looks "on". Gone once selected.
+ */
+.affix-next-chip:not(.selected) {
+  animation: affix-next-chip-shimmer 2.4s ease-in-out infinite;
+  border-color: rgba(var(--tutorial-accent-rgb), 0.7);
 }
 
-.affix-next-chip-badge {
-  background: rgba(255, 255, 255, 0.22);
-  border: 1px solid rgba(255, 255, 255, 0.42);
-  border-radius: 999px;
-  color: var(--on-accent-text-color);
-  font-size: 0.68rem;
-  font-weight: 900;
-  line-height: 1;
-  padding: var(--space-2) var(--space-8);
-  text-transform: uppercase;
+@keyframes affix-next-chip-shimmer {
+  0%, 100% {
+    box-shadow: 0 0 0 1px rgba(var(--tutorial-accent-rgb), 0.15);
+  }
+
+  50% {
+    box-shadow: 0 0 0 3px rgba(var(--tutorial-accent-rgb), 0.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .affix-next-chip:not(.selected) {
+    animation: none;
+    box-shadow: 0 0 0 2px rgba(var(--tutorial-accent-rgb), 0.3);
+  }
 }
 
 .affix-selectable-chip.selected,
@@ -171,58 +285,6 @@
   content: '\2713';
   font-weight: 900;
   margin-right: var(--space-4);
-}
-
-.selected-affixes-groups {
-  display: grid;
-  gap: var(--space-12);
-}
-
-.saved-affix-group-title {
-  color: var(--text-secondary);
-  font-size: 0.78rem;
-  font-weight: 800;
-  margin: 0 0 var(--space-4);
-  text-transform: uppercase;
-}
-
-.selected-affix-chip {
-  background: var(--info-chip-bg);
-  border-color: var(--info-chip-border-color);
-  color: var(--info-chip-text-color);
-}
-
-.selected-affix-chip-remove {
-  font-size: 1.05rem;
-  font-weight: 900;
-  line-height: 1;
-  opacity: 0.55;
-}
-
-/* Clicking a selected chip removes it, so preview that in the app's removal red. */
-.selected-affix-chip:hover,
-.selected-affix-chip:focus-visible {
-  background: color-mix(in srgb, var(--danger-color) 14%, var(--panel-bg));
-  border-color: var(--danger-color);
-  color: var(--danger-color);
-  text-decoration: line-through;
-}
-
-.selected-affix-chip:hover .selected-affix-chip-remove,
-.selected-affix-chip:focus-visible .selected-affix-chip-remove {
-  display: inline-block;
-  opacity: 1;
-  text-decoration: none;
-}
-
-.empty-selected-affixes {
-  background: var(--surface-color);
-  border: 1px dashed var(--border-color);
-  border-radius: var(--border-radius);
-  color: var(--text-secondary);
-  font-weight: 700;
-  padding: var(--space-16);
-  text-align: center;
 }
 
 .theme-toggle {
@@ -255,16 +317,5 @@
 
 .theme-toggle.dark {
   color: var(--primary-color);
-}
-
-@media (max-width: 991.98px) {
-  .affix-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .selected-affixes-panel {
-    max-height: none;
-    position: static;
-  }
 }
 

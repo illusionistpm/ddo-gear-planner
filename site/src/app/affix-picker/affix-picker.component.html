@@ -1,159 +1,180 @@
-<div class="affix-page">
-  <main class="affix-layout">
-    <section class="affix-builder">
-      <section *ngIf="onboardingActive && !isSetupMode()" class="affix-intro-panel instruction-callout-panel" [class.onboarding-instruction-panel]="shouldShowBasicPackageHint() || shouldShowAdditionalPackageHint() || shouldHighlightEquipmentStep()">
-        <div *ngIf="shouldShowBasicPackageHint() || shouldShowAdditionalPackageHint() || shouldHighlightEquipmentStep()" class="onboarding-step-label">Next step</div>
-        <ng-container *ngIf="shouldHighlightEquipmentStep(); else affixSetupIntro">
-          <h2>Your gear targets are ready</h2>
-          <p>Close this panel to start choosing items. You can reopen it any time with Add / edit affixes in the toolbar.</p>
+<!-- The toolbar's + Build Goals button opens and closes this (aria-controls),
+     and shares its blue accent, so the two read as one control and its panel. -->
+<section id="affixEditor" class="affix-editor" aria-labelledby="affixEditorHeading">
+  <header class="affix-editor-header">
+    <!-- Heading and Clear share the top row; the explanation runs full width below. -->
+    <div class="affix-editor-title-row">
+      <h2 id="affixEditorHeading" class="affix-editor-heading" tabindex="-1">
+        <span class="fas fa-bullseye affix-editor-heading-icon" aria-hidden="true"></span>
+        Edit build goals
+      </h2>
+      <!-- Out of the way during the intro, and asks first: it empties the whole list. -->
+      @if (savedSet.size && !hasOnboardingStep()) {
+        <div class="affix-editor-clear">
+          @if (confirmingClear) {
+            <span class="affix-editor-clear-question" role="group" aria-label="Clear all build goals?">
+              Clear all?
+              <button type="button" class="clear-affixes-button" (click)="confirmClear()">Yes</button>
+              <button type="button" class="clear-affixes-cancel" #clearNo (click)="cancelClear()">No</button>
+            </span>
+          } @else {
+            <button type="button" class="clear-affixes-button" #clearStart (click)="startClear()">Clear build goals</button>
+          }
+        </div>
+      }
+    </div>
+    <p class="affix-editor-lede">Tell the planner what your character needs, like Melee Power or Fortification, and it ranks gear by how much of that each piece gives you.</p>
+  </header>
+
+  <section class="affix-builder">
+    <section *ngIf="onboardingActive" class="affix-intro-panel instruction-callout-panel" [class.onboarding-instruction-panel]="hasOnboardingStep()">
+      <div *ngIf="hasOnboardingStep()" class="onboarding-step-label">Next step</div>
+      <ng-container *ngIf="shouldShowSpellpowerHint(); else equipmentStepIntro">
+        <h2>Pick your spell power</h2>
+        <p>Choose the spell powers your spells use - Fire, Healing and the rest - so the planner tracks the lore, power and intensity that go with it.</p>
+      </ng-container>
+      <ng-template #equipmentStepIntro>
+      <ng-container *ngIf="shouldHighlightEquipmentStep(); else affixSetupIntro">
+        <h2>Your gear targets are ready</h2>
+        <p>Choose gear when you're ready. <strong><app-goals-label for="editor-button"></app-goals-label></strong> in the toolbar brings this back any time.</p>
+      </ng-container>
+      </ng-template>
+      <ng-template #affixSetupIntro>
+        <ng-container *ngIf="shouldShowAdditionalPackageHint(); else basicAffixSetupIntro">
+          <h2>What is this build for?</h2>
+          <p>Basic is already on: Constitution plus the defenses and utility most builds want. Add the focus (or focuses) that fit how this character plays.</p>
         </ng-container>
-        <ng-template #affixSetupIntro>
-          <ng-container *ngIf="shouldShowAdditionalPackageHint(); else basicAffixSetupIntro">
-            <h2>Add one build package</h2>
-            <p>Basic is already selected for you - it covers survival and utility. Pick one highlighted combat or role package so the planner can suggest gear for how this character plays.</p>
-          </ng-container>
-        </ng-template>
-        <ng-template #basicAffixSetupIntro>
-          <ng-container *ngIf="shouldShowBasicPackageHint(); else savedAffixSetupIntro">
-            <h2>Start by choosing your build goals</h2>
-            <p>Pick the highlighted Basic package first. It adds common defenses and utility that most builds want tracked.</p>
-          </ng-container>
-        </ng-template>
-        <ng-template #savedAffixSetupIntro>
-          <ng-container *ngIf="savedSet.size; else emptyAffixSetupIntro">
-            <h2>Your gear targets are ready</h2>
-            <p>Close this panel to start choosing items. You can reopen it any time with Add / edit affixes in the toolbar.</p>
-          </ng-container>
-        </ng-template>
-        <ng-template #emptyAffixSetupIntro>
+      </ng-template>
+      <ng-template #basicAffixSetupIntro>
+        <ng-container *ngIf="shouldShowBasicPackageHint(); else savedAffixSetupIntro">
           <h2>Start by choosing your build goals</h2>
-          <p>Pick Basic, then add one combat or role package. Once you have selected affixes, the planner can track them while you compare gear.</p>
-        </ng-template>
-        <button *ngIf="shouldShowBasicPackageHint() || shouldShowAdditionalPackageHint() || shouldHighlightEquipmentStep()" type="button" class="onboarding-dismiss-button" (click)="dismissIntro()">Skip intro</button>
-      </section>
-
-      <section class="affix-panel">
-        <div class="affix-panel-header">
-          <h3>Core Stats</h3>
-        </div>
-        <div class="chip-grid">
-          @for (attr of attributes; track attr) {
-            <button type="button" class="affix-chip affix-selectable-chip"
-              [class.selected]="isAttributeSelected(attr)"
-              [attr.aria-pressed]="isAttributeSelected(attr)"
-              (click)="toggleAttribute(attr)">{{attr}}</button>
-          }
-        </div>
-      </section>
-
-      <section class="affix-panel">
-        <div class="affix-panel-header">
-          <h3>Build Packages</h3>
-        </div>
-        <div class="chip-grid">
-          @for (pkg of packageKeys; track pkg) {
-            <button type="button" class="affix-chip affix-package-chip"
-              [class.selected]="isPackageSelected(pkg)"
-              [class.affix-next-chip]="shouldHighlightStarterPackage(pkg)"
-              [attr.aria-pressed]="isPackageSelected(pkg)"
-              [title]="getPackageTooltip(pkg)"
-              (click)="addPackage(pkg)">
-              {{pkg}}
-              <span *ngIf="shouldHighlightStarterPackage(pkg)" class="affix-next-chip-badge">{{pkg === 'Basic' ? 'Start' : 'Pick one'}}</span>
-            </button>
-          }
-        </div>
-      </section>
-
-      @if (showTactics) {
-        <section class="affix-panel">
-          <div class="affix-panel-header">
-            <h3>Tactics</h3>
-          </div>
-          <div class="chip-grid">
-            @for (tactic of tactics; track tactic) {
-              <button type="button" class="affix-chip affix-selectable-chip"
-                [class.selected]="isTacticSelected(tactic)"
-                [attr.aria-pressed]="isTacticSelected(tactic)"
-                (click)="addTactic(tactic)">{{tactic}}</button>
-            }
-          </div>
-        </section>
-      }
-
-      @if (showSpellpowers) {
-        <section class="affix-panel">
-          <div class="affix-panel-header">
-            <h3>Spell Power</h3>
-        </div>
-        <div class="chip-grid">
-          @for (spellpower of spellpowerPackageKeys; track spellpower) {
-              <button type="button" class="affix-chip affix-package-chip"
-                [class.selected]="isSpellpowerSelected(spellpower)"
-                [attr.aria-pressed]="isSpellpowerSelected(spellpower)"
-                [title]="getSpellpowerTooltip(spellpower)"
-                (click)="addSpellpower(spellpower)">{{spellpower}}</button>
-          }
-        </div>
-      </section>
-      }
-
-      @if (showSpellSchools) {
-        <section class="affix-panel">
-          <div class="affix-panel-header">
-            <h3>Spell Schools</h3>
-          </div>
-          <div class="chip-grid">
-            @for (spellSchool of spellSchools; track spellSchool) {
-              <button type="button" class="affix-chip affix-selectable-chip"
-                [class.selected]="isSpellSchoolSelected(spellSchool)"
-                [attr.aria-pressed]="isSpellSchoolSelected(spellSchool)"
-                (click)="addSpellSchool(spellSchool)">{{spellSchool}}</button>
-            }
-          </div>
-        </section>
-      }
-
-      <section class="affix-panel">
-        <div class="affix-panel-header">
-          <h3>Manual Search</h3>
-        </div>
-        <app-typeahead id="effect-search" type="text" placeholder="Enter an affix" [source]=allAffixes searchType="affix"
-          [onChange]=onChange()>
-        </app-typeahead>
-      </section>
+          <p>Pick the highlighted Basic package first. It adds common defenses and utility that most builds want tracked.</p>
+        </ng-container>
+      </ng-template>
+      <ng-template #savedAffixSetupIntro>
+        <ng-container *ngIf="savedSet.size; else emptyAffixSetupIntro">
+          <h2>Your gear targets are ready</h2>
+          <p>Choose gear when you're ready. <strong><app-goals-label for="editor-button"></app-goals-label></strong> in the toolbar brings this back any time.</p>
+        </ng-container>
+      </ng-template>
+      <ng-template #emptyAffixSetupIntro>
+        <h2>Start by choosing your build goals</h2>
+        <p>Pick Basic, then the combat or role packages that fit your build. Once you have build goals, the planner tracks them while you compare gear.</p>
+      </ng-template>
+      <div *ngIf="hasOnboardingStep()" class="affix-intro-actions">
+        <!-- The way on from the editor, side by side or one view at a time. -->
+        <button *ngIf="canFinishStep()" type="button" class="onboarding-action-button affix-intro-choose-gear" (click)="done()">Choose gear <span aria-hidden="true">&rarr;</span></button>
+        <button type="button" class="onboarding-dismiss-button" (click)="dismissIntro()">Skip intro</button>
+      </div>
     </section>
 
-    <aside class="selected-affixes-panel">
-      <div class="selected-affixes-header">
-        <h3>Selected Affixes</h3>
-        <div class="selected-affixes-actions">
-          <span>{{savedSet.size}}</span>
-          @if (savedSet.size) {
-            <button type="button" class="clear-affixes-button" (click)="clearAll()">Clear All</button>
-          }
-        </div>
+    <section class="affix-panel">
+      <div class="affix-panel-header">
+        <h3>Build Packages</h3>
       </div>
+      <div class="chip-grid">
+        @for (pkg of packageKeys; track pkg) {
+          <button type="button" class="affix-chip affix-package-chip"
+            [class.selected]="isPackageSelected(pkg)"
+            [class.affix-next-chip]="shouldHighlightStarterPackage(pkg)"
+            [attr.aria-pressed]="isPackageSelected(pkg)"
+            [title]="getPackageTooltip(pkg)"
+            (click)="addPackage(pkg)">
+            {{pkg}}
+          </button>
+        }
+      </div>
+    </section>
 
-      @if (savedSet.size) {
-        <div class="selected-affixes-groups">
-          @for (group of getSavedAffixGroups(); track group.name) {
-            <section class="saved-affix-group">
-              <div class="saved-affix-group-title">{{group.name}}</div>
-              <div class="selected-chip-grid">
-                @for (result of group.affixes; track result) {
-                  <button type="button" class="selected-affix-chip"
-                    [title]="'Remove ' + result"
-                    [attr.aria-label]="'Remove ' + result"
-                    (click)="remove(result)">{{result}}<span class="selected-affix-chip-remove" aria-hidden="true">&times;</span></button>
-                }
-              </div>
-            </section>
+    @if (showTactics) {
+      <section class="affix-panel">
+        <div class="affix-panel-header">
+          <h3>Tactics</h3>
+        </div>
+        <div class="chip-grid">
+          @for (tactic of tactics; track tactic) {
+            <button type="button" class="affix-chip affix-selectable-chip"
+              [class.selected]="isTacticSelected(tactic)"
+              [attr.aria-pressed]="isTacticSelected(tactic)"
+              (click)="addTactic(tactic)">{{tactic}}</button>
           }
         </div>
-      } @else {
-        <div class="empty-selected-affixes">No affixes selected</div>
-      }
-    </aside>
-  </main>
-</div>
+      </section>
+    }
+
+    @if (showSpellpowers) {
+      <section class="affix-panel">
+        <div class="affix-panel-header">
+          <h3>Spell Power</h3>
+      </div>
+      <div class="chip-grid">
+        @for (spellpower of spellpowerPackageKeys; track spellpower) {
+            <button type="button" class="affix-chip affix-package-chip"
+              [class.selected]="isSpellpowerSelected(spellpower)"
+              [class.affix-next-chip]="shouldShowSpellpowerHint()"
+              [attr.aria-pressed]="isSpellpowerSelected(spellpower)"
+              [title]="getSpellpowerTooltip(spellpower)"
+              (click)="addSpellpower(spellpower)">{{spellpower}}</button>
+        }
+      </div>
+    </section>
+    }
+
+    @if (showSpellSchools) {
+      <section class="affix-panel">
+        <div class="affix-panel-header">
+          <h3>Spell Schools</h3>
+        </div>
+        <div class="chip-grid">
+          @for (spellSchool of spellSchools; track spellSchool) {
+            <button type="button" class="affix-chip affix-selectable-chip"
+              [class.selected]="isSpellSchoolSelected(spellSchool)"
+              [attr.aria-pressed]="isSpellSchoolSelected(spellSchool)"
+              (click)="addSpellSchool(spellSchool)">{{spellSchool}}</button>
+          }
+        </div>
+      </section>
+    }
+
+    <section class="affix-panel">
+      <div class="affix-panel-header">
+        <h3>Key Attributes</h3>
+      </div>
+      <div class="chip-grid">
+        @for (attr of attributes; track attr) {
+          <button type="button" class="affix-chip affix-selectable-chip"
+            [class.selected]="isAttributeSelected(attr)"
+            [attr.aria-pressed]="isAttributeSelected(attr)"
+            (click)="toggleAttribute(attr)">{{attr}}</button>
+        }
+      </div>
+    </section>
+
+    <!-- Last, after the shortcuts: once packages are picked, this is the
+         fine-tuning tool, so its panel is tinted to stand out from the chip groups. -->
+    <section class="affix-panel affix-search-panel" aria-labelledby="affixSearchHeading">
+      <div class="affix-panel-header">
+        <h3 id="affixSearchHeading">Find an affix</h3>
+      </div>
+      <div class="affix-search">
+        <i class="fas fa-search affix-search-icon" aria-hidden="true"></i>
+        <app-typeahead id="effect-search" type="text" placeholder="Search any affix"
+          [source]=allAffixes searchType="affix" [onChange]=onChange()>
+        </app-typeahead>
+      </div>
+      <!-- The tracked list can be well below a tall editor: say here what a pick did. -->
+      <p class="affix-search-status" aria-live="polite">
+        @if (lastSearchResult; as result) {
+          @if (result.added) {
+            <span class="affix-search-added"><span class="fas fa-check" aria-hidden="true"></span> Added {{result.name}}</span>
+          } @else {
+            {{result.name}} is already tracked
+          }
+        } @else {
+          Packages add whole sets; search adds a single affix, like Doublestrike or Fire Absorption.
+        }
+      </p>
+    </section>
+  </section>
+
+</section>

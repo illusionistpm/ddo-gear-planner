@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 import { AppModule } from '../app.module';
-import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
+import { AffixEditorService } from '../planner/affix-editor.service';
 import { GroupSummary } from '../build/groups.service';
 import { MyListsService } from '../build/my-lists.service';
 import { EquippedService } from '../planner/equipped.service';
@@ -58,8 +58,8 @@ describe('PlannerToolbarComponent', () => {
       // this switch shares its line with Share and the save/sign-in control.
       expect(tab('equipmentTab').textContent).toContain('Equipment');
       expect(tab('equipmentTab').querySelector('.planner-view-option-short')?.textContent).toBe('Gear');
-      expect(tab('affixesTab').textContent).toContain('Tracked Affixes');
-      expect(tab('affixesTab').querySelector('.planner-view-option-short')?.textContent).toBe('Affixes');
+      expect(tab('affixesTab').textContent).toContain('Build Goals');
+      expect(tab('affixesTab').querySelector('.planner-view-option-short')?.textContent).toBe('Goals');
     });
 
     it('points each tab at the panel it controls', () => {
@@ -129,14 +129,51 @@ describe('PlannerToolbarComponent', () => {
       expect(groupBy()).not.toBeNull();
     });
 
-    it('opens the affix builder for editing', () => {
-      const drawer = TestBed.inject(AffixBuilderDrawerService);
-      drawer.close();
+    const affixButton = () => fixture.nativeElement.querySelector('.tracked-affix-edit-affixes') as HTMLButtonElement;
+    const label = () => affixButton().querySelector('.tracked-affix-edit-affixes-label')?.textContent?.trim();
 
-      fixture.nativeElement.querySelector('.tracked-affix-edit-affixes').click();
+    it('opens and closes the Build Goals editor, keeping its label and flipping aria-expanded', () => {
+      const editor = TestBed.inject(AffixEditorService);
+      editor.close();
+      fixture.detectChanges();
+      expect(affixButton().getAttribute('aria-expanded')).toBe('false');
+      expect(affixButton().getAttribute('aria-controls')).toBe('affixEditor');
+      expect(label()).toBe('Build Goals');
 
-      expect(drawer.isOpen).toBe(true);
-      expect(drawer.mode).toBe('edit');
+      affixButton().click();
+      fixture.detectChanges();
+      expect(editor.isOpen).toBe(true);
+      expect(affixButton().getAttribute('aria-expanded')).toBe('true');
+      expect(affixButton().classList).toContain('open');
+      expect(label()).toBe('Build Goals');
+
+      affixButton().click();
+      fixture.detectChanges();
+      expect(editor.isOpen).toBe(false);
+      expect(affixButton().getAttribute('aria-expanded')).toBe('false');
+      expect(label()).toBe('Build Goals');
+    });
+
+    it('reads + Build Goals, + Goals when short, so it is not taken for the Goals tab', () => {
+      expect(affixButton().querySelector('.affix-toggle-plus.fa-plus')).not.toBeNull();
+      expect(affixButton().querySelector('.tracked-affix-edit-affixes-short')?.textContent?.trim()).toBe('Goals');
+    });
+
+    it('glows only while the editor is shut and the build has no focus yet', () => {
+      const editor = TestBed.inject(AffixEditorService);
+
+      equipped.setImportantAffixes(['Dodge']);
+      editor.open();
+      fixture.detectChanges();
+      expect(affixButton().classList).not.toContain('needs-attention');
+
+      editor.close();
+      fixture.detectChanges();
+      expect(affixButton().classList).toContain('needs-attention');
+
+      equipped.addImportantAffix('Strength');
+      fixture.detectChanges();
+      expect(affixButton().classList).not.toContain('needs-attention');
     });
   });
 
@@ -175,7 +212,7 @@ describe('PlannerToolbarComponent', () => {
       };
     }
 
-    it('spells out "Add / edit affixes" when it fits on the line with the search box', () => {
+    it('spells out "Build Goals" when it fits on the line with the search box', () => {
       layOut(1);
 
       component.fitEditAffixesLabel();
@@ -183,7 +220,7 @@ describe('PlannerToolbarComponent', () => {
       expect(button().classList).not.toContain('short-label');
     });
 
-    it('falls back to "Affixes" rather than taking a line of its own', () => {
+    it('falls back to "Goals" rather than taking a line of its own', () => {
       layOut(2);
 
       component.fitEditAffixesLabel();

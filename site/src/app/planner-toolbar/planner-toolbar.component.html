@@ -13,7 +13,7 @@
     [attr.aria-selected]="isActiveTab('affixes')"
     [attr.tabindex]="isActiveTab('affixes') ? 0 : -1"
     aria-controls="affixesPanel"
-    (click)="selectTab('affixes')"><span class="planner-view-option-full">Tracked Affixes</span><span class="planner-view-option-short">Affixes</span></button>
+    (click)="selectTab('affixes')"><span class="planner-view-option-full">Build Goals</span><span class="planner-view-option-short">Goals</span></button>
 </div>
 
 <div class="equipment-search" [hidden]="!isActiveTab('equipment')" #gearSearch>
@@ -23,7 +23,7 @@
     [inputClass]="'form-control form-control-sm'" searchType="global_item"></app-typeahead>
 </div>
 
-<div class="tracked-affix-groupby" role="group" aria-label="Group tracked affixes by"
+<div class="tracked-affix-groupby" role="group" aria-label="Group build goals by"
   [hidden]="!isActiveTab('affixes')">
   <span class="tracked-affix-groupby-label">Group by</span>
   <button type="button" class="tracked-affix-groupby-option" [class.active]="groupMode === 'category'"
@@ -33,12 +33,21 @@
 </div>
 
 <!-- Outside both view controls: what the planner tracks is worth changing from
-     either view, and the affix rail's copy of this button has gone. -->
+     either view. Opens and closes the Build Goals editor at the top of the
+     Build Goals panel, whose blue accent it shares. "+ Goals" on a phone, so it is not
+     mistaken for the view switch's Goals tab. One label either way -
+     the chevron and aria-expanded say whether it's open. -->
 <button type="button" class="tracked-affix-edit-affixes" #editAffixes
-  title="Add / edit affixes" aria-label="Add / edit affixes" (click)="openBuilder()">
-  <span class="fas fa-plus" aria-hidden="true"></span>
-  <span class="tracked-affix-edit-affixes-label">Add / edit affixes</span>
-  <span class="tracked-affix-edit-affixes-short">Affixes</span>
+  [class.open]="editorOpen"
+  [class.needs-attention]="needsAffixes && !editorOpen"
+  [attr.aria-expanded]="editorOpen"
+  aria-controls="affixEditor"
+  [title]="needsAffixes && !editorOpen ? 'Start here: choose your build\'s goals' : 'Show or hide your build goals'"
+  (click)="toggleEditor()">
+  <span class="fas fa-plus affix-toggle-plus" aria-hidden="true"></span>
+  <span class="tracked-affix-edit-affixes-label">Build Goals</span>
+  <span class="tracked-affix-edit-affixes-short">Goals</span>
+  <span class="fas fa-chevron-down affix-toggle-chevron" aria-hidden="true"></span>
 </button>
 
 <!-- A phone has no room on this line; the build actions' overflow menu carries it there. -->

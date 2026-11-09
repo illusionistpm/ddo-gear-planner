@@ -1,3 +1,4 @@
+import { GoalsLabelComponent } from './goals-label/goals-label.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, provideAppInitializer, inject, DestroyRef, Injector, runInInjectionContext } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -31,7 +32,7 @@ import { FilterItemTypeComponent } from './filter-item-type/filter-item-type.com
 import { UserItemLocationTooltipPipe } from './shared/user-item-location-tooltip.pipe';
 import { AdminLinkComponent } from './admin-link.component';
 import { SuggestionDrawerComponent } from './suggestion-drawer/suggestion-drawer.component';
-import { AffixBuilderDrawerComponent } from './affix-builder-drawer/affix-builder-drawer.component';
+import { AffixStartPromptComponent } from './affix-start-prompt/affix-start-prompt.component';
 import { EquipmentSlotCardComponent } from './equipment-slot-card/equipment-slot-card.component';
 import { ExternalAffixSlotCardComponent } from './external-affix-slot-card/external-affix-slot-card.component';
 import { ExternalAffixFormComponent } from './external-affix-form/external-affix-form.component';
@@ -63,6 +64,7 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
 @NgModule({
     declarations: [
         AppComponent,
+        GoalsLabelComponent,
         GearListComponent,
         TypeaheadComponent,
         GearDescriptionComponent,
@@ -83,7 +85,7 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         UserItemLocationTooltipPipe,
         AdminLinkComponent,
         SuggestionDrawerComponent,
-        AffixBuilderDrawerComponent,
+        AffixStartPromptComponent,
         EquipmentSlotCardComponent,
         ExternalAffixSlotCardComponent,
         ExternalAffixFormComponent,

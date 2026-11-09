@@ -1,16 +1,31 @@
 <div class="equipment-affix-workspace">
+    @if (affixStartBanner) {
+      <!-- Only below the side-by-side breakpoint (see the CSS): above it the
+           affix editor is on screen beside this. -->
+      <app-affix-start-prompt class="equipment-affix-start"></app-affix-start-prompt>
+    }
     <section *ngIf="shouldShowArmorStartHint()" class="equipment-onboarding-hint onboarding-instruction-panel" aria-label="Equipment start hint">
       <div>
         <div class="onboarding-step-label">Next step</div>
         <h2>Start by choosing one item</h2>
-        <p>Pick an armor item first so the planner has gear to compare against your tracked bonuses.</p>
+        <p>Pick an armor item first so the planner has gear to compare against your build goals.</p>
       </div>
       <button type="button" class="onboarding-dismiss-button" (click)="dismissIntro()">Skip intro</button>
     </section>
 
+    <!-- While the intro's Build Goals steps are on, the gear waits: dimmed and
+         inert (out of reach for the keyboard and screen readers too), with a
+         pointer back to the editor. Header and toolbar stay live. -->
+    <div class="equipment-gear-area" [class.is-dimmed]="gearDimmed">
+    @if (gearDimmed) {
+      <p class="equipment-gear-area-hint" role="note">
+        Start with your build goals to get gear suggestions - or
+        <button type="button" class="equipment-gear-area-skip" (click)="dismissIntro()">skip the intro</button>.
+      </p>
+    }
     <!-- Sticky wrapper: the bar itself scrolls sideways as a last resort, which would
          clip the sets menu if it lived inside it. -->
-    <div class="slot-jump-bar-wrap">
+    <div class="slot-jump-bar-wrap" [attr.inert]="gearDimmed ? '' : null">
       <nav class="slot-jump-bar" aria-label="Jump to a card" #jumpBar>
         @for (slot of displaySlots; track slot) {
           <button type="button" class="slot-jump-chip"
@@ -85,7 +100,7 @@
       }
     </div>
 
-    <div class="equipment-grid">
+    <div class="equipment-grid" [attr.inert]="gearDimmed ? '' : null">
       @for (slot of displaySlots; track slot) {
         <app-equipment-slot-card
           [slot]="slot"
@@ -137,5 +152,6 @@
           </div>
         </div>
       }
+    </div>
     </div>
 </div>

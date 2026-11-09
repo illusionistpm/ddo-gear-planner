@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnDestroy, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, DoCheck, ElementRef, OnDestroy, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { preserveScrollOnMouseDown } from '../shared/preserve-scroll-position';
@@ -7,6 +7,8 @@ import { GearDbService } from '../gear/gear-db.service';
 import { AffixService } from '../affixes/affix.service';
 import { AffixGroupDisplay, getAffixGroupCssClass, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affixes/affix-organization';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
+import { AffixPackagesService } from '../affixes/affix-packages.service';
+import { AffixEditorService } from '../planner/affix-editor.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { AffixAvailabilityService, RemainingAvailability } from '../affixes/affix-availability.service';
 import { TrackedAffixDerivationService } from '../affixes/tracked-affix-derivation.service';
@@ -101,9 +103,16 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   onboardingActive = true;
   trackedAffixGroups: TrackedAffixGroupDisplay[] = [];
   showAffixTypeHint = false;
+  /** No focus chosen yet (AffixPackagesService.needsStart): later intro steps wait. */
+  needsStart = true;
+  /** The affix editor, open at the top of this panel. */
+  editorOpen = false;
+  private editorSubscription?: Subscription;
+  private revealTimer: ReturnType<typeof setTimeout> | null = null;
   onboardingTargetChipKey = '';
   recentlyChangedAffixTypes = new Set<string>();
   private onboardingSubscription?: Subscription;
+  private chosenAffixesSubscription?: Subscription;
   private coveredAffixesSubscription?: Subscription;
   private viewStateSubscription?: Subscription;
   private previousAffixTypeValues?: Map<string, number>;
@@ -120,6 +129,9 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     public gearDB: GearDbService,
     private affixSvc: AffixService,
     private onboarding: PlannerOnboardingService,
+    private affixPackages: AffixPackagesService,
+    private editor: AffixEditorService,
+    private host: ElementRef<HTMLElement>,
     private suggestionDrawer: SuggestionDrawerService,
     private availability: AffixAvailabilityService,
     private derivation: TrackedAffixDerivationService,
@@ -134,6 +146,18 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
       this.groupMode = state.groupMode;
       this.collapsedAffixGroups = new Set(state.collapsed);
     });
+
+    this.editorSubscription = this.editor.isOpen$.subscribe(open => {
+      this.editorOpen = open;
+      this.refreshTrackedAffixDisplay();
+    });
+    this.editorSubscription.add(this.editor.revealRequests$.subscribe(() => this.revealEditor()));
+
+    this.chosenAffixesSubscription = this.affixPackages.needsStart$()
+      .subscribe(needsStart => {
+        this.needsStart = needsStart;
+        this.refreshTrackedAffixDisplay();
+      });
 
     this.onboardingActive = this.onboarding.shouldShowOnboarding();
     this.onboardingSubscription = this.onboarding.getOnboardingState().subscribe(() => {
@@ -164,6 +188,11 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   ngOnDestroy() {
     this.sourceHighlight.clear();
     this.onboardingSubscription?.unsubscribe();
+    this.chosenAffixesSubscription?.unsubscribe();
+    this.editorSubscription?.unsubscribe();
+    if (this.revealTimer) {
+      clearTimeout(this.revealTimer);
+    }
     this.coveredAffixesSubscription?.unsubscribe();
     this.viewStateSubscription?.unsubscribe();
     this.itemFiltersSubscription?.unsubscribe();
@@ -823,8 +852,26 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
     this.trackedAffixDisplaySignature = signature;
     this.trackedAffixGroups = this.buildTrackedAffixGroups();
-    this.showAffixTypeHint = this.onboardingActive && this.trackedAffixGroups.some(group => this.getAffixGroupCount(group) > 0);
+    // One next step at a time: not before a focus is chosen, nor while the
+    // editor above it is still open.
+    this.showAffixTypeHint = this.onboardingActive && !this.needsStart && !this.editorOpen && this.trackedAffixGroups.some(group => this.getAffixGroupCount(group) > 0);
     this.refreshOnboardingTarget();
+  }
+
+  /**
+   * Scroll the editor into view and move focus to its heading, once it has
+   * rendered - it may have only just opened, or its panel only just been shown.
+   */
+  private revealEditor() {
+    if (this.revealTimer) {
+      clearTimeout(this.revealTimer);
+    }
+    this.revealTimer = setTimeout(() => {
+      this.revealTimer = null;
+      const heading = this.host.nativeElement.querySelector<HTMLElement>('.affix-editor-heading');
+      heading?.closest('.affix-editor')?.scrollIntoView?.({ block: 'start', behavior: 'smooth' });
+      heading?.focus({ preventScroll: true });
+    });
   }
 
   private refreshOnboardingTarget() {
@@ -845,6 +892,8 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
     return [
       this.onboardingActive ? '1' : '0',
+      this.needsStart ? '1' : '0',
+      this.editorOpen ? '1' : '0',
       Array.from(this.collapsedAffixGroups).sort().join(','),
       boolAffixes.join('|'),
       affixes.join('|')

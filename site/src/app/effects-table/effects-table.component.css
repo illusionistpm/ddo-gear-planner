@@ -28,7 +28,7 @@
     align-items: center;
     background: linear-gradient(90deg, rgba(var(--primary-color-rgb), 0.08), var(--surface-color) 55%);
     border: 1px solid var(--border-color);
-    border-left: 4px solid var(--success-color);
+    border-left: 4px solid var(--tutorial-accent);
     border-radius: var(--border-radius);
     display: flex;
     gap: var(--space-12);
@@ -294,9 +294,15 @@
     padding: var(--space-8) var(--space-8) var(--space-8);
 }
 
+/*
+ * Sticky within its section, so the section being scrolled through stays
+ * named. The scroller is .planner-tab-panel in both layouts (side by side
+ * each panel scrolls; one view at a time the active one does), and nothing
+ * else in it sticks, so top: 0. Opaque, and above the chips scrolling under it.
+ */
 .tracked-affix-group-title {
     align-items: center;
-    background: transparent;
+    background: var(--panel-bg);
     border: 0;
     color: var(--text-primary);
     display: flex;
@@ -305,20 +311,23 @@
     gap: var(--space-8);
     justify-content: space-between;
     margin-bottom: var(--space-4);
-    padding: 0;
+    padding: var(--space-4) 0;
+    position: sticky;
     text-align: left;
     text-transform: uppercase;
+    top: 0;
     width: 100%;
+    z-index: 2;
 }
 
 .tracked-affix-group-title:hover,
 .tracked-affix-group-title:focus {
-    color: var(--tracked-affix-accent, var(--primary-color));
+    color: var(--primary-color);
 }
 
 .tracked-affix-group-title:focus-visible {
-    outline: 3px solid var(--tracked-affix-accent-soft, rgba(var(--primary-color-rgb), 0.1));
-    outline-offset: 3px;
+    outline: 3px solid var(--focus-ring-color);
+    outline-offset: 1px;
 }
 
 .tracked-affix-header-actions {
@@ -595,4 +604,25 @@
     .tracked-bonus-chip {
         --tracked-bonus-chip-height: 1.75rem;
     }
+}
+
+/*
+ * Category view: the sections' neutral edges alternate lighter and darker, so
+ * scrolling through them you can tell one section from the next. (Doubled
+ * class to beat the shared .tracked-affix-section-* accent in styles.css.)
+ */
+.tracked-affix-section.category-section {
+    --tracked-affix-accent: var(--section-accent-neutral-light);
+    --tracked-affix-accent-soft: rgba(var(--section-accent-neutral-light-rgb), 0.14);
+}
+
+.tracked-affix-section.category-section-alt {
+    --tracked-affix-accent: var(--section-accent-neutral-dark);
+    --tracked-affix-accent-soft: rgba(var(--section-accent-neutral-dark-rgb), 0.12);
+}
+
+/* The lighter edge is too faint for text: counts and the caret read in grey. */
+.category-section .tracked-affix-count,
+.category-section .tracked-affix-collapse-indicator {
+    color: var(--text-secondary);
 }

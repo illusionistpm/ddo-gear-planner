@@ -1,5 +1,9 @@
 <div class="row slot-header">
-  <div class="col text-start external-slot-title"><app-slot-icon icon="aura"></app-slot-icon>Non-gear</div>
+  <!-- Headed like the equipment slot cards (WEAPON, HELM); what it's for is behind the eye. -->
+  <div class="col text-start external-slot-title">
+    <span class="slot-name"><app-slot-icon icon="aura"></app-slot-icon><span class="slot-name-text">Non-gear</span></span>
+    <app-tap-tooltip [text]="description" label="What is Non-gear?"><i class="fas fa-eye small ms-1" aria-hidden="true"></i></app-tap-tooltip>
+  </div>
   <button type="button" class="col-auto external-add-button"
     [attr.aria-expanded]="adding"
     [attr.aria-label]="adding ? 'Cancel adding a non-gear affix' : 'Add a non-gear affix'"
@@ -48,6 +52,4 @@
       </div>
     }
   </div>
-} @else if (!adding) {
-  <div class="external-affix-empty">{{description}}</div>
 }

@@ -13,7 +13,7 @@ import { BuildUrlIdentity, QueryParamsService } from '../build/query-params.serv
 import { MainComponent } from './main.component';
 import { EquippedService } from '../planner/equipped.service';
 import { FiltersService } from '../planner/filters.service';
-import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
+import { AffixEditorService } from '../planner/affix-editor.service';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
 
 describe('MainComponent', () => {
@@ -78,38 +78,134 @@ describe('MainComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('starts an empty URL on the Basic package, in the setup screen', () => {
+  const activeTab = () => {
+    let tab: string | undefined;
+    TestBed.inject(EquippedService).getActiveMainTab().subscribe(value => tab = value).unsubscribe();
+    return tab;
+  };
+
+  const packageChip = (name: string) => Array.from(
+    (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLButtonElement>('#affixesPanel .affix-editor .affix-package-chip'))
+    .find(button => button.textContent?.trim().startsWith(name))!;
+
+  it('opens an empty URL on the Basic package, on the Affixes view with the editor open, with nothing to save', () => {
     const equipped = TestBed.inject(EquippedService);
+    const el: HTMLElement = fixture.nativeElement;
 
     expect(equipped.getImportantAffixes().has('Dodge')).toBe(true);
     expect(equipped.getImportantAffixes().has('Melee Power')).toBe(false);
-    expect(TestBed.inject(AffixBuilderDrawerService).mode).toBe('setup');
+    expect(TestBed.inject(CurrentBuildService).value.isDirty).toBe(false);
+    expect(activeTab()).toBe('affixes');
+    expect(TestBed.inject(AffixEditorService).isOpen).toBe(true);
+    // Inline at the top of the panel, asking what the build is for - no overlay.
+    expect(el.querySelector('#affixesPanel .tracked-affixes-content > app-affix-picker .affix-editor')).not.toBeNull();
+    expect(el.querySelector('#affixesPanel .affix-editor')?.textContent).toContain('What is this build for?');
+    expect(packageChip('Melee').classList).toContain('affix-next-chip');
+    // The editor is already open, so the toolbar button reads as pressed, not as a call to action.
+    expect(el.querySelector('.tracked-affix-edit-affixes.open')).not.toBeNull();
+    expect(el.querySelector('.tracked-affix-edit-affixes.needs-attention')).toBeNull();
   });
 
-  it('does not count the Basic package it starts an empty URL on as an unsaved change', () => {
-    const currentBuild = TestBed.inject(CurrentBuildService);
-    expect(TestBed.inject(EquippedService).getImportantAffixes().has('Dodge')).toBe(true);
-    expect(currentBuild.value.isDirty).toBe(false);
-
-    // The user's own first edit still counts.
+  it('still counts the user\'s own first edit as an unsaved change', () => {
     TestBed.inject(EquippedService).setImportantAffixes(['Strength']);
 
-    expect(currentBuild.value.isDirty).toBe(true);
+    expect(TestBed.inject(CurrentBuildService).value.isDirty).toBe(true);
   });
 
-  it('starts a new build (empty URL re-applied) on the Basic package, in the setup screen', () => {
+  it('starts a new build (empty URL re-applied) on Basic, with the editor open again', () => {
     const equipped = TestBed.inject(EquippedService);
-    const drawer = TestBed.inject(AffixBuilderDrawerService);
+    const editor = TestBed.inject(AffixEditorService);
 
     // What's left over from the build being replaced.
-    drawer.close();
+    editor.close();
+    equipped.setActiveMainTab('equipment');
     equipped.setImportantAffixes(['Strength']);
 
     TestBed.inject(QueryParamsService).updateFromParams(convertToParamMap({}));
 
     expect(equipped.getImportantAffixes().has('Strength')).toBe(false);
     expect(equipped.getImportantAffixes().has('Dodge')).toBe(true);
-    expect(drawer.mode).toBe('setup');
+    expect(editor.isOpen).toBe(true);
+    expect(activeTab()).toBe('affixes');
+  });
+
+  it('leaves the editor shut when params re-apply to a build that keeps its affixes', () => {
+    // A real navigation or browser back re-applying a build that still has
+    // only Basic: they may be looking at the gear, so nothing jumps open.
+    const editor = TestBed.inject(AffixEditorService);
+    editor.close();
+    TestBed.inject(EquippedService).setImportantAffixes(['Dodge']);
+
+    (component as any).applyFreshBuildDefaults(false);
+
+    expect(editor.isOpen).toBe(false);
+  });
+
+  it('adds a focus from the editor on top of Basic; the tracked list below updates and the prompt goes', () => {
+    const el: HTMLElement = fixture.nativeElement;
+    const equipped = TestBed.inject(EquippedService);
+
+    packageChip('Melee').click();
+    fixture.detectChanges();
+
+    expect(equipped.getImportantAffixes().has('Dodge')).toBe(true);
+    expect(equipped.getImportantAffixes().has('Melee Power')).toBe(true);
+    expect(el.querySelector('#affixesPanel')?.textContent).toContain('Melee Power');
+    expect(el.querySelector('.tracked-affix-edit-affixes.needs-attention')).toBeNull();
+  });
+
+  it('shows the spell power step inline after Caster', () => {
+    packageChip('Caster').click();
+    fixture.detectChanges();
+
+    expect((fixture.nativeElement as HTMLElement).querySelector('#affixesPanel .affix-editor')?.textContent)
+      .toContain('Pick your spell power');
+  });
+
+  it('closes the editor from Choose gear, and the toolbar button brings it back on the Affixes view', () => {
+    const el: HTMLElement = fixture.nativeElement;
+    const editor = TestBed.inject(AffixEditorService);
+
+    (el.querySelector('.affix-editor .affix-intro-choose-gear') as HTMLButtonElement).click();
+    fixture.detectChanges();
+    expect(editor.isOpen).toBe(false);
+    expect(el.querySelector('.affix-editor')).toBeNull();
+
+    TestBed.inject(EquippedService).setActiveMainTab('equipment');
+    (el.querySelector('.tracked-affix-edit-affixes') as HTMLButtonElement).click();
+    fixture.detectChanges();
+
+    expect(editor.isOpen).toBe(true);
+    expect(activeTab()).toBe('affixes');
+    expect(el.querySelector('#affixesPanel .affix-editor')).not.toBeNull();
+  });
+
+  it('ends the intro on a wrap-up: sign in (while signed out), the shopping list, and Got it for good', async () => {
+    const el: HTMLElement = fixture.nativeElement;
+    const onboarding = TestBed.inject(PlannerOnboardingService);
+    expect(el.querySelector('.planner-wrap-up')).toBeNull();
+
+    onboarding.completeIntro();
+    // The onboarding state publishes on a timer (see updateOnboardingSubject).
+    await new Promise(resolve => setTimeout(resolve));
+    fixture.detectChanges();
+
+    const wrapUp = el.querySelector('.planner-wrap-up');
+    expect(wrapUp).not.toBeNull();
+    expect(wrapUp?.textContent).toContain('Sign in to save this build');
+    expect(wrapUp?.textContent).toContain('Shopping list');
+
+    // Signed in, there's nothing to suggest about saving.
+    component.signedIn = true;
+    fixture.detectChanges();
+    expect(wrapUp?.textContent).not.toContain('Sign in to save this build');
+
+    (wrapUp?.querySelector('.onboarding-action-button') as HTMLButtonElement).click();
+    await new Promise(resolve => setTimeout(resolve));
+    fixture.detectChanges();
+
+    expect(el.querySelector('.planner-wrap-up')).toBeNull();
+    expect(onboarding.shouldShowWrapUp()).toBe(false);
   });
 
   it('renders non-production admin access in the workspace bar', () => {
@@ -139,14 +235,15 @@ describe('MainComponent', () => {
     component.toggleFilters();
     fixture.detectChanges();
 
-    (fixture.nativeElement.querySelector('#affixesTab') as HTMLButtonElement).click();
+    // A fresh build opens on Affixes; switching to the gear is the move here.
+    (fixture.nativeElement.querySelector('#equipmentTab') as HTMLButtonElement).click();
     fixture.detectChanges();
 
     expect(component.filtersOpen).toBe(false);
   });
 
-  it('starts on the equipment tab', () => {
-    expect(component.activeTab).toBe('equipment');
+  it('starts a fresh build on the affixes tab, where the editor asks what it is for', () => {
+    expect(component.activeTab).toBe('affixes');
     expect(component.filtersOpen).toBe(false);
   });
 
@@ -231,7 +328,7 @@ describe('MainComponent', () => {
     });
   });
 
-  it('pairs the tracked affixes tab green cue with intro text and a skip action', () => {
+  it('pairs the tracked affixes tab tutorial cue with intro text and a skip action', () => {
     component.trackedAffixesHint = true;
 
     expect(component.shouldHighlightTrackedAffixes()).toBe(true);
@@ -371,7 +468,7 @@ describe('MainComponent - loading a build by shortId', () => {
     expect(fixture.componentInstance.activeTab).toBe('equipment');
   });
 
-  it('shows a followed short link with gear instead of the setup screen, and keeps the intro out of the way', () => {
+  it('shows a followed short link with gear, and keeps the intro out of the way', () => {
     configure('abc123');
     // configure() marks the intro done; this spec is about it not being.
     localStorage.removeItem(onboardingStateKey);
@@ -383,7 +480,9 @@ describe('MainComponent - loading a build by shortId', () => {
 
     TestBed.createComponent(MainComponent).detectChanges();
 
-    expect(TestBed.inject(AffixBuilderDrawerService).mode).toBeNull();
+    expect(TestBed.inject(AffixEditorService).isOpen).toBe(false);
+    // Someone else's build, shown as it is: no Basic added to it.
+    expect(TestBed.inject(EquippedService).getImportantAffixes().size).toBe(0);
     expect(TestBed.inject(PlannerOnboardingService).shouldShowOnboarding()).toBe(false);
   });
 

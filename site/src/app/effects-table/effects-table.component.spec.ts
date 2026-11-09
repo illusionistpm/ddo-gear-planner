@@ -4,6 +4,7 @@ import { AppModule } from '../app.module';
 import { EffectsTableComponent } from './effects-table.component';
 import { FiltersService } from '../planner/filters.service';
 import { EquippedService } from '../planner/equipped.service';
+import { AffixEditorService } from '../planner/affix-editor.service';
 import { Item } from '../gear/item';
 import { AffixSourceHighlightService } from '../planner/affix-source-highlight.service';
 
@@ -52,6 +53,16 @@ describe('EffectsTableComponent', () => {
     expect(component.getAffixGroups()).toContainEqual({ name: 'Casting', affixes: ['Cold Lore'] });
   });
 
+  it('alternates the category sections\' edges, lighter then darker', () => {
+    TestBed.inject(EquippedService).setImportantAffixes(['Strength', 'Dodge', 'Melee Power', 'Spell Points']);
+    fixture.detectChanges();
+
+    const alt = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll('.tracked-affix-section.category-section'))
+      .map(section => section.classList.contains('category-section-alt'));
+    expect(alt.length).toBeGreaterThan(2);
+    expect(alt).toEqual(alt.map((_, index) => index % 2 === 1));
+  });
+
   it('combines checklist affixes with utility affixes in one display group', () => {
     component.boolAffixNames = ['Feather Falling'];
     component.boolAffixMap.set('Feather Falling', [{ bonusType: 'Bool', value: 1 }]);
@@ -64,8 +75,41 @@ describe('EffectsTableComponent', () => {
     });
   });
 
+  it('holds the bonus-chip step back until the start card is answered', () => {
+    component.onboardingActive = true;
+    component.needsStart = true;
+    component.affixNames = ['Strength'];
+    component.affixMap.set('Strength', [{ bonusType: 'Enhancement', value: 0 }]);
+    (component as any).refreshTrackedAffixDisplay();
+
+    expect(component.shouldShowAffixTypeHint()).toBe(false);
+  });
+
+  it('shows the affix editor at the top of the panel while it is open', () => {
+    const editor = TestBed.inject(AffixEditorService);
+    editor.open();
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.tracked-affixes-content > app-affix-picker .affix-editor')).not.toBeNull();
+
+    editor.close();
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('app-affix-picker')).toBeNull();
+  });
+
+  it('holds the bonus-chip step back while the editor is open', () => {
+    component.onboardingActive = true;
+    component.needsStart = false;
+    component.editorOpen = true;
+    component.affixNames = ['Strength'];
+    component.affixMap.set('Strength', [{ bonusType: 'Enhancement', value: 0 }]);
+    (component as any).refreshTrackedAffixDisplay();
+
+    expect(component.shouldShowAffixTypeHint()).toBe(false);
+  });
+
   it('targets the first missing-value chip in the first non-utility onboarding group', () => {
     component.onboardingActive = true;
+    component.needsStart = false;
     component.affixNames = ['Speed', 'Strength'];
     component.affixMap.set('Speed', [
       { bonusType: 'Enhancement', value: 30 },
@@ -85,6 +129,7 @@ describe('EffectsTableComponent', () => {
 
   it('falls back to a covered chip when every onboarding chip already has value', () => {
     component.onboardingActive = true;
+    component.needsStart = false;
     component.affixNames = ['Strength'];
     component.affixMap.set('Strength', [
       { bonusType: 'Equipment', value: 13 },
@@ -97,6 +142,7 @@ describe('EffectsTableComponent', () => {
 
   it('falls back to the first utility checklist chip when it is the only onboarding group', () => {
     component.onboardingActive = true;
+    component.needsStart = false;
     component.boolAffixNames = ['Feather Falling'];
     component.boolAffixMap.set('Feather Falling', [{ bonusType: 'Bool', value: 1 }]);
     (component as any).refreshTrackedAffixDisplay();
@@ -104,8 +150,9 @@ describe('EffectsTableComponent', () => {
     expect(component.isOnboardingTargetChip('Feather Falling', 'Bool')).toBe(true);
   });
 
-  it('pairs the tracked affix chip green cue with intro text and a skip action', () => {
+  it('pairs the tracked affix chip tutorial cue with intro text and a skip action', () => {
     component.onboardingActive = true;
+    component.needsStart = false;
     component.affixNames = ['Strength'];
     component.affixMap.set('Strength', [
       { bonusType: 'Equipment', value: 13 },
@@ -119,6 +166,7 @@ describe('EffectsTableComponent', () => {
 
   it('completes onboarding when a tracked affix chip opens item suggestions', () => {
     component.onboardingActive = true;
+    component.needsStart = false;
     component.affixNames = ['Strength'];
     component.affixMap.set('Strength', [
       { bonusType: 'Equipment', value: 13 },
@@ -135,6 +183,7 @@ describe('EffectsTableComponent', () => {
 
   it('hides the tracked affix onboarding cue when dismissed', () => {
     component.onboardingActive = true;
+    component.needsStart = false;
     component.affixNames = ['Strength'];
     component.affixMap.set('Strength', [
       { bonusType: 'Equipment', value: 13 },

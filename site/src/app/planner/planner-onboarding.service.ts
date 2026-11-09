@@ -6,6 +6,13 @@ import { EquippedService } from './equipped.service';
 export interface PlannerOnboardingState {
   completed: boolean;
   dismissed: boolean;
+  /**
+   * The intro was just finished, and its closing "you're all set" message
+   * hasn't been dismissed yet. Stored, so it survives the sign-in redirect it
+   * offers. Only ever set by finishing the intro: skipping it doesn't, and
+   * nobody who finished before the message existed gets it.
+   */
+  wrapUpPending: boolean;
 }
 
 @Injectable({
@@ -16,7 +23,8 @@ export class PlannerOnboardingService implements OnDestroy {
   private readonly legacyAffixTypeOpenedStorageKey = 'ddo-planner-onboarding-affix-type-opened';
   private readonly defaultState: PlannerOnboardingState = {
     completed: false,
-    dismissed: false
+    dismissed: false,
+    wrapUpPending: false
   };
   private onboardingState = this.readOnboardingState();
   private onboardingStateSubject = new BehaviorSubject<PlannerOnboardingState>(this.onboardingState);
@@ -71,15 +79,27 @@ export class PlannerOnboardingService implements OnDestroy {
   completeIntro() {
     this.updateState({
       completed: true,
-      dismissed: false
+      dismissed: false,
+      wrapUpPending: true
     });
   }
 
   dismissIntro() {
     this.updateState({
       completed: false,
-      dismissed: true
+      dismissed: true,
+      wrapUpPending: false
     });
+  }
+
+  shouldShowWrapUp() {
+    return this.onboardingState.wrapUpPending;
+  }
+
+  dismissWrapUp() {
+    if (this.onboardingState.wrapUpPending) {
+      this.updateState({ ...this.onboardingState, wrapUpPending: false });
+    }
   }
 
   resetIntro() {
@@ -100,14 +120,16 @@ export class PlannerOnboardingService implements OnDestroy {
         const parsedState = JSON.parse(storedState);
         return {
           completed: parsedState.completed === true,
-          dismissed: parsedState.dismissed === true
+          dismissed: parsedState.dismissed === true,
+          wrapUpPending: parsedState.wrapUpPending === true
         };
       }
 
       if (localStorage.getItem(this.legacyAffixTypeOpenedStorageKey) === '1') {
         return {
           completed: true,
-          dismissed: false
+          dismissed: false,
+          wrapUpPending: false
         };
       }
     } catch {

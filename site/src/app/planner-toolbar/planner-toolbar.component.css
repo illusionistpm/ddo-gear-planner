@@ -175,12 +175,13 @@
     color: var(--on-accent-text-color);
 }
 
+/* Blue, like the Build Goals editor it opens. */
 .tracked-affix-edit-affixes {
     align-items: center;
-    background: var(--selected-bg);
-    border: 1px solid var(--selected-border-color);
+    background: rgba(var(--primary-color-rgb), 0.1);
+    border: 1px solid var(--primary-color);
     border-radius: 999px;
-    color: var(--selected-text-color);
+    color: var(--primary-color);
     cursor: pointer;
     display: inline-flex;
     font-size: 0.82rem;
@@ -206,8 +207,48 @@
 
 .tracked-affix-edit-affixes:hover,
 .tracked-affix-edit-affixes:focus-visible {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
+    background: rgba(var(--primary-color-rgb), 0.18);
+}
+
+/* "+ Build Goals": the plus sits tight against the label, as the old
+   "+ Affixes" did; the chevron keeps the button's full gap. */
+.affix-toggle-plus {
+    font-size: 0.75rem;
+    margin-right: calc(-1 * var(--space-4));
+}
+
+/* Points down to open, up to close. */
+.affix-toggle-chevron {
+    font-size: 0.7rem;
+    transition: transform 0.2s ease;
+}
+
+.tracked-affix-edit-affixes.open .affix-toggle-chevron {
+    transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .affix-toggle-chevron {
+        transition: none;
+    }
+}
+
+/* Open: a stronger tint and outline in the editor's blue - pressed, but not
+   a filled primary button that reads as "Done". */
+.tracked-affix-edit-affixes.open,
+.tracked-affix-edit-affixes.open:hover,
+.tracked-affix-edit-affixes.open:focus-visible {
+    background: rgba(var(--primary-color-rgb), 0.2);
+    box-shadow: inset 0 0 0 1px var(--primary-color);
+}
+
+/* A build with nothing tracked: this is where to start. The pulsing
+   magenta background is the shared onboarding cue (styles.css). */
+.tracked-affix-edit-affixes.needs-attention,
+.tracked-affix-edit-affixes.needs-attention:hover,
+.tracked-affix-edit-affixes.needs-attention:focus-visible {
+    border-color: var(--tutorial-accent-strong);
+    color: var(--on-accent-text-color);
 }
 
 /* What to fetch for the build: quieter than the affix builder beside it. */
@@ -333,7 +374,7 @@
 }
 
 /*
- * The full label ("Add / edit affixes") is what used to push this row onto a
+ * The full label (once "Add / edit affixes") is what used to push this row onto a
  * second line once a filter chip or two was also showing, all the way up
  * through the dual-pane threshold - see the matching comment on
  * .planner-tab-badges in main.component.css, which this stays in sync with.

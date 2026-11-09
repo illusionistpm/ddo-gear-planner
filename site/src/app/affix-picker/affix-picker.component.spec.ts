@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AppModule } from '../app.module';
+import { AffixEditorService } from '../planner/affix-editor.service';
+import { TypeaheadResult } from '../typeahead/typeahead.component';
 import { AffixPickerComponent } from './affix-picker.component';
 import { EquippedService } from '../planner/equipped.service';
 
@@ -42,7 +44,7 @@ describe('AffixPickerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('pairs the starter package green cue with intro text and a skip action', () => {
+  it('pairs the starter package tutorial cue with intro text and a skip action', () => {
     const compiled: HTMLElement = fixture.nativeElement;
 
     expect(compiled.querySelector('.affix-next-chip')).not.toBeNull();
@@ -59,7 +61,7 @@ describe('AffixPickerComponent', () => {
     expect(component.shouldShowAdditionalPackageHint()).toBe(true);
   });
 
-  it('pairs the equipment tab green cue with intro text after Basic and another package are selected', () => {
+  it('pairs the equipment tab tutorial cue with intro text after Basic and another package are selected', () => {
     component.addPackage('Basic');
     component.addPackage('Melee');
 
@@ -156,25 +158,6 @@ describe('AffixPickerComponent', () => {
 
     expect(component.savedSet.has('Armor Class')).toBe(true);
     expect(component.savedSet.has('Armor Class (%)')).toBe(true);
-  });
-
-  it('groups saved affixes for easier scanning', () => {
-    component.savedSet.add('Strength');
-    component.savedSet.add('Armor-Piercing');
-
-    const groups = component.getSavedAffixGroups();
-
-    expect(groups).toContainEqual({ name: 'Attributes', affixes: ['Strength'] });
-    expect(groups).toContainEqual({ name: 'Offense', affixes: ['Armor-Piercing'] });
-  });
-
-  it('groups bool-only saved affixes with utility and checklist', () => {
-    component.savedSet.add('Heroic Inspiration');
-
-    expect(component.getSavedAffixGroups()).toContainEqual({
-      name: 'Utility & Checklist',
-      affixes: ['Heroic Inspiration']
-    });
   });
 
   it('includes Seeker in both the melee and ranged bundles', () => {
@@ -280,13 +263,138 @@ describe('AffixPickerComponent', () => {
     expect(chips.some(chip => chip.textContent?.trim() === 'Evocation')).toBe(true);
   });
 
-  it('labels selected affix chips as removable', () => {
-    component.add('Strength');
+  const panelHeadings = () => Array.from((fixture.nativeElement as HTMLElement).querySelectorAll('.affix-panel h3'))
+    .map(heading => heading.textContent?.trim());
+
+  it('puts the rows packages reveal right under Build Packages, and the affix search last', () => {
+    component.addPackage('Melee');
+    component.addPackage('Caster');
     refreshView();
 
-    const chip = (fixture.nativeElement as HTMLElement).querySelector('.selected-affix-chip')!;
-    expect(chip.getAttribute('aria-label')).toBe('Remove Strength');
-    expect(chip.querySelector('.selected-affix-chip-remove')).not.toBeNull();
+    expect(panelHeadings()).toEqual(['Build Packages', 'Tactics', 'Spell Power', 'Spell Schools', 'Key Attributes', 'Find an affix']);
+  });
+
+  it('says under the search what a pick did', () => {
+    const status = () => (fixture.nativeElement as HTMLElement).querySelector('.affix-search-status')?.textContent?.trim();
+    TestBed.inject(EquippedService).setImportantAffixes([]);
+    refreshView();
+    expect(status()).toContain('Packages add whole sets');
+
+    component.onChange()({ name: 'Doublestrike' } as TypeaheadResult);
+    refreshView();
+    expect(status()).toBe('Added Doublestrike');
+
+    component.onChange()({ name: 'Doublestrike' } as TypeaheadResult);
+    refreshView();
+    expect(status()).toBe('Doublestrike is already tracked');
+  });
+
+  it('has no footer: no Done of its own and no Clear at the bottom', () => {
+    expect((fixture.nativeElement as HTMLElement).querySelector('.affix-editor-foot')).toBeNull();
+    expect((fixture.nativeElement as HTMLElement).querySelector('.affix-editor-done')).toBeNull();
+  });
+
+  it('cues a spell power once Caster joins Basic, then the gear', () => {
+    component.addPackage('Basic');
+    component.addPackage('Caster');
+    refreshView();
+
+    expect(component.shouldShowSpellpowerHint()).toBe(true);
+    expect((fixture.nativeElement as HTMLElement).textContent).toContain('Pick your spell power');
+
+    component.addSpellpower('Fire');
+    refreshView();
+
+    expect(component.shouldShowSpellpowerHint()).toBe(false);
+    expect(component.shouldHighlightEquipmentStep()).toBe(true);
+  });
+
+  describe('finishing and clearing', () => {
+    const root = () => fixture.nativeElement as HTMLElement;
+    const button = (label: string) => Array.from(root().querySelectorAll<HTMLButtonElement>('button'))
+      .find(b => b.textContent?.replace(/\s+/g, ' ').trim().startsWith(label));
+
+    it('offers Choose gear from the step card once Basic is on, and it finishes the way Done did', () => {
+      const editor = TestBed.inject(AffixEditorService);
+      const finish = vi.spyOn(editor, 'finish');
+      editor.open();
+      TestBed.inject(EquippedService).setImportantAffixes([]);
+      refreshView();
+      expect(button('Choose gear')).toBeUndefined();
+
+      component.addPackage('Basic');
+      refreshView();
+      expect(root().textContent).toContain('What is this build for?');
+      expect(button('Choose gear')).toBeDefined();
+
+      component.addPackage('Melee');
+      refreshView();
+      expect(component.shouldHighlightEquipmentStep()).toBe(true);
+      button('Choose gear')!.click();
+
+      expect(finish).toHaveBeenCalled();
+      expect(editor.isOpen).toBe(false);
+    });
+
+    it('keeps Clear build goals out of the intro steps', () => {
+      component.addPackage('Basic');
+      refreshView();
+      expect(component.hasOnboardingStep()).toBe(true);
+      expect(button('Clear build goals')).toBeUndefined();
+
+      component.dismissIntro();
+      refreshView();
+      expect(root().querySelector('.affix-editor-header')?.textContent).toContain('Clear build goals');
+    });
+
+    it('asks Clear all? Yes / No before clearing, in place, and No leaves the goals alone', () => {
+      component.dismissIntro();
+      component.addPackage('Basic');
+      refreshView();
+      const before = component.savedSet.size;
+
+      button('Clear build goals')!.click();
+      refreshView();
+      expect(root().querySelector('.affix-editor-clear-question')?.textContent).toContain('Clear all?');
+      expect(button('Clear build goals')).toBeUndefined();
+      expect(document.activeElement).toBe(button('No'));
+
+      button('No')!.click();
+      refreshView();
+      expect(component.savedSet.size).toBe(before);
+      expect(document.activeElement).toBe(button('Clear build goals'));
+    });
+
+    it('clears every tracked affix on Yes', () => {
+      component.dismissIntro();
+      component.addPackage('Basic');
+      component.toggleAttribute('Strength');
+      refreshView();
+      expect(component.savedSet.size).toBeGreaterThan(0);
+
+      button('Clear build goals')!.click();
+      refreshView();
+      button('Yes')!.click();
+      refreshView();
+
+      expect(component.savedSet.size).toBe(0);
+      expect(TestBed.inject(EquippedService).getImportantAffixes().size).toBe(0);
+      expect(button('Clear')).toBeUndefined();
+    });
+
+    it('drops the question when the goals change under it', () => {
+      component.dismissIntro();
+      component.addPackage('Basic');
+      refreshView();
+      button('Clear build goals')!.click();
+      refreshView();
+
+      component.toggleAttribute('Strength');
+      refreshView();
+
+      expect(component.confirmingClear).toBe(false);
+      expect(button('Clear build goals')).toBeDefined();
+    });
   });
 
   it('clears saved affixes when tracked URL state is cleared', () => {

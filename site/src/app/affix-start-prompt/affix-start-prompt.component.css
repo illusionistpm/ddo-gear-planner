@@ -1,0 +1,42 @@
+:host {
+  display: block;
+}
+
+.affix-start-banner {
+  align-items: center;
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--tutorial-accent);
+  border-radius: var(--border-radius);
+  color: var(--text-primary);
+  display: flex;
+  gap: var(--space-12);
+  justify-content: space-between;
+  margin: 0 0 var(--space-8);
+  padding: var(--space-8) var(--space-12);
+}
+
+.affix-start-banner p {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.affix-start-banner strong {
+  color: var(--text-primary);
+}
+
+/* Touch: tap targets at least 44px tall. */
+@media (pointer: coarse) {
+  .affix-start-choose {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .affix-start-banner {
+    align-items: stretch;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+}

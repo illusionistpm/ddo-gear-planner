@@ -17,8 +17,8 @@ export const UNSAVED_CHANGES_MESSAGE = 'You have unsaved changes. Leave without 
  * The one test for "leaving would lose something" - every unsaved-changes
  * prompt (this guard, AppComponent's beforeunload, MyBuildsComponent) goes
  * through it so they can't disagree. Dirty alone isn't enough: a fresh
- * scratch build is dirty before the user does anything (the first-run
- * setup adds the Basic affix package), and a build with no gear has
+ * scratch build is dirty before the user does anything (a fresh build
+ * starts on the Basic affix package), and a build with no gear has
  * nothing in it worth a "save first?" prompt.
  */
 export function hasUnsavedWork(currentBuild: CurrentBuildService, equipped: EquippedService): boolean {

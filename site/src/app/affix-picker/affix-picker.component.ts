@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { EquippedService } from '../planner/equipped.service';
@@ -7,10 +7,9 @@ import { AffixService } from '../affixes/affix.service';
 import { buildAffixTypeaheadEntries } from '../affixes/affix-typeahead';
 import { AnalyticsService } from '../shared/analytics.service';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
-import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
 import { AffixPackagesService } from '../affixes/affix-packages.service';
+import { AffixEditorService } from '../planner/affix-editor.service';
 
-import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from '../affixes/affix-organization';
 import { TypeaheadEntry, TypeaheadResult } from '../typeahead/typeahead.component';
 
 @Component({
@@ -41,6 +40,14 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
   basicPackageHint = true;
   additionalPackageHint = false;
   equipmentStepHint = false;
+  spellpowerHint = false;
+  /** What the last search pick did, shown under the search until the next one. */
+  lastSearchResult: { name: string; added: boolean } | null = null;
+  /** Clear build goals was pressed: it's asking "Clear all? Yes / No". */
+  confirmingClear = false;
+
+  @ViewChild('clearNo') private clearNo?: ElementRef<HTMLButtonElement>;
+  @ViewChild('clearStart') private clearStart?: ElementRef<HTMLButtonElement>;
 
   private importantAffixesSubscription?: Subscription;
   private onboardingSubscription?: Subscription;
@@ -51,8 +58,10 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
     private affixSvc: AffixService,
     private analytics: AnalyticsService,
     private onboarding: PlannerOnboardingService,
-    private affixBuilder: AffixBuilderDrawerService,
-    private affixPackages: AffixPackagesService
+    private affixPackages: AffixPackagesService,
+    private editor: AffixEditorService,
+    private cdr: ChangeDetectorRef,
+    private host: ElementRef<HTMLElement>
   ) {
     this.savedSet = new Set<string>();
 
@@ -81,10 +90,6 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.importantAffixesSubscription?.unsubscribe();
     this.onboardingSubscription?.unsubscribe();
-  }
-
-  isSetupMode(): boolean {
-    return this.affixBuilder.mode === 'setup';
   }
 
   toggleAttribute(attr: string) {
@@ -188,6 +193,21 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
     return this.equipmentStepHint;
   }
 
+  /** Caster is on but says nothing yet about which spells: the next step is a spell power. */
+  shouldShowSpellpowerHint() {
+    return this.spellpowerHint;
+  }
+
+  /** Basic is on, so the gear is worth a look: the step offers Choose gear. */
+  canFinishStep() {
+    return this.additionalPackageHint || this.equipmentStepHint;
+  }
+
+  /** Any of the intro's steps is showing - each comes with Next step and Skip intro. */
+  hasOnboardingStep() {
+    return this.basicPackageHint || this.additionalPackageHint || this.spellpowerHint || this.equipmentStepHint;
+  }
+
   dismissIntro() {
     this.onboarding.dismissIntro();
     this.onboardingActive = this.onboarding.shouldShowOnboarding();
@@ -224,6 +244,8 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
 
   private syncFromImportantAffixes(affixes: Set<string>) {
     this.savedSet = new Set(affixes);
+    // The question was about the goals as they were.
+    this.confirmingClear = false;
     this.updateConditionalSections();
     this.refreshOnboardingHints();
   }
@@ -233,6 +255,26 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
     for (const removedAffix of removedAffixes) {
       this.savedSet.delete(removedAffix);
     }
+  }
+
+  startClear() {
+    this.confirmingClear = true;
+    this.cdr.detectChanges();
+    this.clearNo?.nativeElement.focus();
+  }
+
+  cancelClear() {
+    this.confirmingClear = false;
+    this.cdr.detectChanges();
+    this.clearStart?.nativeElement.focus();
+  }
+
+  confirmClear() {
+    this.clearAll();
+    this.confirmingClear = false;
+    this.cdr.detectChanges();
+    // The control is gone with the goals: keep focus in the editor.
+    this.host.nativeElement.querySelector<HTMLElement>('#affixEditorHeading')?.focus();
   }
 
   clearAll() {
@@ -245,15 +287,15 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
 
   onChange() {
     return (affix: TypeaheadResult) => {
-      this.add('original' in affix ? affix.original : affix.name, 'manual_search');
+      const name = 'original' in affix ? affix.original : affix.name;
+      const alreadyTracked = this.equipped.isImportantAffix(name);
+      this.add(name, 'manual_search');
+      this.lastSearchResult = { name, added: !alreadyTracked };
     };
   }
 
-  getSavedAffixGroups(): AffixGroupDisplay[] {
-    return groupAffixNames(this.savedSet, '', this.affixSvc, affixName => {
-      const types = this.gearDB.getTypesForAffix(affixName);
-      return types.length === 1 && types[0] === 'Bool' ? UTILITY_CHECKLIST_CATEGORY : null;
-    });
+  done() {
+    this.editor.finish();
   }
 
   private updateConditionalSections() {
@@ -278,6 +320,9 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
     const basicSelected = this.isPackageSelected('Basic');
     this.basicPackageHint = this.onboardingActive && !basicSelected;
     this.additionalPackageHint = this.onboardingActive && basicSelected && !this.hasAdditionalStarterPackage();
-    this.equipmentStepHint = this.onboardingActive && basicSelected && this.hasAdditionalStarterPackage();
+    const starterChosen = this.onboardingActive && basicSelected && this.hasAdditionalStarterPackage();
+    this.spellpowerHint = starterChosen && this.isPackageSelected('Caster')
+      && !this.spellpowerPackageKeys.some(key => this.isSpellpowerSelected(key));
+    this.equipmentStepHint = starterChosen && !this.spellpowerHint;
   }
 }

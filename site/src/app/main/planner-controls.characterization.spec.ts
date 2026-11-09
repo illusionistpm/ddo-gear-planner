@@ -1,6 +1,6 @@
 // Pins the behaviour of the per-view controls that are about to move out of
 // GearListComponent and EffectsTableComponent and into a shared workspace
-// toolbar (the global gear search, Group by, Add / edit affixes) plus the view
+// toolbar (the global gear search, Group by, Build Goals) plus the view
 // switch itself.
 //
 // Deliberately hosted on MainComponent and driven through the rendered DOM:
@@ -15,7 +15,7 @@ import { convertToParamMap } from '@angular/router';
 import { of } from 'rxjs';
 
 import { AppModule } from '../app.module';
-import { AffixBuilderDrawerService } from '../affix-builder-drawer/affix-builder-drawer.service';
+import { AffixEditorService } from '../planner/affix-editor.service';
 import { QueryParamsService } from '../build/query-params.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { Item } from '../gear/item';
@@ -39,7 +39,7 @@ describe('Planner workspace controls', () => {
       localStorage.removeItem(key);
     }
     // Skip onboarding: an un-onboarded build opens the affix builder in 'setup'
-    // mode, which would muddy the assertion that Add / edit affixes opens it in
+    // mode, which would muddy the assertion that Build Goals opens it in
     // 'edit' mode.
     localStorage.setItem(onboardingStateKey, JSON.stringify({ completed: true, dismissed: true }));
 
@@ -197,10 +197,10 @@ describe('Planner workspace controls', () => {
       expect(active.textContent?.trim()).toBe('Scarcity');
     });
 
-    it('opens the affix builder for editing from Add / edit affixes', () => {
+    it('opens the affix builder for editing from the Build Goals button', () => {
       const fixture = createMain();
       showAffixesView(fixture);
-      const drawer = TestBed.inject(AffixBuilderDrawerService);
+      const drawer = TestBed.inject(AffixEditorService);
       drawer.close();
       fixture.detectChanges();
 
@@ -211,7 +211,6 @@ describe('Planner workspace controls', () => {
       fixture.detectChanges();
 
       expect(drawer.isOpen).toBe(true);
-      expect(drawer.mode).toBe('edit');
     });
   });
 
@@ -222,11 +221,13 @@ describe('Planner workspace controls', () => {
       return panel.hasAttribute('hidden');
     }
 
-    it('starts on the equipment view', () => {
+    // Changed on purpose: a fresh build used to open on Equipment with a
+    // setup screen over it; now it opens on Affixes, where the editor is.
+    it('starts a fresh build on the tracked affixes view', () => {
       const fixture = createMain();
 
-      expect(panelHidden(fixture, 'equipmentPanel')).toBe(false);
-      expect(panelHidden(fixture, 'affixesPanel')).toBe(true);
+      expect(panelHidden(fixture, 'equipmentPanel')).toBe(true);
+      expect(panelHidden(fixture, 'affixesPanel')).toBe(false);
     });
 
     it('shows the tracked affixes view once selected', () => {

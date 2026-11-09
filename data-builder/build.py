@@ -9,11 +9,12 @@ from build_crafting import build_crafting
 from build_synonyms import build_synonyms
 from build_url_codec_dictionary import build_url_codec_dictionary
 from get_data_stats import get_data_stats, diff_data_stats, get_data_stats_description, check_stats_thresholds, get_unresolved_sources_in_data
+from validate_data import audit_data
+from build_problems import describe_problems, post_to_discord
 import argparse
 from get_output_path import get_output_path
 from get_snapshot_path import get_snapshot_path
 from parse_item_types import parse_item_types
-import requests
 from parse_quests import parse_quests
 import subprocess
 import sys
@@ -36,12 +37,27 @@ def write_build_info():
     }, 'build-info')
 
 
-def build_data(clearSnapshot, discordURL, previewDir=None, offline=False):
+class BuildFailed(SystemExit):
+    """A build that stopped on purpose, with the reason to report."""
+    def __init__(self, reason, details=(), code=1):
+        super().__init__(code)
+        self.reason = reason
+        self.details = list(details)
+
+
+def fail(reason, details=(), code=1):
+    print(reason)
+    for detail in details:
+        print(f" - {detail}")
+    raise BuildFailed(reason, details, code)
+
+
+def build_data(clearSnapshot, previewDir=None, offline=False):
+    """Build data/ and return its problems (see build_problems)."""
     ensure_data_builder_cwd()
 
     if offline and not os.path.isdir(get_snapshot_path()):
-        print(f"--offline needs the committed wiki snapshot, and '{get_snapshot_path()}' doesn't exist.")
-        raise SystemExit(1)
+        fail(f"--offline needs the committed wiki snapshot, and '{get_snapshot_path()}' doesn't exist.")
 
     # Run unit tests first; fail the build if tests fail.
     try:
@@ -54,8 +70,7 @@ def build_data(clearSnapshot, discordURL, previewDir=None, offline=False):
         # event the wiki added - would stop every later update.
         result = subprocess.run([sys.executable, '-m', 'pytest', tests_dir, '-q', '-m', 'not committed_data'], env=test_env)
         if result.returncode != 0:
-            print('Unit tests failed. Aborting data build.')
-            raise SystemExit(result.returncode)
+            fail('Data builder unit tests failed. Aborting data build.', code=result.returncode)
         print('Unit tests passed.')
     except FileNotFoundError:
         # If pytest isn't available, surface a clear error
@@ -63,6 +78,9 @@ def build_data(clearSnapshot, discordURL, previewDir=None, offline=False):
         raise
 
     oldStats = get_data_stats()
+    # Warnings already in the data aren't reported again; only the ones this
+    # build adds.
+    oldIssues = audit_data()
 
     if offline:
         print('#### Offline: building from the committed wiki snapshot')
@@ -100,39 +118,47 @@ def build_data(clearSnapshot, discordURL, previewDir=None, offline=False):
 
     newStats = get_data_stats()
 
-    diffStats = diff_data_stats(newStats, oldStats)
-
-    diffStr = get_data_stats_description(newStats, diffStats)
-
-    # Not a failure: the site shows these as free until source_packs.json
-    # names their pack.
-    unresolved = get_unresolved_sources_in_data()
-    if unresolved:
-        diffStr += 'Unresolved sources (add them to data-builder/source_packs.json):\n'
-        diffStr += ''.join(f" - {source}\n" for source in unresolved)
+    # Not failures: an unresolved source shows as free on the site until
+    # source_packs.json names its pack.
+    problems = describe_problems(oldIssues, audit_data(), get_unresolved_sources_in_data())
+    for problem in problems:
+        print(problem)
 
     # Before the threshold check, so a build it aborts still leaves its
     # output to inspect.
     if previewDir:
-        write_preview(previewDir, diffStr)
+        description = get_data_stats_description(newStats, diff_data_stats(newStats, oldStats))
+        description += ''.join(f"{problem}\n\n" for problem in problems)
+        write_preview(previewDir, description)
 
     thresholdViolations = check_stats_thresholds(newStats, oldStats)
     if thresholdViolations:
-        print('Data stats dropped more than expected compared to the previous build:')
-        for violation in thresholdViolations:
-            print(f" - {violation}")
-        print('Aborting data build. If this drop is expected, investigate the parser output before re-running.')
-        raise SystemExit(1)
+        fail('Data stats dropped more than 10% since the previous build. Aborting data build; '
+             'if the drop is expected, investigate the parser output before re-running.',
+             thresholdViolations)
 
+    return problems
+
+
+def run(clearSnapshot, discordURL, previewDir=None, offline=False):
+    """build_data, posting to Discord only when something is wrong."""
     # A preview is not a published data change.
-    if discordURL and not previewDir:
-        message = "Data Changes:\n"
-        message += diffStr
+    if previewDir:
+        discordURL = None
 
-        requests.post(discordURL, data =
-        {
-            'content': message
-        })
+    try:
+        problems = build_data(clearSnapshot, previewDir, offline=offline)
+    except BuildFailed as e:
+        if discordURL:
+            post_to_discord(discordURL, 'Data build failed', ['\n'.join([e.reason, *(f" - {d}" for d in e.details)])])
+        raise
+    except Exception as e:
+        if discordURL:
+            post_to_discord(discordURL, 'Data build failed', [f"{type(e).__name__}: {e}"])
+        raise
+
+    if problems and discordURL:
+        post_to_discord(discordURL, 'Data build has problems', problems)
 
 
 if __name__ == "__main__":
@@ -142,10 +168,10 @@ if __name__ == "__main__":
                       help='delete wiki-snapshot/ and download every page again')
     mode.add_argument('--offline', default=False, action='store_true',
                       help='build from the committed wiki-snapshot/ without contacting the wiki')
-    parser.add_argument('--discord')
+    parser.add_argument('--discord', help='webhook to post to when the build fails or has problems')
     parser.add_argument('--preview-dir', help='write the build output, a diff and a summary here; skips Discord')
     args = parser.parse_args()
 
     # build_data changes into data-builder/, so resolve this first.
     previewDir = os.path.abspath(args.preview_dir) if args.preview_dir else None
-    build_data(args.clear_snapshot, args.discord, previewDir, offline=args.offline)
+    run(args.clear_snapshot, args.discord, previewDir, offline=args.offline)

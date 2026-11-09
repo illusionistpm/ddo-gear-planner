@@ -17,6 +17,17 @@ from item_sources import LOCATION_HEADERS, SourceResolver, extract_sources, find
 
 from typedefs import SetAugment, CatMap, AugmentNameTransformMap, CraftingSystems, Sets, Affix, Item
 
+# Joke and event items whose enchantments cell is empty. They have nothing
+# to plan around, and the empty cell parses as an affix with no name.
+EXCLUDED_ITEMS = {
+    'Lousy Chain Docent?',
+    'Lousy Chainshirt',
+    'Lucky Hat',
+    'Pumpkin Head',
+    'Skull Head',
+}
+
+
 def include_page(fileName: str) -> bool:
     return not (fileName.startswith('Collars') or fileName.startswith('Cosmetic_'))
 
@@ -354,6 +365,9 @@ def get_items_from_page(
         itemLink = fields[cols['Item']].find('a')
         if itemLink is None:
             print(f"Skipping row in {itemPageURL}: missing item link")
+            continue
+
+        if itemLink.getText().strip() in EXCLUDED_ITEMS:
             continue
 
         rawML = fields[cols['ML']].getText().strip()

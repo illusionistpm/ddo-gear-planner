@@ -43,8 +43,10 @@ jobs:
       # Off master, build.py writes a preview to data-preview/ and skips
       # Discord; the Commit step below is master-only too. The checkout
       # already holds the committed snapshot, and a page already on disk
-      # isn't downloaded again, so start from an empty one.
+      # isn't downloaded again, so start from an empty one. build.py posts
+      # to Discord only when it fails or makes the data worse.
       - name: Run script
+        id: build
         env:
           DISCORD_HOOK: ${{ secrets.AUTO_UPDATER_DISCORD_HOOK }}
           PREVIEW_ARGS: ${{ env.IS_MASTER != 'true' && '--preview-dir data-preview' || '' }}
@@ -125,3 +127,16 @@ jobs:
           # crafting devices into source_packs.json.
           file_pattern: data/*.json wiki-snapshot data-builder/source_packs.json
 
+      # Discord hears only about problems. build.py reports its own
+      # failures; this covers every other step, such as the site failing to
+      # build or test against the new data.
+      - name: Report failure to Discord
+        if: failure() && env.IS_MASTER == 'true' && steps.build.outcome != 'failure'
+        env:
+          DISCORD_HOOK: ${{ secrets.AUTO_UPDATER_DISCORD_HOOK }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          [ -n "$DISCORD_HOOK" ] || exit 0
+          jq -n --arg content "**Data Auto Updater failed** - nothing was committed.
+          <$RUN_URL>" '{content: $content}' \
+            | curl -sS -H 'Content-Type: application/json' -d @- "$DISCORD_HOOK"

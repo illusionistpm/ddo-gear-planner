@@ -208,10 +208,11 @@ def write_report(issues: list[dict[str, str]], report_basename: str | None = Non
             writer.writerow({field: issue.get(field, '') for field in CSV_FIELDS})
 
 
-def audit_generated_assets(report_basename: str | None = None) -> list[str]:
+def audit_data() -> list[dict[str, str]]:
+    """Every issue in the generated data, without writing a report."""
     items = _load_json('items')
     if items is None:
-        issues = [{
+        return [{
             'category': 'missing-data',
             'severity': 'error',
             'item': '<none>',
@@ -223,11 +224,17 @@ def audit_generated_assets(report_basename: str | None = None) -> list[str]:
             'sourceText': '',
             'sourceTooltip': '',
         }]
-    else:
-        issues = audit_items(items) + audit_seal_upgrades(items, _load_json('crafting') or {}) + audit_augment_upgrades(items)
+    return audit_items(items) + audit_seal_upgrades(items, _load_json('crafting') or {}) + audit_augment_upgrades(items)
 
+
+def format_issue(issue: dict[str, str]) -> str:
+    return f"{issue['severity'].upper()} {issue['category']}: Item '{issue['item']}' affix '{issue['affix']}': {issue['issue']}"
+
+
+def audit_generated_assets(report_basename: str | None = None) -> list[str]:
+    issues = audit_data()
     write_report(issues, report_basename)
-    return [f"{issue['severity'].upper()} {issue['category']}: Item '{issue['item']}' affix '{issue['affix']}': {issue['issue']}" for issue in issues]
+    return [format_issue(issue) for issue in issues]
 
 
 if __name__ == '__main__':

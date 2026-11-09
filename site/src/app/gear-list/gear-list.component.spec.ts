@@ -7,6 +7,8 @@ import { EquippedService, VisibleSetBonus } from '../planner/equipped.service';
 import { GearListComponent } from './gear-list.component';
 import { Item } from '../gear/item';
 import { AffixSourceHighlightService } from '../planner/affix-source-highlight.service';
+import { GearDbService } from '../gear/gear-db.service';
+import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
 
 describe('GearListComponent', () => {
   let component: GearListComponent;
@@ -101,6 +103,71 @@ describe('GearListComponent', () => {
     expect(compiled.querySelector('.recommended-start-slot')).not.toBeNull();
     expect(compiled.textContent).toContain('Pick an armor item first');
     expect(compiled.querySelector('.onboarding-dismiss-button')?.textContent).toContain('Skip intro');
+  });
+
+  describe('the gear area during the Build Goals steps', () => {
+    const gearArea = () => fixture.nativeElement.querySelector('.equipment-gear-area') as HTMLElement;
+    const inert = () => ['.slot-jump-bar-wrap', '.equipment-grid']
+      .map(selector => gearArea().querySelector(selector)!.hasAttribute('inert'));
+
+    it('is dimmed and inert, with a hint, while the editor is open and no focus is chosen', () => {
+      TestBed.inject(EquippedService).setImportantAffixes(['Dodge']);
+      TestBed.inject(AffixEditorService).open();
+      createComponentWithSetBonuses([]);
+
+      expect(gearArea().classList).toContain('is-dimmed');
+      expect(inert()).toEqual([true, true]);
+      expect(gearArea().querySelector('.equipment-gear-area-hint')?.textContent).toContain('Build Goals');
+    });
+
+    it('comes back once the editor closes (Choose gear)', () => {
+      TestBed.inject(EquippedService).setImportantAffixes(['Dodge']);
+      const editor = TestBed.inject(AffixEditorService);
+      editor.open();
+      createComponentWithSetBonuses([]);
+
+      editor.finish();
+      fixture.detectChanges();
+
+      expect(gearArea().classList).not.toContain('is-dimmed');
+      expect(inert()).toEqual([false, false]);
+      expect(gearArea().querySelector('.equipment-gear-area-hint')).toBeNull();
+    });
+
+    it('is live for the gear\'s own first step, once a focus is chosen', () => {
+      TestBed.inject(EquippedService).setImportantAffixes(['Strength']);
+      TestBed.inject(AffixEditorService).open();
+      createComponentWithSetBonuses([]);
+
+      expect(fixture.nativeElement.querySelector('.equipment-onboarding-hint')).not.toBeNull();
+      expect(inert()).toEqual([false, false]);
+    });
+
+    it('comes back on skip the intro', async () => {
+      TestBed.inject(EquippedService).setImportantAffixes(['Dodge']);
+      TestBed.inject(AffixEditorService).open();
+      createComponentWithSetBonuses([]);
+
+      (gearArea().querySelector('.equipment-gear-area-skip') as HTMLButtonElement).click();
+      // The onboarding state publishes on a timer (see updateOnboardingSubject).
+      await new Promise(resolve => setTimeout(resolve));
+      fixture.detectChanges();
+
+      expect(inert()).toEqual([false, false]);
+    });
+
+    it('is never dimmed for a followed build link', () => {
+      const equipped = TestBed.inject(EquippedService);
+      const item = TestBed.inject(GearDbService).getGearBySlot('Helm')[0];
+      equipped.set(item);
+      equipped.setImportantAffixes(['Dodge']);
+      TestBed.inject(PlannerOnboardingService).bypassForBuildLink();
+      TestBed.inject(AffixEditorService).open();
+      createComponentWithSetBonuses([]);
+
+      expect(gearArea().classList).not.toContain('is-dimmed');
+      expect(inert()).toEqual([false, false]);
+    });
   });
 
   it('hides the armor onboarding cue when dismissed', () => {

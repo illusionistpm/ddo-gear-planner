@@ -1,8 +1,11 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, Subscription, combineLatest } from 'rxjs';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { AnalyticsService } from '../shared/analytics.service';
+import { AffixPackagesService } from '../affixes/affix-packages.service';
 import { EquippedService } from './equipped.service';
+import { PlannerOnboardingService } from './planner-onboarding.service';
 
 /** What asked for the affix editor, for analytics. */
 export type AffixEditorRevealSource = 'toolbar' | 'start_banner';
@@ -30,11 +33,30 @@ export class AffixEditorService implements OnDestroy {
   readonly isOpen$ = this.openSubject.asObservable();
   /** Fires when the editor should be scrolled to and focused - see reveal(). */
   readonly revealRequests$: Observable<void> = this.revealSubject.asObservable();
+  /**
+   * The intro's editor steps are what the user should be looking at: the
+   * intro is on, no focus is chosen yet, and the editor is open. The gear
+   * area dims meanwhile. It ends with a focus (the gear's own first step
+   * takes over), Choose gear (closes the editor) or Skip intro - and never
+   * starts for a followed build link, which bypasses the intro.
+   */
+  readonly introStepActive$: Observable<boolean>;
 
   constructor(
     private equipped: EquippedService,
-    private analytics: AnalyticsService
+    private analytics: AnalyticsService,
+    onboarding: PlannerOnboardingService,
+    affixPackages: AffixPackagesService
   ) {
+    this.introStepActive$ = combineLatest([
+      onboarding.getOnboardingState(),
+      affixPackages.needsStart$(),
+      this.isOpen$
+    ]).pipe(
+      map(([, needsStart, open]) => open && needsStart && onboarding.shouldShowOnboarding()),
+      distinctUntilChanged()
+    );
+
     // One view at a time, the editor is only open where it can be seen:
     // leaving the Affixes view is leaving the editor, so the toolbar
     // button's open state never describes something off screen.

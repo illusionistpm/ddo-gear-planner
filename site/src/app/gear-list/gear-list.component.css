@@ -448,3 +448,59 @@
         box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.6);
     }
 }
+
+/*
+ * The intro's Build Goals steps: the gear waits. Dimmed (and inert in the
+ * template), with a hint on top that names the editor rather than pointing
+ * at it - on a phone it isn't "on the right".
+ */
+.equipment-gear-area {
+    position: relative;
+}
+
+.equipment-gear-area.is-dimmed > .slot-jump-bar-wrap,
+.equipment-gear-area.is-dimmed > .equipment-grid {
+    filter: grayscale(0.4);
+    opacity: 0.35;
+    transition: opacity 0.2s ease;
+}
+
+.equipment-gear-area-hint {
+    background: var(--surface-elevated-color);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--tutorial-accent);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    left: 50%;
+    margin: 0;
+    max-width: min(26rem, calc(100% - 2 * var(--space-16)));
+    padding: var(--space-12) var(--space-16);
+    position: absolute;
+    top: var(--space-32);
+    transform: translateX(-50%);
+    width: max-content;
+    z-index: 6;
+}
+
+.equipment-gear-area-skip {
+    background: none;
+    border: 0;
+    color: var(--link-color);
+    font: inherit;
+    padding: 0;
+    text-decoration: underline;
+}
+
+.equipment-gear-area-skip:focus-visible {
+    outline: 3px solid var(--focus-ring-color);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .equipment-gear-area.is-dimmed > .slot-jump-bar-wrap,
+    .equipment-gear-area.is-dimmed > .equipment-grid {
+        transition: none;
+    }
+}

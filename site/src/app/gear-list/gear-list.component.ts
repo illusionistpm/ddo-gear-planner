@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, AfterViewInit, AfterViewChecked, OnDestroy, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy, AfterViewInit, AfterViewChecked, OnDestroy, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { GearDbService } from '../gear/gear-db.service';
 import { EquippedService, VisibleSetBonus } from '../planner/equipped.service';
@@ -9,6 +9,7 @@ import { perfAfterFrames, perfStart } from '../shared/perf-trace';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
 import { AffixPackagesService } from '../affixes/affix-packages.service';
+import { AffixEditorService } from '../planner/affix-editor.service';
 import { slotLabel, sortSlotsForDisplay } from '../gear/slot-display';
 import { AffixSourceHighlightService, NON_GEAR_JUMP_TARGET, setJumpTarget } from '../planner/affix-source-highlight.service';
 
@@ -46,7 +47,9 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
     private onboarding: PlannerOnboardingService,
     private affixPackages: AffixPackagesService,
     private host: ElementRef<HTMLElement>,
-    private sourceHighlight: AffixSourceHighlightService
+    private sourceHighlight: AffixSourceHighlightService,
+    private affixEditor: AffixEditorService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   readonly slotLabel = slotLabel;
@@ -71,10 +74,13 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
   armorStartHint = false;
   /** No focus chosen yet and nothing equipped: the tabbed layout shows the start banner. */
   affixStartBanner = false;
+  /** The intro's Build Goals steps are on: the gear area waits (dimmed, inert). */
+  gearDimmed = false;
   private needsStart = true;
   private chosenAffixesSubscription?: Subscription;
   private loggedInitialViewChecked = false;
   private onboardingSubscription?: Subscription;
+  private introStepSubscription?: Subscription;
   private slotSubscriptions: Subscription[] = [];
   private sourceHighlightSubscription?: Subscription;
   private nonGearSubscription?: Subscription;
@@ -105,6 +111,10 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.onboardingSubscription = this.onboarding.getOnboardingState().subscribe(() => {
       this.refreshOnboardingState();
     });
+    this.introStepSubscription = this.affixEditor.introStepActive$.subscribe(active => {
+      this.gearDimmed = active;
+      this.cdr.markForCheck();
+    });
     for (const slot of this.gearList.getSlots()) {
       const slotObservable = this.equipped.getSlot(slot);
       if (slotObservable) {
@@ -123,6 +133,7 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   ngOnDestroy() {
     this.onboardingSubscription?.unsubscribe();
+    this.introStepSubscription?.unsubscribe();
     this.chosenAffixesSubscription?.unsubscribe();
     this.sourceHighlightSubscription?.unsubscribe();
     this.nonGearSubscription?.unsubscribe();

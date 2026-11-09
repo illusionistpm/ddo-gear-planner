@@ -4,15 +4,23 @@ import { BehaviorSubject } from 'rxjs';
 import { AffixEditorService } from './affix-editor.service';
 import { EquippedService, PlannerTab } from './equipped.service';
 import { AnalyticsService } from '../shared/analytics.service';
+import { AffixPackagesService } from '../affixes/affix-packages.service';
+import { PlannerOnboardingService } from './planner-onboarding.service';
 
 describe('AffixEditorService', () => {
   let service: AffixEditorService;
   let tab: BehaviorSubject<PlannerTab>;
   let oneViewAtATime: boolean;
+  let onboardingOn: boolean;
+  let onboardingState: BehaviorSubject<unknown>;
+  let needsStart: BehaviorSubject<boolean>;
 
   beforeEach(() => {
     tab = new BehaviorSubject<PlannerTab>('affixes');
     oneViewAtATime = false;
+    onboardingOn = true;
+    onboardingState = new BehaviorSubject<unknown>({});
+    needsStart = new BehaviorSubject<boolean>(true);
     // jsdom has no matchMedia: stand one in that answers the breakpoint as told.
     Object.defineProperty(window, 'matchMedia', {
       configurable: true,
@@ -27,7 +35,15 @@ describe('AffixEditorService', () => {
             setActiveMainTab: (next: PlannerTab) => tab.next(next)
           }
         },
-        { provide: AnalyticsService, useValue: { track: vi.fn() } }
+        { provide: AnalyticsService, useValue: { track: vi.fn() } },
+        {
+          provide: PlannerOnboardingService,
+          useValue: {
+            getOnboardingState: () => onboardingState.asObservable(),
+            shouldShowOnboarding: () => onboardingOn
+          }
+        },
+        { provide: AffixPackagesService, useValue: { needsStart$: () => needsStart.asObservable() } }
       ]
     });
     service = TestBed.inject(AffixEditorService);
@@ -95,5 +111,22 @@ describe('AffixEditorService', () => {
     oneViewAtATime = true;
     tab.next('equipment');
     expect(service.isOpen).toBe(false);
+  });
+
+  it('marks the intro\'s editor steps active only while open, the intro is on and no focus is chosen', () => {
+    const seen: boolean[] = [];
+    const subscription = service.introStepActive$.subscribe(active => seen.push(active));
+
+    service.open();
+    needsStart.next(false);
+    needsStart.next(true);
+    onboardingOn = false;
+    onboardingState.next({});
+    onboardingOn = true;
+    onboardingState.next({});
+    service.close();
+    subscription.unsubscribe();
+
+    expect(seen).toEqual([false, true, false, true, false, true, false]);
   });
 });

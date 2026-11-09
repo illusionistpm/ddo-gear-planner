@@ -162,11 +162,11 @@ describe('MainComponent', () => {
       .toContain('Pick your spell power');
   });
 
-  it('closes the editor from Done, and the toolbar button brings it back on the Affixes view', () => {
+  it('closes the editor from Choose gear, and the toolbar button brings it back on the Affixes view', () => {
     const el: HTMLElement = fixture.nativeElement;
     const editor = TestBed.inject(AffixEditorService);
 
-    (el.querySelector('.affix-editor-foot .affix-editor-done') as HTMLButtonElement).click();
+    (el.querySelector('.affix-editor .affix-intro-choose-gear') as HTMLButtonElement).click();
     fixture.detectChanges();
     expect(editor.isOpen).toBe(false);
     expect(el.querySelector('.affix-editor')).toBeNull();

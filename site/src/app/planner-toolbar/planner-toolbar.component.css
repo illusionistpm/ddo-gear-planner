@@ -175,7 +175,7 @@
     color: var(--on-accent-text-color);
 }
 
-/* Blue, like the affix editor it opens - green is kept for "do this next". */
+/* Blue, like the Build Goals editor it opens. */
 .tracked-affix-edit-affixes {
     align-items: center;
     background: rgba(var(--primary-color-rgb), 0.1);
@@ -210,26 +210,29 @@
     background: rgba(var(--primary-color-rgb), 0.18);
 }
 
-/* Both wordings share one grid cell; the hidden one still sets the width. */
-.affix-toggle-label {
-    display: inline-grid;
-    justify-items: center;
+/* Points down to open, up to close. */
+.affix-toggle-chevron {
+    font-size: 0.7rem;
+    transition: transform 0.2s ease;
 }
 
-.affix-toggle-label > span {
-    grid-area: 1 / 1;
+.tracked-affix-edit-affixes.open .affix-toggle-chevron {
+    transform: rotate(180deg);
 }
 
-.affix-toggle-label > .inactive {
-    visibility: hidden;
+@media (prefers-reduced-motion: reduce) {
+    .affix-toggle-chevron {
+        transition: none;
+    }
 }
 
-/* Pressed while the editor is open: the same fill as the editor's own Done. */
+/* Open: a stronger tint and outline in the editor's blue - pressed, but not
+   a filled primary button that reads as "Done". */
 .tracked-affix-edit-affixes.open,
 .tracked-affix-edit-affixes.open:hover,
 .tracked-affix-edit-affixes.open:focus-visible {
-    background: var(--primary-color);
-    color: var(--on-accent-text-color);
+    background: rgba(var(--primary-color-rgb), 0.2);
+    box-shadow: inset 0 0 0 1px var(--primary-color);
 }
 
 /* A build with nothing tracked: this is where to start. The pulsing
@@ -364,7 +367,7 @@
 }
 
 /*
- * The full label ("Add / edit affixes") is what used to push this row onto a
+ * The full label (once "Add / edit affixes") is what used to push this row onto a
  * second line once a filter chip or two was also showing, all the way up
  * through the dual-pane threshold - see the matching comment on
  * .planner-tab-badges in main.component.css, which this stays in sync with.

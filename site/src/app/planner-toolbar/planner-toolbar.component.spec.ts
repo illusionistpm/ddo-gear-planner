@@ -130,43 +130,28 @@ describe('PlannerToolbarComponent', () => {
     });
 
     const affixButton = () => fixture.nativeElement.querySelector('.tracked-affix-edit-affixes') as HTMLButtonElement;
-    /** The wordings on show (one per label slot): the others are laid out but hidden. */
-    const shownLabels = () => Array.from(affixButton().querySelectorAll('.affix-toggle-label > span:not(.inactive)'))
-      .map(span => span.textContent?.trim());
+    const label = () => affixButton().querySelector('.tracked-affix-edit-affixes-label')?.textContent?.trim();
 
-    it('opens and closes the affix editor, saying which it will do', () => {
+    it('opens and closes the Build Goals editor, keeping its label and flipping aria-expanded', () => {
       const editor = TestBed.inject(AffixEditorService);
       editor.close();
       fixture.detectChanges();
       expect(affixButton().getAttribute('aria-expanded')).toBe('false');
       expect(affixButton().getAttribute('aria-controls')).toBe('affixEditor');
-      expect(shownLabels()).toEqual(['Add / edit affixes', 'Affixes']);
+      expect(label()).toBe('Build Goals');
 
       affixButton().click();
       fixture.detectChanges();
       expect(editor.isOpen).toBe(true);
       expect(affixButton().getAttribute('aria-expanded')).toBe('true');
       expect(affixButton().classList).toContain('open');
-      expect(shownLabels()).toEqual(['Done editing', 'Done']);
+      expect(label()).toBe('Build Goals');
 
       affixButton().click();
       fixture.detectChanges();
       expect(editor.isOpen).toBe(false);
-      expect(shownLabels()).toEqual(['Add / edit affixes', 'Affixes']);
-    });
-
-    it('lays out both wordings in both states, so the button keeps one width', () => {
-      const editor = TestBed.inject(AffixEditorService);
-      for (const open of [false, true]) {
-        if (open) {
-          editor.open();
-        } else {
-          editor.close();
-        }
-        fixture.detectChanges();
-        const all = Array.from(affixButton().querySelectorAll('.affix-toggle-label > span')).map(span => span.textContent?.trim());
-        expect(all).toEqual(['Add / edit affixes', 'Done editing', 'Affixes', 'Done']);
-      }
+      expect(affixButton().getAttribute('aria-expanded')).toBe('false');
+      expect(label()).toBe('Build Goals');
     });
 
     it('glows only while the editor is shut and the build has no focus yet', () => {
@@ -222,7 +207,7 @@ describe('PlannerToolbarComponent', () => {
       };
     }
 
-    it('spells out "Add / edit affixes" when it fits on the line with the search box', () => {
+    it('spells out "Build Goals" when it fits on the line with the search box', () => {
       layOut(1);
 
       component.fitEditAffixesLabel();
@@ -230,7 +215,7 @@ describe('PlannerToolbarComponent', () => {
       expect(button().classList).not.toContain('short-label');
     });
 
-    it('falls back to "Affixes" rather than taking a line of its own', () => {
+    it('falls back to "Goals" rather than taking a line of its own', () => {
       layOut(2);
 
       component.fitEditAffixesLabel();

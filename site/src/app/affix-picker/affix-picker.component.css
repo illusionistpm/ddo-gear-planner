@@ -1,7 +1,6 @@
 /*
  * The affix editor: the top of the Tracked Affixes panel while it's open.
- * It lives in that panel's column, so nothing here is sized off the viewport
- * except Done's label, which follows the side-by-side breakpoint (995px).
+ * It lives in that panel's column, so nothing here is sized off the viewport.
  */
 .affix-editor {
   background: var(--surface-color);
@@ -15,27 +14,48 @@
   scroll-margin-top: var(--space-16);
 }
 
-.affix-editor-header,
-.affix-editor-foot {
+.affix-editor-header {
   align-items: center;
+  background: rgba(var(--primary-color-rgb), 0.06);
+  border-bottom: 1px solid var(--border-color);
   display: flex;
-  gap: var(--space-12);
+  flex-wrap: wrap;
+  gap: var(--space-8) var(--space-12);
+  justify-content: space-between;
   padding: var(--space-8) var(--space-12);
 }
 
-.affix-editor-header {
-  background: rgba(var(--primary-color-rgb), 0.06);
-  border-bottom: 1px solid var(--border-color);
+.affix-editor-clear {
+  margin-left: auto;
 }
 
-.affix-editor-foot {
-  border-top: 1px solid var(--border-color);
-  justify-content: flex-end;
+.affix-editor-clear-question {
+  align-items: center;
+  color: var(--text-primary);
+  display: inline-flex;
+  font-size: 0.78rem;
+  font-weight: 700;
+  gap: var(--space-8);
 }
 
-/* Clear all, when there is anything to clear, sits at the far end from Done. */
-.affix-editor-foot .clear-affixes-button {
-  margin-right: auto;
+.clear-affixes-cancel {
+  background: transparent;
+  border: 0;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 0;
+}
+
+.clear-affixes-cancel:hover,
+.clear-affixes-cancel:focus {
+  color: var(--text-primary);
+}
+
+.clear-affixes-button:focus-visible,
+.clear-affixes-cancel:focus-visible {
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 2px;
 }
 
 .affix-editor-heading {
@@ -61,47 +81,11 @@
   outline-offset: 2px;
 }
 
-.affix-editor-done {
-  white-space: nowrap;
-  background: var(--primary-color);
-  border: 0;
-  border-radius: 8px;
-  color: var(--on-accent-text-color);
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 800;
-  min-width: 5rem;
-  padding: var(--space-4) var(--space-16);
-}
-
-.affix-editor-done:hover,
-.affix-editor-done:focus {
-  filter: brightness(1.05);
-}
-
-.affix-editor-done:focus-visible {
-  outline: 3px solid var(--focus-ring-color);
-  outline-offset: 2px;
-}
-
-.affix-editor-done-narrow {
-  display: none;
-}
-
-@media (max-width: 994.98px) {
-  .affix-editor-done-wide {
-    display: none;
-  }
-
-  .affix-editor-done-narrow {
-    display: inline;
-  }
-}
-
 @media (pointer: coarse) {
-  .affix-editor-done,
-  .clear-affixes-button {
+  .clear-affixes-button,
+  .clear-affixes-cancel {
     min-height: 44px;
+    min-width: 44px;
   }
 }
 
@@ -166,6 +150,14 @@
   font-size: 0.9rem;
   line-height: 1.35;
   margin: 0;
+}
+
+.affix-intro-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin-top: var(--space-8);
 }
 
 .affix-panel {

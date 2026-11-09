@@ -33,26 +33,19 @@
 </div>
 
 <!-- Outside both view controls: what the planner tracks is worth changing from
-     either view. Opens and closes the affix editor at the top of the Tracked
-     Affixes panel, whose blue accent it shares. -->
+     either view. Opens and closes the Build Goals editor at the top of the
+     Build Goals panel, whose blue accent it shares. One label either way -
+     the chevron and aria-expanded say whether it's open. -->
 <button type="button" class="tracked-affix-edit-affixes" #editAffixes
   [class.open]="editorOpen"
   [class.needs-attention]="needsAffixes && !editorOpen"
   [attr.aria-expanded]="editorOpen"
   aria-controls="affixEditor"
-  [title]="editorOpen ? 'Done editing affixes' : needsAffixes ? 'Start here: choose your build\'s focus' : 'Add / edit affixes'"
+  [title]="needsAffixes && !editorOpen ? 'Start here: choose your build\'s goals' : 'Show or hide your build goals'"
   (click)="toggleEditor()">
-  <span class="fas fa-fw" [class.fa-plus]="!editorOpen" [class.fa-check]="editorOpen" aria-hidden="true"></span>
-  <!-- Both wordings always laid out, one hidden: the button keeps one width
-       open or closed, so the bar doesn't reflow under the pointer. -->
-  <span class="tracked-affix-edit-affixes-label"><span class="affix-toggle-label">
-    <span [class.inactive]="editorOpen">Add / edit affixes</span>
-    <span [class.inactive]="!editorOpen">Done editing</span>
-  </span></span>
-  <span class="tracked-affix-edit-affixes-short"><span class="affix-toggle-label">
-    <span [class.inactive]="editorOpen">Affixes</span>
-    <span [class.inactive]="!editorOpen">Done</span>
-  </span></span>
+  <span class="tracked-affix-edit-affixes-label">Build Goals</span>
+  <span class="tracked-affix-edit-affixes-short">Goals</span>
+  <span class="fas fa-chevron-down affix-toggle-chevron" aria-hidden="true"></span>
 </button>
 
 <!-- A phone has no room on this line; the build actions' overflow menu carries it there. -->

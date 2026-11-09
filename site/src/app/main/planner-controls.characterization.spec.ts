@@ -1,6 +1,6 @@
 // Pins the behaviour of the per-view controls that are about to move out of
 // GearListComponent and EffectsTableComponent and into a shared workspace
-// toolbar (the global gear search, Group by, Add / edit affixes) plus the view
+// toolbar (the global gear search, Group by, Build Goals) plus the view
 // switch itself.
 //
 // Deliberately hosted on MainComponent and driven through the rendered DOM:
@@ -39,7 +39,7 @@ describe('Planner workspace controls', () => {
       localStorage.removeItem(key);
     }
     // Skip onboarding: an un-onboarded build opens the affix builder in 'setup'
-    // mode, which would muddy the assertion that Add / edit affixes opens it in
+    // mode, which would muddy the assertion that Build Goals opens it in
     // 'edit' mode.
     localStorage.setItem(onboardingStateKey, JSON.stringify({ completed: true, dismissed: true }));
 
@@ -197,7 +197,7 @@ describe('Planner workspace controls', () => {
       expect(active.textContent?.trim()).toBe('Scarcity');
     });
 
-    it('opens the affix builder for editing from Add / edit affixes', () => {
+    it('opens the affix builder for editing from the Build Goals button', () => {
       const fixture = createMain();
       showAffixesView(fixture);
       const drawer = TestBed.inject(AffixEditorService);

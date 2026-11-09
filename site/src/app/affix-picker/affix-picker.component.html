@@ -1,4 +1,4 @@
-<!-- The toolbar's Add / edit affixes button opens and closes this (aria-controls),
+<!-- The toolbar's Build Goals button opens and closes this (aria-controls),
      and shares its blue accent, so the two read as one control and its panel. -->
 <section id="affixEditor" class="affix-editor" aria-labelledby="affixEditorHeading">
   <header class="affix-editor-header">
@@ -6,6 +6,20 @@
       <span class="fas fa-plus affix-editor-heading-icon" aria-hidden="true"></span>
       Edit tracked affixes
     </h2>
+    <!-- Out of the way during the intro, and asks first: it empties the whole list. -->
+    @if (savedSet.size && !hasOnboardingStep()) {
+      <div class="affix-editor-clear">
+        @if (confirmingClear) {
+          <span class="affix-editor-clear-question" role="group" aria-label="Clear all build goals?">
+            Clear all?
+            <button type="button" class="clear-affixes-button" (click)="confirmClear()">Yes</button>
+            <button type="button" class="clear-affixes-cancel" #clearNo (click)="cancelClear()">No</button>
+          </span>
+        } @else {
+          <button type="button" class="clear-affixes-button" #clearStart (click)="startClear()">Clear build goals</button>
+        }
+      </div>
+    }
   </header>
 
   <section class="affix-builder">
@@ -18,13 +32,13 @@
       <ng-template #equipmentStepIntro>
       <ng-container *ngIf="shouldHighlightEquipmentStep(); else affixSetupIntro">
         <h2>Your gear targets are ready</h2>
-        <p>Press Done to choose gear. Add / edit affixes in the toolbar brings this back any time.</p>
+        <p>Choose gear when you're ready. Build Goals in the toolbar brings this back any time.</p>
       </ng-container>
       </ng-template>
       <ng-template #affixSetupIntro>
         <ng-container *ngIf="shouldShowAdditionalPackageHint(); else basicAffixSetupIntro">
           <h2>What is this build for?</h2>
-          <p>Basic is already on - the defenses and utility most builds want. Add the focus (or focuses) that fit how this character plays, and the planner suggests gear for it. When you're done, press Done to choose gear.</p>
+          <p>Basic is already on - the defenses and utility most builds want. Add the focus (or focuses) that fit how this character plays, and the planner suggests gear for it.</p>
         </ng-container>
       </ng-template>
       <ng-template #basicAffixSetupIntro>
@@ -36,14 +50,18 @@
       <ng-template #savedAffixSetupIntro>
         <ng-container *ngIf="savedSet.size; else emptyAffixSetupIntro">
           <h2>Your gear targets are ready</h2>
-          <p>Press Done to choose gear. Add / edit affixes in the toolbar brings this back any time.</p>
+          <p>Choose gear when you're ready. Build Goals in the toolbar brings this back any time.</p>
         </ng-container>
       </ng-template>
       <ng-template #emptyAffixSetupIntro>
         <h2>Start by choosing your build goals</h2>
         <p>Pick Basic, then the combat or role packages that fit your build. Once you have selected affixes, the planner can track them while you compare gear.</p>
       </ng-template>
-      <button *ngIf="hasOnboardingStep()" type="button" class="onboarding-dismiss-button" (click)="dismissIntro()">Skip intro</button>
+      <div *ngIf="hasOnboardingStep()" class="affix-intro-actions">
+        <!-- The way on from the editor, side by side or one view at a time. -->
+        <button *ngIf="canFinishStep()" type="button" class="onboarding-action-button affix-intro-choose-gear" (click)="done()">Choose gear <span aria-hidden="true">&rarr;</span></button>
+        <button type="button" class="onboarding-dismiss-button" (click)="dismissIntro()">Skip intro</button>
+      </div>
     </section>
 
     <section class="affix-panel">
@@ -155,16 +173,4 @@
     </section>
   </section>
 
-  <!-- The end of a long form, so a way out here as well as the toolbar button.
-       Side by side the gear is already on screen; one view at a time, Done
-       goes to it, and says so. -->
-  <footer class="affix-editor-foot">
-    @if (savedSet.size) {
-      <button type="button" class="clear-affixes-button" (click)="clearAll()">Clear all affixes</button>
-    }
-    <button type="button" class="affix-editor-done" (click)="done()">
-      <span class="affix-editor-done-wide">Done</span>
-      <span class="affix-editor-done-narrow">Done - choose gear <span aria-hidden="true">&rarr;</span></span>
-    </button>
-  </footer>
 </section>

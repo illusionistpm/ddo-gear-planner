@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { EquippedService } from '../planner/equipped.service';
@@ -43,6 +43,11 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
   spellpowerHint = false;
   /** What the last search pick did, shown under the search until the next one. */
   lastSearchResult: { name: string; added: boolean } | null = null;
+  /** Clear build goals was pressed: it's asking "Clear all? Yes / No". */
+  confirmingClear = false;
+
+  @ViewChild('clearNo') private clearNo?: ElementRef<HTMLButtonElement>;
+  @ViewChild('clearStart') private clearStart?: ElementRef<HTMLButtonElement>;
 
   private importantAffixesSubscription?: Subscription;
   private onboardingSubscription?: Subscription;
@@ -54,7 +59,9 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
     private analytics: AnalyticsService,
     private onboarding: PlannerOnboardingService,
     private affixPackages: AffixPackagesService,
-    private editor: AffixEditorService
+    private editor: AffixEditorService,
+    private cdr: ChangeDetectorRef,
+    private host: ElementRef<HTMLElement>
   ) {
     this.savedSet = new Set<string>();
 
@@ -191,6 +198,11 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
     return this.spellpowerHint;
   }
 
+  /** Basic is on, so the gear is worth a look: the step offers Choose gear. */
+  canFinishStep() {
+    return this.additionalPackageHint || this.equipmentStepHint;
+  }
+
   /** Any of the intro's steps is showing - each comes with Next step and Skip intro. */
   hasOnboardingStep() {
     return this.basicPackageHint || this.additionalPackageHint || this.spellpowerHint || this.equipmentStepHint;
@@ -232,6 +244,8 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
 
   private syncFromImportantAffixes(affixes: Set<string>) {
     this.savedSet = new Set(affixes);
+    // The question was about the goals as they were.
+    this.confirmingClear = false;
     this.updateConditionalSections();
     this.refreshOnboardingHints();
   }
@@ -241,6 +255,26 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
     for (const removedAffix of removedAffixes) {
       this.savedSet.delete(removedAffix);
     }
+  }
+
+  startClear() {
+    this.confirmingClear = true;
+    this.cdr.detectChanges();
+    this.clearNo?.nativeElement.focus();
+  }
+
+  cancelClear() {
+    this.confirmingClear = false;
+    this.cdr.detectChanges();
+    this.clearStart?.nativeElement.focus();
+  }
+
+  confirmClear() {
+    this.clearAll();
+    this.confirmingClear = false;
+    this.cdr.detectChanges();
+    // The control is gone with the goals: keep focus in the editor.
+    this.host.nativeElement.querySelector<HTMLElement>('#affixEditorHeading')?.focus();
   }
 
   clearAll() {

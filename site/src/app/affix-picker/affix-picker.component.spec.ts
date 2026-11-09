@@ -289,13 +289,9 @@ describe('AffixPickerComponent', () => {
     expect(status()).toBe('Doublestrike is already tracked');
   });
 
-  it('closes the editor from Done', () => {
-    const editor = TestBed.inject(AffixEditorService);
-    editor.open();
-
-    (fixture.nativeElement as HTMLElement).querySelector<HTMLButtonElement>('.affix-editor-foot .affix-editor-done')!.click();
-
-    expect(editor.isOpen).toBe(false);
+  it('has no footer: no Done of its own and no Clear at the bottom', () => {
+    expect((fixture.nativeElement as HTMLElement).querySelector('.affix-editor-foot')).toBeNull();
+    expect((fixture.nativeElement as HTMLElement).querySelector('.affix-editor-done')).toBeNull();
   });
 
   it('cues a spell power once Caster joins Basic, then the gear', () => {
@@ -313,40 +309,91 @@ describe('AffixPickerComponent', () => {
     expect(component.shouldHighlightEquipmentStep()).toBe(true);
   });
 
-  // Characterization: what finishing and clearing do, pinned before the
-  // controls for them move (the footer goes; Clear moves to the header).
   describe('finishing and clearing', () => {
-    const button = (label: string) => Array.from((fixture.nativeElement as HTMLElement).querySelectorAll<HTMLButtonElement>('button'))
+    const root = () => fixture.nativeElement as HTMLElement;
+    const button = (label: string) => Array.from(root().querySelectorAll<HTMLButtonElement>('button'))
       .find(b => b.textContent?.replace(/\s+/g, ' ').trim().startsWith(label));
 
-    it('finishing the gear-targets step closes the editor through AffixEditorService.finish', () => {
+    it('offers Choose gear from the step card once Basic is on, and it finishes the way Done did', () => {
       const editor = TestBed.inject(AffixEditorService);
       const finish = vi.spyOn(editor, 'finish');
       editor.open();
+      TestBed.inject(EquippedService).setImportantAffixes([]);
+      refreshView();
+      expect(button('Choose gear')).toBeUndefined();
+
       component.addPackage('Basic');
+      refreshView();
+      expect(root().textContent).toContain('What is this build for?');
+      expect(button('Choose gear')).toBeDefined();
+
       component.addPackage('Melee');
       refreshView();
       expect(component.shouldHighlightEquipmentStep()).toBe(true);
-
-      component.done();
+      button('Choose gear')!.click();
 
       expect(finish).toHaveBeenCalled();
       expect(editor.isOpen).toBe(false);
     });
 
-    it('clearing removes every tracked affix', () => {
+    it('keeps Clear build goals out of the intro steps', () => {
+      component.addPackage('Basic');
+      refreshView();
+      expect(component.hasOnboardingStep()).toBe(true);
+      expect(button('Clear build goals')).toBeUndefined();
+
+      component.dismissIntro();
+      refreshView();
+      expect(root().querySelector('.affix-editor-header')?.textContent).toContain('Clear build goals');
+    });
+
+    it('asks Clear all? Yes / No before clearing, in place, and No leaves the goals alone', () => {
+      component.dismissIntro();
+      component.addPackage('Basic');
+      refreshView();
+      const before = component.savedSet.size;
+
+      button('Clear build goals')!.click();
+      refreshView();
+      expect(root().querySelector('.affix-editor-clear-question')?.textContent).toContain('Clear all?');
+      expect(button('Clear build goals')).toBeUndefined();
+      expect(document.activeElement).toBe(button('No'));
+
+      button('No')!.click();
+      refreshView();
+      expect(component.savedSet.size).toBe(before);
+      expect(document.activeElement).toBe(button('Clear build goals'));
+    });
+
+    it('clears every tracked affix on Yes', () => {
       component.dismissIntro();
       component.addPackage('Basic');
       component.toggleAttribute('Strength');
       refreshView();
       expect(component.savedSet.size).toBeGreaterThan(0);
 
-      component.clearAll();
+      button('Clear build goals')!.click();
+      refreshView();
+      button('Yes')!.click();
       refreshView();
 
       expect(component.savedSet.size).toBe(0);
       expect(TestBed.inject(EquippedService).getImportantAffixes().size).toBe(0);
       expect(button('Clear')).toBeUndefined();
+    });
+
+    it('drops the question when the goals change under it', () => {
+      component.dismissIntro();
+      component.addPackage('Basic');
+      refreshView();
+      button('Clear build goals')!.click();
+      refreshView();
+
+      component.toggleAttribute('Strength');
+      refreshView();
+
+      expect(component.confirmingClear).toBe(false);
+      expect(button('Clear build goals')).toBeDefined();
     });
   });
 

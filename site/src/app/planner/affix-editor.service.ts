@@ -72,7 +72,7 @@ export class AffixEditorService implements OnDestroy {
   }
 
   /**
-   * Done editing: close it, and one view at a time, go to the gear - the
+   * Finished editing (Choose gear, or the toolbar button): close it, and one view at a time, go to the gear - the
    * point of finishing. Side by side the gear is already on screen.
    */
   finish() {

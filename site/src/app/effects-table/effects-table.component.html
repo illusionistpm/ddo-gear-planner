@@ -127,7 +127,7 @@
     </ng-container>
 
     <ng-container *ngIf="groupMode === 'category'">
-    <div class="tracked-affix-section" [ngClass]="getAffixGroupClass(group.name)" *ngFor="let group of trackedAffixGroups; trackBy: trackAffixGroup">
+    <div class="tracked-affix-section category-section" [ngClass]="getAffixGroupClass(group.name)" [class.category-section-alt]="odd" *ngFor="let group of trackedAffixGroups; trackBy: trackAffixGroup; let odd = odd">
         <button type="button" class="tracked-affix-group-title" (click)="toggleAffixGroup(group.name)"
             [attr.aria-expanded]="!isAffixGroupCollapsed(group.name)">
             <span>{{group.name}}</span>

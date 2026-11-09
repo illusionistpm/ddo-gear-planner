@@ -2,27 +2,28 @@
      and shares its blue accent, so the two read as one control and its panel. -->
 <section id="affixEditor" class="affix-editor" aria-labelledby="affixEditorHeading">
   <header class="affix-editor-header">
-    <div class="affix-editor-title">
+    <!-- Heading and Clear share the top row; the explanation runs full width below. -->
+    <div class="affix-editor-title-row">
       <h2 id="affixEditorHeading" class="affix-editor-heading" tabindex="-1">
         <span class="fas fa-bullseye affix-editor-heading-icon" aria-hidden="true"></span>
         Edit build goals
       </h2>
-      <p class="affix-editor-lede">Tell the planner what your character needs, like Melee Power or Fortification, and it ranks gear by how much of that each piece gives you.</p>
+      <!-- Out of the way during the intro, and asks first: it empties the whole list. -->
+      @if (savedSet.size && !hasOnboardingStep()) {
+        <div class="affix-editor-clear">
+          @if (confirmingClear) {
+            <span class="affix-editor-clear-question" role="group" aria-label="Clear all build goals?">
+              Clear all?
+              <button type="button" class="clear-affixes-button" (click)="confirmClear()">Yes</button>
+              <button type="button" class="clear-affixes-cancel" #clearNo (click)="cancelClear()">No</button>
+            </span>
+          } @else {
+            <button type="button" class="clear-affixes-button" #clearStart (click)="startClear()">Clear build goals</button>
+          }
+        </div>
+      }
     </div>
-    <!-- Out of the way during the intro, and asks first: it empties the whole list. -->
-    @if (savedSet.size && !hasOnboardingStep()) {
-      <div class="affix-editor-clear">
-        @if (confirmingClear) {
-          <span class="affix-editor-clear-question" role="group" aria-label="Clear all build goals?">
-            Clear all?
-            <button type="button" class="clear-affixes-button" (click)="confirmClear()">Yes</button>
-            <button type="button" class="clear-affixes-cancel" #clearNo (click)="cancelClear()">No</button>
-          </span>
-        } @else {
-          <button type="button" class="clear-affixes-button" #clearStart (click)="startClear()">Clear build goals</button>
-        }
-      </div>
-    }
+    <p class="affix-editor-lede">Tell the planner what your character needs, like Melee Power or Fortification, and it ranks gear by how much of that each piece gives you.</p>
   </header>
 
   <section class="affix-builder">

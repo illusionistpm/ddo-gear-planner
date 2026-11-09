@@ -15,14 +15,17 @@
 }
 
 .affix-editor-header {
-  align-items: center;
   background: rgba(var(--primary-color-rgb), 0.06);
   border-bottom: 1px solid var(--border-color);
+  padding: var(--space-8) var(--space-12);
+}
+
+.affix-editor-title-row {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-8) var(--space-12);
+  gap: var(--space-4) var(--space-12);
   justify-content: space-between;
-  padding: var(--space-8) var(--space-12);
 }
 
 .affix-editor-clear {
@@ -39,12 +42,14 @@
 }
 
 .clear-affixes-cancel {
-  background: transparent;
-  border: 0;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
   color: var(--text-secondary);
   font-size: 0.78rem;
   font-weight: 800;
-  padding: 0;
+  line-height: 1.2;
+  padding: var(--space-2) var(--space-12);
 }
 
 .clear-affixes-cancel:hover,
@@ -66,11 +71,6 @@
   font-size: 1rem;
   font-weight: 800;
   margin: 0;
-}
-
-.affix-editor-title {
-  flex: 1 1 16rem;
-  min-width: 0;
 }
 
 .affix-editor-lede {
@@ -195,18 +195,23 @@
   margin: 0;
 }
 
+/* A small outlined pill: clearly a button, but quiet - it's a danger action
+   that sits beside the heading, not the editor's main control. */
 .clear-affixes-button {
-  background: transparent;
-  border: 0;
+  background: var(--surface-color);
+  border: 1px solid rgba(var(--danger-color-rgb), 0.55);
+  border-radius: 999px;
   color: var(--danger-color);
   font-size: 0.78rem;
   font-weight: 800;
-  padding: 0;
+  line-height: 1.2;
+  padding: var(--space-2) var(--space-12);
 }
 
 .clear-affixes-button:hover,
 .clear-affixes-button:focus {
-  color: var(--danger-strong-text-color);
+  background: rgba(var(--danger-color-rgb), 0.08);
+  border-color: var(--danger-color);
 }
 
 .chip-grid {

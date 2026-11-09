@@ -53,6 +53,16 @@ describe('EffectsTableComponent', () => {
     expect(component.getAffixGroups()).toContainEqual({ name: 'Casting', affixes: ['Cold Lore'] });
   });
 
+  it('alternates the category sections\' edges, lighter then darker', () => {
+    TestBed.inject(EquippedService).setImportantAffixes(['Strength', 'Dodge', 'Melee Power', 'Spell Points']);
+    fixture.detectChanges();
+
+    const alt = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll('.tracked-affix-section.category-section'))
+      .map(section => section.classList.contains('category-section-alt'));
+    expect(alt.length).toBeGreaterThan(2);
+    expect(alt).toEqual(alt.map((_, index) => index % 2 === 1));
+  });
+
   it('combines checklist affixes with utility affixes in one display group', () => {
     component.boolAffixNames = ['Feather Falling'];
     component.boolAffixMap.set('Feather Falling', [{ bonusType: 'Bool', value: 1 }]);

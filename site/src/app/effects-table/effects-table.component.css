@@ -605,3 +605,24 @@
         --tracked-bonus-chip-height: 1.75rem;
     }
 }
+
+/*
+ * Category view: the sections' neutral edges alternate lighter and darker, so
+ * scrolling through them you can tell one section from the next. (Doubled
+ * class to beat the shared .tracked-affix-section-* accent in styles.css.)
+ */
+.tracked-affix-section.category-section {
+    --tracked-affix-accent: var(--section-accent-neutral-light);
+    --tracked-affix-accent-soft: rgba(var(--section-accent-neutral-light-rgb), 0.14);
+}
+
+.tracked-affix-section.category-section-alt {
+    --tracked-affix-accent: var(--section-accent-neutral-dark);
+    --tracked-affix-accent-soft: rgba(var(--section-accent-neutral-dark-rgb), 0.12);
+}
+
+/* The lighter edge is too faint for text: counts and the caret read in grey. */
+.category-section .tracked-affix-count,
+.category-section .tracked-affix-collapse-indicator {
+    color: var(--text-secondary);
+}

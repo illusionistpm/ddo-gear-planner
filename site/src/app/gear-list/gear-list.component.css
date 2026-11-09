@@ -504,13 +504,3 @@
         transition: none;
     }
 }
-
-/* A filigree set's heading isn't a button (it has no item drawer), so it takes the button's padding but not its hover. */
-.filigree-set-heading {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-}
-
-.filigree-set-heading:hover {
-    background: var(--surface-subtle-color);
-}

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
+import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { AppModule } from '../app.module';
 import { AffixEditorService } from '../planner/affix-editor.service';
 import { EquippedService, VisibleSetBonus } from '../planner/equipped.service';
@@ -70,7 +71,7 @@ describe('GearListComponent', () => {
     expect(button.querySelector('.item-name').textContent).toBe('Test Set');
   });
 
-  it('labels a filigree set as one, with no item drawer, apart from a gear set of the same name', () => {
+  it('labels a filigree set as one, apart from a gear set of the same name, and opens it in the drawer', () => {
     createComponentWithSetBonuses([
       { setName: 'Celerity', pieces: 2, tiers: [], filigree: true },
       { setName: 'Celerity', pieces: 3, tiers: [] },
@@ -80,8 +81,10 @@ describe('GearListComponent', () => {
     expect(cards.map(card => card.getAttribute('data-jump-target'))).toEqual(['filigree-set:Celerity', 'set:Celerity']);
     expect(cards[0].querySelector('.set-label')!.textContent!.trim()).toBe('Filigree set');
     expect(cards[0].querySelector('.set-piece-count')!.textContent!.trim()).toBe('2 Slotted');
-    expect(cards[0].querySelector('button.set-bonus-button')).toBeNull();
     expect(cards[1].querySelector('.set-label')!.textContent!.trim()).toBe('Set');
+
+    cards[0].querySelector<HTMLButtonElement>('button.set-bonus-button')!.click();
+    expect(TestBed.inject(SuggestionDrawerService).currentState).toEqual({ kind: 'filigreeSet', setName: 'Celerity' });
   });
 
   it('asks for a focus before gear while only Basic is tracked', () => {

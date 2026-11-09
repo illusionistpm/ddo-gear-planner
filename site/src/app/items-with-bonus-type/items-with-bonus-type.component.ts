@@ -21,6 +21,7 @@ import { QuestService } from '../gear/quest.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { DrawerEquipService } from '../suggestion-drawer/drawer-equip.service';
 import { ItemPreviewController } from '../item-preview/item-preview-controller';
+import { PreviewCarousel } from '../item-preview/preview-carousel';
 import { isAugmentSystemName, isCraftingSlotAvailable } from '../gear/augment-slots';
 import { isOptionHiddenByPacks } from '../gear/pack-filter';
 import { FiligreeDbService } from '../gear/filigree-db.service';
@@ -127,6 +128,8 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
       item.selectMatchingBonusType(this.affixName, this.bonusType, this.affixSvc);
     }
   });
+  /** The filigree set shown beside the drawer; only one of it and the item preview shows at once. */
+  readonly filigreeSetPreview = new PreviewCarousel<string>();
   private userItemsChangedSubscription?: Subscription;
 
   constructor(
@@ -340,24 +343,27 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     return host === 'weapon' ? 'Weapon' : 'Artifact';
   }
 
+  showItemPreview(item: Item, items: Item[], index: number) {
+    this.filigreeSetPreview.close();
+    this.preview.show(item, items, index);
+  }
+
+  showFiligreeSet(index: number) {
+    this.preview.close();
+    this.filigreeSetPreview.show(this.filigreeSetMatches.map(match => match.set), index);
+    this.analytics.track('open_filigree_set', { source: 'bonus_type' });
+  }
+
   /** Why a filigree can't go into the host now, or '' when it can. */
   filigreeSlotBlocker(host: FiligreeHost, name: string): string {
-    if (!this.equipped.getFiligreeCapacity(host)) {
-      return host === 'weapon' ? 'Equip a main-hand weapon first' : 'Equip a minor artifact first';
-    }
     // A second copy is allowed on the card, as a set piece, but would add nothing to this bonus.
-    if (this.equipped.getCountedFiligree().some(entry => entry.host === host && entry.choice.name === name)) {
-      return host === 'weapon' ? 'Already in the weapon' : 'Already in the artifact';
-    }
-    return this.equipped.getNextFiligreeSlot(host) === null ? 'No room left' : '';
+    return this.equipped.getFiligreeAppendBlocker(host, name, false);
   }
 
   slotFiligree(name: string, host: FiligreeHost) {
-    const index = this.equipped.getNextFiligreeSlot(host);
-    if (index === null) {
+    if (!this.equipped.appendFiligree(host, { name, rare: false })) {
       return;
     }
-    this.equipped.setFiligree(host, index, { name, rare: false });
     this.analytics.track('slot_filigree_from_bonus_type', { host });
     this.refreshMatches();
   }

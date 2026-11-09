@@ -45,6 +45,11 @@ export class FiligreeDbService {
     return filigreeAffixes(this.get(choice.name), choice.rare);
   }
 
+  /** The filigrees in a set, in the wiki's order. A raid filigree is in each of its two sets. */
+  getFiligreesInSet(set: string): string[] {
+    return Object.keys(this.data.filigrees).filter(name => this.getSets(name).includes(set));
+  }
+
   isRareSet(set: string): boolean {
     return !!this.data.sets[set]?.rare;
   }

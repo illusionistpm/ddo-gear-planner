@@ -1,0 +1,21 @@
+@if (preview.current; as setName) {
+  <aside class="item-preview-panel filigree-set-preview" aria-label="Filigree set preview">
+    <div class="item-preview-header">
+      <div class="item-preview-title">
+        <button type="button" class="preview-nav-button" aria-label="Previous set"
+          (click)="preview.showPrevious()" [disabled]="!preview.canShowPrevious()">
+          &lsaquo;
+        </button>
+        <h3>{{setName}}</h3>
+        <button type="button" class="preview-nav-button" aria-label="Next set"
+          (click)="preview.showNext()" [disabled]="!preview.canShowNext()">
+          &rsaquo;
+        </button>
+      </div>
+      <button type="button" class="preview-close" aria-label="Close set preview" (click)="preview.close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <app-filigree-set-details [setName]="setName"></app-filigree-set-details>
+  </aside>
+}

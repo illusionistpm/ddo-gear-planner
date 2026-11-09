@@ -47,6 +47,7 @@
 
 <app-item-preview [preview]="preview" [highlightAffixName]="affixName" [highlightBonusType]="bonusType"
   (equip)="equipPreviewItem($event)"></app-item-preview>
+<app-filigree-set-preview [preview]="filigreeSetPreview"></app-filigree-set-preview>
 
 @if (optionToEligibleGear.size) {
   <div class="drawer-section">
@@ -214,9 +215,11 @@
           <div class="col-2 text-end"><b>Value</b></div>
         </div>
         @for (match of filigreeSetMatches; track match.set) {
-          <div class="row filigree-set-match-row">
+          <div class="row item-result-row filigree-set-match-row" [class.selected-preview-row]="filigreeSetPreview.current === match.set">
             <div class="col-2">{{match.threshold}}+</div>
-            <div class="col-8">{{match.set}}</div>
+            <div class="col-8">
+              <button type="button" class="item-preview-link" (click)="showFiligreeSet($index)">{{match.set}}</button>
+            </div>
             <div class="col-2 text-end">{{match.value}}</div>
           </div>
         }
@@ -243,7 +246,7 @@
           <div class="col-1">{{item.ml}}</div>
           <div class="col-2">{{item.slot}}</div>
           <div class="col-7">
-            <button type="button" class="item-preview-link" (click)="preview.show(item, matches.slice(0, maxRenderedItems), $index)">
+            <button type="button" class="item-preview-link" (click)="showItemPreview(item, matches.slice(0, maxRenderedItems), $index)">
               {{item.name}}
             </button>
             @if (userOwnsItem(item)) {
@@ -274,7 +277,7 @@
               <div class="col-1">{{item.ml}}</div>
               <div class="col-2">{{item.slot}}</div>
               <div class="col-7">
-                <button type="button" class="item-preview-link" (click)="preview.show(item, lockedMatches.slice(0, maxRenderedItems), $index)">
+                <button type="button" class="item-preview-link" (click)="showItemPreview(item, lockedMatches.slice(0, maxRenderedItems), $index)">
                   {{item.name}}
                 </button>
                 @if (userOwnsItem(item)) {

@@ -119,14 +119,14 @@
         <div class="card active-set-bonus" [class.filigree-set-bonus]="setBonus.filigree" [attr.data-jump-target]="setTarget(setBonus)">
           <div class="row slot-header">
             @if (setBonus.filigree) {
-              <!-- No item drawer for a filigree set: its pieces are filigrees, picked on the weapon and artifact cards. -->
-              <div class="set-bonus-button filigree-set-heading col-12 text-start">
+              <button type="button" class="btn set-bonus-button col-12 text-start"
+                (click)="showFiligreeSet(setBonus.setName)">
                 <div class="set-name-row">
                   <span class="set-label"><app-slot-icon icon="cut-diamond"></app-slot-icon>Filigree set</span>
                   <span class="set-piece-count">{{setBonus.pieces}} Slotted</span>
                 </div>
                 <div class="item-name">{{setBonus.setName}}</div>
-              </div>
+              </button>
             } @else {
               <button type="button" class="btn set-bonus-button col-12 text-start"
                 (click)="showItemsInSet(setBonus.setName)">

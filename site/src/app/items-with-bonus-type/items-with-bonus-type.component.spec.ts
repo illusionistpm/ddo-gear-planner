@@ -11,6 +11,9 @@ import { ExternalAffixFormComponent } from '../external-affix-form/external-affi
 import { ExternalAffixValueComponent } from '../external-affix-value/external-affix-value.component';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { AutofocusDirective } from '../shared/autofocus.directive';
+import { FiligreeSetPreviewComponent } from '../filigree-set-preview/filigree-set-preview.component';
+import { FiligreeSetDetailsComponent } from '../filigree-set-details/filigree-set-details.component';
+import { SlotIconComponent } from '../slot-icon/slot-icon.component';
 
 describe('ItemsWithBonusTypeComponent', () => {
   let component: ItemsWithBonusTypeComponent;
@@ -18,7 +21,10 @@ describe('ItemsWithBonusTypeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ItemsWithBonusTypeComponent, ItemPreviewComponent, ExternalAffixFormComponent, ExternalAffixValueComponent, AutofocusDirective],
+      declarations: [
+        ItemsWithBonusTypeComponent, ItemPreviewComponent, ExternalAffixFormComponent, ExternalAffixValueComponent, AutofocusDirective,
+        FiligreeSetPreviewComponent, FiligreeSetDetailsComponent, SlotIconComponent,
+      ],
       imports: [FormsModule]
     })
       .compileComponents();
@@ -60,6 +66,47 @@ describe('ItemsWithBonusTypeComponent', () => {
       show('Strength', 'Filigree Set');
 
       expect(component.filigreeSetMatches).toContainEqual({ set: 'Ultimate Fury', threshold: 2, value: 5 });
+    });
+
+    it('opens a filigree set beside the drawer, stepping through the listed sets', () => {
+      const element = show('Melee Power', 'Filigree Set');
+      const sets = component.filigreeSetMatches.map(match => match.set);
+      expect(sets.length).toBeGreaterThan(2);
+      const panel = () => element.querySelector<HTMLElement>('.filigree-set-preview');
+      const title = () => panel()!.querySelector('h3')!.textContent!.trim();
+
+      element.querySelectorAll<HTMLButtonElement>('.filigree-set-match-row .item-preview-link')[1].click();
+      fixture.detectChanges();
+      expect(title()).toBe(sets[1]);
+      expect(element.querySelector('.filigree-set-match-row.selected-preview-row')!.textContent).toContain(sets[1]);
+
+      panel()!.querySelector<HTMLButtonElement>('[aria-label="Next set"]')!.click();
+      fixture.detectChanges();
+      expect(title()).toBe(sets[2]);
+      panel()!.querySelector<HTMLButtonElement>('[aria-label="Previous set"]')!.click();
+      panel()!.querySelector<HTMLButtonElement>('[aria-label="Previous set"]')!.click();
+      fixture.detectChanges();
+      expect(title()).toBe(sets[0]);
+      expect(panel()!.querySelector<HTMLButtonElement>('[aria-label="Previous set"]')!.disabled).toBe(true);
+
+      panel()!.querySelector<HTMLButtonElement>('[aria-label="Close set preview"]')!.click();
+      fixture.detectChanges();
+      expect(panel()).toBeNull();
+    });
+
+    it('shows one side window at a time: a set or an item', () => {
+      const element = show('Melee Power', 'Filigree Set');
+      element.querySelector<HTMLButtonElement>('.filigree-set-match-row .item-preview-link')!.click();
+      fixture.detectChanges();
+      expect(element.querySelector('.filigree-set-preview')).not.toBeNull();
+
+      // Checked on the state alone: this spec doesn't declare what the item preview renders.
+      component.showItemPreview(weapon(), [weapon()], 0);
+      expect(component.filigreeSetPreview.current).toBeNull();
+      expect(component.preview.item).not.toBeNull();
+
+      component.showFiligreeSet(0);
+      expect(component.preview.item).toBeNull();
     });
 
     it('shows no filigree for a gear bonus type', () => {

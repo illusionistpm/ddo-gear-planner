@@ -4,7 +4,8 @@ import { BehaviorSubject } from 'rxjs';
 export type SuggestionDrawerState =
   | { kind: 'slot'; slot: string }
   | { kind: 'bonusType'; affixName: string; bonusType: string; sortOwnedToTop: boolean }
-  | { kind: 'set'; setName: string };
+  | { kind: 'set'; setName: string }
+  | { kind: 'filigreeSet'; setName: string };
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,10 @@ export class SuggestionDrawerService {
 
   openSet(setName: string) {
     this.navigateTo({ kind: 'set', setName });
+  }
+
+  openFiligreeSet(setName: string) {
+    this.navigateTo({ kind: 'filigreeSet', setName });
   }
 
   back() {

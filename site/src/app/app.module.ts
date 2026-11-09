@@ -36,6 +36,9 @@ import { AffixStartPromptComponent } from './affix-start-prompt/affix-start-prom
 import { EquipmentSlotCardComponent } from './equipment-slot-card/equipment-slot-card.component';
 import { ExternalAffixSlotCardComponent } from './external-affix-slot-card/external-affix-slot-card.component';
 import { FiligreeSlotsComponent } from './filigree-slots/filigree-slots.component';
+import { FiligreeSetDetailsComponent } from './filigree-set-details/filigree-set-details.component';
+import { FiligreeSetDrawerComponent } from './filigree-set-details/filigree-set-drawer.component';
+import { FiligreeSetPreviewComponent } from './filigree-set-preview/filigree-set-preview.component';
 import { ExternalAffixFormComponent } from './external-affix-form/external-affix-form.component';
 import { ExternalAffixValueComponent } from './external-affix-value/external-affix-value.component';
 import { SlotIconComponent } from './slot-icon/slot-icon.component';
@@ -90,6 +93,9 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         EquipmentSlotCardComponent,
         ExternalAffixSlotCardComponent,
         FiligreeSlotsComponent,
+        FiligreeSetDetailsComponent,
+        FiligreeSetDrawerComponent,
+        FiligreeSetPreviewComponent,
         ExternalAffixFormComponent,
         ExternalAffixValueComponent,
         SlotIconComponent,

@@ -16,5 +16,9 @@
     @if (state.kind === 'set') {
       <app-items-in-set [setName]="state.setName"></app-items-in-set>
     }
+
+    @if (state.kind === 'filigreeSet') {
+      <app-filigree-set-drawer [setName]="state.setName"></app-filigree-set-drawer>
+    }
   </aside>
 }

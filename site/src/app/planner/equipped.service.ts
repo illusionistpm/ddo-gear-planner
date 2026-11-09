@@ -1409,6 +1409,33 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     });
   }
 
+  /**
+   * Why a filigree can't be added after the host's last one now, or '' when it can. A second copy
+   * is a set piece whose own bonuses don't count, so `allowDuplicate` says whether that's wanted.
+   */
+  getFiligreeAppendBlocker(host: FiligreeHost, name: string, allowDuplicate: boolean): string {
+    if (!this.getFiligreeCapacity(host)) {
+      return host === 'weapon' ? 'Equip a main-hand weapon first' : 'Equip a minor artifact first';
+    }
+    if (!allowDuplicate && this.getShownFiligree(host).some(choice => choice.name === name)) {
+      return host === 'weapon' ? 'Already in the weapon' : 'Already in the artifact';
+    }
+    if (this.getNextFiligreeSlot(host) === null) {
+      return 'No room left';
+    }
+    return '';
+  }
+
+  /** Adds a filigree after the host's last one; false when the host is full or missing. */
+  appendFiligree(host: FiligreeHost, choice: FiligreeChoice): boolean {
+    const index = this.getNextFiligreeSlot(host);
+    if (index === null) {
+      return false;
+    }
+    this.setFiligree(host, index, choice);
+    return true;
+  }
+
   private filigreeOf(host: FiligreeHost): FiligreeChoice[] {
     return host === 'weapon' ? this.filigree.weapon : this.filigree.artifact;
   }

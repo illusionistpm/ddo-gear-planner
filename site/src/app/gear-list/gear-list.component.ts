@@ -181,6 +181,11 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
     this.suggestionDrawer.openSet(setName);
   }
 
+  showFiligreeSet(setName: string) {
+    this.analytics.track('open_filigree_set', { source: 'active_set' });
+    this.suggestionDrawer.openFiligreeSet(setName);
+  }
+
   getSetBonusTooltip(eligible: boolean, threshold: number, pieces: number, affix: Affix): string {
     return eligible ? this.affixUi.getAffixTooltip(affix) : this.affixUi.getSetBonusLockedTooltip(threshold, pieces);
   }

@@ -39,4 +39,13 @@ describe('SuggestionDrawerService', () => {
     service.back();
     expect(service.currentState).toBeNull();
   });
+
+  it('opens a filigree set on top of the view it came from', () => {
+    service.openBonusType('Strength', 'Filigree Set', false);
+    service.openFiligreeSet('Ultimate Fury');
+
+    expect(service.currentState).toEqual({ kind: 'filigreeSet', setName: 'Ultimate Fury' });
+    service.back();
+    expect(service.currentState?.kind).toBe('bonusType');
+  });
 });

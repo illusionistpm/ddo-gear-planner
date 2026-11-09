@@ -1,4 +1,5 @@
 import { Item } from '../gear/item';
+import { PreviewCarousel } from './preview-carousel';
 
 /**
  * Carousel state for the item preview shown beside a suggestion drawer's list.
@@ -10,44 +11,39 @@ import { Item } from '../gear/item';
  */
 export class ItemPreviewController {
   item: Item | null = null;
-  private items: Item[] = [];
-  private index = -1;
+  private readonly carousel = new PreviewCarousel<Item>();
 
   /** @param prepare adjusts each previewed copy before it is shown. */
   constructor(private readonly prepare: (item: Item) => void = () => undefined) { }
 
   show(item: Item, items: Item[], index: number) {
-    this.items = items.slice();
-    this.index = index;
+    this.carousel.show(items, index);
     this.setItem(item);
   }
 
   close() {
     this.item = null;
-    this.items = [];
-    this.index = -1;
+    this.carousel.close();
   }
 
   showPrevious() {
-    if (this.canShowPrevious()) {
-      this.index -= 1;
-      this.setItem(this.items[this.index]);
+    if (this.carousel.showPrevious()) {
+      this.setItem(this.carousel.current!);
     }
   }
 
   showNext() {
-    if (this.canShowNext()) {
-      this.index += 1;
-      this.setItem(this.items[this.index]);
+    if (this.carousel.showNext()) {
+      this.setItem(this.carousel.current!);
     }
   }
 
   canShowPrevious(): boolean {
-    return this.index > 0;
+    return this.carousel.canShowPrevious();
   }
 
   canShowNext(): boolean {
-    return this.index >= 0 && this.index < this.items.length - 1;
+    return this.carousel.canShowNext();
   }
 
   isPreviewing(item: Item): boolean {

@@ -130,6 +130,8 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
   });
   /** The filigree set shown beside the drawer; only one of it and the item preview shows at once. */
   readonly filigreeSetPreview = new PreviewCarousel<string>();
+  /** The filigree whose set is previewed, marked among the set's pieces; null when a set was opened itself. */
+  previewedFiligree: string | null = null;
   private userItemsChangedSubscription?: Subscription;
 
   constructor(
@@ -350,8 +352,25 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
 
   showFiligreeSet(index: number) {
     this.preview.close();
+    this.previewedFiligree = null;
     this.filigreeSetPreview.show(this.filigreeSetMatches.map(match => match.set), index);
     this.analytics.track('open_filigree_set', { source: 'bonus_type' });
+  }
+
+  /**
+   * Opens a listed filigree's set (a raid filigree's first), stepping through the sets of the
+   * listed filigrees in their order, each once.
+   */
+  showFiligreeSetOf(name: string) {
+    const sets = Array.from(new Set(this.filigreeMatches.flatMap(match => match.sets)));
+    const set = this.filigreeMatches.find(match => match.name === name)?.sets[0];
+    if (!set) {
+      return;
+    }
+    this.preview.close();
+    this.previewedFiligree = name;
+    this.filigreeSetPreview.show(sets, sets.indexOf(set));
+    this.analytics.track('open_filigree_set', { source: 'bonus_type_filigree' });
   }
 
   /** Why a filigree can't go into the host now, or '' when it can. */

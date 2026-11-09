@@ -94,6 +94,23 @@ describe('ItemsWithBonusTypeComponent', () => {
       expect(panel()).toBeNull();
     });
 
+    it('opens a listed filigree\'s set beside the drawer, marking the filigree among its pieces', () => {
+      const element = show('Dexterity', 'Filigree');
+      const row = Array.from<HTMLElement>(element.querySelectorAll('.filigree-match-row'))
+        .find(candidate => candidate.textContent!.includes('Celerity: Dexterity'))!;
+
+      row.querySelector<HTMLButtonElement>('.item-preview-link')!.click();
+      fixture.detectChanges();
+
+      const panel = element.querySelector<HTMLElement>('.filigree-set-preview')!;
+      expect(panel.querySelector('h3')!.textContent!.trim()).toBe('Celerity');
+      expect(panel.querySelector('.highlighted-piece .filigree-set-piece-name')!.textContent).toContain('Dexterity');
+      expect(row.classList.contains('selected-preview-row')).toBe(true);
+      // Next goes on to the set of another listed filigree.
+      expect(panel.querySelector<HTMLButtonElement>('[aria-label="Next set"]')!.disabled
+        && panel.querySelector<HTMLButtonElement>('[aria-label="Previous set"]')!.disabled).toBe(false);
+    });
+
     it('shows one side window at a time: a set or an item', () => {
       const element = show('Melee Power', 'Filigree Set');
       element.querySelector<HTMLButtonElement>('.filigree-set-match-row .item-preview-link')!.click();

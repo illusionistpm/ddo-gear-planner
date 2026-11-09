@@ -16,4 +16,6 @@ import { PreviewCarousel } from '../item-preview/preview-carousel';
 })
 export class FiligreeSetPreviewComponent {
   @Input({ required: true }) preview!: PreviewCarousel<string>;
+  /** A filigree to mark among the set's pieces: the one whose row opened it. */
+  @Input() highlightFiligree: string | null = null;
 }

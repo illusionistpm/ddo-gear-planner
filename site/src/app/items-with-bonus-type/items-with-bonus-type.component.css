@@ -183,10 +183,30 @@
     margin-left: var(--space-4);
 }
 
+/* Name, value and both buttons on one line: the buttons take what they need, the name the rest. */
+.row.filigree-match-grid {
+    align-items: center;
+    column-gap: var(--space-8);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    margin: 0;
+    padding: var(--space-4) 0;
+}
+
+.filigree-match-name {
+    overflow-wrap: anywhere;
+}
+
 .filigree-slot-buttons {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: var(--space-4);
+}
+
+.filigree-slot-buttons .equip-button {
+    font-size: 0.8125rem;
+    padding: var(--space-2) var(--space-8);
+    white-space: nowrap;
 }
 
 .filigree-rare-value {

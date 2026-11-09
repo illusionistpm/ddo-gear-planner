@@ -7,6 +7,8 @@ import { Item } from '../gear/item';
 import { FILIGREE_BONUS_TYPE, FILIGREE_SET_BONUS_TYPE } from '../gear/filigree';
 import { MAX_FILIGREE_SLOTS_AFFIX } from '../affixes/filigree-affix';
 import { QueryParamRecord } from '../build/query-param-types';
+import { Affix } from '../affixes/affix';
+import { AffixRank } from '../affixes/affix-rank.enum';
 
 function weapon(name = 'Test Longsword') {
   return new Item({ name, slot: 'Weapon', type: 'Longswords', ml: 30, affixes: [], crafting: [], quests: [] });
@@ -141,6 +143,32 @@ describe('EquippedService filigree', () => {
     service.getVisibleSetBonusesObservable().subscribe(bonuses => (visible = bonuses)).unsubscribe();
 
     expect(visible).toContainEqual(expect.objectContaining({ setName: 'Celerity', pieces: 1, filigree: true }));
+  });
+
+  it('never ranks one filigree set bonus as outranked by another, since they add up', () => {
+    service.set(weapon());
+    service.toggleImportantAffix('Armor Class');
+    // Unbreakable gives +5 Armor Class at 4 pieces and again at 5.
+    Array.from({ length: 5 }, () => 'Unbreakable: Constitution').forEach((name, index) => service.setFiligree('weapon', index, { name, rare: false }));
+    expect(service.getFiligreeSetPieces().get('Unbreakable')).toBe(5);
+    expect(value('Armor Class', FILIGREE_SET_BONUS_TYPE)).toBe(10);
+
+    const tier = new Affix({ name: 'Armor Class', type: FILIGREE_SET_BONUS_TYPE, value: 5 });
+    expect(service.getAffixRanking(tier)).toBe(AffixRank.Best);
+    expect(service.getAffixRanking(new Affix({ name: 'Armor Class', type: FILIGREE_SET_BONUS_TYPE, value: 3 })))
+      .toBe(AffixRank.BetterThanBest);
+  });
+
+  it('lists gear sets before filigree sets, even one with fewer pieces', () => {
+    service.set(weapon());
+    [DEX, REFLEX, DEX].forEach((name, index) => service.setFiligree('weapon', index, { name, rare: false }));
+    const gearSet = 'Forbidden Knowledge';
+    const piece = TestBed.inject(GearDbService).findGearInSet(gearSet)[0];
+    service.set(piece);
+
+    let visible: Array<{ setName: string; filigree?: boolean }> = [];
+    service.getVisibleSetBonusesObservable().subscribe(bonuses => (visible = bonuses)).unsubscribe();
+    expect(visible.map(bonus => [bonus.setName, !!bonus.filigree])).toEqual([[gearSet, false], ['Celerity', true]]);
   });
 
   it('writes the loadout to the build params and reads it back', () => {

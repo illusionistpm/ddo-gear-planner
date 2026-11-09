@@ -34,6 +34,8 @@ export interface FiligreeSetPiece {
 })
 export class FiligreeSetDetailsComponent implements OnInit, OnChanges, OnDestroy {
   @Input({ required: true }) setName!: string;
+  /** A piece to mark, as the one the player came from. */
+  @Input() highlightFiligree: string | null = null;
 
   readonly hosts = FILIGREE_HOSTS;
   tiers: SetBonusThreshold[] = [];

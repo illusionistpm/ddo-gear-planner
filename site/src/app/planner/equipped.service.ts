@@ -549,8 +549,10 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     for (const [setName, pieces] of this.getFiligreeSetPieces()) {
       visibleSetBonuses.push({ setName, pieces, tiers: this.filigreeDb.getSetTiers(setName, pieces), filigree: true });
     }
-    // Slot order would put a set wherever its first piece happens to be; the ones doing most go first.
-    visibleSetBonuses.sort((a, b) => b.pieces - a.pieces || a.setName.localeCompare(b.setName));
+    // Slot order would put a set wherever its first piece happens to be; the ones doing most go first,
+    // gear sets before filigree sets.
+    visibleSetBonuses.sort((a, b) => Number(!!a.filigree) - Number(!!b.filigree)
+      || b.pieces - a.pieces || a.setName.localeCompare(b.setName));
     this.activeSetBonuses.next(setToAffixes);
     this.visibleSetBonuses.next(visibleSetBonuses);
   }
@@ -1199,6 +1201,15 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
       return AffixRank.Penalty;
     }
 
+    if (SUMMED_FILIGREE_BONUS_TYPES.has(affix.type)) {
+      // Filigree bonuses add up rather than competing, so one never outranks or ties another
+      // (ranked against the total, a +5 beside another +5 would read as outranked): one that is
+      // counted is part of the best, and any other would add to it.
+      return this.getFiligreeContributionsFor(affix.name, affix.type).some(entry => entry.affix.value === affix.value)
+        ? AffixRank.Best
+        : AffixRank.BetterThanBest;
+    }
+
     const values = this.getValuesForAffixType(affix.name, affix.type);
 
     if (values.length === 0 || affix.value > values[0].value) {
@@ -1225,7 +1236,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     perfCount('EquippedService.getAffixRankingAsEquipped');
     // Today's ranking: how the value compares with the build as it is now.
     const rankNow = this.getAffixRanking(affix);
-    if (rankNow === AffixRank.Irrelevant || rankNow === AffixRank.Penalty) {
+    if (rankNow === AffixRank.Irrelevant || rankNow === AffixRank.Penalty || SUMMED_FILIGREE_BONUS_TYPES.has(affix.type)) {
       return { rank: rankNow };
     }
 

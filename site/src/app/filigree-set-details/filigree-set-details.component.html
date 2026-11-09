@@ -30,7 +30,7 @@
 <h3 class="filigree-set-section-title">Pieces</h3>
 <div class="filigree-set-pieces">
   @for (piece of pieces; track piece.name) {
-    <div class="filigree-set-piece">
+    <div class="filigree-set-piece" [class.highlighted-piece]="piece.name === highlightFiligree">
       <div class="filigree-set-piece-text">
         <div class="filigree-set-piece-name">
           {{piece.label}}

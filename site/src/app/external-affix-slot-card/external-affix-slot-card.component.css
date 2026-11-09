@@ -2,8 +2,24 @@
     align-items: center;
     display: flex;
     gap: var(--space-4);
-    font-weight: 600;
     padding: var(--space-4) var(--space-12);
+}
+
+/* The equipment slot cards' heading (equipment-slot-card.component.css):
+   small caps, the same weight and spacing, the text dimmed but not the icon. */
+.slot-name {
+    align-items: center;
+    display: inline-flex;
+    gap: var(--space-4);
+    font-size: 0.875rem;
+    font-variant-caps: all-small-caps;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+}
+
+.slot-name-text {
+    opacity: 0.75;
 }
 
 .external-add-button {
@@ -48,12 +64,6 @@
 
 .external-add-bonus-type {
     flex: 0 1 50%;
-}
-
-.external-affix-empty {
-    color: var(--text-secondary);
-    font-size: 0.78rem;
-    margin-top: var(--space-4);
 }
 
 .external-affix-list {

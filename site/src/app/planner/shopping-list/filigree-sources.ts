@@ -2,9 +2,8 @@ import type { FiligreeDbService } from '../../gear/filigree-db.service';
 import type { FiligreeLoadout } from '../../gear/filigree';
 import type { ShoppingFiligreeLookup } from './shopping-list-entries';
 import type { ShoppingSource } from './shopping-list-types';
+import { WIKI_PAGE_URL, wikiItemUrl, wikiSearchUrl } from './wiki-urls';
 
-const WIKI_PAGE_URL = 'https://ddowiki.com/page/';
-const WIKI_SEARCH_URL = 'https://ddowiki.com/page/Special:Search?go=Go&search=';
 const EVENTS_PACK = 'Events';
 
 /**
@@ -23,12 +22,12 @@ export function filigreeSources(filigreeDb: FiligreeDbService, name: string): Sh
       quest: generation.source,
       pack: null,
       raid: true,
-      wikiUrl: WIKI_PAGE_URL + 'Item:' + generation.source.replace(/ /g, '_'),
+      wikiUrl: wikiItemUrl(generation.source),
     }];
   }
   return generation.packs.map(pack => pack === EVENTS_PACK
-    ? { quest: 'Seasonal events', pack, raid: false, wikiUrl: WIKI_SEARCH_URL + encodeURIComponent('Filigree') }
-    : { quest: `Any ${pack} quest`, pack, raid: false, wikiUrl: WIKI_SEARCH_URL + encodeURIComponent(pack) });
+    ? { quest: 'Seasonal events', pack, raid: false, wikiUrl: wikiSearchUrl('Filigree') }
+    : { quest: `Any ${pack} quest`, pack, raid: false, wikiUrl: wikiSearchUrl(pack) });
 }
 
 /** The filigree list's row for the filigree's set. */

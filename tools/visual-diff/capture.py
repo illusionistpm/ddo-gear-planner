@@ -6,9 +6,9 @@
 
 Every scene loads a pinned build URL into a fresh browser context with
 localStorage seeded (theme, active tab, onboarding) and animations off, then
-drives the UI into one state and takes a full-page screenshot - once per theme,
-per viewport. The build lives entirely in the URL, so a pinned URL pins the
-content.
+drives the UI into one state, grows the viewport until no scrolling panel hides
+anything, and takes a full-page screenshot - once per theme, per viewport. The
+build lives entirely in the URL, so a pinned URL pins the content.
 
 Three viewports, because the layout is genuinely different at each: the page
 chrome restacks below 768px, and the two compact rails stop rendering below
@@ -208,6 +208,48 @@ def settle(page: Page) -> None:
     page.wait_for_timeout(300)
 
 
+# The page itself never scrolls: each planner panel, drawer and page body scrolls inside a
+# box sized to the viewport, so full_page=True alone captures one screen of each and
+# nothing below it. Returns how far the tallest such box overflows, skipping boxes that
+# kept their height through the last resize (a fixed max-height that will never grow).
+OVERFLOW_SCRIPT = """
+() => {
+  const seen = window.__visualDiffHeights ??= new WeakMap();
+  let excess = 0;
+  for (const el of document.querySelectorAll('*')) {
+    if (!/(auto|scroll)/.test(getComputedStyle(el).overflowY) || !el.clientHeight) {
+      continue;
+    }
+    const before = seen.get(el);
+    seen.set(el, el.clientHeight);
+    if (before === el.clientHeight) {
+      continue;
+    }
+    excess = Math.max(excess, el.scrollHeight - el.clientHeight);
+  }
+  return excess;
+}
+"""
+
+# Chromium refuses screenshots taller than this.
+MAX_HEIGHT = 16000
+
+
+def fit_viewport_to_content(page: Page) -> None:
+    """Grow the viewport until no scrolling box has anything hidden below its fold."""
+    for _ in range(5):
+        excess = page.evaluate(OVERFLOW_SCRIPT)
+        if excess <= 1:
+            return
+        size = page.viewport_size
+        height = min(size['height'] + excess, MAX_HEIGHT)
+        if height == size['height']:
+            return
+        page.set_viewport_size({'width': size['width'], 'height': height})
+        page.evaluate('new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)))')
+        page.wait_for_timeout(300)
+
+
 def capture(out_dir: Path, base_url: str, only: set[str], viewports: list[Viewport]) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     with sync_playwright() as p:
@@ -230,6 +272,7 @@ def capture(out_dir: Path, base_url: str, only: set[str], viewports: list[Viewpo
                     for step in scene.steps:
                         step(page)
                         settle(page)
+                    fit_viewport_to_content(page)
                     # Moving the mouse would change the page, so hover scenes keep it where it is.
                     path = out_dir / f'{scene.name}.{viewport.name}.{theme}.png'
                     page.screenshot(path=str(path), full_page=True, animations='disabled',

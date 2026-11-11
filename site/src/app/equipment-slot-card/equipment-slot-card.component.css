@@ -8,11 +8,6 @@
     opacity: 0.75;
 }
 
-.slot-select-button {
-    padding-bottom: var(--space-4);
-    padding-top: var(--space-4);
-}
-
 /* Leave room on the right of the item name for the hover-revealed clear (x) button. */
 .slot-select-button.has-clear .item-name {
     padding-right: 1.5rem;
@@ -42,18 +37,6 @@
     opacity: 1;
 }
 
-:host-context(.dark-theme) .slot-select-button.btn-secondary {
-    background: var(--surface-subtle-color);
-    border: 0;
-    color: var(--text-primary);
-}
-
-:host-context(.dark-theme) .slot-select-button.btn-secondary:hover,
-:host-context(.dark-theme) .slot-select-button.btn-secondary:focus {
-    background: var(--surface-muted-color);
-    color: var(--text-primary);
-}
-
 :host(.recommended-start-slot) .btn-secondary {
     background: linear-gradient(135deg, var(--tutorial-accent-fill) 0%, var(--tutorial-accent-strong) 100%);
     color: var(--on-accent-text-color);
@@ -77,63 +60,14 @@
     vertical-align: middle;
 }
 
-.slot-name-row {
-    align-items: center;
-    display: flex;
-    gap: var(--space-8);
-    justify-content: space-between;
-    min-height: 1.1rem;
-}
-
 .slot-badges {
     display: inline-flex;
     gap: var(--space-4);
 }
 
-.slot-name {
-    align-items: center;
-    display: inline-flex;
-    gap: var(--space-4);
-    font-size: 0.875rem;
-    font-variant-caps: all-small-caps;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    line-height: 1.2;
-}
-
-/*
- * The icon is what you scan for, so only the text is dimmed. On an equipped card the
- * icon is also a size up; the negative margin keeps it from growing the 1.1rem row.
- */
-.slot-name-text {
-    opacity: 0.75;
-}
-
-.slot-select-button:not(.is-empty) .slot-name app-slot-icon {
-    font-size: 1.15em;
-    margin-block: -0.1rem;
-}
-
 .item-name {
     font-weight: 600;
     min-height: 1.5em;
-}
-
-/*
- * With nothing equipped the slot name is the card's only label: show it larger and
- * vertically centered, in a row as tall as the equipped header (slot-name row 1.1rem +
- * item-name line 1.5rem) so equipping an item doesn't change the card height.
- */
-.slot-select-button.is-empty .slot-name-row {
-    min-height: 2.6rem;
-}
-
-.slot-select-button.is-empty .slot-name {
-    font-size: 1.05rem;
-}
-
-.slot-select-button.is-empty .slot-name-text {
-    opacity: 1;
 }
 
 :host(.disabled-slot) .btn:disabled,

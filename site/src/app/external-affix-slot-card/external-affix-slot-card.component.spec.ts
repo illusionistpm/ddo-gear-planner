@@ -114,6 +114,34 @@ describe('ExternalAffixSlotCardComponent', () => {
     expect(el().querySelector('.external-affix-row')).toBeNull();
   });
 
+  it('is all header, with the rounded bottom of an empty gear slot, until it holds something', async () => {
+    const header = () => el().querySelector('.slot-header')!;
+    expect(header().classList).toContain('header-only');
+
+    await openAddPanel();
+    expect(header().classList).not.toContain('header-only');
+    await openAddPanel();
+    expect(header().classList).toContain('header-only');
+
+    equipped.addExternalAffixValue('Strength', 'Insight', 3, 'Spell');
+    fixture.detectChanges();
+    expect(header().classList).not.toContain('header-only');
+  });
+
+  it('opens and closes the add panel from anywhere on the header, but not from the eye', async () => {
+    el().querySelector<HTMLElement>('.slot-name')!.click();
+    await settle();
+    expect(el().querySelector('.external-add-panel')).not.toBeNull();
+
+    el().querySelector<HTMLElement>('.slot-name')!.click();
+    await settle();
+    expect(el().querySelector('.external-add-panel')).toBeNull();
+
+    el().querySelector<HTMLElement>('.tap-tooltip-trigger')!.click();
+    await settle();
+    expect(el().querySelector('.external-add-panel')).toBeNull();
+  });
+
   it('renders each non-gear entry with its label and value', () => {
     equipped.addExternalAffixValue('Strength', 'Insight', 3, 'Spell');
     equipped.addExternalAffixIgnored('Wisdom', 'Quality', 'Skip');

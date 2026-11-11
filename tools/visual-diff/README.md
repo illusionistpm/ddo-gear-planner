@@ -36,7 +36,7 @@ differing pixels.** A diff is a defect to explain, not noise to triage.
 
 ## What it captures
 
-19 scenes (`capture.py`'s `SCENES`), each in light and dark, at each of three
+20 scenes (`capture.py`'s `SCENES`), each in light and dark, at each of three
 viewports: empty and richly-populated builds, both tracked-affix group modes,
 hover states, the filters panel, the share menu, all three drawers, an item
 preview, the affix builder, and the shopping list (from a
@@ -54,11 +54,23 @@ active tab, onboarding), animations disabled, and the data-build timestamp
 masked, then loads a pinned build URL. The app keeps all build state in the
 URL, so a pinned URL pins the content.
 
+### Shots are taller than the viewport
+
+The page itself never scrolls - each planner panel, drawer and page body
+scrolls inside a box sized to the window - so a plain full-page screenshot
+stops at the first screen of each, and anything below it is unguarded. Before
+each shot `fit_viewport_to_content` grows the viewport's height until no
+scrolling box has anything below its fold (a box with a fixed `max-height`,
+which doesn't grow with it, is left alone). So shots run to a few thousand
+pixels, and the height is part of the diff: a change that makes a card or
+list taller shows as a `SIZE` line in `compare.py`'s output.
+
 ### Viewports
 
-`desktop` 1440x900, `tablet` 768x1024, `mobile` 360x800 - the last two with
+`desktop` 1440x900, `tablet` 768x1024, `mobile` 360x800 (the widths that
+set the layout; the heights are only where each shot starts) - the last two with
 touch emulated, or the `(pointer: coarse)` rules that size tap targets don't
-apply. All three by default, 114 screenshots; narrow it while iterating with
+apply. All three by default, 120 screenshots; narrow it while iterating with
 `--viewport desktop`.
 
 They aren't three sizes of the same layout. The page chrome restacks below

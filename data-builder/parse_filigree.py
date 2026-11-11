@@ -10,6 +10,7 @@ Deathblock), so the two meet in one tracked row. Combined effects ("+5 Melee and
 filigree_compound_affixes.json, and names are mapped onto the planner's affix
 names by the shared synonym table plus FILIGREE_AFFIX_NAMES.
 """
+import json
 import os
 import re
 
@@ -21,7 +22,6 @@ from get_snapshot_path import get_snapshot_path
 from parse_affixes_from_cell import canonicalize_affix_name
 from read_json import read_json
 from write_json import write_json
-import json
 
 FILIGREE_TYPE = 'Filigree'
 FILIGREE_SET_TYPE = 'Filigree Set'
@@ -204,12 +204,12 @@ def _raw_affixes(text, bonus_type, compounds):
         for sentence in sentences:
             if REMARK.match(sentence):
                 continue
-            out.append(_numeric_affix(sentence, bonus_type, compounds) or _flag_affix(sentence, bonus_type))
+            out.append(_numeric_affix(sentence, bonus_type, compounds) or _flag_affix(sentence))
         return out
-    return [_flag_affix(text, bonus_type)]
+    return [_flag_affix(text)]
 
 
-def _flag_affix(text, _bonus_type):
+def _flag_affix(text):
     name = text.strip().lstrip('+').strip().rstrip('.').strip()
     return {'name': _immunity_name(name), 'type': BOOL_TYPE, 'value': 1}
 

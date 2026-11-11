@@ -5222,7 +5222,7 @@
             "affixes": [
                 {
                     "name": "Speed",
-                    "type": "Filigree",
+                    "type": "Enhancement",
                     "value": 30
                 }
             ],

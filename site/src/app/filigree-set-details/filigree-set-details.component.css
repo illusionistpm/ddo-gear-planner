@@ -69,32 +69,17 @@
 .set-bonus-summary-value.Penalty { color: var(--danger-color); text-decoration: line-through; }
 .set-bonus-summary-value.DisabledSetBonus { color: var(--text-secondary); font-weight: 400; }
 
-.filigree-set-summary {
-    align-items: center;
-    display: flex;
-    font-size: 0.82rem;
-    justify-content: space-between;
-    margin-bottom: var(--space-8);
-}
-
-.filigree-set-kind {
-    align-items: center;
-    color: var(--text-secondary);
-    display: inline-flex;
-    gap: var(--space-4);
-}
-
-.filigree-set-kind app-slot-icon {
-    font-size: 1rem;
-}
-
-.filigree-set-slotted {
-    font-weight: 700;
-}
-
 .filigree-set-section-title {
     font-size: 1rem;
     margin: var(--space-12) 0 var(--space-8);
+}
+
+/* A set's name over its bonuses, or a group's over its pieces, when the panel shows two sets. */
+.filigree-set-subtitle {
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin: var(--space-8) 0 var(--space-4);
 }
 
 .filigree-set-pieces {
@@ -149,10 +134,4 @@
     flex-wrap: wrap;
     gap: var(--space-4);
     justify-content: flex-end;
-}
-
-.filigree-set-note {
-    color: var(--text-secondary);
-    font-size: 0.75rem;
-    margin-top: var(--space-8);
 }

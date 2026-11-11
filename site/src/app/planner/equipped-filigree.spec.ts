@@ -205,4 +205,23 @@ describe('EquippedService filigree', () => {
     // Several sets give +5 Melee Power, and bonuses from distinct sets stack.
     expect(gearDb.getBestValueForAffixType('Melee Power', FILIGREE_SET_BONUS_TYPE)).toBeGreaterThan(10);
   });
+
+  it("counts Snowpeak's Gifts' Movement Speed as the Enhancement bonus it is, not stacking with an item's", () => {
+    const filters = TestBed.inject(FiltersService);
+    const gearDb = TestBed.inject(GearDbService);
+    const SPEED = "Snowpeak's Gifts: Movement Speed"; // Movement Speed +30% (Enhancement bonus).
+
+    service.set(weapon());
+    service.set(artifact(3));
+    service.setFiligree('weapon', 0, { name: SPEED, rare: false });
+    service.setFiligree('artifact', 0, { name: SPEED, rare: false });
+
+    // Filigree bonuses add up across hosts; an Enhancement bonus takes the best, as on items.
+    expect(value('Speed', 'Enhancement')).toBe(30);
+    expect(value('Speed')).toBe(0);
+
+    filters.setLevelRange(1, 34);
+    expect(gearDb.getTypesForAffix('Speed')).toContain('Enhancement');
+    expect(gearDb.getTypesForAffix('Speed')).not.toContain(FILIGREE_BONUS_TYPE);
+  });
 });

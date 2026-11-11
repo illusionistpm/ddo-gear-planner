@@ -1,55 +1,61 @@
-<div class="filigree-set-summary">
-  <span class="filigree-set-kind"><app-slot-icon icon="cut-diamond"></app-slot-icon>Filigree set</span>
-  <span class="filigree-set-slotted">{{slottedPieces}} slotted</span>
-</div>
-
-@if (tiers.length) {
+@if (sections.length > 1 || sections[0]?.tiers?.length) {
   <h3 class="filigree-set-section-title">Set Bonuses</h3>
-  <div class="set-bonus-summary-list">
-    @for (tier of tiers; track tier.threshold) {
-      @for (affix of tier.affixes; track $index) {
-        <div class="set-bonus-summary-row" [class.disabled-set-tier]="!tier.eligible" [title]="tierTooltip(tier)">
-          @if (equipped.isImportantAffix(affix.name)) {
-            <button type="button" class="set-bonus-summary-heart fas fa-heart heart"
-              aria-label="Stop tracking {{affix.name}}"
-              (click)="equipped.toggleImportantAffix(affix.name)"></button>
-          } @else {
-            <button type="button" class="set-bonus-summary-heart far fa-heart heart"
-              aria-label="Track {{affix.name}}"
-              (click)="equipped.toggleImportantAffix(affix.name)"></button>
-          }
-          <span class="set-bonus-summary-threshold">{{tier.threshold}} pc</span>
-          <span class="set-bonus-summary-name">{{affix.name}}</span>
-          <span class="set-bonus-summary-value" [ngClass]="affixUi.getClassForSetAffix(affix, tier.eligible)">{{affixUi.getAffixValue(affix)}} {{affix.type}}</span>
-        </div>
+}
+@for (section of sections; track section.name) {
+  @if (sections.length > 1) {
+    <div class="filigree-set-subtitle">{{section.name}}</div>
+  }
+  @if (section.tiers.length) {
+    <div class="set-bonus-summary-list">
+      @for (tier of section.tiers; track tier.threshold) {
+        @for (affix of tier.affixes; track $index) {
+          <div class="set-bonus-summary-row" [class.disabled-set-tier]="!tier.eligible" [title]="tierTooltip(section, tier)">
+            @if (equipped.isImportantAffix(affix.name)) {
+              <button type="button" class="set-bonus-summary-heart fas fa-heart heart"
+                aria-label="Stop tracking {{affix.name}}"
+                (click)="equipped.toggleImportantAffix(affix.name)"></button>
+            } @else {
+              <button type="button" class="set-bonus-summary-heart far fa-heart heart"
+                aria-label="Track {{affix.name}}"
+                (click)="equipped.toggleImportantAffix(affix.name)"></button>
+            }
+            <span class="set-bonus-summary-threshold">{{tier.threshold}} pc</span>
+            <span class="set-bonus-summary-name">{{affix.name}}</span>
+            <span class="set-bonus-summary-value" [ngClass]="affixUi.getClassForSetAffix(affix, tier.eligible)">{{affixUi.getAffixValueText(affix)}}</span>
+          </div>
+        }
       }
-    }
-  </div>
+    </div>
+  }
 }
 
 <h3 class="filigree-set-section-title">Pieces</h3>
-<div class="filigree-set-pieces">
-  @for (piece of pieces; track piece.name) {
-    <div class="filigree-set-piece" [class.highlighted-piece]="piece.name === highlightFiligree">
-      <div class="filigree-set-piece-text">
-        <div class="filigree-set-piece-name">
-          {{piece.label}}
-          @if (piece.slotted) {
-            <span class="filigree-set-piece-slotted">&times;{{piece.slotted}} slotted</span>
+@for (group of pieceGroups; track group.title) {
+  @if (group.title) {
+    <div class="filigree-set-subtitle">{{group.title}}</div>
+  }
+  <div class="filigree-set-pieces">
+    @for (piece of group.pieces; track piece.name) {
+      <div class="filigree-set-piece" [class.highlighted-piece]="piece.name === highlightFiligree">
+        <div class="filigree-set-piece-text">
+          <div class="filigree-set-piece-name">
+            {{piece.label}}
+            @if (piece.slotted) {
+              <span class="filigree-set-piece-slotted">&times;{{piece.slotted}} slotted</span>
+            }
+          </div>
+          <div class="filigree-set-piece-affixes">
+            {{piece.affixText}}@if (piece.rareText) {<span class="filigree-set-piece-rare"> (Rare: {{piece.rareText}})</span>}
+          </div>
+        </div>
+        <div class="filigree-set-piece-buttons">
+          @for (host of hosts; track host) {
+            <button type="button" class="equip-button" [disabled]="!!blocker(host, piece.name)"
+              [title]="buttonTitle(host, piece.name)"
+              (click)="add(host, piece.name)">{{hostLabel(host)}}</button>
           }
         </div>
-        <div class="filigree-set-piece-affixes">
-          {{piece.affixText}}@if (piece.rareText) {<span class="filigree-set-piece-rare"> (Rare: {{piece.rareText}})</span>}
-        </div>
       </div>
-      <div class="filigree-set-piece-buttons">
-        @for (host of hosts; track host) {
-          <button type="button" class="equip-button" [disabled]="!!blocker(host, piece.name)"
-            [title]="buttonTitle(host, piece.name)"
-            (click)="add(host, piece.name)">{{hostLabel(host)}}</button>
-        }
-      </div>
-    </div>
-  }
-</div>
-<div class="filigree-set-note">Adds a normal copy after the filigrees already there; tick Rare on the gear card for a rare one. A second copy counts toward the set but adds no bonus of its own.</div>
+    }
+  </div>
+}

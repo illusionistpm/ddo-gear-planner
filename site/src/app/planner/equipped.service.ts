@@ -1422,13 +1422,13 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
 
   /**
    * Why a filigree can't be added after the host's last one now, or '' when it can. A second copy
-   * is a set piece whose own bonuses don't count, so `allowDuplicate` says whether that's wanted.
+   * in one host can still go in from the gear card, as a set piece; adding one elsewhere is blocked.
    */
-  getFiligreeAppendBlocker(host: FiligreeHost, name: string, allowDuplicate: boolean): string {
+  getFiligreeAppendBlocker(host: FiligreeHost, name: string): string {
     if (!this.getFiligreeCapacity(host)) {
       return host === 'weapon' ? 'Equip a main-hand weapon first' : 'Equip a minor artifact first';
     }
-    if (!allowDuplicate && this.getShownFiligree(host).some(choice => choice.name === name)) {
+    if (this.getShownFiligree(host).some(choice => choice.name === name)) {
       return host === 'weapon' ? 'Already in the weapon' : 'Already in the artifact';
     }
     if (this.getNextFiligreeSlot(host) === null) {

@@ -10,21 +10,35 @@
       <div class="filigree-slots-body">
         @for (row of rows; track row.index) {
           <div class="filigree-slot-row" [class.filigree-slot-duplicate]="row.duplicate">
-            <button type="button" class="filigree-slot-pick" [attr.aria-expanded]="pickerIndex === row.index"
-                (click)="openPicker(row.index)">
-              <span class="filigree-slot-number">{{row.index + 1}}</span>
-              @if (row.choice) {
-                <span class="filigree-slot-text">
-                  <span class="filigree-slot-name">{{row.choice.name}}</span>
-                  <span class="filigree-slot-affixes" [class.filigree-struck]="row.duplicate">{{row.affixText}}</span>
-                  @if (row.duplicate) {
-                    <span class="filigree-slot-note">Duplicate: set piece only</span>
+            <!-- A popup like the augment picker's: in <body>, closed by a click outside it or Escape. -->
+            <div ngbDropdown #slotDropdown="ngbDropdown" class="filigree-slot-dropdown" container="body"
+                dropdownClass="filigree-picker-container" autoClose="outside"
+                [display]="useStaticMenu ? 'static' : 'dynamic'" placement="bottom-start bottom-end top-start top-end"
+                (openChange)="onPickerOpenChange(row.index, $event, slotDropdown)">
+              <button type="button" ngbDropdownAnchor class="filigree-slot-pick" (click)="slotDropdown.toggle()">
+                <span class="filigree-slot-number">{{row.index + 1}}</span>
+                @if (row.choice) {
+                  <span class="filigree-slot-text">
+                    <span class="filigree-slot-name">{{row.choice.name}}</span>
+                    <span class="filigree-slot-affixes" [class.filigree-struck]="row.duplicate">{{row.affixText}}</span>
+                    @if (row.duplicate) {
+                      <span class="filigree-slot-note">Duplicate: set piece only</span>
+                    }
+                  </span>
+                } @else {
+                  <span class="filigree-slot-empty">Empty slot</span>
+                }
+              </button>
+              <div ngbDropdownMenu class="filigree-picker-menu">
+                @if (pickerIndex === row.index) {
+                  @if (pickerComponent) {
+                    <ng-container *ngComponentOutlet="pickerComponent; inputs: pickerInputs(row)"></ng-container>
+                  } @else {
+                    <div class="filigree-slots-loading">Loading…</div>
                   }
-                </span>
-              } @else {
-                <span class="filigree-slot-empty">Empty slot</span>
-              }
-            </button>
+                }
+              </div>
+            </div>
             @if (row.choice) {
               <label class="filigree-slot-rare" title="A rare copy adds its rare bonus">
                 <input type="checkbox" [checked]="row.choice.rare" (change)="setRare(row, $any($event.target).checked)" />
@@ -35,13 +49,6 @@
               </button>
             }
           </div>
-          @if (pickerIndex === row.index) {
-            @if (pickerComponent) {
-              <ng-container *ngComponentOutlet="pickerComponent; inputs: pickerInputs(row)"></ng-container>
-            } @else {
-              <div class="filigree-slots-loading">Loading…</div>
-            }
-          }
         }
       </div>
     }

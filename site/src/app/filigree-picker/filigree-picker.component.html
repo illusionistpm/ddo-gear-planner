@@ -1,12 +1,7 @@
-<div class="filigree-picker" role="dialog" [attr.aria-label]="'Choose filigree for slot ' + (index + 1)" (keydown)="onKeydown($event)">
-  <div class="filigree-picker-header">
-    <input #searchBox type="search" class="form-control form-control-sm filigree-picker-search"
-        placeholder="Search by name, set or bonus" aria-label="Search filigree"
-        [value]="search" (input)="onSearch($any($event.target).value)" />
-    <button type="button" class="icon-x-button filigree-picker-close" aria-label="Close filigree list" title="Close" (click)="close()">
-      <span class="x-glyph" aria-hidden="true"></span>
-    </button>
-  </div>
+<div class="filigree-picker" role="dialog" [attr.aria-label]="'Choose filigree for slot ' + (index + 1)">
+  <input #searchBox type="search" class="form-control form-control-sm filigree-picker-search"
+      placeholder="Search by name, set or bonus" aria-label="Search filigree"
+      [value]="search" (input)="onSearch($any($event.target).value)" />
   <div class="filigree-picker-options">
     <div class="filigree-picker-mode" role="group" aria-label="Group filigree by">
       <button type="button" class="filigree-picker-mode-button" [class.active]="mode === 'set'"

@@ -22,10 +22,11 @@ import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.
 import { DrawerEquipService } from '../suggestion-drawer/drawer-equip.service';
 import { ItemPreviewController } from '../item-preview/item-preview-controller';
 import { PreviewCarousel } from '../item-preview/preview-carousel';
+import { FiligreeSetPreviewEntry } from '../filigree-set-preview/filigree-set-preview.component';
 import { isAugmentSystemName, isCraftingSlotAvailable } from '../gear/augment-slots';
 import { isOptionHiddenByPacks } from '../gear/pack-filter';
 import { FiligreeDbService } from '../gear/filigree-db.service';
-import { FILIGREE_HOSTS, FiligreeHost, SUMMED_FILIGREE_BONUS_TYPES } from '../gear/filigree';
+import { FILIGREE_HOSTS, FiligreeHost } from '../gear/filigree';
 
 /** An open augment slot on an equipped item that could take the chosen augment. */
 interface AugmentSlotChoice {
@@ -128,10 +129,11 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
       item.selectMatchingBonusType(this.affixName, this.bonusType, this.affixSvc);
     }
   });
-  /** The filigree set shown beside the drawer; only one of it and the item preview shows at once. */
-  readonly filigreeSetPreview = new PreviewCarousel<string>();
-  /** The filigree whose set is previewed, marked among the set's pieces; null when a set was opened itself. */
-  previewedFiligree: string | null = null;
+  /**
+   * The filigree set shown beside the drawer, stepping through the rows of the list it was opened
+   * from (sets or filigrees); only one of it and the item preview shows at once.
+   */
+  readonly filigreeSetPreview = new PreviewCarousel<FiligreeSetPreviewEntry>();
   private userItemsChangedSubscription?: Subscription;
 
   constructor(
@@ -330,15 +332,11 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
 
     this.externalEntries = this.equipped.getExternalAffixesForType(this.affixName, this.bonusType);
 
-    // Filigrees carry only their own bonus types, so only those types list them.
+    // Mostly filigrees' own bonus types, but a few effects are an ordinary type (Snowpeak's Gifts'
+    // Enhancement Movement Speed), so every type looks.
     const flatten = (affixes: Affix[]) => this.affixSvc.flattenAffixGroups(affixes, true);
-    const filigreeType = SUMMED_FILIGREE_BONUS_TYPES.has(this.bonusType);
-    this.filigreeMatches = filigreeType
-      ? this.filigreeDb.findFiligreesWithAffixAndType(this.affixName, this.bonusType, flatten)
-      : [];
-    this.filigreeSetMatches = filigreeType
-      ? this.filigreeDb.findSetsWithAffixAndType(this.affixName, this.bonusType, flatten)
-      : [];
+    this.filigreeMatches = this.filigreeDb.findFiligreesWithAffixAndType(this.affixName, this.bonusType, flatten);
+    this.filigreeSetMatches = this.filigreeDb.findSetsWithAffixAndType(this.affixName, this.bonusType, flatten);
   }
 
   filigreeHostLabel(host: FiligreeHost): string {
@@ -352,31 +350,34 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
 
   showFiligreeSet(index: number) {
     this.preview.close();
-    this.previewedFiligree = null;
-    this.filigreeSetPreview.show(this.filigreeSetMatches.map(match => match.set), index);
+    this.filigreeSetPreview.show(this.filigreeSetMatches.map(match => ({ sets: [match.set], filigree: null })), index);
     this.analytics.track('open_filigree_set', { source: 'bonus_type' });
   }
 
-  /**
-   * Opens a listed filigree's set (a raid filigree's first), stepping through the sets of the
-   * listed filigrees in their order, each once.
-   */
+  /** Opens a listed filigree's set (both, for a raid filigree), stepping through the listed filigrees. */
   showFiligreeSetOf(name: string) {
-    const sets = Array.from(new Set(this.filigreeMatches.flatMap(match => match.sets)));
-    const set = this.filigreeMatches.find(match => match.name === name)?.sets[0];
-    if (!set) {
+    const index = this.filigreeMatches.findIndex(match => match.name === name);
+    if (index < 0) {
       return;
     }
     this.preview.close();
-    this.previewedFiligree = name;
-    this.filigreeSetPreview.show(sets, sets.indexOf(set));
+    this.filigreeSetPreview.show(this.filigreeMatches.map(match => ({ sets: match.sets, filigree: match.name })), index);
     this.analytics.track('open_filigree_set', { source: 'bonus_type_filigree' });
+  }
+
+  isPreviewedFiligree(name: string): boolean {
+    return this.filigreeSetPreview.current?.filigree === name;
+  }
+
+  isPreviewedFiligreeSet(set: string): boolean {
+    const current = this.filigreeSetPreview.current;
+    return !!current && current.filigree === null && current.sets[0] === set;
   }
 
   /** Why a filigree can't go into the host now, or '' when it can. */
   filigreeSlotBlocker(host: FiligreeHost, name: string): string {
     // A second copy is allowed on the card, as a set piece, but would add nothing to this bonus.
-    return this.equipped.getFiligreeAppendBlocker(host, name, false);
+    return this.equipped.getFiligreeAppendBlocker(host, name);
   }
 
   slotFiligree(name: string, host: FiligreeHost) {

@@ -51,6 +51,8 @@ describe('AffixUiService', () => {
       .toBe('Artifact is:\n- Max Filigree Slots: 3 slots');
     expect(service.getAffixValueText(new Affix({ name: 'Dexterity', type: 'Enhancement', value: 14 })))
       .toBe('+14 Enhancement');
+    // An on/off effect is just its name.
+    expect(service.getAffixValueText(new Affix({ name: 'True Seeing', type: 'Bool', value: 1 }))).toBe('');
   });
 
   it('describes crafting option affixes', () => {

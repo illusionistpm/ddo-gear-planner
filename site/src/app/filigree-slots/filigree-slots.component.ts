@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, Type } from '@angular/core';
+import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription, merge } from 'rxjs';
 
 import { EquippedService } from '../planner/equipped.service';
@@ -26,7 +27,7 @@ const expandedHosts = new Set<FiligreeHost>();
  * The filigrees slotted in the main-hand weapon or the minor artifact, under that item's card.
  * Collapsed by default to one line with a count, as ten rows would swamp the card. Expanded, it
  * lists the filigrees and one empty slot after them while the item has room; removing one slides
- * the rest up. Each slot opens the picker, which is loaded on first use.
+ * the rest up. Each slot opens the picker in a popup, as an augment slot does; it is loaded on first use.
  */
 @Component({
   selector: 'app-filigree-slots',
@@ -46,13 +47,13 @@ export class FiligreeSlotsComponent implements OnInit, OnDestroy {
   pickerIndex: number | null = null;
   pickerComponent: Type<unknown> | null = null;
 
+  private openDropdown: NgbDropdown | null = null;
   private subscription?: Subscription;
   private cachedPickerInputs?: {
     host: FiligreeHost;
     index: number;
     current: FiligreeChoice | null;
     pick: (choice: FiligreeChoice | null) => void;
-    close: () => void;
   };
 
   constructor(
@@ -86,28 +87,39 @@ export class FiligreeSlotsComponent implements OnInit, OnDestroy {
       expandedHosts.add(this.host);
     } else {
       expandedHosts.delete(this.host);
-      this.pickerIndex = null;
+      this.closePicker();
     }
   }
 
-  async openPicker(index: number) {
-    if (this.pickerIndex === index) {
-      this.pickerIndex = null;
+  /** Phones get the popup across the viewport, as the augment picker does. */
+  get useStaticMenu(): boolean {
+    return typeof window.matchMedia === 'function' && window.matchMedia('(max-width: 575.98px)').matches;
+  }
+
+  async onPickerOpenChange(index: number, open: boolean, dropdown: NgbDropdown) {
+    if (!open) {
+      if (this.pickerIndex === index) {
+        this.pickerIndex = null;
+        this.openDropdown = null;
+      }
+      this.changeDetector.markForCheck();
       return;
     }
     this.pickerIndex = index;
+    this.openDropdown = dropdown;
     if (!this.pickerComponent) {
       // The picker's list and logic are only needed once a slot is opened.
       const { FiligreePickerComponent } = await import('../filigree-picker/filigree-picker.component');
       this.pickerComponent = FiligreePickerComponent;
-      this.changeDetector.markForCheck();
     }
+    this.changeDetector.markForCheck();
   }
 
-  closePicker = () => {
+  private closePicker() {
+    this.openDropdown?.close();
     this.pickerIndex = null;
-    this.changeDetector.markForCheck();
-  };
+    this.openDropdown = null;
+  }
 
   /**
    * The open picker's inputs, kept until what they say changes: ngComponentOutlet sets inputs again
@@ -124,7 +136,6 @@ export class FiligreeSlotsComponent implements OnInit, OnDestroy {
       index,
       current: row.choice,
       pick: (choice: FiligreeChoice | null) => this.choose(index, choice),
-      close: this.closePicker,
     };
     return this.cachedPickerInputs;
   }
@@ -132,7 +143,7 @@ export class FiligreeSlotsComponent implements OnInit, OnDestroy {
   choose(index: number, choice: FiligreeChoice | null) {
     this.equipped.setFiligree(this.host, index, choice);
     this.analytics.track('choose_filigree', { host: this.host, cleared: !choice, rare: !!choice?.rare });
-    this.pickerIndex = null;
+    this.closePicker();
   }
 
   setRare(row: FiligreeSlotRow, rare: boolean) {
@@ -169,7 +180,7 @@ export class FiligreeSlotsComponent implements OnInit, OnDestroy {
     }
     this.filledCount = shown.length;
     if (this.pickerIndex !== null && this.pickerIndex >= this.rows.length) {
-      this.pickerIndex = null;
+      this.closePicker();
     }
     this.changeDetector.markForCheck();
   }

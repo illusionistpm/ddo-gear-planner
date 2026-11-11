@@ -20,7 +20,7 @@ import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.
       </div>
     </div>
     <div class="modal-body">
-      <app-filigree-set-details [setName]="setName"></app-filigree-set-details>
+      <app-filigree-set-details [setNames]="[setName]"></app-filigree-set-details>
     </div>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

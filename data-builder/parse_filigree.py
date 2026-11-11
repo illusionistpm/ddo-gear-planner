@@ -2,8 +2,9 @@
 and Item:Thread_of_Fate pages, into data/filigree.json.
 
 Every effect becomes an affix, numeric or not: a filigree's own bonus is of
-type "Filigree" and a set bonus of type "Filigree Set" (every filigree bonus is
-unique and stacks with everything). Text-only effects keep their wiki wording
+type "Filigree" and a set bonus of type "Filigree Set" (filigree bonuses are
+unique and stack with everything), except where the wiki names an ordinary type
+("Movement Speed +30% (Enhancement bonus)"), which is kept. Text-only effects keep their wiki wording
 as a "Bool" affix, the type item data gives on/off effects (True Seeing,
 Deathblock), so the two meet in one tracked row. Combined effects ("+5 Melee and Ranged Power") are split by
 filigree_compound_affixes.json, and names are mapped onto the planner's affix
@@ -123,6 +124,8 @@ NUMBER = r'[+-]?\d+(?:\.\d+)?%?'
 NAME_THEN_VALUE = re.compile(r'^(?P<name>[^+\d][^+]*?)\s*(?P<value>' + NUMBER + r')\s*(?:\((?P<note>[^)]*)\))?\.?$')
 # "+6 PRR", "+10% Fortification Bypass", "+2 to all Saving Throws", "50 Spell Points"
 VALUE_THEN_NAME = re.compile(r'^(?P<value>' + NUMBER + r')\s+(?:to\s+)?(?P<name>[^\d].*?)\.?$')
+# "(Enhancement bonus)" after an effect: the bonus is that ordinary type, not a filigree one.
+STATED_TYPE = re.compile(r'([A-Za-z][A-Za-z ]*?) bonus', re.IGNORECASE)
 PIECES = re.compile(r'^\s*(\d+)\s+pieces?\s*:\s*(.*)$', re.IGNORECASE | re.DOTALL)
 
 
@@ -177,7 +180,14 @@ def _numeric_affix(text, bonus_type, compounds=None):
     known = name.casefold() in _FILIGREE_AFFIX_NAMES_CI or name in (compounds or {})
     if not known and (len(name) > MAX_STAT_NAME_LENGTH or DESCRIPTIVE.search(name)):
         return None
-    return {'name': name, 'type': bonus_type, 'value': _number(match.group('value'))}
+    return {'name': name, 'type': _stated_type(match.groupdict().get('note')) or bonus_type, 'value': _number(match.group('value'))}
+
+
+def _stated_type(note):
+    """'Enhancement bonus' -> 'Enhancement': the rare filigree effect the wiki gives an ordinary,
+    non-stacking bonus type (Snowpeak's Gifts' Movement Speed)."""
+    match = STATED_TYPE.fullmatch((note or '').strip())
+    return match.group(1).title() if match else None
 
 
 def _raw_affixes(text, bonus_type, compounds):

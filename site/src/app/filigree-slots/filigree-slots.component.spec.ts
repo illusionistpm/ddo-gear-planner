@@ -38,6 +38,17 @@ describe('FiligreeSlotsComponent', () => {
     }
   }
 
+  /** Opens a slot's picker, which pops up in <body> and is loaded on first use. */
+  async function openPicker(element: HTMLElement, slot = 0): Promise<HTMLElement> {
+    element.querySelectorAll<HTMLButtonElement>('.filigree-slot-pick')[slot].click();
+    for (let tries = 0; tries < 50 && !document.querySelector('.filigree-picker'); tries++) {
+      await TestBed.inject(ApplicationRef).whenStable();
+      await new Promise(resolve => setTimeout(resolve, 20));
+      fixture.detectChanges();
+    }
+    return document.querySelector<HTMLElement>('.filigree-picker')!;
+  }
+
   const rowTexts = (element: HTMLElement) => Array.from(element.querySelectorAll('.filigree-slot-row'))
     .map(row => Array.from(row.querySelectorAll('.filigree-slot-number, .filigree-slot-name, .filigree-slot-affixes, .filigree-slot-note, .filigree-slot-empty'))
       .map(part => part.textContent!.trim()).join(' | '));
@@ -138,54 +149,75 @@ describe('FiligreeSlotsComponent', () => {
     expect(equipped.getFiligreeLoadout().weapon).toEqual([]);
   });
 
-  it('opens the picker for a slot and puts the chosen filigree in it', async () => {
+  it('opens the picker for a slot in a popup, not in the card, and puts the chosen filigree in it', async () => {
     equipped.set(weapon());
     equipped.setImportantAffixes(['Reflex Save']);
     const element = render('weapon');
     expand(element);
 
     // The one row is the empty slot.
-    element.querySelectorAll<HTMLButtonElement>('.filigree-slot-pick')[0].click();
-    // The picker is loaded on first use.
-    for (let tries = 0; tries < 50 && !element.querySelector('.filigree-picker'); tries++) {
-      await TestBed.inject(ApplicationRef).whenStable();
-      await new Promise(resolve => setTimeout(resolve, 20));
-      fixture.detectChanges();
-    }
+    const picker = await openPicker(element);
+    expect(picker.closest('.filigree-picker-menu')).not.toBeNull();
+    expect(element.contains(picker)).toBe(false);
 
-    const search = element.querySelector<HTMLInputElement>('.filigree-picker-search')!;
+    const search = picker.querySelector<HTMLInputElement>('.filigree-picker-search')!;
     search.value = 'celerity: reflex';
     search.dispatchEvent(new Event('input'));
     fixture.detectChanges();
-    element.querySelector<HTMLButtonElement>('.filigree-picker-entry')!.click();
+    picker.querySelector<HTMLButtonElement>('.filigree-picker-entry')!.click();
     fixture.detectChanges();
 
     expect(equipped.getFiligreeLoadout().weapon).toEqual([{ name: 'Celerity: Reflex', rare: false }]);
-    expect(element.querySelector('.filigree-picker')).toBeNull();
+    expect(document.querySelector('.filigree-picker')).toBeNull();
   });
 
-  it('keeps the picker\'s Rare copy box as ticked through change detection, showing rare bonuses', async () => {
+  it('closes the picker on Escape, as the augment picker does, with no close button of its own', async () => {
     equipped.set(weapon());
     const element = render('weapon');
     expand(element);
-    element.querySelector<HTMLButtonElement>('.filigree-slot-pick')!.click();
-    for (let tries = 0; tries < 50 && !element.querySelector('.filigree-picker'); tries++) {
-      await TestBed.inject(ApplicationRef).whenStable();
-      await new Promise(resolve => setTimeout(resolve, 20));
-      fixture.detectChanges();
+    const picker = await openPicker(element);
+    expect(picker.querySelector('.icon-x-button')).toBeNull();
+
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    fixture.detectChanges();
+
+    expect(document.querySelector('.filigree-picker')).toBeNull();
+    expect(element.querySelector('.filigree-slot-pick')!.getAttribute('aria-expanded')).toBe('false');
+  });
+
+  it('closes the picker on a click elsewhere on the page', async () => {
+    equipped.set(weapon());
+    const element = render('weapon');
+    expand(element);
+    await openPicker(element);
+
+    for (const type of ['mousedown', 'mouseup', 'click']) {
+      document.body.dispatchEvent(new MouseEvent(type, { bubbles: true }));
     }
-    const search = element.querySelector<HTMLInputElement>('.filigree-picker-search')!;
+    // ngbDropdown closes on the next tick after the mouseup.
+    await new Promise(resolve => setTimeout(resolve, 10));
+    fixture.detectChanges();
+
+    expect(document.querySelector('.filigree-picker')).toBeNull();
+  });
+
+  it("keeps the picker's Rare copy box as ticked through change detection, showing rare bonuses", async () => {
+    equipped.set(weapon());
+    const element = render('weapon');
+    expand(element);
+    const picker = await openPicker(element);
+    const search = picker.querySelector<HTMLInputElement>('.filigree-picker-search')!;
     search.value = 'celerity: dexterity';
     search.dispatchEvent(new Event('input'));
     fixture.detectChanges();
-    expect(element.querySelector('.filigree-picker-entry-rare')).toBeNull();
+    expect(picker.querySelector('.filigree-picker-entry-rare')).toBeNull();
 
-    const rareBox = Array.from(element.querySelectorAll<HTMLLabelElement>('.filigree-picker-check'))
+    const rareBox = Array.from(picker.querySelectorAll<HTMLLabelElement>('.filigree-picker-check'))
       .find(label => label.textContent!.includes('Rare copy'))!.querySelector('input')!;
     rareBox.click();
     fixture.detectChanges();
     fixture.detectChanges();
 
-    expect(element.querySelector('.filigree-picker-entry-rare')!.textContent).toContain('Physical Sheltering +2');
+    expect(picker.querySelector('.filigree-picker-entry-rare')!.textContent).toContain('Physical Sheltering +2');
   });
 });

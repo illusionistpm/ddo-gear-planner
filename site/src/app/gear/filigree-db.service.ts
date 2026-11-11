@@ -125,7 +125,8 @@ export class FiligreeDbService {
   /**
    * The most filigrees can give each affix: their own bonuses summed over the best distinct
    * filigrees for a 10-slot weapon and an `artifactSlots` artifact, the best spread of set pieces
-   * over those slots across distinct sets (whose bonuses stack), and 1 for an on/off effect. `flatten` expands an affix group onto its members (keeping
+   * over those slots across distinct sets (whose bonuses stack), the best single value for a bonus the
+   * wiki gives an ordinary type, and 1 for an on/off effect. `flatten` expands an affix group onto its members (keeping
    * the group), so a "+1 to all Saving Throws" filigree counts toward Reflex Save too.
    */
   getMaxima(artifactSlots: number, flatten: (affixes: Affix[]) => Affix[]): FiligreeMaxima {
@@ -150,6 +151,9 @@ export class FiligreeDbService {
           out.set(affix.name, (out.get(affix.name) ?? 0) + affix.value);
         } else if (!Affix.isRealType(affix.type)) {
           offer(affix.name, affix.type, 1);
+        } else {
+          // An ordinary bonus type (Snowpeak's Gifts' Enhancement Movement Speed) doesn't stack: the best one counts.
+          offer(affix.name, affix.type, affix.value);
         }
       }
       return out;

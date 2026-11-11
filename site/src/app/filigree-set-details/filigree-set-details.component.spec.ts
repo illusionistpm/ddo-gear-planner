@@ -21,9 +21,9 @@ describe('FiligreeSetDetailsComponent', () => {
     equipped = TestBed.inject(EquippedService);
   });
 
-  function render(setName = 'Ultimate Fury'): HTMLElement {
+  function render(setName: string | string[] = 'Ultimate Fury'): HTMLElement {
     fixture = TestBed.createComponent(FiligreeSetDetailsComponent);
-    fixture.componentRef.setInput('setName', setName);
+    fixture.componentRef.setInput('setNames', Array.isArray(setName) ? setName : [setName]);
     fixture.detectChanges();
     return fixture.nativeElement;
   }
@@ -40,6 +40,29 @@ describe('FiligreeSetDetailsComponent', () => {
     expect(tierRows(element).map(row => row.querySelector('.set-bonus-summary-threshold')!.textContent!.trim()))
       .toEqual(['2 pc', '3 pc', '4 pc', '5 pc', '6 pc']);
     expect(tierRows(element).every(row => row.classList.contains('disabled-set-tier'))).toBe(true);
+  });
+
+  it('shows a bonus\'s value and type, and nothing beside an on/off effect', () => {
+    const element = render('Splendid Cacophony');
+    const values = tierRows(element).map(row => row.querySelector('.set-bonus-summary-value')!.textContent!.trim());
+
+    expect(values[0]).toBe('+2 Filigree Set');
+    // 4 pieces: "Your Inspire Courage grants ...", not "+1 Bool".
+    expect(values[values.length - 1]).toBe('');
+  });
+
+  it("shows both of a raid filigree's sets: each one's bonuses, then the pieces in both, then each one's own", () => {
+    const element = render(['Eye of the Beholder', 'The Inevitable Grave']);
+    const subtitles = Array.from(element.querySelectorAll('.filigree-set-subtitle'), title => title.textContent!.trim());
+
+    expect(subtitles).toEqual(['Eye of the Beholder', 'The Inevitable Grave', 'Both sets', 'Eye of the Beholder', 'The Inevitable Grave']);
+    expect(element.querySelectorAll('.set-bonus-summary-list').length).toBe(2);
+    const groups = Array.from(element.querySelectorAll('.filigree-set-pieces'), group =>
+      Array.from(group.querySelectorAll('.filigree-set-piece-name'), name => name.firstChild!.textContent!.trim()));
+    // The raid filigree once, by its short name under "Both sets"; set-mates by theirs.
+    expect(groups[0]).toEqual(['Intelligence']);
+    expect(groups[1]).toContain('Intelligence');
+    expect(groups.flat().filter(label => label.includes('/'))).toEqual([]);
   });
 
   it('lists every piece with its bonus and what a rare copy adds, raid filigrees by their full name', () => {
@@ -64,24 +87,21 @@ describe('FiligreeSetDetailsComponent', () => {
       { name: 'Ultimate Fury: Strength', rare: false },
       { name: 'Ultimate Fury: Constitution', rare: false },
     ]);
-    expect(element.querySelector('.filigree-set-slotted')!.textContent!.trim()).toBe('2 slotted');
     expect(tierRows(element).map(row => row.classList.contains('disabled-set-tier'))).toEqual([false, true, true, true, true]);
     expect(pieceRow(element, 'Strength').querySelector('.filigree-set-piece-slotted')!.textContent!.trim()).toBe('×1 slotted');
   });
 
-  it('allows a second copy in the same host, as a set piece', () => {
+  it('disables a host the filigree is already in, as the bonus-type drawer does', () => {
     equipped.set(weapon());
+    equipped.set(artifact(2));
     const element = render();
-    const strengthWeapon = () => button(pieceRow(element, 'Strength'), 'Weapon');
 
-    strengthWeapon().click();
+    button(pieceRow(element, 'Strength'), 'Weapon').click();
     fixture.detectChanges();
 
-    expect(strengthWeapon().disabled).toBe(false);
-    expect(strengthWeapon().title).toBe('Adds a set piece only: already in the weapon');
-    strengthWeapon().click();
-    fixture.detectChanges();
-    expect(equipped.getFiligreeSetPieces().get('Ultimate Fury')).toBe(2);
+    expect(button(pieceRow(element, 'Strength'), 'Weapon').disabled).toBe(true);
+    expect(button(pieceRow(element, 'Strength'), 'Weapon').title).toBe('Already in the weapon');
+    expect(button(pieceRow(element, 'Strength'), 'Artifact').disabled).toBe(false);
   });
 
   it('disables a host that is missing or full, saying why', () => {

@@ -45,6 +45,13 @@ def test_numeric_effects_become_named_affixes(text, expected):
     assert all(a['type'] == FILIGREE_TYPE for a in effect(text))
 
 
+@pytest.mark.parametrize('text', ['Movement Speed +30% ( Enhancement bonus )', 'Movement Speed +30% (Enhancement bonus)'])
+def test_an_effect_the_wiki_gives_an_ordinary_type_keeps_it(text):
+    # Snowpeak's Gifts' Movement Speed is the usual Enhancement bonus, so it doesn't stack with items'.
+    assert [(a['name'], a['type'], a['value']) for a in effect(text)] == [('Movement Speed', 'Enhancement', 30)]
+    assert [a['type'] for a in effect(text, FILIGREE_SET_TYPE)] == ['Enhancement']
+
+
 def test_arcane_spell_failure_is_arcane_casting_dexterity_stored_positive():
     from get_inverted_synonym_map import get_inverted_synonym_map
 

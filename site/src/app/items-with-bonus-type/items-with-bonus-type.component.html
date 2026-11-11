@@ -47,7 +47,7 @@
 
 <app-item-preview [preview]="preview" [highlightAffixName]="affixName" [highlightBonusType]="bonusType"
   (equip)="equipPreviewItem($event)"></app-item-preview>
-<app-filigree-set-preview [preview]="filigreeSetPreview" [highlightFiligree]="previewedFiligree"></app-filigree-set-preview>
+<app-filigree-set-preview [preview]="filigreeSetPreview"></app-filigree-set-preview>
 
 @if (optionToEligibleGear.size) {
   <div class="drawer-section">
@@ -186,31 +186,32 @@
     </button>
     @if (!isSectionCollapsed('filigree')) {
       @if (filigreeMatches.length) {
-        <div class="row filigree-match-grid">
-          <div><b>Filigree</b></div>
-          <div class="text-end"><b>Value</b></div>
-          <div><b>Slot into</b></div>
-        </div>
-        @for (match of filigreeMatches; track match.name) {
-          <div class="row item-result-row filigree-match-row filigree-match-grid"
-            [class.selected-preview-row]="!!filigreeSetPreview.current && match.sets.includes(filigreeSetPreview.current)">
-            <div class="filigree-match-name">
-              <button type="button" class="item-preview-link" [title]="'Show the ' + match.sets.join(' and ') + ' set'"
-                (click)="showFiligreeSetOf(match.name)">{{match.name}}</button>
-            </div>
-            <div class="text-end" [title]="match.rareValue !== match.value ? 'Rare copy: ' + match.rareValue : ''">
-              {{match.value || '-'}}@if (match.rareValue !== match.value) {<span class="filigree-rare-value"> ({{match.rareValue}})</span>}
-            </div>
-            <div class="filigree-slot-buttons">
-              @for (host of filigreeHosts; track host) {
-                <button type="button" class="equip-button" [disabled]="!!filigreeSlotBlocker(host, match.name)"
-                    [title]="filigreeSlotBlocker(host, match.name) || 'Add it after the filigrees already there'"
-                    (click)="slotFiligree(match.name, host)">{{filigreeHostLabel(host)}}</button>
-              }
-            </div>
+        <div class="filigree-match-table">
+          <div class="row filigree-match-grid">
+            <div><b>Filigree</b></div>
+            <div class="text-end"><b>Value</b></div>
+            <div><b>Slot into</b></div>
           </div>
-        }
-        <div class="drawer-note">A filigree's own bonuses add up with every other filigree's. In brackets: a rare copy.</div>
+          @for (match of filigreeMatches; track match.name) {
+            <div class="row item-result-row filigree-match-row filigree-match-grid"
+              [class.selected-preview-row]="isPreviewedFiligree(match.name)">
+              <div class="filigree-match-name">
+                <button type="button" class="item-preview-link" [title]="'Show the ' + match.sets.join(' and ') + ' set'"
+                  (click)="showFiligreeSetOf(match.name)">{{match.name}}</button>
+              </div>
+              <div class="text-end" [title]="match.rareValue !== match.value ? 'Rare copy: ' + match.rareValue : ''">
+                {{match.value || '-'}}@if (match.rareValue !== match.value) {<span class="filigree-rare-value"> ({{match.rareValue}})</span>}
+              </div>
+              <div class="filigree-slot-buttons">
+                @for (host of filigreeHosts; track host) {
+                  <button type="button" class="equip-button" [disabled]="!!filigreeSlotBlocker(host, match.name)"
+                      [title]="filigreeSlotBlocker(host, match.name) || 'Add it after the filigrees already there'"
+                      (click)="slotFiligree(match.name, host)">{{filigreeHostLabel(host)}}</button>
+                }
+              </div>
+            </div>
+          }
+        </div>
       }
       @if (filigreeSetMatches.length) {
         <div class="row">
@@ -219,7 +220,7 @@
           <div class="col-2 text-end"><b>Value</b></div>
         </div>
         @for (match of filigreeSetMatches; track match.set) {
-          <div class="row item-result-row filigree-set-match-row" [class.selected-preview-row]="filigreeSetPreview.current === match.set">
+          <div class="row item-result-row filigree-set-match-row" [class.selected-preview-row]="isPreviewedFiligreeSet(match.set)">
             <div class="col-2">{{match.threshold}}+</div>
             <div class="col-8">
               <button type="button" class="item-preview-link" (click)="showFiligreeSet($index)">{{match.set}}</button>

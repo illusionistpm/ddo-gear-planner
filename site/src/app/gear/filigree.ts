@@ -6,8 +6,9 @@ import { RawFiligree } from './game-data-types';
  *
  * Every filigree bonus is unique and stacks with everything, other filigrees included, so the
  * planner gives a filigree's own bonuses the "Filigree" type and adds them up rather than taking
- * the best, and does the same for filigree set bonuses under "Filigree Set". Text-only effects
- * are "Bool", as on items.
+ * the best, and does the same for filigree set bonuses under "Filigree Set". The exception is an
+ * effect the wiki gives an ordinary type (Snowpeak's Gifts' Movement Speed is Enhancement): it keeps
+ * that type and competes with items' bonuses of it. Text-only effects are "Bool", as on items.
  */
 export const FILIGREE_BONUS_TYPE = 'Filigree';
 export const FILIGREE_SET_BONUS_TYPE = 'Filigree Set';

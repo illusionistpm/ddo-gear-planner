@@ -1,27 +1,9 @@
+/* Sits in the filigree slot's popup, which gives it its frame. */
 .filigree-picker {
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
-    margin: var(--space-4) 0;
-    padding: var(--space-8);
-    border: 1px solid var(--border-color);
-    border-radius: 0.375rem;
-    background: var(--surface-elevated-color);
-}
-
-.filigree-picker-header {
-    display: flex;
-    gap: var(--space-4);
-    align-items: center;
-}
-
-.filigree-picker-search {
-    flex: 1;
-    min-width: 0;
-}
-
-.filigree-picker-close {
-    flex: none;
+    min-height: 0;
 }
 
 .filigree-picker-options {

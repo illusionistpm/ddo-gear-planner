@@ -1,6 +1,6 @@
 import {
-  AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnChanges, SimpleChanges,
-  ViewChild
+  afterNextRender, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Injector, Input, OnChanges,
+  SimpleChanges, ViewChild
 } from '@angular/core';
 import { NgClass } from '@angular/common';
 
@@ -18,7 +18,8 @@ import { buildFiligreeGroups, FiligreeEntry, FiligreeFacts, FiligreeGroup } from
  * Picks the filigree for one slot of the weapon or artifact. Standalone and loaded on first use
  * (see FiligreeSlotsComponent), so its list and logic stay out of the initial bundle.
  *
- * Inputs only, no outputs: ngComponentOutlet can't bind outputs, so the host passes callbacks.
+ * Inputs only, no outputs: ngComponentOutlet can't bind outputs, so the host passes a callback.
+ * The host's popup closes it, on a click outside or Escape.
  */
 @Component({
   selector: 'app-filigree-picker',
@@ -27,12 +28,11 @@ import { buildFiligreeGroups, FiligreeEntry, FiligreeFacts, FiligreeGroup } from
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgClass]
 })
-export class FiligreePickerComponent implements OnChanges, AfterViewInit {
+export class FiligreePickerComponent implements OnChanges {
   @Input() host: FiligreeHost = 'weapon';
   @Input() index = 0;
   @Input() current: FiligreeChoice | null = null;
   @Input() pick: (choice: FiligreeChoice | null) => void = () => {};
-  @Input() close: () => void = () => {};
 
   @ViewChild('searchBox') searchBox?: ElementRef<HTMLInputElement>;
 
@@ -49,8 +49,16 @@ export class FiligreePickerComponent implements OnChanges, AfterViewInit {
     private filigreeDb: FiligreeDbService,
     private equipped: EquippedService,
     private affixSvc: AffixService,
-    private changeDetector: ChangeDetectorRef
-  ) { }
+    private changeDetector: ChangeDetectorRef,
+    injector: Injector
+  ) {
+    // On touch screens the keyboard would cover the list, so the search box waits to be tapped.
+    // Focused once rendered: the popup is moved into <body> on opening, which blurs anything focused before.
+    const finePointer = typeof window.matchMedia !== 'function' || window.matchMedia('(pointer: fine)').matches;
+    if (finePointer) {
+      afterNextRender({ write: () => this.searchBox?.nativeElement.focus() }, { injector });
+    }
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     // Start from the slot's copy only when the slot or its filigree changes, not on every input set.
@@ -58,14 +66,6 @@ export class FiligreePickerComponent implements OnChanges, AfterViewInit {
       this.rare = !!this.current?.rare;
     }
     this.refresh();
-  }
-
-  ngAfterViewInit() {
-    // On touch screens the keyboard would cover the list, so the search box waits to be tapped.
-    const finePointer = typeof window.matchMedia !== 'function' || window.matchMedia('(pointer: fine)').matches;
-    if (finePointer) {
-      this.searchBox?.nativeElement.focus();
-    }
   }
 
   onSearch(value: string) {
@@ -96,13 +96,6 @@ export class FiligreePickerComponent implements OnChanges, AfterViewInit {
 
   remove() {
     this.pick(null);
-  }
-
-  onKeydown(event: KeyboardEvent) {
-    if (event.key === 'Escape') {
-      event.stopPropagation();
-      this.close();
-    }
   }
 
   private refresh() {

@@ -21,9 +21,26 @@ export interface FiligreeSetPiece {
   slotted: number;
 }
 
+/** One set's bonuses, as shown: a raid filigree's panel has one for each of its two sets. */
+export interface FiligreeSetSection {
+  name: string;
+  /** Pieces of it slotted now. */
+  slotted: number;
+  tiers: SetBonusThreshold[];
+}
+
+/** Pieces under one heading: in a panel of two sets, those in both, then each set's own. */
+export interface FiligreeSetPieceGroup {
+  /** null in a panel of one set, which needs no heading. */
+  title: string | null;
+  pieces: FiligreeSetPiece[];
+}
+
 /**
  * A filigree set's bonuses and pieces, each piece with buttons that add it to the weapon or the
  * artifact. Shown in the drawer (from the gear list's set card) and beside the bonus-type drawer.
+ * Given a raid filigree's two sets, it shows both: each set's bonuses under its name, then the
+ * pieces in both sets, then each set's own.
  */
 @Component({
   selector: 'app-filigree-set-details',
@@ -33,14 +50,13 @@ export interface FiligreeSetPiece {
   standalone: false
 })
 export class FiligreeSetDetailsComponent implements OnInit, OnChanges, OnDestroy {
-  @Input({ required: true }) setName!: string;
+  @Input({ required: true }) setNames!: ReadonlyArray<string>;
   /** A piece to mark, as the one the player came from. */
   @Input() highlightFiligree: string | null = null;
 
   readonly hosts = FILIGREE_HOSTS;
-  tiers: SetBonusThreshold[] = [];
-  pieces: FiligreeSetPiece[] = [];
-  slottedPieces = 0;
+  sections: FiligreeSetSection[] = [];
+  pieceGroups: FiligreeSetPieceGroup[] = [];
 
   private subscription?: Subscription;
 
@@ -68,20 +84,13 @@ export class FiligreeSetDetailsComponent implements OnInit, OnChanges, OnDestroy
     return host === 'weapon' ? 'Weapon' : 'Artifact';
   }
 
-  /** Why the piece can't be added to the host, or '' when it can. */
+  /** Why the piece can't be added to the host, or '' when it can: as in the bonus-type drawer, not twice into one host. */
   blocker(host: FiligreeHost, name: string): string {
-    return this.equipped.getFiligreeAppendBlocker(host, name, true);
+    return this.equipped.getFiligreeAppendBlocker(host, name);
   }
 
   buttonTitle(host: FiligreeHost, name: string): string {
-    const blocker = this.blocker(host, name);
-    if (blocker) {
-      return blocker;
-    }
-    // A second copy still counts toward the set.
-    return this.equipped.getShownFiligree(host).some(choice => choice.name === name)
-      ? `Adds a set piece only: already in the ${host === 'weapon' ? 'weapon' : 'artifact'}`
-      : `Add it after the filigrees already in the ${host === 'weapon' ? 'weapon' : 'artifact'}`;
+    return this.blocker(host, name) || `Add it after the filigrees already in the ${host === 'weapon' ? 'weapon' : 'artifact'}`;
   }
 
   add(host: FiligreeHost, name: string) {
@@ -91,32 +100,51 @@ export class FiligreeSetDetailsComponent implements OnInit, OnChanges, OnDestroy
     this.analytics.track('slot_filigree_from_set', { host });
   }
 
-  tierTooltip(tier: SetBonusThreshold): string {
+  tierTooltip(section: FiligreeSetSection, tier: SetBonusThreshold): string {
     return tier.eligible
-      ? `Active — ${tier.threshold} of ${this.setName} slotted`
-      : this.affixUi.getSetBonusLockedTooltip(tier.threshold, this.slottedPieces);
+      ? `Active — ${tier.threshold} of ${section.name} slotted`
+      : this.affixUi.getSetBonusLockedTooltip(tier.threshold, section.slotted);
   }
 
   private refresh() {
-    if (!this.setName) {
+    if (!this.setNames?.length) {
       return;
     }
-    this.slottedPieces = this.equipped.getFiligreeSetPieces().get(this.setName) ?? 0;
-    this.tiers = this.filigreeDb.getSetTiers(this.setName, this.slottedPieces);
+    const setPieces = this.equipped.getFiligreeSetPieces();
+    this.sections = this.setNames.map(name => {
+      const slotted = setPieces.get(name) ?? 0;
+      return { name, slotted, tiers: this.filigreeDb.getSetTiers(name, slotted) };
+    });
+
     const slotted = new Map<string, number>();
     for (const entry of this.equipped.getCountedFiligree()) {
       slotted.set(entry.choice.name, (slotted.get(entry.choice.name) ?? 0) + 1);
     }
-    this.pieces = this.filigreeDb.getFiligreesInSet(this.setName).map(name => {
-      const rare = (this.filigreeDb.get(name)?.rareAffixes ?? []).map(affix => new Affix(affix));
-      return {
-        name,
-        label: this.filigreeDb.getSets(name).length > 1 ? name : filigreeShortName(name),
-        affixText: describeFiligreeAffixes(this.filigreeDb.getAffixes({ name, rare: false })),
-        rareText: describeFiligreeAffixes(rare),
-        slotted: slotted.get(name) ?? 0,
-      };
+    const piece = (name: string, label: string): FiligreeSetPiece => ({
+      name,
+      label,
+      affixText: describeFiligreeAffixes(this.filigreeDb.getAffixes({ name, rare: false })),
+      rareText: describeFiligreeAffixes((this.filigreeDb.get(name)?.rareAffixes ?? []).map(affix => new Affix(affix))),
+      slotted: slotted.get(name) ?? 0,
     });
+    // A raid filigree is named for its two sets, so it keeps its full name except under a heading
+    // that already says both.
+    const ownLabel = (name: string) => this.filigreeDb.getSets(name).length > 1 ? name : filigreeShortName(name);
+
+    if (this.setNames.length === 1) {
+      const names = this.filigreeDb.getFiligreesInSet(this.setNames[0]);
+      this.pieceGroups = [{ title: null, pieces: names.map(name => piece(name, ownLabel(name))) }];
+    } else {
+      const inAll = (name: string) => this.setNames.every(set => this.filigreeDb.getSets(name).includes(set));
+      const shared = this.filigreeDb.getFiligreesInSet(this.setNames[0]).filter(inAll);
+      this.pieceGroups = [
+        { title: 'Both sets', pieces: shared.map(name => piece(name, filigreeShortName(name))) },
+        ...this.setNames.map(set => ({
+          title: set,
+          pieces: this.filigreeDb.getFiligreesInSet(set).filter(name => !inAll(name)).map(name => piece(name, ownLabel(name))),
+        })),
+      ].filter(group => group.pieces.length);
+    }
     this.changeDetector.markForCheck();
   }
 }

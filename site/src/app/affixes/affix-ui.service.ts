@@ -63,9 +63,13 @@ export class AffixUiService {
 
   /**
    * The value column for an affix on an item: "+5 Insight", or "3 slots" for the affixes that count
-   * something rather than add a bonus (where the "Untyped" bonus type would only be noise).
+   * something rather than add a bonus (where the "Untyped" bonus type would only be noise), and
+   * nothing for an on/off effect, which is just its name (not "+1 Bool").
    */
   getAffixValueText(affix: Affix): string {
+    if (!Affix.isRealType(affix.type)) {
+      return '';
+    }
     const unit = getCountAffixUnit(affix.name);
     if (unit && affix.value) {
       return `${affix.value} ${unit}`;

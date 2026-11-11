@@ -111,6 +111,27 @@ describe('ItemsWithBonusTypeComponent', () => {
         && panel.querySelector<HTMLButtonElement>('[aria-label="Previous set"]')!.disabled).toBe(false);
     });
 
+    it('opens both sets of a raid filigree, marking only its own row, and steps a filigree at a time', () => {
+      const element = show('Intelligence', 'Filigree');
+      const RAID = 'Eye of the Beholder/The Inevitable Grave: Intelligence';
+      const rowOf = (name: string) => Array.from<HTMLElement>(element.querySelectorAll('.filigree-match-row'))
+        .find(candidate => candidate.querySelector('.item-preview-link')!.textContent!.trim() === name)!;
+
+      rowOf(RAID).querySelector<HTMLButtonElement>('.item-preview-link')!.click();
+      fixture.detectChanges();
+
+      const panel = element.querySelector<HTMLElement>('.filigree-set-preview')!;
+      expect(panel.querySelector('h3')!.textContent!.trim()).toBe('Eye of the Beholder / The Inevitable Grave');
+      // Its set-mate in Eye of the Beholder isn't the one previewed.
+      expect(Array.from(element.querySelectorAll('.filigree-match-row.selected-preview-row'))).toEqual([rowOf(RAID)]);
+
+      const index = component.filigreeMatches.findIndex(match => match.name === RAID);
+      panel.querySelector<HTMLButtonElement>('[aria-label="Next set"]')!.click();
+      fixture.detectChanges();
+      expect(Array.from(element.querySelectorAll('.filigree-match-row.selected-preview-row')))
+        .toEqual([rowOf(component.filigreeMatches[index + 1].name)]);
+    });
+
     it('shows one side window at a time: a set or an item', () => {
       const element = show('Melee Power', 'Filigree Set');
       element.querySelector<HTMLButtonElement>('.filigree-set-match-row .item-preview-link')!.click();
@@ -131,6 +152,19 @@ describe('ItemsWithBonusTypeComponent', () => {
 
       expect(component.filigreeMatches).toEqual([]);
       expect(element.querySelector('.filigree-matches')).toBeNull();
+    });
+
+    it("lists a filigree whose effect is an ordinary type with that type's items, after sets and before items", () => {
+      // Snowpeak's Gifts' Movement Speed is the usual Enhancement bonus.
+      const element = show('Speed', 'Enhancement');
+
+      expect(component.filigreeMatches.map(match => match.name)).toEqual(["Snowpeak's Gifts: Movement Speed"]);
+      const section = element.querySelector<HTMLElement>('.filigree-matches')!;
+      // The note that filigree bonuses add up is only true of the filigree types.
+      expect(section.querySelector('.drawer-note')).toBeNull();
+      const titles = Array.from(element.querySelectorAll('.drawer-section-title'), title => title.textContent!.trim());
+      expect(titles.findIndex(title => title.startsWith('Filigree'))).toBe(titles.length - 2);
+      expect(titles[titles.length - 1]).toContain('Items');
     });
 
     it('slots a filigree into the first empty open slot, and not twice into one host', () => {

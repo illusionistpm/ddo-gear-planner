@@ -184,11 +184,19 @@
 }
 
 /* Name, value and both buttons on one line: the buttons take what they need, the name the rest. */
+/* One grid for the header and every row, so each column is as wide as its widest cell in any row. */
+.filigree-match-table {
+    column-gap: var(--space-8);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+}
+
 .row.filigree-match-grid {
     align-items: center;
     column-gap: var(--space-8);
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
     margin: 0;
     padding: var(--space-4) 0;
 }
@@ -211,11 +219,4 @@
 
 .filigree-rare-value {
     color: var(--text-secondary);
-}
-
-.drawer-note {
-    margin: var(--space-4) 0 var(--space-8);
-    color: var(--text-secondary);
-    font-size: 0.8125rem;
-    font-style: italic;
 }

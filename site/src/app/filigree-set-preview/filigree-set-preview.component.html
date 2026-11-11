@@ -1,4 +1,4 @@
-@if (preview.current; as setName) {
+@if (preview.current; as entry) {
   <aside class="item-preview-panel filigree-set-preview" aria-label="Filigree set preview">
     <div class="item-preview-header">
       <div class="item-preview-title">
@@ -6,7 +6,7 @@
           (click)="preview.showPrevious()" [disabled]="!preview.canShowPrevious()">
           &lsaquo;
         </button>
-        <h3>{{setName}}</h3>
+        <h3>{{entry.sets.join(' / ')}}</h3>
         <button type="button" class="preview-nav-button" aria-label="Next set"
           (click)="preview.showNext()" [disabled]="!preview.canShowNext()">
           &rsaquo;
@@ -16,6 +16,6 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <app-filigree-set-details [setName]="setName" [highlightFiligree]="highlightFiligree"></app-filigree-set-details>
+    <app-filigree-set-details [setNames]="entry.sets" [highlightFiligree]="entry.filigree"></app-filigree-set-details>
   </aside>
 }

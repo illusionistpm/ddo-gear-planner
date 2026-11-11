@@ -31,9 +31,5 @@ export function filigreeCapacity(host: FiligreeHost, hosts: FiligreeHosts): numb
 
 /** Every filigree that counts, both hosts: as many of each host's as it holds. */
 export function countLoadoutFiligree(loadout: FiligreeLoadout, hosts: FiligreeHosts): CountedFiligree[] {
-  return FILIGREE_HOSTS.flatMap(host => countHostFiligree(
-    host,
-    host === 'weapon' ? loadout.weapon : loadout.artifact,
-    filigreeCapacity(host, hosts)
-  ));
+  return FILIGREE_HOSTS.flatMap(host => countHostFiligree(host, loadout[host], filigreeCapacity(host, hosts)));
 }

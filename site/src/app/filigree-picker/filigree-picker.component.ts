@@ -4,10 +4,12 @@ import {
 } from '@angular/core';
 import { NgClass } from '@angular/common';
 
+import { Affix } from '../affixes/affix';
 import { AffixService } from '../affixes/affix.service';
 import { FiligreeDbService } from '../gear/filigree-db.service';
-import { FiligreeChoice, FiligreeHost, filigreeAffixes } from '../gear/filigree';
+import { FiligreeChoice, FiligreeHost, filigreeAffixes, filigreeRareAffixes } from '../gear/filigree';
 import { EquippedService } from '../planner/equipped.service';
+import { FiligreeLoadoutService } from '../planner/filigree-loadout.service';
 import {
   FiligreeGroupMode, getStoredFiligreeGroupMode, getStoredHideIrrelevantFiligree, storeFiligreeGroupMode,
   storeHideIrrelevantFiligree
@@ -48,6 +50,7 @@ export class FiligreePickerComponent implements OnChanges {
   constructor(
     private filigreeDb: FiligreeDbService,
     private equipped: EquippedService,
+    private filigree: FiligreeLoadoutService,
     private affixSvc: AffixService,
     private changeDetector: ChangeDetectorRef,
     injector: Injector
@@ -100,12 +103,9 @@ export class FiligreePickerComponent implements OnChanges {
 
   private refresh() {
     this.facts ??= this.buildFacts();
-    const choices = this.host === 'weapon'
-      ? this.equipped.getFiligreeLoadout().weapon
-      : this.equipped.getFiligreeLoadout().artifact;
     // The slot being changed doesn't count against itself.
-    const inHost = new Set(choices
-      .filter((choice, slot): choice is FiligreeChoice => !!choice && slot !== this.index)
+    const inHost = new Set(this.filigree.getLoadout()[this.host]
+      .filter((_, slot) => slot !== this.index)
       .map(choice => choice.name));
     const { groups, hiddenCount } = buildFiligreeGroups(this.facts, {
       mode: this.mode,
@@ -122,19 +122,20 @@ export class FiligreePickerComponent implements OnChanges {
   }
 
   private buildFacts(): FiligreeFacts[] {
-    const names = (affixes: ReturnType<typeof filigreeAffixes>) =>
+    const names = (affixes: Affix[]) =>
       [...new Set(this.affixSvc.flattenAffixGroups(affixes, true).map(affix => affix.name))];
     return this.filigreeDb.getNames().map(name => {
       const raw = this.filigreeDb.get(name)!;
-      const setBonuses = raw.sets.flatMap(set => this.filigreeDb.getSetBonus(set, Number.MAX_SAFE_INTEGER));
+      const affixes = filigreeAffixes(raw, false);
+      const rareAffixes = filigreeRareAffixes(raw);
       return {
         name,
         sets: raw.sets,
-        affixes: filigreeAffixes(raw, false),
-        rareAffixes: filigreeAffixes({ ...raw, affixes: [] }, true),
-        ownBonusNames: names(filigreeAffixes(raw, false)),
-        rareBonusNames: names(filigreeAffixes({ ...raw, affixes: [] }, true)),
-        setBonusNames: names(setBonuses),
+        affixes,
+        rareAffixes,
+        ownBonusNames: names(affixes),
+        rareBonusNames: names(rareAffixes),
+        setBonusNames: names(raw.sets.flatMap(set => this.filigreeDb.getFullSetBonus(set))),
       };
     });
   }

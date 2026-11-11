@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppModule } from '../app.module';
 import { FiligreeSetDetailsComponent } from './filigree-set-details.component';
 import { EquippedService } from '../planner/equipped.service';
+import { FiligreeLoadoutService } from '../planner/filigree-loadout.service';
 import { Item } from '../gear/item';
 import { MAX_FILIGREE_SLOTS_AFFIX } from '../affixes/filigree-affix';
 
@@ -15,10 +16,12 @@ const artifact = (slots: number) => new Item({
 describe('FiligreeSetDetailsComponent', () => {
   let fixture: ComponentFixture<FiligreeSetDetailsComponent>;
   let equipped: EquippedService;
+  let filigree: FiligreeLoadoutService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({ imports: [AppModule] }).compileComponents();
     equipped = TestBed.inject(EquippedService);
+    filigree = TestBed.inject(FiligreeLoadoutService);
   });
 
   function render(setName: string | string[] = 'Ultimate Fury'): HTMLElement {
@@ -83,7 +86,7 @@ describe('FiligreeSetDetailsComponent', () => {
     button(pieceRow(element, 'Constitution'), 'Weapon').click();
     fixture.detectChanges();
 
-    expect(equipped.getFiligreeLoadout().weapon).toEqual([
+    expect(filigree.getLoadout().weapon).toEqual([
       { name: 'Ultimate Fury: Strength', rare: false },
       { name: 'Ultimate Fury: Constitution', rare: false },
     ]);

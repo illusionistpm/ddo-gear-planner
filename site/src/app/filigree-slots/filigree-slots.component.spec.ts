@@ -4,6 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppModule } from '../app.module';
 import { FiligreeSlotsComponent } from './filigree-slots.component';
 import { EquippedService } from '../planner/equipped.service';
+import { FiligreeLoadoutService } from '../planner/filigree-loadout.service';
 import { FiltersService } from '../planner/filters.service';
 import { Item } from '../gear/item';
 import { MAX_FILIGREE_SLOTS_AFFIX } from '../affixes/filigree-affix';
@@ -17,10 +18,12 @@ const artifact = (slots: number) => new Item({
 describe('FiligreeSlotsComponent', () => {
   let fixture: ComponentFixture<FiligreeSlotsComponent>;
   let equipped: EquippedService;
+  let filigree: FiligreeLoadoutService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({ imports: [AppModule] }).compileComponents();
     equipped = TestBed.inject(EquippedService);
+    filigree = TestBed.inject(FiligreeLoadoutService);
     TestBed.inject(FiltersService).setLevelRange(1, 34);
   });
 
@@ -66,7 +69,7 @@ describe('FiligreeSlotsComponent', () => {
 
   it('collapses to a count of slotted over what the item holds', () => {
     equipped.set(weapon());
-    equipped.setFiligree('weapon', 0, { name: 'Celerity: Dexterity', rare: false });
+    filigree.set('weapon', 0, { name: 'Celerity: Dexterity', rare: false });
 
     const element = render('weapon');
 
@@ -76,7 +79,7 @@ describe('FiligreeSlotsComponent', () => {
 
   it('lists the filigrees, with what each gives, and one empty slot after them', () => {
     equipped.set(weapon());
-    equipped.setFiligree('weapon', 0, { name: 'Celerity: Dexterity', rare: true });
+    filigree.set('weapon', 0, { name: 'Celerity: Dexterity', rare: true });
 
     const element = render('weapon');
     expand(element);
@@ -91,8 +94,8 @@ describe('FiligreeSlotsComponent', () => {
 
   it('strikes through a duplicate\'s bonuses but not its name', () => {
     equipped.set(weapon());
-    equipped.setFiligree('weapon', 0, { name: 'Celerity: Reflex', rare: false });
-    equipped.setFiligree('weapon', 1, { name: 'Celerity: Reflex', rare: false });
+    filigree.set('weapon', 0, { name: 'Celerity: Reflex', rare: false });
+    filigree.set('weapon', 1, { name: 'Celerity: Reflex', rare: false });
 
     const element = render('weapon');
     expand(element);
@@ -107,7 +110,7 @@ describe('FiligreeSlotsComponent', () => {
   it('has no empty slot once the item is full, and hides filigree past what it holds', () => {
     equipped.set(artifact(3));
     ['Celerity: Dexterity', 'Celerity: Reflex', 'Zephyr: Tumble'].forEach((name, index) =>
-      equipped.setFiligree('artifact', index, { name, rare: false }));
+      filigree.set('artifact', index, { name, rare: false }));
     equipped.set(artifact(2));
 
     const element = render('artifact');
@@ -124,7 +127,7 @@ describe('FiligreeSlotsComponent', () => {
   it('slides the rest up when one is removed from the middle', () => {
     equipped.set(weapon());
     ['Celerity: Dexterity', 'Celerity: Reflex', 'Zephyr: Tumble'].forEach((name, index) =>
-      equipped.setFiligree('weapon', index, { name, rare: false }));
+      filigree.set('weapon', index, { name, rare: false }));
     const element = render('weapon');
     expand(element);
 
@@ -138,15 +141,15 @@ describe('FiligreeSlotsComponent', () => {
 
   it('marks a filigree rare, and removes one', () => {
     equipped.set(weapon());
-    equipped.setFiligree('weapon', 0, { name: 'Celerity: Dexterity', rare: false });
+    filigree.set('weapon', 0, { name: 'Celerity: Dexterity', rare: false });
     const element = render('weapon');
     expand(element);
 
     element.querySelector<HTMLInputElement>('.filigree-slot-rare input')!.click();
-    expect(equipped.getFiligreeLoadout().weapon[0]).toEqual({ name: 'Celerity: Dexterity', rare: true });
+    expect(filigree.getLoadout().weapon[0]).toEqual({ name: 'Celerity: Dexterity', rare: true });
 
     element.querySelector<HTMLButtonElement>('.filigree-slot-clear')!.click();
-    expect(equipped.getFiligreeLoadout().weapon).toEqual([]);
+    expect(filigree.getLoadout().weapon).toEqual([]);
   });
 
   it('opens the picker for a slot in a popup, not in the card, and puts the chosen filigree in it', async () => {
@@ -167,7 +170,7 @@ describe('FiligreeSlotsComponent', () => {
     picker.querySelector<HTMLButtonElement>('.filigree-picker-entry')!.click();
     fixture.detectChanges();
 
-    expect(equipped.getFiligreeLoadout().weapon).toEqual([{ name: 'Celerity: Reflex', rare: false }]);
+    expect(filigree.getLoadout().weapon).toEqual([{ name: 'Celerity: Reflex', rare: false }]);
     expect(document.querySelector('.filigree-picker')).toBeNull();
   });
 

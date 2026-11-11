@@ -1,14 +1,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { EquippedService } from '../planner/equipped.service';
+import { FiligreeLoadoutService } from '../planner/filigree-loadout.service';
 import { FiligreeDbService } from '../gear/filigree-db.service';
 import { SetBonusThreshold } from '../gear/gear-db.service';
-import { FILIGREE_HOSTS, FiligreeHost } from '../gear/filigree';
-import { Affix } from '../affixes/affix';
-import { AffixUiService } from '../affixes/affix-ui.service';
+import { FILIGREE_HOST_TEXT, FILIGREE_HOSTS, FiligreeHost } from '../gear/filigree';
 import { AnalyticsService } from '../shared/analytics.service';
-import { describeFiligreeAffixes, filigreeShortName } from '../filigree-slots/filigree-text';
+import { describeFiligreeAffixes, filigreeShortName } from '../gear/filigree-text';
 
 export interface FiligreeSetPiece {
   name: string;
@@ -55,21 +53,21 @@ export class FiligreeSetDetailsComponent implements OnInit, OnChanges, OnDestroy
   @Input() highlightFiligree: string | null = null;
 
   readonly hosts = FILIGREE_HOSTS;
+  readonly hostText = FILIGREE_HOST_TEXT;
   sections: FiligreeSetSection[] = [];
   pieceGroups: FiligreeSetPieceGroup[] = [];
 
   private subscription?: Subscription;
 
   constructor(
-    public equipped: EquippedService,
-    public affixUi: AffixUiService,
+    public filigree: FiligreeLoadoutService,
     private filigreeDb: FiligreeDbService,
     private analytics: AnalyticsService,
     private changeDetector: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
-    this.subscription = this.equipped.getFiligreeLoadoutObservable().subscribe(() => this.refresh());
+    this.subscription = this.filigree.getLoadoutObservable().subscribe(() => this.refresh());
   }
 
   ngOnChanges() {
@@ -80,51 +78,33 @@ export class FiligreeSetDetailsComponent implements OnInit, OnChanges, OnDestroy
     this.subscription?.unsubscribe();
   }
 
-  hostLabel(host: FiligreeHost): string {
-    return host === 'weapon' ? 'Weapon' : 'Artifact';
-  }
-
-  /** Why the piece can't be added to the host, or '' when it can: as in the bonus-type drawer, not twice into one host. */
-  blocker(host: FiligreeHost, name: string): string {
-    return this.equipped.getFiligreeAppendBlocker(host, name);
-  }
-
-  buttonTitle(host: FiligreeHost, name: string): string {
-    return this.blocker(host, name) || `Add it after the filigrees already in the ${host === 'weapon' ? 'weapon' : 'artifact'}`;
-  }
-
   add(host: FiligreeHost, name: string) {
-    if (this.blocker(host, name) || !this.equipped.appendFiligree(host, { name, rare: false })) {
+    // As in the bonus-type drawer, not twice into one host.
+    if (this.filigree.getAppendBlocker(host, name) || !this.filigree.append(host, { name, rare: false })) {
       return;
     }
     this.analytics.track('slot_filigree_from_set', { host });
-  }
-
-  tierTooltip(section: FiligreeSetSection, tier: SetBonusThreshold): string {
-    return tier.eligible
-      ? `Active — ${tier.threshold} of ${section.name} slotted`
-      : this.affixUi.getSetBonusLockedTooltip(tier.threshold, section.slotted);
   }
 
   private refresh() {
     if (!this.setNames?.length) {
       return;
     }
-    const setPieces = this.equipped.getFiligreeSetPieces();
+    const setPieces = this.filigree.getSetPieces();
     this.sections = this.setNames.map(name => {
       const slotted = setPieces.get(name) ?? 0;
       return { name, slotted, tiers: this.filigreeDb.getSetTiers(name, slotted) };
     });
 
     const slotted = new Map<string, number>();
-    for (const entry of this.equipped.getCountedFiligree()) {
+    for (const entry of this.filigree.getCounted()) {
       slotted.set(entry.choice.name, (slotted.get(entry.choice.name) ?? 0) + 1);
     }
     const piece = (name: string, label: string): FiligreeSetPiece => ({
       name,
       label,
       affixText: describeFiligreeAffixes(this.filigreeDb.getAffixes({ name, rare: false })),
-      rareText: describeFiligreeAffixes((this.filigreeDb.get(name)?.rareAffixes ?? []).map(affix => new Affix(affix))),
+      rareText: describeFiligreeAffixes(this.filigreeDb.getRareAffixes(name)),
       slotted: slotted.get(name) ?? 0,
     });
     // A raid filigree is named for its two sets, so it keeps its full name except under a heading

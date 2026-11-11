@@ -5,14 +5,39 @@ import { GameDataService } from './game-data.service';
 import { RawFiligree, RawFiligreeData, RawFiligreeGeneration } from './game-data-types';
 import type { SetBonusThreshold } from './gear-db.service';
 import {
-  FILIGREE_BONUS_TYPE, FILIGREE_SET_BONUS_TYPE, FiligreeChoice, filigreeAffixes, MAX_WEAPON_FILIGREE_SLOTS,
-  maxFiligreeSetTotal, maxFiligreeTotal
+  FILIGREE_BONUS_TYPE, FILIGREE_SET_BONUS_TYPE, FiligreeChoice, filigreeAffixes, filigreeRareAffixes,
+  MAX_WEAPON_FILIGREE_SLOTS, maxFiligreeSetTotal, maxFiligreeTotal
 } from './filigree';
 
 /** The best a build can get from filigrees for one affix, per bonus type. */
 export interface FiligreeMaxima {
   /** affix name -> bonus type -> best value. */
   readonly byAffix: Map<string, Map<string, number>>;
+}
+
+/** Expands affix groups onto their members, keeping the group (AffixService.flattenAffixGroups(affixes, true)). */
+export type FlattenAffixGroups = (affixes: Affix[]) => Affix[];
+
+/** A filigree whose own bonuses give an affix: what a normal copy gives, and a rare one. */
+export interface FiligreeAffixMatch {
+  name: string;
+  sets: ReadonlyArray<string>;
+  value: number;
+  rareValue: number;
+}
+
+/** A filigree set whose bonuses give an affix: the pieces its first such tier needs, and the full set's total. */
+export interface FiligreeSetAffixMatch {
+  set: string;
+  threshold: number;
+  value: number;
+}
+
+/** What `affixes` give `affixName` of `bonusType`, once groups are expanded. */
+function totalFor(affixes: Affix[], affixName: string, bonusType: string, flatten: FlattenAffixGroups): number {
+  return flatten(affixes)
+    .filter(affix => affix.name === affixName && affix.type === bonusType)
+    .reduce((sum, affix) => sum + affix.value, 0);
 }
 
 /** The filigree game data (filigree.json), and the sums the planner needs from it. */
@@ -45,6 +70,11 @@ export class FiligreeDbService {
     return filigreeAffixes(this.get(choice.name), choice.rare);
   }
 
+  /** What a rare copy of the filigree adds. */
+  getRareAffixes(name: string): Affix[] {
+    return filigreeRareAffixes(this.get(name));
+  }
+
   /** The filigrees in a set, in the wiki's order. A raid filigree is in each of its two sets. */
   getFiligreesInSet(set: string): string[] {
     return Object.keys(this.data.filigrees).filter(name => this.getSets(name).includes(set));
@@ -71,22 +101,26 @@ export class FiligreeDbService {
       .sort((a, b) => a.threshold - b.threshold);
   }
 
+  /** Every tier of a filigree set, as with a full set slotted. */
+  getAllSetTiers(set: string): SetBonusThreshold[] {
+    return this.getSetTiers(set, Number.POSITIVE_INFINITY);
+  }
+
   getSetBonus(set: string, pieces: number): Affix[] {
     return this.getSetTiers(set, pieces).filter(tier => tier.eligible).flatMap(tier => tier.affixes);
+  }
+
+  /** Every bonus the set gives, at any tier. */
+  getFullSetBonus(set: string): Affix[] {
+    return this.getAllSetTiers(set).flatMap(tier => tier.affixes);
   }
 
   /**
    * The filigrees whose own bonuses give `affixName` of `bonusType`, best first: what a normal copy
    * gives, and a rare one. `flatten` expands affix groups (keeping the group), as in getMaxima.
    */
-  findFiligreesWithAffixAndType(
-    affixName: string,
-    bonusType: string,
-    flatten: (affixes: Affix[]) => Affix[]
-  ): Array<{ name: string; sets: ReadonlyArray<string>; value: number; rareValue: number }> {
-    const total = (affixes: Affix[]) => flatten(affixes)
-      .filter(affix => affix.name === affixName && affix.type === bonusType)
-      .reduce((sum, affix) => sum + affix.value, 0);
+  findFiligreesWithAffixAndType(affixName: string, bonusType: string, flatten: FlattenAffixGroups): FiligreeAffixMatch[] {
+    const total = (affixes: Affix[]) => totalFor(affixes, affixName, bonusType, flatten);
     return this.getNames()
       .map(name => {
         const raw = this.get(name)!;
@@ -96,20 +130,14 @@ export class FiligreeDbService {
       .sort((a, b) => b.rareValue - a.rareValue || b.value - a.value || a.name.localeCompare(b.name));
   }
 
-  /** The filigree sets whose bonuses give `affixName` of `bonusType`: the pieces the first needs, and the full set's total. */
-  findSetsWithAffixAndType(
-    affixName: string,
-    bonusType: string,
-    flatten: (affixes: Affix[]) => Affix[]
-  ): Array<{ set: string; threshold: number; value: number }> {
-    const matches: Array<{ set: string; threshold: number; value: number }> = [];
+  /** The filigree sets whose bonuses give `affixName` of `bonusType`, best first. */
+  findSetsWithAffixAndType(affixName: string, bonusType: string, flatten: FlattenAffixGroups): FiligreeSetAffixMatch[] {
+    const matches: FiligreeSetAffixMatch[] = [];
     for (const set of Object.keys(this.data.sets)) {
       let threshold = 0;
       let value = 0;
-      for (const tier of this.getSetTiers(set, Number.MAX_SAFE_INTEGER)) {
-        const tierValue = flatten(tier.affixes)
-          .filter(affix => affix.name === affixName && affix.type === bonusType)
-          .reduce((sum, affix) => sum + affix.value, 0);
+      for (const tier of this.getAllSetTiers(set)) {
+        const tierValue = totalFor(tier.affixes, affixName, bonusType, flatten);
         if (tierValue > 0) {
           threshold ||= tier.threshold;
           value += tierValue;
@@ -129,7 +157,7 @@ export class FiligreeDbService {
    * wiki gives an ordinary type, and 1 for an on/off effect. `flatten` expands an affix group onto its members (keeping
    * the group), so a "+1 to all Saving Throws" filigree counts toward Reflex Save too.
    */
-  getMaxima(artifactSlots: number, flatten: (affixes: Affix[]) => Affix[]): FiligreeMaxima {
+  getMaxima(artifactSlots: number, flatten: FlattenAffixGroups): FiligreeMaxima {
     const byAffix = new Map<string, Map<string, number>>();
     const offer = (name: string, type: string, value: number) => {
       if (!name || value <= 0) {
@@ -175,7 +203,7 @@ export class FiligreeDbService {
     const tierValuesByAffix = new Map<string, Array<Array<{ threshold: number; value: number }>>>();
     for (const set of Object.keys(this.data.sets)) {
       const perAffix = new Map<string, Array<{ threshold: number; value: number }>>();
-      for (const tier of this.getSetTiers(set, Number.MAX_SAFE_INTEGER)) {
+      for (const tier of this.getAllSetTiers(set)) {
         for (const [affixName, value] of totals(tier.affixes, FILIGREE_SET_BONUS_TYPE)) {
           perAffix.set(affixName, [...(perAffix.get(affixName) ?? []), { threshold: tier.threshold, value }]);
         }

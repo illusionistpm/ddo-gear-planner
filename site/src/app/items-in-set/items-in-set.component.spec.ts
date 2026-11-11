@@ -66,21 +66,20 @@ describe('ItemsInSetComponent', () => {
     expect(component.artifactLimited.size).toBe(1);
   });
 
-  it('marks not-yet-active tier bonuses as disabled', () => {
-    const affix = new Affix({ name: 'Dodge', type: 'Quality', value: '3' });
-
-    expect(component.affixUi.getClassForSetAffix(affix, false)).toBe('DisabledSetBonus');
-    expect(component.affixUi.getClassForSetAffix(affix, true)).not.toBe('DisabledSetBonus');
-  });
-
-  it('explains a locked tier with the shared set-bonus wording', () => {
+  it('dims the tiers not yet reached, and explains each with the shared set-bonus wording', () => {
+    vi.spyOn(component.gearDB, 'getSetBonusThresholdDetails').mockReturnValue([
+      { threshold: 1, eligible: true, affixes: [new Affix({ name: 'Dodge', type: 'Quality', value: '1' })] },
+      { threshold: 3, eligible: false, affixes: [new Affix({ name: 'Dodge', type: 'Quality', value: '3' })] },
+    ]);
+    vi.spyOn(component.gearDB, 'findGearInSet').mockReturnValue([]);
+    vi.spyOn(component.equipped, 'getActiveSets').mockReturnValue(new Map([['Some Set', 1]]));
     component.setName = 'Some Set';
-    component.equippedPieces = 1;
+    fixture.detectChanges();
 
-    expect(component.getSetBonusTooltip({ threshold: 3, eligible: false, affixes: [] }))
-      .toBe('Needs 3 set items (currently have 1)');
-    expect(component.getSetBonusTooltip({ threshold: 3, eligible: true, affixes: [] }))
-      .toBe('Active — 3 of Some Set equipped');
+    const rows = [...fixture.nativeElement.querySelectorAll('.set-bonus-summary-row')] as HTMLElement[];
+    expect(rows.map(row => row.title)).toEqual(['Active — 1 of Some Set equipped', 'Needs 3 set items (currently have 1)']);
+    expect(rows.map(row => row.classList.contains('disabled-set-tier'))).toEqual([false, true]);
+    expect(rows[1].querySelector('.set-bonus-summary-value')!.classList).toContain('DisabledSetBonus');
   });
 });
 

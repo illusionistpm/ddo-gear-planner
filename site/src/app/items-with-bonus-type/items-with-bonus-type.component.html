@@ -204,9 +204,9 @@
               </div>
               <div class="filigree-slot-buttons">
                 @for (host of filigreeHosts; track host) {
-                  <button type="button" class="equip-button" [disabled]="!!filigreeSlotBlocker(host, match.name)"
-                      [title]="filigreeSlotBlocker(host, match.name) || 'Add it after the filigrees already there'"
-                      (click)="slotFiligree(match.name, host)">{{filigreeHostLabel(host)}}</button>
+                  <button type="button" class="equip-button" [disabled]="!!filigree.getAppendBlocker(host, match.name)"
+                      [title]="filigree.getAppendTitle(host, match.name)"
+                      (click)="slotFiligree(match.name, host)">{{filigreeHostText[host].label}}</button>
                 }
               </div>
             </div>

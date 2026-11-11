@@ -3,12 +3,13 @@ import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription, merge } from 'rxjs';
 
 import { EquippedService } from '../planner/equipped.service';
+import { FiligreeLoadoutService } from '../planner/filigree-loadout.service';
 import { FiligreeDbService } from '../gear/filigree-db.service';
-import { CountedFiligree, FiligreeChoice, FiligreeHost } from '../gear/filigree';
+import { CountedFiligree, FILIGREE_HOST_TEXT, FiligreeChoice, FiligreeHost } from '../gear/filigree';
 import { FILIGREE_TRACKING_MIN_LEVEL } from '../affixes/filigree-affix';
 import { GearDbService } from '../gear/gear-db.service';
 import { AnalyticsService } from '../shared/analytics.service';
-import { describeFiligreeAffixes } from './filigree-text';
+import { describeFiligreeAffixes } from '../gear/filigree-text';
 
 export interface FiligreeSlotRow {
   index: number;
@@ -58,6 +59,7 @@ export class FiligreeSlotsComponent implements OnInit, OnDestroy {
 
   constructor(
     private equipped: EquippedService,
+    private filigree: FiligreeLoadoutService,
     private filigreeDb: FiligreeDbService,
     private gearDb: GearDbService,
     private analytics: AnalyticsService,
@@ -67,7 +69,7 @@ export class FiligreeSlotsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.expanded = expandedHosts.has(this.host);
     this.subscription = merge(
-      this.equipped.getFiligreeLoadoutObservable(),
+      this.filigree.getLoadoutObservable(),
       this.equipped.getVisibleSetBonusesObservable(),
       this.gearDb.filters.getItemFilters()
     ).subscribe(() => this.refresh());
@@ -78,7 +80,7 @@ export class FiligreeSlotsComponent implements OnInit, OnDestroy {
   }
 
   get title(): string {
-    return this.host === 'weapon' ? 'Sentient weapon filigree' : 'Minor artifact filigree';
+    return FILIGREE_HOST_TEXT[this.host].title;
   }
 
   toggleExpanded() {
@@ -141,14 +143,14 @@ export class FiligreeSlotsComponent implements OnInit, OnDestroy {
   }
 
   choose(index: number, choice: FiligreeChoice | null) {
-    this.equipped.setFiligree(this.host, index, choice);
+    this.filigree.set(this.host, index, choice);
     this.analytics.track('choose_filigree', { host: this.host, cleared: !choice, rare: !!choice?.rare });
     this.closePicker();
   }
 
   setRare(row: FiligreeSlotRow, rare: boolean) {
     if (row.choice) {
-      this.equipped.setFiligree(this.host, row.index, { ...row.choice, rare });
+      this.filigree.set(this.host, row.index, { ...row.choice, rare });
     }
   }
 
@@ -157,15 +159,14 @@ export class FiligreeSlotsComponent implements OnInit, OnDestroy {
   }
 
   private refresh() {
-    const loadout = this.equipped.getFiligreeLoadout();
-    const hasChoices = (this.host === 'weapon' ? loadout.weapon : loadout.artifact).length > 0;
-    this.capacity = this.equipped.getFiligreeCapacity(this.host);
+    const hasChoices = this.filigree.getLoadout()[this.host].length > 0;
+    this.capacity = this.filigree.getCapacity(this.host);
     // Below level 20 there's no filigree to slot; one already slotted still shows.
     const inRange = this.gearDb.getMaxLevelFilter() >= FILIGREE_TRACKING_MIN_LEVEL;
     this.visible = this.capacity > 0 && (inRange || hasChoices);
 
-    const shown = this.equipped.getShownFiligree(this.host);
-    const counted = new Map<number, CountedFiligree>(this.equipped.getCountedFiligree()
+    const shown = this.filigree.getShown(this.host);
+    const counted = new Map<number, CountedFiligree>(this.filigree.getCounted()
       .filter(entry => entry.host === this.host)
       .map(entry => [entry.index, entry]));
     this.rows = shown.map((choice, index) => ({
@@ -175,7 +176,7 @@ export class FiligreeSlotsComponent implements OnInit, OnDestroy {
       affixText: describeFiligreeAffixes(this.filigreeDb.getAffixes(choice)),
       setText: this.filigreeDb.getSets(choice.name).join(' / '),
     }));
-    if (this.equipped.getNextFiligreeSlot(this.host) !== null) {
+    if (this.filigree.getNextSlot(this.host) !== null) {
       this.rows.push({ index: shown.length, choice: null, duplicate: false, affixText: '', setText: '' });
     }
     this.filledCount = shown.length;

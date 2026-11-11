@@ -1,0 +1,20 @@
+<div class="set-bonus-summary-list">
+  @for (tier of tiers; track tier.threshold) {
+    @for (affix of tier.affixes; track $index) {
+      <div class="set-bonus-summary-row" [class.disabled-set-tier]="!tier.eligible" [title]="tierTooltip(tier)">
+        @if (equipped.isImportantAffix(affix.name)) {
+          <button type="button" class="set-bonus-summary-heart fas fa-heart heart"
+            aria-label="Stop tracking {{affix.name}}"
+            (click)="equipped.toggleImportantAffix(affix.name)"></button>
+        } @else {
+          <button type="button" class="set-bonus-summary-heart far fa-heart heart"
+            aria-label="Track {{affix.name}}"
+            (click)="equipped.toggleImportantAffix(affix.name)"></button>
+        }
+        <span class="set-bonus-summary-threshold">{{tier.threshold}} pc</span>
+        <span class="set-bonus-summary-name">{{affix.name}}</span>
+        <span class="set-bonus-summary-value" [ngClass]="affixUi.getClassForSetAffix(affix, tier.eligible)">{{affixUi.getAffixValueText(affix)}}</span>
+      </div>
+    }
+  }
+</div>

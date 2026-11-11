@@ -6,26 +6,8 @@
     <div class="filigree-set-subtitle">{{section.name}}</div>
   }
   @if (section.tiers.length) {
-    <div class="set-bonus-summary-list">
-      @for (tier of section.tiers; track tier.threshold) {
-        @for (affix of tier.affixes; track $index) {
-          <div class="set-bonus-summary-row" [class.disabled-set-tier]="!tier.eligible" [title]="tierTooltip(section, tier)">
-            @if (equipped.isImportantAffix(affix.name)) {
-              <button type="button" class="set-bonus-summary-heart fas fa-heart heart"
-                aria-label="Stop tracking {{affix.name}}"
-                (click)="equipped.toggleImportantAffix(affix.name)"></button>
-            } @else {
-              <button type="button" class="set-bonus-summary-heart far fa-heart heart"
-                aria-label="Track {{affix.name}}"
-                (click)="equipped.toggleImportantAffix(affix.name)"></button>
-            }
-            <span class="set-bonus-summary-threshold">{{tier.threshold}} pc</span>
-            <span class="set-bonus-summary-name">{{affix.name}}</span>
-            <span class="set-bonus-summary-value" [ngClass]="affixUi.getClassForSetAffix(affix, tier.eligible)">{{affixUi.getAffixValueText(affix)}}</span>
-          </div>
-        }
-      }
-    </div>
+    <app-set-bonus-summary [tiers]="section.tiers" [setName]="section.name" [pieces]="section.slotted" pieceVerb="slotted">
+    </app-set-bonus-summary>
   }
 }
 
@@ -50,9 +32,9 @@
         </div>
         <div class="filigree-set-piece-buttons">
           @for (host of hosts; track host) {
-            <button type="button" class="equip-button" [disabled]="!!blocker(host, piece.name)"
-              [title]="buttonTitle(host, piece.name)"
-              (click)="add(host, piece.name)">{{hostLabel(host)}}</button>
+            <button type="button" class="equip-button" [disabled]="!!filigree.getAppendBlocker(host, piece.name)"
+              [title]="filigree.getAppendTitle(host, piece.name)"
+              (click)="add(host, piece.name)">{{hostText[host].label}}</button>
           }
         </div>
       </div>

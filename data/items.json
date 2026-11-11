@@ -50949,7 +50949,7 @@
                 "value": "1"
             }
         ],
-        "ml": 1,
+        "ml": 12,
         "name": "Docent of Shadow (level 12)",
         "slot": "Armor",
         "type": "Docents",
@@ -50983,7 +50983,7 @@
                 "value": "1"
             }
         ],
-        "ml": 1,
+        "ml": 16,
         "name": "Docent of Shadow (level 16)",
         "slot": "Armor",
         "type": "Docents",
@@ -51007,7 +51007,7 @@
                 "value": "5"
             }
         ],
-        "ml": 1,
+        "ml": 4,
         "name": "Docent of Shadow (level 4)",
         "slot": "Armor",
         "type": "Docents",
@@ -51036,7 +51036,7 @@
                 "value": "10"
             }
         ],
-        "ml": 1,
+        "ml": 8,
         "name": "Docent of Shadow (level 8)",
         "slot": "Armor",
         "type": "Docents",
@@ -69291,7 +69291,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 20,
         "name": "Epic Docent of Shadow (level 20)",
         "slot": "Armor",
         "type": "Docents",
@@ -69330,7 +69330,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 24,
         "name": "Epic Docent of Shadow (level 24)",
         "slot": "Armor",
         "type": "Docents",
@@ -69369,7 +69369,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 28,
         "name": "Epic Docent of Shadow (level 28)",
         "slot": "Armor",
         "type": "Docents",
@@ -80221,7 +80221,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 20,
         "name": "Epic Robe of Shadow (level 20)",
         "slot": "Armor",
         "type": "Cloth armor",
@@ -80260,7 +80260,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 24,
         "name": "Epic Robe of Shadow (level 24)",
         "slot": "Armor",
         "type": "Cloth armor",
@@ -80299,7 +80299,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 28,
         "name": "Epic Robe of Shadow (level 28)",
         "slot": "Armor",
         "type": "Cloth armor",
@@ -146822,7 +146822,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 32,
         "name": "Legendary Docent of Shadow (level 32)",
         "slot": "Armor",
         "type": "Docents",
@@ -146861,7 +146861,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 36,
         "name": "Legendary Docent of Shadow (level 36)",
         "slot": "Armor",
         "type": "Docents",
@@ -183532,7 +183532,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 32,
         "name": "Legendary Robe of Shadow (level 32)",
         "slot": "Armor",
         "type": "Cloth armor",
@@ -183571,7 +183571,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 36,
         "name": "Legendary Robe of Shadow (level 36)",
         "slot": "Armor",
         "type": "Cloth armor",
@@ -245364,7 +245364,7 @@
                 "value": "1"
             }
         ],
-        "ml": 1,
+        "ml": 12,
         "name": "Robe of Shadow (level 12)",
         "slot": "Armor",
         "type": "Cloth armor",
@@ -245398,7 +245398,7 @@
                 "value": "1"
             }
         ],
-        "ml": 1,
+        "ml": 16,
         "name": "Robe of Shadow (level 16)",
         "slot": "Armor",
         "type": "Cloth armor",
@@ -245422,7 +245422,7 @@
                 "value": "5"
             }
         ],
-        "ml": 1,
+        "ml": 4,
         "name": "Robe of Shadow (level 4)",
         "slot": "Armor",
         "type": "Cloth armor",
@@ -245451,7 +245451,7 @@
                 "value": "10"
             }
         ],
-        "ml": 1,
+        "ml": 8,
         "name": "Robe of Shadow (level 8)",
         "slot": "Armor",
         "type": "Cloth armor",

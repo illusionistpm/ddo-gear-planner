@@ -37,8 +37,10 @@ import { EquipmentSlotCardComponent } from './equipment-slot-card/equipment-slot
 import { ExternalAffixSlotCardComponent } from './external-affix-slot-card/external-affix-slot-card.component';
 import { FiligreeSlotsComponent } from './filigree-slots/filigree-slots.component';
 import { FiligreeSetDetailsComponent } from './filigree-set-details/filigree-set-details.component';
-import { FiligreeSetDrawerComponent } from './filigree-set-details/filigree-set-drawer.component';
+import { FiligreeSetDrawerComponent } from './filigree-set-drawer/filigree-set-drawer.component';
 import { FiligreeSetPreviewComponent } from './filigree-set-preview/filigree-set-preview.component';
+import { SetBonusSummaryComponent } from './set-bonus-summary/set-bonus-summary.component';
+import { DrawerHeadingComponent } from './suggestion-drawer/drawer-heading.component';
 import { ExternalAffixFormComponent } from './external-affix-form/external-affix-form.component';
 import { ExternalAffixValueComponent } from './external-affix-value/external-affix-value.component';
 import { SlotIconComponent } from './slot-icon/slot-icon.component';
@@ -96,6 +98,8 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         FiligreeSetDetailsComponent,
         FiligreeSetDrawerComponent,
         FiligreeSetPreviewComponent,
+        SetBonusSummaryComponent,
+        DrawerHeadingComponent,
         ExternalAffixFormComponent,
         ExternalAffixValueComponent,
         SlotIconComponent,

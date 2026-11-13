@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { AffixSource, EquippedService, FILIGREE_SOURCE_SLOTS } from './equipped.service';
+import { AffixSource, EquippedService } from './equipped.service';
+import { FiligreeLoadoutService } from './filigree-loadout.service';
 
 /** The gear list's jump target for the non-gear card. A slot's target is the slot's own name. */
 export const NON_GEAR_JUMP_TARGET = 'non-gear';
@@ -31,7 +32,7 @@ export class AffixSourceHighlightService {
   private readonly targets = new BehaviorSubject<ReadonlySet<string>>(new Set());
   readonly targets$: Observable<ReadonlySet<string>> = this.targets.asObservable();
 
-  constructor(private equipped: EquippedService) { }
+  constructor(private equipped: EquippedService, private filigree: FiligreeLoadoutService) { }
 
   /** Highlights everything supplying the counted value - all of them when several tie. */
   showSourcesOf(affixName: string, bonusType: string) {
@@ -43,13 +44,10 @@ export class AffixSourceHighlightService {
       case 'set': return setJumpTarget(source.itemName);
       case 'external': return NON_GEAR_JUMP_TARGET;
       case 'filigree':
-        // A slotted filigree lights up the card of the item holding it.
-        if (source.slot === FILIGREE_SOURCE_SLOTS.set) {
-          return filigreeSetJumpTarget(source.itemName);
-        }
-        return source.slot === FILIGREE_SOURCE_SLOTS.weapon
-          ? 'Weapon'
-          : this.equipped.getFiligreeHostItem('artifact')?.slot ?? source.slot;
+        // A slotted filigree lights up the card of the item holding it; a set bonus, its own card.
+        return source.filigreeHost
+          ? this.filigree.getHost(source.filigreeHost)?.slot ?? source.slot
+          : filigreeSetJumpTarget(source.itemName);
       default: return source.slot;
     }
   }

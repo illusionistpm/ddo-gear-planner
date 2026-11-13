@@ -1,4 +1,7 @@
-import { emptyFiligreeLoadout, FiligreeChoice, FiligreeLoadout, isFiligreeLoadoutEmpty } from '../gear/filigree';
+import {
+  emptyFiligreeLoadout, FiligreeChoice, FiligreeLoadout, isFiligreeLoadoutEmpty, MAX_ARTIFACT_FILIGREE_SLOTS,
+  MAX_WEAPON_FILIGREE_SLOTS
+} from '../gear/filigree';
 
 /**
  * The `filigree` query param: a FiligreeLoadout as JSON, each host's filigrees in order (the first
@@ -15,21 +18,29 @@ export interface FiligreeParam {
 
 export type FiligreeSlotParam = [string] | [string, 1];
 
-/** Kept long enough for anything a host holds, but no longer: a param can't grow without bound. */
-const MAX_PARAM_FILIGREES_PER_HOST = 20;
+/**
+ * A param keeps no more filigrees per host than any host holds: the planner never slots more, and
+ * a hand-made URL can't make the loadout grow without bound.
+ */
+const MAX_PARAM_FILIGREES_PER_HOST = Math.max(MAX_WEAPON_FILIGREE_SLOTS, MAX_ARTIFACT_FILIGREE_SLOTS);
+
+/** A param holding the hosts' slots, the empty ones left out. */
+export function filigreeParamOf<T>(weapon: T[], artifact: T[]): { w?: T[]; a?: T[] } {
+  const param: { w?: T[]; a?: T[] } = {};
+  if (weapon.length) {
+    param.w = weapon;
+  }
+  if (artifact.length) {
+    param.a = artifact;
+  }
+  return param;
+}
 
 export function filigreeLoadoutToParam(loadout: FiligreeLoadout): FiligreeParam | null {
   if (isFiligreeLoadoutEmpty(loadout)) {
     return null;
   }
-  const param: FiligreeParam = {};
-  if (loadout.weapon.length) {
-    param.w = slotsToParam(loadout.weapon);
-  }
-  if (loadout.artifact.length) {
-    param.a = slotsToParam(loadout.artifact);
-  }
-  return param;
+  return filigreeParamOf(slotsToParam(loadout.weapon), slotsToParam(loadout.artifact));
 }
 
 function slotsToParam(choices: ReadonlyArray<FiligreeChoice>): FiligreeSlotParam[] {
@@ -42,41 +53,50 @@ export function serializeFiligreeLoadout(loadout: FiligreeLoadout): string | nul
 }
 
 /**
+ * The well-formed slots of a `filigree` param, in order, or null when it isn't JSON of an object.
+ * Names aren't checked against the data, so this is safe for carrying a param along unchanged.
+ */
+export function readFiligreeParam(raw: string): FiligreeParam | null {
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    return null;
+  }
+  if (!parsed || typeof parsed !== 'object') {
+    return null;
+  }
+  const { w, a } = parsed as Record<string, unknown>;
+  return filigreeParamOf(readSlots(w), readSlots(a));
+}
+
+function readSlots(entries: unknown): FiligreeSlotParam[] {
+  if (!Array.isArray(entries)) {
+    return [];
+  }
+  return entries
+    .filter((entry): entry is unknown[] => Array.isArray(entry) && typeof entry[0] === 'string')
+    .map((entry): FiligreeSlotParam => entry[1] === 1 ? [entry[0] as string, 1] : [entry[0] as string]);
+}
+
+/**
  * The loadout a `filigree` param describes. Anything malformed, or naming a filigree `isKnown`
  * rejects, is dropped rather than failing the whole build.
  */
 export function parseFiligreeLoadout(raw: string | null | undefined, isKnown: (name: string) => boolean): FiligreeLoadout {
   const loadout = emptyFiligreeLoadout();
-  if (!raw) {
+  const param = raw ? readFiligreeParam(raw) : null;
+  if (!param) {
     return loadout;
   }
-  let param: FiligreeParam;
-  try {
-    param = JSON.parse(raw);
-  } catch {
-    return loadout;
-  }
-  if (!param || typeof param !== 'object') {
-    return loadout;
-  }
-  loadout.weapon = readSlots(param.w, isKnown);
-  loadout.artifact = readSlots(param.a, isKnown);
+  loadout.weapon = toChoices(param.w, isKnown);
+  loadout.artifact = toChoices(param.a, isKnown);
   return loadout;
 }
 
-function readSlots(entries: unknown, isKnown: (name: string) => boolean): FiligreeChoice[] {
-  if (!Array.isArray(entries)) {
-    return [];
-  }
-  const out: FiligreeChoice[] = [];
-  for (const entry of entries) {
-    if (!Array.isArray(entry)) {
-      continue;
-    }
-    const [name, rare] = entry;
-    if (typeof name === 'string' && isKnown(name) && out.length < MAX_PARAM_FILIGREES_PER_HOST) {
-      out.push({ name, rare: rare === 1 });
-    }
-  }
-  return out;
+function toChoices(slots: FiligreeSlotParam[] | undefined, isKnown: (name: string) => boolean): FiligreeChoice[] {
+  return (slots ?? [])
+    .filter(([name]) => isKnown(name))
+    .slice(0, MAX_PARAM_FILIGREES_PER_HOST)
+    .map(([name, rare]) => ({ name, rare: rare === 1 }));
 }

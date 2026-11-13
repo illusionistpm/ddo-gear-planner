@@ -23,6 +23,21 @@ export const MAX_ARTIFACT_FILIGREE_SLOTS = 10;
 export type FiligreeHost = 'weapon' | 'artifact';
 export const FILIGREE_HOSTS: ReadonlyArray<FiligreeHost> = ['weapon', 'artifact'];
 
+/** How the UI names each host. */
+export const FILIGREE_HOST_TEXT: Readonly<Record<FiligreeHost, {
+  /** A button or column label: "Weapon". */
+  label: string;
+  /** Mid-sentence: "already in the weapon". */
+  noun: string;
+  /** The host's filigree as a whole: "Sentient weapon filigree". */
+  title: string;
+  /** Why nothing can be slotted with no such item equipped. */
+  missing: string;
+}>> = {
+  weapon: { label: 'Weapon', noun: 'weapon', title: 'Sentient weapon filigree', missing: 'Equip a main-hand weapon first' },
+  artifact: { label: 'Artifact', noun: 'artifact', title: 'Minor artifact filigree', missing: 'Equip a minor artifact first' },
+};
+
 export interface FiligreeChoice {
   name: string;
   rare: boolean;
@@ -94,6 +109,11 @@ export function countFiligreeSetPieces(
     }
   }
   return pieces;
+}
+
+/** What a rare copy adds to a filigree's own bonuses. */
+export function filigreeRareAffixes(filigree: RawFiligree | undefined): Affix[] {
+  return (filigree?.rareAffixes ?? []).map(affix => new Affix(affix));
 }
 
 /** A filigree's affixes, with the rare bonus when it's the rare copy. */

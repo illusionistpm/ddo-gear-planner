@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EquippedService, FILIGREE_SOURCE_SLOTS } from './equipped.service';
+import { EquippedService } from './equipped.service';
+import { FILIGREE_SOURCE_SLOTS, FiligreeLoadoutService } from './filigree-loadout.service';
 import { FiltersService } from './filters.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { Item } from '../gear/item';
@@ -30,10 +31,12 @@ const FURY = [
 
 describe('EquippedService filigree', () => {
   let service: EquippedService;
+  let filigree: FiligreeLoadoutService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(EquippedService);
+    filigree = TestBed.inject(FiligreeLoadoutService);
   });
 
   const value = (affix: string, type = FILIGREE_BONUS_TYPE) => service.getCurrentValueForAffixType(affix, type);
@@ -53,9 +56,9 @@ describe('EquippedService filigree', () => {
   it('keeps filigree no weapon holds, counting none of it, until a weapon is equipped', () => {
     restore({ w: [[DEX]] });
 
-    expect(service.getShownFiligree('weapon')).toEqual([]);
+    expect(filigree.getShown('weapon')).toEqual([]);
     expect(value('Dexterity')).toBe(0);
-    expect(service.getFiligreeLoadout().weapon).toEqual([{ name: DEX, rare: false }]);
+    expect(filigree.getLoadout().weapon).toEqual([{ name: DEX, rare: false }]);
 
     service.set(weapon());
     expect(value('Dexterity')).toBe(1);
@@ -63,34 +66,36 @@ describe('EquippedService filigree', () => {
 
   it('adds a filigree only in the slot after the last one, and only while the host has room', () => {
     service.set(artifact(2));
-    service.setFiligree('artifact', 1, { name: DEX, rare: false });
-    expect(service.getFiligreeLoadout().artifact).toEqual([]);
+    filigree.set('artifact', 1, { name: DEX, rare: false });
+    expect(filigree.getLoadout().artifact).toEqual([]);
 
-    service.setFiligree('artifact', 0, { name: DEX, rare: false });
-    service.setFiligree('artifact', 1, { name: REFLEX, rare: false });
-    expect(service.getNextFiligreeSlot('artifact')).toBeNull();
-    service.setFiligree('artifact', 2, { name: DEX, rare: true });
-    expect(service.getFiligreeLoadout().artifact.map(choice => choice.name)).toEqual([DEX, REFLEX]);
+    filigree.set('artifact', 0, { name: DEX, rare: false });
+    filigree.set('artifact', 1, { name: REFLEX, rare: false });
+    expect(filigree.getNextSlot('artifact')).toBeNull();
+    filigree.set('artifact', 2, { name: DEX, rare: true });
+    expect(filigree.getLoadout().artifact.map(choice => choice.name)).toEqual([DEX, REFLEX]);
   });
 
   it('slides the rest up when one is removed from the middle', () => {
     service.set(weapon());
-    [DEX, REFLEX, FURY[0]].forEach((name, index) => service.setFiligree('weapon', index, { name, rare: false }));
+    [DEX, REFLEX, FURY[0]].forEach((name, index) => filigree.set('weapon', index, { name, rare: false }));
 
-    service.setFiligree('weapon', 1, null);
+    filigree.set('weapon', 1, null);
 
-    expect(service.getFiligreeLoadout().weapon.map(choice => choice.name)).toEqual([DEX, FURY[0]]);
-    expect(service.getNextFiligreeSlot('weapon')).toBe(2);
+    expect(filigree.getLoadout().weapon.map(choice => choice.name)).toEqual([DEX, FURY[0]]);
+    expect(filigree.getNextSlot('weapon')).toBe(2);
   });
 
   it('adds up filigree bonuses of one type instead of taking the best', () => {
     service.set(weapon());
     service.set(artifact(3));
-    service.setFiligree('weapon', 0, { name: DEX, rare: true });
-    service.setFiligree('artifact', 0, { name: DEX, rare: false });
+    filigree.set('weapon', 0, { name: DEX, rare: true });
+    filigree.set('artifact', 0, { name: DEX, rare: false });
 
     expect(value('Dexterity')).toBe(2);
     expect(value('Physical Sheltering')).toBe(2);
+    expect(service.getSourcesForAffixType('Dexterity', FILIGREE_BONUS_TYPE).map(source => source.filigreeHost))
+      .toEqual(['weapon', 'artifact']);
     expect(service.getSourcesForAffixType('Dexterity', FILIGREE_BONUS_TYPE).map(source => [source.slot, source.itemName, source.value]))
       .toEqual([
         [FILIGREE_SOURCE_SLOTS.weapon, DEX + ' (Rare)', 1],
@@ -100,11 +105,11 @@ describe('EquippedService filigree', () => {
 
   it('gives a duplicate in the same host its set piece but not its bonuses', () => {
     service.set(weapon());
-    service.setFiligree('weapon', 0, { name: DEX, rare: false });
-    service.setFiligree('weapon', 1, { name: DEX, rare: false });
+    filigree.set('weapon', 0, { name: DEX, rare: false });
+    filigree.set('weapon', 1, { name: DEX, rare: false });
 
     expect(value('Dexterity')).toBe(1);
-    expect(service.getFiligreeSetPieces().get('Celerity')).toBe(2);
+    expect(filigree.getSetPieces().get('Celerity')).toBe(2);
     // Celerity's 2-piece bonus: +2 Doublestrike.
     expect(value('Doublestrike', FILIGREE_SET_BONUS_TYPE)).toBe(2);
   });
@@ -112,32 +117,32 @@ describe('EquippedService filigree', () => {
   it('counts set pieces across weapon and artifact, and adds each tier', () => {
     service.set(weapon());
     service.set(artifact(5));
-    FURY.slice(0, 4).forEach((name, index) => service.setFiligree('weapon', index, { name, rare: false }));
-    FURY.slice(4).forEach((name, index) => service.setFiligree('artifact', index, { name, rare: false }));
+    FURY.slice(0, 4).forEach((name, index) => filigree.set('weapon', index, { name, rare: false }));
+    FURY.slice(4).forEach((name, index) => filigree.set('artifact', index, { name, rare: false }));
 
     // +1 Strength at each of 2..6 pieces.
-    expect(service.getFiligreeSetPieces().get('Ultimate Fury')).toBe(6);
+    expect(filigree.getSetPieces().get('Ultimate Fury')).toBe(6);
     expect(value('Strength', FILIGREE_SET_BONUS_TYPE)).toBe(5);
   });
 
   it('hides filigree past what a smaller artifact holds, and brings it back with a bigger one', () => {
     service.set(artifact(3));
-    [DEX, FURY[0], REFLEX].forEach((name, index) => service.setFiligree('artifact', index, { name, rare: false }));
+    [DEX, FURY[0], REFLEX].forEach((name, index) => filigree.set('artifact', index, { name, rare: false }));
     expect(value('Reflex Save')).toBe(2);
 
     service.set(artifact(2));
-    expect(service.getShownFiligree('artifact').map(choice => choice.name)).toEqual([DEX, FURY[0]]);
+    expect(filigree.getShown('artifact').map(choice => choice.name)).toEqual([DEX, FURY[0]]);
     expect(value('Reflex Save')).toBe(0);
-    expect(service.getNextFiligreeSlot('artifact')).toBeNull();
+    expect(filigree.getNextSlot('artifact')).toBeNull();
 
     service.set(artifact(3));
-    expect(service.getShownFiligree('artifact').map(choice => choice.name)).toEqual([DEX, FURY[0], REFLEX]);
+    expect(filigree.getShown('artifact').map(choice => choice.name)).toEqual([DEX, FURY[0], REFLEX]);
     expect(value('Reflex Save')).toBe(2);
   });
 
   it('lists filigree sets with the gear set bonuses, marked as filigree', () => {
     service.set(weapon());
-    service.setFiligree('weapon', 0, { name: DEX, rare: false });
+    filigree.set('weapon', 0, { name: DEX, rare: false });
 
     let visible: Array<{ setName: string; pieces: number; filigree?: boolean }> = [];
     service.getVisibleSetBonusesObservable().subscribe(bonuses => (visible = bonuses)).unsubscribe();
@@ -149,8 +154,8 @@ describe('EquippedService filigree', () => {
     service.set(weapon());
     service.toggleImportantAffix('Armor Class');
     // Unbreakable gives +5 Armor Class at 4 pieces and again at 5.
-    Array.from({ length: 5 }, () => 'Unbreakable: Constitution').forEach((name, index) => service.setFiligree('weapon', index, { name, rare: false }));
-    expect(service.getFiligreeSetPieces().get('Unbreakable')).toBe(5);
+    Array.from({ length: 5 }, () => 'Unbreakable: Constitution').forEach((name, index) => filigree.set('weapon', index, { name, rare: false }));
+    expect(filigree.getSetPieces().get('Unbreakable')).toBe(5);
     expect(value('Armor Class', FILIGREE_SET_BONUS_TYPE)).toBe(10);
 
     const tier = new Affix({ name: 'Armor Class', type: FILIGREE_SET_BONUS_TYPE, value: 5 });
@@ -161,7 +166,7 @@ describe('EquippedService filigree', () => {
 
   it('lists gear sets before filigree sets, even one with fewer pieces', () => {
     service.set(weapon());
-    [DEX, REFLEX, DEX].forEach((name, index) => service.setFiligree('weapon', index, { name, rare: false }));
+    [DEX, REFLEX, DEX].forEach((name, index) => filigree.set('weapon', index, { name, rare: false }));
     const gearSet = 'Forbidden Knowledge';
     const piece = TestBed.inject(GearDbService).findGearInSet(gearSet)[0];
     service.set(piece);
@@ -173,8 +178,8 @@ describe('EquippedService filigree', () => {
 
   it('writes the loadout to the build params and reads it back', () => {
     service.set(weapon());
-    service.setFiligree('weapon', 0, { name: REFLEX, rare: false });
-    service.setFiligree('weapon', 1, { name: DEX, rare: true });
+    filigree.set('weapon', 0, { name: REFLEX, rare: false });
+    filigree.set('weapon', 1, { name: DEX, rare: true });
 
     const params = lastParams();
     expect(JSON.parse(String(params?.['filigree']))).toEqual({ w: [[REFLEX], [DEX, 1]] });
@@ -185,7 +190,7 @@ describe('EquippedService filigree', () => {
       get: (key: string) => key === 'filigree' ? String(params?.['filigree']) : key === 'Weapon' ? 'Test Longsword' : null,
       getAll: () => [],
     });
-    expect(restored.getFiligreeLoadout().weapon).toEqual([{ name: REFLEX, rare: false }, { name: DEX, rare: true }]);
+    expect(filigree.getLoadout().weapon).toEqual([{ name: REFLEX, rare: false }, { name: DEX, rare: true }]);
   });
 
   it('offers filigree bonus types with their best totals once the level range reaches 20', () => {
@@ -213,8 +218,8 @@ describe('EquippedService filigree', () => {
 
     service.set(weapon());
     service.set(artifact(3));
-    service.setFiligree('weapon', 0, { name: SPEED, rare: false });
-    service.setFiligree('artifact', 0, { name: SPEED, rare: false });
+    filigree.set('weapon', 0, { name: SPEED, rare: false });
+    filigree.set('artifact', 0, { name: SPEED, rare: false });
 
     // Filigree bonuses add up across hosts; an Enhancement bonus takes the best, as on items.
     expect(value('Speed', 'Enhancement')).toBe(30);

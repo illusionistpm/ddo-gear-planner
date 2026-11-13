@@ -3,8 +3,6 @@ import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core
 import { GearDbService, SetBonusThreshold } from '../gear/gear-db.service';
 import { EquippedService } from '../planner/equipped.service';
 import { Item } from '../gear/item';
-import { AffixUiService } from '../affixes/affix-ui.service';
-import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { DrawerEquipService } from '../suggestion-drawer/drawer-equip.service';
 import { ItemPreviewController } from '../item-preview/item-preview-controller';
 
@@ -29,9 +27,7 @@ export class ItemsInSetComponent implements OnInit {
   constructor(
     public gearDB: GearDbService,
     public equipped: EquippedService,
-    public affixUi: AffixUiService,
-    private drawerEquip: DrawerEquipService,
-    private suggestionDrawer: SuggestionDrawerService
+    private drawerEquip: DrawerEquipService
   ) { }
 
   ngOnInit() {
@@ -65,12 +61,6 @@ export class ItemsInSetComponent implements OnInit {
       a.slot.localeCompare(b.slot));
   }
 
-  getSetBonusTooltip(tier: SetBonusThreshold): string {
-    return tier.eligible
-      ? `Active — ${tier.threshold} of ${this.setName} equipped`
-      : this.affixUi.getSetBonusLockedTooltip(tier.threshold, this.equippedPieces);
-  }
-
   equipItem(item: Item) {
     if (!this.equipped.canEquip(item)) {
       return;
@@ -86,17 +76,5 @@ export class ItemsInSetComponent implements OnInit {
 
     const itemToEquip = new Item(item);
     this.drawerEquip.equip(itemToEquip, 'set_preview');
-  }
-
-  get canGoBack(): boolean {
-    return this.suggestionDrawer.canGoBack;
-  }
-
-  goBack() {
-    this.suggestionDrawer.back();
-  }
-
-  close() {
-    this.suggestionDrawer.close();
   }
 }

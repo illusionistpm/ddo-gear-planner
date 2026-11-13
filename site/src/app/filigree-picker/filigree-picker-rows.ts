@@ -1,6 +1,6 @@
 import { Affix } from '../affixes/affix';
 import { AffixRank } from '../affixes/affix-rank.enum';
-import { describeFiligreeAffixes, filigreeShortName } from '../filigree-slots/filigree-text';
+import { describeFiligreeAffixes, filigreeShortName } from '../gear/filigree-text';
 import { FiligreeGroupMode } from '../planner/planner-view-state-storage';
 
 /** What the picker needs to know about one filigree. */

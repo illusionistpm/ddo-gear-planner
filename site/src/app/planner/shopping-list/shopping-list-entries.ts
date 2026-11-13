@@ -6,6 +6,7 @@ import { sortSlotsForDisplay } from '../../gear/slot-display';
 import type { FiligreeLoadout } from '../../gear/filigree';
 import { countLoadoutFiligree, findFiligreeHosts } from '../filigree-loadout';
 import type { ShoppingEntry, ShoppingEntryKind, ShoppingSource } from './shopping-list-types';
+import { wikiItemUrl, wikiSearchUrl } from './wiki-urls';
 
 /**
  * Turns the equipped gear into the list of things to get.
@@ -38,13 +39,6 @@ export interface ShoppingSourceLookup {
 /** Essence-crafted blanks are made at the Cannith stations, not dropped anywhere. */
 export const CANNITH_CRAFTING_SOURCE = 'Cannith Crafting';
 
-const WIKI_SEARCH_URL = 'https://ddowiki.com/page/Special:Search?go=Go&search=';
-const WIKI_ITEM_URL = 'https://ddowiki.com/page/Item:';
-
-function wikiItemUrl(name: string): string {
-  return WIKI_ITEM_URL + encodeURIComponent(name.replace(/ /g, '_'));
-}
-
 /**
  * Augments are items, with pages in the wiki's Item namespace, which its
  * search doesn't look in. Upgrades are mostly crafted effects with no page of
@@ -53,7 +47,7 @@ function wikiItemUrl(name: string): string {
 function craftedWikiUrl(kind: ShoppingEntryKind, name: string): string {
   return kind === 'augment'
     ? wikiItemUrl(name)
-    : WIKI_SEARCH_URL + encodeURIComponent(name);
+    : wikiSearchUrl(name);
 }
 
 /**
@@ -63,7 +57,7 @@ function craftedWikiUrl(kind: ShoppingEntryKind, name: string): string {
  * land on search results rather than a missing page.
  */
 function sourceWikiUrl(source: string): string {
-  return WIKI_SEARCH_URL + encodeURIComponent(source);
+  return wikiSearchUrl(source);
 }
 
 /** Each source's pack comes from quests.json's pack map, which names every source the data emits. */

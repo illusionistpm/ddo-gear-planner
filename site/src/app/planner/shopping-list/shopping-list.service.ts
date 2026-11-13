@@ -11,6 +11,7 @@ import { UserGearService } from '../user-gear.service';
 import { deriveShoppingEntries, ShoppingSourceLookup } from './shopping-list-entries';
 import { FiligreeDbService } from '../../gear/filigree-db.service';
 import { shoppingFiligreeLookup } from './filigree-sources';
+import { FiligreeLoadoutService } from '../filigree-loadout.service';
 import { formatShoppingListText } from './shopping-list-text';
 import type {
   ShoppingEntry, ShoppingFilter, ShoppingListView, ShoppingProgress, ShoppingRow, ShoppingSaveProgress, ShoppingTroveLookup
@@ -52,12 +53,13 @@ export class ShoppingListService {
     private readonly gearDb: GearDbService,
     quests: QuestService,
     filters: FiltersService,
-    private readonly filigreeDb: FiligreeDbService
+    private readonly filigreeDb: FiligreeDbService,
+    private readonly filigree: FiligreeLoadoutService
   ) {
     this.trove = { locationsFor: name => this.userGear.getItemLocations(name) };
     this.sources = { isRaid: quest => quests.isRaid(quest), packOf: quest => quests.getPack(quest) };
 
-    this.entries$ = combineLatest([...this.equipped.getSlots().values(), this.equipped.getFiligreeLoadoutObservable()]).pipe(
+    this.entries$ = combineLatest([...this.equipped.getSlots().values(), this.filigree.getLoadoutObservable()]).pipe(
       map(() => this.currentEntries()),
       shareReplay({ bufferSize: 1, refCount: true })
     );
@@ -184,6 +186,6 @@ export class ShoppingListService {
 
   private currentEntries(): ShoppingEntry[] {
     return deriveShoppingEntries(this.equipped.getSlotsSnapshot(), this.sources,
-      shoppingFiligreeLookup(this.filigreeDb, this.equipped.getFiligreeLoadout()));
+      shoppingFiligreeLookup(this.filigreeDb, this.filigree.getLoadout()));
   }
 }

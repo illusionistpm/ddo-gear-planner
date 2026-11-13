@@ -4,7 +4,7 @@ import { deflate, inflate } from 'pako';
 import { perfStart } from '../shared/perf-trace';
 import { QueryParamRecord, QueryParamValue } from './query-param-types';
 import { isExternalAffixEntry } from '../affixes/external-affix';
-import { FiligreeParam, FiligreeSlotParam } from '../planner/filigree-params';
+import { filigreeParamOf, FiligreeSlotParam, readFiligreeParam } from '../planner/filigree-params';
 import {
   craftKey, FILIGREE_KEY, FILTER_PARAM_KEYS, getMlSlotFromKey, HIDDEN_PACKS_KEY, HIDDEN_TYPES_KEY,
   isCraftKey, isMlKey, LEVEL_RANGE_KEY, mlKey, NONGEAR_KEY, parseCraftKey, RAIDS_KEY, RARE_KEY, TRACKED_KEY
@@ -407,31 +407,21 @@ export class BuildUrlCodecService {
   }
 
   private encodeFiligree(raw: string): CompactFiligree | null {
-    let param: FiligreeParam;
-    try {
-      param = JSON.parse(raw);
-    } catch {
+    const param = readFiligreeParam(raw);
+    if (!param) {
       return null;
     }
-    if (!param || typeof param !== 'object') {
-      return null;
-    }
-    const slots = (entries: FiligreeSlotParam[] | undefined) => (Array.isArray(entries) ? entries : [])
-      .filter(entry => Array.isArray(entry) && typeof entry[0] === 'string')
-      .map((entry): CompactFiligreeSlot => {
-        const name = this.encodeDictionaryValue(entry[0], 'filigrees');
-        return entry[1] === 1 ? [name, 1] : name;
-      });
-    const compact: CompactFiligree = {};
-    const weapon = slots(param.w);
-    const artifact = slots(param.a);
-    if (weapon.length) compact.w = weapon;
-    if (artifact.length) compact.a = artifact;
-    return Object.keys(compact).length ? compact : null;
+    const slots = (entries: FiligreeSlotParam[] = []) => entries.map(([name, rare]): CompactFiligreeSlot => {
+      const value = this.encodeDictionaryValue(name, 'filigrees');
+      return rare === 1 ? [value, 1] : value;
+    });
+    const compact = filigreeParamOf(slots(param.w), slots(param.a));
+    return compact.w || compact.a ? compact : null;
   }
 
   private decodeFiligree(compact: CompactFiligree): string {
-    const slots = (entries: CompactFiligreeSlot[] | undefined) => (entries ?? [])
+    // `?? []` rather than a default: a payload is parsed JSON, so a host can be null.
+    const slots = (entries: CompactFiligreeSlot[] | null | undefined) => (entries ?? [])
       .map((entry): FiligreeSlotParam | null => {
         const rare = Array.isArray(entry) && entry[1] === 1;
         const name = this.decodeDictionaryValue(Array.isArray(entry) ? entry[0] : entry, 'filigrees');
@@ -441,12 +431,7 @@ export class BuildUrlCodecService {
         return rare ? [name, 1] : [name];
       })
       .filter((entry): entry is FiligreeSlotParam => entry !== null);
-    const param: FiligreeParam = {};
-    const weapon = slots(compact.w);
-    const artifact = slots(compact.a);
-    if (weapon.length) param.w = weapon;
-    if (artifact.length) param.a = artifact;
-    return JSON.stringify(param);
+    return JSON.stringify(filigreeParamOf(slots(compact.w), slots(compact.a)));
   }
 
   private listParamToArray(values: string[]) {

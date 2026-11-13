@@ -14,6 +14,7 @@ import { AutofocusDirective } from '../shared/autofocus.directive';
 import { FiligreeSetPreviewComponent } from '../filigree-set-preview/filigree-set-preview.component';
 import { FiligreeSetDetailsComponent } from '../filigree-set-details/filigree-set-details.component';
 import { SlotIconComponent } from '../slot-icon/slot-icon.component';
+import { SetBonusSummaryComponent } from '../set-bonus-summary/set-bonus-summary.component';
 
 describe('ItemsWithBonusTypeComponent', () => {
   let component: ItemsWithBonusTypeComponent;
@@ -23,7 +24,7 @@ describe('ItemsWithBonusTypeComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [
         ItemsWithBonusTypeComponent, ItemPreviewComponent, ExternalAffixFormComponent, ExternalAffixValueComponent, AutofocusDirective,
-        FiligreeSetPreviewComponent, FiligreeSetDetailsComponent, SlotIconComponent,
+        FiligreeSetPreviewComponent, FiligreeSetDetailsComponent, SetBonusSummaryComponent, SlotIconComponent,
       ],
       imports: [FormsModule]
     })
@@ -169,7 +170,7 @@ describe('ItemsWithBonusTypeComponent', () => {
 
     it('slots a filigree into the first empty open slot, and not twice into one host', () => {
       component.equipped.set(weapon());
-      component.equipped.setFiligree('weapon', 0, { name: 'Celerity: Reflex', rare: false });
+      component.filigree.set('weapon', 0, { name: 'Celerity: Reflex', rare: false });
       const element = show('Dexterity', 'Filigree');
       const row = Array.from<HTMLElement>(element.querySelectorAll('.filigree-match-row'))
         .find(candidate => candidate.textContent!.includes('Celerity: Dexterity'))!;
@@ -180,7 +181,7 @@ describe('ItemsWithBonusTypeComponent', () => {
       weaponButton.click();
       fixture.detectChanges();
 
-      expect(component.equipped.getFiligreeLoadout().weapon[1]).toEqual({ name: 'Celerity: Dexterity', rare: false });
+      expect(component.filigree.getLoadout().weapon[1]).toEqual({ name: 'Celerity: Dexterity', rare: false });
       expect(weaponButton.disabled).toBe(true);
       expect(weaponButton.title).toBe('Already in the weapon');
     });

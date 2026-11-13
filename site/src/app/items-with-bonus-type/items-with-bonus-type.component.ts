@@ -25,8 +25,9 @@ import { PreviewCarousel } from '../item-preview/preview-carousel';
 import { FiligreeSetPreviewEntry } from '../filigree-set-preview/filigree-set-preview.component';
 import { isAugmentSystemName, isCraftingSlotAvailable } from '../gear/augment-slots';
 import { isOptionHiddenByPacks } from '../gear/pack-filter';
-import { FiligreeDbService } from '../gear/filigree-db.service';
-import { FILIGREE_HOSTS, FiligreeHost } from '../gear/filigree';
+import { FiligreeAffixMatch, FiligreeDbService, FiligreeSetAffixMatch } from '../gear/filigree-db.service';
+import { FILIGREE_HOST_TEXT, FILIGREE_HOSTS, FiligreeHost } from '../gear/filigree';
+import { FiligreeLoadoutService } from '../planner/filigree-loadout.service';
 
 /** An open augment slot on an equipped item that could take the chosen augment. */
 interface AugmentSlotChoice {
@@ -114,10 +115,11 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
   externalEntries: ExternalAffixEntry[] = [];
 
   /** Filigrees whose own bonuses give this affix and type, best first. */
-  filigreeMatches: Array<{ name: string; sets: ReadonlyArray<string>; value: number; rareValue: number }> = [];
+  filigreeMatches: FiligreeAffixMatch[] = [];
   /** Filigree sets whose bonuses give it. */
-  filigreeSetMatches: Array<{ set: string; threshold: number; value: number }> = [];
+  filigreeSetMatches: FiligreeSetAffixMatch[] = [];
   readonly filigreeHosts = FILIGREE_HOSTS;
+  readonly filigreeHostText = FILIGREE_HOST_TEXT;
 
   private collapsedSections = new Set<string>();
 
@@ -148,7 +150,8 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     private suggestionDrawer: SuggestionDrawerService,
     private drawerEquip: DrawerEquipService,
     private changeDetector: ChangeDetectorRef,
-    private filigreeDb: FiligreeDbService
+    private filigreeDb: FiligreeDbService,
+    public filigree: FiligreeLoadoutService
   ) {
   }
 
@@ -339,10 +342,6 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     this.filigreeSetMatches = this.filigreeDb.findSetsWithAffixAndType(this.affixName, this.bonusType, flatten);
   }
 
-  filigreeHostLabel(host: FiligreeHost): string {
-    return host === 'weapon' ? 'Weapon' : 'Artifact';
-  }
-
   showItemPreview(item: Item, items: Item[], index: number) {
     this.filigreeSetPreview.close();
     this.preview.show(item, items, index);
@@ -374,14 +373,12 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     return !!current && current.filigree === null && current.sets[0] === set;
   }
 
-  /** Why a filigree can't go into the host now, or '' when it can. */
-  filigreeSlotBlocker(host: FiligreeHost, name: string): string {
-    // A second copy is allowed on the card, as a set piece, but would add nothing to this bonus.
-    return this.equipped.getFiligreeAppendBlocker(host, name);
-  }
-
+  /**
+   * Adds the filigree after the host's last one. Not a second copy into one host: allowed on the
+   * gear card, as a set piece, but it would add nothing to this bonus.
+   */
   slotFiligree(name: string, host: FiligreeHost) {
-    if (!this.equipped.appendFiligree(host, { name, rare: false })) {
+    if (!this.filigree.append(host, { name, rare: false })) {
       return;
     }
     this.analytics.track('slot_filigree_from_bonus_type', { host });

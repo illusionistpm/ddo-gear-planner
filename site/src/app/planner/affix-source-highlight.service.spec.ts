@@ -1,7 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AffixSourceHighlightService, NON_GEAR_JUMP_TARGET, setJumpTarget } from './affix-source-highlight.service';
+import {
+  AffixSourceHighlightService, filigreeSetJumpTarget, NON_GEAR_JUMP_TARGET, setJumpTarget
+} from './affix-source-highlight.service';
 import { AffixSource, EquippedService } from './equipped.service';
+import { FiligreeLoadoutService } from './filigree-loadout.service';
 
 describe('AffixSourceHighlightService', () => {
   let service: AffixSourceHighlightService;
@@ -11,7 +14,13 @@ describe('AffixSourceHighlightService', () => {
   beforeEach(() => {
     sources = [];
     TestBed.configureTestingModule({
-      providers: [{ provide: EquippedService, useValue: { getSourcesForAffixType: () => sources } }]
+      providers: [
+        { provide: EquippedService, useValue: { getSourcesForAffixType: () => sources } },
+        {
+          provide: FiligreeLoadoutService,
+          useValue: { getHost: (host: string) => host === 'artifact' ? { slot: 'Trinket' } : { slot: 'Weapon' } },
+        },
+      ]
     });
     service = TestBed.inject(AffixSourceHighlightService);
     service.targets$.subscribe(value => targets = value);
@@ -35,6 +44,18 @@ describe('AffixSourceHighlightService', () => {
     service.showSourcesOf('Strength', 'Enhancement');
 
     expect([...targets]).toEqual(['Belt', setJumpTarget('Some Set'), NON_GEAR_JUMP_TARGET]);
+  });
+
+  it('names the item holding a slotted filigree, and a filigree set\'s own card', () => {
+    sources = [
+      { ...source('filigree', 'Weapon filigree', 'Celerity: Dexterity'), filigreeHost: 'weapon' },
+      { ...source('filigree', 'Artifact filigree', 'Celerity: Reflex'), filigreeHost: 'artifact' },
+      source('filigree', 'Filigree set', 'Celerity'),
+    ];
+
+    service.showSourcesOf('Strength', 'Enhancement');
+
+    expect([...targets]).toEqual(['Weapon', 'Trinket', filigreeSetJumpTarget('Celerity')]);
   });
 
   it('highlights every source when several tie', () => {

@@ -86,11 +86,29 @@ def test_parse_slavers_sets_preserves_legacy_output_shape(monkeypatch):
         {'name': 'Wisdom', 'type': 'Artifact', 'value': 1},
         {'name': 'Charisma', 'type': 'Artifact', 'value': 1},
     ]
-    assert "Slave's Endurance" in sets
-    assert sets["Legendary Slave's Endurance"][1]['affixes'] == [
+    assert "Slave Lord's Endurance" in sets
+    assert sets["Legendary Slave Lord's Endurance"][1]['affixes'] == [
         {'name': 'Constitution', 'type': 'Artifact', 'value': 2},
         {'name': 'Magical Sheltering', 'type': 'Artifact', 'value': 4},
         {'name': 'Physical Sheltering', 'type': 'Artifact', 'value': 4},
         {'name': 'Resistance', 'type': 'Artifact', 'value': 4},
         {'name': 'Spell Saves', 'type': 'Artifact', 'value': 4},
     ]
+
+
+def test_slavers_set_bonus_slots_grant_sets_that_exist(monkeypatch):
+    # The Set Bonus slots once granted "Slave Lord's Endurance" while the set was
+    # named "Slave's Endurance", so its bonuses could never be counted.
+    monkeypatch.setattr(module, 'load_slavers_crafting_soup', slavers_html)
+    monkeypatch.setattr(module, 'get_inverted_synonym_map', lambda: {})
+
+    crafting = module.parse_slavers_crafting()
+
+    names = {module.LEGACY_SET_NAMES.get(name, name) for name in module.SET_AFFIXES}
+    names |= {'Legendary ' + name for name in names}
+    granted = [option['set'] for system in ["Slaver's Set Bonus", "Legendary Slaver's Set Bonus"]
+               for option in crafting[system]['*']]
+    assert len(granted) == 6
+    assert [name for name in granted if name not in names] == []
+    # parse_slavers_sets names its sets the same way.
+    assert set(module.parse_slavers_sets()) <= names

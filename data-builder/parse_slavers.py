@@ -91,8 +91,11 @@ SET_AFFIXES = {
     },
 }
 
+# The wiki's Slavers table says "Slaver's Endurance". The set is named like its
+# siblings because the Set Bonus slots grant it by this name, and that name is
+# what saved build URLs carry for the option (CraftableOption.getParamDescription).
 LEGACY_SET_NAMES = {
-    "Slaver's Endurance": "Slave's Endurance",
+    "Slaver's Endurance": "Slave Lord's Endurance",
 }
 
 

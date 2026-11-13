@@ -3455,6 +3455,9 @@
         "quests": [
             "House Cannith Manufactury"
         ],
+        "sets": [
+            "Alchemist's Lore"
+        ],
         "slot": "Helm",
         "type": "Head items",
         "url": "/page/Item:Alchemist%27s_Crown"
@@ -3484,6 +3487,9 @@
         "name": "Alchemist's Pendant",
         "quests": [
             "Blown to Bits"
+        ],
+        "sets": [
+            "Alchemist's Lore"
         ],
         "slot": "Necklace",
         "type": "Neck items",
@@ -26436,11 +26442,6 @@
                 "name": "Dexterity",
                 "type": "Quality",
                 "value": "2"
-            },
-            {
-                "name": "Cooking By the Book",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -26450,6 +26451,9 @@
         "name": "Capelet of Cuisine",
         "quests": [
             "Too Many Cooks"
+        ],
+        "sets": [
+            "Cooking by the Book"
         ],
         "slot": "Cloak",
         "type": "Back items",
@@ -36403,11 +36407,6 @@
                 "name": "Physical Sheltering",
                 "type": "Enhancement",
                 "value": "22"
-            },
-            {
-                "name": "Cooking By the Book",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -36417,6 +36416,9 @@
         "name": "Cook's Coat",
         "quests": [
             "Too Many Cooks"
+        ],
+        "sets": [
+            "Cooking by the Book"
         ],
         "slot": "Armor",
         "type": "Light armor",
@@ -48385,11 +48387,6 @@
                 "name": "Improved Vorpal",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Slice 'n Dice Set",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -48401,6 +48398,7 @@
             "Multitude of Menace"
         ],
         "sets": [
+            "Slice 'n Dice",
             "The Devil's Handiwork"
         ],
         "slot": "Weapon",
@@ -69108,11 +69106,6 @@
                 "name": "Sovereign Vorpal",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Epic Slice 'n Dice Set",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -69124,6 +69117,7 @@
             "Multitude of Menace"
         ],
         "sets": [
+            "Epic Slice 'n Dice",
             "Epic The Devil's Handiwork"
         ],
         "slot": "Weapon",
@@ -83331,11 +83325,6 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+12"
-            },
-            {
-                "name": "Epic Slice 'n Dice Set",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -83347,6 +83336,7 @@
             "Multitude of Menace"
         ],
         "sets": [
+            "Epic Slice 'n Dice",
             "Epic The Devil's Handiwork"
         ],
         "slot": "Weapon",
@@ -90465,6 +90455,9 @@
         "quests": [
             "Blown to Bits"
         ],
+        "sets": [
+            "Fabricator's Ingenuity"
+        ],
         "slot": "Bracers",
         "type": "Wrist items",
         "url": "/page/Item:Fabricator%27s_Bracers"
@@ -90494,6 +90487,9 @@
         "name": "Fabricator's Gauntlets",
         "quests": [
             "House Cannith Manufactury"
+        ],
+        "sets": [
+            "Fabricator's Ingenuity"
         ],
         "slot": "Gloves",
         "type": "Hand items",
@@ -91326,11 +91322,6 @@
                 "name": "Healing Amplification",
                 "type": "Equipment",
                 "value": "18"
-            },
-            {
-                "name": "Cooking By the Book",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -91340,6 +91331,9 @@
         "name": "Feast of the Four Fighters Commemorative Cookbook",
         "quests": [
             "Too Many Cooks"
+        ],
+        "sets": [
+            "Cooking by the Book"
         ],
         "slot": "Offhand",
         "type": "Orbs",
@@ -94881,11 +94875,6 @@
                 "name": "Animal Bane",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Cooking By the Book",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -94895,6 +94884,9 @@
         "name": "First Course Finder",
         "quests": [
             "Too Many Cooks"
+        ],
+        "sets": [
+            "Cooking by the Book"
         ],
         "slot": "Weapon",
         "type": "Long Bows",
@@ -94926,11 +94918,6 @@
                 "name": "Animal Bane",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Cooking By the Book",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -94940,6 +94927,9 @@
         "name": "First Course Finder",
         "quests": [
             "Too Many Cooks"
+        ],
+        "sets": [
+            "Cooking by the Book"
         ],
         "slot": "Weapon",
         "type": "Long Bows",
@@ -100514,11 +100504,6 @@
                 "name": "Flaming",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Cooking By the Book",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -100530,6 +100515,7 @@
             "Too Many Cooks"
         ],
         "sets": [
+            "Cooking by the Book",
             "Fried & Frozen Frenzy"
         ],
         "slot": "Weapon",
@@ -101189,11 +101175,6 @@
                 "name": "Freezing",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Cooking By the Book",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -101205,6 +101186,7 @@
             "Too Many Cooks"
         ],
         "sets": [
+            "Cooking by the Book",
             "Fried & Frozen Frenzy"
         ],
         "slot": "Weapon",
@@ -113826,11 +113808,6 @@
                 "name": "Speed",
                 "type": "Enhancement",
                 "value": "28"
-            },
-            {
-                "name": "Cooking By the Book",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -113840,6 +113817,9 @@
         "name": "Hat of the Head Chef",
         "quests": [
             "Too Many Cooks"
+        ],
+        "sets": [
+            "Cooking by the Book"
         ],
         "slot": "Helm",
         "type": "Head items",
@@ -135450,11 +135430,6 @@
                 "name": "Dexterity",
                 "type": "Quality",
                 "value": "3"
-            },
-            {
-                "name": "Legendary Cooking By the Book",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -135465,6 +135440,9 @@
         "name": "Legendary Capelet of Cuisine",
         "quests": [
             "Too Many Cooks"
+        ],
+        "sets": [
+            "Legendary Cooking by the Book"
         ],
         "slot": "Cloak",
         "type": "Back items",
@@ -139851,11 +139829,6 @@
                 "name": "Physical Sheltering",
                 "type": "Enhancement",
                 "value": "36"
-            },
-            {
-                "name": "Legendary Cooking By the Book",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -139866,6 +139839,9 @@
         "name": "Legendary Cook's Coat",
         "quests": [
             "Too Many Cooks"
+        ],
+        "sets": [
+            "Legendary Cooking by the Book"
         ],
         "slot": "Armor",
         "type": "Light armor",
@@ -153482,11 +153458,6 @@
                 "name": "Healing Amplification",
                 "type": "Equipment",
                 "value": "29"
-            },
-            {
-                "name": "Legendary Cooking By the Book",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -153497,6 +153468,9 @@
         "name": "Legendary Feast of the Four Fighters Commemorative Cookbook",
         "quests": [
             "Too Many Cooks"
+        ],
+        "sets": [
+            "Legendary Cooking by the Book"
         ],
         "slot": "Offhand",
         "type": "Orbs",
@@ -155818,11 +155792,6 @@
                 "name": "Animal Bane",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Legendary Cooking By the Book",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -155833,6 +155802,9 @@
         "name": "Legendary First Course Finder",
         "quests": [
             "Too Many Cooks"
+        ],
+        "sets": [
+            "Legendary Cooking by the Book"
         ],
         "slot": "Weapon",
         "type": "Long Bows",
@@ -155864,11 +155836,6 @@
                 "name": "Animal Bane",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Legendary Cooking By the Book",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -155879,6 +155846,9 @@
         "name": "Legendary First Course Finder",
         "quests": [
             "Too Many Cooks"
+        ],
+        "sets": [
+            "Legendary Cooking by the Book"
         ],
         "slot": "Weapon",
         "type": "Long Bows",
@@ -158469,11 +158439,6 @@
                 "name": "Flaming",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Legendary Cooking By the Book",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -158486,6 +158451,7 @@
             "Too Many Cooks"
         ],
         "sets": [
+            "Legendary Cooking by the Book",
             "Legendary Fried & Frozen Frenzy"
         ],
         "slot": "Weapon",
@@ -158951,11 +158917,6 @@
                 "name": "Freezing",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Legendary Cooking By the Book",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -158968,6 +158929,7 @@
             "Too Many Cooks"
         ],
         "sets": [
+            "Legendary Cooking by the Book",
             "Legendary Fried & Frozen Frenzy"
         ],
         "slot": "Weapon",
@@ -165121,11 +165083,6 @@
                 "name": "Speed",
                 "type": "Enhancement",
                 "value": "30"
-            },
-            {
-                "name": "Legendary Cooking By the Book",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -165136,6 +165093,9 @@
         "name": "Legendary Hat of the Head Chef",
         "quests": [
             "Too Many Cooks"
+        ],
+        "sets": [
+            "Legendary Cooking by the Book"
         ],
         "slot": "Helm",
         "type": "Head items",
@@ -195035,11 +194995,6 @@
                 "name": "Gashing",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Legendary Cooking By the Book",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -195050,6 +195005,9 @@
         "name": "Legendary Sword Fish",
         "quests": [
             "Too Many Cooks"
+        ],
+        "sets": [
+            "Legendary Cooking by the Book"
         ],
         "slot": "Weapon",
         "type": "Long Swords",
@@ -210721,6 +210679,9 @@
         "quests": [
             "Power Play"
         ],
+        "sets": [
+            "Magewright's Expertise"
+        ],
         "slot": "Cloak",
         "type": "Back items",
         "url": "/page/Item:Magewright%27s_Cloak"
@@ -210755,6 +210716,9 @@
         "name": "Magewright's Spectacles",
         "quests": [
             "House Cannith Manufactury"
+        ],
+        "sets": [
+            "Magewright's Expertise"
         ],
         "slot": "Goggles",
         "type": "Eye items",
@@ -212925,6 +212889,9 @@
         "name": "Mantle of the Worldshaper",
         "quests": [
             "The Abandoned Excavation"
+        ],
+        "sets": [
+            "DM's Vision"
         ],
         "slot": "Cloak",
         "type": "Back items",
@@ -263584,11 +263551,6 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Slice 'n Dice Set",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -263600,6 +263562,7 @@
             "Multitude of Menace"
         ],
         "sets": [
+            "Slice 'n Dice",
             "The Devil's Handiwork"
         ],
         "slot": "Weapon",
@@ -273547,11 +273510,6 @@
                 "name": "Gashing",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Cooking By the Book",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
@@ -273561,6 +273519,9 @@
         "name": "Sword Fish",
         "quests": [
             "Too Many Cooks"
+        ],
+        "sets": [
+            "Cooking by the Book"
         ],
         "slot": "Weapon",
         "type": "Long Swords",
@@ -290526,6 +290487,9 @@
         "quests": [
             "Schemes of the Enemy"
         ],
+        "sets": [
+            "Tinker's Finesse"
+        ],
         "slot": "Gloves",
         "type": "Hand items",
         "url": "/page/Item:Tinker%27s_Gloves"
@@ -290560,6 +290524,9 @@
         "name": "Tinker's Goggles",
         "quests": [
             "House Cannith Manufactury"
+        ],
+        "sets": [
+            "Tinker's Finesse"
         ],
         "slot": "Goggles",
         "type": "Eye items",
@@ -296545,6 +296512,9 @@
         "name": "Voice of the Master",
         "quests": [
             "Delera's Tomb"
+        ],
+        "sets": [
+            "DM's Vision"
         ],
         "slot": "Trinket",
         "type": "Trinket items",

@@ -249,3 +249,46 @@ def test_item_with_ml_none_still_defaults_to_one(tmp_path, monkeypatch):
     ''', monkeypatch=monkeypatch)
 
     assert items[0]['ml'] == 1
+
+
+def test_find_set_named_ignores_case_and_a_trailing_set():
+    sets = {"Cooking by the Book": [], "Slice 'n Dice": [], "Epic Elemental Evil Set": []}
+
+    assert parse_items.find_set_named("Cooking By the Book", sets) == "Cooking by the Book"
+    assert parse_items.find_set_named("Slice 'n Dice Set", sets) == "Slice 'n Dice"
+    assert parse_items.find_set_named("Epic Elemental Evil Set", sets) == "Epic Elemental Evil Set"
+    assert parse_items.find_set_named("Cooking", sets) is None
+
+
+def test_unclaimed_sets_take_their_members_from_the_sets_page():
+    items = [
+        {'name': "Magewright's Cloak", 'affixes': []},
+        {'name': 'Slice', 'affixes': [], 'sets': ["The Devil's Handiwork", "Slice 'n Dice"]},
+        {'name': 'Dice', 'affixes': [], 'sets': ["The Devil's Handiwork"]},
+        {'name': 'Gem of Many Facets', 'affixes': []},
+    ]
+    sets = {"Magewright's Expertise": [], "Slice 'n Dice": [], "The Devil's Handiwork": [], "Marshwalker": []}
+    members = {
+        "Magewright's Expertise": ["Magewright's Cloak", "Magewright's Spectacles"],
+        "Slice 'n Dice": ['Slice', 'Dice'],
+        "The Devil's Handiwork": ['Slice', 'Dice', 'Gem of Many Facets'],
+    }
+
+    # Slice named "Slice 'n Dice" only loosely, so the set still counts as unclaimed.
+    parse_items.add_unclaimed_set_members(items, sets, members, {"Slice 'n Dice"})
+
+    assert items[0]['sets'] == ["Magewright's Expertise"]
+    assert items[1]['sets'] == ["The Devil's Handiwork", "Slice 'n Dice"]
+    assert items[2]['sets'] == ["The Devil's Handiwork", "Slice 'n Dice"]
+    # A set items already name keeps exactly those items.
+    assert 'sets' not in items[3]
+
+
+def test_sets_a_crafting_option_grants_are_not_unclaimed():
+    items = [{'name': "University Mage's Hat", 'affixes': [], 'crafting': ['Some Set Slot']}]
+    crafting = {'Some Set Slot': {'*': [{'name': "Vol's Influence", 'set': "Vol's Influence"}]}}
+    members = {"Vol's Influence": ["University Mage's Hat"]}
+
+    parse_items.add_unclaimed_set_members(items, {"Vol's Influence": []}, members, set(), parse_items.get_crafted_sets(crafting))
+
+    assert 'sets' not in items[0]

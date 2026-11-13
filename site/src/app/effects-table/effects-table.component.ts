@@ -26,7 +26,7 @@ import {
 } from '../affixes/tracked-affix-derivation';
 import { affixTypeKey } from '../affixes/affix-type-key';
 import { MAX_FILIGREE_SLOTS_AFFIX } from '../affixes/filigree-affix';
-import { SUMMED_FILIGREE_BONUS_TYPES } from '../gear/filigree';
+import { FILIGREE_ONLY_BONUS_TYPES } from '../gear/filigree';
 import { RECENT_CHANGE_HIGHLIGHT_MS } from '../planner/recent-change-highlight';
 import { AffixSourceHighlightService } from '../planner/affix-source-highlight.service';
 
@@ -445,7 +445,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     };
     const fileByScarcity = (affixName: string, chip: TrackedChip, info: RemainingAvailability) => {
       // Gear never carries these, so open gear slots don't measure them; the filigree slots do.
-      const group = SUMMED_FILIGREE_BONUS_TYPES.has(chip.bonusType)
+      const group = FILIGREE_ONLY_BONUS_TYPES.has(chip.bonusType)
         ? bucket('filigree', 'Filigree', 0.5)
         : scarcityBucket(chip.sourceAffixName, info);
       if (group) {

@@ -12,8 +12,8 @@ import { RawFiligree } from './game-data-types';
  */
 export const FILIGREE_BONUS_TYPE = 'Filigree';
 export const FILIGREE_SET_BONUS_TYPE = 'Filigree Set';
-/** Bonus types whose values add up across sources instead of the best one counting. */
-export const SUMMED_FILIGREE_BONUS_TYPES: ReadonlySet<string> = new Set([FILIGREE_BONUS_TYPE, FILIGREE_SET_BONUS_TYPE]);
+/** The bonus types only filigree gives. Both add up across sources (affixes/summed-bonus-types.ts). */
+export const FILIGREE_ONLY_BONUS_TYPES: ReadonlySet<string> = new Set([FILIGREE_BONUS_TYPE, FILIGREE_SET_BONUS_TYPE]);
 
 /** A sentient weapon opens 7 slots by feeding and 3 more with the Sparks. */
 export const MAX_WEAPON_FILIGREE_SLOTS = 10;

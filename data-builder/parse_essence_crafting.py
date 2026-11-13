@@ -297,6 +297,10 @@ def normalize_wiki_stat_name(stat: str) -> str:
         'Lore (All)': 'Spell Lore',
         'Lore (One Type)': 'Lore',
         'Reflex/Fortitude/Will': 'Saves',
+        # The wiki's bare "Resistance" rows are elemental resistance; its saves
+        # bonus is "Resistance (save)", which is the Resistance option.
+        'Resistance': 'Elemental Resistance',
+        'Insightful Resistance': 'Insightful Elemental Resistance',
         'Resistance (Save)': 'Resistance',
         'Spell Focus (One Type)': 'Spell Focus',
         'Spell Focus Mastery': 'Spell Focus Mastery',
@@ -343,7 +347,12 @@ def get_essence_crafting_progression_from_wiki(soup: BeautifulSoup) -> tuple[lis
         cells = [cell.get_text(' ', strip=True) for cell in row.find_all(['th', 'td'])]
         if len(cells) != len(levels) + 1:
             continue
-        progressions[normalize_wiki_stat_name(cells[0])] = [parse_wiki_value(value) for value in cells[1:]]
+        key = normalize_wiki_stat_name(cells[0])
+        if key in progressions:
+            # Two rows normalizing to one key would silently give one row's
+            # options the other's values.
+            raise ValueError(f'Essence Crafting table rows collide on {key!r} (row {cells[0]!r})')
+        progressions[key] = [parse_wiki_value(value) for value in cells[1:]]
 
     return levels, progressions
 
@@ -514,7 +523,7 @@ def get_wiki_progression_key(affix: str) -> str | None:
         return f'{prefix}Vertigo/Stunning/Shatter'
     if base_affix in ['Acid Resistance', 'Cold Resistance', 'Electric Resistance', 'Fire Resistance',
                       'Light Resistance', 'Negative Resistance', 'Poison Resistance', 'Sonic Resistance']:
-        return 'Resistance'
+        return f'{prefix}Elemental Resistance'
     if base_affix in ['Healing Amplification', 'Negative Amplification', 'Repair Amplification']:
         return 'Amplification'
     if base_affix in ['Acid Lore', 'Cold Lore', 'Fire Lore', 'Healing Lore', 'Ice Lore', 'Kinetic Lore',

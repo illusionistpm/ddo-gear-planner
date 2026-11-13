@@ -80,6 +80,26 @@ describe('EssenceCraftingService', () => {
     ]);
   });
 
+  it('values elemental resistance by its own progression, still matching old links at the same ML', () => {
+    const service: EssenceCraftingService = TestBed.inject(EssenceCraftingService);
+    const select = (ml: number, slot: string, desc: string) => {
+      const craftable = service.getValuesForML('Cloak', ml).find(candidate => candidate.name === slot)!;
+      return craftable.selectByParamDescription(desc) ? craftable.selected?.affixes.map(affix => [affix.name, affix.value, affix.type]) : null;
+    };
+
+    // These used the saves progression (Resistance +12 at ML 36), and old links carry that value.
+    expect(select(36, 'Prefix', 'Fire Resistance60')).toEqual([['Fire Resistance', 60, 'Enhancement']]);
+    expect(select(36, 'Prefix', 'Fire Resistance12')).toEqual([['Fire Resistance', 60, 'Enhancement']]);
+    // An old value maps by the item's ML: +2 was ML 2 and ML 3.
+    expect(select(2, 'Prefix', 'Cold Resistance2')).toEqual([['Cold Resistance', 7, 'Enhancement']]);
+    expect(select(3, 'Prefix', 'Cold Resistance2')).toEqual([['Cold Resistance', 8, 'Enhancement']]);
+    expect(select(3, 'Prefix', 'Cold Resistance12')).toBeNull();
+    expect(select(36, 'Suffix', 'Fire Resistance12')).toEqual([['Fire Resistance', 29, 'Insight']]);
+    expect(select(36, 'Suffix', 'Fire Resistance29')).toEqual([['Fire Resistance', 29, 'Insight']]);
+    // The dual prefixes built on it too, each half from its own row: elemental +60, saves +12.
+    expect(select(36, 'Prefix', 'Flame Resistant')).toEqual([['Fire Resistance', 60, 'Enhancement'], ['Resistance', 12, 'Resistance']]);
+  });
+
   it('uses the generated Essence Crafting max level for selectable levels', () => {
     const service: EssenceCraftingService = TestBed.inject(EssenceCraftingService);
     expect(service.maxLevel).toBe(36);

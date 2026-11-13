@@ -96,8 +96,10 @@ records to catch that; treat a failure there as "you changed the wire format".
 Game data is part of it too: a crafting option with no `name` travels as its
 affixes' names and values (`CraftableOption.getParamDescription`), so a parser
 fix that renames or revalues one orphans the builds that chose it unless it adds
-a `LEGACY_PARAM_DESCRIPTIONS` entry. No spec catches that; diff the unnamed
-options' descriptions before and after.
+a `LEGACY_PARAM_DESCRIPTIONS` entry - or, when the old value depends on the ML
+(an Essence Crafting progression), per-option legacy descriptions, as
+`EssenceCraftingService` does for elemental resistance. No spec catches that;
+diff the unnamed options' descriptions before and after.
 
 **Query-param keys belong to `build/build-param-keys.ts`.** It owns the fixed
 key names, the `ml_<slot>` / `craft_<n>_<field>` builders and parsers, and the

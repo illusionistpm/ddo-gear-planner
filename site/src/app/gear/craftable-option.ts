@@ -18,6 +18,10 @@ import { getPackKeys } from './pack-filter';
  * - Immunities became "Immunity to X": Blindness Immunity is Immunity to Blindness on the
  *   Essence Crafting option and Legendary Green Steel's T1 (Equipment) option. (Petrification
  *   and Web Immunity are only on named options and items, which don't travel this way.)
+ *
+ * A rescale whose old value depends on the item's ML can't be a single entry here: the
+ * option carries its own (see legacyParamDescriptions, and EssenceCraftingService for the
+ * elemental resistances that used the saves progression).
  */
 const LEGACY_PARAM_DESCRIPTIONS: Readonly<Record<string, string>> = {
     'Wizardry6': 'Wizardry150',
@@ -48,9 +52,16 @@ export class CraftableOption {
      * still travels in URLs as the empty selection.
      */
     readonly emptyLabel: string;
+    /**
+     * Descriptions saved build URLs may carry for this very option, from before a data fix
+     * revalued it. For rescales LEGACY_PARAM_DESCRIPTIONS can't express, because the old
+     * value depends on which option (and ML) it is.
+     */
+    private readonly legacyParamDescriptions: ReadonlyArray<string>;
 
-    constructor(json: CraftableOptionInit | null, emptyLabel: string = '') {
+    constructor(json: CraftableOptionInit | null, emptyLabel: string = '', legacyParamDescriptions: ReadonlyArray<string> = []) {
         this.emptyLabel = emptyLabel;
+        this.legacyParamDescriptions = legacyParamDescriptions;
         this.affixes = (json?.affixes ?? []).map(affix => new Affix(affix));
         this.quests = json?.quests ?? [];
         this.packKeys = getPackKeys(this.quests);
@@ -79,7 +90,9 @@ export class CraftableOption {
 
     matchesParamDescription(desc: string) {
         const own = this.getParamDescription();
-        return desc === own || (Object.hasOwn(LEGACY_PARAM_DESCRIPTIONS, desc) && LEGACY_PARAM_DESCRIPTIONS[desc] === own);
+        return desc === own
+            || (Object.hasOwn(LEGACY_PARAM_DESCRIPTIONS, desc) && LEGACY_PARAM_DESCRIPTIONS[desc] === own)
+            || this.legacyParamDescriptions.includes(desc);
     }
 
     getParamDescription() {

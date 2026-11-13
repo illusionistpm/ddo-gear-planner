@@ -4389,6 +4389,63 @@
             "threshold": 2
         }
     ],
+    "Legendary Slave Lord's Endurance": [
+        {
+            "affixes": [
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "Resistance",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "Spell Saves",
+                    "type": "Artifact",
+                    "value": 2
+                }
+            ],
+            "threshold": 3
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Constitution",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Artifact",
+                    "value": 4
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": 4
+                },
+                {
+                    "name": "Resistance",
+                    "type": "Artifact",
+                    "value": 4
+                },
+                {
+                    "name": "Spell Saves",
+                    "type": "Artifact",
+                    "value": 4
+                }
+            ],
+            "threshold": 5
+        }
+    ],
     "Legendary Slave Lord's Might": [
         {
             "affixes": [
@@ -4483,63 +4540,6 @@
                     "name": "Charisma",
                     "type": "Artifact",
                     "value": 2
-                }
-            ],
-            "threshold": 5
-        }
-    ],
-    "Legendary Slave's Endurance": [
-        {
-            "affixes": [
-                {
-                    "name": "Magical Sheltering",
-                    "type": "Artifact",
-                    "value": 2
-                },
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Artifact",
-                    "value": 2
-                },
-                {
-                    "name": "Resistance",
-                    "type": "Artifact",
-                    "value": 2
-                },
-                {
-                    "name": "Spell Saves",
-                    "type": "Artifact",
-                    "value": 2
-                }
-            ],
-            "threshold": 3
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Constitution",
-                    "type": "Artifact",
-                    "value": 2
-                },
-                {
-                    "name": "Magical Sheltering",
-                    "type": "Artifact",
-                    "value": 4
-                },
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Artifact",
-                    "value": 4
-                },
-                {
-                    "name": "Resistance",
-                    "type": "Artifact",
-                    "value": 4
-                },
-                {
-                    "name": "Spell Saves",
-                    "type": "Artifact",
-                    "value": 4
                 }
             ],
             "threshold": 5
@@ -6217,6 +6217,63 @@
             "threshold": 2
         }
     ],
+    "Slave Lord's Endurance": [
+        {
+            "affixes": [
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Artifact",
+                    "value": 1
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": 1
+                },
+                {
+                    "name": "Resistance",
+                    "type": "Artifact",
+                    "value": 1
+                },
+                {
+                    "name": "Spell Saves",
+                    "type": "Artifact",
+                    "value": 1
+                }
+            ],
+            "threshold": 3
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Constitution",
+                    "type": "Artifact",
+                    "value": 1
+                },
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "Resistance",
+                    "type": "Artifact",
+                    "value": 2
+                },
+                {
+                    "name": "Spell Saves",
+                    "type": "Artifact",
+                    "value": 2
+                }
+            ],
+            "threshold": 5
+        }
+    ],
     "Slave Lord's Might": [
         {
             "affixes": [
@@ -6311,63 +6368,6 @@
                     "name": "Charisma",
                     "type": "Artifact",
                     "value": 1
-                }
-            ],
-            "threshold": 5
-        }
-    ],
-    "Slave's Endurance": [
-        {
-            "affixes": [
-                {
-                    "name": "Magical Sheltering",
-                    "type": "Artifact",
-                    "value": 1
-                },
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Artifact",
-                    "value": 1
-                },
-                {
-                    "name": "Resistance",
-                    "type": "Artifact",
-                    "value": 1
-                },
-                {
-                    "name": "Spell Saves",
-                    "type": "Artifact",
-                    "value": 1
-                }
-            ],
-            "threshold": 3
-        },
-        {
-            "affixes": [
-                {
-                    "name": "Constitution",
-                    "type": "Artifact",
-                    "value": 1
-                },
-                {
-                    "name": "Magical Sheltering",
-                    "type": "Artifact",
-                    "value": 2
-                },
-                {
-                    "name": "Physical Sheltering",
-                    "type": "Artifact",
-                    "value": 2
-                },
-                {
-                    "name": "Resistance",
-                    "type": "Artifact",
-                    "value": 2
-                },
-                {
-                    "name": "Spell Saves",
-                    "type": "Artifact",
-                    "value": 2
                 }
             ],
             "threshold": 5

@@ -13,6 +13,7 @@ from parse_rare_loot import get_rare_loot_from_snapshot
 from parse_vota_items import get_vota_enchantment_cells, is_vota_placeholder
 from upgrade_tiers import UPGRADE_TIER_SYSTEM, as_cell, get_upgrade_entry, has_tier_markers, split_upgrade_tiers
 from get_snapshot_path import get_snapshot_path
+from parse_set_page import load_set_members
 from item_sources import LOCATION_HEADERS, SourceResolver, extract_sources, find_location_column, load_source_resolver, merge_resolved_source_packs, report_multi_source_entries
 
 from typedefs import SetAugment, CatMap, AugmentNameTransformMap, CraftingSystems, Sets, Affix, Item
@@ -220,6 +221,7 @@ def get_items_from_page(
     sourceResolver: SourceResolver|None = None,
     multiSourceEntries: list[list[str]]|None = None,
     votaCells: dict[str, Any]|None = None,
+    looselyNamedSets: set[str]|None = None,
 ) -> Any:
     synonymMap = get_inverted_synonym_map()
     votaCells = votaCells or {}
@@ -465,19 +467,23 @@ def get_items_from_page(
             elif cell is not None:
                 affixes = parse_cell(cell)
 
-        # Detect all the sets that we picked up as affixes
-        set_names_in_affixes = []
+        # Detect all the sets that we picked up as affixes, under the set's own name
+        set_affix_names = {}
         for aff in affixes:
-            if aff['name'] in sets:
-                set_names_in_affixes.append(aff['name'])
+            set_name = find_set_named(aff['name'], sets)
+            if set_name is not None:
+                set_affix_names[aff['name']] = set_name
+                if set_name != aff['name'] and looselyNamedSets is not None:
+                    looselyNamedSets.add(set_name)
 
         # Move them over to the set list and remove from affixes
-        for set_name in set_names_in_affixes:
+        for set_name in set_affix_names.values():
             if 'sets' not in item:
                 item['sets'] = []
-            item['sets'].append(set_name)
+            if set_name not in item['sets']:
+                item['sets'].append(set_name)
 
-        affixes[:] = [affix for affix in affixes if affix['name'] not in set_names_in_affixes]
+        affixes[:] = [affix for affix in affixes if affix['name'] not in set_affix_names]
 
         item['affixes'].extend(affixes)
 
@@ -596,6 +602,7 @@ def parse_items() -> None:
     sourceResolver = load_source_resolver()
     votaCells = get_vota_enchantment_cells()
     multiSourceEntries: list[list[str]] = []
+    looselyNamedSets: set[str] = set()
     items    = []
 
     itemsPath            = get_snapshot_path('items')
@@ -612,7 +619,9 @@ def parse_items() -> None:
 
     for file in fileList:
         if include_page(file):
-            items.extend(get_items_from_page(os.path.join(itemsPath, file), crafting, sets, rareItemNames, sourceResolver, multiSourceEntries, votaCells))
+            items.extend(get_items_from_page(os.path.join(itemsPath, file), crafting, sets, rareItemNames, sourceResolver, multiSourceEntries, votaCells, looselyNamedSets))
+
+    add_unclaimed_set_members(items, sets, load_set_members(), looselyNamedSets, get_crafted_sets(crafting))
 
     report_multi_source_entries(multiSourceEntries)
     sourceResolver.report_unresolved()
@@ -629,6 +638,71 @@ def parse_items() -> None:
                 crafting[craftingSystemName][craftingSystemItem].sort(key=lambda x: x['name'] if ('name' in x) else x['affixes'][0]['name'] if ('affixes' in x) else '')
 
     write_json(crafting, 'crafting')
+
+
+def _set_name_key(name: str) -> str:
+    key = name.strip().lower()
+    return key[:-len(' set')] if key.endswith(' set') else key
+
+
+def find_set_named(name: str, sets: Sets) -> str | None:
+    """The set an item effect names, or None.
+
+    Item rows name sets loosely: "Cooking By the Book" for Cooking by the Book,
+    "Slice 'n Dice Set" for Slice 'n Dice. Case and a trailing " Set" don't count.
+    """
+    if name in sets:
+        return name
+    key = _set_name_key(name)
+    for set_name in sets:
+        if _set_name_key(set_name) == key:
+            return set_name
+    return None
+
+
+def get_crafted_sets(craftingSystems: CraftingSystems) -> set[str]:
+    """The sets a crafting option grants, such as the Slavers Set Bonus slots."""
+    found = set()
+
+    def walk(node):
+        if isinstance(node, dict):
+            if isinstance(node.get('set'), str):
+                found.add(node['set'])
+            for value in node.values():
+                walk(value)
+        elif isinstance(node, list):
+            for value in node:
+                walk(value)
+
+    walk(craftingSystems)
+    return found
+
+
+def add_unclaimed_set_members(items: list[Item], sets: Sets, members: dict[str, list[str]], looselyNamed: set[str] = frozenset(), craftedSets: set[str] = frozenset()) -> None:
+    """Give each set that no item names its members from the sets page.
+
+    Some sets are never named on their items' rows: Secrets of the Artificers'
+    sets (the items drop Nearly Finished) and DM's Vision. Others are named only
+    loosely, and not on every piece: Slice names "Slice 'n Dice Set", Dice
+    nothing. The sets page's Items lists are looser than item rows (they include
+    upgrade chains and Gem of Many Facets), so a set an item names exactly keeps
+    exactly the items that name it. So does a set a crafting option grants: the
+    page lists the items that offer the choice (University gear, Page Regalia)
+    as members of every set they can be crafted with.
+    """
+    claimed = ({set_name for item in items for set_name in item.get('sets', [])} - looselyNamed) | craftedSets
+    by_name = collections.defaultdict(list)
+    for item in items:
+        by_name[item['name']].append(item)
+
+    for set_name in sets:
+        if set_name in claimed:
+            continue
+        for item_name in members.get(set_name, []):
+            for item in by_name.get(item_name, []):
+                item.setdefault('sets', [])
+                if set_name not in item['sets']:
+                    item['sets'].append(set_name)
 
 
 def change_lost_purpose_affix_name(affix: Affix, item: Item) -> Any:

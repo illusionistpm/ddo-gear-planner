@@ -12,6 +12,8 @@ from get_inverted_synonym_map import get_inverted_synonym_map
 from parse_affixes_from_cell import get_affix_map_list_from_tag
 from get_snapshot_path import get_snapshot_path
 
+SETS_PAGE = 'Raw data_Sets v2.html'
+
 # Since Update 81.4, a set bonus labelled "Universal" spell power / lore / crit damage
 # is applied to each element separately, so it no longer stacks with a same-type
 # element bonus. Item affixes (Exceptional, Implement, ...) keep the stacking Universal
@@ -100,8 +102,39 @@ def get_sets_from_page(soup):
     return sets
 
 
+def get_set_members_from_page(soup) -> dict[str, list[str]]:
+    """The item names the sets page lists under each set, in its Items column.
+
+    Items normally join a set because their own row names it. These lists are
+    looser than that (they include upgrade chains and Gem of Many Facets), so
+    parse_items only uses them for a set no item claims.
+    """
+    content_root = soup.find(id='mw-content-text') or soup
+    table = content_root.find('table', class_=lambda value: value and 'wikitable' in value)
+    rows = table.find_all('tr')
+    headers = [cell.get_text(strip=True) for cell in rows[0].find_all(['th', 'td'])]
+    if 'Items' not in headers:
+        return {}
+    nameIdx = next(i for i, h in enumerate(headers) if re.search(r'\bName\b', h, re.I))
+    itemsIdx = headers.index('Items')
+
+    members = {}
+    for row in rows[1:]:
+        cells = row.find_all('td')
+        if len(cells) <= max(nameIdx, itemsIdx):
+            continue
+        names = [re.sub(r'^Item:', '', a.get_text(strip=True)) for a in cells[itemsIdx].find_all('a')]
+        members[cells[nameIdx].get_text(strip=True)] = [n for n in names if n]
+    return members
+
+
+def load_set_members() -> dict[str, list[str]]:
+    page = open(get_snapshot_path('sets', SETS_PAGE), "r", encoding='utf-8').read()
+    return get_set_members_from_page(BeautifulSoup(page, 'html.parser'))
+
+
 def parse_set_page():
-    page = open(get_snapshot_path('sets', 'Raw data_Sets v2.html'), "r", encoding='utf-8').read()
+    page = open(get_snapshot_path('sets', SETS_PAGE), "r", encoding='utf-8').read()
 
     soup = BeautifulSoup(page, 'html.parser')
 

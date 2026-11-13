@@ -76,3 +76,27 @@ def test_parsed_set_page_universal_spell_power_becomes_potency():
     assert {'name': 'Potency', 'type': 'Artifact', 'value': '20'} in [
         {key: affix[key] for key in ('name', 'type', 'value')} for affix in sets['Example Set'][0]['affixes']
     ]
+
+
+def test_get_set_members_from_page_reads_the_items_column():
+    soup = BeautifulSoup(
+        '''
+        <div id="mw-content-text">
+            <table class="wikitable">
+                <tr><th>Set name</th><th>ML</th><th>Items</th><th>Effects</th><th>Pack</th></tr>
+                <tr>
+                    <td>Magewright's Expertise</td><td>18</td>
+                    <td>Cloaks: <a href="/page/Item:Magewright%27s_Cloak">Item:Magewright's Cloak</a>
+                        Goggles: <a href="/page/Item:Magewright%27s_Spectacles">Item:Magewright's Spectacles</a></td>
+                    <td><p>2 Pieces Equipped:</p><ul><li>Spell Focus Mastery +1</li></ul></td>
+                    <td>Secrets of the Artificers</td>
+                </tr>
+            </table>
+        </div>
+        ''',
+        'html.parser',
+    )
+
+    assert module.get_set_members_from_page(soup) == {
+        "Magewright's Expertise": ["Magewright's Cloak", "Magewright's Spectacles"],
+    }

@@ -92,6 +92,14 @@
  * same as the info popover beside it.
  */
 @media (max-width: 767.98px) {
+    :host(.trigger-collapses) {
+        display: contents;
+    }
+
+    :host(.trigger-collapses) .support-link {
+        display: none;
+    }
+
     .support-popover {
         left: var(--space-16);
         max-height: calc(100svh - var(--support-popover-top) - var(--space-8));

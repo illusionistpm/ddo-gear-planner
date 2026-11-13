@@ -3,27 +3,23 @@
 }
 
 /*
- * Positions within .planner-chrome. Second line on a wide screen - the switch
- * sits under the identity controls - and see the narrow block below for the
- * one change a phone makes.
+ * Positions within .planner-chrome (see the order map in main.component.css).
+ * Second line on a wide screen, under the identity controls; a phone moves
+ * the switch up, and a wide desktop pulls everything onto one line.
  */
 .planner-view-switch {
     order: 70;
 }
 
-.equipment-search,
-.tracked-affix-groupby {
+.equipment-search {
     order: 80;
 }
 
-/* Swapped with Filters' order (was 100, before it) - see that rule's comment
-   in main.component.css. */
-.tracked-affix-edit-affixes,
-.shopping-list-open {
+.tracked-affix-edit-affixes {
     order: 100;
 }
 
-.shopping-list-rejoin {
+.shopping-list-wrap {
     order: 101;
 }
 
@@ -120,15 +116,16 @@
     display: none;
 }
 
-/* Equipment view: the global gear search. Moved here from gear-list's own
-   toolbar, where it scrolled away with the content. */
+/* Equipment view: the global gear search. Lives here rather than in
+   gear-list's own toolbar, where it scrolled away with the content. */
 .equipment-search {
     align-items: center;
     display: flex;
-    flex: 1 1 24rem;
+    flex: 1 1 12rem;
     gap: var(--space-8);
     max-width: 42rem;
     min-width: 0;
+    position: relative;
 }
 
 .equipment-search-icon {
@@ -141,38 +138,45 @@
     min-width: 0;
 }
 
-/* Tracked affixes view: grouping and the affix builder entry point. Moved here
-   from effects-table's content column, for the same reason. */
-.tracked-affix-groupby {
-    align-items: center;
-    display: flex;
-    flex: 1 1 auto;
-    flex-wrap: wrap;
-    gap: var(--space-8);
-    min-width: 0;
-}
-
-.tracked-affix-groupby-label {
-    color: var(--text-secondary);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-}
-
-.tracked-affix-groupby-option {
-    background: var(--surface-color);
+/* "Press / to search", inside the box's right edge. Goes once you're typing,
+   and on touch screens, which have no key to press. */
+.equipment-search-kbd {
+    background: var(--surface-subtle-color);
     border: 1px solid var(--border-color);
-    border-radius: 999px;
+    border-radius: 4px;
+    box-shadow: none;
     color: var(--text-secondary);
-    font-size: 0.82rem;
-    padding: var(--space-2) var(--space-12);
+    font-family: inherit;
+    font-size: 0.7rem;
+    font-weight: 700;
+    line-height: 1;
+    padding: 0.15rem 0.35rem;
+    pointer-events: none;
+    position: absolute;
+    right: var(--space-8);
+    top: 50%;
+    transform: translateY(-50%);
 }
 
-.tracked-affix-groupby-option.active {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
-    color: var(--on-accent-text-color);
+.equipment-search:focus-within .equipment-search-kbd {
+    display: none;
+}
+
+/* A squeezed box needs its width for the placeholder more than for the hint. */
+.equipment-search {
+    container-type: inline-size;
+}
+
+@container (max-width: 14rem) {
+    .equipment-search-kbd {
+        display: none;
+    }
+}
+
+@media (hover: none), (pointer: coarse) {
+    .equipment-search-kbd {
+        display: none;
+    }
 }
 
 /* Blue, like the Build Goals editor it opens. */
@@ -184,11 +188,13 @@
     color: var(--primary-color);
     cursor: pointer;
     display: inline-flex;
+    flex: 0 0 auto;
     font-size: 0.82rem;
     font-weight: 700;
     gap: var(--space-8);
     margin-left: auto;
     padding: var(--space-2) var(--space-12);
+    white-space: nowrap;
 }
 
 /* The short label only exists below the breakpoint - see the media query - or
@@ -251,7 +257,13 @@
     color: var(--on-accent-text-color);
 }
 
-/* What to fetch for the build: quieter than the affix builder beside it. */
+/* The shopping list: quieter than the affix builder beside it. */
+.shopping-list-wrap {
+    display: inline-flex;
+    flex: 0 0 auto;
+    position: relative;
+}
+
 .shopping-list-open {
     align-items: center;
     background: var(--surface-color);
@@ -264,55 +276,112 @@
     font-weight: 700;
     gap: var(--space-8);
     padding: var(--space-2) var(--space-12);
+    white-space: nowrap;
 }
 
 .shopping-list-open:hover,
-.shopping-list-open:focus-visible {
+.shopping-list-open:focus-visible,
+.shopping-list-open[aria-expanded="true"] {
     border-color: var(--primary-color);
     color: var(--primary-color);
 }
 
-/* Something going on: the primary colour at rest, not only on hover. */
-.shopping-list-rejoin {
-    border-color: var(--primary-color);
+/* On a group's list too: the primary colour at rest, the reminder it's going. */
+.shopping-list-open.shopping-list-on-group {
+    border-color: rgba(var(--primary-color-rgb), 0.55);
     color: var(--primary-color);
-    max-width: 16rem;
 }
 
-.shopping-list-rejoin .shopping-list-open-label {
+/* How many builds the group's list holds. */
+.shopping-list-group-count {
+    background: rgba(var(--primary-color-rgb), 0.14);
+    border-radius: 999px;
+    font-size: 0.72rem;
+    line-height: 1.3;
+    padding: 0 var(--space-4);
+}
+
+.shopping-list-caret {
+    font-size: 0.6rem;
+}
+
+.shopping-list-menu {
+    background: var(--surface-elevated-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    min-width: 17rem;
+    max-width: min(22rem, calc(100vw - 1rem));
+    padding: var(--space-4);
+    position: absolute;
+    right: 0;
+    top: calc(100% + var(--space-4));
+    z-index: 40;
+}
+
+.shopping-list-menu-item {
+    align-items: flex-start;
+    background: transparent;
+    border: 0;
+    border-radius: 6px;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    gap: var(--space-12);
+    padding: var(--space-8);
+    text-align: left;
+    width: 100%;
+}
+
+.shopping-list-menu-item:hover,
+.shopping-list-menu-item:focus-visible {
+    background: var(--surface-subtle-color);
+}
+
+.shopping-list-menu-item:focus-visible {
+    outline: 3px solid var(--focus-ring-color);
+    outline-offset: -1px;
+}
+
+.shopping-list-menu-icon {
+    color: var(--text-secondary);
+    margin-top: 0.15rem;
+    width: 1rem;
+}
+
+.shopping-list-rejoin .shopping-list-menu-icon {
+    color: var(--primary-color);
+}
+
+.shopping-list-menu-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.shopping-list-menu-title {
+    font-weight: 700;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-/* How many builds the list holds: all a narrow toolbar has room for beside the icon. */
-.shopping-list-rejoin-count {
-    background: rgba(var(--primary-color-rgb), 0.12);
-    border-radius: 999px;
-    font-size: 0.72rem;
-    padding: 0 var(--space-4);
+.shopping-list-menu-detail {
+    color: var(--text-secondary);
+    font-size: 0.78rem;
 }
 
 /*
- * On a phone the view's control needs the full width, which would otherwise
- * make this host take a whole line on its own and push Filters - a sibling of
- * this component, over in MainComponent's template - onto a third. Dissolving
- * the host lets all of row 2 wrap as one flex row: the switch and Filters
- * share the first line, the control gets the second.
- */
-/*
- * A phone hasn't room for a line of identity controls and a line of workspace
- * controls, so the switch moves up to share the first line with the brand and
- * the build/account controls, leaving the second for the view's own control,
- * the affix builder and Filters. One `order` does it.
+ * A phone: the switch moves up to share the first line with the build and
+ * account controls, leaving the second for the search, Filters, the affix
+ * builder and the shopping list. One `order` does it.
  */
 @media (max-width: 767.98px) {
     .planner-view-switch {
         order: 20;
-    }
-
-    .shopping-list-open {
-        display: none;
     }
 
     /* The first line is decided by a handful of pixels - see the gap note in
@@ -332,52 +401,32 @@
     }
 
     .tracked-affix-edit-affixes {
-        margin-left: 0;
         padding: var(--space-2) var(--space-8);
     }
 
-    /*
-     * Shares the second line with the affix builder and Filters rather than
-     * taking a line of its own - two lines is the whole budget here. The basis
-     * is what decides whether it wraps, so it is small enough to survive a
-     * 320px screen; flex-grow spends whatever is actually going spare.
-     */
-    .equipment-search,
-    .tracked-affix-groupby {
+    /* Small enough to survive a 320px screen beside its neighbours; flex-grow
+       spends whatever is actually going spare. */
+    .equipment-search {
         flex: 1 1 5rem;
     }
 
-    /*
-     * Group by used to wrap "Scarcity" onto a third line of its own - the
-     * label plus two pills needed more width than this got, where the search
-     * box (a single flexible input) never wraps. That gave the Affixes view a
-     * taller chrome than the Equipment view, which jostled on every tab
-     * switch. The label goes (the "Group by" role/aria-label on the parent
-     * still names it for a screen reader), the pills lose some padding, and
-     * nowrap + a horizontal scroll is the backstop if a translation or a
-     * narrower phone than 360px ever makes them not fit anyway - a scrollbar
-     * inside one control, not a taller bar.
-     */
-    .tracked-affix-groupby-label {
-        display: none;
-    }
-
-    .tracked-affix-groupby {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-    }
-
-    .tracked-affix-groupby-option {
-        flex: 0 0 auto;
+    .shopping-list-open {
+        gap: var(--space-4);
         padding: var(--space-2) var(--space-8);
     }
 }
 
+/* The view switch shares this line with everything else between the phone
+   layout and the two-panel one; the search grows into what's left. */
+@media (min-width: 768px) and (max-width: 994.98px) {
+    .equipment-search {
+        flex-basis: 8rem;
+    }
+}
+
 /*
- * The full label (once "Add / edit affixes") is what used to push this row onto a
- * second line once a filter chip or two was also showing, all the way up
- * through the dual-pane threshold - see the matching comment on
- * .planner-tab-badges in main.component.css, which this stays in sync with.
+ * The labels give way below the dual-panel threshold: "+ Goals" and a cart
+ * icon carry the same meaning in a fraction of the width.
  */
 @media (max-width: 994.98px) {
     .tracked-affix-edit-affixes-label,
@@ -391,21 +440,8 @@
 }
 
 /*
- * A wrapping flex row moves an item to a new line before it shrinks anything,
- * so the basis is what decides whether the workspace controls share one line.
- * 24rem put the affix builder button on a line of its own - at ~800px with the
- * view switch beside it, and up to ~1250px with both panels showing. The box
- * still grows into whatever room is left. (A phone has its own, smaller basis.)
- */
-@media (min-width: 768px) {
-    .equipment-search {
-        flex-basis: 12rem;
-    }
-}
-
-/*
  * Above this both panels are on screen at once (see styles.css), so there is
- * nothing to switch between - and both views' controls have to be reachable.
+ * nothing to switch between, and the search has to be reachable from either.
  *
  * !important because Bootstrap's reboot carries `[hidden] { display: none
  * !important }`, which nothing short of it can override. .planner-tab-panel's
@@ -416,15 +452,28 @@
         display: none;
     }
 
-    .equipment-search[hidden],
-    .tracked-affix-groupby[hidden] {
+    .equipment-search[hidden] {
         display: flex !important;
     }
+}
 
+/*
+ * One line: the workspace controls come ahead of the build's, on the left,
+ * with the search taking the room between them (see main.component.css).
+ */
+@media (min-width: 1200px) {
+    .equipment-search {
+        flex-basis: 8rem;
+        order: 14;
+    }
 
-    /* Two pills don't need the spare room; the search box does. */
-    .tracked-affix-groupby {
-        flex-grow: 0;
+    .tracked-affix-edit-affixes {
+        margin-left: 0;
+        order: 16;
+    }
+
+    .shopping-list-wrap {
+        order: 18;
     }
 }
 
@@ -434,9 +483,12 @@
  */
 @media (pointer: coarse) {
     .planner-view-option,
-    .tracked-affix-groupby-option,
     .tracked-affix-edit-affixes,
     .shopping-list-open {
         min-height: 2.5rem;
+    }
+
+    .shopping-list-menu-item {
+        min-height: 2.75rem;
     }
 }

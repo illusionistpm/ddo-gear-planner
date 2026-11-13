@@ -57,6 +57,7 @@ describe('Planner header actions', () => {
 
   afterEach(() => {
     localStorage.removeItem(onboardingStateKey);
+    localStorage.removeItem('ddo-gear-planner-theme');
   });
 
   const el = () => fixture.nativeElement as HTMLElement;
@@ -82,28 +83,29 @@ describe('Planner header actions', () => {
   }
 
   function openSaveAs() {
-    click('.save-split-caret');
-    clickText('.save-menu-item', 'Save As…');
+    click('.build-name-trigger');
+    clickText('.build-menu-item', 'Save as a new build…');
   }
 
   function openMyBuilds() {
-    click('.build-switcher-caret');
+    click('.build-name-trigger');
   }
 
   function startRenaming(): HTMLInputElement {
-    click('.build-name-editable');
+    click('.build-name-trigger');
     const input = el().querySelector<HTMLInputElement>('input[aria-label="Build name"]');
     expect(input).not.toBeNull();
     return input!;
   }
 
   function signOutFromMenu() {
-    click('.avatar-button');
-    clickText('.avatar-menu-item', 'Sign out');
+    click('.account-toggle');
+    clickText('.account-menu-item', 'Sign out');
   }
 
   function toggleTheme() {
-    click('.theme-toggle');
+    const toDark = !TestBed.inject(ThemeService).isDarkTheme();
+    click(`.menu-theme-option[aria-label="${toDark ? 'Dark theme' : 'Light theme'}"]`);
   }
 
   // ---- Behaviour ----

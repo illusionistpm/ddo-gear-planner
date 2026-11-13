@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output
+} from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 /**
@@ -22,6 +24,12 @@ export class SupportLinkComponent {
   /** Emits when the popover opens, so the info popover beside it can close. */
   @Output() opened = new EventEmitter<void>();
 
+  /**
+   * A phone's top line has no room for this button; the planner's account
+   * menu stands in for it there, and the popover still opens from here.
+   */
+  @Input() @HostBinding('class.trigger-collapses') collapseTriggerOnPhone = false;
+
   readonly url: SafeResourceUrl;
   open = false;
   /** Where the popover's top goes on a narrow screen, where it is pinned to the viewport's sides. */
@@ -37,6 +45,7 @@ export class SupportLinkComponent {
 
   toggle(button: HTMLElement): void {
     this.open = !this.open;
+    this.cdr.markForCheck();
     if (this.open) {
       this.popoverTop = button.getBoundingClientRect().bottom + 6;
       this.opened.emit();

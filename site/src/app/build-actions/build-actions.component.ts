@@ -1,6 +1,5 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, inject, OnDestroy, OnInit, QueryList, ViewChild,
-  ViewChildren
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -8,16 +7,15 @@ import { AuthService } from '../shared/auth.service';
 import { CurrentBuildService, CurrentBuildState } from '../build/current-build.service';
 import { MAX_BUILD_NAME_LENGTH, validateBuildName } from '../save-build-dialog/save-build-dialog.component';
 import { BuildSaveError, BuildSaveService } from './build-save.service';
-import { Router } from '@angular/router';
-import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
-import { groupPath, GroupSummary } from '../build/groups.service';
-import { MyListsService } from '../build/my-lists.service';
-import { AnalyticsService } from '../shared/analytics.service';
 
 type DialogMode = 'create' | 'save-as';
 
-// The four popovers hanging off the build bar. At most one is open at a time.
-export type BuildActionsMenu = 'myBuilds' | 'avatar' | 'share' | 'save' | 'overflow';
+// The popovers hanging off the build bar. At most one is open at a time.
+// 'build' opens over the build's name: rename, Save As, My builds.
+export type BuildActionsMenu = 'build' | 'share' | 'account';
+
+/** How long Save says "Saved" after a save lands. */
+const SAVED_FLASH_MS = 1600;
 
 // The view model behind the single save split-button (see the plan's "Save
 // controls" section) - one primary action whose label/enabled-ness follows
@@ -34,9 +32,10 @@ export interface SaveControlViewModel {
   // rest already fit, so they repeat their own label.
   shortLabel: string;
   disabled: boolean;
-  // Whether the caret (revealing "Save As…") should render at all - only
-  // when there's a genuinely distinct secondary action, i.e. an owned build
-  // where the primary action is already "save in place".
+  // Whether the build menu offers Save As - only when there's a genuinely
+  // distinct secondary action, i.e. an owned build where the primary action
+  // is already "save in place". (Named for the split button's caret it once
+  // revealed.)
   hasMenu: boolean;
 }
 
@@ -86,14 +85,19 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   // shown, which is what this path used to do for every failure.
   savingInPlaceError: string | null = null;
 
+  // A brief "Saved" on the Save button once a save lands - the button
+  // otherwise just goes quietly disabled, which reads as nothing happening.
+  justSaved = false;
+  private justSavedTimer: ReturnType<typeof setTimeout> | null = null;
+  // Enter in the name field commits and closes the menu; blur only commits.
+  private closeAfterRename = false;
+
   @ViewChild('nameInput') private readonly nameInputRef?: ElementRef<HTMLInputElement>;
-  @ViewChild('saveCaret') private readonly saveCaretRef?: ElementRef<HTMLButtonElement>;
-  @ViewChildren('saveMenuItem') private readonly saveMenuItemRefs?: QueryList<ElementRef<HTMLButtonElement>>;
+  @ViewChild('nameTrigger') private readonly nameTriggerRef?: ElementRef<HTMLButtonElement>;
 
   private buildStateSub?: Subscription;
   private authSub?: Subscription;
   private userSub?: Subscription;
-  private rejoinSub?: Subscription;
 
   constructor(
     private readonly currentBuild: CurrentBuildService,
@@ -101,24 +105,6 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
     private readonly auth: AuthService,
     private readonly cdr: ChangeDetectorRef
   ) {}
-
-  private readonly shoppingListView = inject(ShoppingListViewService);
-  private readonly analytics = inject(AnalyticsService);
-  private readonly myLists = inject(MyListsService);
-  private readonly router = inject(Router);
-  /** The list of several builds this build is on, to rejoin; null for none. */
-  rejoin: GroupSummary | null = null;
-
-  openShoppingList(): void {
-    this.closeMenu();
-    this.shoppingListView.open('menu');
-  }
-
-  rejoinList(list: GroupSummary): void {
-    this.closeMenu();
-    this.analytics.track('rejoin_list', { from: 'menu' });
-    this.router.navigateByUrl(groupPath(list.shortId, list.inviteToken));
-  }
 
   // OnPush doesn't redraw on its own when state is mutated from inside an
   // async callback (an HTTP/observable subscription, not a template event) -
@@ -141,17 +127,15 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
       this.userInitial = this.userDisplayName ? this.userDisplayName.charAt(0).toUpperCase() : '?';
       this.cdr.markForCheck();
     });
-    this.rejoinSub = this.myLists.rejoin$.subscribe(list => {
-      this.rejoin = list;
-      this.cdr.markForCheck();
-    });
   }
 
   ngOnDestroy(): void {
     this.buildStateSub?.unsubscribe();
     this.authSub?.unsubscribe();
     this.userSub?.unsubscribe();
-    this.rejoinSub?.unsubscribe();
+    if (this.justSavedTimer) {
+      clearTimeout(this.justSavedTimer);
+    }
   }
 
   signIn(): void {
@@ -169,44 +153,127 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
 
   /** Opens `menu` (closing whichever other one was open), or closes it if it's already open. */
   toggleMenu(menu: BuildActionsMenu): void {
-    this.openMenu = this.openMenu === menu ? null : menu;
+    this.setOpenMenu(this.openMenu === menu ? null : menu);
   }
 
   closeMenu(): void {
-    this.openMenu = null;
+    this.setOpenMenu(null);
+  }
+
+  // Also reached from outside this OnPush view: the account menu's rows are
+  // MainComponent's projected content, and close it from there.
+  private setOpenMenu(menu: BuildActionsMenu | null): void {
+    this.openMenu = menu;
+    this.cdr.markForCheck();
+  }
+
+  /** An owned, saved build with edits not yet saved: a dot by its name says so. */
+  get showUnsavedDot(): boolean {
+    return this.isAuthenticated && this.buildState.ownership === 'owned' && this.buildState.isDirty;
+  }
+
+  toggleBuildMenu(): void {
+    if (this.isMenuOpen('build')) {
+      this.closeBuildMenu();
+    } else {
+      this.startRename();
+    }
+  }
+
+  /**
+   * Closes the build menu without saving what's in the name field: Escape,
+   * and a click elsewhere (which has already committed it on blur by then).
+   */
+  closeBuildMenu(): void {
+    this.cancelRename();
+    this.closeMenu();
+    this.nameTriggerRef?.nativeElement.focus();
+  }
+
+  onNameEnter(): void {
+    this.closeAfterRename = true;
+    this.commitRename();
+  }
+
+  /** Up and down move between the name field and the menu's buttons. */
+  onBuildMenuKeydown(event: KeyboardEvent): void {
+    if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') {
+      return;
+    }
+    const menu = event.currentTarget as HTMLElement;
+    const items = [...menu.querySelectorAll<HTMLElement>('input, button:not(:disabled)')];
+    if (!items.length) {
+      return;
+    }
+    event.preventDefault();
+    const index = items.indexOf(document.activeElement as HTMLElement);
+    const step = event.key === 'ArrowDown' ? 1 : -1;
+    items[(index + step + items.length) % items.length].focus();
+  }
+
+  /**
+   * Ctrl/Cmd+S saves, as everywhere else - rather than the browser saving
+   * the page as HTML. Signed out there's no save to make, so the browser's
+   * own shortcut is left alone.
+   */
+  @HostListener('document:keydown', ['$event'])
+  onDocumentKeydown(event: KeyboardEvent): void {
+    if (!(event.ctrlKey || event.metaKey) || event.altKey || event.shiftKey || event.key?.toLowerCase() !== 's') {
+      return;
+    }
+    if (!this.isAuthenticated || this.dialogOpen) {
+      return;
+    }
+    event.preventDefault();
+    // Mid-rename, the field's own commit is already on its way; a save on top
+    // of it would race it.
+    if (this.isMenuOpen('build') || this.saveControl.disabled) {
+      return;
+    }
+    this.closeMenu();
+    this.onSaveControlPrimaryClick();
+  }
+
+  private flashSaved(): void {
+    this.justSaved = true;
+    if (this.justSavedTimer) {
+      clearTimeout(this.justSavedTimer);
+    }
+    this.justSavedTimer = setTimeout(() => {
+      this.justSavedTimer = null;
+      this.justSaved = false;
+      this.cdr.markForCheck();
+    }, SAVED_FLASH_MS);
   }
 
   // Naming is available to anyone, saved or not, signed in or not - see the
   // plan's "Naming without saving". commitRename() below branches on
   // whether there's actually a savedBuildId to persist the rename to.
+  //
+  // Renaming happens in the build menu, whose first row is the name as a
+  // field, laid over the name in the bar - so this opens that menu.
   startRename(): void {
+    this.setOpenMenu('build');
     this.nameDraft = this.buildState.name ?? '';
     this.renameError = null;
     this.editingName = true;
-    // The input doesn't exist in the DOM until the @if switches over on the
-    // next change-detection pass triggered by this click - defer the focus
-    // until then instead of racing it.
-    setTimeout(() => {
-      this.nameInputRef?.nativeElement.focus();
-      this.nameInputRef?.nativeElement.select();
-    });
+    this.closeAfterRename = false;
+    // A touch screen would throw up its keyboard over the menu; there the
+    // field waits for a tap. The input doesn't exist until the @if switches
+    // over on the next change-detection pass, so defer the focus until then.
+    if (prefersFinePointer()) {
+      setTimeout(() => {
+        this.nameInputRef?.nativeElement.focus();
+        this.nameInputRef?.nativeElement.select();
+      });
+    }
   }
 
   cancelRename(): void {
     this.editingName = false;
     this.renameError = null;
-  }
-
-  // Explicit cancel affordance alongside Escape (which isn't discoverable
-  // on its own) - bound to mousedown, not click, specifically so it can
-  // preventDefault() there: mousedown fires before the input's blur, and
-  // blur is what commits (see the input's own (blur)="commitRename()").
-  // Without the preventDefault, clicking this button would blur-and-commit
-  // the in-progress edit a moment before the click handler ran, making
-  // "cancel" silently save instead.
-  onCancelRenameMouseDown(event: MouseEvent): void {
-    event.preventDefault();
-    this.cancelRename();
+    this.closeAfterRename = false;
+    this.nameDraft = this.buildState.name ?? '';
   }
 
   commitRename(): void {
@@ -215,12 +282,10 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
     }
 
     const validated = validateBuildName(this.nameDraft);
-    if (!validated) {
-      this.cancelRename();
-      return;
-    }
-    if (validated === this.buildState.name) {
-      this.editingName = false;
+    if (!validated || validated === this.buildState.name) {
+      // Nothing to save. An emptied field goes back to the name it had.
+      this.nameDraft = this.buildState.name ?? '';
+      this.finishRename();
       return;
     }
 
@@ -229,24 +294,30 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
       // Nothing saved yet (or this build isn't ours) - nothing to persist
       // or duplicate-check against, just update the local name. See
       // CurrentBuildService.setName().
-      this.editingName = false;
-      this.renameError = null;
       this.currentBuild.setName(validated);
-      this.cdr.markForCheck();
+      this.finishRename();
       return;
     }
 
     this.buildSave.rename(savedBuildId, validated).subscribe({
-      next: () => {
-        this.editingName = false;
-        this.renameError = null;
-        this.cdr.markForCheck();
-      },
+      next: () => this.finishRename(),
       error: (err: unknown) => {
+        this.closeAfterRename = false;
         this.renameError = saveErrorMessage(err);
         this.cdr.markForCheck();
       }
     });
+  }
+
+  private finishRename(): void {
+    this.editingName = false;
+    this.renameError = null;
+    if (this.closeAfterRename) {
+      this.closeAfterRename = false;
+      this.closeMenu();
+      this.nameTriggerRef?.nativeElement.focus();
+    }
+    this.cdr.markForCheck();
   }
 
   // Save control state matrix (see the plan's "Save controls: one split
@@ -306,86 +377,10 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
     // is just not assuming that stays true forever.
   }
 
-  toggleSaveMenu(): void {
-    this.toggleMenu('save');
-    if (this.isMenuOpen('save')) {
-      // The menu item doesn't exist in the DOM until the @if switches over
-      // on the next change-detection pass - defer the focus move until then
-      // instead of racing it (same pattern as startRename's nameInputRef).
-      setTimeout(() => this.focusFirstSaveMenuItem());
-    }
-  }
-
-  // `returnFocusToCaret`: true for every close that isn't itself already
-  // moving focus somewhere else (Escape, a menu item's own action) - a
-  // backdrop click already moved focus onto the backdrop's own click
-  // target, so forcing it back onto the caret there would fight the user.
-  closeSaveMenu(returnFocusToCaret = false): void {
-    this.closeMenu();
-    if (returnFocusToCaret) {
-      this.saveCaretRef?.nativeElement.focus();
-    }
-  }
-
   onSaveAsMenuItemClick(): void {
-    this.closeSaveMenu();
+    this.cancelRename();
+    this.closeMenu();
     this.openDialog('save-as', this.buildState.name ?? '');
-  }
-
-  // ArrowDown/Enter/Space open the menu and move focus in - Enter/Space
-  // already trigger (click) on a <button> on their own, so this only needs
-  // to additionally handle ArrowDown (which wouldn't otherwise do anything)
-  // and Escape (closing a menu that's already open from here would be a
-  // mis-click; nothing to do if it's already closed).
-  onSaveCaretKeydown(event: KeyboardEvent): void {
-    if (event.key === 'ArrowDown') {
-      event.preventDefault();
-      if (!this.isMenuOpen('save')) {
-        this.toggleSaveMenu();
-      } else {
-        this.focusFirstSaveMenuItem();
-      }
-    } else if (event.key === 'Escape' && this.isMenuOpen('save')) {
-      this.closeSaveMenu();
-    }
-  }
-
-  // Roving focus within the open menu (today just one item, but this
-  // doesn't assume that stays true) plus Escape-to-close-and-return-focus -
-  // neither of the two older menus this pattern is modeled on (Share,
-  // account) have this; see the plan for why they aren't retrofitted here.
-  onSaveMenuKeydown(event: KeyboardEvent): void {
-    // Escape/Tab close the menu regardless of whether there are any items to
-    // roam between - only the arrow-key roving-focus branches below actually
-    // need a non-empty item list.
-    if (event.key === 'Escape') {
-      event.preventDefault();
-      this.closeSaveMenu(true);
-      return;
-    }
-    if (event.key === 'Tab') {
-      // Don't fight the browser's own focus move - just stop showing a menu
-      // that focus is about to leave.
-      this.closeSaveMenu();
-      return;
-    }
-
-    const items = this.saveMenuItemRefs?.toArray() ?? [];
-    if (items.length === 0) {
-      return;
-    }
-    const activeIndex = items.findIndex(item => item.nativeElement === document.activeElement);
-    if (event.key === 'ArrowDown') {
-      event.preventDefault();
-      items[(activeIndex + 1) % items.length]?.nativeElement.focus();
-    } else if (event.key === 'ArrowUp') {
-      event.preventDefault();
-      items[(activeIndex - 1 + items.length) % items.length]?.nativeElement.focus();
-    }
-  }
-
-  private focusFirstSaveMenuItem(): void {
-    this.saveMenuItemRefs?.first?.nativeElement.focus();
   }
 
   openDialog(mode: DialogMode, initialName: string): void {
@@ -410,6 +405,7 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
       next: () => {
         this.dialogSaving = false;
         this.dialogOpen = false;
+        this.flashSaved();
         this.cdr.markForCheck();
       },
       error: (err: unknown) => {
@@ -420,16 +416,13 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
     });
   }
 
-  onMyBuildsClick(): void {
-    this.openMenu = 'myBuilds';
-  }
-
   private saveInPlace(savedBuildId: string): void {
     this.savingInPlaceError = null;
     this.savingInPlace = true;
     this.buildSave.saveInPlace(savedBuildId).subscribe({
       next: () => {
         this.savingInPlace = false;
+        this.flashSaved();
         this.cdr.markForCheck();
       },
       // A failed in-place save leaves isDirty as-is - clear the saving
@@ -442,6 +435,10 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
       }
     });
   }
+}
+
+function prefersFinePointer(): boolean {
+  return typeof window !== 'undefined' && !!window.matchMedia?.('(pointer: fine)')?.matches;
 }
 
 function saveErrorMessage(err: unknown): string {

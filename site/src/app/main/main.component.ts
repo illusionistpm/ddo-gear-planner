@@ -12,7 +12,7 @@ import { FiltersService } from '../planner/filters.service';
 import { ItemFilters } from '../gear/item-filters';
 import { EquippedService, PlannerTab } from '../planner/equipped.service';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
-import { ThemeService } from '../shared/theme.service';
+import { ThemeMode, ThemeService } from '../shared/theme.service';
 import { AuthService } from '../shared/auth.service';
 import { BuildUrlCodecService } from '../build/build-url-codec.service';
 import { BuildsService } from '../build/builds.service';
@@ -559,9 +559,12 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   /** The list's way back to the planner, in the header it shows while open. */
   readonly plannerBack: PageChromeBack = { label: 'Planner', title: 'Back to the planner' };
 
-  toggleTheme() {
-    this.theme.toggleTheme();
-  }
+  /** The account menu's theme switch: a fixed choice, or follow the device. */
+  readonly themeOptions: ReadonlyArray<{ mode: ThemeMode; label: string; icon: string }> = [
+    { mode: 'light', label: 'Light theme', icon: 'fa-sun' },
+    { mode: 'dark', label: 'Dark theme', icon: 'fa-moon' },
+    { mode: 'system', label: 'Match my device', icon: 'fa-desktop' }
+  ];
 
   closeFilters() {
     this.filtersOpen = false;
@@ -589,8 +592,9 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-   * Narrow screens show this on the Filters button in place of the chip strip,
-   * which is what used to wrap the header onto extra rows.
+   * Shown on the Filters button in place of the chip strip, which is what used
+   * to wrap the header onto extra rows. The chips themselves are a hover away
+   * (the peek) or at the top of the sheet.
    */
   activeFilterCount() {
     return [
@@ -640,6 +644,18 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filters.setHiddenPacks(new Set());
     this.filters.setHiddenTypes(new Set());
     this.analytics.track('reset_filter', { filter: 'all' });
+  }
+
+  /** The Filters button's tooltip: what's filtered, for a touch-free glance. */
+  filterButtonTitle() {
+    const active = [
+      this.isLevelRangeDefault() ? null : this.getLevelRangeSummary(),
+      this.itemFilters.showRaidItems ? null : 'raids hidden',
+      this.itemFilters.showRareItems ? null : 'rares hidden',
+      this.hasHiddenPacks() ? `${this.getHiddenPacksSummary()} hidden` : null,
+      this.hasHiddenTypes() ? `${this.getHiddenTypesSummary()} hidden` : null
+    ].filter(Boolean);
+    return active.length ? `Filters: ${active.join(', ')}` : 'Filters';
   }
 
   getHiddenPacksSummary() {

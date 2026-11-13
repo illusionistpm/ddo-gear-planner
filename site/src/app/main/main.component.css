@@ -100,15 +100,34 @@
   width: 1.4rem;
 }
 
+/* The "something is filtered" signal: a count, where a strip of chips used to
+   push the bar onto extra lines. The chips are a hover away (the peek below)
+   or at the top of the sheet. */
 .planner-filter-count {
-  display: none;
+  align-items: center;
+  background: var(--primary-color);
+  border-radius: 999px;
+  color: var(--on-accent-text-color);
+  display: inline-flex;
+  font-size: 0.7rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1;
+  min-height: 1.1rem;
+  min-width: 1.1rem;
+  padding: 0 var(--space-4);
 }
 
 /*
- * Positions within .planner-chrome. Ko-fi, the theme toggle and Admin are
- * projected into app-build-actions' overflow menu, which is display: contents
- * on a wide screen - so they are flex items of this bar, and an unset order
- * would sort them ahead of the brand.
+ * Positions within .planner-chrome, by `order`. Two lines, split by the break
+ * (60):
+ *
+ *   10 brand · 30 spacer · 40 build actions | 70 view switch · 75 Filters ·
+ *   80 search · 100 affix builder · 101 shopping list
+ *
+ * A phone moves the view switch up to 20 and Filters after the search (90).
+ * From 1200px everything shares one line: the break goes and the workspace
+ * controls move ahead of the build's (12-18).
  */
 .planner-brand {
   order: 10;
@@ -136,22 +155,118 @@ app-build-actions {
   flex: 1 1 0;
 }
 
+/* Ko-fi sits in the build actions' row, whose gap already spaces it. */
 app-support-link,
-.theme-toggle,
-app-credits,
 app-admin-link {
-  order: 40;
+  margin-left: 0;
+}
+
+/*
+ * The account menu's rows. They're this component's (projected into
+ * build-actions' menu), so they're styled here.
+ */
+.menu-row,
+.menu-theme {
+  align-items: center;
+  border-radius: 6px;
+  color: var(--text-primary);
+  display: flex;
+  gap: var(--space-8);
+  padding: var(--space-8);
+  width: 100%;
+}
+
+.menu-row {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.menu-row:hover,
+.menu-row:focus-visible {
+  background: var(--surface-subtle-color);
+  color: var(--primary-color);
+}
+
+.menu-row:focus-visible,
+.menu-theme-option:focus-visible {
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: -1px;
+}
+
+.menu-row-icon {
+  color: var(--text-secondary);
+  text-align: center;
+  width: 1rem;
+}
+
+.menu-theme {
+  justify-content: space-between;
+}
+
+.menu-theme-label {
+  align-items: center;
+  display: inline-flex;
+  gap: var(--space-8);
+}
+
+/* Light, dark, or whatever the device uses: a small segmented control. */
+.menu-theme-options {
+  background: var(--surface-subtle-color);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  display: inline-flex;
+  gap: var(--space-2);
+  padding: var(--space-2);
+}
+
+.menu-theme-option {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.8rem;
+  height: 1.75rem;
+  justify-content: center;
+  width: 2rem;
+}
+
+.menu-theme-option:hover {
+  color: var(--primary-color);
+}
+
+.menu-theme-option.active {
+  background: var(--primary-color);
+  color: var(--on-accent-text-color);
+}
+
+/* Ko-fi is in the bar itself from here up; the menu only stands in for it on a phone. */
+@media (min-width: 768px) {
+  .menu-row-support {
+    display: none;
+  }
+}
+
+@media (pointer: coarse) {
+  .menu-row {
+    min-height: 2.75rem;
+  }
+
+  .menu-theme-option {
+    height: 2.25rem;
+    width: 2.5rem;
+  }
 }
 
 .planner-filter-control {
   align-items: center;
-  /*
-   * Swapped with the affix builder button's order (was 100, after it): see
-   * that rule's comment in planner-toolbar.component.css. Desktop pushes this
-   * further forward, ahead of Group by / the search box too - Filters is the
-   * one control that applies regardless of which view you're on, and
-   * Group by / Add-edit affixes are properties of the affix UI specifically.
-   */
+  /* After the search on a phone; ahead of it from 768px (below), as the one
+     control that applies whichever view you're on. */
   order: 90;
   border: 1px solid transparent;
   border-radius: 7px;
@@ -161,6 +276,8 @@ app-admin-link {
   margin-left: auto;
   min-width: 0;
   padding: var(--space-2) var(--space-4);
+  /* The peek's containing block. The sheet is a sibling, positioned on the bar. */
+  position: relative;
 }
 
 @media (min-width: 768px) {
@@ -219,14 +336,61 @@ app-admin-link {
   min-width: 0;
 }
 
+/*
+ * The peek: the active filters under the button, on hover or keyboard focus,
+ * each removable, without opening the whole sheet. The padding (not a margin)
+ * bridges the gap to the button, so the pointer can cross it without the
+ * hover ending. A touch screen has no hover to reveal it; the count and a tap
+ * on the sheet do the job there.
+ */
+.planner-filter-peek {
+  display: none;
+  left: 0;
+  padding-top: var(--space-4);
+  position: absolute;
+  top: 100%;
+  z-index: 36;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .planner-filter-control:hover .planner-filter-peek,
+  .planner-filter-control:has(:focus-visible) .planner-filter-peek {
+    display: block;
+  }
+}
+
+.planner-filter-peek-panel,
+.planner-filter-active {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-8);
+}
+
+.planner-filter-peek-panel {
+  background: var(--surface-elevated-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-lg);
+  max-width: min(28rem, calc(100vw - 2rem));
+  padding: var(--space-8);
+  width: max-content;
+}
+
+/* Top of the sheet: what's on, before the controls that change it. */
+.planner-filter-active {
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: var(--space-12);
+  padding-bottom: var(--space-12);
+}
+
 .planner-filter-toggle:hover,
 .planner-filter-toggle:focus {
   color: var(--primary-color);
 }
 
 .planner-filter-toggle:focus-visible,
-.planner-filter-reset-all:focus-visible,
-.theme-toggle:focus-visible {
+.planner-filter-reset-all:focus-visible {
   outline: 3px solid var(--focus-ring-color);
   outline-offset: 2px;
 }
@@ -248,10 +412,6 @@ app-admin-link {
   line-height: 1.2;
   padding: var(--space-2) var(--space-8);
   white-space: nowrap;
-}
-
-.planner-filter-control.open .planner-filter-chip {
-  background: var(--surface-muted-color);
 }
 
 .planner-filter-chip.chip-active {
@@ -309,33 +469,6 @@ app-admin-link {
 
 .planner-filter-reset-all:hover,
 .planner-filter-reset-all:focus {
-  color: var(--primary-color);
-}
-
-.theme-toggle {
-  align-items: center;
-  align-self: stretch;
-  background: var(--surface-subtle-color);
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  color: var(--text-secondary);
-  display: inline-flex;
-  flex: 0 0 auto;
-  font-size: 0.95rem;
-  justify-content: center;
-  line-height: 1.2;
-  margin-left: var(--space-8);
-  min-height: 2rem;
-  min-width: 2.25rem;
-  padding: var(--space-4);
-}
-
-.theme-toggle:hover,
-.theme-toggle:focus {
-  color: var(--primary-color);
-}
-
-.theme-toggle.dark {
   color: var(--primary-color);
 }
 
@@ -652,44 +785,15 @@ app-admin-link {
   }
 
   /* The icon carries the same meaning on its own, same as Share's label
-     going at this width in build-actions.component.css - the text buys back
-     room for the filter chip strip next to it. */
+     going at this width in build-actions.component.css. */
   .planner-tab-label {
     display: none;
   }
-}
 
-/*
- * The chip strip (and the affix builder's full label - see that rule in
- * planner-toolbar.component.css) is what used to wrap this row onto extra
- * lines once any filter was active, all the way up through the dual-pane
- * threshold: the view switch and Filters alone leave room for it, but add
- * the group-by pills and a chip or two and it doesn't fit. The count badge
- * carries the same "something is filtered" signal in a fraction of the
- * width, and the sheet shows what's active - so the collapsed form covers
- * this whole range rather than just the narrow phone block above, and only
- * gives way once both views share the bar (995px) and there's usually
- * nothing else competing for the line.
- */
-@media (max-width: 994.98px) {
-  .planner-tab-badges,
-  .planner-filter-reset-all {
-    display: none;
-  }
-
-  .planner-filter-count {
-    align-items: center;
-    background: var(--primary-color);
-    border-radius: 999px;
-    color: var(--on-accent-text-color);
-    display: inline-flex;
-    font-size: 0.7rem;
-    font-weight: 700;
-    justify-content: center;
-    line-height: 1;
-    min-height: 1.1rem;
-    min-width: 1.1rem;
-    padding: 0 var(--space-4);
+  /* On the affixes view there's no search beside it: Filters keeps the left
+     edge, and the affix builder (planner-toolbar) takes the push instead. */
+  .planner-filter-control {
+    margin-left: 0;
   }
 }
 
@@ -722,17 +826,49 @@ app-admin-link {
   }
 }
 
-@media (max-width: 575.98px) {
+/*
+ * One line. The workspace controls lead, on the left; the build's follow on
+ * the right, and the search takes the room between. The wordmark goes - the
+ * icon still marks the site - and the build name reserves less, growing back
+ * with the screen: a wrapping line breaks on the items' starting widths, so
+ * it's the name's reserved width that decides whether 1200px holds one line.
+ * A longer name than that shrinks to fit. Anything that still doesn't fit
+ * wraps onto a second line rather than overflowing.
+ */
+@media (min-width: 1200px) {
+  .planner-chrome-break {
+    display: none;
+  }
+
+  .planner-brand-name {
+    display: none;
+  }
+
   .planner-filter-control {
-    align-items: flex-start;
-    flex-direction: column;
+    margin-left: 0;
+    order: 12;
   }
 
-  .planner-tab-badges {
-    width: 100%;
+  /* Sized by its content here, not given the slack: on one line the search
+     box is what grows into the room, and the build's controls keep theirs. */
+  app-build-actions {
+    --build-name-width: 12rem;
+    flex: 0 1 auto;
+  }
+}
+
+@media (min-width: 1440px) {
+  app-build-actions {
+    --build-name-width: 16rem;
+  }
+}
+
+@media (min-width: 1600px) {
+  .planner-brand-name {
+    display: inline;
   }
 
-  .planner-filter-reset-all {
-    margin-left: var(--space-8);
+  app-build-actions {
+    --build-name-width: 20rem;
   }
 }

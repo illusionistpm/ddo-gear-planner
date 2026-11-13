@@ -99,6 +99,17 @@
 <div class="tracked-affixes-workspace">
     <div class="tracked-affixes-content">
     <app-affix-picker *ngIf="editorOpen"></app-affix-picker>
+    <!-- Only this view uses it, so it lives here rather than in the page header.
+         Set once and left: it can scroll away with the list. -->
+    <div class="tracked-affix-groupby" role="group" aria-label="Group build goals by">
+        <span class="tracked-affix-groupby-label">Group by</span>
+        <span class="tracked-affix-groupby-options">
+            <button type="button" class="tracked-affix-groupby-option" [class.active]="groupMode === 'category'"
+                [attr.aria-pressed]="groupMode === 'category'" (click)="setGroupMode('category')">Category</button>
+            <button type="button" class="tracked-affix-groupby-option" [class.active]="groupMode === 'slots'"
+                [attr.aria-pressed]="groupMode === 'slots'" (click)="setGroupMode('slots')">Scarcity</button>
+        </span>
+    </div>
     <ng-container *ngIf="groupMode === 'slots'">
         <p class="tracked-affix-slots-empty" *ngIf="!needsStart && !trackedDisplay.slotGroups.length">
             No build goals yet. Add some with <strong><app-goals-label for="editor-button"></app-goals-label></strong> in the toolbar above.

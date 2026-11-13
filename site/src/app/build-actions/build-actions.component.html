@@ -1,42 +1,60 @@
 <div class="build-actions">
+  <!--
+    The build's name is the way into everything about the build: one click
+    opens the build menu right over it, with the name as an editable field in
+    the same spot, so renaming feels inline. Below that, Save As, a new build
+    and the saved builds to switch to.
+  -->
   <div class="build-name-group">
-    @if (editingName) {
-      <input #nameInput type="text" class="build-name-input" [(ngModel)]="nameDraft"
-        [maxLength]="nameMaxLength"
-        aria-label="Build name"
-        (keydown.enter)="commitRename()"
-        (keydown.escape)="cancelRename()"
-        (blur)="commitRename()">
-      <button type="button" class="build-name-cancel" aria-label="Cancel rename"
-        (mousedown)="onCancelRenameMouseDown($event)">
-        <i class="fas fa-xmark" aria-hidden="true"></i>
-      </button>
-    } @else {
-      <span class="build-name build-name-editable"
-        appShrinkToFit
-        tabindex="0"
-        role="button"
-        [attr.aria-label]="'Rename build: ' + (buildState.name || 'Untitled build')"
-        [title]="buildState.name ?? 'Untitled build'"
-        (click)="startRename()"
-        (keydown.enter)="startRename()"
-        (keydown.space)="$event.preventDefault(); startRename()">{{ buildState.name || 'Untitled build' }}</span>
-    }
+    <button #nameTrigger type="button" class="build-name-trigger"
+      aria-haspopup="dialog"
+      [attr.aria-expanded]="isMenuOpen('build')"
+      [attr.aria-label]="'Build: ' + (buildState.name || 'Untitled build') + (showUnsavedDot ? ', unsaved changes' : '') + '. Rename, save as, or switch builds'"
+      [title]="(buildState.name ?? 'Untitled build') + (showUnsavedDot ? ' (unsaved changes)' : '')"
+      (click)="toggleBuildMenu()">
+      <span class="build-name" appShrinkToFit>{{ buildState.name || 'Untitled build' }}</span>
+      @if (showUnsavedDot) {
+        <span class="build-unsaved-dot" aria-hidden="true"></span>
+      }
+      <i class="fas fa-chevron-down build-name-caret" aria-hidden="true"></i>
+    </button>
 
-    @if (isAuthenticated) {
-      <button type="button" class="build-switcher-caret" aria-label="My builds" title="My builds"
-        [attr.aria-expanded]="isMenuOpen('myBuilds')"
-        (click)="onMyBuildsClick()">
-        <i class="fas fa-chevron-down" aria-hidden="true"></i>
-      </button>
-    }
+    @if (isMenuOpen('build')) {
+      <section class="build-menu menu-pop" role="dialog" aria-label="Build" (keydown)="onBuildMenuKeydown($event)">
+        <div class="build-menu-name">
+          <input #nameInput type="text" class="build-name-input" [(ngModel)]="nameDraft"
+            [maxLength]="nameMaxLength"
+            aria-label="Build name"
+            placeholder="Name this build"
+            (focus)="editingName = true"
+            (keydown.enter)="onNameEnter()"
+            (blur)="commitRename()">
+          <span class="build-menu-name-hint" aria-hidden="true">
+            <i class="fas fa-pen" aria-hidden="true"></i>
+          </span>
+        </div>
+        @if (renameError) {
+          <span class="build-name-error build-menu-error" role="alert">{{ renameError }}</span>
+        }
 
-    @if (isMenuOpen('myBuilds')) {
-      <app-my-builds (closed)="closeMenu()"></app-my-builds>
+        @if (isAuthenticated) {
+          @if (saveControl.hasMenu) {
+            <button #buildMenuItem type="button" class="build-menu-item" (click)="onSaveAsMenuItemClick()">
+              <i class="fas fa-copy build-menu-icon" aria-hidden="true"></i>Save as a new build…
+            </button>
+          }
+          <app-my-builds (closed)="closeMenu()"></app-my-builds>
+        } @else {
+          <button #buildMenuItem type="button" class="build-menu-item build-menu-sign-in" (click)="signIn()">
+            <i class="fas fa-right-to-bracket build-menu-icon" aria-hidden="true"></i>Sign in to save builds
+          </button>
+        }
+      </section>
+      <app-menu-backdrop label="Close build menu" (dismiss)="closeBuildMenu()"></app-menu-backdrop>
     }
   </div>
 
-  @if (renameError) {
+  @if (renameError && !isMenuOpen('build')) {
     <span class="build-name-error" role="alert">{{ renameError }}</span>
   }
 
@@ -45,33 +63,18 @@
   }
 
   @if (isAuthenticated) {
-    <div class="save-split" [class.save-split-with-menu]="saveControl.hasMenu">
-      <button
-        type="button"
-        class="build-action-button build-action-primary save-split-primary"
-        [disabled]="saveControl.disabled"
-        [attr.aria-label]="saveControl.label"
-        [title]="saveControl.label"
-        (click)="onSaveControlPrimaryClick()"
-      ><i class="fas fa-save save-icon" aria-hidden="true"></i><span class="save-label-full">{{ saveControl.label }}</span><span
-          class="save-label-short">{{ saveControl.shortLabel }}</span></button>
-
-      @if (saveControl.hasMenu) {
-        <button #saveCaret type="button" class="save-split-caret" aria-haspopup="menu" aria-label="More save options"
-          [attr.aria-expanded]="isMenuOpen('save')"
-          (click)="toggleSaveMenu()"
-          (keydown)="onSaveCaretKeydown($event)">
-          <i class="fas fa-chevron-down" aria-hidden="true"></i>
-        </button>
-
-        @if (isMenuOpen('save')) {
-          <div class="save-menu" role="menu" (keydown)="onSaveMenuKeydown($event)">
-            <button #saveMenuItem type="button" class="save-menu-item" role="menuitem" (click)="onSaveAsMenuItemClick()">Save As…</button>
-          </div>
-          <app-menu-backdrop label="Close save options" (dismiss)="closeSaveMenu()"></app-menu-backdrop>
-        }
-      }
-    </div>
+    <button
+      type="button"
+      class="build-action-button build-action-primary build-save"
+      [class.just-saved]="justSaved"
+      [disabled]="saveControl.disabled"
+      [attr.aria-label]="justSaved ? 'Saved' : saveControl.label"
+      [title]="saveControl.label + ' (Ctrl+S)'"
+      aria-keyshortcuts="Control+S Meta+S"
+      (click)="onSaveControlPrimaryClick()"
+    >@if (justSaved) {<i class="fas fa-check save-icon" aria-hidden="true"></i><span class="save-label-full">Saved</span><span
+        class="save-label-short">Saved</span>} @else {<i class="fas fa-save save-icon" aria-hidden="true"></i><span class="save-label-full">{{ saveControl.label }}</span><span
+        class="save-label-short">{{ saveControl.shortLabel }}</span>}</button>
   }
 
   <div class="share-wrap">
@@ -86,66 +89,61 @@
     }
   </div>
 
-  @if (isAuthenticated) {
-    <span class="build-actions-divider" aria-hidden="true"></span>
-    <div class="avatar-wrap">
-      <button type="button" class="avatar-button" [title]="userDisplayName ?? ''"
-        [attr.aria-expanded]="isMenuOpen('avatar')" aria-label="Account menu"
-        (click)="toggleMenu('avatar')">
-        @if (userPicture) {
-          <img [src]="userPicture" alt="" class="avatar-image" referrerpolicy="no-referrer">
-        } @else {
-          <span class="avatar-initial">{{ userInitial }}</span>
-        }
-      </button>
-
-      @if (isMenuOpen('avatar')) {
-        <div class="avatar-menu">
-          <div class="avatar-menu-header">{{ userDisplayName }}</div>
-          <button type="button" class="avatar-menu-item" (click)="signOut()">Sign out</button>
-        </div>
-        <app-menu-backdrop label="Close account menu" (dismiss)="closeMenu()"></app-menu-backdrop>
-      }
-    </div>
-  } @else {
+  @if (!isAuthenticated) {
     <button type="button" class="build-action-button build-sign-in" (click)="signIn()">
       <span class="build-sign-in-full">Sign in to save builds</span>
       <span class="build-sign-in-short">Sign in</span>
     </button>
   }
 
+  <!-- Things that sit in the bar itself (Ko-fi): MainComponent passes them in. -->
+  <ng-content select="[barUtility]"></ng-content>
+
   <!--
-    The one overflow menu. On a wide screen the wrap and the panel are
-    display: contents, so the projected controls (Ko-fi, theme, Admin - they
-    belong to MainComponent, which passes them in) simply sit at the end of
-    this row and the button and the account items are hidden. Below the
-    breakpoint the panel becomes a dropdown and the same markup carries
-    everything the avatar used to, which is why the avatar itself goes.
+    The account menu: who you are, the site's settings and pages, and signing
+    out. The avatar opens it when signed in, a "more" button when not. Its
+    contents beyond the account (theme, credits, Admin) belong to
+    MainComponent, which projects them in.
   -->
-  <div class="build-overflow-wrap">
-    <button type="button" class="build-overflow-toggle"
-      [class.open]="isMenuOpen('overflow')"
-      [attr.aria-expanded]="isMenuOpen('overflow')"
-      aria-label="More options" title="More options"
-      (click)="toggleMenu('overflow')">
-      <i class="fas fa-ellipsis-h" aria-hidden="true"></i>
+  <div class="account-wrap">
+    <button type="button" class="account-toggle"
+      [class.avatar-button]="isAuthenticated"
+      [class.open]="isMenuOpen('account')"
+      [attr.aria-expanded]="isMenuOpen('account')"
+      aria-haspopup="menu"
+      [attr.aria-label]="isAuthenticated ? 'Account and settings' : 'Settings and more'"
+      [title]="isAuthenticated ? (userDisplayName ?? 'Account') : 'Settings and more'"
+      (click)="toggleMenu('account')">
+      @if (isAuthenticated) {
+        @if (userPicture) {
+          <img [src]="userPicture" alt="" class="avatar-image" referrerpolicy="no-referrer">
+        } @else {
+          <span class="avatar-initial">{{ userInitial }}</span>
+        }
+      } @else {
+        <i class="fas fa-ellipsis-h" aria-hidden="true"></i>
+      }
     </button>
 
-    <div class="build-overflow-menu" [class.open]="isMenuOpen('overflow')">
-      <!-- A phone's toolbar has no room for the shopping list button, so it lives here. -->
-      <button type="button" class="build-overflow-item" (click)="openShoppingList()">Shopping list</button>
-      @if (rejoin; as list) {
-        <button type="button" class="build-overflow-item build-overflow-rejoin" (click)="rejoinList(list)">Rejoin {{list.name}}</button>
-      }
+    <!-- Hidden with a class, not @if: the projected content can't be re-rendered. -->
+    <div class="account-menu" [class.open]="isMenuOpen('account')" [class.menu-pop]="isMenuOpen('account')"
+      role="menu" aria-label="Account and settings">
       @if (isAuthenticated) {
-        <button type="button" class="build-overflow-item" (click)="onMyBuildsClick()">My builds</button>
-        <button type="button" class="build-overflow-item" (click)="signOut()">Sign out</button>
+        <div class="account-menu-header">
+          <span class="account-menu-signed-in">Signed in as</span>
+          <span class="account-menu-name">{{ userDisplayName }}</span>
+        </div>
       }
-      <div class="build-overflow-utilities"><ng-content></ng-content></div>
+      <div class="account-menu-utilities"><ng-content></ng-content></div>
+      @if (isAuthenticated) {
+        <button type="button" class="account-menu-item account-menu-sign-out" role="menuitem" (click)="signOut()">
+          <i class="fas fa-right-from-bracket account-menu-icon" aria-hidden="true"></i>Sign out
+        </button>
+      }
     </div>
 
-    @if (isMenuOpen('overflow')) {
-      <app-menu-backdrop label="Close more options" (dismiss)="closeMenu()"></app-menu-backdrop>
+    @if (isMenuOpen('account')) {
+      <app-menu-backdrop label="Close account menu" (dismiss)="closeMenu()"></app-menu-backdrop>
     }
   </div>
 </div>

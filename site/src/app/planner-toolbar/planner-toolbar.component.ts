@@ -1,5 +1,5 @@
 import {
-  AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, NgZone, OnDestroy, OnInit, ViewChild
+  AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener, inject, NgZone, OnDestroy, OnInit, ViewChild
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -10,25 +10,20 @@ import { groupPath, GroupSummary } from '../build/groups.service';
 import { MyListsService } from '../build/my-lists.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { Item } from '../gear/item';
-import { EquippedService, PlannerTab, TrackedAffixGroupMode } from '../planner/equipped.service';
+import { EquippedService, PlannerTab } from '../planner/equipped.service';
 import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
 import { AnalyticsService } from '../shared/analytics.service';
 import { TypeaheadResult } from '../typeahead/typeahead.component';
 
 /**
- * The workspace toolbar: the Equipment / Tracked Affixes switch, plus whichever
- * view's own primary control belongs beside it.
+ * The workspace toolbar: the Equipment / Build Goals switch, the gear search,
+ * the goals editor's toggle and the shopping list.
  *
- * Both views' controls live here rather than inside each view because they used
- * to scroll away with the content - the gear search sat in gear-list's own
- * toolbar and Group by in effects-table's - and because switching views had no
- * visible control at all. The only route between them was the "open the full
- * view" button inside the *opposite* view's compact rail, which is no help at
- * all once those rails stop rendering on narrow screens.
- *
- * Both controls stay in the DOM and are toggled with [hidden], the same way
- * MainComponent's two panels are: the ultrawide layout shows both panels side
- * by side, and needs to reveal both controls with them.
+ * The search lives here rather than in gear-list's own toolbar, where it
+ * scrolled away with the content. It stays in the DOM on the goals view,
+ * toggled with [hidden] the same way MainComponent's two panels are: from
+ * 995px both panels are on screen, and the CSS reveals it with them. Group by
+ * belongs to the Build Goals panel alone, and lives there.
  */
 @Component({
     selector: 'app-planner-toolbar',
@@ -39,7 +34,6 @@ import { TypeaheadResult } from '../typeahead/typeahead.component';
 })
 export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy {
   activeTab: PlannerTab = 'equipment';
-  groupMode: TrackedAffixGroupMode = 'category';
   /** No focus chosen yet: the affix button is the place to start, and looks it (while the editor is shut). */
   needsAffixes = false;
   /** The affix editor is open: the button reads as pressed, and closes it. */
@@ -50,7 +44,6 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
   @ViewChild('editAffixes') private editAffixes?: ElementRef<HTMLElement>;
 
   private tabSubscription?: Subscription;
-  private viewStateSubscription?: Subscription;
   private rejoinSubscription?: Subscription;
   private chosenAffixesSubscription?: Subscription;
   private editorSubscription?: Subscription;
@@ -72,12 +65,14 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
   ) { }
 
   ngOnInit() {
-    this.rejoinSubscription = this.myLists.rejoin$.subscribe(list => this.rejoin = list);
+    this.rejoinSubscription = this.myLists.rejoin$.subscribe(list => {
+      this.rejoin = list;
+      if (!list) {
+        this.cartMenuOpen = false;
+      }
+    });
     this.tabSubscription = this.equipped.getActiveMainTab().subscribe(tab => {
       this.activeTab = tab;
-    });
-    this.viewStateSubscription = this.equipped.getTrackedAffixViewState().subscribe(state => {
-      this.groupMode = state.groupMode;
     });
     this.chosenAffixesSubscription = this.affixPackages.needsStart$()
       .subscribe(needsStart => this.needsAffixes = needsStart);
@@ -96,7 +91,7 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
         this.switchObserver.observe(this.viewSwitch.nativeElement);
       }
 
-      // The row's width, and Filters' - which grows and shrinks with its chips -
+      // The row's width, and Filters' - which grows with its count badge -
       // decide whether the affix builder button's full label fits beside the rest.
       // Not the button's parent: that is this component's host, display: contents,
       // which has no box for a ResizeObserver to see. Filters lives in main's template.
@@ -117,7 +112,6 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
     this.switchObserver?.disconnect();
     this.workspaceRowObserver?.disconnect();
     this.tabSubscription?.unsubscribe();
-    this.viewStateSubscription?.unsubscribe();
     this.rejoinSubscription?.unsubscribe();
     this.chosenAffixesSubscription?.unsubscribe();
     this.editorSubscription?.unsubscribe();
@@ -149,11 +143,10 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   /**
-   * With both panels on screen, the affix builder button spells out "Add / edit
-   * affixes" only when that still fits on the workspace line with Filters, the
-   * gear search and Group by; otherwise it is "+ Affixes" rather than a line of its
-   * own. Measured, because Filters' width depends on how many filter chips it
-   * carries. Below the dual-panel breakpoint the CSS keeps the short label.
+   * With both panels on screen, the goals button spells out its full label
+   * only when that still fits on the workspace line with Filters and the gear
+   * search; otherwise it takes the short one rather than a line of its own.
+   * Below the dual-panel breakpoint the CSS keeps the short label.
    */
   fitEditAffixesLabel() {
     const button = this.editAffixes?.nativeElement;
@@ -178,10 +171,6 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
     this.equipped.setActiveMainTab(tab);
   }
 
-  setGroupMode(mode: TrackedAffixGroupMode) {
-    this.equipped.setTrackedAffixGroupMode(mode);
-  }
-
   toggleEditor() {
     if (this.editorOpen) {
       this.affixEditor.finish();
@@ -196,13 +185,54 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
   /** The list of several builds this build is on, to rejoin; null for none. */
   rejoin: GroupSummary | null = null;
 
+  /** Open while the build is on a group's list too, and the cart offers both. */
+  cartMenuOpen = false;
+
+  onCartClick() {
+    if (this.rejoin) {
+      this.cartMenuOpen = !this.cartMenuOpen;
+    } else {
+      this.openShoppingList();
+    }
+  }
+
   openShoppingList() {
+    this.cartMenuOpen = false;
     this.shoppingListView.open('toolbar');
   }
 
   rejoinList(list: GroupSummary) {
+    this.cartMenuOpen = false;
     this.analytics.track('rejoin_list', { from: 'toolbar' });
     this.router.navigateByUrl(groupPath(list.shortId, list.inviteToken));
+  }
+
+  /**
+   * "/" jumps to the gear search, as on most sites with one search box -
+   * unless you're already typing somewhere. On a narrow screen showing the
+   * goals view the box is hidden, so it switches to the gear view first.
+   */
+  @HostListener('document:keydown', ['$event'])
+  onDocumentKeydown(event: KeyboardEvent) {
+    if (event.key !== '/' || event.ctrlKey || event.metaKey || event.altKey || event.defaultPrevented) {
+      return;
+    }
+    const target = event.target as HTMLElement | null;
+    if (target && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))) {
+      return;
+    }
+    const input = this.gearSearch?.nativeElement.querySelector('input');
+    if (!input || this.shoppingListView.isOpen) {
+      return;
+    }
+    event.preventDefault();
+    // Not [hidden] alone: from 995px the box shows on either view regardless.
+    if (input.getClientRects().length === 0 && !this.isActiveTab('equipment')) {
+      this.selectTab('equipment');
+      setTimeout(() => input.focus());
+    } else {
+      input.focus();
+    }
   }
 
   getAllGear(): Item[] {

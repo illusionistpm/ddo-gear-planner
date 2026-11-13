@@ -1,5 +1,6 @@
 import type { MockedObject } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
 import { BehaviorSubject, of, Subject, throwError } from 'rxjs';
@@ -11,6 +12,8 @@ import { BuildsService } from '../build/builds.service';
 import { CurrentBuildService } from '../build/current-build.service';
 import { BuildUrlIdentity, QueryParamsService } from '../build/query-params.service';
 import { MainComponent } from './main.component';
+import { CreditsComponent } from '../credits/credits.component';
+import { ThemeService } from '../shared/theme.service';
 import { EquippedService } from '../planner/equipped.service';
 import { FiltersService } from '../planner/filters.service';
 import { AffixEditorService } from '../planner/affix-editor.service';
@@ -280,23 +283,79 @@ describe('MainComponent', () => {
     // that let it stay a single row. The widths themselves are CSS, so what is
     // testable here is that each piece exists and is wired up.
 
-    it('hands the utility controls to the build actions overflow menu', () => {
-      // Ko-fi, theme and Admin are projected into app-build-actions rather
-      // than living in a second menu of their own beside it. That menu is
-      // display: contents on desktop, so they still lay out inline there.
+    it('hands the site\'s controls to the build actions: Ko-fi in the bar, the rest in its account menu', () => {
+      // One menu for the site's settings rather than a row of boxed icons
+      // beside Save and Share.
       const actions: HTMLElement = fixture.nativeElement.querySelector('app-build-actions');
+      const menu = actions.querySelector('.account-menu')!;
 
       expect(actions.querySelector('app-support-link')).not.toBeNull();
-      expect(actions.querySelector('.theme-toggle')).not.toBeNull();
+      expect(menu.querySelector('.menu-theme')).not.toBeNull();
+      expect([...menu.querySelectorAll('.menu-row')].map(e => e.textContent?.trim()))
+        .toEqual(['About and credits', 'Buy me a coffee']);
       expect(actions.querySelector('app-admin-link')).not.toBeNull();
     });
 
-    it('has exactly one overflow button', () => {
+    it('has exactly one menu for the account and the site', () => {
       // There were briefly two next to each other - an account menu and a
       // separate utility menu - which is how My Builds ended up somewhere
       // nobody looked.
-      expect(fixture.nativeElement.querySelectorAll('.build-overflow-toggle').length).toBe(1);
-      expect(fixture.nativeElement.querySelector('.planner-overflow-toggle')).toBeNull();
+      expect(fixture.nativeElement.querySelectorAll('.account-toggle').length).toBe(1);
+      expect(fixture.nativeElement.querySelector('.build-overflow-toggle')).toBeNull();
+    });
+
+    it('offers light, dark, or the device\'s theme, marking the one in use', () => {
+      const theme = TestBed.inject(ThemeService);
+      const option = (label: string) =>
+        fixture.nativeElement.querySelector(`.menu-theme-option[aria-label="${label}"]`) as HTMLButtonElement;
+
+      option('Dark theme').click();
+      fixture.detectChanges();
+      expect(theme.mode).toBe('dark');
+      expect(option('Dark theme').getAttribute('aria-pressed')).toBe('true');
+
+      option('Match my device').click();
+      fixture.detectChanges();
+      expect(theme.mode).toBe('system');
+      expect(option('Dark theme').getAttribute('aria-pressed')).toBe('false');
+    });
+
+    it('opens the credits from the account menu, closing the menu', () => {
+      const credits = fixture.debugElement.query(By.directive(CreditsComponent)).componentInstance as CreditsComponent;
+      (fixture.nativeElement.querySelector('.account-toggle') as HTMLButtonElement).click();
+      fixture.detectChanges();
+
+      const row = [...fixture.nativeElement.querySelectorAll('.menu-row')]
+        .find((e: Element) => e.textContent?.trim() === 'About and credits') as HTMLButtonElement;
+      row.click();
+      fixture.detectChanges();
+
+      expect(credits.open).toBe(true);
+      expect(fixture.nativeElement.querySelector('.account-menu.open')).toBeNull();
+      credits.close();
+    });
+
+    it('names the active filters on the Filters button, for a glance without opening it', () => {
+      const filters = TestBed.inject(FiltersService);
+      filters.setShowRaidItems(false);
+      fixture.detectChanges();
+
+      expect(fixture.nativeElement.querySelector('.planner-filter-toggle').getAttribute('title'))
+        .toBe('Filters: raids hidden');
+    });
+
+    it('lists the active filters, removable, both in the peek and at the top of the sheet', () => {
+      const filters = TestBed.inject(FiltersService);
+      filters.setShowRaidItems(false);
+      fixture.detectChanges();
+
+      expect(fixture.nativeElement.querySelector('.planner-filter-peek button[aria-label="Show raid items"]')).not.toBeNull();
+
+      component.toggleFilters();
+      fixture.detectChanges();
+
+      expect(fixture.nativeElement.querySelector('.planner-filter-peek')).toBeNull();
+      expect(fixture.nativeElement.querySelector('.planner-filter-active button[aria-label="Show raid items"]')).not.toBeNull();
     });
 
     it('has a wordmark that can be dropped for the icon alone', () => {

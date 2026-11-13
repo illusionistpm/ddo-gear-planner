@@ -1,33 +1,9 @@
-.my-builds-backdrop {
-  background: transparent;
-  border: 0;
-  bottom: 0;
-  cursor: default;
-  left: 0;
-  padding: 0;
-  position: fixed;
-  right: 0;
-  top: 0;
-  z-index: 30;
-}
-
+/* A section of the build menu: the menu supplies the surface and the edges. */
 .my-builds-panel {
-  position: absolute;
-  top: calc(100% + 0.35rem);
-  left: 0;
-  max-width: calc(100vw - var(--space-16));
   display: flex;
   flex-direction: column;
-  gap: var(--space-12);
-  width: min(20rem, calc(100vw - 2rem));
-  max-height: min(28rem, calc(100vh - 6rem));
-  padding: var(--space-12);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius, 6px);
-  background: var(--surface-elevated-color);
-  color: var(--text-primary);
-  box-shadow: var(--shadow-lg);
-  z-index: 40;
+  gap: var(--space-8);
+  min-height: 0;
 }
 
 .my-builds-header {
@@ -37,7 +13,10 @@
 }
 
 .my-builds-header strong {
-  font-size: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
 
 .my-builds-title-group {
@@ -54,21 +33,6 @@
 .my-builds-count-at-limit {
   color: var(--warning-color);
   font-weight: 700;
-}
-
-.my-builds-close {
-  align-items: center;
-  background: transparent;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  color: var(--text-secondary);
-  cursor: pointer;
-  display: inline-flex;
-  font: inherit;
-  font-weight: 700;
-  height: 2rem;
-  justify-content: center;
-  width: 2rem;
 }
 
 .my-builds-new {
@@ -105,6 +69,7 @@
 .my-builds-list {
   list-style: none;
   margin: 0;
+  max-height: min(18rem, 40svh);
   padding: 0;
   overflow-y: auto;
 }
@@ -114,9 +79,10 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-12);
-  padding: var(--space-8) var(--space-8);
-  border-top: 1px solid var(--border-color);
+  padding: var(--space-4) var(--space-8);
+  border-radius: 6px;
   cursor: pointer;
+  min-height: 2.25rem;
 }
 
 .my-builds-row:hover {
@@ -171,20 +137,4 @@
   color: var(--text-primary);
   cursor: pointer;
   font: inherit;
-}
-
-/*
- * On a phone this panel's anchor - the build-name group - is collapsed to
- * nothing to make room on the first line, so an absolutely positioned dropdown
- * would land in an arbitrary spot. Pin it to the viewport instead.
- */
-@media (max-width: 767.98px) {
-  .my-builds-panel {
-    left: var(--space-8);
-    max-width: none;
-    position: fixed;
-    right: var(--space-8);
-    top: var(--planner-chrome-height, 9rem);
-    width: auto;
-  }
 }

@@ -108,32 +108,27 @@ export class EssenceCraftingService {
     
     const slotOptions: Array<CraftableOption> = [];
     for (const optionName of affixList) {
-      const affixes: Affix[] = [];
-      const progression = essenceCraftingData.progression;
-      const value = progression[optionName]?.[cappedMl - 1] ?? 0;
-      const affixNames = essenceCraftingData.affixes ?? {};
-      const mappedAffixes = affixNames[optionName] ?? optionName;
-      const optionAffixes = Array.isArray(mappedAffixes) ? mappedAffixes : [mappedAffixes];
-      const bonusTypes = essenceCraftingData.bonusTypes;
-
-      for (let affix of optionAffixes) {
-        let type = 'Enhancement';
-        
-        if (optionName.startsWith('Insightful')) {
-          affix = affix.replace('Insightful ', '');
-          type = 'Insight';
-        } else {
-          const bonusType = bonusTypes[affix];
-          if (bonusType) {
-            type = bonusType;
-          }
-        }
-
-        affixes.push(new Affix({ name: affix, value, type }));
-      }
+      const compound = essenceCraftingData.compounds?.[optionName];
+      const affixes = compound
+        ? Object.entries(compound).map(([affix, progression]) =>
+            this._buildAffix(optionName, affix, progression[cappedMl - 1] ?? 0))
+        : this._getOptionAffixNames(optionName).map(affix =>
+            this._buildAffix(optionName, affix, essenceCraftingData.progression[optionName]?.[cappedMl - 1] ?? 0));
       slotOptions.push(new CraftableOption({ affixes }));
     }
 
     return new Craftable(essenceCraftingSlot, slotOptions);
+  }
+
+  private _getOptionAffixNames(optionName: string): string[] {
+    const mappedAffixes = this.gameData.essenceCrafting.affixes?.[optionName] ?? optionName;
+    return Array.isArray(mappedAffixes) ? mappedAffixes : [mappedAffixes];
+  }
+
+  private _buildAffix(optionName: string, affix: string, value: number): Affix {
+    if (optionName.startsWith('Insightful')) {
+      return new Affix({ name: affix.replace('Insightful ', ''), value, type: 'Insight' });
+    }
+    return new Affix({ name: affix, value, type: this.gameData.essenceCrafting.bonusTypes[affix] || 'Enhancement' });
   }
 }

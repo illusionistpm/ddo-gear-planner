@@ -75,6 +75,12 @@ export interface RawEssenceCraftingData {
   progression: Record<string, number[]>;
   /** Option name -> the affix name(s) it grants, when different from the option name. */
   affixes?: Record<string, string | string[]>;
+  /**
+   * A dual option ("Watchful", Heightened Awareness + Dodge) -> each affix it grants ->
+   * that affix's value at each minimum level, as `progression`. Such an option has no
+   * `progression` entry: its affixes scale separately. Their bonus types are in `bonusTypes`.
+   */
+  compounds?: Record<string, Record<string, number[]>>;
 }
 
 /** One filigree in filigree.json, keyed by its wiki name ("Celerity: Dexterity"). */

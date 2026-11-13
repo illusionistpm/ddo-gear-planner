@@ -77,8 +77,10 @@ and PR Checks fails when it isn't. So:
   wait: the nightly never commits a page nothing reads. Add the download, run
   the Data Auto Updater with `workflow_dispatch` on your branch (off master it
   never commits), and take the page from the run's `data-preview` artifact,
-  which carries snapshot pages the committed snapshot lacks. Commit it
-  unchanged, with the parser and its `data/`.
+  which carries snapshot pages the committed snapshot lacks or has an older
+  copy of. Commit it unchanged, with the parser and its `data/`. A wiki edit
+  that makes a parser raise also needs that route: the nightly can't commit
+  the page that breaks it.
 - **Never hand-edit `wiki-snapshot/`.** Pages are normalized on download
   (`normalize_wiki_html.py`) to the heading, `#mw-content-text` and `#catlinks`,
   which strips the per-request noise; a parser that reads anything else

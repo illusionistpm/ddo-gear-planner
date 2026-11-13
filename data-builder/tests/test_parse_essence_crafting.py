@@ -117,6 +117,7 @@ def test_get_essence_crafting_affixes_from_wiki_cell_expands_grouped_affixes():
                     </li>
                     <li>Efficient Metamagic (Empower, Enlarge, Extend, Empower Healing, Maximize)</li>
                     <li>Armor Destroying (Armor Piercing + Destruction)</li>
+                    <li>Watchful ( Heightened Awareness + Dodge )</li>
                 </ul>
             </div>
         </td>

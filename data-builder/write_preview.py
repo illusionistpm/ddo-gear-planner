@@ -3,8 +3,8 @@
 Collects everything the build wrote - the site's data/*.json and the
 crafting-device cache - into one folder, with a git diff against the
 checked-in versions and a Markdown summary. Wiki pages the build downloaded
-that the committed snapshot doesn't have yet are copied in too, so a scraper
-that fetches a new page can be checked against what it fetched. The Data Auto Updater uploads
+that the committed snapshot doesn't have yet, or has an older copy of, are
+copied in too, so a scraper can be checked against what the build fetched. The Data Auto Updater uploads
 that folder when it runs on a branch instead of committing.
 """
 import glob
@@ -30,6 +30,13 @@ def get_new_snapshot_pages(repo_root):
     return sorted(line for line in listing.splitlines() if line)
 
 
+def get_changed_snapshot_pages(repo_root):
+    """Committed snapshot pages the build downloaded a different copy of."""
+    snapshot = os.path.relpath(SNAPSHOT_DIR, repo_root)
+    listing = _git(repo_root, 'diff', '--name-only', '--diff-filter=M', '--', snapshot)
+    return sorted(line for line in listing.splitlines() if line)
+
+
 def _git(repo_root, *args):
     return subprocess.run(['git', *args], cwd=repo_root, capture_output=True, text=True, check=True).stdout
 
@@ -46,7 +53,8 @@ def write_preview(preview_dir, stats_description, title='Data preview'):
         shutil.copyfile(path, destination)
 
     new_pages = get_new_snapshot_pages(repo_root)
-    for rel in new_pages:
+    changed_pages = get_changed_snapshot_pages(repo_root)
+    for rel in new_pages + changed_pages:
         destination = os.path.join(preview_dir, rel)
         os.makedirs(os.path.dirname(destination), exist_ok=True)
         shutil.copyfile(os.path.join(repo_root, rel), destination)
@@ -63,6 +71,8 @@ def write_preview(preview_dir, stats_description, title='Data preview'):
     )
     if new_pages:
         summary += '\nNew wiki snapshot pages, copied into the preview:\n\n' + ''.join(f'- `{rel}`\n' for rel in new_pages)
+    if changed_pages:
+        summary += '\nChanged wiki snapshot pages, copied into the preview:\n\n' + ''.join(f'- `{rel}`\n' for rel in changed_pages)
     with open(os.path.join(preview_dir, 'summary.md'), 'w', encoding='utf8') as fh:
         fh.write(summary)
 

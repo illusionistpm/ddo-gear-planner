@@ -1,3 +1,5 @@
+import re
+
 from bs4 import BeautifulSoup
 from get_most_common_bonus_type import get_most_common_bonus_type
 from write_json import write_json
@@ -229,6 +231,16 @@ ESSENCE_CRAFTING_LEGACY_COMPATIBILITY_OVERRIDES = {
 }
 
 
+# A dual affix: one option that grants two effects, written "Watchful
+# (Heightened Awareness + Dodge)". The planner doesn't model them yet, so
+# they are skipped like the WIKI_ONLY_COMBINED_AFFIX_PREFIXES ones.
+DUAL_AFFIX_PATTERN = re.compile(r'^[^()]+\(\s*[^()+]+?\s*\+\s*[^()+]+?\s*\)$')
+
+
+def is_dual_affix(affix: str) -> bool:
+    return DUAL_AFFIX_PATTERN.match(affix.replace('\xa0', ' ').strip()) is not None
+
+
 def canonicalize_essence_crafting_affix_name(affix: str) -> str:
     if affix.startswith('Insightful '):
         return 'Insightful ' + canonicalize_essence_crafting_affix_name(affix.removeprefix('Insightful '))
@@ -360,6 +372,8 @@ def expand_essence_crafting_wiki_affix(affix: str) -> list[str]:
         affix = affix.removeprefix('Skills:').strip()
         return [] if affix in ['', '(none)'] else expand_essence_crafting_wiki_affix(affix)
     if any(affix.startswith(prefix) for prefix in WIKI_ONLY_COMBINED_AFFIX_PREFIXES):
+        return []
+    if is_dual_affix(affix):
         return []
     if affix.startswith('Efficient Metamagic'):
         return EFFICIENT_METAMAGIC_AFFIXES

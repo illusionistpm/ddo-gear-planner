@@ -60,11 +60,12 @@ def test_preview_with_no_changes_says_so(tmp_path, monkeypatch):
     assert 'No changes to checked-in files.' in (preview / 'summary.md').read_text(encoding='utf8')
 
 
-def test_preview_copies_snapshot_pages_the_committed_snapshot_lacks(tmp_path, monkeypatch):
+def test_preview_copies_snapshot_pages_that_are_new_or_changed(tmp_path, monkeypatch):
     repo = _make_repo(tmp_path, monkeypatch)
     snapshot = repo / 'wiki-snapshot'
     (snapshot / 'items').mkdir(parents=True)
     (snapshot / 'items' / 'Old.html').write_text('<old/>', encoding='utf8')
+    (snapshot / 'items' / 'Same.html').write_text('<same/>', encoding='utf8')
     _git(repo, 'add', '.')
     _git(repo, '-c', 'user.name=t', '-c', 'user.email=t@t', 'commit', '-q', '-m', 'snapshot')
     (snapshot / 'items' / 'Old.html').write_text('<redownloaded/>', encoding='utf8')
@@ -75,5 +76,10 @@ def test_preview_copies_snapshot_pages_the_committed_snapshot_lacks(tmp_path, mo
     write_preview.write_preview(str(preview), 'Items: 1 (+0)')
 
     assert (preview / 'wiki-snapshot' / 'new_pages' / 'New.html').read_text(encoding='utf8') == '<new/>'
-    assert not (preview / 'wiki-snapshot' / 'items').exists()
-    assert 'wiki-snapshot/new_pages/New.html' in (preview / 'summary.md').read_text(encoding='utf8')
+    # A page the parsers already read can change on the wiki in a way that
+    # breaks them, and the nightly can't commit it until they handle it.
+    assert (preview / 'wiki-snapshot' / 'items' / 'Old.html').read_text(encoding='utf8') == '<redownloaded/>'
+    assert not (preview / 'wiki-snapshot' / 'items' / 'Same.html').exists()
+    summary = (preview / 'summary.md').read_text(encoding='utf8')
+    assert 'wiki-snapshot/new_pages/New.html' in summary
+    assert 'wiki-snapshot/items/Old.html' in summary

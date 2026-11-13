@@ -111,6 +111,7 @@ def get_data_stats():
         'bonus types': len(essence_crafting['bonusTypes']),
         'item types': len(essence_crafting['itemTypes']),
         'progressions': len(essence_crafting['progression']),
+        'dual prefixes': len(essence_crafting.get('compounds', {})),
     }
 
     try:

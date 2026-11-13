@@ -33,6 +33,35 @@ describe('EssenceCraftingService', () => {
     expect(options.some(candidate => candidate.affixes.some(affix => affix.name === 'Blindness Immunity'))).toBe(false);
   });
 
+  it('offers a dual prefix with each effect at its own value', () => {
+    const service: EssenceCraftingService = TestBed.inject(EssenceCraftingService);
+    const prefix = service.getValuesForSlotML('Armor', 'Prefix', 34);
+    const single = (name: string) => prefix.options.find(option =>
+      option.affixes.length === 1 && option.affixes[0].name === name)!.affixes[0];
+    const healthy = prefix.options.find(option =>
+      option.affixes.map(affix => affix.name).join(',') === 'Constitution,Vitality');
+
+    expect(healthy?.affixes.map(affix => [affix.name, affix.value, affix.type])).toEqual([
+      ['Constitution', single('Constitution').value, single('Constitution').type],
+      ['Vitality', single('Vitality').value, single('Vitality').type],
+    ]);
+    expect(healthy?.affixes[0].value).not.toBe(healthy?.affixes[1].value);
+    // Unnamed, so it travels in build URLs as its effects, like every Essence Crafting option.
+    expect(healthy?.getParamDescription()).toBe(
+      `Constitution${single('Constitution').value}|Vitality${single('Vitality').value}`);
+  });
+
+  it('offers a weapon dual prefix as two present-only effects', () => {
+    const service: EssenceCraftingService = TestBed.inject(EssenceCraftingService);
+    const prefix = service.getValuesForSlotML('Melee', 'Prefix', 20);
+    const annihilating = prefix.options.find(option => option.affixes.some(affix => affix.name === 'Slay Living'));
+
+    expect(annihilating?.affixes.map(affix => [affix.name, affix.value, affix.type])).toEqual([
+      ['Entropic', 1, 'Bool'],
+      ['Slay Living', 1, 'Bool'],
+    ]);
+  });
+
   it('uses the generated Essence Crafting max level for selectable levels', () => {
     const service: EssenceCraftingService = TestBed.inject(EssenceCraftingService);
     expect(service.maxLevel).toBe(36);

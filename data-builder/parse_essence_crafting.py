@@ -159,17 +159,11 @@ WIKI_ONLY_COMBINED_AFFIX_PREFIXES = (
     'Ability Damaging',
     'Aligned',
     'Alignment damage',
-    'Armor Destroying',
     'Bane',
-    "Champion's",
-    "Initiate's",
     'Keen / Impact',
     'Lesser Arcane Spell Dexterity',
     'Damage',
-    'Sabotaging',
-    "Silver Flame's",
     'Twilight',
-    'Warded',
 )
 
 ESSENCE_CRAFTING_LEGACY_COMPATIBILITY_OVERRIDES = {
@@ -231,14 +225,47 @@ ESSENCE_CRAFTING_LEGACY_COMPATIBILITY_OVERRIDES = {
 }
 
 
-# A dual affix: one option that grants two effects, written "Watchful
-# (Heightened Awareness + Dodge)". The planner doesn't model them yet, so
-# they are skipped like the WIKI_ONLY_COMBINED_AFFIX_PREFIXES ones.
-DUAL_AFFIX_PATTERN = re.compile(r'^[^()]+\(\s*[^()+]+?\s*\+\s*[^()+]+?\s*\)$')
+# A dual prefix: one option that grants two effects, written "Watchful
+# (Heightened Awareness + Dodge)". It becomes an option keyed in that same
+# form, with each effect's name normalized; build_essence_crafting_data gives
+# each effect its own progression, in the output's "compounds".
+DUAL_AFFIX_PATTERN = re.compile(r'^([^()]+?)\s*\(\s*([^()+]+?)\s*\+\s*([^()+]+?)\s*\)$')
+
+# A dual prefix's effects as the wiki names them there -> as everywhere else.
+DUAL_AFFIX_COMPONENT_NAMES = {
+    'Electric Absorption': 'Electricity Absorption',
+    'Protection From Evil': 'Protection from Evil',
+    'Reflex Save': 'Reflex',
+    'Trap The Soul': 'Trap the Soul',
+    'Will Save': 'Will',
+}
+
+
+def parse_dual_affix(affix: str) -> tuple[str, list[str]] | None:
+    match = DUAL_AFFIX_PATTERN.match(affix.replace('\xa0', ' ').strip())
+    if match is None:
+        return None
+    return match.group(1), [match.group(2), match.group(3)]
 
 
 def is_dual_affix(affix: str) -> bool:
-    return DUAL_AFFIX_PATTERN.match(affix.replace('\xa0', ' ').strip()) is not None
+    return parse_dual_affix(affix) is not None
+
+
+def normalize_dual_affix_component(component: str) -> str:
+    # Bare "Resistance" is the saving throw bonus; normalize_essence_crafting_wiki_affix
+    # would make it Spell Saves, which a dual names separately (Spellwarded).
+    if component == 'Resistance':
+        return 'Resistance'
+    name = normalize_essence_crafting_wiki_affix(component)
+    return DUAL_AFFIX_COMPONENT_NAMES.get(name, name)
+
+
+def get_dual_affix_option(affix: str) -> str:
+    parsed = parse_dual_affix(affix)
+    assert parsed is not None
+    name, components = parsed
+    return f'{name} ({" + ".join(normalize_dual_affix_component(c) for c in components)})'
 
 
 def canonicalize_essence_crafting_affix_name(affix: str) -> str:
@@ -374,7 +401,7 @@ def expand_essence_crafting_wiki_affix(affix: str) -> list[str]:
     if any(affix.startswith(prefix) for prefix in WIKI_ONLY_COMBINED_AFFIX_PREFIXES):
         return []
     if is_dual_affix(affix):
-        return []
+        return [get_dual_affix_option(affix)]
     if affix.startswith('Efficient Metamagic'):
         return EFFICIENT_METAMAGIC_AFFIXES
     if affix.startswith('Insightful Spell Power'):
@@ -495,7 +522,8 @@ def get_wiki_progression_key(affix: str) -> str | None:
         return 'Lore'
     if affix == 'Spell Lore':
         return 'Spell Lore'
-    if base_affix in ['Acid Absorption', 'Cold Absorption', 'Electricity Absorption', 'Fire Absorption', 'Sonic Absorption']:
+    if base_affix in ['Acid Absorption', 'Cold Absorption', 'Electricity Absorption', 'Fire Absorption', 'Sonic Absorption',
+                      'Force Absorption', 'Light Absorption', 'Negative Absorption', 'Poison Absorption']:
         return 'Absorption'
     if base_affix in ['Acid Spell Power', 'Fire Spell Power', 'Positive Spell Power', 'Repair Spell Power',
                       'Cold Spell Power', 'Kinetic Spell Power', 'Lightning Spell Power', 'Electric Spell Power',
@@ -572,7 +600,31 @@ def build_essence_crafting_data() -> dict:
     output['bonusTypes'] = assumedBonusTypeMap
     wiki_keys_used = set()
 
+    compounds: dict[str, dict[str, list]] = {}
+    unvalued_duals: dict[str, list[str]] = {}
+
+    def get_component_progression(component: str) -> list | None:
+        wiki_key = get_wiki_progression_key(component)
+        if wiki_key in wiki_progression and any(value is not None for value in wiki_progression[wiki_key]):
+            wiki_keys_used.add(wiki_key)
+            values = list(wiki_progression[wiki_key])
+        elif component in NON_SCALING_AFFIXES or assumedBonusTypeMap.get(component) == 'Bool':
+            values = [1] * len(wiki_levels)
+        else:
+            return None
+        return [1] * len(values) if assumedBonusTypeMap.get(component) == 'Bool' else values
+
     for affix in get_essence_crafting_affix_order(itemTypes):
+        dual = parse_dual_affix(affix)
+        if dual is not None:
+            components = {component: get_component_progression(component) for component in dual[1]}
+            missing = [component for component, values in components.items() if values is None]
+            if missing:
+                unvalued_duals[affix] = missing
+            else:
+                compounds[affix] = components
+            continue
+
         wiki_key = get_wiki_progression_key(affix)
         if wiki_key in wiki_progression and any(value is not None for value in wiki_progression[wiki_key]):
             wiki_keys_used.add(wiki_key)
@@ -589,15 +641,35 @@ def build_essence_crafting_data() -> dict:
 
         progression[affix] = progVals
 
-    for affix, values in progression.items():
+    component_progressions = {
+        f'{option}: {component}': values
+        for option, components in compounds.items()
+        for component, values in components.items()
+    }
+    for affix, values in {**progression, **component_progressions}.items():
         non_numeric = [value for value in values if isinstance(value, str)]
         if non_numeric:
             raise ValueError(f'Non-numeric Essence Crafting progression for {affix}: {non_numeric[0]!r}')
 
+    # The wiki has no Essence Crafting values for some dual prefixes' effects
+    # (Speed, Deception, Heightened Awareness...). Leave those duals out until it does.
+    if unvalued_duals:
+        print(f'Essence Crafting: skipping {len(unvalued_duals)} dual prefixes with effects the wiki gives no values for:')
+        for option, missing in unvalued_duals.items():
+            print(f'  {option}: {", ".join(missing)}')
+        for slots in itemTypes.values():
+            for slot, options in slots.items():
+                slots[slot] = [option for option in options if option not in unvalued_duals]
+
+    if compounds:
+        output['compounds'] = compounds
+
+    compound_affixes = {component for components in compounds.values() for component in components}
+
     # Only keep bonus types for things that are actually used by Essence Crafting.
     delKeys = []
     for k,_ in assumedBonusTypeMap.items():
-        if k not in progression:
+        if k not in progression and k not in compound_affixes:
             delKeys.append(k)
 
     for k in delKeys:
@@ -620,11 +692,16 @@ def build_essence_crafting_data() -> dict:
 
     max_level = get_max_known_level(wiki_levels, wiki_keys_used, wiki_progression, 34)
     output['maxLevel'] = max_level
-    for affix, values in progression.items():
+    def fit_to_max_level(values: list) -> list:
         if len(values) < max_level:
-            last_value = values[-1]
-            values.extend([last_value] * (max_level - len(values)))
-        progression[affix] = values[:max_level]
+            values = values + [values[-1]] * (max_level - len(values))
+        return values[:max_level]
+
+    for affix, values in progression.items():
+        progression[affix] = fit_to_max_level(values)
+    for components in compounds.values():
+        for component, values in components.items():
+            components[component] = fit_to_max_level(values)
 
     return output
 

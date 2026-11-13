@@ -156,7 +156,8 @@ def _collect_affix_types(node, types):
 def _essence_affix_types(essence, types):
     # Mirrors EssenceCraftingService: an option's affix is renamed through
     # "affixes", Insightful options are Insight, and anything else takes the
-    # affix's entry in bonusTypes, defaulting to Enhancement.
+    # affix's entry in bonusTypes, defaulting to Enhancement. A dual prefix's
+    # effects ("compounds") take theirs the same way.
     renamed = essence.get('affixes', {})
     for option in essence['progression']:
         affixes = renamed.get(option, option)
@@ -165,6 +166,9 @@ def _essence_affix_types(essence, types):
                 types[affix.replace('Insightful ', '')].add('Insight')
             else:
                 types[affix].add(essence['bonusTypes'].get(affix, 'Enhancement'))
+    for components in essence.get('compounds', {}).values():
+        for affix in components:
+            types[affix].add(essence['bonusTypes'].get(affix, 'Enhancement'))
 
 
 def _committed_affix_types():

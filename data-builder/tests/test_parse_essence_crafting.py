@@ -163,7 +163,20 @@ def test_get_essence_crafting_affixes_from_wiki_cell_expands_grouped_affixes():
         'Efficient Metamagic - Extend',
         'Efficient Metamagic - Empower Healing',
         'Efficient Metamagic - Maximize',
+        'Armor Destroying (Armor-Piercing + Destruction)',
+        'Watchful (Heightened Awareness + Dodge)',
     ]
+
+
+def test_dual_prefix_effects_take_their_usual_names():
+    assert module.get_dual_affix_option('Airwarded ( Electric Resistance + Electric Absorption )') == \
+        'Airwarded (Electric Resistance + Electricity Absorption)'
+    assert module.get_dual_affix_option('Swift ( Speed + Reflex Save )') == 'Swift (Speed + Reflex)'
+    # Bare Resistance is the saving throw bonus, not Spell Saves (Spellwarded has that).
+    assert module.get_dual_affix_option('Protected ( Protection + Resistance )') == 'Protected (Protection + Resistance)'
+    assert module.get_dual_affix_option('Spellwarded ( Spell Resistance + Spell Saves )') == \
+        'Spellwarded (Spell Resistance + Spell Saves)'
+    assert module.parse_dual_affix('Spell Power (Combustion, Corrosion)') is None
 
 
 def test_spell_lore_parentheticals_have_distinct_meanings():
@@ -203,3 +216,38 @@ def test_essence_crafting_names_immunities_as_items_do_but_keeps_its_other_names
     # Synonyms that aren't immunities would rename options saved build URLs carry.
     assert module.normalize_essence_crafting_wiki_affix('Vitality') == 'Vitality'
     assert module.normalize_essence_crafting_wiki_affix('Striding') == 'Striding'
+
+
+def test_dual_prefixes_give_each_effect_its_own_progression(monkeypatch):
+    written = {}
+    stub_dependencies(
+        monkeypatch,
+        written,
+        build_wiki_html(),
+        extra_bonus_types={'Vorpal': 'Bool', 'Holy Blast': 'Bool', 'Speed': 'Enhancement'},
+        extra_prefixes=(
+            'Attuned (Fire Spell Power + Evocation Focus)',
+            'Honed (Vorpal + Holy Blast)',
+            'Swift (Speed + Fire Spell Power)',
+        ),
+    )
+
+    module.parse_essence_crafting()
+
+    output = written['essence-crafting']
+    compounds = output['compounds']
+    assert compounds['Attuned (Fire Spell Power + Evocation Focus)'] == {
+        'Fire Spell Power': output['progression']['Fire Spell Power'],
+        'Evocation Focus': output['progression']['Evocation Focus'],
+    }
+    # Checklist effects only need to be present.
+    assert compounds['Honed (Vorpal + Holy Blast)'] == {'Vorpal': [1] * 34, 'Holy Blast': [1] * 34}
+    assert output['bonusTypes']['Vorpal'] == 'Bool'
+    # The wiki has no Essence Crafting value for Speed, so Swift is left out.
+    assert 'Swift (Speed + Fire Spell Power)' not in compounds
+    assert 'Speed' not in output['bonusTypes']
+    assert output['itemTypes']['Melee']['Prefix'][-2:] == [
+        'Attuned (Fire Spell Power + Evocation Focus)',
+        'Honed (Vorpal + Holy Blast)',
+    ]
+    assert not any(option in output['progression'] for option in compounds)

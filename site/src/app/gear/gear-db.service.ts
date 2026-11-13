@@ -14,6 +14,7 @@ import { classifyCraftSelection } from './crafting-acquisition';
 
 import { GameDataService } from './game-data.service';
 import { FiligreeDbService } from './filigree-db.service';
+import { ItemBonusService } from './item-bonus.service';
 import { FILIGREE_TRACKING_MIN_LEVEL, getMaxFiligreeSlots } from '../affixes/filigree-affix';
 import { AffixService, UNIVERSAL_COMPANION_AFFIXES } from '../affixes/affix.service';
 import { perfMeasure, perfStart } from '../shared/perf-trace';
@@ -120,7 +121,8 @@ export class GearDbService {
     public quests: QuestService,
     private affixSvc: AffixService,
     private gameData: GameDataService,
-    private filigreeDb: FiligreeDbService
+    private filigreeDb: FiligreeDbService,
+    private itemBonuses: ItemBonusService
   ) {
     this._buildAugmentOptions();
     this._buildEssenceCraftingOptions();
@@ -519,6 +521,12 @@ export class GearDbService {
         }
       });
     }
+
+    // Any named item can carry a Mythic Boost and a Reaper bonus, at any level, so these don't
+    // depend on the filters: the best option in every slot, added up.
+    perfMeasure('GearDbService.buildAffixToBonusTypes.itemBonuses', () => {
+      this._addAffixesToMap(affixToBonusTypes, this.itemBonuses.getMaxima(gear.keys()), universalTracker);
+    });
 
     return affixToBonusTypes;
   }

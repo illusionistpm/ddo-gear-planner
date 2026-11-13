@@ -41,6 +41,21 @@ describe('ItemBonusService', () => {
     expect(service.find('reaper', 'Boots', 'Reaper Helmet Enchantment')).toBeUndefined();
   });
 
+  it('totals the best Mythic and Reaper option in each slot, counting both rings and no quiver', () => {
+    const maxima = new Map(service.getMaxima(['Armor', 'Boots', 'Ring1', 'Ring2', 'Quiver'])
+      .map(affix => [`${affix.name}/${affix.type}`, affix.value]));
+
+    // Mythic: +4 armor and +3 boots; +3 on each ring.
+    expect(maxima.get('Physical Sheltering/Mythic')).toBe(7);
+    expect(maxima.get('Melee Power/Mythic')).toBe(6);
+    // Reaper: +3 armor, +3 on each ring, and +5 boots from the boots enchantment - not that and the
+    // boots' +3 PRR enchantment together, since an item carries one.
+    expect(maxima.get('Physical Sheltering/Reaper')).toBe(14);
+    // +10 from each ring's boost and +3 from the Power enchantment on armor and boots.
+    expect(maxima.get('Universal Spell Power/Reaper')).toBe(26);
+    expect([...maxima.keys()].some(key => key.endsWith('/Fortune'))).toBe(false);
+  });
+
   it('hands out one shared option, as items carry it by reference', () => {
     expect(service.find('curse', 'Helm', 'Curse of Major Strength')).toBe(service.find('curse', 'Boots', 'Curse of Major Strength'));
   });

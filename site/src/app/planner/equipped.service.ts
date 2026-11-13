@@ -948,7 +948,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     return important;
   }
 
-  /** The item-bonus types (Mythic, Reaper, Fortune) equipped gear supplies for an affix. Game data never lists them. */
+  /** The item-bonus types (Mythic, Reaper, Fortune) equipped gear supplies for an affix. GearDbService offers Mythic and Reaper anyway; Fortune only shows from here. */
   private getEquippedItemBonusTypes(affixName: string): Set<string> {
     const types = new Set<string>();
     for (const [, subject] of this.slots) {

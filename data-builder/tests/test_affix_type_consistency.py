@@ -166,8 +166,8 @@ def _essence_affix_types(essence, types):
                 types[affix.replace('Insightful ', '')].add('Insight')
             else:
                 types[affix].add(essence['bonusTypes'].get(affix, 'Enhancement'))
-    for components in essence.get('compounds', {}).values():
-        for affix in components:
+    for compound in essence.get('compounds', {}).values():
+        for affix in compound['affixes']:
             types[affix].add(essence['bonusTypes'].get(affix, 'Enhancement'))
 
 

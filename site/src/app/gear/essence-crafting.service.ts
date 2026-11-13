@@ -109,11 +109,16 @@ export class EssenceCraftingService {
     const slotOptions: Array<CraftableOption> = [];
     for (const optionName of affixList) {
       const compound = essenceCraftingData.compounds?.[optionName];
-      const affixes = compound
-        ? Object.entries(compound).map(([affix, progression]) =>
-            this._buildAffix(optionName, affix, progression[cappedMl - 1] ?? 0))
-        : this._getOptionAffixNames(optionName).map(affix =>
-            this._buildAffix(optionName, affix, essenceCraftingData.progression[optionName]?.[cappedMl - 1] ?? 0));
+      if (compound) {
+        // Named as the crafting device names it, so the player knows what to make; the
+        // option's details tooltip lists its affixes. A name also carries it in build URLs.
+        const affixes = Object.entries(compound.affixes).map(([affix, progression]) =>
+          this._buildAffix(optionName, affix, progression[cappedMl - 1] ?? 0));
+        slotOptions.push(new CraftableOption({ name: compound.name, affixes }));
+        continue;
+      }
+      const affixes = this._getOptionAffixNames(optionName).map(affix =>
+        this._buildAffix(optionName, affix, essenceCraftingData.progression[optionName]?.[cappedMl - 1] ?? 0));
       slotOptions.push(new CraftableOption({ affixes }));
     }
 

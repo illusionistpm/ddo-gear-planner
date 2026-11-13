@@ -237,11 +237,17 @@ def test_dual_prefixes_give_each_effect_its_own_progression(monkeypatch):
     output = written['essence-crafting']
     compounds = output['compounds']
     assert compounds['Attuned (Fire Spell Power + Evocation Focus)'] == {
-        'Fire Spell Power': output['progression']['Fire Spell Power'],
-        'Evocation Focus': output['progression']['Evocation Focus'],
+        'name': 'Attuned',
+        'affixes': {
+            'Fire Spell Power': output['progression']['Fire Spell Power'],
+            'Evocation Focus': output['progression']['Evocation Focus'],
+        },
     }
     # Checklist effects only need to be present.
-    assert compounds['Honed (Vorpal + Holy Blast)'] == {'Vorpal': [1] * 34, 'Holy Blast': [1] * 34}
+    assert compounds['Honed (Vorpal + Holy Blast)'] == {
+        'name': 'Honed',
+        'affixes': {'Vorpal': [1] * 34, 'Holy Blast': [1] * 34},
+    }
     assert output['bonusTypes']['Vorpal'] == 'Bool'
     # The wiki has no Essence Crafting value for Speed, so Swift is left out.
     assert 'Swift (Speed + Fire Spell Power)' not in compounds

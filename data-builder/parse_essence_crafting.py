@@ -228,7 +228,7 @@ ESSENCE_CRAFTING_LEGACY_COMPATIBILITY_OVERRIDES = {
 # A dual prefix: one option that grants two effects, written "Watchful
 # (Heightened Awareness + Dodge)". It becomes an option keyed in that same
 # form, with each effect's name normalized; build_essence_crafting_data gives
-# each effect its own progression, in the output's "compounds".
+# it, in the output's "compounds", its in-game name and each effect's own progression.
 DUAL_AFFIX_PATTERN = re.compile(r'^([^()]+?)\s*\(\s*([^()+]+?)\s*\+\s*([^()+]+?)\s*\)$')
 
 # A dual prefix's effects as the wiki names them there -> as everywhere else.
@@ -600,7 +600,7 @@ def build_essence_crafting_data() -> dict:
     output['bonusTypes'] = assumedBonusTypeMap
     wiki_keys_used = set()
 
-    compounds: dict[str, dict[str, list]] = {}
+    compounds: dict[str, dict] = {}
     unvalued_duals: dict[str, list[str]] = {}
 
     def get_component_progression(component: str) -> list | None:
@@ -622,7 +622,8 @@ def build_essence_crafting_data() -> dict:
             if missing:
                 unvalued_duals[affix] = missing
             else:
-                compounds[affix] = components
+                # The in-game name is what the crafting device offers; the site shows it.
+                compounds[affix] = {'name': dual[0], 'affixes': components}
             continue
 
         wiki_key = get_wiki_progression_key(affix)
@@ -643,8 +644,8 @@ def build_essence_crafting_data() -> dict:
 
     component_progressions = {
         f'{option}: {component}': values
-        for option, components in compounds.items()
-        for component, values in components.items()
+        for option, compound in compounds.items()
+        for component, values in compound['affixes'].items()
     }
     for affix, values in {**progression, **component_progressions}.items():
         non_numeric = [value for value in values if isinstance(value, str)]
@@ -664,7 +665,7 @@ def build_essence_crafting_data() -> dict:
     if compounds:
         output['compounds'] = compounds
 
-    compound_affixes = {component for components in compounds.values() for component in components}
+    compound_affixes = {component for compound in compounds.values() for component in compound['affixes']}
 
     # Only keep bonus types for things that are actually used by Essence Crafting.
     delKeys = []
@@ -699,9 +700,9 @@ def build_essence_crafting_data() -> dict:
 
     for affix, values in progression.items():
         progression[affix] = fit_to_max_level(values)
-    for components in compounds.values():
-        for component, values in components.items():
-            components[component] = fit_to_max_level(values)
+    for compound in compounds.values():
+        for component, values in compound['affixes'].items():
+            compound['affixes'][component] = fit_to_max_level(values)
 
     return output
 

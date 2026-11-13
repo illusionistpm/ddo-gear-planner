@@ -46,9 +46,27 @@ describe('EssenceCraftingService', () => {
       ['Vitality', single('Vitality').value, single('Vitality').type],
     ]);
     expect(healthy?.affixes[0].value).not.toBe(healthy?.affixes[1].value);
-    // Unnamed, so it travels in build URLs as its effects, like every Essence Crafting option.
-    expect(healthy?.getParamDescription()).toBe(
-      `Constitution${single('Constitution').value}|Vitality${single('Vitality').value}`);
+    // Shown, and carried in build URLs, by the name the crafting device uses.
+    expect(healthy?.describe()).toBe('Healthy');
+    expect(healthy?.getParamDescription()).toBe('Healthy');
+  });
+
+  it('keeps a dual prefix selected when the item\'s minimum level changes', () => {
+    const service: EssenceCraftingService = TestBed.inject(EssenceCraftingService);
+    const item = new Item(null);
+    item.name = 'Essence Crafting Armor';
+    item.slot = 'Armor';
+    item.ml = 34;
+    item.crafting = service.getValuesForML('Armor', item.ml);
+    const prefix = item.crafting[0];
+    prefix.selected = prefix.options.find(option => option.name === 'Healthy')!;
+
+    service.setItemToML(item, 20);
+
+    expect(item.crafting[0].selected?.name).toBe('Healthy');
+    expect(item.crafting[0].selected?.affixes.map(affix => affix.value)).toEqual(
+      service.getValuesForSlotML('Armor', 'Prefix', 20).options.find(option => option.name === 'Healthy')!
+        .affixes.map(affix => affix.value));
   });
 
   it('offers a weapon dual prefix as two present-only effects', () => {

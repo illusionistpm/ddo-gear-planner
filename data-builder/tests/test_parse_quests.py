@@ -515,10 +515,20 @@ def test_get_coupons_from_page_leaves_codes_out_when_the_list_and_table_disagree
     assert [coupon['code'] for coupon in coupons] == ['', '', '']
 
 
-def test_get_coupons_from_page_grants_an_expansions_own_packs_with_it():
-    html = COUPON_PAGE.replace('Mists_of_Ravenloft', 'Shadowfell_Conspiracy').replace('Mists of Ravenloft', 'Shadowfell Conspiracy')
+def test_an_expansions_arc_is_not_a_pack_of_its_own():
+    # Adventure_Pack lists Shadow Over Wheloon as a pack, but it is sold only
+    # inside Shadowfell Conspiracy.
+    html = '''
+    <table class="wikitable sortable">
+      <tr><th>Name of the pass</th><th>Release<br/>Date</th></tr>
+      <tr>
+        <td><a href="/page/Shadow_Over_Wheloon" title="Shadow Over Wheloon">Shadow Over Wheloon</a><sup>3</sup></td>
+        <td data-sort-value="1376870400">Update 19</td>
+      </tr>
+    </table>
+    '''
     soup = BeautifulSoup(html, 'html.parser')
+    pack_name_map = get_adventure_pack_name_map_from_page(soup)
 
-    coupons = get_coupons_from_page(soup, {'Shadowfell Conspiracy', 'Shadow Over Wheloon', 'The Secret of the Storm Horns'})
-
-    assert coupons[-1]['packs'] == ['Shadow Over Wheloon', 'Shadowfell Conspiracy', 'The Secret of the Storm Horns']
+    assert get_official_packs(pack_name_map, []) == ['Shadowfell Conspiracy']
+    assert get_pack_releases_from_page(soup, pack_name_map) == {'Shadowfell Conspiracy': '2013-08-19'}

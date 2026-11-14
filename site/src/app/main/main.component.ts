@@ -20,6 +20,7 @@ import { CurrentBuildService } from '../build/current-build.service';
 import { ListReturnService } from '../build/list-return.service';
 import { QueryParamsService } from '../build/query-params.service';
 import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
+import { CraftingSlotsViewService } from '../planner/crafting-slots/crafting-slots-view.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { SupportLinkComponent } from '../support-link/support-link.component';
 import { PageChromeBack } from '../page-chrome/page-chrome.component';
@@ -112,8 +113,11 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   private ownershipMemoAuthSubscription?: Subscription;
   private slotSubscriptions: Subscription[] = [];
   private shoppingListSubscription?: Subscription;
+  private craftingSlotsSubscription?: Subscription;
   /** The shopping list takes the planner's place while open; the planner stays mounted underneath. */
   shoppingListOpen = false;
+  /** Whether the Equipment panel shows the crafting slots view rather than the gear cards. */
+  craftingSlotsOpen = false;
 
   onSortOwnedToTopChanged(value: boolean) {
     this.sortOwnedToTop = value;
@@ -137,6 +141,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     private currentBuild: CurrentBuildService,
     private auth: AuthService,
     private shoppingListView: ShoppingListViewService,
+    private craftingSlotsView: CraftingSlotsViewService,
     private suggestionDrawer: SuggestionDrawerService
   ) {
     // Watching from here on, so a shopping list's page can come back to the planner as it was.
@@ -262,6 +267,9 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
         this.suggestionDrawer.close();
       }
     });
+    this.craftingSlotsSubscription = this.craftingSlotsView.isOpen$.subscribe(open => {
+      this.craftingSlotsOpen = open;
+    });
     this.filterSubscription = this.filters.getItemFilters().subscribe(itemFilters => {
       this.itemFilters = itemFilters;
     });
@@ -307,6 +315,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     this.initialParamsAppliedSubscription?.unsubscribe();
     this.ownershipMemoAuthSubscription?.unsubscribe();
     this.shoppingListSubscription?.unsubscribe();
+    this.craftingSlotsSubscription?.unsubscribe();
     for (const slotSubscription of this.slotSubscriptions) {
       slotSubscription.unsubscribe();
     }
@@ -546,6 +555,18 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
 
   closeShoppingList() {
     this.shoppingListView.close();
+  }
+
+  showItems() {
+    if (this.craftingSlotsOpen) {
+      this.craftingSlotsView.close();
+    }
+  }
+
+  showCraftingSlots() {
+    if (!this.craftingSlotsOpen) {
+      this.craftingSlotsView.open('switch');
+    }
   }
 
   isActiveTab(tab: PlannerTab) {

@@ -36,10 +36,10 @@ differing pixels.** A diff is a defect to explain, not noise to triage.
 
 ## What it captures
 
-20 scenes (`capture.py`'s `SCENES`), each in light and dark, at each of three
+21 scenes (`capture.py`'s `SCENES`), each in light and dark, at each of three
 viewports: empty and richly-populated builds, both tracked-affix group modes,
 hover states, the filters panel, the share menu, all three drawers, an item
-preview, the affix builder, and the shopping list (from a
+preview, the affix builder, the Equipment panel's crafting slots view, and the shopping list (from a
 build with augments, so it has crafting rows) with its share menu open and in
 Arrange mode, a friend's still-needed page for it, and a list of several builds (`/list/`) with
 two characters sharing it. Add a scene there when a state isn't covered.
@@ -70,7 +70,7 @@ list taller shows as a `SIZE` line in `compare.py`'s output.
 `desktop` 1440x900, `tablet` 768x1024, `mobile` 360x800 (the widths that
 set the layout; the heights are only where each shot starts) - the last two with
 touch emulated, or the `(pointer: coarse)` rules that size tap targets don't
-apply. All three by default, 120 screenshots; narrow it while iterating with
+apply. All three by default, 126 screenshots; narrow it while iterating with
 `--viewport desktop`.
 
 They aren't three sizes of the same layout. The page chrome restacks below

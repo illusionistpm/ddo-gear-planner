@@ -75,3 +75,40 @@ export function canHaveSecondAugmentSlot(item: Item | null): boolean {
 export function isCraftingSlotAvailable(item: Item | null, craftable: Craftable): boolean {
   return craftable.name !== AUGMENT_SLOT_2 || canHaveSecondAugmentSlot(item);
 }
+
+/**
+ * Brings an essence-crafted item's Augment Slot 2 in line with slot 1: offers
+ * only the systems slot 1 allows, and empties it while slot 1 doesn't allow it
+ * at all. Mutates the item; anything showing its crafting slots runs it first.
+ */
+export function normalizeAugmentSlots(item: Item | null): void {
+  const slotOne = item?.getCraftingByName(AUGMENT_SLOT_1);
+  const slotTwo = item?.getCraftingByName(AUGMENT_SLOT_2);
+
+  if (slotOne && slotTwo) {
+    const availableSystems = availableSecondSlotSystems(
+      slotOne.selectedCraftingSystemName, slotTwo.getOptionsByCraftingSystem().keys());
+    slotTwo.setAvailableCraftingSystemOptions(availableSystems, slotTwo.selectedCraftingSystemName);
+
+    if (!canHaveSecondAugmentSlot(item)) {
+      slotTwo.selectCraftingSystem('');
+    }
+  }
+}
+
+/**
+ * Coloured augment slots in the order they're planned around: Sun and Moon,
+ * then Purple, Orange, Red, Blue, Yellow, Green, and Colorless last.
+ */
+export const AUGMENT_COLOR_ORDER: ReadonlyArray<string> = [
+  'Sun', 'Moon',
+  'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green',
+  'Colorless'
+];
+
+/** A coloured augment system's place in AUGMENT_COLOR_ORDER; -1 for anything else, an unknown colour included. */
+export function augmentColorRank(systemName: string): number {
+  return isAugmentSystemName(systemName)
+    ? AUGMENT_COLOR_ORDER.indexOf(systemName.slice(0, -AUGMENT_SYSTEM_SUFFIX.length))
+    : -1;
+}

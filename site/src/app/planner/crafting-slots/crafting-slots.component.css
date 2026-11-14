@@ -1,0 +1,163 @@
+:host {
+    display: block;
+    padding: 0 0 var(--space-16);
+}
+
+.crafting-slots-none {
+    color: var(--text-secondary);
+    margin: var(--space-16) 0;
+}
+
+/* The counts at a glance, and the empty-only filter. */
+.crafting-slots-bar {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-8);
+    justify-content: space-between;
+    margin-bottom: var(--space-12);
+}
+
+.crafting-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4) var(--space-8);
+    min-width: 0;
+}
+
+.crafting-summary-chip,
+.crafting-only-empty {
+    align-items: center;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    color: var(--text-primary);
+    display: inline-flex;
+    font-size: 0.8rem;
+    gap: var(--space-4);
+    line-height: 1.2;
+    padding: var(--space-4) var(--space-8);
+}
+
+.crafting-summary-chip:hover,
+.crafting-summary-chip:focus-visible {
+    border-color: var(--primary-color);
+}
+
+.crafting-only-empty {
+    color: var(--text-secondary);
+}
+
+.crafting-only-empty.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--on-accent-text-color);
+}
+
+.crafting-summary-label {
+    font-weight: 600;
+}
+
+.crafting-summary-empty,
+.crafting-group-empty {
+    color: var(--crafting-slot-empty-accent);
+    font-weight: 600;
+}
+
+.crafting-only-empty:disabled {
+    opacity: 0.5;
+}
+
+.crafting-group {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: var(--space-12);
+    overflow: hidden;
+    scroll-margin-top: var(--space-8);
+}
+
+.crafting-group-heading {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.crafting-group-header {
+    align-items: baseline;
+    background: var(--surface-muted-color);
+    border: none;
+    color: var(--text-primary);
+    display: flex;
+    gap: var(--space-8);
+    padding: var(--space-8) var(--space-12);
+    text-align: left;
+    width: 100%;
+}
+
+.crafting-group-chevron {
+    align-self: center;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    transition: transform 0.15s ease;
+}
+
+.crafting-group-header[aria-expanded="false"] .crafting-group-chevron {
+    transform: rotate(-90deg);
+}
+
+.crafting-group-name {
+    font-weight: 700;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.crafting-group-empty {
+    font-size: 0.85rem;
+    margin-left: auto;
+}
+
+.crafting-group-rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/*
+ * One line: the gear slot's icon, then the slot's controls. A plain wrapping
+ * flex row rather than a Bootstrap .row, whose `.row > *` would stretch the
+ * icon's button to full width; wrapping lets a tapped icon's bubble drop onto
+ * a line of its own.
+ */
+.crafting-slot-row {
+    align-items: center;
+    border-left: 3px solid transparent;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-wrap: wrap;
+    padding: var(--space-4) var(--space-8) var(--space-4) var(--space-4);
+}
+
+.crafting-slot-row:nth-child(even) {
+    background: var(--row-alt-bg);
+}
+
+.crafting-slot-row.is-empty {
+    border-left-color: var(--crafting-slot-empty-accent);
+}
+
+/* Room for the subscript that tells Ring 1 from Ring 2, as the jump bar has. */
+.crafting-slot-icon {
+    color: var(--text-secondary);
+    display: inline-flex;
+    font-size: 1.1rem;
+    padding: var(--space-2) var(--space-8) var(--space-2) var(--space-4);
+    position: relative;
+}
+
+.crafting-slot-number {
+    bottom: 0;
+    font-size: 0.6rem;
+    font-weight: 800;
+    position: absolute;
+    right: 2px;
+}

@@ -1,0 +1,58 @@
+@if (!overview.groups.length) {
+  <p class="crafting-slots-none">None of your equipped gear has crafting slots yet. Equip some, and its augment slots and upgrades show up here, grouped by type.</p>
+} @else {
+  <div class="crafting-slots-bar">
+    @if (overview.summary.length) {
+      <div class="crafting-summary" role="group" aria-label="Augment slots by colour">
+        @for (chip of overview.summary; track chip.groupName) {
+          <button type="button" class="crafting-summary-chip" [class.has-empty]="chip.empty > 0"
+            [attr.aria-label]="chip.label + (chip.empty ? ': ' + chip.empty + ' empty' : '')"
+            (click)="jumpTo(chip)">
+            <span class="crafting-summary-label">{{chip.label}}</span>
+            @if (chip.empty) {
+              <span class="crafting-summary-empty">{{chip.empty}} empty</span>
+            }
+          </button>
+        }
+      </div>
+    }
+    <button type="button" class="crafting-only-empty" [class.active]="onlyEmpty" [attr.aria-pressed]="onlyEmpty"
+      [disabled]="!hasEmptySlots && !onlyEmpty" (click)="setOnlyEmpty(!onlyEmpty)">Only empty slots</button>
+  </div>
+
+  @for (group of overview.groups; track group.name) {
+    @if (isShown(group)) {
+      <section class="crafting-group" [id]="groupId(group.name)">
+        <h3 class="crafting-group-heading">
+          <button type="button" class="crafting-group-header" [attr.aria-expanded]="!isCollapsed(group)"
+            [attr.aria-controls]="groupId(group.name) + '-rows'" (click)="toggle(group)">
+            <span class="fas fa-chevron-down crafting-group-chevron" aria-hidden="true"></span>
+            <span class="crafting-group-name">{{group.name}}</span>
+            @if (group.empty) {
+              <span class="crafting-group-empty">{{group.empty}} empty</span>
+            }
+          </button>
+        </h3>
+        @if (!isCollapsed(group)) {
+          <ul class="crafting-group-rows" [id]="groupId(group.name) + '-rows'">
+            @for (row of visibleRows(group); track row.key) {
+              <!-- The gear it's on is an icon, named on hover (or a tap, on touch), so a row is one line. -->
+              <li class="crafting-slot-row small" [class.is-empty]="row.empty">
+                @let source = sourceLabel(row);
+                <app-tap-tooltip [text]="source" [label]="source">
+                  <span class="crafting-slot-icon">
+                    <app-slot-icon [slot]="row.gearSlot"></app-slot-icon>
+                    @if (slotNumber(row.gearSlot); as number) {
+                      <span class="crafting-slot-number" aria-hidden="true">{{number}}</span>
+                    }
+                  </span>
+                </app-tap-tooltip>
+                <app-crafting-slot-control [item]="row.item" [craft]="row.craft" [hideName]="true" (changed)="onChanged(row)"></app-crafting-slot-control>
+              </li>
+            }
+          </ul>
+        }
+      </section>
+    }
+  }
+}

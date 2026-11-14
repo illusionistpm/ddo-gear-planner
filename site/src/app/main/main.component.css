@@ -872,3 +872,11 @@ app-admin-link {
     --build-name-width: 20rem;
   }
 }
+
+/* Show: Items | Crafting slots, at the top of the Equipment panel, placed and
+   styled as Build Goals' Group by is at the top of its panel (the global
+   .segmented-toggle in styles.css). */
+.equipment-view-switch {
+  justify-content: flex-end;
+  margin-bottom: var(--space-4);
+}

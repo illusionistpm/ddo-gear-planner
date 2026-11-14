@@ -26,6 +26,8 @@
   --section-accent-neutral-dark: #475569;
   --section-accent-neutral-dark-rgb: 71, 85, 105;
   --warning-color: #d97706;
+  /* Marks a crafting slot with nothing chosen yet in the crafting slots view. */
+  --crafting-slot-empty-accent: var(--warning-color);
   --danger-color: #ef4444;
   --danger-color-rgb: 239, 68, 68;
   --background-color: #f8fafc;
@@ -185,6 +187,7 @@
   --section-accent-neutral-dark: #64748b;
   --section-accent-neutral-dark-rgb: 100, 116, 139;
   --warning-color: #f59e0b;
+  --crafting-slot-empty-accent: var(--warning-color);
   --danger-color: #f87171;
   --danger-color-rgb: 248, 113, 113;
   --background-color: #0f172a;
@@ -707,40 +710,40 @@ select.form-control {
 
 /*
  * Rank colours: the classes AffixUiService.getClassFor* return. Scoped to the views that
- * show them in full - items-in-set and items-with-bonus-type apply the same class names with
+ * show them in full (the gear cards, and the crafting slots view's controls) - items-in-set and items-with-bonus-type apply the same class names with
  * styling of their own, or none, so bare class selectors would change them. The pickers'
  * menus are listed by class because they live in <body>, outside their components.
  */
-:is(app-gear-list, app-gear-description, app-external-affix-slot-card, .crafting-picker-menu, .filigree-picker-menu) .BetterThanBest {
+:is(app-gear-list, app-gear-description, app-crafting-slots, app-external-affix-slot-card, .crafting-picker-menu, .filigree-picker-menu) .BetterThanBest {
   font-weight: 700;
   color: var(--rank-better-than-best-color);
   text-shadow: var(--rank-better-than-best-glow);
 }
 
-:is(app-gear-list, app-gear-description, app-external-affix-slot-card, .crafting-picker-menu, .filigree-picker-menu) .Best {
+:is(app-gear-list, app-gear-description, app-crafting-slots, app-external-affix-slot-card, .crafting-picker-menu, .filigree-picker-menu) .Best {
   font-weight: 700;
   color: var(--success-color);
   text-shadow: var(--rank-best-glow);
 }
 
-:is(app-gear-list, app-gear-description, app-external-affix-slot-card, .crafting-picker-menu, .filigree-picker-menu) .BestTied {
+:is(app-gear-list, app-gear-description, app-crafting-slots, app-external-affix-slot-card, .crafting-picker-menu, .filigree-picker-menu) .BestTied {
   font-weight: 700;
   color: var(--primary-color);
   text-shadow: var(--rank-best-tied-glow);
 }
 
-:is(app-gear-list, app-gear-description, app-external-affix-slot-card, .crafting-picker-menu, .filigree-picker-menu) .Outranked {
+:is(app-gear-list, app-gear-description, app-crafting-slots, app-external-affix-slot-card, .crafting-picker-menu, .filigree-picker-menu) .Outranked {
   font-weight: 600;
   color: var(--warning-color);
   opacity: 0.8;
 }
 
-:is(app-gear-list, app-gear-description, app-external-affix-slot-card, .crafting-picker-menu, .filigree-picker-menu) .Irrelevant {
+:is(app-gear-list, app-gear-description, app-crafting-slots, app-external-affix-slot-card, .crafting-picker-menu, .filigree-picker-menu) .Irrelevant {
   color: var(--text-primary);
   font-weight: 400;
 }
 
-:is(app-gear-list, app-gear-description, app-external-affix-slot-card, .crafting-picker-menu, .filigree-picker-menu) .Penalty {
+:is(app-gear-list, app-gear-description, app-crafting-slots, app-external-affix-slot-card, .crafting-picker-menu, .filigree-picker-menu) .Penalty {
   color: var(--danger-color);
   font-weight: 600;
   text-decoration: line-through;
@@ -751,12 +754,12 @@ select.form-control {
  * A compound affix where some parts help and others are outranked: coloured by the parts that
  * help, since an outranked part takes nothing away, and italic to say not all of it counts.
  */
-:is(app-gear-list, app-gear-description, app-external-affix-slot-card, .crafting-picker-menu, .filigree-picker-menu) .PartialRank {
+:is(app-gear-list, app-gear-description, app-crafting-slots, app-external-affix-slot-card, .crafting-picker-menu, .filigree-picker-menu) .PartialRank {
   font-style: italic;
 }
 
 /* Parts that help alongside a penalty. */
-:is(app-gear-list, app-gear-description, app-external-affix-slot-card, .crafting-picker-menu, .filigree-picker-menu) .Mixed {
+:is(app-gear-list, app-gear-description, app-crafting-slots, app-external-affix-slot-card, .crafting-picker-menu, .filigree-picker-menu) .Mixed {
   font-style: italic;
   font-weight: 600;
   color: var(--warning-color);
@@ -768,7 +771,7 @@ select.form-control {
  * background-color and chevron - so the native popup falls back to white in dark mode -
  * and leaves the selected text unreadable. Form controls keep the solid colour above.
  */
-:is(app-gear-list, app-gear-description, app-external-affix-slot-card, .crafting-picker-menu, .filigree-picker-menu) .Mixed:not(select, option) {
+:is(app-gear-list, app-gear-description, app-crafting-slots, app-external-affix-slot-card, .crafting-picker-menu, .filigree-picker-menu) .Mixed:not(select, option) {
   background: linear-gradient(45deg, var(--warning-color), var(--rank-mixed-gradient-end));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1499,4 +1502,73 @@ select.form-control {
   background: var(--artifact-badge-bg);
   border: 1px solid var(--artifact-badge-border-color);
   color: var(--artifact-badge-text-color);
+}
+
+/*
+ * A segmented control choosing between a panel's views, with an uppercase label
+ * before it: Build Goals' "Group by", the Equipment panel's "Show". Global so the
+ * two look the same; each host adds its own placement.
+ */
+.segmented-toggle {
+  align-items: center;
+  display: flex;
+  gap: var(--space-8);
+}
+
+.segmented-toggle-label {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.segmented-toggle-options {
+  background: var(--surface-subtle-color);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  display: inline-flex;
+  gap: var(--space-2);
+  padding: var(--space-2);
+}
+
+.segmented-toggle-option {
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+  padding: var(--space-2) var(--space-12);
+}
+
+.segmented-toggle-option:hover,
+.segmented-toggle-option:focus-visible {
+  color: var(--primary-color);
+}
+
+.segmented-toggle-option:focus-visible {
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 1px;
+}
+
+.segmented-toggle-option.active {
+  background: var(--primary-color);
+  color: var(--on-accent-text-color);
+}
+
+@media (pointer: coarse) {
+  .segmented-toggle-option {
+    min-height: 2.25rem;
+  }
+}
+
+/* A crafting slot row's icon names its gear in a tap bubble on touch. The
+   bubble is a direct child of the wrapping row (app-tap-tooltip is display:
+   contents), so it goes last: below the row, not between the icon and the
+   slot's controls. */
+.crafting-slot-row > app-tap-tooltip > .tap-tooltip-bubble {
+  order: 1;
 }

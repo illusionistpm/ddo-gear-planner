@@ -3,6 +3,7 @@ import { AffixRank } from './affix-rank.enum';
 import { AffixService } from './affix.service';
 import { AffixUiService } from './affix-ui.service';
 import { CraftableOption } from '../gear/craftable-option';
+import { Item } from '../gear/item';
 
 describe('AffixUiService', () => {
   it('describes fixed affix group components', () => {
@@ -304,6 +305,30 @@ describe('AffixUiService', () => {
 
     it('has nothing to say about an option that is not a set augment', () => {
       expect(makeService(0).getSetPieces(new CraftableOption({ name: 'Plain' }), false)).toBeNull();
+    });
+  });
+
+  describe('an item as a candidate for its slot', () => {
+    const service = new AffixUiService({} as any, new AffixService(), {} as any);
+    const curse = new CraftableOption({ name: 'Curse of Major Strength', affixes: [{ name: 'Strength', type: 'Fortune', value: 2 }] });
+    const mythic = new CraftableOption({ name: 'Mythic +3 (PRR/MRR)', affixes: [{ name: 'Physical Sheltering', type: 'Mythic', value: 3 }] });
+    const names = (affixes: Affix[]) => affixes.map(affix => `${affix.name} ${affix.type} ${affix.value}`);
+
+    function cursedHelm() {
+      const helm = new Item({ name: 'Helm', slot: 'Helm', ml: 1, affixes: [{ name: 'Wisdom', type: 'Enhancement', value: 5 }] });
+      helm.bonuses.curse = curse;
+      return helm;
+    }
+
+    it('includes the bonuses it carries', () => {
+      expect(names(service.candidateFor(cursedHelm()).activeAffixes)).toEqual(['Wisdom Enhancement 5', 'Strength Fortune 2']);
+    });
+
+    it('swaps one bonus for another, or for none', () => {
+      expect(names(service.candidateFor(cursedHelm(), undefined, undefined, { kind: 'mythic', option: mythic }).activeAffixes))
+        .toEqual(['Wisdom Enhancement 5', 'Physical Sheltering Mythic 3', 'Strength Fortune 2']);
+      expect(names(service.candidateFor(cursedHelm(), undefined, undefined, { kind: 'curse', option: null }).activeAffixes))
+        .toEqual(['Wisdom Enhancement 5']);
     });
   });
 });

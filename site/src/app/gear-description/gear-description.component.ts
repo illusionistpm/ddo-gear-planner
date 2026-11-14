@@ -3,9 +3,10 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit, Input, ChangeDetection
 import { EquippedService } from '../planner/equipped.service';
 import { EssenceCraftingService } from '../gear/essence-crafting.service';
 import { AffixService } from '../affixes/affix.service';
-import { AffixUiService } from '../affixes/affix-ui.service';
+import { AffixUiService, CraftingOptionContext } from '../affixes/affix-ui.service';
 import { Affix } from '../affixes/affix';
 import { Craftable } from '../gear/craftable';
+import { CraftableOption } from '../gear/craftable-option';
 import { Item } from '../gear/item';
 import { Observable, Subscription } from 'rxjs';
 
@@ -15,7 +16,8 @@ import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.
 import { UserGearService, UserItemLocation } from '../planner/user-gear.service';
 import { isCraftingSlotAvailable, normalizeAugmentSlots } from '../gear/augment-slots';
 import { CraftingSlotControlComponent } from '../crafting-slot-control/crafting-slot-control.component';
-import { ITEM_BONUS_KINDS, ItemBonusKind, ItemBonusOption } from '../gear/item-bonus';
+import { CRAFTING_PICKER_MIN_OPTIONS } from '../crafting-option-picker/crafting-option-picker.component';
+import { ITEM_BONUS_KINDS, ItemBonusKind } from '../gear/item-bonus';
 import { ItemBonusService } from '../gear/item-bonus.service';
 
 interface AffixDisplayRow {
@@ -34,16 +36,28 @@ interface CraftingDisplayRow {
   important: boolean;
 }
 
+interface CraftingOptionDisplayRow {
+  option: CraftableOption;
+  className?: string;
+  tooltip?: string;
+  description: string;
+}
+
 /** A Mythic Boost, Reaper bonus or Curse row: shown once the item carries one, or while the card's editor is open. */
 interface ItemBonusDisplayRow {
   kind: ItemBonusKind;
   label: string;
-  selected: ItemBonusOption | null;
-  /** Empty when the row can't be edited (a read-only description). */
-  options: readonly ItemBonusOption[];
+  /** The item's bonus of this kind, or ItemBonusService.none. */
+  selected: CraftableOption;
+  context: CraftingOptionContext;
+  /** None, then what the slot can carry; empty when the row can't be edited (a read-only description). */
+  visibleOptions: CraftableOption[];
   className: string;
   tooltip: string;
   important: boolean;
+  selectedOptionTooltip: string;
+  /** The native select's options, ranked as if chosen. Empty when the list is long enough for the picker, which ranks its own. */
+  options: CraftingOptionDisplayRow[];
 }
 
 const ITEM_BONUS_LABELS: Record<ItemBonusKind, string> = {
@@ -80,8 +94,10 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
   craftingRows: CraftingDisplayRow[] = [];
   bonusRows: ItemBonusDisplayRow[] = [];
   setRows: SetDisplayRow[] = [];
+  readonly craftingPickerMinOptions = CRAFTING_PICKER_MIN_OPTIONS;
   @ViewChildren(CraftingSlotControlComponent) private craftingControls?: QueryList<CraftingSlotControlComponent>;
   private subscriptions = new Subscription();
+  private bonusOptionLists = new WeakMap<readonly CraftableOption[], CraftableOption[]>();
 
   constructor(
     public equipped: EquippedService,
@@ -197,6 +213,27 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     return rows;
   }
 
+  /** A native select's option rows for a bonus list, each ranked as if chosen in `context`. */
+  private buildBonusOptionRows(visibleOptions: CraftableOption[], context: CraftingOptionContext): CraftingOptionDisplayRow[] {
+    const done = perfAggregateStart('GearDescriptionComponent.buildBonusOptionRows');
+    const slot = context.item.slot;
+    const rows = visibleOptions.map(option => {
+      const ranking = this.affixUi.rankCraftingOption(option, slot, false, context);
+      return {
+        option,
+        className: ranking.className,
+        tooltip: ranking.tooltip || undefined,
+        description: option.describe()
+      };
+    });
+    done({ rows: rows.length });
+    return rows;
+  }
+
+  /**
+   * The Mythic, Reaper and Curse rows, built like crafting rows: the chosen bonus ranked with the item as
+   * it is, and each option ranked as if it replaced it. A list long enough gets the crafting picker.
+   */
   private buildBonusRows(): ItemBonusDisplayRow[] {
     const item = this.curItem;
     if (!item) {
@@ -204,34 +241,58 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     }
     // Only an equipped item's bonuses can be chosen: a suggestion or preview is game data's item, which has none.
     const editable = !this.readonly && this.equipOnChange;
+    const candidate = this.affixUi.candidateFor(item);
     const rows: ItemBonusDisplayRow[] = [];
     for (const kind of ITEM_BONUS_KINDS) {
-      const selected = item.bonuses[kind] ?? null;
-      const options = editable ? this.itemBonuses.getOptions(kind, item.slot) : [];
-      if (!selected && !(this.editBonuses && options.length)) {
+      const carried = item.bonuses[kind];
+      const visibleOptions = editable ? this.bonusOptions(kind, item.slot) : [];
+      if (!carried && !(this.editBonuses && visibleOptions.length)) {
         continue;
       }
-      const ranking = selected ? this.affixUi.rankItemBonus(selected) : { className: '', tooltip: '' };
+      const selected = carried ?? this.itemBonuses.none;
+      const context: CraftingOptionContext = { item, bonusKind: kind };
+      const usesPicker = visibleOptions.length >= CRAFTING_PICKER_MIN_OPTIONS;
+      const selectedAffix = selected.affixes[0];
       rows.push({
         kind,
         label: ITEM_BONUS_LABELS[kind],
         selected,
-        options,
-        ...ranking,
-        important: !!selected?.affixes.length && this.equipped.isImportantAffix(selected.affixes[0].name),
+        context,
+        visibleOptions,
+        className: this.affixUi.getClassForCraftingOption(selected, candidate),
+        tooltip: this.affixUi.getCraftingOptionRankTooltip(selected, item.slot, candidate),
+        important: selectedAffix ? this.equipped.isImportantAffix(selectedAffix.name) : false,
+        selectedOptionTooltip: this.affixUi.getCraftingOptionTooltip(selected),
+        options: visibleOptions.length && !usesPicker
+          ? this.buildBonusOptionRows(visibleOptions, context)
+          : [],
       });
     }
     return rows;
   }
 
-  chooseItemBonus(row: ItemBonusDisplayRow, option: ItemBonusOption | null) {
+  /** None, then the bonuses of a kind the slot can carry: one array per list, so the picker's grouping of it stays cached. */
+  private bonusOptions(kind: ItemBonusKind, slot: string): CraftableOption[] {
+    const options = this.itemBonuses.getOptions(kind, slot);
+    if (!options.length) {
+      return [];
+    }
+    let withNone = this.bonusOptionLists.get(options);
+    if (!withNone) {
+      withNone = [this.itemBonuses.none, ...options];
+      this.bonusOptionLists.set(options, withNone);
+    }
+    return withNone;
+  }
+
+  chooseItemBonus(row: ItemBonusDisplayRow, option: CraftableOption) {
     if (!this.curItem) {
       return;
     }
-    if (option) {
-      this.curItem.bonuses[row.kind] = option;
-    } else {
+    if (option === this.itemBonuses.none) {
       delete this.curItem.bonuses[row.kind];
+    } else {
+      this.curItem.bonuses[row.kind] = option;
     }
     this.updateItem();
   }

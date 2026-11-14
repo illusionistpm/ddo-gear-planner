@@ -34,7 +34,10 @@ export interface FamilyRow {
   searchText: string;
   /** Whether any tier does anything for the tracked affixes. */
   relevant: boolean;
-  /** Whether "hide options that don't help" may hide it: the empty option has nothing to judge. */
+  /**
+   * Whether "hide options that don't help" may hide it: the empty option has nothing to judge. A named
+   * option the planner can't express (a curse like Masterworks) can be, so it hides like any irrelevant one.
+   */
   hideable: boolean;
   /** Whether the trove has any of its tiers. */
   owned: boolean;
@@ -81,7 +84,7 @@ export function buildFamilyRows(
       tiers,
       searchText: [family.label, detail, ...family.tiers.map(option => option.describe())].join('\n').toLowerCase(),
       relevant: tiers.some(tier => tier.className !== IRRELEVANT),
-      hideable: first.affixes.length > 0 || !!first.set,
+      hideable: first.affixes.length > 0 || !!first.set || !!first.name,
       owned: tiers.some(tier => tier.owned)
     };
   });
@@ -130,8 +133,8 @@ function familyDetail(family: CraftingOptionFamily, text: CraftingOptionText): s
 function familyAside(family: CraftingOptionFamily, text: CraftingOptionText): string {
   const first = family.tiers[0];
   if (family.tiers.length === 1) {
-    // A set augment's name only repeats the set.
-    return first.set ? '' : first.name;
+    // A set augment's name only repeats the set, and an option with no affixes is labelled by its name already.
+    return first.set || !first.affixes.length ? '' : first.name;
   }
   const affix = singleValuedAffix(first);
   const last = family.tiers[family.tiers.length - 1];

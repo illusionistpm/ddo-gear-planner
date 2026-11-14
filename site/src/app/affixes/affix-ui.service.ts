@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Affix } from './affix';
-import { ItemBonusOption } from '../gear/item-bonus';
+import { ITEM_BONUS_KINDS, ItemBonusKind } from '../gear/item-bonus';
 import { AffixRank, HELPFUL_RANKS, rankClassName } from './affix-rank.enum';
 import { EquippedService, RankCandidate } from '../planner/equipped.service';
 import { AffixService } from './affix.service';
@@ -25,9 +25,18 @@ export interface CraftingOptionRanking {
 export const DISABLED_SET_BONUS_CLASS = 'DisabledSetBonus';
 
 /** The item a crafting option is being chosen for, and the crafting slot it would go in. */
-export interface CraftingOptionContext {
-  item: Item;
-  craft: Craftable;
+/**
+ * Where an option in a list would go if chosen: a crafting slot of the item, or (for a Mythic Boost,
+ * Reaper bonus or Curse) the item's bonus of that kind. Each option is ranked as if it replaced
+ * whatever is there now.
+ */
+export type CraftingOptionContext =
+  | { item: Item; craft: Craftable }
+  | { item: Item; bonusKind: ItemBonusKind };
+
+/** The crafting slot a context's options are for, if it is a crafting slot. */
+export function contextCraftable(context: CraftingOptionContext | undefined): Craftable | undefined {
+  return context && 'craft' in context ? context.craft : undefined;
 }
 
 interface RankDetails {
@@ -105,7 +114,13 @@ export class AffixUiService {
   }
 
   /** What equipping `item` in its slot would contribute, with `option` chosen in `craft` when given. */
-  candidateFor(item: Item, craft?: Craftable, option?: CraftableOption | null): RankCandidate {
+  /**
+   * The item as a candidate for its slot: its own affixes, its crafting choices and its Mythic Boost,
+   * Reaper bonus and Curse - with `option` in place of `craft`'s choice, or `bonus` in place of the
+   * item's bonus of that kind (a null option: none).
+   */
+  candidateFor(item: Item, craft?: Craftable, option?: CraftableOption | null,
+      bonus?: { kind: ItemBonusKind; option: CraftableOption | null }): RankCandidate {
     const affixes = item.affixes.slice();
     const craftedSets: string[] = [];
     for (const itemCraft of item.crafting || []) {
@@ -115,6 +130,12 @@ export class AffixUiService {
       }
       if (selected?.set) {
         craftedSets.push(selected.set);
+      }
+    }
+    for (const kind of ITEM_BONUS_KINDS) {
+      const carried = bonus?.kind === kind ? bonus.option : item.bonuses[kind];
+      if (carried) {
+        affixes.push(...carried.affixes);
       }
     }
     return {
@@ -338,7 +359,9 @@ export class AffixUiService {
    */
   rankCraftingOption(option: CraftableOption, slot?: string, alreadyEquipped = false, context?: CraftingOptionContext): CraftingOptionRanking {
     // Ranked as if chosen: on its item, in place of whatever that crafting slot holds now.
-    const candidate = context ? this.candidateFor(context.item, context.craft, option) : undefined;
+    const candidate = !context ? undefined
+      : 'craft' in context ? this.candidateFor(context.item, context.craft, option)
+      : this.candidateFor(context.item, undefined, undefined, { kind: context.bonusKind, option });
     const rankingTooltip = this.getCraftingOptionRankTooltip(option, slot, candidate);
     const setPieces = this.getSetPieces(option, alreadyEquipped);
     return {
@@ -359,26 +382,6 @@ export class AffixUiService {
       return null;
     }
     return { pieces: setReq.currentCount + (alreadyEquipped ? 0 : 1), required: setReq.requiredCount };
-  }
-
-  /**
-   * The rank colour and tooltip of a Mythic Boost, Reaper bonus or Curse an equipped item carries,
-   * ranked like the chosen option of a crafting slot. A curse the planner can't express is irrelevant.
-   */
-  rankItemBonus(option: ItemBonusOption): { className: string; tooltip: string } {
-    if (!option.affixes.length) {
-      return { className: AffixRank[AffixRank.Irrelevant], tooltip: '' };
-    }
-    const affixes = option.affixes.flatMap(affix => {
-      const expandedAffixes = this.affixSvc.ungroupAffix(affix);
-      return expandedAffixes.length ? expandedAffixes : [affix];
-    });
-    const details = this.combineRankDetails(option.affixes.map(affix => this.getAffixRankDetails(affix)), option.affixes[0]);
-    const description = option.name + ' is:\n' + affixes.map(affix => '- ' + this.getAffixDescription(affix)).join('\n');
-    return {
-      className: this.classFor(details),
-      tooltip: [description, this.describeRank(details)].filter(text => text).join('\n\n'),
-    };
   }
 
   getClassForCraftable(craft: Craftable, candidate?: RankCandidate): string {

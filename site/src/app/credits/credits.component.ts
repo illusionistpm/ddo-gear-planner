@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostBinding, HostListener, Input, Output
+} from '@angular/core';
 import buildInfo from '@data/build-info.json';
 
 import { formatBuiltAt } from '../shared/format-built-at';
@@ -21,6 +23,13 @@ export class CreditsComponent {
   /** Emits when the popover opens, so the Ko-fi popover beside it can close. */
   @Output() opened = new EventEmitter<void>();
 
+  /**
+   * The planner opens this from its account menu rather than from this
+   * component's own button, which it hides; the popover then pins itself under
+   * the top bar's right edge (see credits.component.css).
+   */
+  @Input() @HostBinding('class.trigger-hidden') hideTrigger = false;
+
   open = false;
   /** Where the popover's top goes on a narrow screen, where it is pinned to the viewport's sides. */
   popoverTop = 0;
@@ -30,10 +39,12 @@ export class CreditsComponent {
 
   constructor(private host: ElementRef<HTMLElement>, private cdr: ChangeDetectorRef) { }
 
-  toggle() {
+  /** `anchor`: what the popover opens under, when that isn't this component's own button. */
+  toggle(anchor?: HTMLElement) {
     this.open = !this.open;
+    this.cdr.markForCheck();
     if (this.open) {
-      this.popoverTop = this.host.nativeElement.getBoundingClientRect().bottom + 6;
+      this.popoverTop = (anchor ?? this.host.nativeElement).getBoundingClientRect().bottom + 6;
       this.opened.emit();
     }
   }

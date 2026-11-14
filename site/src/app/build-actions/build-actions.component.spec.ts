@@ -184,32 +184,150 @@ describe('BuildActionsComponent', () => {
     expect(buildsService.update).not.toHaveBeenCalled();
   });
 
-  it('opens the save-as dialog from the caret menu for an owned build', () => {
+  it('opens the save-as dialog from the build menu for an owned build', () => {
     auth.isAuthenticated$.next(true);
     setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
 
-    component.toggleSaveMenu();
-    expect(component.isMenuOpen('save')).toBe(true);
+    component.toggleBuildMenu();
+    expect(component.isMenuOpen('build')).toBe(true);
     component.onSaveAsMenuItemClick();
 
-    expect(component.isMenuOpen('save')).toBe(false);
+    expect(component.isMenuOpen('build')).toBe(false);
     expect(component.dialogOpen).toBe(true);
     expect(component.dialogMode).toBe('save-as');
   });
 
-  it('closes the save menu on Escape and returns focus to the caret', () => {
+  it('closes the build menu without keeping a half-typed name, and returns focus to the name', () => {
+    auth.isAuthenticated$.next(true);
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', ownership: 'owned' });
+    component.toggleBuildMenu();
+    component.nameDraft = 'Half typed';
+    const trigger = { focus: vi.fn().mockName('trigger.focus') };
+    (component as any).nameTriggerRef = { nativeElement: trigger };
+
+    component.closeBuildMenu();
+    component.commitRename(); // the field's blur, as it goes
+
+    expect(component.isMenuOpen('build')).toBe(false);
+    expect(trigger.focus).toHaveBeenCalled();
+    expect(buildsService.update).not.toHaveBeenCalled();
+    expect(component.nameDraft).toBe('My Build');
+  });
+
+  it('commits the name on Enter and closes the build menu', () => {
+    component.toggleBuildMenu();
+    component.nameDraft = 'Fresh Name';
+
+    component.onNameEnter();
+
+    expect(currentBuild.setName).toHaveBeenCalledWith('Fresh Name');
+    expect(component.isMenuOpen('build')).toBe(false);
+  });
+
+  it('commits the name on blur but leaves the build menu open', () => {
+    component.toggleBuildMenu();
+    component.nameDraft = 'Fresh Name';
+
+    component.commitRename();
+
+    expect(currentBuild.setName).toHaveBeenCalledWith('Fresh Name');
+    expect(component.isMenuOpen('build')).toBe(true);
+  });
+
+  it('keeps the build menu open, with the error, when a rename on Enter fails', () => {
+    auth.isAuthenticated$.next(true);
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', ownership: 'owned' });
+    buildsService.update.mockReturnValue(throwError(() => new Error('nope')));
+    component.toggleBuildMenu();
+    component.nameDraft = 'Renamed Build';
+
+    component.onNameEnter();
+
+    expect(component.isMenuOpen('build')).toBe(true);
+    expect(component.renameError).toContain('Could not rename');
+  });
+
+  it('marks unsaved edits to an owned build, and only those', () => {
     auth.isAuthenticated$.next(true);
     setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
-    component.toggleSaveMenu();
-    const caret = {
-      focus: vi.fn().mockName('caret.focus')
-    };
-    (component as any).saveCaretRef = { nativeElement: caret };
+    expect(component.showUnsavedDot).toBe(true);
 
-    component.onSaveMenuKeydown(new KeyboardEvent('keydown', { key: 'Escape' }));
+    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: false, ownership: 'owned' });
+    expect(component.showUnsavedDot).toBe(false);
 
-    expect(component.isMenuOpen('save')).toBe(false);
-    expect(caret.focus).toHaveBeenCalled();
+    setState({ shortId: 'abc123', name: 'Their Build', isDirty: true, ownership: 'other' });
+    expect(component.showUnsavedDot).toBe(false);
+  });
+
+  describe('Ctrl/Cmd+S', () => {
+    function pressSave(init: KeyboardEventInit = { ctrlKey: true }) {
+      const event = new KeyboardEvent('keydown', { key: 's', cancelable: true, ...init });
+      component.onDocumentKeydown(event);
+      return event;
+    }
+
+    beforeEach(() => {
+      auth.isAuthenticated$.next(true);
+      setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
+      buildsService.update.mockReturnValue(of({ id: 'build-1', shortId: 'abc123', name: 'My Build', blob: 'z1.encoded' }));
+    });
+
+    it('saves in place, instead of the browser saving the page', () => {
+      const event = pressSave({ metaKey: true });
+
+      expect(event.defaultPrevented).toBe(true);
+      expect(buildsService.update).toHaveBeenCalled();
+    });
+
+    it('does nothing to a clean build, but still keeps the browser\'s dialog away', () => {
+      setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: false, ownership: 'owned' });
+
+      const event = pressSave();
+
+      expect(event.defaultPrevented).toBe(true);
+      expect(buildsService.update).not.toHaveBeenCalled();
+    });
+
+    it('leaves the browser\'s own shortcut alone when signed out', () => {
+      auth.isAuthenticated$.next(false);
+
+      const event = pressSave();
+
+      expect(event.defaultPrevented).toBe(false);
+      expect(buildsService.update).not.toHaveBeenCalled();
+    });
+
+    it('waits for a rename in progress rather than racing it', () => {
+      component.toggleBuildMenu();
+
+      pressSave();
+
+      expect(buildsService.update).not.toHaveBeenCalled();
+    });
+
+    it('ignores plain "s" and other modifiers', () => {
+      pressSave({});
+      pressSave({ ctrlKey: true, shiftKey: true });
+
+      expect(buildsService.update).not.toHaveBeenCalled();
+    });
+  });
+
+  it('says "Saved" for a moment after an in-place save lands', () => {
+    vi.useFakeTimers();
+    try {
+      auth.isAuthenticated$.next(true);
+      setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned' });
+      buildsService.update.mockReturnValue(of({ id: 'build-1', shortId: 'abc123', name: 'My Build', blob: 'z1.encoded' }));
+
+      component.onSaveControlPrimaryClick();
+      expect(component.justSaved).toBe(true);
+
+      vi.advanceTimersByTime(2000);
+      expect(component.justSaved).toBe(false);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it('saves in place (PUT) without a dialog for a named, dirty, owned build', () => {
@@ -431,40 +549,31 @@ describe('BuildActionsComponent', () => {
     expect(component.userInitial).toBe('J');
   });
 
-  it('toggles the avatar menu open and closed, and closing My Builds if it was open', () => {
-    component.openMenu = 'myBuilds';
+  it('toggles the account menu open and closed, closing the build menu if it was open', () => {
+    component.openMenu = 'build';
 
-    component.toggleMenu('avatar');
-    expect(component.isMenuOpen('avatar')).toBe(true);
-    expect(component.isMenuOpen('myBuilds')).toBe(false);
+    component.toggleMenu('account');
+    expect(component.isMenuOpen('account')).toBe(true);
+    expect(component.isMenuOpen('build')).toBe(false);
 
-    component.toggleMenu('avatar');
-    expect(component.isMenuOpen('avatar')).toBe(false);
+    component.toggleMenu('account');
+    expect(component.isMenuOpen('account')).toBe(false);
   });
 
-  it('closes the avatar menu on sign out', () => {
-    component.openMenu = 'avatar';
+  it('closes the account menu on sign out', () => {
+    component.openMenu = 'account';
 
     component.signOut();
 
     expect(auth.signOut).toHaveBeenCalled();
-    expect(component.isMenuOpen('avatar')).toBe(false);
-  });
-
-  it('opens My Builds and closes the avatar menu', () => {
-    component.openMenu = 'avatar';
-
-    component.onMyBuildsClick();
-
-    expect(component.isMenuOpen('myBuilds')).toBe(true);
-    expect(component.isMenuOpen('avatar')).toBe(false);
+    expect(component.isMenuOpen('account')).toBe(false);
   });
 
   it('keeps at most one menu open: opening any menu closes the others', () => {
-    for (const menu of ['myBuilds', 'avatar', 'share', 'save'] as const) {
-      component.openMenu = 'avatar';
+    for (const menu of ['build', 'account', 'share'] as const) {
+      component.openMenu = 'account';
       component.toggleMenu(menu);
-      expect<BuildActionsMenu | null>(component.openMenu).toBe(menu === 'avatar' ? null : menu);
+      expect<BuildActionsMenu | null>(component.openMenu).toBe(menu === 'account' ? null : menu);
     }
   });
 
@@ -473,6 +582,7 @@ describe('BuildActionsComponent', () => {
 
     component.startRename();
 
+    expect(component.isMenuOpen('build')).toBe(true);
     expect(component.editingName).toBe(true);
     expect(component.nameDraft).toBe('My Build');
   });
@@ -504,26 +614,6 @@ describe('BuildActionsComponent', () => {
 
     component.cancelRename();
 
-    expect(component.editingName).toBe(false);
-    expect(buildsService.update).not.toHaveBeenCalled();
-  });
-
-  it('the explicit cancel button prevents the input\'s own blur, so clicking it discards rather than committing', () => {
-    // Regression guard for the swallowed-click bug (see the plan): mousedown
-    // fires before blur, so preventDefault() there is what stops
-    // commitRename() from firing first. Without it, "cancel" would silently
-    // save the in-progress edit instead of discarding it.
-    auth.isAuthenticated$.next(true);
-    setState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', ownership: 'owned' });
-    component.startRename();
-    component.nameDraft = 'Something else';
-    const event = {
-      preventDefault: vi.fn().mockName('MouseEvent.preventDefault')
-    };
-
-    component.onCancelRenameMouseDown(event as unknown as MouseEvent);
-
-    expect(event.preventDefault).toHaveBeenCalled();
     expect(component.editingName).toBe(false);
     expect(buildsService.update).not.toHaveBeenCalled();
   });
@@ -625,11 +715,11 @@ describe('BuildActionsComponent', () => {
   });
 
   it('toggles the share menu open and closed, closing the other menus', () => {
-    component.openMenu = 'save';
+    component.openMenu = 'build';
 
     component.toggleMenu('share');
     expect(component.isMenuOpen('share')).toBe(true);
-    expect(component.isMenuOpen('save')).toBe(false);
+    expect(component.isMenuOpen('build')).toBe(false);
 
     component.toggleMenu('share');
     expect(component.isMenuOpen('share')).toBe(false);
@@ -659,82 +749,76 @@ describe('BuildActionsComponent markup', () => {
     fixture.detectChanges();
   });
 
-  function openOverflowMenu() {
-    (fixture.nativeElement.querySelector('.build-overflow-toggle') as HTMLButtonElement).click();
+  const el = () => fixture.nativeElement as HTMLElement;
+
+  function click(selector: string) {
+    el().querySelector<HTMLButtonElement>(selector)!.click();
     fixture.detectChanges();
   }
 
-  function overflowItems(): (string | undefined)[] {
-    return [...fixture.nativeElement.querySelectorAll('.build-overflow-item')]
-      .map((e: Element) => e.textContent?.trim());
-  }
+  it('offers Sign out from the account menu, which the avatar opens', () => {
+    click('.account-toggle.avatar-button');
 
-  it('offers My Builds and Sign out from the one overflow menu', () => {
-    openOverflowMenu();
-
-    expect(overflowItems()).toContain('My builds');
-    expect(overflowItems()).toContain('Sign out');
+    const items = [...el().querySelectorAll('.account-menu.open .account-menu-item')].map(e => e.textContent?.trim());
+    expect(items).toContain('Sign out');
   });
 
-  it('opens the My Builds panel from it, with the panel still rendered', () => {
-    openOverflowMenu();
-    const myBuilds = [...fixture.nativeElement.querySelectorAll('.build-overflow-item')]
-      .find((e: Element) => e.textContent?.trim() === 'My builds') as HTMLButtonElement;
+  it('opens the build menu from the name, with the name to edit and My builds below it', () => {
+    click('.build-name-trigger');
 
-    myBuilds.click();
+    const menu = el().querySelector('.build-menu');
+    expect(menu?.querySelector('input[aria-label="Build name"]')).not.toBeNull();
+    expect(menu?.querySelector('app-my-builds')).not.toBeNull();
+  });
+
+  it('offers sign-in, not My builds, in the build menu when signed out', () => {
+    isAuthenticated$.next(false);
     fixture.detectChanges();
 
-    expect(fixture.nativeElement.querySelector('app-my-builds')).not.toBeNull();
+    click('.build-name-trigger');
+
+    expect(el().querySelector('.build-menu app-my-builds')).toBeNull();
+    expect(el().querySelector('.build-menu-sign-in')).not.toBeNull();
+    isAuthenticated$.next(true);
   });
 
   it('closes each of its menus on a click anywhere else', () => {
     const open = (toggle: string, menu: string) => {
-      (fixture.nativeElement.querySelector(toggle) as HTMLButtonElement).click();
-      fixture.detectChanges();
-      expect(fixture.nativeElement.querySelector(menu)).not.toBeNull();
+      click(toggle);
+      expect(el().querySelector(menu)).not.toBeNull();
     };
-    const clickAway = (label: string) => {
-      (fixture.nativeElement.querySelector(`button[aria-label="${label}"]`) as HTMLButtonElement).click();
-      fixture.detectChanges();
-    };
+    const clickAway = (label: string) => click(`button[aria-label="${label}"]`);
 
-    open('.build-overflow-toggle', '.build-overflow-menu.open');
-    clickAway('Close more options');
-    expect(fixture.nativeElement.querySelector('.build-overflow-menu.open')).toBeNull();
-
-    open('.avatar-button', '.avatar-menu');
+    open('.account-toggle', '.account-menu.open');
     clickAway('Close account menu');
-    expect(fixture.nativeElement.querySelector('.avatar-menu')).toBeNull();
+    expect(el().querySelector('.account-menu.open')).toBeNull();
+
+    open('.build-name-trigger', '.build-menu');
+    clickAway('Close build menu');
+    expect(el().querySelector('.build-menu')).toBeNull();
 
     open('.build-share', 'app-build-share-menu');
     clickAway('Close share menu');
-    expect(fixture.nativeElement.querySelector('app-build-share-menu')).toBeNull();
+    expect(el().querySelector('app-build-share-menu')).toBeNull();
   });
 
   it('closes each of its menus on Escape', () => {
     const escapeCloses = (toggle: string, menu: string) => {
-      (fixture.nativeElement.querySelector(toggle) as HTMLButtonElement).click();
-      fixture.detectChanges();
-      expect(fixture.nativeElement.querySelector(menu)).not.toBeNull();
+      click(toggle);
+      expect(el().querySelector(menu)).not.toBeNull();
 
       document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
       fixture.detectChanges();
-      expect(fixture.nativeElement.querySelector(menu)).toBeNull();
+      expect(el().querySelector(menu)).toBeNull();
     };
 
-    escapeCloses('.build-overflow-toggle', '.build-overflow-menu.open');
-    escapeCloses('.avatar-button', '.avatar-menu');
+    escapeCloses('.account-toggle', '.account-menu.open');
+    escapeCloses('.build-name-trigger', '.build-menu');
     escapeCloses('.build-share', 'app-build-share-menu');
   });
 
-  it('keeps the build name group in the DOM, since the panel lives inside it', () => {
-    expect(fixture.nativeElement.querySelector('.build-name-group')).not.toBeNull();
-  });
-
-  it('projects whatever the page passes in into that same menu', () => {
-    // MainComponent hands it Ko-fi, the theme toggle and Admin, so there is
-    // one overflow menu rather than two sitting next to each other.
-    expect(fixture.nativeElement.querySelector('.build-overflow-utilities')).not.toBeNull();
+  it('projects the page\'s settings into the account menu, and its bar items beside Share', () => {
+    expect(el().querySelector('.account-menu-utilities')).not.toBeNull();
   });
 
   it('gives Share a label and an icon, so either can carry it', () => {

@@ -1,5 +1,5 @@
-<div class="my-builds-backdrop" role="presentation" (click)="closed.emit()"></div>
-<section class="my-builds-panel" role="dialog" aria-modal="true" aria-label="My builds" (click)="$event.stopPropagation()">
+<!-- A section of the build menu (build-actions), which owns closing it. -->
+<section class="my-builds-panel" aria-label="My builds">
   <header class="my-builds-header">
     <span class="my-builds-title-group">
       <strong>My builds</strong>
@@ -10,7 +10,6 @@
         </span>
       }
     </span>
-    <button type="button" class="my-builds-close" aria-label="Close" (click)="closed.emit()">x</button>
   </header>
 
   <button type="button" class="my-builds-new" (click)="newBuild()">

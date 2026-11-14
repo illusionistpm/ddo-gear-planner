@@ -2,12 +2,10 @@
  * flex: 1 1 0 plus min-width: 0 on the host (app-build-actions, in
  * main.component.css) is what lets .planner-chrome fit this element beside
  * the brand, compressing it, instead of wrapping it or overflowing the
- * chrome. width: 100% then hands that width down to
- * this row as a definite size - inline-flex alone sizes to its content's
- * preferred width (an auto-width flex box doesn't shrink-to-fit through
- * nested flex the way a plain inline-block would), so without it the host
- * shrinks but this row just overflows the host instead. Once it has a real
- * width, .build-name-group's own flex-shrink (below) can actually engage.
+ * chrome. width: 100% then hands that width down to this row as a definite
+ * size - inline-flex alone sizes to its content's preferred width, so without
+ * it the host shrinks but this row just overflows the host instead. Once it
+ * has a real width, .build-name-group's own flex-shrink (below) can engage.
  */
 .build-actions {
   display: inline-flex;
@@ -15,8 +13,7 @@
   gap: var(--space-8);
   flex: 0 1 auto;
   /* The name shrinks into the leftover width rather than wrapping to a line of
-     its own; the controls sit at the right of the width the bar gives this
-     (see app-build-actions in main.component.css). */
+     its own; the controls sit at the right of the width the bar gives this. */
   flex-wrap: nowrap;
   justify-content: flex-end;
   min-width: 0;
@@ -25,70 +22,114 @@
 }
 
 /*
- * flex: 0 1 26rem and min-width: 0 is the same "give up the leftover space
- * last" trick .build-actions itself now uses against .planner-chrome -
- * nested one level deeper, against the row's other buttons. It used to only
- * apply below the mobile breakpoint; unqualified, it also covers the
- * in-between widths where the toolbar has room for a wider name than the old
- * flat cap allowed, but not always enough for the name at its full content
- * width.
+ * flex: 0 1 <basis> and min-width: 0: the group gives up the leftover space
+ * last, against the row's other buttons.
  *
- * The explicit width: 26rem (not just the matching flex-basis) is
- * load-bearing: .build-name carries appShrinkToFit, which resizes its own
- * font to fit its box. Without a definite width somewhere in this chain,
- * this group's *own* size - what .build-actions hands it, and in turn what
- * .planner-chrome hands the host - gets computed from its content, which
- * includes that live font size. Shrink the font and the layout hands back
- * less room next pass, which shrinks the fit again. flex-basis alone doesn't
- * break that loop: flexbox's own intrinsic-size algorithm still falls back
- * to a shrinkable item's real content over its declared basis once
- * flex-shrink is nonzero (needed here, since the group must still shrink
- * when the row really is tight). A fast window drag can catch that loop
- * mid-cycle - the browser's own ResizeObserver loop-limit guard cuts it off
- * - and leave the name stuck small even once there's room to grow. A plain
- * `width` sidesteps the intrinsic-size algorithm instead of negotiating with
- * it, which is what actually breaks the loop; flex-shrink (below) still
- * compresses this element below that width exactly as it would without it.
- * (`contain: inline-size` forces the same decoupling and was tried first,
- * but it also silently stops ResizeObserver from firing on .build-name -
- * appShrinkToFit needs that observer, so it's out.)
+ * The explicit width (not just the matching flex-basis) is load-bearing:
+ * .build-name carries appShrinkToFit, which resizes its own font to fit its
+ * box. Without a definite width somewhere in this chain, this group's own
+ * size gets computed from its content, which includes that live font size -
+ * shrink the font and the layout hands back less room next pass, which
+ * shrinks the fit again. A fast window drag can catch that loop mid-cycle and
+ * leave the name stuck small. A plain `width` sidesteps the intrinsic-size
+ * algorithm instead of negotiating with it; flex-shrink still compresses this
+ * element below that width when the row is tight. (`contain: inline-size`
+ * forces the same decoupling but silently stops ResizeObserver from firing on
+ * .build-name, which appShrinkToFit needs.)
  */
 .build-name-group {
   display: inline-flex;
   align-items: center;
-  flex: 0 1 26rem;
-  gap: var(--space-2);
+  flex: 0 1 var(--build-name-width, 26rem);
+  justify-content: flex-end;
   min-width: 0;
   position: relative;
-  width: 26rem;
+  width: var(--build-name-width, 26rem);
+}
+
+/* The name, a dot when there are unsaved edits, and a caret: one button. */
+.build-name-trigger {
+  align-items: center;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: inline-flex;
+  font: inherit;
+  gap: var(--space-4);
+  max-width: 100%;
+  min-height: 2rem;
+  min-width: 0;
+  padding: var(--space-2) var(--space-4) var(--space-2) var(--space-8);
+}
+
+.build-name-trigger:hover,
+.build-name-trigger[aria-expanded="true"] {
+  background: var(--surface-subtle-color);
+  border-color: var(--border-color);
+}
+
+.build-name-trigger:focus-visible {
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 1px;
 }
 
 .build-name {
-  color: var(--text-primary);
   flex: 1 1 0;
   font-weight: 700;
-  max-width: 26rem;
   min-width: 0;
   overflow: hidden;
-  padding: var(--space-4) var(--space-4);
   text-align: right;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.build-name-editable {
-  border-radius: 6px;
-  cursor: text;
+.build-unsaved-dot {
+  background: var(--warning-color);
+  border-radius: 50%;
+  flex: 0 0 auto;
+  height: 0.45rem;
+  width: 0.45rem;
 }
 
-.build-name-editable:hover,
-.build-name-editable:focus {
-  background: var(--surface-subtle-color);
+.build-name-caret {
+  color: var(--text-secondary);
+  flex: 0 0 auto;
+  font-size: 0.65rem;
+  padding: 0 var(--space-2);
+  transition: transform 0.15s ease-out;
 }
 
-.build-name-editable:focus-visible {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 1px;
+.build-name-trigger[aria-expanded="true"] .build-name-caret {
+  transform: rotate(180deg);
+}
+
+/*
+ * The build menu opens over the name: its top row - the name as a field -
+ * lands where the name was, so renaming reads as editing it in place.
+ * Right-aligned with the trigger, like the name itself.
+ */
+.build-menu {
+  background: var(--surface-elevated-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  max-height: calc(100svh - 1rem);
+  overflow-y: auto;
+  padding: var(--space-8);
+  position: absolute;
+  right: calc(-1 * var(--space-4));
+  top: calc(-1 * var(--space-4));
+  width: min(22rem, calc(100vw - 1rem));
+  z-index: 40;
+}
+
+.build-menu-name {
+  position: relative;
 }
 
 .build-name-input {
@@ -96,31 +137,60 @@
   border: 1px solid var(--primary-color);
   border-radius: 6px;
   color: var(--text-primary);
-  flex: 1 1 0;
   font: inherit;
   font-weight: 700;
-  max-width: 26rem;
-  min-width: 6rem;
-  padding: var(--space-4) var(--space-4);
+  min-height: 2rem;
+  padding: var(--space-4) 2rem var(--space-4) var(--space-8);
+  width: 100%;
 }
 
-.build-name-cancel {
+.build-name-input:focus {
+  box-shadow: 0 0 0 3px var(--focus-ring-color);
+  outline: none;
+}
+
+/* A pencil inside the field: it's for typing in, even before it has focus. */
+.build-menu-name-hint {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  pointer-events: none;
+  position: absolute;
+  right: var(--space-12);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.build-menu-error {
+  padding: 0 var(--space-4);
+}
+
+.build-menu-item {
   align-items: center;
   background: transparent;
   border: 0;
   border-radius: 6px;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   cursor: pointer;
-  display: inline-flex;
-  font-size: 0.75rem;
-  height: 1.8rem;
-  justify-content: center;
-  width: 1.6rem;
+  display: flex;
+  font: inherit;
+  font-weight: 700;
+  gap: var(--space-8);
+  padding: var(--space-8);
+  text-align: left;
+  width: 100%;
 }
 
-.build-name-cancel:hover,
-.build-name-cancel:focus {
-  color: var(--danger-color);
+.build-menu-item:hover,
+.build-menu-item:focus-visible {
+  background: var(--surface-subtle-color);
+  color: var(--primary-color);
+}
+
+.build-menu-icon,
+.account-menu-icon {
+  color: var(--text-secondary);
+  text-align: center;
+  width: 1rem;
 }
 
 .build-name-error {
@@ -128,105 +198,9 @@
   font-size: 0.8rem;
 }
 
-.build-switcher-caret {
-  align-items: center;
-  background: transparent;
-  border: 0;
-  border-radius: 6px;
-  color: var(--text-secondary);
-  cursor: pointer;
-  display: inline-flex;
-  font-size: 0.75rem;
-  height: 1.8rem;
-  justify-content: center;
-  width: 1.6rem;
-}
-
-.build-switcher-caret:hover,
-.build-switcher-caret:focus {
-  color: var(--primary-color);
-}
-
-.build-actions-divider {
-  align-self: stretch;
-  border-left: 1px solid var(--border-color);
-  margin: 0 var(--space-2);
-}
-
 .share-wrap {
   display: inline-flex;
   position: relative;
-}
-
-.avatar-wrap {
-  display: inline-flex;
-  position: relative;
-}
-
-.avatar-button {
-  align-items: center;
-  background: var(--surface-subtle-color);
-  border: 1px solid var(--border-color);
-  border-radius: 50%;
-  cursor: pointer;
-  display: inline-flex;
-  height: 2rem;
-  justify-content: center;
-  overflow: hidden;
-  padding: 0;
-  width: 2rem;
-}
-
-.avatar-image {
-  height: 100%;
-  object-fit: cover;
-  width: 100%;
-}
-
-.avatar-initial {
-  color: var(--text-secondary);
-  font-weight: 700;
-}
-
-.avatar-menu {
-  background: var(--surface-elevated-color);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-lg);
-  min-width: 12rem;
-  overflow: hidden;
-  position: absolute;
-  right: 0;
-  top: calc(100% + 0.35rem);
-  z-index: 40;
-}
-
-.avatar-menu-header {
-  border-bottom: 1px solid var(--border-color);
-  color: var(--text-secondary);
-  font-size: 0.85rem;
-  overflow: hidden;
-  padding: var(--space-8) var(--space-12);
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.avatar-menu-item {
-  background: transparent;
-  border: 0;
-  color: var(--text-primary);
-  cursor: pointer;
-  display: block;
-  font: inherit;
-  padding: var(--space-8) var(--space-12);
-  text-align: left;
-  width: 100%;
-}
-
-.avatar-menu-item:hover,
-.avatar-menu-item:focus {
-  background: var(--surface-subtle-color);
-  color: var(--primary-color);
 }
 
 .build-action-button {
@@ -265,67 +239,27 @@
   opacity: 0.9;
 }
 
-.save-split {
-  display: inline-flex;
-  position: relative;
-}
-
-/* Only visually merged with the caret when one is actually present - with
-   no caret (an unnamed build, "Save a copy", or the disabled 'unknown'
-   placeholder) the primary button just looks like any other button. */
-.save-split-with-menu .save-split-primary {
-  border-radius: 6px 0 0 6px;
-}
-
-.save-split-caret {
+.build-save,
+.build-share {
   align-items: center;
-  background: var(--primary-color);
-  border: 1px solid var(--primary-color);
-  border-left: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: 0 6px 6px 0;
-  color: var(--on-accent-text-color);
-  cursor: pointer;
   display: inline-flex;
-  font-size: 0.7rem;
-  justify-content: center;
-  min-height: 2rem;
-  width: 1.5rem;
+  gap: var(--space-4);
 }
 
-.save-split-caret:hover,
-.save-split-caret:focus {
-  opacity: 0.9;
+/* The moment after a save: green, and not greyed out for being disabled. */
+.build-save.just-saved,
+.build-save.just-saved:disabled {
+  background: var(--success-color);
+  border-color: var(--success-color);
+  cursor: default;
+  opacity: 1;
 }
 
-.save-menu {
-  background: var(--surface-elevated-color);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-lg);
-  min-width: 10rem;
-  overflow: hidden;
-  position: absolute;
-  right: 0;
-  top: calc(100% + 0.35rem);
-  z-index: 40;
-}
-
-.save-menu-item {
-  background: transparent;
-  border: 0;
-  color: var(--text-primary);
-  cursor: pointer;
-  display: block;
-  font: inherit;
-  padding: var(--space-8) var(--space-12);
-  text-align: left;
-  width: 100%;
-}
-
-.save-menu-item:hover,
-.save-menu-item:focus {
-  background: var(--surface-subtle-color);
-  color: var(--primary-color);
+/* Font Awesome rather than an emoji: emoji render as a different glyph on
+   every platform and ignore the button's colour. */
+.build-share-icon,
+.save-icon {
+  display: inline-block;
 }
 
 /* These only exist below the breakpoint - see the media query. */
@@ -334,47 +268,139 @@
   display: none;
 }
 
-.build-overflow-wrap,
-.build-overflow-menu,
-.build-overflow-utilities {
-  display: contents;
+/* The account menu, and its trigger: the avatar, or "more" when signed out. */
+.account-wrap {
+  display: inline-flex;
+  flex: 0 0 auto;
+  position: relative;
 }
 
-.build-overflow-toggle,
-.build-overflow-item {
+.account-toggle {
+  align-items: center;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  min-height: 2rem;
+  min-width: 2.25rem;
+  padding: 0;
+}
+
+.account-toggle:hover,
+.account-toggle.open {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.account-toggle:focus-visible {
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 2px;
+}
+
+.account-toggle.avatar-button {
+  background: var(--surface-subtle-color);
+  border-radius: 50%;
+  height: 2rem;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+  width: 2rem;
+}
+
+.avatar-image {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.avatar-initial {
+  font-weight: 700;
+}
+
+.account-menu {
+  background: var(--surface-elevated-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-lg);
   display: none;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 15rem;
+  padding: var(--space-4);
+  position: absolute;
+  right: 0;
+  top: calc(100% + var(--space-4));
+  z-index: 40;
 }
 
-.build-share {
+.account-menu.open {
+  display: flex;
+}
+
+.account-menu-header {
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--space-4);
+  padding: var(--space-4) var(--space-8) var(--space-8);
+}
+
+.account-menu-signed-in {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+.account-menu-name {
+  font-weight: 700;
+  max-width: 16rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* MainComponent's rows: theme, credits, Admin. Laid out by main.component.css. */
+.account-menu-utilities {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.account-menu-item {
   align-items: center;
-  display: inline-flex;
-  gap: var(--space-4);
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  font: inherit;
+  gap: var(--space-8);
+  padding: var(--space-8);
+  text-align: left;
+  width: 100%;
 }
 
-.save-split-primary {
-  align-items: center;
-  display: inline-flex;
-  gap: var(--space-4);
+.account-menu-item:hover,
+.account-menu-item:focus-visible {
+  background: var(--surface-subtle-color);
+  color: var(--primary-color);
 }
 
-/* Font Awesome rather than an emoji: emoji render as a different glyph on
-   every platform and ignore the button's colour. Shown alongside the label
-   at every width - see the media query for the narrow-width exception. */
-.build-share-icon,
-.save-icon {
-  display: inline-block;
+.account-menu-sign-out {
+  border-top: 1px solid var(--border-color);
+  border-radius: 0 0 6px 6px;
+  margin-top: var(--space-4);
 }
 
 @media (max-width: 767.98px) {
-  /* The edit box keeps a 6rem floor everywhere else - a narrow phone needs
-     it to shrink past that too, or renaming overflows the row. */
-  .build-name-input {
-    min-width: 0;
-  }
-
   /* "Sign in to save builds" is 182px - over half a phone's width, and the
      single widest thing in the row. */
-  .build-sign-in-full {
+  .build-sign-in-full,
+  .save-label-full,
+  .build-share-label {
     display: none;
   }
 
@@ -383,149 +409,41 @@
     display: inline;
   }
 
-  .save-label-full {
-    display: none;
-  }
-
-  /* Wide screens pair it with the label (see the base rule); this narrow
-     layout has no room to spare, so the icon goes rather than the label. */
+  /* No room to spare: the icon goes rather than the label. */
   .save-icon {
     display: none;
   }
 
-  .build-overflow-wrap {
-    display: inline-flex;
-    flex: 0 0 auto;
-    position: relative;
-  }
-
-  .build-overflow-toggle {
-    align-items: center;
-    background: transparent;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    color: var(--text-secondary);
-    cursor: pointer;
-    display: inline-flex;
-    justify-content: center;
-    min-height: 2rem;
-    min-width: 2.25rem;
-  }
-
-  .build-overflow-toggle.open,
-  .build-overflow-toggle:hover,
-  .build-overflow-toggle:focus {
-    color: var(--primary-color);
-  }
-
-  .build-overflow-toggle:focus-visible {
-    outline: 3px solid var(--focus-ring-color);
-    outline-offset: 2px;
-  }
-
-  .build-overflow-menu {
-    background: var(--surface-elevated-color);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-lg);
-    display: none;
-    flex-direction: column;
-    gap: var(--space-4);
-    min-width: 11rem;
-    padding: var(--space-8);
-    position: absolute;
-    right: 0;
-    top: calc(100% + var(--space-4));
-    z-index: 40;
-  }
-
-  .build-overflow-menu.open {
-    display: flex;
-  }
-
-  .build-overflow-item {
-    background: transparent;
-    border: 0;
-    border-radius: 6px;
-    color: var(--text-primary);
-    cursor: pointer;
-    display: block;
-    font: inherit;
-    font-weight: 700;
-    padding: var(--space-8);
-    text-align: left;
-    width: 100%;
-  }
-
-  .build-overflow-item:hover,
-  .build-overflow-item:focus {
-    background: var(--surface-subtle-color);
-    color: var(--primary-color);
-  }
-
-  /* The projected controls are small square icon buttons; a column would
-     stretch them the width of the menu. Give them a row of their own. */
-  .build-overflow-utilities {
-    align-items: center;
-    border-top: 1px solid var(--border-color);
-    display: flex;
-    gap: var(--space-8);
-    margin-top: var(--space-4);
-    padding-top: var(--space-8);
-  }
-
-  /* The overflow menu carries the account actions here, so this goes. */
-  .avatar-wrap {
-    display: none;
-  }
-
-  /*
-   * Signed in, this row carries Share, the save button and the avatar, and it
-   * shares the line with the view switch and the overflow button. The two
-   * icon-only controls are mostly padding, so that is where the slack comes
-   * from rather than from anything with a word in it.
-   */
+  /* Share and the avatar are mostly padding, so that's where the slack comes
+     from rather than from anything with a word in it. */
   .build-share {
     padding-left: var(--space-8);
     padding-right: var(--space-8);
   }
 
-  .avatar-button {
+  .account-toggle.avatar-button {
     height: 1.75rem;
     width: 1.75rem;
   }
 
   /*
-   * The first line has to hold the view switch, Share, the save/sign-in
-   * control and the overflow button. The build name is the one thing here
-   * that is purely informational, so it is what gives way - but the group
-   * itself stays rendered, because the My Builds panel lives inside it.
+   * The trigger is wherever the squeezed first line left it, so a menu
+   * anchored to it could land half off-screen. Pinned to the viewport's
+   * sides instead, over the top of the bar - the name field still sits on
+   * the line the name was on.
    */
-  /*
-   * Both carets go: the actions they open - My Builds and Save As - are in the
-   * account menu at this width, and 20px each is the difference between the
-   * overflow button staying on this line and not.
-   */
-  /*
-   * The Save As caret stays: dropping the avatar (its actions moved into the
-   * overflow menu) paid for it. My Builds' caret does not - that action is in
-   * the menu, and this line has no room for two carets.
-   */
-  .build-switcher-caret,
-  .build-actions-divider,
-  .build-share-label {
-    display: none;
-  }
-
-  .avatar-menu-item-narrow {
-    display: block;
+  .build-menu {
+    left: var(--space-8);
+    position: fixed;
+    right: var(--space-8);
+    top: var(--space-4);
+    width: auto;
   }
 }
 
 /*
- * Between the phone layout and the dual-panel one, the brand shares this line,
- * and at 768px the full labels left the build name 8px. The short forms the
- * phone uses give it back ~150px; nothing else about the phone layout applies.
+ * Between the phone layout and the one-line desktop, the brand shares this
+ * line; the short labels give the build name the room.
  */
 @media (min-width: 768px) and (max-width: 994.98px) {
   .build-sign-in-full,
@@ -540,17 +458,37 @@
   }
 }
 
+/* The one-line desktop's narrow end: "Sign in" alone keeps the line. */
+@media (min-width: 1200px) and (max-width: 1439.98px) {
+  .build-sign-in-full {
+    display: none;
+  }
+
+  .build-sign-in-short {
+    display: inline;
+  }
+}
+
 /*
  * Below this the name has so little width left that it renders as a sliver of
  * one clipped glyph, which reads as a rendering fault rather than as a name.
- * The group itself stays - the My Builds panel is inside it - so only the name
- * goes; renaming is off the table at this width, which is the trade for having
- * Share and the save control on screen at all.
+ * The caret stays, so the build menu - and renaming, in it - still does.
  */
 @media (max-width: 399.98px) {
-  .build-name,
-  .build-name-input,
-  .build-name-cancel {
+  .build-name {
     display: none;
+  }
+
+  /* Without the name, the caret on its own needs to read as a button. */
+  .build-name-trigger {
+    border-color: var(--border-color);
+    padding-left: var(--space-4);
+  }
+}
+
+@media (pointer: coarse) {
+  .build-menu-item,
+  .account-menu-item {
+    min-height: 2.75rem;
   }
 }

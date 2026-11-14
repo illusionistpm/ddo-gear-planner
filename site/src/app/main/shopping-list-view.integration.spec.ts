@@ -59,13 +59,6 @@ describe('MainComponent with the shopping list', () => {
     expect(list()?.querySelector('app-own-list-actions')).toBeTruthy();
   });
 
-  it('also opens from the overflow menu', () => {
-    (el().querySelector('.build-overflow-item') as HTMLButtonElement).click();
-    fixture.detectChanges();
-
-    expect(list()).toBeTruthy();
-  });
-
   it('says which button opened the list', () => {
     const track = vi.spyOn(TestBed.inject(AnalyticsService), 'track');
     const opened = () => track.mock.calls.filter(([name]) => name === 'open_shopping_list')
@@ -73,12 +66,8 @@ describe('MainComponent with the shopping list', () => {
 
     shoppingListButton().click();
     fixture.detectChanges();
-    (el().querySelector('.page-chrome-back') as HTMLButtonElement).click();
-    fixture.detectChanges();
-    (el().querySelector('.build-overflow-item') as HTMLButtonElement).click();
-    fixture.detectChanges();
 
-    expect(opened()).toEqual(['toolbar', 'menu']);
+    expect(opened()).toEqual(['toolbar']);
   });
 
   it('says it\'s open in the URL\'s fragment, and takes that out again on close', async () => {

@@ -309,6 +309,34 @@
   }
 }
 
+/*
+ * The one entrance every header menu shares - build, share, shopping list,
+ * account and the filter peek - so they feel like one family. Opacity and a
+ * 4px rise, not a scale: menus anchored to a corner would grow from the wrong
+ * point. Re-runs each time the element goes from display: none to shown.
+ */
+@keyframes menu-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.25rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menu-pop {
+  animation: menu-pop-in 0.12s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-pop {
+    animation: none;
+  }
+}
+
 /* Global body styling */
 body {
   background-color: var(--background-color);

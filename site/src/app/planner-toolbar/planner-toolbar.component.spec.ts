@@ -7,6 +7,7 @@ import { AffixEditorService } from '../planner/affix-editor.service';
 import { GroupSummary } from '../build/groups.service';
 import { MyListsService } from '../build/my-lists.service';
 import { EquippedService } from '../planner/equipped.service';
+import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
 import { PlannerToolbarComponent } from './planner-toolbar.component';
 
 describe('PlannerToolbarComponent', () => {
@@ -105,28 +106,51 @@ describe('PlannerToolbarComponent', () => {
       return fixture.nativeElement.querySelector('.equipment-search');
     }
 
-    function groupBy(): HTMLElement {
-      return fixture.nativeElement.querySelector('.tracked-affix-groupby');
-    }
-
     it('shows the gear search on the equipment view', () => {
       expect(search().hasAttribute('hidden')).toBe(false);
-      expect(groupBy().hasAttribute('hidden')).toBe(true);
     });
 
-    it('shows grouping and the affix builder on the tracked affixes view', () => {
+    it('hides it on the tracked affixes view, but keeps it rendered for the two-panel layout', () => {
+      // From 995px both panels are on screen, and the CSS un-hides the search;
+      // that only works if it is still in the DOM.
       equipped.setActiveMainTab('affixes');
       fixture.detectChanges();
 
+      expect(search()).not.toBeNull();
       expect(search().hasAttribute('hidden')).toBe(true);
-      expect(groupBy().hasAttribute('hidden')).toBe(false);
     });
 
-    it('keeps both controls rendered so the ultrawide layout can show them together', () => {
-      // The two panels are revealed side by side above 2340px by un-hiding
-      // them in CSS; that only works if both controls are in the DOM.
-      expect(search()).not.toBeNull();
-      expect(groupBy()).not.toBeNull();
+    it('leaves grouping to the tracked affixes panel itself', () => {
+      expect(fixture.nativeElement.querySelector('.tracked-affix-groupby')).toBeNull();
+    });
+
+    it('focuses the search on "/", switching to the gear view if need be', async () => {
+      equipped.setActiveMainTab('affixes');
+      fixture.detectChanges();
+      const input: HTMLInputElement = search().querySelector('input')!;
+
+      const event = new KeyboardEvent('keydown', { key: '/', cancelable: true, bubbles: true });
+      document.body.dispatchEvent(event);
+      fixture.detectChanges();
+      await new Promise(resolve => setTimeout(resolve));
+
+      expect(event.defaultPrevented).toBe(true);
+      expect(component.isActiveTab('equipment')).toBe(true);
+      expect(document.activeElement).toBe(input);
+      input.blur();
+    });
+
+    it('leaves "/" alone while typing somewhere else', () => {
+      const other = document.createElement('input');
+      document.body.appendChild(other);
+      try {
+        const event = new KeyboardEvent('keydown', { key: '/', cancelable: true, bubbles: true });
+        other.dispatchEvent(event);
+
+        expect(event.defaultPrevented).toBe(false);
+      } finally {
+        other.remove();
+      }
     });
 
     const affixButton = () => fixture.nativeElement.querySelector('.tracked-affix-edit-affixes') as HTMLButtonElement;
@@ -248,10 +272,15 @@ describe('PlannerToolbarComponent', () => {
   });
 });
 
-describe('PlannerToolbarComponent rejoining a list', () => {
+describe('PlannerToolbarComponent shopping list', () => {
   let fixture: ComponentFixture<PlannerToolbarComponent>;
   let rejoin: BehaviorSubject<GroupSummary | null>;
-  const button = () => (fixture.nativeElement as HTMLElement).querySelector<HTMLButtonElement>('.shopping-list-rejoin');
+  const el = () => fixture.nativeElement as HTMLElement;
+  const cart = () => el().querySelector<HTMLButtonElement>('.shopping-list-open')!;
+  const group: GroupSummary = {
+    shortId: 'grp1', name: 'Saturday run', inviteToken: 'tok', isHost: false, buildCount: 3,
+    yourBuildIds: ['b1'], characterNames: [], updatedAt: ''
+  };
 
   beforeEach(async () => {
     rejoin = new BehaviorSubject<GroupSummary | null>(null);
@@ -263,17 +292,45 @@ describe('PlannerToolbarComponent rejoining a list', () => {
     fixture.detectChanges();
   });
 
-  it('offers to rejoin the list of several builds this build is on, beside the shopping list', async () => {
-    expect(button()).toBeNull();
+  it('opens this build\'s list straight away when it isn\'t on a group\'s', () => {
+    const open = vi.spyOn(TestBed.inject(ShoppingListViewService), 'open').mockReturnValue(undefined);
 
-    rejoin.next({ shortId: 'grp1', name: 'Saturday run', inviteToken: 'tok', isHost: false, buildCount: 3, yourBuildIds: ['b1'], characterNames: [], updatedAt: '' });
+    cart().click();
+    fixture.detectChanges();
+
+    expect(open).toHaveBeenCalledWith('toolbar');
+    expect(el().querySelector('.shopping-list-menu')).toBeNull();
+    expect(cart().hasAttribute('aria-haspopup')).toBe(false);
+  });
+
+  it('on a group\'s list too, shows the group\'s size and offers either list', async () => {
+    rejoin.next(group);
     fixture.detectChanges();
     const navigate = vi.spyOn(TestBed.inject(Router), 'navigateByUrl').mockResolvedValue(true);
 
-    expect(button()?.querySelector('.shopping-list-open-label')?.textContent?.trim()).toBe('Rejoin Saturday run');
-    expect(button()?.querySelector('.shopping-list-rejoin-count')?.textContent?.trim()).toBe('3');
-    button()!.click();
+    expect(cart().querySelector('.shopping-list-group-count')?.textContent?.trim()).toBe('3');
+    cart().click();
+    fixture.detectChanges();
+
+    const items = [...el().querySelectorAll('.shopping-list-menu-item')];
+    expect(items.map(i => i.querySelector('.shopping-list-menu-title')?.textContent?.trim()))
+      .toEqual(['This build', 'Saturday run']);
+    (items[1] as HTMLButtonElement).click();
+    fixture.detectChanges();
 
     expect(navigate).toHaveBeenCalledWith('/list/grp1#t=tok');
+    expect(el().querySelector('.shopping-list-menu')).toBeNull();
+  });
+
+  it('opens this build\'s list from that menu too', () => {
+    rejoin.next(group);
+    fixture.detectChanges();
+    const open = vi.spyOn(TestBed.inject(ShoppingListViewService), 'open').mockReturnValue(undefined);
+
+    cart().click();
+    fixture.detectChanges();
+    el().querySelector<HTMLButtonElement>('.shopping-list-menu-item')!.click();
+
+    expect(open).toHaveBeenCalledWith('toolbar');
   });
 });

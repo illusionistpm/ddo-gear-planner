@@ -108,6 +108,23 @@ a {
     color: var(--text-secondary);
 }
 
+/* Opened from the planner's account menu: no button of its own, and the
+   popover pinned under the top bar's right edge. */
+:host(.trigger-hidden) {
+    display: contents;
+}
+
+:host(.trigger-hidden) .credits-toggle {
+    display: none;
+}
+
+:host(.trigger-hidden) .credits-popover {
+    position: fixed;
+    right: var(--space-16);
+    top: var(--credits-top);
+    max-height: calc(100svh - var(--credits-top) - var(--space-8));
+}
+
 /*
  * Below build-actions' breakpoint this sits in the overflow menu, mid-row, so
  * anchoring to the button would push it off the left edge. Pin it to the

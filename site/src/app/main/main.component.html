@@ -37,23 +37,40 @@
 
         <div class="planner-chrome-spacer"></div>
 
-        <!-- Ko-fi, the theme toggle and Admin are projected into the build
-             actions' overflow menu: one menu rather than two next to each other.
-             On a wide screen that menu is display: contents, so they still lay
-             out inline here exactly as before. -->
-        <app-build-actions>
-        <app-support-link #support (opened)="credits.close()"></app-support-link>
+        <!--
+          The build's own controls, then the site's: Ko-fi in the bar, the
+          rest in the account menu. The popovers (Ko-fi's, the credits') stay
+          with their hosts in the bar, whose triggers the menu rows stand in
+          for - so closing the menu doesn't take an open popover with it.
+        -->
+        <app-build-actions #buildActions>
+            <app-support-link barUtility #support [collapseTriggerOnPhone]="true" (opened)="credits.close()"></app-support-link>
+            <app-credits barUtility #credits [hideTrigger]="true" (opened)="support.close()"></app-credits>
+            <app-admin-link barUtility></app-admin-link>
 
-        <button type="button" class="theme-toggle"
-            [class.dark]="theme.isDarkTheme()"
-            [attr.aria-pressed]="theme.isDarkTheme()"
-            [attr.aria-label]="theme.isDarkTheme() ? 'Switch to light mode' : 'Switch to dark mode'"
-            [title]="theme.isDarkTheme() ? 'Switch to light mode' : 'Switch to dark mode'"
-            (click)="toggleTheme()">
-            <i class="fas theme-toggle-icon" [class.fa-sun]="theme.isDarkTheme()" [class.fa-moon]="!theme.isDarkTheme()" aria-hidden="true"></i>
-        </button>
-        <app-credits #credits (opened)="support.close()"></app-credits>
-        <app-admin-link></app-admin-link>
+            <div class="menu-theme" role="group" aria-label="Theme">
+                <span class="menu-theme-label">
+                    <i class="fas fa-circle-half-stroke menu-row-icon" aria-hidden="true"></i>Theme
+                </span>
+                <span class="menu-theme-options">
+                    @for (option of themeOptions; track option.mode) {
+                        <button type="button" class="menu-theme-option" [class.active]="theme.mode === option.mode"
+                            [attr.aria-pressed]="theme.mode === option.mode" [title]="option.label"
+                            [attr.aria-label]="option.label" (click)="theme.setMode(option.mode)">
+                            <i class="fas" [ngClass]="option.icon" aria-hidden="true"></i>
+                        </button>
+                    }
+                </span>
+            </div>
+            <button type="button" class="menu-row" role="menuitem"
+                (click)="$event.stopPropagation(); buildActions.closeMenu(); credits.toggle(plannerChrome)">
+                <i class="fas fa-circle-info menu-row-icon" aria-hidden="true"></i>About and credits
+            </button>
+            <!-- A phone has no room for Ko-fi in the bar; it lives here instead. -->
+            <button type="button" class="menu-row menu-row-support" role="menuitem"
+                (click)="$event.stopPropagation(); buildActions.closeMenu(); support.toggle(plannerChrome)">
+                <i class="fas fa-mug-hot menu-row-icon" aria-hidden="true"></i>Buy me a coffee
+            </button>
         </app-build-actions>
 
         <div class="planner-chrome-break" aria-hidden="true"></div>
@@ -64,6 +81,7 @@
                 [attr.aria-expanded]="filtersOpen"
                 aria-controls="filtersPanel"
                 aria-label="Filters"
+                [title]="filterButtonTitle()"
                 (click)="toggleFilters()">
                 <i class="fas fa-filter planner-filter-icon" aria-hidden="true"></i>
                 <span class="planner-tab-label">Filters</span>
@@ -74,55 +92,23 @@
                 <i class="fas fa-chevron-down planner-filter-caret" [class.rotated]="filtersOpen" aria-hidden="true"></i>
             </button>
 
-            <span class="planner-tab-badges">
-                <span class="planner-filter-chip" [class.chip-active]="!isLevelRangeDefault()">
-                    <span class="planner-filter-chip-label">{{getLevelRangeSummary()}}</span>
-                    @if (!isLevelRangeDefault()) {
-                        <button type="button" class="planner-filter-chip-remove"
-                            aria-label="Reset level range filter" (click)="resetLevelRange($event)">&times;</button>
-                    }
-                </span>
-                @if (!itemFilters.showRaidItems) {
-                    <span class="planner-filter-chip chip-active">
-                        <i class="fas fa-eye-slash planner-filter-chip-icon" aria-hidden="true"></i>
-                        <span class="planner-filter-chip-label">Raids</span>
-                        <button type="button" class="planner-filter-chip-remove"
-                            aria-label="Show raid items" (click)="resetRaidFilter($event)">&times;</button>
-                    </span>
-                }
-                @if (!itemFilters.showRareItems) {
-                    <span class="planner-filter-chip chip-active">
-                        <i class="fas fa-eye-slash planner-filter-chip-icon" aria-hidden="true"></i>
-                        <span class="planner-filter-chip-label">Rares</span>
-                        <button type="button" class="planner-filter-chip-remove"
-                            aria-label="Show rare items" (click)="resetRareFilter($event)">&times;</button>
-                    </span>
-                }
-                @if (hasHiddenPacks()) {
-                    <span class="planner-filter-chip chip-active">
-                        <i class="fas fa-eye-slash planner-filter-chip-icon" aria-hidden="true"></i>
-                        <span class="planner-filter-chip-label">{{getHiddenPacksSummary()}}</span>
-                        <button type="button" class="planner-filter-chip-remove"
-                            aria-label="Reset pack filters" (click)="resetHiddenPacks($event)">&times;</button>
-                    </span>
-                }
-                @if (hasHiddenTypes()) {
-                    <span class="planner-filter-chip chip-active">
-                        <i class="fas fa-eye-slash planner-filter-chip-icon" aria-hidden="true"></i>
-                        <span class="planner-filter-chip-label">{{getHiddenTypesSummary()}}</span>
-                        <button type="button" class="planner-filter-chip-remove"
-                            aria-label="Reset type filters" (click)="resetHiddenTypes($event)">&times;</button>
-                    </span>
-                }
-            </span>
-
-            @if (hasAnyActiveFilter()) {
-                <button type="button" class="planner-filter-reset-all" (click)="resetAllFilters($event)">Reset all</button>
+            <!-- What's filtered, on hover or keyboard focus, without opening the sheet. -->
+            @if (hasAnyActiveFilter() && !filtersOpen) {
+                <div class="planner-filter-peek">
+                    <div class="planner-filter-peek-panel menu-pop" role="group" aria-label="Active filters">
+                        <ng-container *ngTemplateOutlet="activeFilterChips"></ng-container>
+                    </div>
+                </div>
             }
         </div>
 
         @if (filtersOpen) {
             <section id="filtersPanel" class="planner-filter-sheet" aria-label="Filters">
+                @if (hasAnyActiveFilter()) {
+                    <div class="planner-filter-active" role="group" aria-label="Active filters">
+                        <ng-container *ngTemplateOutlet="activeFilterChips"></ng-container>
+                    </div>
+                }
                 <app-filters (troveFileSelected)="onTroveFileSelected($event)"
                     (sortOwnedToTopChanged)="onSortOwnedToTopChanged($event)"></app-filters>
             </section>
@@ -204,3 +190,52 @@
         <div class="planner-boot-splash-brand">DDO Gear Planner</div>
     </div>
 }
+
+<!-- The active filters, each removable: in the Filters peek and at the top of its sheet. -->
+<ng-template #activeFilterChips>
+    <span class="planner-tab-badges">
+        @if (!isLevelRangeDefault()) {
+            <span class="planner-filter-chip chip-active">
+                <span class="planner-filter-chip-label">{{getLevelRangeSummary()}}</span>
+                <button type="button" class="planner-filter-chip-remove"
+                    aria-label="Reset level range filter" (click)="resetLevelRange($event)">&times;</button>
+            </span>
+        }
+        @if (!itemFilters.showRaidItems) {
+            <span class="planner-filter-chip chip-active">
+                <i class="fas fa-eye-slash planner-filter-chip-icon" aria-hidden="true"></i>
+                <span class="planner-filter-chip-label">Raids</span>
+                <button type="button" class="planner-filter-chip-remove"
+                    aria-label="Show raid items" (click)="resetRaidFilter($event)">&times;</button>
+            </span>
+        }
+        @if (!itemFilters.showRareItems) {
+            <span class="planner-filter-chip chip-active">
+                <i class="fas fa-eye-slash planner-filter-chip-icon" aria-hidden="true"></i>
+                <span class="planner-filter-chip-label">Rares</span>
+                <button type="button" class="planner-filter-chip-remove"
+                    aria-label="Show rare items" (click)="resetRareFilter($event)">&times;</button>
+            </span>
+        }
+        @if (hasHiddenPacks()) {
+            <span class="planner-filter-chip chip-active">
+                <i class="fas fa-eye-slash planner-filter-chip-icon" aria-hidden="true"></i>
+                <span class="planner-filter-chip-label">{{getHiddenPacksSummary()}}</span>
+                <button type="button" class="planner-filter-chip-remove"
+                    aria-label="Reset pack filters" (click)="resetHiddenPacks($event)">&times;</button>
+            </span>
+        }
+        @if (hasHiddenTypes()) {
+            <span class="planner-filter-chip chip-active">
+                <i class="fas fa-eye-slash planner-filter-chip-icon" aria-hidden="true"></i>
+                <span class="planner-filter-chip-label">{{getHiddenTypesSummary()}}</span>
+                <button type="button" class="planner-filter-chip-remove"
+                    aria-label="Reset type filters" (click)="resetHiddenTypes($event)">&times;</button>
+            </span>
+        }
+    </span>
+
+    @if (hasAnyActiveFilter()) {
+        <button type="button" class="planner-filter-reset-all" (click)="resetAllFilters($event)">Reset all</button>
+    }
+</ng-template>

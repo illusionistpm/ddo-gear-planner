@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 
@@ -8,7 +8,6 @@ import { CurrentBuildService } from '../build/current-build.service';
 import { confirmLeaveUnsavedChanges } from '../build/unsaved-changes.guard';
 import { buildPath } from '../build/build-route';
 import { EquippedService } from '../planner/equipped.service';
-import { CloseRequestRelease, CloseRequestService } from '../shared/close-request.service';
 
 @Component({
   selector: 'app-my-builds',
@@ -17,7 +16,7 @@ import { CloseRequestRelease, CloseRequestService } from '../shared/close-reques
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false
 })
-export class MyBuildsComponent implements OnInit, OnDestroy {
+export class MyBuildsComponent implements OnInit {
   @Output() closed = new EventEmitter<void>();
 
   readonly maxBuilds = MAX_BUILDS_PER_USER;
@@ -26,9 +25,6 @@ export class MyBuildsComponent implements OnInit, OnDestroy {
   deletingId: string | null = null;
   deleteError: string | null = null;
   confirmingDeleteId: string | null = null;
-
-  private readonly closeRequests = inject(CloseRequestService);
-  private releaseCloseRequest: CloseRequestRelease | null = null;
 
   constructor(
     private readonly buildsService: BuildsService,
@@ -48,12 +44,6 @@ export class MyBuildsComponent implements OnInit, OnDestroy {
   // fetch.
   ngOnInit(): void {
     this.refresh();
-    // Back gesture / Escape closes the panel (see CloseRequestService).
-    this.releaseCloseRequest = this.closeRequests.listen(() => this.closed.emit());
-  }
-
-  ngOnDestroy(): void {
-    this.releaseCloseRequest?.();
   }
 
   // OnPush doesn't pick up state set from inside an HTTP subscribe callback

@@ -142,6 +142,10 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     this.boolAffixNames = [];
   }
 
+  setGroupMode(mode: TrackedAffixGroupMode) {
+    this.equipped.setTrackedAffixGroupMode(mode);
+  }
+
   ngOnInit() {
     this.viewStateSubscription = this.equipped.getTrackedAffixViewState().subscribe(state => {
       this.groupMode = state.groupMode;

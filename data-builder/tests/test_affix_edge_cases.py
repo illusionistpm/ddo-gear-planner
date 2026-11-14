@@ -491,3 +491,14 @@ def test_insightful_wizardry_tier_is_not_scaled_as_enhancement():
     li = BeautifulSoup('<li>Insightful Wizardry II</li>', 'html.parser').li
     aff = translate_list_tag_to_affix_map('Test Item', li, {}, get_fake_bonuses(), 10, {}, {})
     assert aff['value'] == '2'
+
+
+@pytest.mark.parametrize('text', [
+    '+2d6 Profane bonus to Sneak attack damage',
+    '+2d6 Profane bonus to your Sneak Attack Dice.',
+])
+def test_sneak_attack_dice_are_sneak_attack_dice(text):
+    # Shadow Killer's wording has no "your" and no full stop.
+    li = BeautifulSoup(f'<li>{text}</li>', 'html.parser').li
+    aff = translate_list_tag_to_affix_map('Test Item', li, {}, get_fake_bonuses(), 10, {}, {})
+    assert (aff['name'], aff['type'], aff['value']) == ('Sneak Attack Dice', 'Profane', '2')

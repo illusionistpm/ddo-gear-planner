@@ -376,6 +376,8 @@ def download_crafting_pages(session=None):
     download_page('Raw data/Item crafting enchantments', pageDir, session=session)
     download_page('Nearly_Complete', pageDir, session=session)
     download_page('Slave_Lords_Crafting', pageDir, session=session)
+    # Its Shadowscale Armor table: the Magma Forge upgrades and their effects.
+    download_page('Thunder-Forged', pageDir, session=session)
     for tier in [1, 2, 3]:
         download_page(f'Legendary_Green_Steel_items/Tier_{tier}', pageDir, session=session)
 

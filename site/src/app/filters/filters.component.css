@@ -88,8 +88,82 @@
 }
 
 .pack-filter-panel {
-  max-height: 18rem;
+  max-height: 28rem;
   overflow-y: auto;
+}
+
+.pack-sort {
+  align-items: center;
+  display: flex;
+  gap: var(--space-4);
+  margin-left: auto;
+}
+
+.pack-sort-label {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-right: var(--space-4);
+}
+
+.pack-sort-button {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0 var(--space-8);
+}
+
+.pack-sort-button.active {
+  background: var(--selected-row-bg);
+  border-color: var(--primary-color);
+  color: var(--text-primary);
+}
+
+.pack-coupons {
+  border-bottom: 1px solid var(--border-color);
+  display: grid;
+  gap: var(--space-4);
+  margin-bottom: var(--space-12);
+  padding-bottom: var(--space-12);
+}
+
+.pack-coupon-help {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.pack-coupon-row {
+  align-items: baseline;
+  column-gap: var(--space-16);
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: var(--space-4);
+}
+
+.pack-coupon-row-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  min-width: 10.5rem;
+}
+
+.pack-coupon-code,
+.pack-year {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+.pack-group + .pack-group {
+  margin-top: var(--space-12);
+}
+
+.pack-group-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  margin-bottom: var(--space-4);
 }
 
 .pack-filter-header {
@@ -104,14 +178,14 @@
   margin-bottom: 0;
 }
 
+/* Columns, not a grid: a release-ordered list reads down, then across. */
 .pack-filter-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
   column-gap: var(--space-16);
-  row-gap: var(--space-4);
+  column-width: 15rem;
 }
 
 .pack-filter-option {
+  break-inside: avoid;
   min-width: 0;
 }
 

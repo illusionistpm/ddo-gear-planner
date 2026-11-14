@@ -161,3 +161,114 @@
     position: absolute;
     right: 2px;
 }
+
+/* Swapping: the picked row, the rows it can go to, and the rest stepped back. */
+.crafting-slot-row.is-swap-source {
+    background: var(--selected-row-bg);
+    border-left-color: var(--primary-color);
+}
+
+.crafting-slot-row.is-swap-target {
+    background: rgba(var(--primary-color-rgb), 0.05);
+    border-left-color: rgba(var(--primary-color-rgb), 0.5);
+}
+
+.crafting-slot-row.is-swap-unavailable {
+    opacity: 0.45;
+}
+
+.crafting-swap-button,
+.crafting-swap-here {
+    align-items: center;
+    border-radius: 6px;
+    display: inline-flex;
+    flex-shrink: 0;
+    gap: var(--space-4);
+    justify-content: center;
+    margin-left: var(--space-8);
+    /* A comfortable tap target on a phone. */
+    min-height: 2rem;
+    min-width: 2rem;
+}
+
+.crafting-swap-button {
+    background: none;
+    border: 1px solid transparent;
+    color: var(--text-secondary);
+}
+
+.crafting-swap-button:hover,
+.crafting-swap-button:focus-visible {
+    border-color: var(--border-color);
+    color: var(--primary-color);
+}
+
+.crafting-swap-button[aria-pressed="true"] {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--on-accent-text-color);
+}
+
+.crafting-swap-here {
+    background: var(--surface-color);
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    font-weight: 600;
+    padding: 0 var(--space-8);
+    white-space: nowrap;
+}
+
+.crafting-swap-here:hover,
+.crafting-swap-here:focus-visible {
+    background: var(--primary-color);
+    color: var(--on-accent-text-color);
+}
+
+/*
+ * What a swap is doing, or Undo once it's done. Kept in the DOM while idle, so
+ * a screen reader announces what goes into it; it takes no room until then.
+ * Sticks to the top while you scroll to a target in another group.
+ */
+.crafting-swap-status {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.crafting-swap-status.active {
+    align-items: center;
+    background: var(--surface-elevated-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    gap: var(--space-8);
+    margin-bottom: var(--space-12);
+    padding: var(--space-4) var(--space-4) var(--space-4) var(--space-12);
+}
+
+.crafting-swap-status .fa-right-left {
+    color: var(--primary-color);
+}
+
+.crafting-swap-message {
+    flex: 1;
+    font-size: 0.875rem;
+    min-width: 0;
+}
+
+.crafting-swap-action {
+    background: none;
+    border: none;
+    border-radius: 6px;
+    color: var(--primary-color);
+    flex-shrink: 0;
+    font-weight: 600;
+    min-height: 2rem;
+    padding: 0 var(--space-8);
+}
+
+.crafting-swap-action:hover,
+.crafting-swap-action:focus-visible {
+    background: var(--selected-row-bg);
+}

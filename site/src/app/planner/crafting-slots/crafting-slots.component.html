@@ -20,6 +20,24 @@
       [disabled]="!hasEmptySlots && !onlyEmpty" (click)="setOnlyEmpty(!onlyEmpty)">Only empty slots</button>
   </div>
 
+  <!-- Always there, so a screen reader hears what goes into it. -->
+  <div class="crafting-swap-status" role="status" [class.active]="swapSource || lastSwap">
+    @if (swapSource; as source) {
+      <span class="fas fa-right-left" aria-hidden="true"></span>
+      <span class="crafting-swap-message">
+        @if (hasSwapTargets) {
+          Swapping the {{slotPhrase(source)}} augment: pick a highlighted slot.
+        } @else {
+          No other slot takes the {{slotPhrase(source)}} augment.
+        }
+      </span>
+      <button type="button" class="crafting-swap-action" (click)="cancelSwap()">Cancel</button>
+    } @else if (lastSwap) {
+      <span class="crafting-swap-message">{{lastSwap.message}}</span>
+      <button type="button" class="crafting-swap-action" (click)="undoSwap()">Undo</button>
+    }
+  </div>
+
   @for (group of overview.groups; track group.name) {
     @if (isShown(group)) {
       <section class="crafting-group" [id]="groupId(group.name)">
@@ -37,7 +55,9 @@
           <ul class="crafting-group-rows" [id]="groupId(group.name) + '-rows'">
             @for (row of visibleRows(group); track row.key) {
               <!-- The gear it's on is an icon, named on hover (or a tap, on touch), so a row is one line. -->
-              <li class="crafting-slot-row small" [class.is-empty]="row.empty">
+              <li class="crafting-slot-row small" [class.is-empty]="row.empty" [attr.data-row-key]="row.key"
+                [class.is-swap-source]="isSwapSource(row)" [class.is-swap-target]="isSwapTarget(row)"
+                [class.is-swap-unavailable]="swapSourceKey && !isSwapSource(row) && !isSwapTarget(row)">
                 @let source = sourceLabel(row);
                 <app-tap-tooltip [text]="source" [label]="source">
                   <span class="crafting-slot-icon">
@@ -48,6 +68,19 @@
                   </span>
                 </app-tap-tooltip>
                 <app-crafting-slot-control [item]="row.item" [craft]="row.craft" [hideName]="true" (changed)="onChanged(row)"></app-crafting-slot-control>
+                @if (isSwapTarget(row)) {
+                  <button type="button" class="crafting-swap-here" (click)="swapWith(row)"
+                    [attr.aria-label]="(row.empty ? 'Move here: ' : 'Swap with this: ') + sourceLabel(row)">
+                    <span class="fas fa-right-left" aria-hidden="true"></span>
+                    {{row.empty ? 'Move here' : 'Swap here'}}
+                  </button>
+                } @else if (canStartSwap(row) && !onlyEmpty) {
+                  <button type="button" class="crafting-swap-button" [attr.aria-pressed]="isSwapSource(row)"
+                    [attr.aria-label]="'Swap this augment with another slot: ' + sourceLabel(row)"
+                    [title]="isSwapSource(row) ? 'Cancel the swap' : 'Swap with another slot'" (click)="toggleSwap(row)">
+                    <span class="fas fa-right-left" aria-hidden="true"></span>
+                  </button>
+                }
               </li>
             }
           </ul>

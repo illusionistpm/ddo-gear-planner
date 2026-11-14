@@ -647,17 +647,6 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /** The Filters button's tooltip: what's filtered, for a touch-free glance. */
-  filterButtonTitle() {
-    const active = [
-      this.isLevelRangeDefault() ? null : this.getLevelRangeSummary(),
-      this.itemFilters.showRaidItems ? null : 'raids hidden',
-      this.itemFilters.showRareItems ? null : 'rares hidden',
-      this.hasHiddenPacks() ? `${this.getHiddenPacksSummary()} hidden` : null,
-      this.hasHiddenTypes() ? `${this.getHiddenTypesSummary()} hidden` : null
-    ].filter(Boolean);
-    return active.length ? `Filters: ${active.join(', ')}` : 'Filters';
-  }
-
   getHiddenPacksSummary() {
     const hiddenPackCount = this.itemFilters.hiddenPacks.size;
     return `${hiddenPackCount} pack${hiddenPackCount === 1 ? '' : 's'}`;

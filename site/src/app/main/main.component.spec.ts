@@ -335,13 +335,13 @@ describe('MainComponent', () => {
       credits.close();
     });
 
-    it('names the active filters on the Filters button, for a glance without opening it', () => {
+    it('shows the active filters in the peek, with no native tooltip on the Filters button to cover it', () => {
       const filters = TestBed.inject(FiltersService);
       filters.setShowRaidItems(false);
       fixture.detectChanges();
 
-      expect(fixture.nativeElement.querySelector('.planner-filter-toggle').getAttribute('title'))
-        .toBe('Filters: raids hidden');
+      expect(fixture.nativeElement.querySelector('.planner-filter-toggle').hasAttribute('title')).toBe(false);
+      expect(fixture.nativeElement.querySelector('.planner-filter-peek')).not.toBeNull();
     });
 
     it('lists the active filters, removable, both in the peek and at the top of the sheet', () => {

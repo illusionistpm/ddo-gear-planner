@@ -111,6 +111,15 @@ export class GearDbService {
   // built the same way and for the same reason as itemAffixTypeIndex, backing
   // findSlotsForAugmentAffixAndType.
   private augmentHostSlotsIndex: Map<string, Set<string>> | null = null;
+  // Set name -> slots holding a filtered item in (or craftable into) it, backing
+  // findSlotsForSet. Built lazily and reset with the indexes above: the effects
+  // table asks for every tracked set after each filter change, and a full gear
+  // scan per set made any pack tick take most of a second.
+  private setSlotsIndex: Map<string, string[]> | null = null;
+  // An augment list -> its options by the bonus types their affixes carry. Lets
+  // findAugmentsWithAffixAndType skip options that can't match before the costlier
+  // affix-name check. Keyed by the list itself, which never changes once built.
+  private augmentOptionsByType = new WeakMap<ReadonlyArray<CraftableOption>, Map<string, CraftableOption[]>>();
 
   affixToBonusTypes: Map<string, Map<string, number>> = new Map<string, Map<string, number>>();
 
@@ -398,6 +407,7 @@ export class GearDbService {
       this.affixToBonusTypes = new Map<string, Map<string, number>>();
       this.itemAffixTypeIndex = null;
       this.augmentHostSlotsIndex = null;
+      this.setSlotsIndex = null;
 
       perfMeasure('GearDbService.applyItemFilters.filterItems', () => {
         for (const [slot, items] of this.allGear.entries()) {
@@ -1013,29 +1023,40 @@ export class GearDbService {
     if (!setName) {
       return [];
     }
-    const maxLevel = this.currentItemFilters.levelRange[1];
-    const slots: string[] = [];
+    return this._getSetSlotsIndex().get(setName) ?? [];
+  }
 
-    for (const [slot, items] of this.gear) {
-      for (const item of items) {
-        const sets = item.getSets();
-        if (sets && sets.includes(setName)) {
-          slots.push(slot);
-          break;
+  private _getSetSlotsIndex(): Map<string, string[]> {
+    if (!this.setSlotsIndex) {
+      this.setSlotsIndex = perfMeasure('GearDbService.buildSetSlotsIndex', () => {
+        const maxLevel = this.currentItemFilters.levelRange[1];
+        const index = new Map<string, string[]>();
+        // Slots in this.gear's order, each once per set.
+        for (const [slot, items] of this.gear) {
+          const setsInSlot = new Set<string>();
+          for (const item of items) {
+            item.getSets()?.forEach(set => setsInSlot.add(set));
+            for (const craftable of item.crafting ?? []) {
+              for (const option of craftable.options) {
+                if (option.set && option.isWithinMaxLevel(maxLevel)) {
+                  setsInSlot.add(option.set);
+                }
+              }
+            }
+          }
+          for (const set of setsInSlot) {
+            let slots = index.get(set);
+            if (!slots) {
+              slots = [];
+              index.set(set, slots);
+            }
+            slots.push(slot);
+          }
         }
-        const craftableForSet = item.crafting?.some(craftable =>
-          craftable.options.some(option =>
-            option.set === setName && option.isWithinMaxLevel(maxLevel)
-          )
-        );
-        if (craftableForSet) {
-          slots.push(slot);
-          break;
-        }
-      }
+        return index;
+      });
     }
-
-    return slots;
+    return this.setSlotsIndex;
   }
 
   /** Sets granting the affix + bonus type. */
@@ -1065,6 +1086,25 @@ export class GearDbService {
     return results;
   }
 
+  private _augmentOptionsByType(options: ReadonlyArray<CraftableOption>): Map<string, CraftableOption[]> {
+    let byType = this.augmentOptionsByType.get(options);
+    if (!byType) {
+      byType = new Map<string, CraftableOption[]>();
+      for (const option of options) {
+        for (const type of new Set(option.affixes.map(affix => affix.type))) {
+          let typed = byType.get(type);
+          if (!typed) {
+            typed = [];
+            byType.set(type, typed);
+          }
+          typed.push(option);
+        }
+      }
+      this.augmentOptionsByType.set(options, byType);
+    }
+    return byType;
+  }
+
   findAugmentsWithAffixAndType(affixName: string, bonusType: string): Array<Craftable> {
     let results: Craftable[] = [];
     const maxLevel = this.currentItemFilters.levelRange[1];
@@ -1075,7 +1115,7 @@ export class GearDbService {
       if (!craftable) continue;
       const wildcard = craftable.get('*');
       if (!wildcard) continue;
-      const augments = wildcard.options;
+      const augments = this._augmentOptionsByType(wildcard.options).get(bonusType) ?? [];
 
       // Filter the augments to only those that have the affix and type we are looking for
       let filteredAugments = augments.filter(aug =>

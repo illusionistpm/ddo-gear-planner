@@ -1005,14 +1005,12 @@ describe('EquippedService', () => {
       expect(service.getScore(bracers)).toBeGreaterThan(0);
     });
 
-    it('is covered while equipped gear supplies it, though game data has no such type', () => {
-      expect((service as any).gearList.affixToBonusTypes.get('Physical Sheltering').has('Mythic')).toBe(false);
-      expect(covered().get('Physical Sheltering')?.find(type => type.bonusType === 'Mythic')?.value).toBe(4);
-
+    it('is offered at its best total from every slot, with nothing equipped', () => {
       service.clearSlot('Boots');
       service.clearSlot('Cloak');
 
-      expect(covered().get('Physical Sheltering')?.some(type => type.bonusType === 'Mythic')).toBe(false);
+      expect((service as any).gearList.getBestValueForAffixType('Physical Sheltering', 'Mythic')).toBeGreaterThan(4);
+      expect(covered().get('Physical Sheltering')?.find(type => type.bonusType === 'Mythic')?.value).toBe(0);
     });
   });
 
@@ -1026,5 +1024,21 @@ describe('EquippedService', () => {
     service.getCoveredAffixes().subscribe(value => (map = value)).unsubscribe();
 
     expect(map.get('Strength')?.find(type => type.bonusType === 'Fortune')?.value).toBe(2);
+  });
+
+  it('covers a Fortune bonus only while equipped gear supplies it, since game data has no such type', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+    service.setImportantAffixes(['Strength']);
+    const fortune = () => {
+      let map = new Map<string, Array<{ bonusType: string; value: number }>>();
+      service.getCoveredAffixes().subscribe(value => (map = value)).unsubscribe();
+      return map.get('Strength')?.some(type => type.bonusType === 'Fortune');
+    };
+
+    expect((service as any).gearList.getBestValueForAffixType('Strength', 'Fortune')).toBe(0);
+    expect(fortune()).toBe(false);
+
+    service.set(makeItem('Belt', 'Belt', 'Belts', [{ name: 'Strength', type: 'Fortune', value: 1 }]));
+    expect(fortune()).toBe(true);
   });
 });

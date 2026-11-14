@@ -31,9 +31,10 @@ import { ExternalAffixEntry, isExternalAffixEntry, NON_GEAR_SLOT } from '../affi
 import { affixTypeKey } from '../affixes/affix-type-key';
 import { FILIGREE_TRACKING_MIN_LEVEL, MAX_FILIGREE_SLOTS_AFFIX } from '../affixes/filigree-affix';
 import { FiligreeDbService } from '../gear/filigree-db.service';
-import { FiligreeHost, SUMMED_FILIGREE_BONUS_TYPES } from '../gear/filigree';
+import { FiligreeHost, FILIGREE_ONLY_BONUS_TYPES } from '../gear/filigree';
 import { FiligreeLoadoutService } from './filigree-loadout.service';
-import { combineBonusTypeValues, isStackingBonusType, ITEM_BONUS_TYPES } from '../affixes/item-bonus-types';
+import { ITEM_BONUS_TYPES } from '../affixes/item-bonus-types';
+import { combineBonusTypeValues, isSummedBonusType } from '../affixes/summed-bonus-types';
 
 const TRACKED_AFFIX_COMPANIONS = new Map<string, Array<string>>([
   ['Armor Class', ['Armor Class (%)']],
@@ -80,9 +81,6 @@ export interface VisibleSetBonus {
   /** A filigree set, counted over the weapon's and artifact's filigrees; absent for a gear set. */
   filigree?: boolean;
 }
-
-/** The slot of the one value summed filigree bonuses of a type add up to (getValuesForAffixType). */
-const SUMMED_FILIGREE_SLOT = 'Filigree';
 
 export interface AffixSource {
   kind: 'item' | 'set' | 'external' | 'filigree';
@@ -601,13 +599,8 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
       values.push({ slot: NON_GEAR_SLOT, value: entry.value });
     }
 
-    const filigree = this.filigree.getContributionsFor(affixName, bonusType);
-    if (SUMMED_FILIGREE_BONUS_TYPES.has(bonusType)) {
-      if (filigree.length) {
-        values.push({ slot: SUMMED_FILIGREE_SLOT, value: filigree.reduce((sum, entry) => sum + entry.affix.value, 0) });
-      }
-    } else {
-      values.push(...filigree.map(entry => ({ slot: entry.slot, value: entry.affix.value })));
+    for (const entry of this.filigree.getContributionsFor(affixName, bonusType)) {
+      values.push({ slot: entry.slot, value: entry.affix.value });
     }
 
     return values.sort((a, b) => b.value - a.value);
@@ -636,7 +629,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     return [...setCounts].map(([set, pieces]) => [set, this.gearList.getSetBonus(set, pieces)]);
   }
 
-  /** What the build gets from one bonus type of an affix: its best value, or the sum of all of them for a type that stacks. */
+  /** What the build gets from one bonus type of an affix: its best value, or the sum of all of them for a summed type. */
   private _getBestValueForAffixType(affixName: string, bonusType: string) {
     return combineBonusTypeValues(bonusType, this.getValuesForAffixType(affixName, bonusType).map(entry => entry.value));
   }
@@ -645,14 +638,14 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     return this._getBestValueForAffixType(affixName, bonusType);
   }
 
-  /** The sources the build's value for this bonus type comes from: those at the best value, or every one for a type that stacks. */
+  /** The sources the build's value for this bonus type comes from: those at the best value, or every one for a summed type. */
   getSourcesForAffixType(affixName: string, bonusType: string): AffixSource[] {
     const bestValue = this._getBestValueForAffixType(affixName, bonusType);
     if (!bestValue) {
       return [];
     }
-    const stacks = isStackingBonusType(bonusType);
-    const counts = (value: number) => stacks ? value !== 0 : value === bestValue;
+    const summed = isSummedBonusType(bonusType);
+    const counts = (value: number) => summed ? value !== 0 : value === bestValue;
 
     const sources: AffixSource[] = [];
     for (const slot of this.slots) {
@@ -703,10 +696,8 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
       }
     }
 
-    // A summed type's best value is all of them together, so every one is a source.
-    const summed = SUMMED_FILIGREE_BONUS_TYPES.has(bonusType);
     for (const entry of this.filigree.getContributionsFor(affixName, bonusType)) {
-      if (summed || entry.affix.value === bestValue) {
+      if (counts(entry.affix.value)) {
         sources.push({
           kind: 'filigree',
           slot: entry.slot,
@@ -733,7 +724,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
       if (this.isAffixTypeIgnored(affixName, bonusType)) {
         return;
       }
-      if (isStackingBonusType(bonusType)) {
+      if (isSummedBonusType(bonusType)) {
         bestByType.set(bonusType, (bestByType.get(bonusType) ?? 0) + value);
       } else if ((bestByType.get(bonusType) ?? 0) < value) {
         bestByType.set(bonusType, value);
@@ -755,15 +746,9 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
       offer(entry.bonusType, entry.value);
     }
 
-    const filigreeSums = new Map<string, number>();
     for (const entry of this.filigree.getContributionsFor(affixName)) {
-      if (SUMMED_FILIGREE_BONUS_TYPES.has(entry.affix.type)) {
-        filigreeSums.set(entry.affix.type, (filigreeSums.get(entry.affix.type) ?? 0) + entry.affix.value);
-      } else {
-        offer(entry.affix.type, entry.affix.value);
-      }
+      offer(entry.affix.type, entry.affix.value);
     }
-    filigreeSums.forEach((value, type) => offer(type, value));
 
     return Array.from(bestByType.values()).reduce((acc, val) => acc + val, 0);
   }
@@ -1220,21 +1205,14 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
       return AffixRank.Penalty;
     }
 
-    if (SUMMED_FILIGREE_BONUS_TYPES.has(affix.type)) {
-      // Filigree bonuses add up rather than competing, so one never outranks or ties another
-      // (ranked against the total, a +5 beside another +5 would read as outranked): one that is
-      // counted is part of the best, and any other would add to it.
-      return this.filigree.getContributionsFor(affix.name, affix.type).some(entry => entry.affix.value === affix.value)
-        ? AffixRank.Best
-        : AffixRank.BetterThanBest;
-    }
-
-    // Every value of a type that stacks counts towards the total.
-    if (isStackingBonusType(affix.type)) {
-      return AffixRank.Best;
-    }
-
     const values = this.getValuesForAffixType(affix.name, affix.type);
+
+    // Values of a summed type add up rather than competing, so one never outranks or ties another
+    // (ranked against the total, a +5 beside another +5 would read as outranked): one the build
+    // already counts is part of the best, and any other would add to it.
+    if (isSummedBonusType(affix.type)) {
+      return values.some(entry => entry.value === affix.value) ? AffixRank.Best : AffixRank.BetterThanBest;
+    }
 
     if (values.length === 0 || affix.value > values[0].value) {
       return AffixRank.BetterThanBest;
@@ -1260,7 +1238,9 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     perfCount('EquippedService.getAffixRankingAsEquipped');
     // Today's ranking: how the value compares with the build as it is now.
     const rankNow = this.getAffixRanking(affix);
-    if (rankNow === AffixRank.Irrelevant || rankNow === AffixRank.Penalty || SUMMED_FILIGREE_BONUS_TYPES.has(affix.type)) {
+    // Filigree stays where it is when gear is swapped, so a filigree bonus ranks as it does today. (Weighing
+    // it against the total below would count it twice: once as the build's, once as the candidate's.)
+    if (rankNow === AffixRank.Irrelevant || rankNow === AffixRank.Penalty || FILIGREE_ONLY_BONUS_TYPES.has(affix.type)) {
       return { rank: rankNow };
     }
 
@@ -1274,8 +1254,8 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
       .map(entry => entry.value)
       .concat(own);
 
-    // A type that stacks has no best value to beat, only a total to raise or lower.
-    if (isStackingBonusType(affix.type)) {
+    // A summed type has no best value to beat, only a total to raise or lower.
+    if (isSummedBonusType(affix.type)) {
       const totalNow = this._getBestValueForAffixType(affix.name, affix.type);
       const totalAfter = combineBonusTypeValues(affix.type, after);
       if (totalAfter > totalNow) {

@@ -986,6 +986,10 @@ describe('EquippedService', () => {
       expect(service.getAffixRanking(mythicPrr(1))).toBe(AffixRank.Best);
     });
 
+    it('ranks a value the build does not have as adding to the total', () => {
+      expect(service.getAffixRanking(mythicPrr(2))).toBe(AffixRank.BetterThanBest);
+    });
+
     it('ranks a candidate by what it does to the total', () => {
       expect(service.getAffixRankingAsEquipped(mythicPrr(1), { slot: 'Bracers', activeAffixes: [mythicPrr(1)], sets: [] }))
         .toEqual({ rank: AffixRank.BetterThanBest });

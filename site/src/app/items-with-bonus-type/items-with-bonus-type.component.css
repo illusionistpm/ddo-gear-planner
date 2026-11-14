@@ -150,6 +150,42 @@
     outline: none;
 }
 
+/* A title bar with an eye of its own: a div, with the collapse button stretched over all
+   of it, so a tap anywhere but the eye still collapses the section. */
+.drawer-section-title-with-help {
+    position: relative;
+}
+
+.drawer-section-title-with-help:has(.drawer-section-toggle:focus-visible) {
+    color: var(--primary-color);
+}
+
+.drawer-section-toggle {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    padding: 0;
+    text-transform: inherit;
+}
+
+.drawer-section-toggle:focus-visible {
+    outline: none;
+}
+
+.drawer-section-toggle::after {
+    content: '';
+    inset: 0;
+    position: absolute;
+}
+
+.drawer-section-help {
+    position: relative;
+    text-transform: none;
+    z-index: 1;
+}
+
 .drawer-section-collapse-indicator {
     transform: rotate(90deg);
     transition: transform 0.15s ease;

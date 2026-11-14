@@ -19,12 +19,22 @@
 
 @if (allowsNonGearSource()) {
   <div class="drawer-section external-affix-panel">
-    <button type="button" class="drawer-section-title" [attr.aria-expanded]="!isSectionCollapsed('external')" (click)="toggleSection('external')">
+    <!-- The eye can't sit inside the collapse button (a button can't hold a button, and a
+         tap on it would collapse the section), so the two are siblings: the collapse button
+         is stretched over the whole bar, and the eye is layered above it. -->
+    <div class="drawer-section-title drawer-section-title-with-help">
       <span>Non-gear
-        <i class="fas fa-eye small ms-1" title="Record a value you're getting from a spell, trance, or other non-gear source, or ignore this type entirely."></i>
+        <span class="drawer-section-help">
+          <app-tap-tooltip text="Record a value you're getting from a spell, trance, or other non-gear source, or ignore this type entirely."
+            label="What is Non-gear?" [panel]="externalHelpTip"><i class="fas fa-eye small ms-1" aria-hidden="true"></i></app-tap-tooltip>
+        </span>
       </span>
-      <span class="drawer-section-collapse-indicator" [class.collapsed]="isSectionCollapsed('external')" aria-hidden="true">&#8250;</span>
-    </button>
+      <button type="button" class="drawer-section-toggle" aria-label="Non-gear"
+        [attr.aria-expanded]="!isSectionCollapsed('external')" (click)="toggleSection('external')">
+        <span class="drawer-section-collapse-indicator" [class.collapsed]="isSectionCollapsed('external')" aria-hidden="true">&#8250;</span>
+      </button>
+    </div>
+    <app-tap-tooltip-panel #externalHelpTip />
     @if (!isSectionCollapsed('external')) {
       @if (externalEntries.length) {
         @for (entry of externalEntries; track entry.id) {

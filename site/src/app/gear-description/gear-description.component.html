@@ -22,12 +22,13 @@
             <i>{{getLootSourceLabel(curItem)}}</i>
             @let sources = getLootSources(curItem);
             @if (sources.length > 1) {
-              <app-tap-tooltip [text]="sources.join('\n')" [label]="'Show all ' + sources.length + ' sources'">
+              <app-tap-tooltip [text]="sources.join('\n')" [label]="'Show all ' + sources.length + ' sources'" [panel]="sourcesTip">
                 <span class="loot-badge more-sources-badge">+{{sources.length - 1}}</span>
               </app-tap-tooltip>
             }
           </span>
         </div>
+        <app-tap-tooltip-panel #sourcesTip />
       </div>
     } @else {
       <div class="row">
@@ -57,7 +58,7 @@
         }
         <div class="col ps-1">{{row.affix.name}}
           @if (row.affixGroup) {
-            <app-tap-tooltip [text]="row.groupTooltip" label="Show grouped affix details">
+            <app-tap-tooltip [text]="row.groupTooltip" label="Show grouped affix details" [panel]="groupTip">
               <i class="fas fa-eye small ms-1" aria-hidden="true"></i>
             </app-tap-tooltip>
           }
@@ -65,6 +66,7 @@
         @if (row.valueText) {
           <div class="col-5">{{row.valueText}}</div>
         }
+        <app-tap-tooltip-panel #groupTip />
       </div>
       }
     <!-- Crafting -->
@@ -114,7 +116,7 @@
               </select>
             }
             @if (row.selectedOptionTooltip) {
-              <app-tap-tooltip [text]="row.selectedOptionTooltip" label="Show selected option details">
+              <app-tap-tooltip [text]="row.selectedOptionTooltip" label="Show selected option details" [panel]="optionTip">
                 <i class="fas fa-eye small ms-2" [ngClass]="row.className" aria-hidden="true"></i>
               </app-tap-tooltip>
             }
@@ -126,7 +128,7 @@
           <div class="col-8 readonly-crafting-option" [ngClass]="row.className" [title]="row.tooltip">
             {{describe(row.craft.selected) || 'Empty'}}
             @if (row.selectedOptionTooltip) {
-              <app-tap-tooltip [text]="row.selectedOptionTooltip" label="Show selected option details">
+              <app-tap-tooltip [text]="row.selectedOptionTooltip" label="Show selected option details" [panel]="optionTip">
                 <i class="fas fa-eye small ms-1" aria-hidden="true"></i>
               </app-tap-tooltip>
             }
@@ -135,6 +137,7 @@
             }
           </div>
         }
+        <app-tap-tooltip-panel #optionTip />
       </div>
     }
     <!-- Sets -->

@@ -140,6 +140,15 @@ describe('ExternalAffixSlotCardComponent', () => {
     el().querySelector<HTMLElement>('.tap-tooltip-trigger')!.click();
     await settle();
     expect(el().querySelector('.external-add-panel')).toBeNull();
+
+    // The description opens under the header, not squeezed beside the title, and a tap
+    // on it reads it rather than opening the add panel.
+    const bubble = el().querySelector<HTMLElement>('.slot-header > app-tap-tooltip-panel > .tap-tooltip-bubble')!;
+    expect(bubble).not.toBeNull();
+    bubble.click();
+    await settle();
+    expect(el().querySelector('.external-add-panel')).toBeNull();
+    expect(el().querySelector('.tap-tooltip-bubble')).not.toBeNull();
   });
 
   it('renders each non-gear entry with its label and value', () => {
@@ -191,6 +200,44 @@ describe('ExternalAffixSlotCardComponent', () => {
         .map(row => row.querySelector('app-tap-tooltip button')?.getAttribute('title') ?? null);
       expect(groupTooltips[0]).toMatch(/^Combat Mastery is:\n[\s\S]*Stunning/);
       expect(groupTooltips[1]).toBeNull();
+    });
+
+    // On a phone the name column is a few words wide; a bubble inside it was a tall,
+    // narrow strip. It opens as a row item instead, which wraps to a full-width line.
+    it('opens an affix group\'s details on a line of its own under the row, not in the name column', () => {
+      equipped.addExternalAffixValue('Combat Mastery', 'Insight', 5, 'Trance');
+      fixture.detectChanges();
+      const row = el().querySelector<HTMLElement>('.external-affix-row')!;
+      const trigger = row.querySelector<HTMLButtonElement>('.tap-tooltip-trigger')!;
+
+      trigger.click();
+      fixture.detectChanges();
+      const bubble = row.querySelector<HTMLElement>('.tap-tooltip-bubble')!;
+      expect(bubble.textContent).toMatch(/^Combat Mastery is:/);
+      expect(row.querySelector('.col .tap-tooltip-bubble')).toBeNull();
+      // The panel host is display: contents, so this makes the bubble a flex item of the row.
+      expect(bubble.parentElement!.parentElement).toBe(row);
+      expect(trigger.getAttribute('aria-expanded')).toBe('true');
+
+      bubble.click();
+      fixture.detectChanges();
+      expect(row.querySelector('.tap-tooltip-bubble')).not.toBeNull();
+
+      el().querySelector<HTMLElement>('.slot-name')!.click();
+      fixture.detectChanges();
+      expect(row.querySelector('.tap-tooltip-bubble')).toBeNull();
+      expect(trigger.getAttribute('aria-expanded')).toBe('false');
+    });
+
+    it('clears an open group bubble when its entry is removed', () => {
+      equipped.addExternalAffixValue('Combat Mastery', 'Insight', 5, 'Trance');
+      fixture.detectChanges();
+      el().querySelector<HTMLButtonElement>('.external-affix-row .tap-tooltip-trigger')!.click();
+      fixture.detectChanges();
+
+      el().querySelector<HTMLButtonElement>('.external-affix-remove')!.click();
+      fixture.detectChanges();
+      expect(el().querySelector('.tap-tooltip-bubble')).toBeNull();
     });
   });
 

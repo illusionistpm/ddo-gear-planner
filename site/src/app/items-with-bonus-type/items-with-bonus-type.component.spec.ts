@@ -15,6 +15,7 @@ import { FiligreeSetPreviewComponent } from '../filigree-set-preview/filigree-se
 import { FiligreeSetDetailsComponent } from '../filigree-set-details/filigree-set-details.component';
 import { SlotIconComponent } from '../slot-icon/slot-icon.component';
 import { SetBonusSummaryComponent } from '../set-bonus-summary/set-bonus-summary.component';
+import { TapTooltipComponent, TapTooltipPanelComponent } from '../tap-tooltip/tap-tooltip.component';
 
 describe('ItemsWithBonusTypeComponent', () => {
   let component: ItemsWithBonusTypeComponent;
@@ -25,6 +26,7 @@ describe('ItemsWithBonusTypeComponent', () => {
       declarations: [
         ItemsWithBonusTypeComponent, ItemPreviewComponent, ExternalAffixFormComponent, ExternalAffixValueComponent, AutofocusDirective,
         FiligreeSetPreviewComponent, FiligreeSetDetailsComponent, SetBonusSummaryComponent, SlotIconComponent,
+        TapTooltipComponent, TapTooltipPanelComponent,
       ],
       imports: [FormsModule]
     })
@@ -271,6 +273,29 @@ describe('ItemsWithBonusTypeComponent', () => {
 
       expect(el.querySelector('h2')?.textContent?.replace(/\s+/g, ' ').trim()).toBe('Kinetic Lore: Artifact');
       expect(el.querySelector('.external-affix-panel')).not.toBeNull();
+    });
+
+    // The eye used to sit inside the collapse button: a tap collapsed the section, and the
+    // [title] it relied on never shows on touch.
+    it('shows what Non-gear is from its eye without collapsing the section, and still collapses from the rest of the bar', () => {
+      const el = open('Kinetic Lore', 'Artifact');
+      const panel = el.querySelector<HTMLElement>('.external-affix-panel')!;
+      const toggle = panel.querySelector<HTMLButtonElement>('.drawer-section-toggle')!;
+      const eye = panel.querySelector<HTMLButtonElement>('.drawer-section-title .tap-tooltip-trigger')!;
+      expect(toggle.contains(eye)).toBe(false);
+      expect(toggle.getAttribute('aria-expanded')).toBe('true');
+
+      eye.click();
+      fixture.detectChanges();
+      const bubble = panel.querySelector<HTMLElement>('.tap-tooltip-bubble')!;
+      expect(bubble.textContent).toContain('non-gear source');
+      expect(panel.querySelector('.drawer-section-title .tap-tooltip-bubble')).toBeNull();
+      expect(toggle.getAttribute('aria-expanded')).toBe('true');
+
+      toggle.click();
+      fixture.detectChanges();
+      expect(toggle.getAttribute('aria-expanded')).toBe('false');
+      expect(panel.querySelector('.tap-tooltip-bubble')).toBeNull();
     });
 
     it('titles a count affix by name alone and offers no non-gear sources', () => {

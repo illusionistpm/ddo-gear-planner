@@ -554,13 +554,14 @@ describe('EffectsTableComponent', () => {
     expect(groups[0].rows.map(row => row.affixName)).toEqual(['Max Filigree Slots']);
   });
 
-  it('files filigree and Mythic/Reaper chips in their own buckets, not by open gear slots', () => {
+  it('files filigree and Mythic/Reaper/Fortune chips in their own buckets, not by open gear slots', () => {
     component.affixNames = ['Physical Sheltering'];
     component.affixMap.set('Physical Sheltering', [
       { bonusType: 'Profane', value: 0 },
       { bonusType: 'Filigree', value: 0 },
       { bonusType: 'Mythic', value: 0 },
       { bonusType: 'Reaper', value: 0 },
+      { bonusType: 'Fortune', value: 0 },
     ]);
     vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockReturnValue([]);
     vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockReturnValue(5);
@@ -576,7 +577,7 @@ describe('EffectsTableComponent', () => {
     expect(groups.map(group => [group.key, group.label, group.rows.flatMap(row => row.chips.map(chip => chip.bonusType))]))
       .toEqual([
         ['filigree', 'Filigree', ['Filigree']],
-        ['item-bonuses', 'Mythic & Reaper', ['Mythic', 'Reaper']],
+        ['item-bonuses', 'Advanced bonuses', ['Fortune', 'Mythic', 'Reaper']],
         ['2', '2 open slots', ['Profane']],
       ]);
   });

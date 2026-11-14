@@ -9,6 +9,7 @@ import { Craftable } from '../gear/craftable';
 import { CraftableOption } from '../gear/craftable-option';
 import { Item } from '../gear/item';
 import { Observable, Subscription } from 'rxjs';
+import { skip } from 'rxjs/operators';
 
 import { perfAfterFrames, perfAggregateStart, perfStart } from '../shared/perf-trace';
 import { QuestService } from '../gear/quest.service';
@@ -19,6 +20,7 @@ import { CraftingSlotControlComponent } from '../crafting-slot-control/crafting-
 import { CRAFTING_PICKER_MIN_OPTIONS } from '../crafting-option-picker/crafting-option-picker.component';
 import { ITEM_BONUS_KINDS, ItemBonusKind } from '../gear/item-bonus';
 import { ItemBonusService } from '../gear/item-bonus.service';
+import { ITEM_BONUS_KIND_LABELS, ItemBonusSettingsService } from '../planner/item-bonus-settings.service';
 
 interface AffixDisplayRow {
   affix: Affix;
@@ -43,7 +45,7 @@ interface CraftingOptionDisplayRow {
   description: string;
 }
 
-/** A Mythic Boost, Reaper bonus or Curse row: shown once the item carries one, or while the card's editor is open. */
+/** A Mythic Boost, Reaper bonus or Curse row: shown for a system the player has switched on, or a bonus the item carries anyway. */
 interface ItemBonusDisplayRow {
   kind: ItemBonusKind;
   label: string;
@@ -59,12 +61,6 @@ interface ItemBonusDisplayRow {
   /** The native select's options, ranked as if chosen. Empty when the list is long enough for the picker, which ranks its own. */
   options: CraftingOptionDisplayRow[];
 }
-
-const ITEM_BONUS_LABELS: Record<ItemBonusKind, string> = {
-  mythic: 'Mythic',
-  reaper: 'Reaper',
-  curse: 'Curse',
-};
 
 interface SetDisplayRow {
   name: string;
@@ -86,8 +82,6 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
   @Input() showLootBadges = true;
   @Input() highlightAffixName: string | null = null;
   @Input() highlightBonusType: string | null = null;
-  /** Show a row for every kind of item bonus the item can carry, not just the ones it has (the card's bonus editor). */
-  @Input() editBonuses = false;
   curItem: Item | null = null;
   essenceCraftingML: number | null = null;
   affixRows: AffixDisplayRow[] = [];
@@ -108,15 +102,13 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     private userGear: UserGearService,
     private changeDetector: ChangeDetectorRef,
     private suggestionDrawer: SuggestionDrawerService,
-    private itemBonuses: ItemBonusService
+    private itemBonuses: ItemBonusService,
+    private itemBonusSettings: ItemBonusSettingsService
   ) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['item'] && !(this.item instanceof Observable)) {
       this.setCurrentItem(this.item);
-      this.changeDetector.markForCheck();
-    } else if (changes['editBonuses']) {
-      this.bonusRows = this.buildBonusRows();
       this.changeDetector.markForCheck();
     }
   }
@@ -140,6 +132,11 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     }));
     this.subscriptions.add(this.equipped.getActiveSetBonusesObservable().subscribe(() => {
       this.refreshDisplayRows();
+      this.changeDetector.markForCheck();
+    }));
+    // A system switched on or off adds or removes its row. skip(1): the current set is already in the rows.
+    this.subscriptions.add(this.itemBonusSettings.getEnabledKinds().pipe(skip(1)).subscribe(() => {
+      this.bonusRows = this.buildBonusRows();
       this.changeDetector.markForCheck();
     }));
   }
@@ -246,7 +243,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     for (const kind of ITEM_BONUS_KINDS) {
       const carried = item.bonuses[kind];
       const visibleOptions = editable ? this.bonusOptions(kind, item.slot) : [];
-      if (!carried && !(this.editBonuses && visibleOptions.length)) {
+      if (!carried && !(this.itemBonusSettings.isEnabled(kind) && visibleOptions.length)) {
         continue;
       }
       const selected = carried ?? this.itemBonuses.none;
@@ -255,7 +252,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
       const selectedAffix = selected.affixes[0];
       rows.push({
         kind,
-        label: ITEM_BONUS_LABELS[kind],
+        label: ITEM_BONUS_KIND_LABELS[kind],
         selected,
         context,
         visibleOptions,

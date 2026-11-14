@@ -18,6 +18,7 @@ import { EquippedService } from '../planner/equipped.service';
 import { FiltersService } from '../planner/filters.service';
 import { AffixEditorService } from '../planner/affix-editor.service';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
+import { ItemBonusSettingsService } from '../planner/item-bonus-settings.service';
 
 describe('MainComponent', () => {
   let component: MainComponent;
@@ -413,6 +414,28 @@ describe('MainComponent', () => {
 
       expect(component.activeFilterCount()).toBe(2);
       expect(fixture.nativeElement.querySelector('.planner-filter-count').textContent.trim()).toBe('2');
+    });
+
+    it('shows a chip in the filter sheet for each advanced bonus system switched on, apart from the filters, and switches it off from there', () => {
+      const settings = TestBed.inject(ItemBonusSettingsService);
+      const chips = () => Array.from(fixture.nativeElement.querySelectorAll('.planner-filter-active .planner-bonus-chip')) as HTMLElement[];
+      component.toggleFilters();
+      fixture.detectChanges();
+      expect(chips()).toEqual([]);
+
+      settings.setEnabled('reaper', true);
+      settings.setEnabled('mythic', true);
+      fixture.detectChanges();
+
+      expect(chips().map(chip => chip.querySelector('.planner-filter-chip-label')!.textContent)).toEqual(['Mythic', 'Reaper']);
+      expect(component.hasAnyActiveFilter()).toBe(false);
+
+      chips()[0].querySelector('button')!.click();
+      fixture.detectChanges();
+
+      expect([...settings.getEnabledKindsSnapshot()]).toEqual(['reaper']);
+      expect(chips().length).toBe(1);
+      component.closeFilters();
     });
 
     it('still reports whether anything is filtered at all', () => {

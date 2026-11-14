@@ -61,6 +61,42 @@
         <label class="form-check-label" for="sortOwnedToTop">Sort owned items to top</label>
       </div>
     </section>
+
+    <!-- Off by default, and nothing on the gear or in the build goals mentions these systems until one is on. -->
+    <section class="filter-panel bonus-systems-panel">
+      <h4 class="filter-panel-title">Advanced bonuses</h4>
+      <p class="owned-gear-help">
+        Extras your own copy of an item can carry. Switch on the ones you plan around: each adds a row
+        to your equipped gear and its bonus type to your build goals.
+      </p>
+      @for (system of bonusSystems; track system.kind) {
+        <div class="bonus-system" [attr.data-bonus-kind]="system.kind">
+          <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-input" id="bonusSystem-{{system.kind}}"
+              [attr.aria-describedby]="'bonusSystemHelp-' + system.kind"
+              [checked]="itemBonusSettings.isEnabled(system.kind)"
+              (change)="onToggleBonusSystem(system.kind, $any($event.target).checked)">
+            <label class="form-check-label" for="bonusSystem-{{system.kind}}">{{system.name}}</label>
+          </div>
+          <p class="bonus-system-help" id="bonusSystemHelp-{{system.kind}}">{{system.help}}</p>
+          @if (itemBonusSettings.isEnabled(system.kind) || equipped.countItemBonuses(system.kind)) {
+            <div class="bonus-system-actions">
+              <span class="bonus-system-count">On {{equipped.countItemBonuses(system.kind)}} equipped {{equipped.countItemBonuses(system.kind) === 1 ? 'item' : 'items'}}</span>
+              @if (itemBonusSettings.isEnabled(system.kind)) {
+                <button type="button" class="filter-link-button bonus-system-fill"
+                  [disabled]="!canAutoFillBonuses()"
+                  [title]="canAutoFillBonuses() ? 'Give every equipped item the ' + system.name + ' option that does most for your build goals' : 'Equip gear and choose build goals first'"
+                  (click)="autoFillBonuses(system.kind)">Fill for my goals</button>
+              }
+              @if (equipped.countItemBonuses(system.kind)) {
+                <button type="button" class="filter-link-button bonus-system-clear"
+                  (click)="clearBonuses(system.kind)">Remove all</button>
+              }
+            </div>
+          }
+        </div>
+      }
+    </section>
   </div>
 
   @if (packMode === 'owned') {

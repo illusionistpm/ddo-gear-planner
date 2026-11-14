@@ -111,3 +111,7 @@ afterEach(() => {
 // and each pins that spec's whole service graph until the file ends - a 30-spec file can
 // exhaust the heap. Yield once per spec, after the previous spec's TestBed teardown.
 beforeEach(() => new Promise<void>(resolve => setTimeout(resolve, 0)));
+
+// The Mythic / Reaper / Curse opt-in is a stored preference (ItemBonusSettingsService) that changes
+// which bonus types every affix has: a spec that switches one on must not leave it on for the next.
+afterEach(() => localStorage.removeItem('ddo-gear-planner-item-bonus-kinds'));

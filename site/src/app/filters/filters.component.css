@@ -7,7 +7,7 @@
 .filters-grid {
   display: grid;
   gap: var(--space-12);
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .filter-panel {
@@ -193,6 +193,49 @@
 
 .pack-filter-option label {
   overflow-wrap: anywhere;
+}
+
+.bonus-system + .bonus-system {
+  border-top: 1px solid var(--border-color);
+  margin-top: var(--space-8);
+  padding-top: var(--space-8);
+}
+
+.bonus-system-help {
+  color: var(--text-secondary);
+  font-size: 0.76rem;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.bonus-system-actions {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+  gap: var(--space-4) var(--space-12);
+  margin-top: var(--space-4);
+}
+
+.bonus-system-count {
+  color: var(--text-secondary);
+  font-weight: 700;
+}
+
+.bonus-system-actions .filter-link-button {
+  font-size: 0.8rem;
+}
+
+.bonus-system-actions .filter-link-button:disabled {
+  color: var(--text-secondary);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+@media (max-width: 1399.98px) {
+  .filters-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 991.98px) {

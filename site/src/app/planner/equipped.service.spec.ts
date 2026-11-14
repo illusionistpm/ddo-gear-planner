@@ -10,6 +10,8 @@ import { AffixRank } from '../affixes/affix-rank.enum';
 import { AffixUiService } from '../affixes/affix-ui.service';
 import { CraftableOption } from '../gear/craftable-option';
 import { Craftable } from '../gear/craftable';
+import { ItemBonusService } from '../gear/item-bonus.service';
+import { ItemBonusSettingsService } from './item-bonus-settings.service';
 
 function makeParamsAdapter(record: Record<string, unknown>) {
   return {
@@ -1005,12 +1007,117 @@ describe('EquippedService', () => {
       expect(service.getScore(bracers)).toBeGreaterThan(0);
     });
 
-    it('is offered at its best total from every slot, with nothing equipped', () => {
+    it('is not offered once nothing equipped supplies it, for a player who hasn\'t switched its system on', () => {
       service.clearSlot('Boots');
       service.clearSlot('Cloak');
 
+      expect((service as any).gearList.getBestValueForAffixType('Physical Sheltering', 'Mythic')).toBe(0);
+      expect(covered().get('Physical Sheltering')?.some(type => type.bonusType === 'Mythic')).toBe(false);
+    });
+
+    it('is offered at its best total from every slot, with nothing equipped, once its system is on', () => {
+      service.clearSlot('Boots');
+      service.clearSlot('Cloak');
+
+      TestBed.inject(ItemBonusSettingsService).setEnabled('mythic', true);
+
       expect((service as any).gearList.getBestValueForAffixType('Physical Sheltering', 'Mythic')).toBeGreaterThan(4);
       expect(covered().get('Physical Sheltering')?.find(type => type.bonusType === 'Mythic')?.value).toBe(0);
+      expect(covered().get('Physical Sheltering')?.some(type => type.bonusType === 'Reaper')).toBe(false);
+
+      TestBed.inject(ItemBonusSettingsService).setEnabled('mythic', false);
+
+      expect(covered().get('Physical Sheltering')?.some(type => type.bonusType === 'Mythic')).toBe(false);
+    });
+  });
+
+  // The opt-in systems (ItemBonusSettingsService) and the shortcuts for setting them across the build.
+  describe('Mythic Boosts, Reaper bonuses and Curses', () => {
+    let service: EquippedService;
+    let bonuses: ItemBonusService;
+    const bonusNames = (slot: string) => Object.fromEntries(
+      Object.entries(service.getSlotsSnapshot().get(slot)?.bonuses ?? {}).map(([kind, option]) => [kind, option?.name]));
+
+    beforeEach(() => {
+      service = TestBed.inject(EquippedService);
+      bonuses = TestBed.inject(ItemBonusService);
+      vi.spyOn(TestBed.inject(AffixAvailabilityService), 'getScarcityWeight').mockReturnValue(1);
+    });
+
+    it('offers Fortune at a curse\'s best value once Curses are on', () => {
+      const gearList = (service as any).gearList;
+      expect(gearList.getBestValueForAffixType('Strength', 'Fortune')).toBe(0);
+
+      TestBed.inject(ItemBonusSettingsService).setEnabled('curse', true);
+
+      expect(gearList.getBestValueForAffixType('Strength', 'Fortune')).toBe(2);
+      expect(gearList.getBestValueForAffixType('Physical Sheltering', 'Mythic')).toBe(0);
+    });
+
+    it('keeps a slot\'s bonuses when a different item goes into it', () => {
+      service.set(makeItem('Old Helm', 'Helm', 'Helm', []));
+      service.setItemBonus('Helm', 'mythic', bonuses.find('mythic', 'Helm', 'Mythic +3 (PRR/MRR)'));
+
+      service.set(makeItem('New Helm', 'Helm', 'Helm', []));
+
+      expect(service.getSlotsSnapshot().get('Helm')?.name).toBe('New Helm');
+      expect(bonusNames('Helm')).toEqual({ mythic: 'Mythic +3 (PRR/MRR)' });
+    });
+
+    it('takes the same item set again as it is given, so a bonus can be removed', () => {
+      service.set(makeItem('Old Helm', 'Helm', 'Helm', []));
+      service.setItemBonus('Helm', 'mythic', bonuses.find('mythic', 'Helm', 'Mythic +3 (PRR/MRR)'));
+
+      service.set(makeItem('Old Helm', 'Helm', 'Helm', []));
+
+      expect(bonusNames('Helm')).toEqual({});
+    });
+
+    it('fills every equipped item with the option that does most for the build goals', () => {
+      service.setImportantAffixes(['Physical Sheltering']);
+      service.set(makeItem('Helm', 'Helm', 'Helm', []));
+      service.set(makeItem('Armor', 'Armor', 'Armor', []));
+      service.set(makeItem('Belt', 'Belt', 'Belts', []));
+
+      service.autoFillItemBonuses('mythic');
+      service.autoFillItemBonuses('reaper');
+
+      expect(bonusNames('Helm')).toEqual({ mythic: 'Mythic +3 (PRR/MRR)', reaper: 'Reaper Enchantment: Physical Resistance Rating' });
+      expect(bonusNames('Armor').mythic).toBe('Mythic +4 (PRR/MRR)');
+      // A belt's Mythic Boost is Power only, which isn't a goal: left alone.
+      expect(bonusNames('Belt').mythic).toBeUndefined();
+      expect(service.countItemBonuses('mythic')).toBe(2);
+    });
+
+    it('fills a curse only where it adds to what the build has, since Fortune does not stack', () => {
+      service.setImportantAffixes(['Strength']);
+      service.set(makeItem('Helm', 'Helm', 'Helm', []));
+      service.set(makeItem('Armor', 'Armor', 'Armor', []));
+
+      service.autoFillItemBonuses('curse');
+
+      expect(service.countItemBonuses('curse')).toBe(1);
+      expect(service.getCurrentValueForAffixType('Strength', 'Fortune')).toBe(2);
+    });
+
+    it('keeps a bonus that already does more than any other would', () => {
+      service.setImportantAffixes(['Melee Power']);
+      service.set(makeItem('Helm', 'Helm', 'Helm', []));
+      service.setItemBonus('Helm', 'mythic', bonuses.find('mythic', 'Helm', 'Mythic +1 (PRR/MRR)'));
+
+      service.autoFillItemBonuses('mythic');
+
+      expect(bonusNames('Helm')).toEqual({ mythic: 'Mythic +1 (PRR/MRR)' });
+    });
+
+    it('removes every bonus of one kind, leaving the others', () => {
+      service.set(makeItem('Helm', 'Helm', 'Helm', []));
+      service.setItemBonus('Helm', 'mythic', bonuses.find('mythic', 'Helm', 'Mythic +3 (PRR/MRR)'));
+      service.setItemBonus('Helm', 'reaper', bonuses.find('reaper', 'Helm', 'Reaper Helmet Enchantment'));
+
+      service.clearItemBonuses('mythic');
+
+      expect(bonusNames('Helm')).toEqual({ reaper: 'Reaper Helmet Enchantment' });
     });
   });
 

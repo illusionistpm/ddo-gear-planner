@@ -42,7 +42,7 @@ describe('ItemBonusService', () => {
   });
 
   it('totals the best Mythic and Reaper option in each slot, counting both rings and no quiver', () => {
-    const maxima = new Map(service.getMaxima(['Armor', 'Boots', 'Ring1', 'Ring2', 'Quiver'])
+    const maxima = new Map(service.getMaxima(['Armor', 'Boots', 'Ring1', 'Ring2', 'Quiver'], ['mythic', 'reaper'])
       .map(affix => [`${affix.name}/${affix.type}`, affix.value]));
 
     // Mythic: +4 armor and +3 boots; +3 on each ring.
@@ -54,6 +54,24 @@ describe('ItemBonusService', () => {
     // +10 from each ring's boost and +3 from the Power enchantment on armor and boots.
     expect(maxima.get('Universal Spell Power/Reaper')).toBe(26);
     expect([...maxima.keys()].some(key => key.endsWith('/Fortune'))).toBe(false);
+  });
+
+  it('totals only the kinds asked for', () => {
+    const types = (kinds: Array<'mythic' | 'reaper' | 'curse'>) =>
+      [...new Set(service.getMaxima(['Armor', 'Boots'], kinds).map(affix => affix.type))]
+        .filter(type => ['Mythic', 'Reaper', 'Fortune'].includes(type)).sort();
+
+    expect(service.getMaxima(['Armor', 'Boots'], [])).toEqual([]);
+    expect(types(['reaper'])).toEqual(['Reaper']);
+    expect(types(['mythic', 'curse'])).toEqual(['Fortune', 'Mythic']);
+  });
+
+  it('offers a Curse\'s Fortune bonus at its best value, however many slots could carry it', () => {
+    const strength = (slots: string[]) => service.getMaxima(slots, ['curse'])
+      .find(affix => affix.name === 'Strength' && affix.type === 'Fortune')?.value;
+
+    expect(strength(['Armor'])).toBe(2);
+    expect(strength(['Armor', 'Boots', 'Ring1'])).toBe(2);
   });
 
   it('hands out one shared option, as items carry it by reference', () => {

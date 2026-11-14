@@ -6,6 +6,9 @@ import { EquippedService } from '../planner/equipped.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { By } from '@angular/platform-browser';
 import { CraftingOptionPickerComponent } from '../crafting-option-picker/crafting-option-picker.component';
+import { ItemBonusKind } from '../gear/item-bonus';
+import { ItemBonusService } from '../gear/item-bonus.service';
+import { ItemBonusSettingsService } from '../planner/item-bonus-settings.service';
 
 describe('EquipmentSlotCardComponent', () => {
   let fixture: ComponentFixture<EquipmentSlotCardComponent>;
@@ -56,9 +59,11 @@ describe('EquipmentSlotCardComponent', () => {
 
   describe('Mythic, Reaper and Curse bonuses', () => {
     let equipped: EquippedService;
+    let settings: ItemBonusSettingsService;
 
     beforeEach(() => {
       equipped = TestBed.inject(EquippedService);
+      settings = TestBed.inject(ItemBonusSettingsService);
     });
 
     function equip(slot: string): HTMLElement {
@@ -66,12 +71,11 @@ describe('EquipmentSlotCardComponent', () => {
       return render(slot);
     }
 
-    function openEditor(card: HTMLElement) {
-      bonusButton(card)!.click();
+    function switchOn(...kinds: ItemBonusKind[]) {
+      kinds.forEach(kind => settings.setEnabled(kind, true));
       fixture.detectChanges();
     }
 
-    const bonusButton = (card: HTMLElement) => card.querySelector<HTMLButtonElement>('.slot-bonus-button');
     const bonusRows = (card: HTMLElement) => Array.from(card.querySelectorAll<HTMLElement>('.item-bonus-row'));
     const rowLabels = (card: HTMLElement) => bonusRows(card).map(row => row.querySelector('.col')!.textContent!.trim());
     const optionClass = (row: HTMLElement, name: string) => Array.from(row.querySelectorAll('option'))
@@ -90,25 +94,51 @@ describe('EquipmentSlotCardComponent', () => {
       fixture.detectChanges();
     }
 
-    it('has no button for an empty slot or a quiver', () => {
-      expect(bonusButton(render('Helm'))).toBeNull();
-      expect(bonusButton(equip('Quiver'))).toBeNull();
+    it('shows nothing of them to a player who hasn\'t switched a system on', () => {
+      const card = equip('Helm');
+
+      expect(bonusRows(card)).toEqual([]);
+      expect(card.textContent).not.toMatch(/Mythic|Reaper|Curse/);
     });
 
-    it('shows no rows until the button opens them, then one per kind', () => {
+    it('shows a row for each system switched on, and only those', () => {
       const card = equip('Helm');
-      expect(bonusRows(card)).toEqual([]);
 
-      openEditor(card);
+      switchOn('reaper');
+      expect(rowLabels(card)).toEqual(['Reaper']);
 
+      switchOn('mythic', 'curse');
       expect(rowLabels(card)).toEqual(['Mythic', 'Reaper', 'Curse']);
-      expect(bonusButton(card)!.getAttribute('aria-pressed')).toBe('true');
+
+      settings.setEnabled('reaper', false);
+      fixture.detectChanges();
+      expect(rowLabels(card)).toEqual(['Mythic', 'Curse']);
+    });
+
+    it('has no rows for an empty slot or a quiver', () => {
+      const empty = render('Helm');
+      switchOn('mythic', 'reaper', 'curse');
+
+      expect(bonusRows(empty)).toEqual([]);
+      expect(bonusRows(equip('Quiver'))).toEqual([]);
+    });
+
+    it('still shows a bonus the item carries when its system is off, as a shared build\'s does', () => {
+      const card = equip('Helm');
+      equipped.setItemBonus('Helm', 'reaper', TestBed.inject(ItemBonusService).find('reaper', 'Helm', 'Reaper Helmet Enchantment'));
+      fixture.detectChanges();
+
+      expect(rowLabels(card)).toEqual(['Reaper']);
+
+      choose(bonusRows(card)[0], 'None');
+
+      expect(bonusRows(card)).toEqual([]);
     });
 
     it('colours each option by what it would do for the tracked affixes, as a crafting list does', () => {
       equipped.setImportantAffixes(['Physical Sheltering']);
       const card = equip('Helm');
-      openEditor(card);
+      switchOn('mythic', 'reaper');
       const [mythic, reaper] = bonusRows(card);
 
       expect(optionClass(mythic, 'Mythic +3 (PRR/MRR)')).toBe('BetterThanBest');
@@ -120,7 +150,7 @@ describe('EquipmentSlotCardComponent', () => {
     it('ranks an option against the bonus it would replace', () => {
       equipped.setImportantAffixes(['Physical Sheltering']);
       const card = equip('Helm');
-      openEditor(card);
+      switchOn('mythic');
       choose(bonusRows(card)[0], 'Mythic +3 (PRR/MRR)');
 
       expect(optionClass(bonusRows(card)[0], 'Mythic +3 (PRR/MRR)')).toBe('Best');
@@ -129,34 +159,24 @@ describe('EquipmentSlotCardComponent', () => {
 
     it('picks a curse from the searchable list long crafting lists use', () => {
       const card = equip('Helm');
-      openEditor(card);
+      switchOn('curse');
 
-      expect(bonusRows(card)[2].querySelector('app-crafting-option-picker')).not.toBeNull();
+      expect(bonusRows(card)[0].querySelector('app-crafting-option-picker')).not.toBeNull();
 
       chooseCurse(card, 'Curse of Major Strength');
 
       expect(equipped.getSlotsSnapshot().get('Helm')?.bonuses.curse?.name).toBe('Curse of Major Strength');
     });
 
-    it('keeps only the chosen rows once closed', () => {
+    it('takes a bonus off again with None, keeping the row while its system is on', () => {
       const card = equip('Helm');
-      openEditor(card);
-      choose(bonusRows(card)[1], 'Reaper Helmet Enchantment');
-
-      openEditor(card);
-
-      expect(rowLabels(card)).toEqual(['Reaper']);
-      expect(bonusButton(card)!.classList).toContain('is-active');
-    });
-
-    it('takes a bonus off again with None', () => {
-      const card = equip('Helm');
-      openEditor(card);
+      switchOn('mythic');
       choose(bonusRows(card)[0], 'Mythic +3 (PRR/MRR)');
 
       choose(bonusRows(card)[0], 'None');
 
       expect(equipped.getSlotsSnapshot().get('Helm')?.bonuses).toEqual({});
+      expect(rowLabels(card)).toEqual(['Mythic']);
     });
   });
 });

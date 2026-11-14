@@ -23,7 +23,8 @@ import { AffixService } from '../affixes/affix.service';
 import { AffixAvailabilityService } from '../affixes/affix-availability.service';
 import { EssenceCraftingService } from '../gear/essence-crafting.service';
 import { ItemBonusService } from '../gear/item-bonus.service';
-import { ITEM_BONUS_KINDS } from '../gear/item-bonus';
+import { ITEM_BONUS_KINDS, ItemBonusKind } from '../gear/item-bonus';
+import { CraftableOption } from '../gear/craftable-option';
 import { emptiesOffhand, limitsOffhandToRuneArms, slotsFromParams } from './slots-from-params';
 import { perfCount, perfMeasure, perfStart } from '../shared/perf-trace';
 import { CoveredBonusType, moderateValueThreshold } from '../affixes/tracked-affix-derivation';
@@ -216,6 +217,8 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
         this._updateCoveredAffixes(false);
       }
     });
+    // A Mythic / Reaper / Curse system switched on or off: its bonus type joins or leaves every affix.
+    this.gearList.getBonusTypesChanged().subscribe(() => this._updateCoveredAffixes(false));
   }
 
   updateFromParams(params: ParamsAdapter) {
@@ -439,12 +442,106 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     }
 
     const done = perfStart('EquippedService.set');
-    this._set(new Item(item));
+    const copy = new Item(item);
+    // A different item for the slot keeps the slot's Mythic Boost, Reaper bonus and Curse: what a slot
+    // can carry doesn't depend on the item, and a plan to farm one outlives trying another piece there.
+    // The same item set again is an edit of it (a bonus set to None included), so it is taken as given.
+    const replaced = this.getSlotValue(item.slot);
+    if (replaced && replaced.name !== item.name) {
+      copy.bonuses = { ...replaced.bonuses, ...copy.bonuses };
+    }
+    this._set(copy);
     this._enforceOffhandCompatibility();
 
     this._updateRouterState();
     this.equippedItemSubject.next({ slot: item.slot, itemName: item.name });
     done({ slot: item.slot, item: item.name });
+  }
+
+  /** How many equipped items carry a bonus of `kind`. */
+  countItemBonuses(kind: ItemBonusKind): number {
+    return [...this.slots.values()].filter(subject => subject.getValue()?.bonuses[kind]).length;
+  }
+
+  /**
+   * Sets every equipped item's bonus of `kind` at once: to what `choose` picks from the options its slot
+   * can carry, or to none where it picks nothing. Slots that can't carry the kind are left alone. Items
+   * are set in slot order, each before the next is chosen, so `choose` sees the build so far.
+   */
+  setItemBonuses(kind: ItemBonusKind, choose: (item: Item, options: readonly CraftableOption[]) => CraftableOption | undefined) {
+    this.beginDerivedStateBatch();
+    try {
+      for (const [slot, subject] of this.slots) {
+        const item = subject.getValue();
+        const options = item ? this.itemBonuses.getOptions(kind, slot) : [];
+        const option = item && options.length ? choose(item, options) : undefined;
+        if (!item || !options.length || item.bonuses[kind] === option) {
+          continue;
+        }
+        const copy = new Item(item);
+        if (option) {
+          copy.bonuses[kind] = option;
+        } else {
+          delete copy.bonuses[kind];
+        }
+        this.setSlot(slot, copy);
+      }
+    } finally {
+      this.endDerivedStateBatch();
+    }
+    this._updateRouterState();
+  }
+
+  /** Sets the bonus of `kind` on the item equipped in `slot`, or removes it. */
+  setItemBonus(slot: string, kind: ItemBonusKind, option: CraftableOption | undefined) {
+    const item = this.getSlotValue(slot);
+    if (!item || item.bonuses[kind] === option) {
+      return;
+    }
+    const copy = new Item(item);
+    if (option) {
+      copy.bonuses[kind] = option;
+    } else {
+      delete copy.bonuses[kind];
+    }
+    this.setSlot(slot, copy);
+    this._updateRouterState();
+  }
+
+  /** Removes every equipped item's bonus of `kind`. */
+  clearItemBonuses(kind: ItemBonusKind) {
+    this.setItemBonuses(kind, () => undefined);
+  }
+
+  /**
+   * Gives every equipped item the bonus of `kind` that does most for the build goals, scored as an item
+   * suggestion is (getScore): a type that stacks counts on every item, one that doesn't (a Curse's
+   * Fortune) only where it beats what the build already has - so a second item gets a different curse.
+   * An item none of whose options helps a goal keeps the bonus it has.
+   */
+  autoFillItemBonuses(kind: ItemBonusKind) {
+    this.setItemBonuses(kind, (item, options) => {
+      const withBonus = (option?: CraftableOption) => {
+        const copy = new Item(item);
+        if (option) {
+          copy.bonuses[kind] = option;
+        } else {
+          delete copy.bonuses[kind];
+        }
+        return this.getScore(copy);
+      };
+      let best = item.bonuses[kind];
+      let bestScore = withBonus(best);
+      const withoutScore = withBonus();
+      for (const option of options) {
+        const score = withBonus(option);
+        if (score > bestScore && score > withoutScore) {
+          best = option;
+          bestScore = score;
+        }
+      }
+      return best;
+    });
   }
 
   clearSlot(slot: string) {
@@ -948,7 +1045,11 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     return important;
   }
 
-  /** The item-bonus types (Mythic, Reaper, Fortune) equipped gear supplies for an affix. GearDbService offers Mythic and Reaper anyway; Fortune only shows from here. */
+  /**
+   * The item-bonus types (Mythic, Reaper, Fortune) equipped gear supplies for an affix. GearDbService
+   * offers only those whose system the player has switched on; a build that carries another (a shared
+   * link, or a system since switched off) still shows it, since it counts towards the total.
+   */
   private getEquippedItemBonusTypes(affixName: string): Set<string> {
     const types = new Set<string>();
     for (const [, subject] of this.slots) {
@@ -957,7 +1058,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
         continue;
       }
       for (const affix of this.affixSvc.getActiveAffixes(item)) {
-        if (ITEM_BONUS_TYPES.includes(affix.type) && this.affixSvc.resolvesToAffix(affix.name, affixName)) {
+        if (ITEM_BONUS_TYPES.has(affix.type) && this.affixSvc.resolvesToAffix(affix.name, affixName)) {
           types.add(affix.type);
         }
       }

@@ -16,6 +16,7 @@ import { FiligreeSetDetailsComponent } from '../filigree-set-details/filigree-se
 import { SlotIconComponent } from '../slot-icon/slot-icon.component';
 import { SetBonusSummaryComponent } from '../set-bonus-summary/set-bonus-summary.component';
 import { TapTooltipComponent, TapTooltipPanelComponent } from '../tap-tooltip/tap-tooltip.component';
+import { ItemBonusService } from '../gear/item-bonus.service';
 
 describe('ItemsWithBonusTypeComponent', () => {
   let component: ItemsWithBonusTypeComponent;
@@ -41,6 +42,61 @@ describe('ItemsWithBonusTypeComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('Mythic Boosts, Reaper bonuses and Curses', () => {
+    const item = (name: string, slot: string) => new Item({ name, slot, type: slot, ml: 30, affixes: [], crafting: [], quests: [] });
+    const rows = (element: HTMLElement) => Array.from(element.querySelectorAll<HTMLElement>('.item-bonus-matches .item-result-row'));
+
+    function show(affixName: string, bonusType: string) {
+      fixture.componentRef.setInput('affixName', affixName);
+      fixture.componentRef.setInput('bonusType', bonusType);
+      fixture.detectChanges();
+      return fixture.nativeElement as HTMLElement;
+    }
+
+    it('has no such section for a bonus type game data\'s gear carries', () => {
+      expect(show('Physical Sheltering', 'Enhancement').querySelector('.item-bonus-matches')).toBeNull();
+    });
+
+    it('says where the bonus goes when nothing equipped can carry it', () => {
+      const element = show('Physical Sheltering', 'Mythic');
+
+      expect(rows(element)).toEqual([]);
+      expect(element.querySelector('.item-bonus-match-empty')!.textContent).toContain('Mythic bonus is set on a piece of gear you have equipped');
+    });
+
+    it('lists each equipped item whose slot offers it, with its best option, and sets it from there', () => {
+      component.equipped.set(item('Test Helm', 'Helm'));
+      component.equipped.set(item('Test Armor', 'Armor'));
+      // A belt's Mythic Boost is Power, not PRR.
+      component.equipped.set(item('Test Belt', 'Belt'));
+      const element = show('Physical Sheltering', 'Mythic');
+
+      expect(component.itemBonusMatches.map(match => [match.slot, match.option.name, match.value, match.chosen])).toEqual([
+        ['Armor', 'Mythic +4 (PRR/MRR)', 4, false],
+        ['Helm', 'Mythic +3 (PRR/MRR)', 3, false],
+      ]);
+
+      rows(element)[0].querySelector<HTMLButtonElement>('.equip-button')!.click();
+      fixture.detectChanges();
+
+      expect(component.equipped.getSlotsSnapshot().get('Armor')?.bonuses.mythic?.name).toBe('Mythic +4 (PRR/MRR)');
+      expect(rows(element)[0].querySelector('.equip-button')).toBeNull();
+      expect(rows(element)[0].querySelector('.item-bonus-match-set')).not.toBeNull();
+    });
+
+    it('offers to replace a lesser bonus the item carries', () => {
+      component.equipped.set(item('Test Helm', 'Helm'));
+      component.equipped.setItemBonus('Helm', 'reaper',
+        TestBed.inject(ItemBonusService).find('reaper', 'Helm', 'Reaper Enchantment: Power'));
+
+      const element = show('Physical Sheltering', 'Reaper');
+
+      const button = rows(element)[0].querySelector<HTMLButtonElement>('.equip-button')!;
+      expect(button.textContent).toBe('Replace');
+      expect(button.title).toBe('Replaces Reaper Enchantment: Power');
+    });
   });
 
   describe('filigree', () => {

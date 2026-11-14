@@ -28,6 +28,24 @@ import { isOptionHiddenByPacks } from '../gear/pack-filter';
 import { FiligreeAffixMatch, FiligreeDbService, FiligreeSetAffixMatch } from '../gear/filigree-db.service';
 import { FILIGREE_HOST_TEXT, FILIGREE_HOSTS, FiligreeHost } from '../gear/filigree';
 import { FiligreeLoadoutService } from '../planner/filigree-loadout.service';
+import { ITEM_BONUS_KINDS, ItemBonusKind } from '../gear/item-bonus';
+import { ItemBonusService } from '../gear/item-bonus.service';
+import { ITEM_BONUS_TYPE_BY_KIND } from '../affixes/item-bonus-types';
+import { ITEM_BONUS_KIND_LABELS } from '../planner/item-bonus-settings.service';
+import { slotLabel } from '../gear/slot-display';
+
+/** An equipped item and the Mythic Boost, Reaper bonus or Curse its slot offers that gives most of this affix and type. */
+interface ItemBonusMatch {
+  slot: string;
+  slotLabel: string;
+  itemName: string;
+  option: CraftableOption;
+  value: number;
+  /** The item carries this very option. */
+  chosen: boolean;
+  /** What the item carries of this kind instead, which choosing this would replace. */
+  replaces: string;
+}
 
 /** An open augment slot on an equipped item that could take the chosen augment. */
 interface AugmentSlotChoice {
@@ -122,6 +140,11 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
   readonly filigreeHosts = FILIGREE_HOSTS;
   readonly filigreeHostText = FILIGREE_HOST_TEXT;
 
+  /** Set when the bonus type is one only a player's copy of an item carries: the kind, and where it can go. */
+  itemBonusKind: ItemBonusKind | null = null;
+  itemBonusLabel = '';
+  itemBonusMatches: ItemBonusMatch[] = [];
+
   private collapsedSections = new Set<string>();
 
   selectedAugmentSlot?: AugmentSlotChoice;
@@ -152,7 +175,8 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     private drawerEquip: DrawerEquipService,
     private changeDetector: ChangeDetectorRef,
     private filigreeDb: FiligreeDbService,
-    public filigree: FiligreeLoadoutService
+    public filigree: FiligreeLoadoutService,
+    private itemBonuses: ItemBonusService
   ) {
   }
 
@@ -341,6 +365,59 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     const flatten = (affixes: Affix[]) => this.affixSvc.flattenAffixGroups(affixes, true);
     this.filigreeMatches = this.filigreeDb.findFiligreesWithAffixAndType(this.affixName, this.bonusType, flatten);
     this.filigreeSetMatches = this.filigreeDb.findSetsWithAffixAndType(this.affixName, this.bonusType, flatten);
+
+    this.refreshItemBonusMatches();
+  }
+
+  /**
+   * A Mythic, Reaper or Fortune bonus comes from no item in game data: it is set on the gear already
+   * equipped. So the drawer lists that gear, each piece with the option its slot offers that gives the
+   * most, ready to set from here.
+   */
+  private refreshItemBonusMatches() {
+    const kind = ITEM_BONUS_KINDS.find(each => ITEM_BONUS_TYPE_BY_KIND[each] === this.bonusType) ?? null;
+    this.itemBonusKind = kind;
+    this.itemBonusLabel = kind ? ITEM_BONUS_KIND_LABELS[kind] : '';
+    this.itemBonusMatches = [];
+    if (!kind) {
+      return;
+    }
+    for (const [slot, item] of this.equipped.getSlotsSnapshot()) {
+      if (!item) {
+        continue;
+      }
+      let best: CraftableOption | undefined;
+      let bestValue = 0;
+      const carried = item.bonuses[kind];
+      for (const option of this.itemBonuses.getOptions(kind, slot)) {
+        const value = Number(option.getMatchingBonusType(this.affixName, this.bonusType, this.affixSvc) ?? 0);
+        // The option the item carries wins a tie, so a piece already at its best reads as set.
+        if (value > bestValue || (value === bestValue && value > 0 && option === carried)) {
+          best = option;
+          bestValue = value;
+        }
+      }
+      if (best) {
+        this.itemBonusMatches.push({
+          slot,
+          slotLabel: slotLabel(slot),
+          itemName: item.name,
+          option: best,
+          value: bestValue,
+          chosen: carried === best,
+          replaces: carried && carried !== best ? carried.name : '',
+        });
+      }
+    }
+  }
+
+  setItemBonus(match: ItemBonusMatch) {
+    if (!this.itemBonusKind) {
+      return;
+    }
+    this.equipped.setItemBonus(match.slot, this.itemBonusKind, match.option);
+    this.analytics.track('set_item_bonus_from_bonus_type', { kind: this.itemBonusKind, slot: match.slot });
+    this.refreshMatches();
   }
 
   showItemPreview(item: Item, items: Item[], index: number) {

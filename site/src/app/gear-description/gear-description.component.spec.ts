@@ -287,6 +287,98 @@ describe('GearDescriptionComponent', () => {
     });
   });
 
+  // Pinned through the DOM before the crafting controls move into a component of their own.
+  describe('editing crafting slots through the rows', () => {
+    let setSpy: ReturnType<typeof vi.spyOn>;
+
+    beforeEach(() => {
+      setSpy = vi.spyOn(TestBed.inject(EquippedService), 'set').mockReturnValue(undefined);
+    });
+
+    async function show(item: Item, readonly = false) {
+      fixture.componentRef.setInput('readonly', readonly);
+      fixture.componentRef.setInput('item', item);
+      fixture.detectChanges();
+      await fixture.whenStable();
+      fixture.detectChanges();
+    }
+
+    function craftingRows(): HTMLElement[] {
+      return Array.from(fixture.nativeElement.querySelectorAll('.row') as NodeListOf<HTMLElement>)
+        .filter(row => row.querySelector('select') || row.querySelector('.readonly-crafting-option'));
+    }
+
+    async function choose(select: HTMLSelectElement, label: string) {
+      select.dispatchEvent(new Event('focus'));
+      fixture.detectChanges();
+      const index = Array.from(select.options).findIndex(option => option.textContent!.trim() === label);
+      expect(index).toBeGreaterThanOrEqual(0);
+      select.selectedIndex = index;
+      select.dispatchEvent(new Event('change'));
+      fixture.detectChanges();
+      await fixture.whenStable();
+      fixture.detectChanges();
+    }
+
+    const lastEquipped = () => setSpy.mock.calls[setSpy.mock.calls.length - 1][0] as Item;
+
+    it('equips the item with an option chosen from a short list', async () => {
+      await show(makeItemWithLeveledOptions());
+
+      await choose(craftingRows()[0].querySelector('select')!, 'Low Augment');
+
+      expect(lastEquipped().getCraftingByName('Colorless Augment Slot')?.selected.name).toBe('Low Augment');
+    });
+
+    it('opens augment slot 2 when a colour is chosen for slot 1, and equips the item', async () => {
+      await show(makeItemWithAugmentSlots());
+      expect(craftingRows()).toHaveLength(1);
+      const systemSelect = craftingRows()[0].querySelector('select')!;
+      expect(systemSelect.selectedOptions[0].textContent!.trim()).toBe('No augment slot');
+
+      await choose(systemSelect, 'Blue Augment Slot');
+
+      expect(lastEquipped().getCraftingByName('Augment Slot 1')?.selectedCraftingSystemName).toBe('Blue Augment Slot');
+      expect(craftingRows()).toHaveLength(2);
+      const slotTwoSystems = Array.from(craftingRows()[1].querySelector('select')!.options).map(option => option.textContent!.trim());
+      expect(slotTwoSystems).toEqual(['No augment slot', 'Colorless Augment Slot']);
+    });
+
+    it('closes and clears augment slot 2 when slot 1 is changed to Colorless', async () => {
+      const item = makeItemWithAugmentSlots();
+      item.getCraftingByName('Augment Slot 1')?.selectCraftingSystem('Blue Augment Slot');
+      item.getCraftingByName('Augment Slot 2')?.selectCraftingSystem('Colorless Augment Slot');
+      await show(item);
+      expect(craftingRows()).toHaveLength(2);
+
+      await choose(craftingRows()[0].querySelector('select')!, 'Colorless Augment Slot');
+
+      expect(lastEquipped().getCraftingByName('Augment Slot 2')?.selectedCraftingSystemName).toBe('');
+      expect(craftingRows()).toHaveLength(1);
+    });
+
+    it('uses the picker for a long list and a select for a short one', async () => {
+      await show(makeItemWithLongCraftingList());
+      expect(fixture.nativeElement.querySelector('.crafting-picker-toggle')).toBeTruthy();
+
+      await show(makeItemWithLeveledOptions());
+      expect(fixture.nativeElement.querySelector('.crafting-picker-toggle')).toBeNull();
+      expect(craftingRows()[0].querySelector('select')).toBeTruthy();
+    });
+
+    it('shows the chosen option as text when read-only, and Empty when there is none', async () => {
+      const item = makeItemWithLeveledOptions();
+      await show(item, true);
+      expect(fixture.nativeElement.querySelector('.readonly-crafting-option').textContent.trim()).toBe('Empty');
+
+      const chosen = makeItemWithLeveledOptions();
+      chosen.crafting[0].selectByParamDescription('Mid Augment');
+      await show(chosen, true);
+      expect(fixture.nativeElement.querySelector('.readonly-crafting-option').textContent.trim()).toContain('Mid Augment');
+      expect(fixture.nativeElement.querySelector('select')).toBeNull();
+    });
+  });
+
   describe('owned augments', () => {
     const importTrove = (...names: string[]) => TestBed.inject(UserGearService).importFromTroveCsv(
       ['SubscriptionHash,Character,Location,Tab,Name,Quantity,Binding',

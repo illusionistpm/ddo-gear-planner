@@ -1,6 +1,7 @@
 <div class="row slot-header" [class.header-only]="!equipped.hasItem(slot)">
   <button type="button" class="btn btn-secondary slot-select-button text-start col-12"
     [class.has-clear]="equipped.hasItem(slot)"
+    [class.has-bonus-button]="equipped.hasItem(slot) && canTakeBonuses()"
     [class.is-empty]="!equipped.hasItem(slot)"
     [disabled]="equipped.isSlotDisabled(slot)"
     [title]="getSlotTitle()"
@@ -30,6 +31,17 @@
       <div class="item-name" appShrinkToFit>{{itemName}}</div>
     }
   </button>
+  @if (equipped.hasItem(slot) && !equipped.isSlotDisabled(slot) && canTakeBonuses()) {
+    <button type="button" class="slot-bonus-button"
+      [class.is-active]="editingBonuses || hasBonuses"
+      [attr.aria-pressed]="editingBonuses"
+      aria-label="Mythic, Reaper and Curse bonuses for {{label}}"
+      title="Mythic, Reaper and Curse bonuses"
+      (mousedown)="preserveScrollOnMouseDown($event)"
+      (click)="toggleBonusEditor()">
+      <i class="fas fa-wand-magic-sparkles" aria-hidden="true"></i>
+    </button>
+  }
   @if (equipped.hasItem(slot) && !equipped.isSlotDisabled(slot)) {
     <button type="button" class="icon-x-button icon-x-button-overlay slot-clear-button"
       aria-label="Clear {{label}}"
@@ -40,7 +52,7 @@
     </button>
   }
 </div>
-<app-gear-description [item]=equipped.getSlot(slot) [showLootBadges]="false"></app-gear-description>
+<app-gear-description [item]=equipped.getSlot(slot) [showLootBadges]="false" [editBonuses]="editingBonuses"></app-gear-description>
 @if (filigreeHost) {
   <app-filigree-slots [host]="filigreeHost"></app-filigree-slots>
 }

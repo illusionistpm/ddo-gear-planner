@@ -15,6 +15,8 @@ import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.
 import { UserGearService, UserItemLocation } from '../planner/user-gear.service';
 import { isCraftingSlotAvailable, normalizeAugmentSlots } from '../gear/augment-slots';
 import { CraftingSlotControlComponent } from '../crafting-slot-control/crafting-slot-control.component';
+import { ITEM_BONUS_KINDS, ItemBonusKind, ItemBonusOption } from '../gear/item-bonus';
+import { ItemBonusService } from '../gear/item-bonus.service';
 
 interface AffixDisplayRow {
   affix: Affix;
@@ -31,6 +33,24 @@ interface CraftingDisplayRow {
   craft: Craftable;
   important: boolean;
 }
+
+/** A Mythic Boost, Reaper bonus or Curse row: shown once the item carries one, or while the card's editor is open. */
+interface ItemBonusDisplayRow {
+  kind: ItemBonusKind;
+  label: string;
+  selected: ItemBonusOption | null;
+  /** Empty when the row can't be edited (a read-only description). */
+  options: readonly ItemBonusOption[];
+  className: string;
+  tooltip: string;
+  important: boolean;
+}
+
+const ITEM_BONUS_LABELS: Record<ItemBonusKind, string> = {
+  mythic: 'Mythic',
+  reaper: 'Reaper',
+  curse: 'Curse',
+};
 
 interface SetDisplayRow {
   name: string;
@@ -52,10 +72,13 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
   @Input() showLootBadges = true;
   @Input() highlightAffixName: string | null = null;
   @Input() highlightBonusType: string | null = null;
+  /** Show a row for every kind of item bonus the item can carry, not just the ones it has (the card's bonus editor). */
+  @Input() editBonuses = false;
   curItem: Item | null = null;
   essenceCraftingML: number | null = null;
   affixRows: AffixDisplayRow[] = [];
   craftingRows: CraftingDisplayRow[] = [];
+  bonusRows: ItemBonusDisplayRow[] = [];
   setRows: SetDisplayRow[] = [];
   @ViewChildren(CraftingSlotControlComponent) private craftingControls?: QueryList<CraftingSlotControlComponent>;
   private subscriptions = new Subscription();
@@ -68,12 +91,16 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     private questService: QuestService,
     private userGear: UserGearService,
     private changeDetector: ChangeDetectorRef,
-    private suggestionDrawer: SuggestionDrawerService
+    private suggestionDrawer: SuggestionDrawerService,
+    private itemBonuses: ItemBonusService
   ) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['item'] && !(this.item instanceof Observable)) {
       this.setCurrentItem(this.item);
+      this.changeDetector.markForCheck();
+    } else if (changes['editBonuses']) {
+      this.bonusRows = this.buildBonusRows();
       this.changeDetector.markForCheck();
     }
   }
@@ -116,6 +143,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     normalizeAugmentSlots(this.curItem);
     this.affixRows = this.buildAffixRows();
     this.craftingRows = this.buildCraftingRows();
+    this.bonusRows = this.buildBonusRows();
     this.setRows = this.buildSetRows();
     done({
       validItems: this.curItem ? 1 : 0,
@@ -167,6 +195,45 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     });
     done({ rows: rows.length });
     return rows;
+  }
+
+  private buildBonusRows(): ItemBonusDisplayRow[] {
+    const item = this.curItem;
+    if (!item) {
+      return [];
+    }
+    // Only an equipped item's bonuses can be chosen: a suggestion or preview is game data's item, which has none.
+    const editable = !this.readonly && this.equipOnChange;
+    const rows: ItemBonusDisplayRow[] = [];
+    for (const kind of ITEM_BONUS_KINDS) {
+      const selected = item.bonuses[kind] ?? null;
+      const options = editable ? this.itemBonuses.getOptions(kind, item.slot) : [];
+      if (!selected && !(this.editBonuses && options.length)) {
+        continue;
+      }
+      const ranking = selected ? this.affixUi.rankItemBonus(selected) : { className: '', tooltip: '' };
+      rows.push({
+        kind,
+        label: ITEM_BONUS_LABELS[kind],
+        selected,
+        options,
+        ...ranking,
+        important: !!selected?.affixes.length && this.equipped.isImportantAffix(selected.affixes[0].name),
+      });
+    }
+    return rows;
+  }
+
+  chooseItemBonus(row: ItemBonusDisplayRow, option: ItemBonusOption | null) {
+    if (!this.curItem) {
+      return;
+    }
+    if (option) {
+      this.curItem.bonuses[row.kind] = option;
+    } else {
+      delete this.curItem.bonuses[row.kind];
+    }
+    this.updateItem();
   }
 
   private buildSetRows(): SetDisplayRow[] {

@@ -4,7 +4,7 @@ import {
 import { combineLatest, Subscription } from 'rxjs';
 
 import { CraftingSlotControlComponent } from '../../crafting-slot-control/crafting-slot-control.component';
-import { slotLabel } from '../../gear/slot-display';
+import { slotLabel, slotNumber } from '../../gear/slot-display';
 import { EquippedService } from '../equipped.service';
 import {
   CraftingSlotGroup, CraftingSlotOverview, CraftingSlotRow, CraftingSlotSummary, deriveCraftingSlotOverview
@@ -26,7 +26,7 @@ import {
 export class CraftingSlotsComponent implements OnInit, OnDestroy {
   @ViewChildren(CraftingSlotControlComponent) private controls?: QueryList<CraftingSlotControlComponent>;
 
-  readonly slotLabel = slotLabel;
+  readonly slotNumber = slotNumber;
   overview: CraftingSlotOverview = { groups: [], summary: [] };
   onlyEmpty = false;
   private readonly collapsed = new Set<string>();
@@ -81,6 +81,11 @@ export class CraftingSlotsComponent implements OnInit, OnDestroy {
 
   groupId(groupName: string): string {
     return 'crafting-group-' + groupName.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  }
+
+  /** The gear slot and item a row's slot is on: "Ring 1: Black Pearl Ring". */
+  sourceLabel(row: CraftingSlotRow): string {
+    return `${slotLabel(row.gearSlot)}: ${row.item.name}`;
   }
 
   /** Opens the summary chip's group and scrolls it into view. */

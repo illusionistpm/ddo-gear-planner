@@ -101,12 +101,12 @@
     <app-affix-picker *ngIf="editorOpen"></app-affix-picker>
     <!-- Only this view uses it, so it lives here rather than in the page header.
          Set once and left: it can scroll away with the list. -->
-    <div class="tracked-affix-groupby" role="group" aria-label="Group build goals by">
-        <span class="tracked-affix-groupby-label">Group by</span>
-        <span class="tracked-affix-groupby-options">
-            <button type="button" class="tracked-affix-groupby-option" [class.active]="groupMode === 'category'"
+    <div class="tracked-affix-groupby segmented-toggle" role="group" aria-label="Group build goals by">
+        <span class="segmented-toggle-label">Group by</span>
+        <span class="segmented-toggle-options">
+            <button type="button" class="tracked-affix-groupby-option segmented-toggle-option" [class.active]="groupMode === 'category'"
                 [attr.aria-pressed]="groupMode === 'category'" (click)="setGroupMode('category')">Category</button>
-            <button type="button" class="tracked-affix-groupby-option" [class.active]="groupMode === 'slots'"
+            <button type="button" class="tracked-affix-groupby-option segmented-toggle-option" [class.active]="groupMode === 'slots'"
                 [attr.aria-pressed]="groupMode === 'slots'" (click)="setGroupMode('slots')">Scarcity</button>
         </span>
     </div>

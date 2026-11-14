@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from datetime import datetime, timezone
 import os
 import re
 from write_json import write_json
@@ -163,6 +164,168 @@ def get_adventure_pack_name_map_from_page(soup):
                     pack_names[text] = pack_name
 
     return pack_names
+
+
+RELEASE_COLUMN_HEADERS = ('Release Date', 'Released')
+
+
+def get_pack_releases_from_page(soup, pack_name_map=None):
+    """{pack: 'YYYY-MM-DD'} from a pack table's release column. The cell
+    shows an update name ("Module 4.3", "Update 44"); the date is its sort
+    key, seconds since 1970."""
+    releases = {}
+
+    for table in soup.find_all('table', class_='wikitable'):
+        table_body = table.find('tbody') or table
+        header_row = table_body.find('tr')
+        if header_row is None:
+            continue
+
+        headers = [_cell_text(cell) for cell in header_row.find_all(['th', 'td'])]
+        pack_header = next((header for header in PACK_NAME_COLUMN_HEADERS if header in headers), None)
+        # "Release<br>Date": the break leaves no space in the cell's text.
+        spaced = [' '.join(cell.get_text(' ').split()) for cell in header_row.find_all(['th', 'td'])]
+        release_header = next((header for header in RELEASE_COLUMN_HEADERS if header in spaced), None)
+        if pack_header is None or release_header is None:
+            continue
+
+        pack_idx = headers.index(pack_header)
+        release_idx = spaced.index(release_header)
+        for row in table_body.find_all('tr', recursive=False)[1:]:
+            cells = row.find_all('td', recursive=False)
+            if len(cells) <= max(pack_idx, release_idx):
+                continue
+
+            sort_value = str(cells[release_idx].get('data-sort-value') or '')
+            if not re.fullmatch(r'\d+', sort_value):
+                continue
+
+            pack_link = cells[pack_idx].find('a', href=True)
+            pack = _cell_text(pack_link) if pack_link else _cell_text(cells[pack_idx])
+            if not pack:
+                continue
+            released = datetime.fromtimestamp(int(sort_value), tz=timezone.utc).strftime('%Y-%m-%d')
+            releases[_canonical_pack_name(pack, pack_name_map=pack_name_map)] = released
+
+    return releases
+
+
+def get_pack_info(pack_releases, expansion_releases):
+    """{pack: {released, expansion}} for the pack filter, which lists
+    expansions apart and both in release order. An expansion is also in the
+    adventure pack table, dated when it reached the DDO Store; its own
+    table's date, its launch, wins."""
+    return {
+        pack: {
+            'released': expansion_releases.get(pack, pack_releases.get(pack)),
+            'expansion': pack in expansion_releases,
+        }
+        for pack in sorted(set(pack_releases) | set(expansion_releases), key=_name_order)
+    }
+
+
+COUPON_CONTENT_HEADER = 'Content Granted'
+
+# Adventure_Pack's footnotes: these arcs are sold only as part of the
+# expansion, yet items cite them as sources and so they are packs of their own
+# in the filter. A coupon for the expansion grants them too.
+EXPANSION_PARTS = {
+    'Shadowfell Conspiracy': ('Disciples of Shadow', 'Shadow Over Wheloon', 'The Secret of the Storm Horns'),
+}
+
+
+def _plain_text(text):
+    # The wiki pads date ranges with zero-width joiners.
+    return ' '.join(str(text).replace('\u200d', '').split())
+
+
+def get_coupon_codes_from_page(soup):
+    """The codes in the page's "So far available" list, in order. A coupon's
+    alternative code is nested under it and isn't a coupon of its own."""
+    content = soup.find(id='mw-content-text') or soup
+    codes = []
+    for mark in content.find_all('mark', id=True):
+        item = mark.find_parent('li')
+        if item is None or item.find_parent('li') is not None:
+            continue
+        codes.append(_plain_text(mark.get_text()))
+    return codes
+
+
+def get_coupons_from_page(soup, official_packs, pack_name_map=None):
+    """Free_Questing_Coupon's comparison table: a column per coupon, a row
+    per thing granted, ticked (sort key 1) where the coupon grants it. Rows
+    that aren't packs - classes, races, character slots - are dropped.
+
+    Returns [{label, available, code, packs}], in column order, oldest first.
+    The table doesn't name the codes; they come from the list above it,
+    which has one per column in the same order. If the two ever disagree in
+    length the codes are left out rather than guessed."""
+    coupons = []
+
+    for table in soup.find_all('table', class_='wikitable'):
+        table_body = table.find('tbody') or table
+        rows = table_body.find_all('tr', recursive=False)
+        if not rows:
+            continue
+
+        header_cells = rows[0].find_all(['th', 'td'], recursive=False)
+        headers = [_plain_text(cell.get_text(' ')) for cell in header_cells]
+        if COUPON_CONTENT_HEADER not in headers:
+            continue
+
+        content_idx = headers.index(COUPON_CONTENT_HEADER)
+        columns = {}
+        for idx, cell in enumerate(header_cells[:content_idx]):
+            period = cell.find('abbr', title=True)
+            if period is None:
+                continue
+            columns[idx] = {
+                'label': headers[idx],
+                'available': _plain_text(period['title']),
+                'packs': set(),
+            }
+
+        for row in rows[1:]:
+            cells = row.find_all(['td', 'th'], recursive=False)
+            if len(cells) <= content_idx:
+                continue
+
+            link = cells[content_idx].find('a', href=True)
+            names = [_cell_text(link), str(link.get('title') or '').strip()] if link else [_cell_text(cells[content_idx])]
+            pack = next(
+                (
+                    canonical for canonical in (_canonical_pack_name(name, pack_name_map=pack_name_map) for name in names if name)
+                    if canonical in official_packs
+                ),
+                None,
+            )
+            if pack is None:
+                continue
+
+            granted = [pack] + [part for part in EXPANSION_PARTS.get(pack, ()) if part in official_packs]
+            for idx, column in columns.items():
+                if str(cells[idx].get('data-sort-value') or '').strip() == '1':
+                    column['packs'].update(granted)
+
+        coupons = list(columns.values())
+        break
+
+    codes = get_coupon_codes_from_page(soup)
+    if len(codes) != len(coupons):
+        print(f'Free_Questing_Coupon lists {len(codes)} codes for {len(coupons)} coupons; leaving the codes out')
+        codes = [''] * len(coupons)
+
+    return [
+        {
+            'label': coupon['label'],
+            'available': coupon['available'],
+            'code': code,
+            'packs': sorted(coupon['packs'], key=_name_order),
+        }
+        for coupon, code in zip(coupons, codes)
+        if coupon['packs']
+    ]
 
 
 def _clean_section_heading(heading):
@@ -486,11 +649,13 @@ def parse_quests():
     add_crafting_raid_sources(out['raids'])
 
     pack_name_map = {}
+    pack_releases = {}
     adventure_pack_path = get_snapshot_path('quests', 'Adventure_Pack.html')
     if os.path.exists(adventure_pack_path):
         page = open(adventure_pack_path, "r", encoding='utf-8').read()
         soup = BeautifulSoup(page, 'html.parser')
         pack_name_map = get_adventure_pack_name_map_from_page(soup)
+        pack_releases = get_pack_releases_from_page(soup, pack_name_map)
 
     level_path = get_snapshot_path('quests', 'Quests_by_level_and_XP.html')
     if os.path.exists(level_path):
@@ -505,11 +670,13 @@ def parse_quests():
         merge_pack_layer(out['packs'], canonicalise_pack_layer(get_area_pack_map_from_wilderness_page(soup), pack_name_map), 'Wilderness_adventure_area')
 
     expansion_pack_pages = {}
+    expansion_releases = {}
     expansion_pack_category_path = get_snapshot_path('quests', 'Expansion_Packs.html')
     if os.path.exists(expansion_pack_category_path):
         page = open(expansion_pack_category_path, "r", encoding='utf-8').read()
         soup = BeautifulSoup(page, 'html.parser')
         expansion_pack_pages = get_expansion_pack_pages_from_category(soup)
+        expansion_releases = get_pack_releases_from_page(soup, pack_name_map)
 
     for page_name, pack in expansion_pack_pages.items():
         pack_path = get_snapshot_path('quests', f'{page_name}.html')
@@ -533,6 +700,14 @@ def parse_quests():
         free_quests += get_free_quests_from_category_page(soup)
 
     out['officialPacks'] = get_official_packs(pack_name_map, expansion_pack_pages.values())
+    out['packInfo'] = get_pack_info(pack_releases, expansion_releases)
+
+    out['coupons'] = []
+    coupon_path = get_snapshot_path('quests', 'Free_Questing_Coupon.html')
+    if os.path.exists(coupon_path):
+        page = open(coupon_path, "r", encoding='utf-8').read()
+        soup = BeautifulSoup(page, 'html.parser')
+        out['coupons'] = get_coupons_from_page(soup, set(out['officialPacks']), pack_name_map)
 
     add_source_packs(out['packs'], set(out['officialPacks']))
 

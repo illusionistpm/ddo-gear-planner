@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-from parse_quests import FREE_TO_PLAY, canonicalise_pack_layer, drop_free_to_play, get_free_quests_from_category_page, get_free_sources, merge_pack_layer, add_crafting_raid_sources, get_adventure_pack_name_map_from_page, get_area_pack_map_from_wilderness_page, get_expansion_pack_pages_from_category, get_official_packs, get_quest_pack_map_from_level_page, get_quest_pack_map_from_pack_page, get_quest_pack_map_from_sectioned_page
+from parse_quests import FREE_TO_PLAY, canonicalise_pack_layer, drop_free_to_play, get_free_quests_from_category_page, get_free_sources, merge_pack_layer, add_crafting_raid_sources, get_adventure_pack_name_map_from_page, get_area_pack_map_from_wilderness_page, get_expansion_pack_pages_from_category, get_coupons_from_page, get_official_packs, get_pack_info, get_pack_releases_from_page, get_quest_pack_map_from_level_page, get_quest_pack_map_from_pack_page, get_quest_pack_map_from_sectioned_page
 
 
 def test_add_crafting_raid_sources_marks_ritual_table_as_raid_source():
@@ -388,3 +388,137 @@ def test_get_free_sources_lets_a_pack_win_and_reports_the_clash(capsys):
 
     assert free == ['Acid Wit']
     assert "'Packed Quest' is also in pack 'Some Pack'" in capsys.readouterr().out
+
+
+def test_get_pack_releases_from_page_dates_packs_by_the_release_cells_sort_key():
+    # The header is "Release<br>Date"; the cell shows the update, and its
+    # sort key is the release date in seconds since 1970.
+    html = '''
+    <table class="wikitable sortable">
+      <tr><th>Name of the pass</th><th>Release<br/>Date</th><th>Levels</th></tr>
+      <tr>
+        <td><a href="/page/Keep_on_the_Borderlands" title="Keep on the Borderlands">Keep on the Borderlands</a></td>
+        <td data-sort-value="1573603200"><a href="/page/Update_44" title="Update 44">Update 44</a></td>
+        <td>1 to 2</td>
+      </tr>
+      <tr>
+        <td><a href="/page/Reaver%27s_Refuge" title="Reaver's Refuge">The Reaver's Reach</a></td>
+        <td data-sort-value="1225238400">Module 8</td>
+        <td>17</td>
+      </tr>
+      <tr><td>No Date Yet</td><td>Update 99</td><td>40</td></tr>
+    </table>
+    '''
+    soup = BeautifulSoup(html, 'html.parser')
+
+    assert get_pack_releases_from_page(soup) == {
+        'Keep on the Borderlands': '2019-11-13',
+        "Reaver's Reach": '2008-10-29',
+    }
+
+
+def test_get_pack_releases_from_page_reads_the_expansion_tables_released_column():
+    html = '''
+    <table class="wikitable">
+      <tr><th>Name of the pack</th><th>Released</th></tr>
+      <tr>
+        <td><a href="/page/Mists_of_Ravenloft" title="Mists of Ravenloft">Mists of Ravenloft</a></td>
+        <td data-sort-value="1512518400">Update 37 (Dec 6, 2017)</td>
+      </tr>
+    </table>
+    '''
+    soup = BeautifulSoup(html, 'html.parser')
+
+    assert get_pack_releases_from_page(soup) == {'Mists of Ravenloft': '2017-12-06'}
+
+
+def test_get_pack_info_marks_expansions_and_dates_them_by_their_launch():
+    # Feywild reached the DDO Store, and so the adventure pack table, months
+    # after it launched as an expansion.
+    assert get_pack_info(
+        {'Fables of the Feywild': '2021-02-24', 'The Red Fens': '2010-08-17'},
+        {'Fables of the Feywild': '2020-11-05'},
+    ) == {
+        'Fables of the Feywild': {'released': '2020-11-05', 'expansion': True},
+        'The Red Fens': {'released': '2010-08-17', 'expansion': False},
+    }
+
+
+COUPON_PAGE = '''
+<div id="mw-content-text">
+  <ul>
+    <li><mark id="DDOFREEQUESTS">DDOFREEQUESTS   </mark> <small>(Available from: June 3\u200d–\u200dAugust 31, 2020)</small></li>
+    <li><mark id="GATHERYOURPARTY2025">GATHERYOURPARTY2025</mark>
+      <ul><li>Alternative social media code: <mark id="LETSPARTY2025">LETSPARTY2025</mark></li></ul>
+    </li>
+    <li><mark id="BIGBYISBETTER">BIGBYISBETTER</mark></li>
+  </ul>
+  <table class="wikitable sortable">
+    <tr>
+      <th>Release Date</th>
+      <th><abbr title="June 3\u200d–\u200dAugust 31, 2020">2020</abbr></th>
+      <th><abbr title="October 2\u200d–\u200dDecember 31, 2025">2025</abbr></th>
+      <th><abbr title="October 14\u200d–\u200dNovember 10, 2026">BIG26</abbr></th>
+      <th>Content Granted</th>
+      <th>Cost</th>
+    </tr>
+    <tr>
+      <td>Apr 5, 2006</td>
+      <td data-sort-value="1">Y</td><td data-sort-value="1">Y</td><td data-sort-value="0">N</td>
+      <td><a href="/page/Vault_of_Night" title="Vault of Night">Vault of Night</a></td><td>750</td>
+    </tr>
+    <tr>
+      <td>Aug 31, 2009</td>
+      <td data-sort-value="0">N</td><td data-sort-value="1">Y</td><td data-sort-value="0">N</td>
+      <td><a href="/page/Favored_Soul" title="Favored Soul">Favored Soul</a></td><td>995</td>
+    </tr>
+    <tr>
+      <td>Nov 9, 2022</td>
+      <td data-sort-value="-1">-</td><td data-sort-value="1">Y</td><td data-sort-value="0">N</td>
+      <td><a href="/page/Grip_of_the_Hidden_Hand" title="Grip of the Hidden Hand">Grip of the Hidden Hand</a></td><td>725</td>
+    </tr>
+    <tr>
+      <td>Dec 6, 2017</td>
+      <td data-sort-value="0">N</td><td data-sort-value="0">N</td><td data-sort-value="1">Y</td>
+      <td><a href="/page/Mists_of_Ravenloft" title="Mists of Ravenloft">Mists of Ravenloft</a></td><td>2,495</td>
+    </tr>
+  </table>
+</div>
+'''
+COUPON_PACKS = {'The Vault of Night', 'Grip of the Hidden Hand', 'Mists of Ravenloft'}
+
+
+def test_get_coupons_from_page_reads_a_coupon_per_column_with_the_packs_it_ticks():
+    # The table spells Vault of Night without its "The"; Favored Soul is a
+    # class, not a pack; the nested alternative code isn't a coupon.
+    soup = BeautifulSoup(COUPON_PAGE, 'html.parser')
+
+    assert get_coupons_from_page(soup, COUPON_PACKS) == [
+        {'label': '2020', 'available': 'June 3–August 31, 2020', 'code': 'DDOFREEQUESTS', 'packs': ['The Vault of Night']},
+        {
+            'label': '2025',
+            'available': 'October 2–December 31, 2025',
+            'code': 'GATHERYOURPARTY2025',
+            'packs': ['Grip of the Hidden Hand', 'The Vault of Night'],
+        },
+        {'label': 'BIG26', 'available': 'October 14–November 10, 2026', 'code': 'BIGBYISBETTER', 'packs': ['Mists of Ravenloft']},
+    ]
+
+
+def test_get_coupons_from_page_leaves_codes_out_when_the_list_and_table_disagree():
+    html = COUPON_PAGE.replace('<li><mark id="BIGBYISBETTER">BIGBYISBETTER</mark></li>', '')
+    soup = BeautifulSoup(html, 'html.parser')
+
+    coupons = get_coupons_from_page(soup, COUPON_PACKS)
+
+    assert [coupon['label'] for coupon in coupons] == ['2020', '2025', 'BIG26']
+    assert [coupon['code'] for coupon in coupons] == ['', '', '']
+
+
+def test_get_coupons_from_page_grants_an_expansions_own_packs_with_it():
+    html = COUPON_PAGE.replace('Mists_of_Ravenloft', 'Shadowfell_Conspiracy').replace('Mists of Ravenloft', 'Shadowfell Conspiracy')
+    soup = BeautifulSoup(html, 'html.parser')
+
+    coupons = get_coupons_from_page(soup, {'Shadowfell Conspiracy', 'Shadow Over Wheloon', 'The Secret of the Storm Horns'})
+
+    assert coupons[-1]['packs'] == ['Shadow Over Wheloon', 'Shadowfell Conspiracy', 'The Secret of the Storm Horns']

@@ -1,4 +1,356 @@
 {
+    "coupons": [
+        {
+            "available": "June 3\u2013August 31, 2020",
+            "code": "DDOFREEQUESTS",
+            "label": "2020",
+            "packs": [
+                "Against the Slave Lords",
+                "Attack on Stormreach",
+                "Delera's Tomb",
+                "Demon Sands",
+                "Devil Assault",
+                "Disciples of Rage",
+                "Dragonblood Prophecy",
+                "Harbinger of Madness",
+                "Heart of Madness",
+                "Keep on the Borderlands",
+                "Phiarlan Carnival",
+                "Reaver's Reach",
+                "Reign of Madness",
+                "Ruins of Gianthold",
+                "Secrets of the Artificers",
+                "Sentinels of Stormreach",
+                "Shadow Under Thunderholme",
+                "Sorrowdusk Isle",
+                "Tangleroot Gorge",
+                "The Catacombs",
+                "The Devil's Gambit",
+                "The Devils of Shavarath",
+                "The Dreaming Dark",
+                "The Druid's Deep",
+                "The Haunted Halls of Eveningstar",
+                "The High Road of Shadows",
+                "The Lost Gatekeepers",
+                "The Mines of Tethyamar",
+                "The Necropolis Part 1",
+                "The Necropolis Part 2",
+                "The Necropolis Part 3",
+                "The Necropolis Part 4",
+                "The Path of Inspiration",
+                "The Red Fens",
+                "The Restless Isles",
+                "The Ruins of Threnal",
+                "The Seal of Shan-To-Kor",
+                "The Sharn Syndicate",
+                "The Soul Splitter",
+                "The Temple of Elemental Evil",
+                "The Vale of Twilight",
+                "The Vault of Night",
+                "Three-Barrel Cove",
+                "Trials of the Archons",
+                "Vaults of the Artificers",
+                "White Plume Mountain and Other Tales"
+            ]
+        },
+        {
+            "available": "October 14\u2013December 31, 2021",
+            "code": "DDOQUESTS2021",
+            "label": "2021",
+            "packs": [
+                "Against the Slave Lords",
+                "Attack on Stormreach",
+                "Delera's Tomb",
+                "Demon Sands",
+                "Devil Assault",
+                "Disciples of Rage",
+                "Dragonblood Prophecy",
+                "Eveningstar Challenge Pack",
+                "Harbinger of Madness",
+                "Heart of Madness",
+                "Keep on the Borderlands",
+                "Peril of the Planar Eyes",
+                "Phiarlan Carnival",
+                "Reaver's Reach",
+                "Reign of Madness",
+                "Ruins of Gianthold",
+                "Secrets of the Artificers",
+                "Sentinels of Stormreach",
+                "Shadow Under Thunderholme",
+                "Sorrowdusk Isle",
+                "Tangleroot Gorge",
+                "The Catacombs",
+                "The Devil's Gambit",
+                "The Devils of Shavarath",
+                "The Dreaming Dark",
+                "The Druid's Deep",
+                "The Haunted Halls of Eveningstar",
+                "The High Road of Shadows",
+                "The Lost Gatekeepers",
+                "The Mines of Tethyamar",
+                "The Necropolis Part 1",
+                "The Necropolis Part 2",
+                "The Necropolis Part 3",
+                "The Necropolis Part 4",
+                "The Path of Inspiration",
+                "The Red Fens",
+                "The Restless Isles",
+                "The Ruins of Threnal",
+                "The Seal of Shan-To-Kor",
+                "The Sharn Syndicate",
+                "The Soul Splitter",
+                "The Temple of Elemental Evil",
+                "The Vale of Twilight",
+                "The Vault of Night",
+                "Three-Barrel Cove",
+                "Trials of the Archons",
+                "Vaults of the Artificers",
+                "White Plume Mountain and Other Tales"
+            ]
+        },
+        {
+            "available": "March 23\u2013April 23, 2023",
+            "code": "DUNGEONCRAWL",
+            "label": "2023",
+            "packs": [
+                "Against the Slave Lords",
+                "Attack on Stormreach",
+                "Delera's Tomb",
+                "Demon Sands",
+                "Devil Assault",
+                "Disciples of Rage",
+                "Dragonblood Prophecy",
+                "Harbinger of Madness",
+                "Heart of Madness",
+                "Hunter and Hunted",
+                "Keep on the Borderlands",
+                "Peril of the Planar Eyes",
+                "Phiarlan Carnival",
+                "Reaver's Reach",
+                "Reign of Madness",
+                "Ruins of Gianthold",
+                "Secrets of the Artificers",
+                "Sentinels of Stormreach",
+                "Shadow Under Thunderholme",
+                "Sorrowdusk Isle",
+                "Tangleroot Gorge",
+                "The Catacombs",
+                "The Devil's Gambit",
+                "The Devils of Shavarath",
+                "The Dreaming Dark",
+                "The Druid's Deep",
+                "The Haunted Halls of Eveningstar",
+                "The High Road of Shadows",
+                "The Lost Gatekeepers",
+                "The Mines of Tethyamar",
+                "The Necropolis Part 1",
+                "The Necropolis Part 2",
+                "The Necropolis Part 3",
+                "The Necropolis Part 4",
+                "The Path of Inspiration",
+                "The Red Fens",
+                "The Restless Isles",
+                "The Ruins of Threnal",
+                "The Seal of Shan-To-Kor",
+                "The Sharn Syndicate",
+                "The Soul Splitter",
+                "The Temple of Elemental Evil",
+                "The Vale of Twilight",
+                "The Vault of Night",
+                "Three-Barrel Cove",
+                "Trials of the Archons",
+                "White Plume Mountain and Other Tales"
+            ]
+        },
+        {
+            "available": "January 10\u2013February 11, 2024",
+            "code": "FREEDDO2024",
+            "label": "2024",
+            "packs": [
+                "Against the Slave Lords",
+                "Attack on Stormreach",
+                "Delera's Tomb",
+                "Demon Sands",
+                "Devil Assault",
+                "Disciples of Rage",
+                "Dragonblood Prophecy",
+                "Harbinger of Madness",
+                "Heart of Madness",
+                "Hunter and Hunted",
+                "Keep on the Borderlands",
+                "Peril of the Planar Eyes",
+                "Phiarlan Carnival",
+                "Reaver's Reach",
+                "Reign of Madness",
+                "Ruins of Gianthold",
+                "Secrets of the Artificers",
+                "Sentinels of Stormreach",
+                "Shadow Under Thunderholme",
+                "Sorrowdusk Isle",
+                "Tangleroot Gorge",
+                "The Catacombs",
+                "The Devil's Gambit",
+                "The Devils of Shavarath",
+                "The Dreaming Dark",
+                "The Druid's Deep",
+                "The Haunted Halls of Eveningstar",
+                "The High Road of Shadows",
+                "The Lost Gatekeepers",
+                "The Mines of Tethyamar",
+                "The Necropolis Part 1",
+                "The Necropolis Part 2",
+                "The Necropolis Part 3",
+                "The Necropolis Part 4",
+                "The Path of Inspiration",
+                "The Red Fens",
+                "The Restless Isles",
+                "The Ruins of Threnal",
+                "The Seal of Shan-To-Kor",
+                "The Sharn Syndicate",
+                "The Soul Splitter",
+                "The Temple of Elemental Evil",
+                "The Vale of Twilight",
+                "The Vault of Night",
+                "Three-Barrel Cove",
+                "Trials of the Archons",
+                "White Plume Mountain and Other Tales"
+            ]
+        },
+        {
+            "available": "October 2\u2013December 31, 2025",
+            "code": "GATHERYOURPARTY2025",
+            "label": "2025",
+            "packs": [
+                "Against the Slave Lords",
+                "Attack on Stormreach",
+                "Delera's Tomb",
+                "Demon Sands",
+                "Devil Assault",
+                "Disciples of Rage",
+                "Dragonblood Prophecy",
+                "Eveningstar Challenge Pack",
+                "Fall of the Night Brigade",
+                "Grip of the Hidden Hand",
+                "Harbinger of Madness",
+                "Heart of Madness",
+                "Hunter and Hunted",
+                "Keep on the Borderlands",
+                "Peril of the Planar Eyes",
+                "Phiarlan Carnival",
+                "Reaver's Reach",
+                "Reign of Madness",
+                "Ruins of Gianthold",
+                "Secrets of the Artificers",
+                "Sentinels of Stormreach",
+                "Shadow Under Thunderholme",
+                "Slice of Life",
+                "Sorrowdusk Isle",
+                "Tangleroot Gorge",
+                "The Catacombs",
+                "The Devil's Gambit",
+                "The Devils of Shavarath",
+                "The Dreaming Dark",
+                "The Druid's Deep",
+                "The Haunted Halls of Eveningstar",
+                "The High Road of Shadows",
+                "The Lost Gatekeepers",
+                "The Mines of Tethyamar",
+                "The Necropolis Part 1",
+                "The Necropolis Part 2",
+                "The Necropolis Part 3",
+                "The Necropolis Part 4",
+                "The Path of Inspiration",
+                "The Red Fens",
+                "The Restless Isles",
+                "The Ruins of Threnal",
+                "The Seal of Shan-To-Kor",
+                "The Sharn Syndicate",
+                "The Soul Splitter",
+                "The Temple of Elemental Evil",
+                "The Vale of Twilight",
+                "The Vault of Night",
+                "Three-Barrel Cove",
+                "Trials of the Archons",
+                "Vaults of the Artificers",
+                "White Plume Mountain and Other Tales"
+            ]
+        },
+        {
+            "available": "March 6\u201324, 2026",
+            "code": "NATURAL20",
+            "label": "2026",
+            "packs": [
+                "Against the Slave Lords",
+                "Attack on Stormreach",
+                "Delera's Tomb",
+                "Demon Sands",
+                "Devil Assault",
+                "Disciples of Rage",
+                "Dragonblood Prophecy",
+                "Eveningstar Challenge Pack",
+                "Fall of the Night Brigade",
+                "Grip of the Hidden Hand",
+                "Harbinger of Madness",
+                "Heart of Madness",
+                "Hunter and Hunted",
+                "Keep on the Borderlands",
+                "Peril of the Planar Eyes",
+                "Phiarlan Carnival",
+                "Reaver's Reach",
+                "Reign of Madness",
+                "Ruins of Gianthold",
+                "Secrets of the Artificers",
+                "Sentinels of Stormreach",
+                "Shadow Under Thunderholme",
+                "Slice of Life",
+                "Sorrowdusk Isle",
+                "Tangleroot Gorge",
+                "The Catacombs",
+                "The Devil's Gambit",
+                "The Devils of Shavarath",
+                "The Dreaming Dark",
+                "The Druid's Deep",
+                "The Haunted Halls of Eveningstar",
+                "The High Road of Shadows",
+                "The Lost Gatekeepers",
+                "The Mines of Tethyamar",
+                "The Necropolis Part 1",
+                "The Necropolis Part 2",
+                "The Necropolis Part 3",
+                "The Necropolis Part 4",
+                "The Path of Inspiration",
+                "The Red Fens",
+                "The Restless Isles",
+                "The Ruins of Threnal",
+                "The Seal of Shan-To-Kor",
+                "The Sharn Syndicate",
+                "The Soul Splitter",
+                "The Temple of Elemental Evil",
+                "The Vale of Twilight",
+                "The Vault of Night",
+                "Three-Barrel Cove",
+                "Trials of the Archons",
+                "Vaults of the Artificers",
+                "White Plume Mountain and Other Tales"
+            ]
+        },
+        {
+            "available": "October 14\u2013November 10, 2026",
+            "code": "BIGBYISBETTER",
+            "label": "BIG26",
+            "packs": [
+                "Disciples of Shadow",
+                "Fables of the Feywild",
+                "Masterminds of Sharn",
+                "Menace of the Underdark",
+                "Mists of Ravenloft",
+                "Shadow Over Wheloon",
+                "Shadowfell Conspiracy",
+                "Sinister Secret of Saltmarsh",
+                "The Secret of the Storm Horns"
+            ]
+        }
+    ],
     "freeSources": [
         "A Relic of a Sovereign Past",
         "A Study in Sable",
@@ -250,6 +602,280 @@
         "Vecna Unleashed",
         "White Plume Mountain and Other Tales"
     ],
+    "packInfo": {
+        "Against the Slave Lords": {
+            "expansion": false,
+            "released": "2016-09-13"
+        },
+        "Attack on Stormreach": {
+            "expansion": false,
+            "released": "2010-12-13"
+        },
+        "Delera's Tomb": {
+            "expansion": false,
+            "released": "2006-01-24"
+        },
+        "Demon Sands": {
+            "expansion": false,
+            "released": "2006-10-25"
+        },
+        "Devil Assault": {
+            "expansion": false,
+            "released": "2008-02-28"
+        },
+        "Disciples of Rage": {
+            "expansion": false,
+            "released": "2018-04-11"
+        },
+        "Disciples of Shadow": {
+            "expansion": false,
+            "released": "2013-08-19"
+        },
+        "Dragonblood Prophecy": {
+            "expansion": false,
+            "released": "2017-03-16"
+        },
+        "Eveningstar Challenge Pack": {
+            "expansion": false,
+            "released": "2012-06-27"
+        },
+        "Fables of the Feywild": {
+            "expansion": true,
+            "released": "2020-11-05"
+        },
+        "Fall of the Night Brigade": {
+            "expansion": false,
+            "released": "2024-12-11"
+        },
+        "Grip of the Hidden Hand": {
+            "expansion": false,
+            "released": "2022-11-09"
+        },
+        "Harbinger of Madness": {
+            "expansion": false,
+            "released": "2011-04-27"
+        },
+        "Heart of Madness": {
+            "expansion": false,
+            "released": "2014-12-11"
+        },
+        "Hunter and Hunted": {
+            "expansion": false,
+            "released": "2022-02-24"
+        },
+        "Keep on the Borderlands": {
+            "expansion": false,
+            "released": "2019-11-13"
+        },
+        "Magic of Myth Drannor": {
+            "expansion": true,
+            "released": "2024-08-14"
+        },
+        "Masterminds of Sharn": {
+            "expansion": true,
+            "released": "2019-05-14"
+        },
+        "Menace of the Underdark": {
+            "expansion": true,
+            "released": "2012-06-25"
+        },
+        "Mists of Ravenloft": {
+            "expansion": true,
+            "released": "2017-12-06"
+        },
+        "Peril of the Planar Eyes": {
+            "expansion": false,
+            "released": "2021-04-21"
+        },
+        "Phiarlan Carnival": {
+            "expansion": false,
+            "released": "2010-06-28"
+        },
+        "Reaver's Reach": {
+            "expansion": false,
+            "released": "2008-10-29"
+        },
+        "Reign of Madness": {
+            "expansion": false,
+            "released": "2011-06-20"
+        },
+        "Ruins of Gianthold": {
+            "expansion": false,
+            "released": "2007-04-12"
+        },
+        "Secrets of the Artificers": {
+            "expansion": false,
+            "released": "2011-09-12"
+        },
+        "Sentinels of Stormreach": {
+            "expansion": false,
+            "released": "2010-04-05"
+        },
+        "Shadow Over Wheloon": {
+            "expansion": false,
+            "released": "2013-08-19"
+        },
+        "Shadow Under Thunderholme": {
+            "expansion": false,
+            "released": "2014-03-10"
+        },
+        "Shadowfell Conspiracy": {
+            "expansion": true,
+            "released": "2013-08-19"
+        },
+        "Sinister Secret of Saltmarsh": {
+            "expansion": true,
+            "released": "2021-08-04"
+        },
+        "Slice of Life": {
+            "expansion": false,
+            "released": "2024-03-27"
+        },
+        "Sorrowdusk Isle": {
+            "expansion": false,
+            "released": "2007-05-22"
+        },
+        "Tangleroot Gorge": {
+            "expansion": false,
+            "released": "2007-05-22"
+        },
+        "Tavern Tales": {
+            "expansion": false,
+            "released": "2025-04-02"
+        },
+        "Terror of Demogorgon": {
+            "expansion": true,
+            "released": "2026-07-22"
+        },
+        "The Catacombs": {
+            "expansion": false,
+            "released": "2006-06-19"
+        },
+        "The Chill of Ravenloft": {
+            "expansion": true,
+            "released": "2025-08-20"
+        },
+        "The Devil's Gambit": {
+            "expansion": false,
+            "released": "2015-09-24"
+        },
+        "The Devils of Shavarath": {
+            "expansion": false,
+            "released": "2009-08-31"
+        },
+        "The Dragons' Hand": {
+            "expansion": false,
+            "released": "2026-04-08"
+        },
+        "The Dreaming Dark": {
+            "expansion": false,
+            "released": "2009-12-16"
+        },
+        "The Druid's Deep": {
+            "expansion": false,
+            "released": "2012-08-20"
+        },
+        "The Haunted Halls of Eveningstar": {
+            "expansion": false,
+            "released": "2014-03-10"
+        },
+        "The High Road of Shadows": {
+            "expansion": false,
+            "released": "2012-11-12"
+        },
+        "The Isle of Dread": {
+            "expansion": true,
+            "released": "2022-06-22"
+        },
+        "The Lost Gatekeepers": {
+            "expansion": false,
+            "released": "2020-04-24"
+        },
+        "The Mines of Tethyamar": {
+            "expansion": false,
+            "released": "2017-07-13"
+        },
+        "The Necropolis Part 1": {
+            "expansion": false,
+            "released": "2006-08-16"
+        },
+        "The Necropolis Part 2": {
+            "expansion": false,
+            "released": "2007-01-24"
+        },
+        "The Necropolis Part 3": {
+            "expansion": false,
+            "released": "2007-09-27"
+        },
+        "The Necropolis Part 4": {
+            "expansion": false,
+            "released": "2007-09-27"
+        },
+        "The Path of Inspiration": {
+            "expansion": false,
+            "released": "2009-10-28"
+        },
+        "The Red Fens": {
+            "expansion": false,
+            "released": "2010-08-17"
+        },
+        "The Restless Isles": {
+            "expansion": false,
+            "released": "2006-07-12"
+        },
+        "The Ruins of Threnal": {
+            "expansion": false,
+            "released": "2006-01-24"
+        },
+        "The Seal of Shan-To-Kor": {
+            "expansion": false,
+            "released": "2006-06-22"
+        },
+        "The Secret of the Storm Horns": {
+            "expansion": false,
+            "released": "2013-08-19"
+        },
+        "The Sharn Syndicate": {
+            "expansion": false,
+            "released": "2009-08-31"
+        },
+        "The Soul Splitter": {
+            "expansion": false,
+            "released": "2019-09-10"
+        },
+        "The Temple of Elemental Evil": {
+            "expansion": false,
+            "released": "2015-04-06"
+        },
+        "The Vale of Twilight": {
+            "expansion": false,
+            "released": "2008-01-30"
+        },
+        "The Vault of Night": {
+            "expansion": false,
+            "released": "2006-04-05"
+        },
+        "Three-Barrel Cove": {
+            "expansion": false,
+            "released": "2008-06-03"
+        },
+        "Trials of the Archons": {
+            "expansion": false,
+            "released": "2015-07-27"
+        },
+        "Vaults of the Artificers": {
+            "expansion": false,
+            "released": "2011-11-09"
+        },
+        "Vecna Unleashed": {
+            "expansion": true,
+            "released": "2023-08-16"
+        },
+        "White Plume Mountain and Other Tales": {
+            "expansion": false,
+            "released": "2018-07-01"
+        }
+    },
     "packs": {
         "A Blood Pact": "Terror of Demogorgon",
         "A Break In the Ice": "Shadowfell Conspiracy",

@@ -9,7 +9,7 @@ import { Item } from '../gear/item';
 import { Affix } from '../affixes/affix';
 import { EquippedService } from '../planner/equipped.service';
 import { FiltersService } from '../planner/filters.service';
-import { TapTooltipComponent } from '../tap-tooltip/tap-tooltip.component';
+import { TapTooltipComponent, TapTooltipPanelComponent } from '../tap-tooltip/tap-tooltip.component';
 import { CraftingOptionPickerComponent } from '../crafting-option-picker/crafting-option-picker.component';
 import { NO_PACK_KEY } from '../gear/pack-filter';
 import { UserGearService } from '../planner/user-gear.service';
@@ -22,7 +22,7 @@ describe('GearDescriptionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GearDescriptionComponent, TapTooltipComponent, CraftingOptionPickerComponent, UserItemLocationTooltipPipe ],
+      declarations: [ GearDescriptionComponent, TapTooltipComponent, TapTooltipPanelComponent, CraftingOptionPickerComponent, UserItemLocationTooltipPipe ],
       imports: [ FormsModule, NgbModule ]
     })
     .compileComponents();
@@ -203,12 +203,15 @@ describe('GearDescriptionComponent', () => {
       expect(fixture.nativeElement.querySelector('.raid-loot-badge')).toBeNull();
     });
 
-    it('lists every source in the bubble when the badge is tapped', () => {
+    it('lists every source in a full-width bubble under the ML row when the badge is tapped', () => {
       const source = showSources(['Book Burning', 'Toil and Trouble']);
       (source.querySelector('.tap-tooltip-trigger') as HTMLButtonElement).click();
       fixture.detectChanges();
 
-      expect(source.querySelector('.tap-tooltip-bubble')?.textContent).toBe('Book Burning\nToil and Trouble');
+      const bubble = fixture.nativeElement.querySelector('.tap-tooltip-bubble') as HTMLElement;
+      expect(bubble.textContent).toBe('Book Burning\nToil and Trouble');
+      expect(source.contains(bubble)).toBe(false);
+      expect(bubble.closest('.row')?.contains(source)).toBe(true);
     });
   });
 

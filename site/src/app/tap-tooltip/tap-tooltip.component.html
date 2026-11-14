@@ -2,6 +2,6 @@
     [attr.aria-expanded]="isOpen" (click)="toggle($event)">
   <ng-content></ng-content>
 </button>
-@if (isOpen) {
+@if (isOpen && !panel) {
   <div class="tap-tooltip-bubble">{{text}}</div>
 }

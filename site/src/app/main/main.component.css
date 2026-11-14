@@ -420,6 +420,12 @@ app-admin-link {
   color: var(--primary-color);
 }
 
+.planner-filter-chip-none {
+  border-color: transparent;
+  font-weight: 500;
+  padding-left: 0;
+}
+
 .planner-filter-chip-icon {
   font-size: 0.7rem;
   opacity: 0.85;
@@ -470,6 +476,13 @@ app-admin-link {
 .planner-filter-reset-all:hover,
 .planner-filter-reset-all:focus {
   color: var(--primary-color);
+}
+
+.planner-filter-reset-all:disabled {
+  color: var(--text-secondary);
+  cursor: default;
+  opacity: 0.5;
+  text-decoration: none;
 }
 
 .planner-filter-backdrop {

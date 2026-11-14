@@ -19,7 +19,14 @@ export class FiltersService implements QueryParamsListener {
 
   private params: BehaviorSubject<QueryParamRecord | null>;
 
+  /** The filters the gear, effects and shopping list are built from. */
   private itemFilters = new BehaviorSubject<ItemFilters>(new ItemFilters());
+  /**
+   * The filters as the filter controls show them. The same as itemFilters, except while
+   * changes are held: then the controls move at once and the gear catches up on release.
+   */
+  private editedFilters = new BehaviorSubject<ItemFilters>(this.itemFilters.getValue());
+  private holding = false;
   private maxLevel = 30;
 
   constructor(
@@ -37,34 +44,68 @@ export class FiltersService implements QueryParamsListener {
     return this.itemFilters.asObservable();
   }
 
+  /** What the filter controls show: the filters, including any changes being held. */
+  getEditedFilters() {
+    return this.editedFilters.asObservable();
+  }
+
+  /**
+   * Holds filter changes back from everything built on the filters until
+   * applyHeldChanges. Every change rebuilds the filtered gear and what depends on it,
+   * which takes a noticeable moment; the filter sheet covers the planner, so it holds
+   * them while open and the planner rebuilds once, when it closes.
+   */
+  holdChanges() {
+    this.holding = true;
+  }
+
+  applyHeldChanges() {
+    this.holding = false;
+    this.commit();
+  }
+
+  private edit(change: (filters: ItemFilters) => boolean) {
+    const newFilters = new ItemFilters(this.editedFilters.getValue());
+    if (!change(newFilters)) {
+      return;
+    }
+    this.editedFilters.next(newFilters);
+    if (!this.holding) {
+      this.commit();
+    }
+  }
+
+  private commit() {
+    const edited = this.editedFilters.getValue();
+    if (edited === this.itemFilters.getValue()) {
+      return;
+    }
+    this.itemFilters.next(edited);
+    this._updateRouterState();
+  }
+
   getMaxLevel() {
     return this.maxLevel;
   }
 
   setShowRaidItems(bShow: boolean) {
-    const newFilters = new ItemFilters(this.itemFilters.getValue());
-
-    if (bShow == newFilters.showRaidItems) {
-      return;
-    }
-
-    newFilters.showRaidItems = bShow;
-    this.itemFilters.next(newFilters);
-
-    this._updateRouterState();
+    this.edit(filters => {
+      if (bShow == filters.showRaidItems) {
+        return false;
+      }
+      filters.showRaidItems = bShow;
+      return true;
+    });
   }
 
   setShowRareItems(bShow: boolean) {
-    const newFilters = new ItemFilters(this.itemFilters.getValue());
-
-    if (bShow == newFilters.showRareItems) {
-      return;
-    }
-
-    newFilters.showRareItems = bShow;
-    this.itemFilters.next(newFilters);
-
-    this._updateRouterState();
+    this.edit(filters => {
+      if (bShow == filters.showRareItems) {
+        return false;
+      }
+      filters.showRareItems = bShow;
+      return true;
+    });
   }
 
   setMaxLevel(max: number) {
@@ -73,57 +114,52 @@ export class FiltersService implements QueryParamsListener {
   }
 
   setLevelRange(min: number, max: number) {
-    const newFilters = new ItemFilters(this.itemFilters.getValue());
-
-    if (min == newFilters.levelRange[0] && max == newFilters.levelRange[1]) {
-      return;
-    }
-
-    const curMin = newFilters.levelRange[0];
-
-    min = Math.max(ItemFilters.MIN_LEVEL(), min);
-    max = Math.max(ItemFilters.MIN_LEVEL(), max);
-
-    // Ensure the min is less than / equal to the max, and vice versa    
-    min = Math.min(this.maxLevel, min);
-    max = Math.min(this.maxLevel, max);
-
-    // Fix backwards ranges by bringing the one that didn't move to the one that did.
-    if (min > max) {
-      if (min !== curMin) {
-        max = min;
-      } else {
-        min = max;
+    this.edit(filters => {
+      if (min == filters.levelRange[0] && max == filters.levelRange[1]) {
+        return false;
       }
-    }
 
-    newFilters.levelRange = [min, max];
+      const curMin = filters.levelRange[0];
 
-    this.itemFilters.next(newFilters);
+      min = Math.max(ItemFilters.MIN_LEVEL(), min);
+      max = Math.max(ItemFilters.MIN_LEVEL(), max);
 
-    this._updateRouterState();
+      // Ensure the min is less than / equal to the max, and vice versa
+      min = Math.min(this.maxLevel, min);
+      max = Math.min(this.maxLevel, max);
+
+      // Fix backwards ranges by bringing the one that didn't move to the one that did.
+      if (min > max) {
+        if (min !== curMin) {
+          max = min;
+        } else {
+          min = max;
+        }
+      }
+
+      filters.levelRange = [min, max];
+      return true;
+    });
   }
 
   setHiddenTypes(hiddenTypes: Set<string>) {
-    const newFilters = new ItemFilters(this.itemFilters.getValue());
-    if (this.areSetsEqual(hiddenTypes, newFilters.hiddenItemTypes)) {
-      return;
-    }
-
-    newFilters.hiddenItemTypes = hiddenTypes;
-    this.itemFilters.next(newFilters);
-    this._updateRouterState();
+    this.edit(filters => {
+      if (this.areSetsEqual(hiddenTypes, filters.hiddenItemTypes)) {
+        return false;
+      }
+      filters.hiddenItemTypes = hiddenTypes;
+      return true;
+    });
   }
 
   setHiddenPacks(hiddenPacks: Set<string>) {
-    const newFilters = new ItemFilters(this.itemFilters.getValue());
-    if (this.areSetsEqual(hiddenPacks, newFilters.hiddenPacks)) {
-      return;
-    }
-
-    newFilters.hiddenPacks = hiddenPacks;
-    this.itemFilters.next(newFilters);
-    this._updateRouterState();
+    this.edit(filters => {
+      if (this.areSetsEqual(hiddenPacks, filters.hiddenPacks)) {
+        return false;
+      }
+      filters.hiddenPacks = hiddenPacks;
+      return true;
+    });
   }
 
   private areSetsEqual(left: Set<string>, right: Set<string>) {
@@ -141,6 +177,18 @@ export class FiltersService implements QueryParamsListener {
   }
 
   updateFromParams(params: ParamsAdapter) {
+    // A navigation (a build loaded, history) replaces the filters outright, held
+    // changes included, and applies at once.
+    const wasHolding = this.holding;
+    this.holding = false;
+    try {
+      this.applyParams(params);
+    } finally {
+      this.holding = wasHolding;
+    }
+  }
+
+  private applyParams(params: ParamsAdapter) {
     return perfMeasure('FiltersService.updateFromParams', () => {
       const levelRangeParam = params.get(LEVEL_RANGE_KEY);
       if (levelRangeParam) {

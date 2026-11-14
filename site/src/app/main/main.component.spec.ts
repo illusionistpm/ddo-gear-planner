@@ -358,6 +358,43 @@ describe('MainComponent', () => {
       expect(fixture.nativeElement.querySelector('.planner-filter-active button[aria-label="Show raid items"]')).not.toBeNull();
     });
 
+    it('keeps the sheet\'s chip row in place when the first filter is set', () => {
+      component.toggleFilters();
+      fixture.detectChanges();
+
+      const row = fixture.nativeElement.querySelector('.planner-filter-active');
+      expect(row.textContent).toContain('No filters');
+
+      TestBed.inject(FiltersService).setShowRaidItems(false);
+      fixture.detectChanges();
+
+      expect(fixture.nativeElement.querySelector('.planner-filter-active')).toBe(row);
+      expect(row.querySelector('button[aria-label="Show raid items"]')).not.toBeNull();
+      component.closeFilters();
+    });
+
+    it('holds filter changes while the sheet is open, and applies them once it closes', async () => {
+      const filters = TestBed.inject(FiltersService);
+      let showRaidItems = true;
+      const subscription = filters.getItemFilters().subscribe(value => showRaidItems = value.showRaidItems);
+
+      component.toggleFilters();
+      filters.setShowRaidItems(false);
+      fixture.detectChanges();
+
+      // The sheet's own chip shows it; the planner behind isn't rebuilt yet.
+      expect(fixture.nativeElement.querySelector('.planner-filter-active button[aria-label="Show raid items"]')).not.toBeNull();
+      expect(showRaidItems).toBe(true);
+
+      component.toggleFilters();
+      fixture.detectChanges();
+      expect(fixture.nativeElement.querySelector('.planner-filter-sheet')).toBeNull();
+
+      await new Promise(resolve => setTimeout(resolve, 50));
+      expect(showRaidItems).toBe(false);
+      subscription.unsubscribe();
+    });
+
     it('has a wordmark that can be dropped for the icon alone', () => {
       expect(fixture.nativeElement.querySelector('.planner-brand-name')?.textContent)
         .toContain('DDO Gear Planner');

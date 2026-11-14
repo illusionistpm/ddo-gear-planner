@@ -55,7 +55,7 @@ import { BuildActionsComponent } from './build-actions/build-actions.component';
 import { ShrinkToFitDirective } from './shared/shrink-to-fit.directive';
 import { AutofocusDirective } from './shared/autofocus.directive';
 import { PanelSwipeDirective } from './main/panel-swipe.directive';
-import { TapTooltipComponent } from './tap-tooltip/tap-tooltip.component';
+import { TapTooltipComponent, TapTooltipPanelComponent } from './tap-tooltip/tap-tooltip.component';
 import { CraftingOptionPickerComponent } from './crafting-option-picker/crafting-option-picker.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingListShareMenuComponent } from './shopping-list/shopping-list-share-menu.component';
@@ -76,6 +76,7 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         GearDescriptionComponent,
         CraftingOptionPickerComponent,
         TapTooltipComponent,
+        TapTooltipPanelComponent,
         EffectsTableComponent,
         ItemsWithBonusTypeComponent,
         FiltersComponent,

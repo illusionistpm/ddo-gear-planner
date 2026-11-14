@@ -1,6 +1,7 @@
 import { Item } from './item';
 import { Craftable } from './craftable';
 import { CraftableOption } from './craftable-option';
+import { AffixService } from '../affixes/affix.service';
 
 describe('Item', () => {
   it('should create an instance', () => {
@@ -162,5 +163,59 @@ describe('Item', () => {
     expect(blank.isGeneratedEssenceCraftingBlank()).toBe(true);
     expect(namedCraftable.isEssenceCrafted()).toBeTruthy();
     expect(namedCraftable.isGeneratedEssenceCraftingBlank()).toBe(false);
+  });
+
+  describe('matching a tracked bonus type', () => {
+    // A stand-in AffixService: these affixes are no groups.
+    const affixSvc = { ungroupAffix: () => [] } as unknown as AffixService;
+    const accuracy = (name: string, ml: number, value: number) =>
+      new CraftableOption({ name, ml, affixes: [{ name: 'Accuracy', type: 'Competence', value }] });
+    const amulet = (ownAccuracy?: number) => new Item({
+      name: 'Legendary Baron Aubrecker\'s Family Amulet',
+      slot: 'Necklace',
+      type: '',
+      ml: 34,
+      affixes: ownAccuracy ? [{ name: 'Accuracy', type: 'Competence', value: ownAccuracy }] : [],
+      sets: [],
+      url: '',
+      crafting: [
+        new Craftable('Melancholic (Accessory)', [accuracy('Melancholic Accuracy', 8, 10)]),
+        new Craftable('Dolorous (Accessory)', [
+          accuracy('Dolorous Accuracy (heroic)', 8, 8),
+          accuracy('Dolorous Accuracy (legendary)', 34, 23),
+        ]),
+      ],
+      quests: [],
+      artifact: false,
+    });
+
+    it('reports and selects the best option of any crafting system, not the first', () => {
+      const item = amulet();
+
+      expect(item.getMatchingBonusType('Accuracy', 'Competence', affixSvc)).toEqual(['Dolorous (Accessory)', 23]);
+      item.selectMatchingBonusType('Accuracy', 'Competence', affixSvc);
+      expect(item.getCraftingByName('Dolorous (Accessory)')?.selected.name).toBe('Dolorous Accuracy (legendary)');
+      expect(item.getCraftingByName('Melancholic (Accessory)')?.selected.name).toBeFalsy();
+    });
+
+    it('leaves out the options the filter rules out', () => {
+      const item = amulet();
+      const upToLevel30 = (option: CraftableOption) => option.isWithinMaxLevel(30);
+
+      expect(item.getMatchingBonusType('Accuracy', 'Competence', affixSvc, false, upToLevel30))
+        .toEqual(['Melancholic (Accessory)', 10]);
+      item.selectMatchingBonusType('Accuracy', 'Competence', affixSvc, upToLevel30);
+      expect(item.getCraftingByName('Melancholic (Accessory)')?.selected.name).toBe('Melancholic Accuracy');
+      expect(item.getCraftingByName('Dolorous (Accessory)')?.selected.name).toBeFalsy();
+    });
+
+    it('prefers its own affix unless a crafting option beats it', () => {
+      expect(amulet(23).getMatchingBonusType('Accuracy', 'Competence', affixSvc)).toEqual([null, 23]);
+      expect(amulet(12).getMatchingBonusType('Accuracy', 'Competence', affixSvc)).toEqual(['Dolorous (Accessory)', 23]);
+
+      const item = amulet(23);
+      item.selectMatchingBonusType('Accuracy', 'Competence', affixSvc);
+      expect(item.getCraftingByName('Dolorous (Accessory)')?.selected.name).toBeFalsy();
+    });
   });
 });

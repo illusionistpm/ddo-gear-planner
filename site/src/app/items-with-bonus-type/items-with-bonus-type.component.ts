@@ -7,7 +7,7 @@ import { EquippedService } from '../planner/equipped.service';
 import { ExternalAffixEntry } from '../affixes/external-affix';
 import { Item } from '../gear/item';
 import { Affix } from '../affixes/affix';
-import { Craftable } from '../gear/craftable';
+import { Craftable, CraftableOptionFilter } from '../gear/craftable';
 
 import { AffixService } from '../affixes/affix.service';
 import { isCountAffix } from '../affixes/count-affix';
@@ -67,6 +67,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
 
   private _sortItems(items: Item[]): Item[] {
     const userOwnsItem = (item: Item) => this.userGear.hasItem(item.name);
+    const isAllowed = this.craftingOptionFilter();
     return [...items].sort((a, b) => {
       if (this.sortOwnedToTop) {
         if (userOwnsItem(a) && !userOwnsItem(b)) {
@@ -76,8 +77,8 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
         }
       }
       
-      return Number(b.getValue(this.affixName, this.bonusType, this.affixSvc)) - 
-             Number(a.getValue(this.affixName, this.bonusType, this.affixSvc));
+      return Number(b.getValue(this.affixName, this.bonusType, this.affixSvc, isAllowed)) -
+             Number(a.getValue(this.affixName, this.bonusType, this.affixSvc, isAllowed));
     });
   }
 
@@ -128,7 +129,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
   readonly maxRenderedItems = 100;
   readonly preview = new ItemPreviewController(item => {
     if (this.findMatchingValue(item)[0]) {
-      item.selectMatchingBonusType(this.affixName, this.bonusType, this.affixSvc);
+      item.selectMatchingBonusType(this.affixName, this.bonusType, this.affixSvc, this.craftingOptionFilter());
     }
   });
   /**
@@ -426,12 +427,24 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
   }
 
   _sortByValue(array: Array<Item>) {
+    const isAllowed = this.craftingOptionFilter();
     return array.sort((a, b) =>
-      Number(b.getValue(this.affixName, this.bonusType, this.affixSvc)) - Number(a.getValue(this.affixName, this.bonusType, this.affixSvc)));
+      Number(b.getValue(this.affixName, this.bonusType, this.affixSvc, isAllowed))
+      - Number(a.getValue(this.affixName, this.bonusType, this.affixSvc, isAllowed)));
+  }
+
+  /**
+   * The crafting options the list may suggest: those the level and pack filters let
+   * through, the same ones findGearWithAffixAndType counted when it listed the item.
+   */
+  private craftingOptionFilter(): CraftableOptionFilter {
+    const maxLevel = this.gearDB.getMaxLevelFilter();
+    const hiddenPacks = this.gearDB.getHiddenPacks();
+    return option => option.isWithinMaxLevel(maxLevel) && !isOptionHiddenByPacks(option, hiddenPacks);
   }
 
   findMatchingValue(item: Item) {
-    const ret = item.getMatchingBonusType(this.affixName, this.bonusType, this.affixSvc);
+    const ret = item.getMatchingBonusType(this.affixName, this.bonusType, this.affixSvc, false, this.craftingOptionFilter());
     let crafting = (ret && ret[0]) || '';
     if (crafting) {
       crafting = ' (' + crafting + ')';
@@ -462,7 +475,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     const itemToEquip = new Item(item);
     // Apply the relevant crafting option, if any
     if (this.findMatchingValue(itemToEquip)[0]) {
-      itemToEquip.selectMatchingBonusType(this.affixName, this.bonusType, this.affixSvc);
+      itemToEquip.selectMatchingBonusType(this.affixName, this.bonusType, this.affixSvc, this.craftingOptionFilter());
     }
 
     this.drawerEquip.equip(itemToEquip, 'bonus_type_modal');

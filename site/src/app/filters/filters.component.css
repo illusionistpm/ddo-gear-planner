@@ -51,18 +51,15 @@
   margin-bottom: var(--space-8);
 }
 
-.filter-link-button {
-  background: transparent;
-  border: 0;
-  color: var(--primary-color);
-  font-size: 0.85rem;
-  font-weight: 800;
-  padding: 0;
+.pack-mode-control {
+  display: grid;
+  gap: var(--space-4);
 }
 
-.filter-link-button:hover,
-.filter-link-button:focus {
-  color: var(--primary-dark);
+.pack-mode-label {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 
 .owned-gear-status {
@@ -127,31 +124,37 @@
 }
 
 .pack-coupons {
+  align-items: center;
   border-bottom: 1px solid var(--border-color);
-  display: grid;
-  gap: var(--space-4);
-  margin-bottom: var(--space-12);
-  padding-bottom: var(--space-12);
-}
-
-.pack-mode-help {
-  color: var(--text-secondary);
-  font-size: 0.8rem;
-  margin: 0;
-}
-
-.pack-coupon-row {
-  align-items: baseline;
-  column-gap: var(--space-16);
+  column-gap: var(--space-24);
   display: flex;
   flex-wrap: wrap;
-  row-gap: var(--space-4);
+  margin-bottom: var(--space-12);
+  padding-bottom: var(--space-12);
+  row-gap: var(--space-8);
 }
 
-.pack-coupon-row-title {
+.pack-coupon:not(.form-check) {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  gap: var(--space-8);
+}
+
+.pack-coupon > label:first-child {
   font-size: 0.85rem;
   font-weight: 800;
-  min-width: 10.5rem;
+  white-space: nowrap;
+}
+
+.pack-coupon select {
+  max-width: 100%;
+  width: auto;
+}
+
+.pack-coupon.form-check {
+  margin-bottom: 0;
 }
 
 .pack-coupon-code,

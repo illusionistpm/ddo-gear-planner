@@ -43,7 +43,7 @@ describe('FiltersComponent', () => {
   }
 
   function button(text: string): HTMLButtonElement {
-    const found = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll<HTMLButtonElement>('#packFilters button'))
+    const found = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll<HTMLButtonElement>('.filters-shell button'))
       .find(candidate => candidate.textContent!.trim() === text);
     if (!found) {
       throw new Error(`No pack panel button "${text}"`);
@@ -108,7 +108,7 @@ describe('FiltersComponent', () => {
 
   it('starts on every pack, with the checklist put away', () => {
     expect(button('Every pack').getAttribute('aria-pressed')).toBe('true');
-    expect((fixture.nativeElement as HTMLElement).querySelectorAll('#packFilters input').length).toBe(0);
+    expect((fixture.nativeElement as HTMLElement).querySelector('#packFilters')).toBeNull();
     expect(hiddenPacks().size).toBe(0);
   });
 
@@ -121,12 +121,90 @@ describe('FiltersComponent', () => {
     expect(hidden.has("Delera's Tomb")).toBe(true);
     expect(hidden.has('Mists of Ravenloft')).toBe(true);
     expect(checkbox('Free Quests').checked).toBe(true);
-    expect(checkbox('2020').checked).toBe(false);
+    expect(couponSelect().value).toBe('-1');
+  });
+
+  function couponSelect(): HTMLSelectElement {
+    return (fixture.nativeElement as HTMLElement).querySelector<HTMLSelectElement>('#questingCoupon')!;
+  }
+
+  /** Picks the yearly coupon whose option starts with this text ("None", "2020"). */
+  function pickCoupon(optionStart: string): void {
+    const select = couponSelect();
+    const option = Array.from(select.options).find(candidate => candidate.textContent!.trim().startsWith(optionStart))!;
+    select.value = option.value;
+    select.dispatchEvent(new Event('change'));
+    fixture.detectChanges();
+  }
+
+  it('ticks the packs the chosen yearly coupon granted, and only those', async () => {
+    await press('Only packs I own');
+    pickCoupon('2020');
+
+    const hidden = hiddenPacks();
+    // On the 2020 coupon.
+    expect(hidden.has("Delera's Tomb")).toBe(false);
+    expect(hidden.has('The Lost Gatekeepers')).toBe(false);
+    // Added by the 2021 coupon, never on any coupon, and an expansion.
+    expect(hidden.has('Peril of the Planar Eyes')).toBe(true);
+    expect(hidden.has('Tavern Tales')).toBe(true);
+    expect(hidden.has('Mists of Ravenloft')).toBe(true);
+    expect(couponSelect().selectedOptions[0].textContent).toContain('DDOFREEQUESTS');
+  });
+
+  it('swaps one yearly coupon for another, keeping packs ticked by hand', async () => {
+    await press('Only packs I own');
+    pickCoupon('2021');
+    click('Tavern Tales');
+    pickCoupon('2024');
+
+    const hidden = hiddenPacks();
+    expect(hidden.has("Delera's Tomb")).toBe(false);
+    expect(hidden.has('Hunter and Hunted')).toBe(false);
+    // On the 2021 coupon but not the 2024 one.
+    expect(hidden.has('Vaults of the Artificers')).toBe(true);
+    expect(hidden.has('Tavern Tales')).toBe(false);
+    expect(couponSelect().selectedOptions[0].textContent).toContain('2024');
+
+    pickCoupon('None');
+
+    expect(hiddenPacks().has("Delera's Tomb")).toBe(true);
+    expect(hiddenPacks().has('Tavern Tales')).toBe(false);
+  });
+
+  it('shows the coupon a build\'s packs amount to', async () => {
+    const coupon2025 = component.questingCoupons.find(coupon => coupon.year === '2025')!;
+    const owned = new Set(coupon2025.options.map(option => option.name));
+    component.filters.setHiddenPacks(new Set(
+      component.packOptions.filter(option => option.year && !owned.has(option.name)).map(option => option.name)
+    ));
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    // 2025 and 2026 granted the same packs; the later one is shown.
+    expect(couponSelect().selectedOptions[0].textContent).toContain('2026');
+  });
+
+  it('offers the free expansions coupon as its own tick', async () => {
+    await press('Only packs I own');
+    click('2026 free expansions coupon');
+
+    const hidden = hiddenPacks();
+    expect(checkbox('2026 free expansions coupon').parentElement!.textContent).toContain('BIGBYISBETTER');
+    expect(hidden.has('Mists of Ravenloft')).toBe(false);
+    expect(hidden.has('Shadowfell Conspiracy')).toBe(false);
+    expect(hidden.has('Vecna Unleashed')).toBe(true);
+    expect(hidden.has("Delera's Tomb")).toBe(true);
+
+    click('2026 free expansions coupon');
+
+    expect(hiddenPacks().has('Mists of Ravenloft')).toBe(true);
   });
 
   it('shows every pack again, and remembers the owned ones for next time', async () => {
     await press('Only packs I own');
-    click('2020');
+    pickCoupon('2020');
     await press('Every pack');
 
     expect(hiddenPacks().size).toBe(0);
@@ -156,66 +234,6 @@ describe('FiltersComponent', () => {
     expect(label.querySelector('.pack-year')!.textContent).toBe('2019');
   });
 
-  it('ticks the packs a coupon granted, and only those, after everything is unticked', async () => {
-    await press('Only packs I own');
-    click('2020');
-
-    const hidden = hiddenPacks();
-    // On the 2020 coupon.
-    expect(hidden.has("Delera's Tomb")).toBe(false);
-    expect(hidden.has('The Lost Gatekeepers')).toBe(false);
-    // Added by the 2021 coupon, never on any coupon, and an expansion.
-    expect(hidden.has('Peril of the Planar Eyes')).toBe(true);
-    expect(hidden.has('Tavern Tales')).toBe(true);
-    expect(hidden.has('Mists of Ravenloft')).toBe(true);
-
-    expect(checkbox('2020').checked).toBe(true);
-    // 2021 granted all of 2020's packs and more, so it is part-ticked.
-    expect(checkbox('2021').checked).toBe(false);
-    expect(checkbox('2021').indeterminate).toBe(true);
-  });
-
-  it('adds a later coupon\'s packs to an earlier one\'s', async () => {
-    await press('Only packs I own');
-    click('2020');
-    click('2025');
-
-    const hidden = hiddenPacks();
-    expect(hidden.has("Delera's Tomb")).toBe(false);
-    expect(hidden.has('Slice of Life')).toBe(false);
-    expect(hidden.has('Tavern Tales')).toBe(true);
-    expect(checkbox('2021').checked).toBe(true);
-  });
-
-  it('offers the free expansions coupon apart from the yearly ones', async () => {
-    await press('Only packs I own');
-    const rows = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll('.pack-coupon-row'));
-    const expansionRow = rows.find(row => row.textContent!.includes('Free expansions coupon'))!;
-    const box = expansionRow.querySelector<HTMLInputElement>('input')!;
-
-    box.click();
-    fixture.detectChanges();
-
-    const hidden = hiddenPacks();
-    expect(expansionRow.textContent).toContain('BIGBYISBETTER');
-    expect(hidden.has('Mists of Ravenloft')).toBe(false);
-    expect(hidden.has('Menace of the Underdark')).toBe(false);
-    expect(hidden.has('Shadowfell Conspiracy')).toBe(false);
-    expect(hidden.has('Vecna Unleashed')).toBe(true);
-    expect(hidden.has("Delera's Tomb")).toBe(true);
-  });
-
-  it('unticks a coupon\'s packs when it is fully ticked', async () => {
-    await press('Only packs I own');
-    click('2025');
-    click('2020');
-
-    const hidden = hiddenPacks();
-    expect(hidden.has("Delera's Tomb")).toBe(true);
-    expect(hidden.has('Slice of Life')).toBe(false);
-    expect(hidden.has(NO_PACK_KEY)).toBe(false);
-  });
-
   it('ticks and unticks a whole group from its heading', async () => {
     await press('Only packs I own');
     click('Expansions');
@@ -227,16 +245,6 @@ describe('FiltersComponent', () => {
     click('Expansions');
 
     expect(hiddenPacks().has('Mists of Ravenloft')).toBe(true);
-  });
-
-  it('starts with the inline pack filter section collapsed', () => {
-    expect(component.showPackFilters).toBe(false);
-  });
-
-  it('toggles the inline pack filter section', () => {
-    component.togglePackFilters();
-
-    expect(component.showPackFilters).toBe(true);
   });
 
   it('stores unchecked pack options as hidden packs', () => {

@@ -61,7 +61,6 @@ export class FiltersComponent implements OnInit {
   maxLevel: number = 30;
   showRaidItems: boolean = false;
   showRareItems: boolean = true;
-  showPackFilters: boolean = false;
   packOptions: PackOption[] = [];
   /** packOptions as the panel lays them out: always-available content, expansions, adventure packs. */
   packGroups: PackGroup[] = [];
@@ -73,6 +72,7 @@ export class FiltersComponent implements OnInit {
   packMode: PackMode = 'all';
   /** The packs ticked when 'owned' was last left for 'all', so going back doesn't lose them. */
   private ownedPacks: Set<string> | null = null;
+  private pickedCoupon: CouponOption | null = null;
 
   sortOwnedToTop: boolean = true;
 
@@ -164,10 +164,6 @@ export class FiltersComponent implements OnInit {
     });
   }
 
-  togglePackFilters() {
-    this.showPackFilters = !this.showPackFilters;
-  }
-
   /**
    * 'all' ticks every pack. 'owned' starts from the packs ticked the last time it was
    * open, or from the free content alone - then a coupon or two fills in the rest.
@@ -205,6 +201,43 @@ export class FiltersComponent implements OnInit {
     const checked = !allChecked(options);
     options.forEach(option => option.value = checked);
     this.onChangePacks(this.packOptions, changeSource);
+  }
+
+  /**
+   * The yearly coupon the dropdown shows: the one last picked while its packs are all
+   * still ticked, else the fully ticked coupon that granted the most (the later of two
+   * that granted the same). Derived from the ticks, so a reloaded build shows it too.
+   */
+  get selectedQuestingCoupon(): CouponOption | null {
+    if (this.pickedCoupon && allChecked(this.pickedCoupon.options)) {
+      return this.pickedCoupon;
+    }
+    let best: CouponOption | null = null;
+    for (const coupon of this.questingCoupons) {
+      if (allChecked(coupon.options) && (!best || coupon.options.length >= best.options.length)) {
+        best = coupon;
+      }
+    }
+    return best;
+  }
+
+  get selectedQuestingCouponIndex(): number {
+    const selected = this.selectedQuestingCoupon;
+    return selected ? this.questingCoupons.indexOf(selected) : -1;
+  }
+
+  /**
+   * Swaps one yearly coupon for another: ticks the new one's packs and unticks those only
+   * the old one granted (the coupons aren't strict supersets). Other ticks are left alone.
+   */
+  onSelectQuestingCoupon(index: string): void {
+    const previous = this.selectedQuestingCoupon;
+    const next = this.questingCoupons[Number(index)] ?? null;
+
+    previous?.options.forEach(option => option.value = false);
+    next?.options.forEach(option => option.value = true);
+    this.pickedCoupon = next;
+    this.onChangePacks(this.packOptions, 'coupon');
   }
 
   couponTitle(coupon: CouponOption): string {

@@ -32,8 +32,7 @@
           <button type="button" class="pack-segment-button" [class.active]="packMode === 'all'"
             [attr.aria-pressed]="packMode === 'all'" (click)="setPackMode('all')">Every pack</button>
           <button type="button" class="pack-segment-button" [class.active]="packMode === 'owned'"
-            [attr.aria-pressed]="packMode === 'owned'" aria-controls="packFilters"
-            (click)="setPackMode('owned')">Only packs I own</button>
+            [attr.aria-pressed]="packMode === 'owned'" (click)="setPackMode('owned')">Only packs I own</button>
         </div>
       </div>
     </section>
@@ -65,76 +64,76 @@
   </div>
 
   @if (packMode === 'owned') {
-  <section class="filter-panel pack-filter-panel" id="packFilters">
-    <div class="pack-filter-header">
-      <h4 class="filter-panel-title">Packs I own</h4>
-      <div class="pack-segments pack-sort" role="group" aria-label="Sort packs by">
-        <span class="pack-sort-label" aria-hidden="true">Sort</span>
-        <button type="button" class="pack-segment-button" [class.active]="packSort === 'release'"
-          [attr.aria-pressed]="packSort === 'release'" (click)="setPackSort('release')">Release</button>
-        <button type="button" class="pack-segment-button" [class.active]="packSort === 'name'"
-          [attr.aria-pressed]="packSort === 'name'" (click)="setPackSort('name')">Name</button>
-      </div>
-    </div>
-
-    @if (questingCoupons.length || expansionCoupons.length) {
-      <div class="pack-coupons">
-        @if (questingCoupons.length) {
-          <div class="pack-coupon">
-            <label for="questingCoupon">Free Questing Coupon</label>
-            <select id="questingCoupon" class="form-select form-select-sm"
-              (change)="onSelectQuestingCoupon($any($event.target).value)">
-              <option value="-1" [selected]="selectedQuestingCouponIndex === -1">None</option>
-              @for (coupon of questingCoupons; track coupon.year + coupon.code) {
-                <option [value]="$index" [selected]="selectedQuestingCouponIndex === $index">
-                  {{coupon.year}}{{coupon.code ? ' - ' + coupon.code : ''}}
-                </option>
-              }
-            </select>
-          </div>
-        }
-        @for (coupon of expansionCoupons; track coupon.year + coupon.code) {
-          <div class="form-check pack-coupon" [title]="couponTitle(coupon)">
-            <input type="checkbox" class="form-check-input" id="expansion-coupon-{{$index}}"
-              [checked]="areAllChecked(coupon.options)"
-              [indeterminate]="areSomeChecked(coupon.options) && !areAllChecked(coupon.options)"
-              (change)="togglePacks(coupon.options, 'coupon')">
-            <label class="form-check-label" for="expansion-coupon-{{$index}}">
-              {{coupon.year}} free expansions coupon
-              @if (coupon.code) {
-                <span class="pack-coupon-code">{{coupon.code}}</span>
-              }
-            </label>
-          </div>
-        }
-      </div>
-    }
-
-    @for (group of packGroups; track group.id) {
-      <div class="pack-group" role="group" [attr.aria-labelledby]="'pack-group-' + group.id + '-label'">
-        <div class="form-check pack-group-title">
-          <input type="checkbox" class="form-check-input" id="pack-group-{{group.id}}"
-            [checked]="areAllChecked(group.options)"
-            [indeterminate]="areSomeChecked(group.options) && !areAllChecked(group.options)"
-            (change)="togglePacks(group.options, 'group')">
-          <label class="form-check-label" for="pack-group-{{group.id}}" id="pack-group-{{group.id}}-label">{{group.title}}</label>
+    <section class="filter-panel pack-filter-panel" id="packFilters">
+      <div class="pack-filter-header">
+        <h4 class="filter-panel-title">Packs I own</h4>
+        <div class="pack-segments pack-sort" role="group" aria-label="Sort packs by">
+          <span class="pack-sort-label" aria-hidden="true">Sort</span>
+          <button type="button" class="pack-segment-button" [class.active]="packSort === 'release'"
+            [attr.aria-pressed]="packSort === 'release'" (click)="setPackSort('release')">Release</button>
+          <button type="button" class="pack-segment-button" [class.active]="packSort === 'name'"
+            [attr.aria-pressed]="packSort === 'name'" (click)="setPackSort('name')">Name</button>
         </div>
-        <div class="pack-filter-grid">
-          @for (pack of group.options; track pack.name) {
-            <div class="form-check pack-filter-option">
-              <input type="checkbox" class="form-check-input" id="pack-{{group.id}}-{{$index}}"
-                [(ngModel)]="pack.value" (change)="onChangePackOption()">
-              <label class="form-check-label" for="pack-{{group.id}}-{{$index}}">
-                {{pack.name}}
-                @if (pack.year) {
-                  <span class="pack-year">{{pack.year}}</span>
+      </div>
+
+      @if (questingCoupons.length || expansionCoupons.length) {
+        <div class="pack-coupons">
+          @if (questingCoupons.length) {
+            <div class="pack-coupon">
+              <label for="questingCoupon">Free Questing Coupon</label>
+              <select id="questingCoupon" class="form-select form-select-sm"
+                (change)="onSelectQuestingCoupon($any($event.target).value)">
+                <option value="-1" [selected]="selectedQuestingCouponIndex === -1">None</option>
+                @for (coupon of questingCoupons; track coupon.year + coupon.code) {
+                  <option [value]="$index" [selected]="selectedQuestingCouponIndex === $index">
+                    {{coupon.year}}{{coupon.code ? ' - ' + coupon.code : ''}}
+                  </option>
+                }
+              </select>
+            </div>
+          }
+          @for (coupon of expansionCoupons; track coupon.year + coupon.code) {
+            <div class="form-check pack-coupon" [title]="couponTitle(coupon)">
+              <input type="checkbox" class="form-check-input" id="expansion-coupon-{{$index}}"
+                [checked]="areAllChecked(coupon.options)"
+                [indeterminate]="areSomeChecked(coupon.options) && !areAllChecked(coupon.options)"
+                (change)="togglePacks(coupon.options, 'coupon')">
+              <label class="form-check-label" for="expansion-coupon-{{$index}}">
+                {{coupon.year}} free expansions coupon
+                @if (coupon.code) {
+                  <span class="pack-coupon-code">{{coupon.code}}</span>
                 }
               </label>
             </div>
           }
         </div>
-      </div>
-    }
-  </section>
+      }
+
+      @for (group of packGroups; track group.id) {
+        <div class="pack-group" role="group" [attr.aria-labelledby]="'pack-group-' + group.id + '-label'">
+          <div class="form-check pack-group-title">
+            <input type="checkbox" class="form-check-input" id="pack-group-{{group.id}}"
+              [checked]="areAllChecked(group.options)"
+              [indeterminate]="areSomeChecked(group.options) && !areAllChecked(group.options)"
+              (change)="togglePacks(group.options, 'group')">
+            <label class="form-check-label" for="pack-group-{{group.id}}" id="pack-group-{{group.id}}-label">{{group.title}}</label>
+          </div>
+          <div class="pack-filter-grid">
+            @for (pack of group.options; track pack.name) {
+              <div class="form-check pack-filter-option">
+                <input type="checkbox" class="form-check-input" id="pack-{{group.id}}-{{$index}}"
+                  [(ngModel)]="pack.value" (change)="onChangePackOption()">
+                <label class="form-check-label" for="pack-{{group.id}}-{{$index}}">
+                  {{pack.name}}
+                  @if (pack.year) {
+                    <span class="pack-year">{{pack.year}}</span>
+                  }
+                </label>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </section>
   }
 </div>

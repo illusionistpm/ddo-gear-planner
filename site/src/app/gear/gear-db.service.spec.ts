@@ -657,4 +657,56 @@ describe('GearDbService', () => {
     });
   });
 
+
+  describe('findSlotsForSet', () => {
+    /** The slots holding a filtered item in, or craftable into, the set: a plain scan, as a reference. */
+    function scanSlotsForSet(service: GearDbService, setName: string, maxLevel: number): string[] {
+      const slots: string[] = [];
+      for (const [slot, items] of service.getGearList()) {
+        if (items.some(item =>
+          item.getSets()?.includes(setName)
+          || item.crafting?.some(craftable =>
+            craftable.options.some(option => option.set === setName && option.isWithinMaxLevel(maxLevel))))) {
+          slots.push(slot);
+        }
+      }
+      return slots;
+    }
+
+    function setNames(service: GearDbService): string[] {
+      const names = new Set<string>();
+      for (const items of service.getGearList().values()) {
+        for (const item of items) {
+          item.getSets()?.forEach(set => names.add(set));
+          item.crafting?.forEach(craftable => craftable.options.forEach(option => option.set && names.add(option.set)));
+        }
+      }
+      return Array.from(names);
+    }
+
+    it('matches a scan of the filtered gear for every set, across filter changes', () => {
+      const service: GearDbService = TestBed.inject(GearDbService);
+      const filters = TestBed.inject(FiltersService);
+      const names = setNames(service);
+      expect(names.length).toBeGreaterThan(10);
+
+      const check = (maxLevel: number) => {
+        for (const name of [...names, 'No Such Set']) {
+          expect(service.findSlotsForSet(name), name).toEqual(scanSlotsForSet(service, name, maxLevel));
+        }
+      };
+
+      check(ItemFilters.MAX_LEVEL());
+      filters.setLevelRange(1, 12);
+      check(12);
+      filters.setHiddenPacks(new Set(['Mists of Ravenloft', 'The Isle of Dread', NO_PACK_KEY]));
+      check(12);
+    });
+
+    it('finds nothing for an empty set name', () => {
+      const service: GearDbService = TestBed.inject(GearDbService);
+
+      expect(service.findSlotsForSet('')).toEqual([]);
+    });
+  });
 });

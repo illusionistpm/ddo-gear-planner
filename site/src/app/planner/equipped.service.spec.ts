@@ -953,4 +953,74 @@ describe('EquippedService', () => {
         .toEqual([...(service as any).gearList.affixToBonusTypes.get('Strength').keys()].sort());
     });
   });
+
+  // Mythic and Reaper bonuses stack: every source counts (issue #266).
+  describe('a bonus type that stacks', () => {
+    const mythicPrr = (value: number) => new Affix({ name: 'Physical Sheltering', type: 'Mythic', value });
+    let service: EquippedService;
+
+    beforeEach(() => {
+      service = TestBed.inject(EquippedService);
+      vi.spyOn(TestBed.inject(AffixAvailabilityService), 'getScarcityWeight').mockReturnValue(1);
+      service.setImportantAffixes(['Physical Sheltering']);
+      service.set(makeItem('Boots', 'Boots', 'Boots', [{ name: 'Physical Sheltering', type: 'Mythic', value: 3 }]));
+      service.set(makeItem('Cloak', 'Cloak', 'Cloak', [{ name: 'Physical Sheltering', type: 'Mythic', value: 1 }]));
+    });
+
+    function covered() {
+      let map = new Map<string, Array<{ bonusType: string; value: number }>>();
+      service.getCoveredAffixes().subscribe(value => (map = value)).unsubscribe();
+      return map;
+    }
+
+    it('is worth the sum of its values', () => {
+      expect(service.getCurrentValueForAffixType('Physical Sheltering', 'Mythic')).toBe(4);
+    });
+
+    it('names every source, not just the best', () => {
+      expect(service.getSourcesForAffixType('Physical Sheltering', 'Mythic').map(source => [source.slot, source.value]))
+        .toEqual([['Boots', 3], ['Cloak', 1]]);
+    });
+
+    it('ranks every value as counting, however small', () => {
+      expect(service.getAffixRanking(mythicPrr(1))).toBe(AffixRank.Best);
+    });
+
+    it('ranks a candidate by what it does to the total', () => {
+      expect(service.getAffixRankingAsEquipped(mythicPrr(1), { slot: 'Bracers', activeAffixes: [mythicPrr(1)], sets: [] }))
+        .toEqual({ rank: AffixRank.BetterThanBest });
+      expect(service.getAffixRankingAsEquipped(mythicPrr(1), { slot: 'Cloak', activeAffixes: [mythicPrr(1)], sets: [] }))
+        .toEqual({ rank: AffixRank.Best });
+      expect(service.getAffixRankingAsEquipped(mythicPrr(2), { slot: 'Boots', activeAffixes: [mythicPrr(2)], sets: [] }))
+        .toEqual({ rank: AffixRank.Outranked, downgradeFrom: 4 });
+    });
+
+    it('gives an item credit for a value below the best', () => {
+      const bracers = makeItem('Bracers', 'Bracers', 'Bracers', [{ name: 'Physical Sheltering', type: 'Mythic', value: 1 }]);
+
+      expect(service.getScore(bracers)).toBeGreaterThan(0);
+    });
+
+    it('is covered while equipped gear supplies it, though game data has no such type', () => {
+      expect((service as any).gearList.affixToBonusTypes.get('Physical Sheltering').has('Mythic')).toBe(false);
+      expect(covered().get('Physical Sheltering')?.find(type => type.bonusType === 'Mythic')?.value).toBe(4);
+
+      service.clearSlot('Boots');
+      service.clearSlot('Cloak');
+
+      expect(covered().get('Physical Sheltering')?.some(type => type.bonusType === 'Mythic')).toBe(false);
+    });
+  });
+
+  it('covers a Fortune bonus, which does not stack, at its best value', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+    service.setImportantAffixes(['Strength']);
+    service.set(makeItem('Belt', 'Belt', 'Belts', [{ name: 'Strength', type: 'Fortune', value: 1 }]));
+    service.set(makeItem('Gloves', 'Gloves', 'Gloves', [{ name: 'Strength', type: 'Fortune', value: 2 }]));
+
+    let map = new Map<string, Array<{ bonusType: string; value: number }>>();
+    service.getCoveredAffixes().subscribe(value => (map = value)).unsubscribe();
+
+    expect(map.get('Strength')?.find(type => type.bonusType === 'Fortune')?.value).toBe(2);
+  });
 });

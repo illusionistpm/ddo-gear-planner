@@ -31,6 +31,7 @@ import { FILIGREE_TRACKING_MIN_LEVEL, MAX_FILIGREE_SLOTS_AFFIX } from '../affixe
 import { FiligreeDbService } from '../gear/filigree-db.service';
 import { FiligreeHost, SUMMED_FILIGREE_BONUS_TYPES } from '../gear/filigree';
 import { FiligreeLoadoutService } from './filigree-loadout.service';
+import { combineBonusTypeValues, isStackingBonusType, ITEM_BONUS_TYPES } from '../affixes/item-bonus-types';
 
 const TRACKED_AFFIX_COMPANIONS = new Map<string, Array<string>>([
   ['Armor Class', ['Armor Class (%)']],
@@ -625,24 +626,23 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     return [...setCounts].map(([set, pieces]) => [set, this.gearList.getSetBonus(set, pieces)]);
   }
 
+  /** What the build gets from one bonus type of an affix: its best value, or the sum of all of them for a type that stacks. */
   private _getBestValueForAffixType(affixName: string, bonusType: string) {
-    const arr = this.getValuesForAffixType(affixName, bonusType);
-    if (arr.length) {
-      return arr[0].value;
-    }
-
-    return 0;
+    return combineBonusTypeValues(bonusType, this.getValuesForAffixType(affixName, bonusType).map(entry => entry.value));
   }
 
   getCurrentValueForAffixType(affixName: string, bonusType: string) {
     return this._getBestValueForAffixType(affixName, bonusType);
   }
 
+  /** The sources the build's value for this bonus type comes from: those at the best value, or every one for a type that stacks. */
   getSourcesForAffixType(affixName: string, bonusType: string): AffixSource[] {
     const bestValue = this._getBestValueForAffixType(affixName, bonusType);
     if (!bestValue) {
       return [];
     }
+    const stacks = isStackingBonusType(bonusType);
+    const counts = (value: number) => stacks ? value !== 0 : value === bestValue;
 
     const sources: AffixSource[] = [];
     for (const slot of this.slots) {
@@ -652,7 +652,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
       }
 
       for (const affix of this.affixSvc.getActiveAffixes(item)) {
-        if (affix.name === affixName && affix.type === bonusType && affix.value === bestValue) {
+        if (affix.name === affixName && affix.type === bonusType && counts(affix.value)) {
           sources.push({
             kind: 'item',
             slot: slot[0],
@@ -667,7 +667,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
 
     for (const setToAffixes of this.getActiveSetBonuses()) {
       for (const affix of setToAffixes[1]) {
-        if (this.affixSvc.resolvesToAffix(affix.name, affixName) && affix.type === bonusType && affix.value === bestValue) {
+        if (this.affixSvc.resolvesToAffix(affix.name, affixName) && affix.type === bonusType && counts(affix.value)) {
           sources.push({
             kind: 'set',
             slot: 'Set',
@@ -681,7 +681,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     }
 
     for (const entry of this.getExternalValuesFor(affixName, bonusType)) {
-      if (entry.value === bestValue) {
+      if (counts(entry.value)) {
         sources.push({
           kind: 'external',
           slot: NON_GEAR_SLOT,
@@ -720,7 +720,12 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
   private _getTotalValueForAffixTestingItem(affixName: string, testSlot: string, testItem: Item | null) {
     const bestByType = new Map<string, number>();
     const offer = (bonusType: string, value: number) => {
-      if (!this.isAffixTypeIgnored(affixName, bonusType) && (bestByType.get(bonusType) ?? 0) < value) {
+      if (this.isAffixTypeIgnored(affixName, bonusType)) {
+        return;
+      }
+      if (isStackingBonusType(bonusType)) {
+        bestByType.set(bonusType, (bestByType.get(bonusType) ?? 0) + value);
+      } else if ((bestByType.get(bonusType) ?? 0) < value) {
         bestByType.set(bonusType, value);
       }
     };
@@ -937,13 +942,32 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     }
 
     for (const affixName of affixNames) {
-      let bonusTypes = this.gearList.affixToBonusTypes.get(affixName);
-      if (!bonusTypes) {
-        bonusTypes = new Map<string, number>();
+      const bonusTypes = new Map(this.gearList.affixToBonusTypes.get(affixName));
+      for (const bonusType of this.getEquippedItemBonusTypes(affixName)) {
+        if (!bonusTypes.has(bonusType)) {
+          bonusTypes.set(bonusType, 0);
+        }
       }
       important.set(affixName, bonusTypes);
     }
     return important;
+  }
+
+  /** The item-bonus types (Mythic, Reaper, Fortune) equipped gear supplies for an affix. Game data never lists them. */
+  private getEquippedItemBonusTypes(affixName: string): Set<string> {
+    const types = new Set<string>();
+    for (const [, subject] of this.slots) {
+      const item = subject.getValue();
+      if (!item) {
+        continue;
+      }
+      for (const affix of this.affixSvc.getActiveAffixes(item)) {
+        if (ITEM_BONUS_TYPES.includes(affix.type) && this.affixSvc.resolvesToAffix(affix.name, affixName)) {
+          types.add(affix.type);
+        }
+      }
+    }
+    return types;
   }
 
   private isFiligreeTrackingActive() {
@@ -1195,6 +1219,11 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
         : AffixRank.BetterThanBest;
     }
 
+    // Every value of a type that stacks counts towards the total.
+    if (isStackingBonusType(affix.type)) {
+      return AffixRank.Best;
+    }
+
     const values = this.getValuesForAffixType(affix.name, affix.type);
 
     if (values.length === 0 || affix.value > values[0].value) {
@@ -1234,6 +1263,17 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     const after = this.getValuesForAffixType(affix.name, affix.type, candidate)
       .map(entry => entry.value)
       .concat(own);
+
+    // A type that stacks has no best value to beat, only a total to raise or lower.
+    if (isStackingBonusType(affix.type)) {
+      const totalNow = this._getBestValueForAffixType(affix.name, affix.type);
+      const totalAfter = combineBonusTypeValues(affix.type, after);
+      if (totalAfter > totalNow) {
+        return { rank: AffixRank.BetterThanBest };
+      }
+      return totalAfter === totalNow ? { rank: AffixRank.Best } : { rank: AffixRank.Outranked, downgradeFrom: totalNow };
+    }
+
     const best = Math.max(...after);
     if (affix.value < best) {
       return { rank: AffixRank.Outranked };

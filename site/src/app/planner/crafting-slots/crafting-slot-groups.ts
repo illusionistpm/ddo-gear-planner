@@ -1,6 +1,6 @@
 import {
-  AUGMENT_SLOT_1, AUGMENT_SLOT_2, isAugmentSystemName, isAugmentUpgradeSystemName, isCraftingSlotAvailable,
-  normalizeAugmentSlots
+  AUGMENT_COLOR_ORDER, AUGMENT_SLOT_1, AUGMENT_SLOT_2, augmentColorRank, isAugmentSystemName, isAugmentUpgradeSystemName,
+  isCraftingSlotAvailable, normalizeAugmentSlots
 } from '../../gear/augment-slots';
 import { Craftable } from '../../gear/craftable';
 import { Item } from '../../gear/item';
@@ -49,6 +49,26 @@ export function craftingSlotGroupName(craft: Craftable): string {
     : craft.name;
 }
 
+/**
+ * The order groups are shown in: coloured augments by AUGMENT_COLOR_ORDER, the
+ * flexible augment slots after them, then every other system alphabetically.
+ */
+export function compareCraftingSlotGroups(a: string, b: string): number {
+  return groupRank(a) - groupRank(b) || a.localeCompare(b);
+}
+
+function groupRank(name: string): number {
+  const color = augmentColorRank(name);
+  if (color !== -1) {
+    return color;
+  }
+  if (name === FLEXIBLE_AUGMENT_GROUP) {
+    return AUGMENT_COLOR_ORDER.length;
+  }
+  // An augment colour the order doesn't know yet still goes with the augments.
+  return isAugmentSystemName(name) ? AUGMENT_COLOR_ORDER.length - 0.5 : AUGMENT_COLOR_ORDER.length + 1;
+}
+
 /** Nothing chosen yet: no system for a slot that picks one first, or no option in it. */
 export function isCraftingSlotEmpty(craft: Craftable): boolean {
   return !craft.selected?.getParamDescription();
@@ -56,7 +76,7 @@ export function isCraftingSlotEmpty(craft: Craftable): boolean {
 
 /**
  * Every usable crafting slot on the equipped gear, grouped by slot type and
- * sorted by its name, each row naming the gear slot and item it's on.
+ * sorted by compareCraftingSlotGroups, each row naming the gear slot and item it's on.
  *
  * Brings each item's Augment Slot 2 in line with slot 1 first, as the gear
  * card does before showing them (normalizeAugmentSlots).
@@ -90,7 +110,7 @@ export function deriveCraftingSlotOverview(slots: ReadonlyMap<string, Item | nul
     }
   }
 
-  const sorted = Array.from(groups.values()).sort((a, b) => a.name.localeCompare(b.name));
+  const sorted = Array.from(groups.values()).sort((a, b) => compareCraftingSlotGroups(a.name, b.name));
   const summary = sorted
     .filter(group => isAugmentSystemName(group.name) || group.name === FLEXIBLE_AUGMENT_GROUP)
     .map(group => ({

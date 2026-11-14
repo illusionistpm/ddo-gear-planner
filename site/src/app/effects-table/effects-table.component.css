@@ -24,69 +24,16 @@
     margin-top: 0;
 }
 
-/* Group by: a small segmented control at the head of the list, right-aligned. */
+/* Group by: a small segmented control at the head of the list, right-aligned.
+   Its look is the global .segmented-toggle's (styles.css), shared with the
+   Equipment panel's Show switch. */
 .tracked-affix-groupby {
-    align-items: center;
-    display: flex;
-    gap: var(--space-8);
     justify-content: flex-end;
     margin-bottom: var(--space-4);
 }
 
-.tracked-affix-groupby-label {
-    color: var(--text-secondary);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-}
-
-.tracked-affix-groupby-options {
-    background: var(--surface-subtle-color);
-    border: 1px solid var(--border-color);
-    border-radius: 999px;
-    display: inline-flex;
-    gap: var(--space-2);
-    padding: var(--space-2);
-}
-
-.tracked-affix-groupby-option {
-    background: transparent;
-    border: 0;
-    border-radius: 999px;
-    color: var(--text-secondary);
-    cursor: pointer;
-    font-size: 0.8rem;
-    font-weight: 700;
-    line-height: 1.2;
-    padding: var(--space-2) var(--space-12);
-}
-
-.tracked-affix-groupby-option:hover,
-.tracked-affix-groupby-option:focus-visible {
-    color: var(--primary-color);
-}
-
-.tracked-affix-groupby-option:focus-visible {
-    outline: 3px solid var(--focus-ring-color);
-    outline-offset: 1px;
-}
-
-.tracked-affix-groupby-option.active {
-    background: var(--primary-color);
-    color: var(--on-accent-text-color);
-}
-
-/* It takes the first section's place as first child, so that section's
-   margin-top is real space here too - see the rule above. */
 .tracked-affix-groupby + .tracked-affix-section {
     margin-top: 0;
-}
-
-@media (pointer: coarse) {
-    .tracked-affix-groupby-option {
-        min-height: 2.25rem;
-    }
 }
 
 .tracked-affix-start-hint {

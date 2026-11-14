@@ -9,6 +9,7 @@ import { CraftableOption } from '../../gear/craftable-option';
 import { Item } from '../../gear/item';
 import { UserItemLocationTooltipPipe } from '../../shared/user-item-location-tooltip.pipe';
 import { TapTooltipComponent } from '../../tap-tooltip/tap-tooltip.component';
+import { SlotIconComponent } from '../../slot-icon/slot-icon.component';
 import { EquippedService } from '../equipped.service';
 import { CraftingSlotsComponent } from './crafting-slots.component';
 
@@ -20,7 +21,7 @@ describe('CraftingSlotsComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [
         CraftingSlotsComponent, CraftingSlotControlComponent, CraftingOptionPickerComponent,
-        TapTooltipComponent, UserItemLocationTooltipPipe
+        TapTooltipComponent, SlotIconComponent, UserItemLocationTooltipPipe
       ],
       imports: [FormsModule, NgbModule]
     }).compileComponents();
@@ -52,11 +53,13 @@ describe('CraftingSlotsComponent', () => {
     equipped.set(item('Belt', 'Sunny Belt', 'Sun Augment Slot'));
     await render();
 
-    expect(chips()).toEqual(['Blue: 1 slot, 1 empty', 'Sun: 2 slots, 2 empty']);
-    expect(text('.crafting-group-name')).toEqual(['Blue Augment Slot', 'Sun Augment Slot']);
-    const sunRows = Array.from(group('Sun Augment Slot').querySelectorAll('.crafting-slot-source'))
-      .map(source => source.textContent!.trim().replace(/\s+/g, ' '));
-    expect(sunRows).toEqual(['Helm, Sunny Helm', 'Belt, Sunny Belt']);
+    expect(chips()).toEqual(['Sun: 2 empty', 'Blue: 1 empty']);
+    expect(text('.crafting-group-name')).toEqual(['Sun Augment Slot', 'Blue Augment Slot']);
+    // Each row's gear is an icon, named on hover.
+    const sunRows = Array.from(group('Sun Augment Slot').querySelectorAll<HTMLElement>('.crafting-slot-row .tap-tooltip-trigger'))
+      .map(trigger => trigger.title);
+    expect(sunRows).toEqual(['Helm: Sunny Helm', 'Belt: Sunny Belt']);
+    expect(group('Sun Augment Slot').querySelector('.crafting-slot-row app-slot-icon svg')).toBeTruthy();
     // The group header names the slot, so the rows don't repeat it.
     expect(group('Sun Augment Slot').querySelector('.crafting-slot-row')!.textContent).not.toContain('Sun Augment Slot');
   });
@@ -76,9 +79,21 @@ describe('CraftingSlotsComponent', () => {
     fixture.detectChanges();
 
     expect(equipped.getSlotsSnapshot().get('Belt')!.getCraftingByName('Sun Augment Slot')!.selected.name).toBe('Sun Augment Slot Gem');
-    expect(chips()).toEqual(['Sun: 2 slots, 1 empty']);
+    expect(chips()).toEqual(['Sun: 1 empty']);
     expect(Array.from(group('Sun Augment Slot').querySelectorAll('.crafting-slot-row'))
       .map(row => row.classList.contains('is-empty'))).toEqual([true, false]);
+  });
+
+  it('colours the chosen option by how it ranks, as the gear cards do', async () => {
+    equipped.addImportantAffix('Strength');
+    const helm = item('Helm', 'Sunny Helm', 'Sun Augment Slot');
+    helm.crafting[0].selected = helm.crafting[0].options[1];
+    equipped.set(helm);
+    await render();
+
+    const select = el().querySelector<HTMLSelectElement>('.crafting-slot-row select')!;
+    // The colour itself is a global style, scoped in styles.css to the views that show rank colours.
+    expect(select.classList).toContain('Best');
   });
 
   it('shows only the empty slots when asked, leaving out groups with none', async () => {

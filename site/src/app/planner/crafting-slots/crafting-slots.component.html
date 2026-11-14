@@ -6,10 +6,9 @@
       <div class="crafting-summary" role="group" aria-label="Augment slots by colour">
         @for (chip of overview.summary; track chip.groupName) {
           <button type="button" class="crafting-summary-chip" [class.has-empty]="chip.empty > 0"
-            [attr.aria-label]="chip.label + ': ' + chip.total + ' slot' + (chip.total === 1 ? '' : 's') + (chip.empty ? ', ' + chip.empty + ' empty' : '')"
+            [attr.aria-label]="chip.label + (chip.empty ? ': ' + chip.empty + ' empty' : '')"
             (click)="jumpTo(chip)">
             <span class="crafting-summary-label">{{chip.label}}</span>
-            <span class="crafting-summary-count">{{chip.total}}</span>
             @if (chip.empty) {
               <span class="crafting-summary-empty">{{chip.empty}} empty</span>
             }
@@ -29,7 +28,6 @@
             [attr.aria-controls]="groupId(group.name) + '-rows'" (click)="toggle(group)">
             <span class="fas fa-chevron-down crafting-group-chevron" aria-hidden="true"></span>
             <span class="crafting-group-name">{{group.name}}</span>
-            <span class="crafting-group-count">{{group.rows.length}}</span>
             @if (group.empty) {
               <span class="crafting-group-empty">{{group.empty}} empty</span>
             }
@@ -38,15 +36,18 @@
         @if (!isCollapsed(group)) {
           <ul class="crafting-group-rows" [id]="groupId(group.name) + '-rows'">
             @for (row of visibleRows(group); track row.key) {
-              <li class="crafting-slot-row" [class.is-empty]="row.empty">
-                <div class="crafting-slot-source">
-                  <span class="crafting-slot-gear-slot">{{slotLabel(row.gearSlot)}}</span>
-                  <span class="visually-hidden">, </span>
-                  <span class="crafting-slot-item">{{row.item.name}}</span>
-                </div>
-                <div class="row small crafting-slot-controls">
-                  <app-crafting-slot-control [item]="row.item" [craft]="row.craft" [hideName]="true" (changed)="onChanged(row)"></app-crafting-slot-control>
-                </div>
+              <!-- The gear it's on is an icon, named on hover (or a tap, on touch), so a row is one line. -->
+              <li class="crafting-slot-row small" [class.is-empty]="row.empty">
+                @let source = sourceLabel(row);
+                <app-tap-tooltip [text]="source" [label]="source">
+                  <span class="crafting-slot-icon">
+                    <app-slot-icon [slot]="row.gearSlot"></app-slot-icon>
+                    @if (slotNumber(row.gearSlot); as number) {
+                      <span class="crafting-slot-number" aria-hidden="true">{{number}}</span>
+                    }
+                  </span>
+                </app-tap-tooltip>
+                <app-crafting-slot-control [item]="row.item" [craft]="row.craft" [hideName]="true" (changed)="onChanged(row)"></app-crafting-slot-control>
               </li>
             }
           </ul>

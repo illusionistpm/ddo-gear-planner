@@ -10,7 +10,7 @@ import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
 import { AffixPackagesService } from '../affixes/affix-packages.service';
 import { AffixEditorService } from '../planner/affix-editor.service';
-import { slotLabel, sortSlotsForDisplay } from '../gear/slot-display';
+import { slotLabel, slotNumber, sortSlotsForDisplay } from '../gear/slot-display';
 import { AffixSourceHighlightService, NON_GEAR_JUMP_TARGET, setBonusJumpTarget } from '../planner/affix-source-highlight.service';
 
 /** How long a card stays highlighted after the jump bar scrolls to it - matches the CSS animation. */
@@ -203,7 +203,7 @@ export class GearListComponent implements OnInit, AfterViewInit, AfterViewChecke
 
   /** The number that tells Ring 1 from Ring 2 when the jump bar shows icons only. */
   getSlotNumber(slot: string): string {
-    return /(\d+)$/.exec(slot)?.[1] ?? '';
+    return slotNumber(slot);
   }
 
   /**

@@ -172,11 +172,14 @@
         <section id="equipmentPanel" class="planner-tab-panel" role="tabpanel" aria-labelledby="equipmentTab" [hidden]="!isActiveTab('equipment')">
             <!-- The gear cards, or every crafting slot on them grouped by type. "Items",
                  not "Gear": on a phone the Equipment tab above is already called Gear. -->
-            <div class="equipment-view-switch" role="group" aria-label="Equipment view">
-                <button type="button" class="equipment-view-option" [class.active]="!craftingSlotsOpen"
-                    [attr.aria-pressed]="!craftingSlotsOpen" (click)="showItems()">Items</button>
-                <button type="button" class="equipment-view-option" [class.active]="craftingSlotsOpen"
-                    [attr.aria-pressed]="craftingSlotsOpen" (click)="showCraftingSlots()">Crafting slots</button>
+            <div class="equipment-view-switch segmented-toggle" role="group" aria-label="Equipment view">
+                <span class="segmented-toggle-label">Show</span>
+                <span class="segmented-toggle-options">
+                    <button type="button" class="segmented-toggle-option" [class.active]="!craftingSlotsOpen"
+                        [attr.aria-pressed]="!craftingSlotsOpen" (click)="showItems()">Items</button>
+                    <button type="button" class="segmented-toggle-option" [class.active]="craftingSlotsOpen"
+                        [attr.aria-pressed]="craftingSlotsOpen" (click)="showCraftingSlots()">Crafting slots</button>
+                </span>
             </div>
             <!-- Hidden rather than destroyed, so going back to the cards is instant. -->
             <app-gear-list [hidden]="craftingSlotsOpen"></app-gear-list>

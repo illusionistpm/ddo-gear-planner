@@ -4,13 +4,13 @@ import { Item } from '../../gear/item';
 import { deriveCraftingSlotOverview, FLEXIBLE_AUGMENT_GROUP } from './crafting-slot-groups';
 
 describe('deriveCraftingSlotOverview', () => {
-  it('groups slots by type, alphabetically, naming the gear slot and item of each', () => {
+  it('groups slots by type, naming the gear slot and item of each', () => {
     const overview = deriveCraftingSlotOverview(new Map([
       ['Helm', item('Helm', 'Sunny Helm', slot('Sun Augment Slot'), slot('Blue Augment Slot'))],
       ['Weapon', item('Weapon', 'Sunny Sword', slot('Sun Augment Slot'), slot('Green Steel Tier 1'))],
     ]));
 
-    expect(overview.groups.map(group => group.name)).toEqual(['Blue Augment Slot', 'Green Steel Tier 1', 'Sun Augment Slot']);
+    expect(overview.groups.map(group => group.name)).toEqual(['Sun Augment Slot', 'Blue Augment Slot', 'Green Steel Tier 1']);
     const sun = overview.groups.find(group => group.name === 'Sun Augment Slot')!;
     // Gear-slot display order: the weapon before the helm.
     expect(sun.rows.map(row => [row.gearSlot, row.item.name])).toEqual([['Weapon', 'Sunny Sword'], ['Helm', 'Sunny Helm']]);
@@ -25,10 +25,29 @@ describe('deriveCraftingSlotOverview', () => {
     ]));
 
     expect(overview.summary).toEqual([
-      { label: 'Red', groupName: 'Red Augment Slot', total: 1, empty: 1 },
       { label: 'Sun', groupName: 'Sun Augment Slot', total: 2, empty: 1 },
+      { label: 'Red', groupName: 'Red Augment Slot', total: 1, empty: 1 },
     ]);
     expect(overview.groups.find(group => group.name === 'Sun Augment Slot')!.rows.map(row => row.empty)).toEqual([false, true]);
+  });
+
+  it('orders Sun, Moon, Purple, Orange, Red, Green, Blue, Yellow, Colorless, the flexible slots, then the rest alphabetically', () => {
+    const overview = deriveCraftingSlotOverview(new Map([
+      ['Helm', item('Helm', 'Helm', slot('Upgrade Tier'), slot('Colorless Augment Slot'), slot('Blue Augment Slot'), slot('Yellow Augment Slot'))],
+      ['Belt', item('Belt', 'Belt', slot('Purple Augment Slot'), slot('Green Steel Tier 1'), slot('Moon Augment Slot'), slot('Red Augment Slot'))],
+      ['Boots', item('Boots', 'Boots', slot('Orange Augment Slot'), slot('Sun Augment Slot'), slot('Green Augment Slot'))],
+      ['Armor', essenceCrafted()],
+    ]));
+
+    expect(overview.groups.map(group => group.name)).toEqual([
+      'Sun Augment Slot', 'Moon Augment Slot',
+      'Purple Augment Slot', 'Orange Augment Slot', 'Red Augment Slot',
+      'Green Augment Slot', 'Blue Augment Slot', 'Yellow Augment Slot',
+      'Colorless Augment Slot', FLEXIBLE_AUGMENT_GROUP,
+      'Green Steel Tier 1', 'Upgrade Tier',
+    ]);
+    expect(overview.summary.map(chip => chip.label)).toEqual(
+      ['Sun', 'Moon', 'Purple', 'Orange', 'Red', 'Green', 'Blue', 'Yellow', 'Colorless', 'Flexible']);
   });
 
   it('keeps two slots of one colour on one item apart', () => {

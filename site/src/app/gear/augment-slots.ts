@@ -95,3 +95,20 @@ export function normalizeAugmentSlots(item: Item | null): void {
     }
   }
 }
+
+/**
+ * Coloured augment slots in the order they're planned around: Sun and Moon,
+ * then Purple, Orange, Red, Green, Blue, Yellow, and Colorless last.
+ */
+export const AUGMENT_COLOR_ORDER: ReadonlyArray<string> = [
+  'Sun', 'Moon',
+  'Purple', 'Orange', 'Red', 'Green', 'Blue', 'Yellow',
+  'Colorless'
+];
+
+/** A coloured augment system's place in AUGMENT_COLOR_ORDER; -1 for anything else, an unknown colour included. */
+export function augmentColorRank(systemName: string): number {
+  return isAugmentSystemName(systemName)
+    ? AUGMENT_COLOR_ORDER.indexOf(systemName.slice(0, -AUGMENT_SYSTEM_SUFFIX.length))
+    : -1;
+}

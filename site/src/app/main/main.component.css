@@ -873,24 +873,10 @@ app-admin-link {
   }
 }
 
-/* Gear | Crafting slots, at the top of the Equipment panel. */
+/* Show: Items | Crafting slots, at the top of the Equipment panel, placed and
+   styled as Build Goals' Group by is at the top of its panel (the global
+   .segmented-toggle in styles.css). */
 .equipment-view-switch {
-  display: inline-flex;
-  gap: var(--space-4);
-  margin: 0 0 var(--space-8);
-}
-
-.equipment-view-option {
-  background: var(--surface-color);
-  border: 1px solid var(--border-color);
-  border-radius: 999px;
-  color: var(--text-secondary);
-  font-size: 0.82rem;
-  padding: var(--space-2) var(--space-12);
-}
-
-.equipment-view-option.active {
-  background: var(--primary-color);
-  border-color: var(--primary-color);
-  color: var(--on-accent-text-color);
+  justify-content: flex-end;
+  margin-bottom: var(--space-4);
 }

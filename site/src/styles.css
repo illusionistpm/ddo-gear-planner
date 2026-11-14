@@ -743,8 +743,8 @@ select.form-control {
   .crafting-picker-container,
   .filigree-picker-container {
     position: fixed !important;
-    left: 16px !important;
-    right: 16px !important;
+    left: 8px !important;
+    right: 8px !important;
     top: 10dvh !important;
   }
 }

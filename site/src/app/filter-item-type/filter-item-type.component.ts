@@ -36,7 +36,7 @@ export class FilterItemTypeComponent {
       this.getTypesWithAttribute(group.attributes);
     }
 
-    filters.getItemFilters().subscribe(itemFilters => {
+    filters.getEditedFilters().subscribe(itemFilters => {
       const groups = this.splitTypeSetIntoGroups(itemFilters.hiddenItemTypes);
       for (const group of this.groups) {
         const key = group.attributes.join(' ');

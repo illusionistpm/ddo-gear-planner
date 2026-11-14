@@ -92,7 +92,7 @@ export class FiltersComponent implements OnInit {
     const coupons = this.getCouponOptions();
     this.expansionCoupons = coupons.filter(coupon => coupon.options.some(option => option.expansion));
     this.questingCoupons = coupons.filter(coupon => !this.expansionCoupons.includes(coupon)).reverse();
-    filters.getItemFilters().subscribe(itemFilters => {
+    filters.getEditedFilters().subscribe(itemFilters => {
       this.minLevel = itemFilters.levelRange[0];
       this.maxLevel = itemFilters.levelRange[1];
       this.showRaidItems = itemFilters.showRaidItems;

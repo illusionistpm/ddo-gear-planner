@@ -37,6 +37,8 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   sortOwnedToTop: boolean = true;
   activeTab: PlannerTab = 'equipment';
   filtersOpen: boolean = false;
+  /** Set while held filter changes wait to be applied after the sheet closes. */
+  private filterRelease: { frame?: number, timer?: ReturnType<typeof setTimeout> } | null = null;
   itemFilters = new ItemFilters();
   onboardingActive = true;
   trackedAffixesHint = false;
@@ -270,7 +272,8 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     this.craftingSlotsSubscription = this.craftingSlotsView.isOpen$.subscribe(open => {
       this.craftingSlotsOpen = open;
     });
-    this.filterSubscription = this.filters.getItemFilters().subscribe(itemFilters => {
+    // The chips and count show the filters as edited, held changes included.
+    this.filterSubscription = this.filters.getEditedFilters().subscribe(itemFilters => {
       this.itemFilters = itemFilters;
     });
     this.signedInSubscription = this.auth.isAuthenticated$.subscribe(signedIn => this.signedIn = signedIn);
@@ -305,6 +308,9 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    // Nothing left to cover: apply any held filter changes now.
+    this.cancelFilterRelease();
+    this.filters.applyHeldChanges();
     this.chromeObserver?.disconnect();
     this.filterSubscription?.unsubscribe();
     this.onboardingSubscription?.unsubscribe();
@@ -574,7 +580,18 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   toggleFilters() {
-    this.filtersOpen = !this.filtersOpen;
+    if (this.filtersOpen) {
+      this.closeFilters();
+    } else {
+      this.openFilters();
+    }
+  }
+
+  /** The sheet covers the planner, so filter changes are held until it closes. */
+  openFilters() {
+    this.cancelFilterRelease();
+    this.filtersOpen = true;
+    this.filters.holdChanges();
   }
 
   /** The list's way back to the planner, in the header it shows while open. */
@@ -587,8 +604,38 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     { mode: 'system', label: 'Match my device', icon: 'fa-desktop' }
   ];
 
+  /**
+   * Applies the held filter changes once the sheet has gone - after the next frame is
+   * painted - so it closes at once and the planner rebuilds behind it, rather than the
+   * click waiting on the rebuild.
+   */
   closeFilters() {
+    if (!this.filtersOpen) {
+      return;
+    }
     this.filtersOpen = false;
+    this.cancelFilterRelease();
+    const release: { frame?: number, timer?: ReturnType<typeof setTimeout> } = {};
+    this.filterRelease = release;
+    const apply = () => {
+      this.filterRelease = null;
+      this.filters.applyHeldChanges();
+    };
+    if (typeof requestAnimationFrame === 'function') {
+      release.frame = requestAnimationFrame(() => release.timer = setTimeout(apply));
+    } else {
+      release.timer = setTimeout(apply);
+    }
+  }
+
+  private cancelFilterRelease() {
+    if (this.filterRelease?.frame !== undefined) {
+      cancelAnimationFrame(this.filterRelease.frame);
+    }
+    if (this.filterRelease?.timer !== undefined) {
+      clearTimeout(this.filterRelease.timer);
+    }
+    this.filterRelease = null;
   }
 
   getLevelRangeSummary() {

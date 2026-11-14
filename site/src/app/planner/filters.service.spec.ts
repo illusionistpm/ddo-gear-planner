@@ -36,4 +36,77 @@ describe('FiltersService', () => {
     expect(current.showRaidItems).toBe(true);
     expect(current.showRareItems).toBe(true);
   });
+
+  describe('held changes', () => {
+    function latest<T>(source: { subscribe(next: (value: T) => void): { unsubscribe(): void } }): T {
+      let value!: T;
+      source.subscribe(next => value = next).unsubscribe();
+      return value;
+    }
+
+    it('shows a held change to the filter controls at once, and to everything else on release', () => {
+      const service = TestBed.inject(FiltersService);
+      const queryParams = TestBed.inject(QueryParamsService);
+      queryParams.applyDecodedBuildParams({});
+      let applied = 0;
+      service.getItemFilters().subscribe(() => applied++);
+      applied = 0;
+
+      service.holdChanges();
+      service.setShowRaidItems(false);
+      service.setHiddenPacks(new Set(['Tavern Tales']));
+      service.setHiddenPacks(new Set(['Tavern Tales', 'The Red Fens']));
+
+      expect(latest(service.getEditedFilters()).hiddenPacks).toEqual(new Set(['Tavern Tales', 'The Red Fens']));
+      expect(latest(service.getItemFilters()).showRaidItems).toBe(true);
+      expect(applied).toBe(0);
+      expect(queryParams.getCombinedParams()['hiddenpacks'] ?? '').toBe('');
+
+      service.applyHeldChanges();
+
+      expect(applied).toBe(1);
+      expect(latest(service.getItemFilters()).showRaidItems).toBe(false);
+      expect(latest(service.getItemFilters()).hiddenPacks).toEqual(new Set(['Tavern Tales', 'The Red Fens']));
+      expect(queryParams.getCombinedParams()['hiddenpacks']).toBe('Tavern Tales,The Red Fens');
+    });
+
+    it('applies nothing on release when nothing changed', () => {
+      const service = TestBed.inject(FiltersService);
+      let applied = 0;
+      service.getItemFilters().subscribe(() => applied++);
+      applied = 0;
+
+      service.holdChanges();
+      service.applyHeldChanges();
+
+      expect(applied).toBe(0);
+    });
+
+    it('applies changes at once when not held', () => {
+      const service = TestBed.inject(FiltersService);
+
+      service.setShowRareItems(false);
+
+      expect(latest(service.getItemFilters()).showRareItems).toBe(false);
+      expect(latest(service.getEditedFilters()).showRareItems).toBe(false);
+    });
+
+    it('lets a navigation replace the filters at once, held changes and all', () => {
+      const service = TestBed.inject(FiltersService);
+      const queryParams = TestBed.inject(QueryParamsService);
+
+      service.holdChanges();
+      service.setShowRaidItems(false);
+      queryParams.applyDecodedBuildParams({ rare: 'false' });
+
+      for (const filters of [latest(service.getItemFilters()), latest(service.getEditedFilters())]) {
+        expect(filters.showRaidItems).toBe(true);
+        expect(filters.showRareItems).toBe(false);
+      }
+
+      // Still held afterwards.
+      service.setShowRaidItems(false);
+      expect(latest(service.getItemFilters()).showRaidItems).toBe(true);
+    });
+  });
 });

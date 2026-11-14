@@ -61,6 +61,7 @@ describe('classifyCraftSelection', () => {
         'Nearly Complete: Skill', 'Nearly Complete: Spell Focus',
         'Nearly Finished',
         'Sealed in Fire', 'Sealed in Gloom', 'Sealed in Mist', 'Sealed in Undeath',
+        'Shadowscale Upgrade',
         'T1 (Equipment)', 'T1 (Weapon)', 'T2 (Equipment)', 'T2 (Weapon)', 'T3 (Equipment)', 'T3 (Weapon)',
         'Upgrade Tier', 'Upgradeable Item',
       ],

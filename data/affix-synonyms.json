@@ -79,6 +79,12 @@
         ]
     },
     {
+        "name": "Combat Mastery",
+        "synonyms": [
+            "tactics DCs"
+        ]
+    },
+    {
         "name": "Ice Intensity",
         "synonyms": [
             "Cold Intensity",
@@ -345,7 +351,8 @@
     {
         "name": "Reflex Save",
         "synonyms": [
-            "Reflex saves"
+            "Reflex saves",
+            "reflex saving throws"
         ]
     },
     {

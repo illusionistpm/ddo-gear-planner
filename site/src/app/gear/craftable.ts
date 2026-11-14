@@ -8,6 +8,7 @@ export type CraftableOptionFilter = (option: CraftableOption) => boolean;
 // The empty option of these systems isn't "nothing": it's the item as it drops.
 const EMPTY_OPTION_LABELS: ReadonlyMap<string, string> = new Map([
     ['Upgrade Tier', 'Tier 1'],
+    ['Shadowscale Upgrade', 'Flawed Shadowscale Armor'],
 ]);
 
 export class Craftable {

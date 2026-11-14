@@ -862,6 +862,14 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
         aff['type'] = affixNameSearch.group(2).strip()
         aff['value'] = affixNameSearch.group(1).strip()
 
+    # ex: +2d6 Profane bonus to Sneak attack damage (Shadow Killer). Dice of sneak attack
+    # damage are Sneak Attack Dice; a flat bonus to it is Sneak Attack Damage.
+    affixNameSearch = re.search(r'^\+([0-9]+)d6 ([A-Za-z]+) [Bb]onus to [Ss]neak [Aa]ttack (?:[Dd]amage|[Dd]ice)\.?$', affixName)
+    if ((affixNameSearch) and ('name' not in aff)):
+        aff['name'] = 'Sneak Attack Dice'
+        aff['type'] = affixNameSearch.group(2)
+        aff['value'] = affixNameSearch.group(1)
+
     # ex: +15 Enhancement Bonus
     affixNameSearch = re.search(r'^([+-]?\d+) (Enhancement|Orb) [Bb]onus$', affixName)
     if ((affixNameSearch) and ('name' not in aff)):

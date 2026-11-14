@@ -142,6 +142,26 @@ describe('GearDbService', () => {
       .toEqual([[], [['Speed', 'Enhancement', 30]]]);
   });
 
+  it('offers a Shadowscale armor its Magma Forge upgrades, unupgraded until one is chosen (issue #262)', () => {
+    const service: GearDbService = TestBed.inject(GearDbService);
+    const armor = service.findGearBySlot('Armor', 'Shadow Dragonhide Armor');
+    const upgrade = armor?.getCraftingByName('Shadowscale Upgrade');
+    const sneakAttackDice = () => armor?.getActiveAffixes()
+      .filter(affix => affix.name === 'Sneak Attack Dice' && affix.type === 'Profane')
+      .map(affix => Number(affix.value));
+
+    expect(upgrade?.options.map(option => option.describe()))
+      .toEqual(['Flawed Shadowscale Armor', 'Shadow Caster', 'Shadow Disciple', 'Shadow Killer']);
+    expect(armor?.getActiveAffixes().some(affix => affix.name === 'Flawed Shadowscale Armor')).toBe(false);
+    // Every upgrade adds one; a crafting option can't, so the item has it.
+    expect(armor?.getCraftingByName('Green Augment Slot')).toBeTruthy();
+    expect(sneakAttackDice()).toEqual([]);
+
+    expect(upgrade?.selectByParamDescription('Shadow Killer')).toBe(true);
+
+    expect(sneakAttackDice()).toEqual([2]);
+  });
+
   it('offers a Vaults of the Artificers item its upgrade tiers, each adding to what it drops with (issue #51)', () => {
     const service: GearDbService = TestBed.inject(GearDbService);
     const ring = service.findGearBySlot('Ring1', 'Epic Ring of the Stalker');

@@ -252890,14 +252890,11 @@
                 "name": "From The Shadows",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Flawed Shadowscale Armor",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Shadowscale Upgrade",
+            "Green Augment Slot",
             "Blue Augment Slot"
         ],
         "ml": 26,
@@ -252945,14 +252942,11 @@
                 "name": "From The Shadows",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Flawed Shadowscale Armor",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Shadowscale Upgrade",
+            "Green Augment Slot",
             "Blue Augment Slot"
         ],
         "ml": 26,
@@ -253000,14 +252994,11 @@
                 "name": "From The Shadows",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Flawed Shadowscale Armor",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Shadowscale Upgrade",
+            "Green Augment Slot",
             "Blue Augment Slot"
         ],
         "ml": 26,
@@ -253753,14 +253744,11 @@
                 "name": "From The Shadows",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Flawed Shadowscale Armor",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Shadowscale Upgrade",
+            "Green Augment Slot",
             "Blue Augment Slot"
         ],
         "ml": 26,
@@ -253813,14 +253801,11 @@
                 "name": "From The Shadows",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Flawed Shadowscale Armor",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Shadowscale Upgrade",
+            "Green Augment Slot",
             "Blue Augment Slot"
         ],
         "ml": 26,
@@ -253873,14 +253858,11 @@
                 "name": "From The Shadows",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Flawed Shadowscale Armor",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Shadowscale Upgrade",
+            "Green Augment Slot",
             "Blue Augment Slot"
         ],
         "ml": 26,

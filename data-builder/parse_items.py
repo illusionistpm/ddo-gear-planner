@@ -11,6 +11,7 @@ from get_inverted_synonym_map import get_inverted_synonym_map
 from compound_affixes import expand_single_affix
 from parse_rare_loot import get_rare_loot_from_snapshot
 from parse_vota_items import get_vota_enchantment_cells, is_vota_placeholder
+from shadowscale import SHADOWSCALE_SYSTEM, SHADOWSCALE_UPGRADE_SYSTEM, add_shadowscale_upgrade_options
 from upgrade_tiers import UPGRADE_TIER_SYSTEM, as_cell, get_upgrade_entry, has_tier_markers, split_upgrade_tiers
 from get_snapshot_path import get_snapshot_path
 from parse_set_page import load_set_members
@@ -547,6 +548,13 @@ def get_items_from_page(
             item['affixes'].remove(affix)
 
         add_upgrade_tier_options(craftingSystems, item, upgradeAffixes)
+
+        if any(affix['name'] == SHADOWSCALE_SYSTEM for affix in item['affixes']):
+            addedSystems = add_shadowscale_upgrade_options(craftingSystems, item, parse_cell)
+            if addedSystems is not None:
+                # The upgrade's choices replace the flag that says it's available.
+                item['affixes'] = [affix for affix in item['affixes'] if affix['name'] != SHADOWSCALE_SYSTEM]
+                add_item_crafting_systems(item, [SHADOWSCALE_UPGRADE_SYSTEM, *addedSystems])
 
         add_item_crafting_systems(item, get_legendary_green_steel_crafting_systems(item))
 

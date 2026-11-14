@@ -43416,6 +43416,350 @@
             }
         ]
     },
+    "Shadowscale Upgrade": {
+        "Shadow Dragonhide Armor": [
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Profane",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "name": "Shadow Caster"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Profane",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Combat Mastery",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "name": "Shadow Disciple"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sneak Attack Dice",
+                        "type": "Profane",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Reflex Save",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "name": "Shadow Killer"
+            }
+        ],
+        "Shadow Dragonplate Armor": [
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Profane",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "name": "Shadow Caster"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Profane",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Combat Mastery",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "name": "Shadow Disciple"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "DR",
+                        "type": "Epic",
+                        "value": "30"
+                    }
+                ],
+                "name": "Shadow Guardian"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sneak Attack Dice",
+                        "type": "Profane",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Reflex Save",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "name": "Shadow Killer"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Doublestrike",
+                        "type": "Profane",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Melee Alacrity",
+                        "type": "Enhancement",
+                        "value": "15"
+                    },
+                    {
+                        "name": "Ranged Alacrity",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ],
+                "name": "Shadow Striker"
+            }
+        ],
+        "Shadow Dragonscale Armor": [
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Profane",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "name": "Shadow Caster"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Profane",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Combat Mastery",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "name": "Shadow Disciple"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sneak Attack Dice",
+                        "type": "Profane",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Reflex Save",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "name": "Shadow Killer"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Doublestrike",
+                        "type": "Profane",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Melee Alacrity",
+                        "type": "Enhancement",
+                        "value": "15"
+                    },
+                    {
+                        "name": "Ranged Alacrity",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ],
+                "name": "Shadow Striker"
+            }
+        ],
+        "Shadowscale Docent": [
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Profane",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "name": "Shadow Caster"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Repair Amplification",
+                        "type": "Profane",
+                        "value": "10"
+                    }
+                ],
+                "name": "Shadow Construct"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Profane",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Combat Mastery",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "name": "Shadow Disciple"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "DR",
+                        "type": "Epic",
+                        "value": "30"
+                    }
+                ],
+                "name": "Shadow Guardian"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sneak Attack Dice",
+                        "type": "Profane",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Reflex Save",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "name": "Shadow Killer"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Doublestrike",
+                        "type": "Profane",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Melee Alacrity",
+                        "type": "Enhancement",
+                        "value": "15"
+                    },
+                    {
+                        "name": "Ranged Alacrity",
+                        "type": "Enhancement",
+                        "value": "20"
+                    }
+                ],
+                "name": "Shadow Striker"
+            }
+        ],
+        "Shadowscale Outfit": [
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Profane",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "name": "Shadow Caster"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Profane",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Combat Mastery",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "name": "Shadow Disciple"
+            }
+        ],
+        "Shadowscale Robe": [
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Profane",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "name": "Shadow Caster"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Concentration",
+                        "type": "Profane",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Combat Mastery",
+                        "type": "Profane",
+                        "value": "1"
+                    }
+                ],
+                "name": "Shadow Disciple"
+            }
+        ]
+    },
     "Slaver's Bonus Slot": {
         "*": [
             {

@@ -1,26 +1,20 @@
-import { CraftableOption } from '../gear/craftable-option';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, Input, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, Input, ChangeDetectionStrategy, OnChanges, QueryList, SimpleChanges, ViewChildren } from '@angular/core';
 
 import { EquippedService } from '../planner/equipped.service';
 import { EssenceCraftingService } from '../gear/essence-crafting.service';
 import { AffixService } from '../affixes/affix.service';
-import { AffixUiService, CraftingOptionContext } from '../affixes/affix-ui.service';
+import { AffixUiService } from '../affixes/affix-ui.service';
 import { Affix } from '../affixes/affix';
 import { Craftable } from '../gear/craftable';
 import { Item } from '../gear/item';
 import { Observable, Subscription } from 'rxjs';
-import { distinctUntilChanged, map } from 'rxjs/operators';
 
-import { perfAfterFrames, perfAggregateStart, perfCount, perfStart } from '../shared/perf-trace';
+import { perfAfterFrames, perfAggregateStart, perfStart } from '../shared/perf-trace';
 import { QuestService } from '../gear/quest.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { UserGearService, UserItemLocation } from '../planner/user-gear.service';
-import { FiltersService } from '../planner/filters.service';
-import { ItemFilters } from '../gear/item-filters';
-import { isOptionHiddenByPacks } from '../gear/pack-filter';
-import { CRAFTING_PICKER_MIN_OPTIONS } from '../crafting-option-picker/crafting-option-picker.component';
-import { AUGMENT_SLOT_1, AUGMENT_SLOT_2, availableSecondSlotSystems, canHaveSecondAugmentSlot, isCraftingSlotAvailable } from '../gear/augment-slots';
-import { craftSystemName } from '../gear/crafting-acquisition';
+import { isCraftingSlotAvailable, normalizeAugmentSlots } from '../gear/augment-slots';
+import { CraftingSlotControlComponent } from '../crafting-slot-control/crafting-slot-control.component';
 
 interface AffixDisplayRow {
   affix: Affix;
@@ -32,27 +26,10 @@ interface AffixDisplayRow {
   valueText: string;
 }
 
-interface CraftingOptionDisplayRow {
-  option: CraftableOption;
-  className?: string;
-  tooltip?: string;
-  description: string;
-}
-
+/** A crafting slot's row; its controls are a CraftingSlotControlComponent's. */
 interface CraftingDisplayRow {
   craft: Craftable;
-  context: CraftingOptionContext;
-  /** The options offered: those within the level filter's maximum, plus the chosen one. */
-  visibleOptions: CraftableOption[];
-  className: string;
-  tooltip: string;
   important: boolean;
-  selectedAffixGroup: boolean;
-  selectedGroupTooltip: string;
-  selectedOptionTooltip: string;
-  options: CraftingOptionDisplayRow[];
-  optionsRanked: boolean;
-  optionsLoaded: boolean;
 }
 
 interface SetDisplayRow {
@@ -80,15 +57,8 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
   affixRows: AffixDisplayRow[] = [];
   craftingRows: CraftingDisplayRow[] = [];
   setRows: SetDisplayRow[] = [];
-  readonly craftingPickerMinOptions = CRAFTING_PICKER_MIN_OPTIONS;
+  @ViewChildren(CraftingSlotControlComponent) private craftingControls?: QueryList<CraftingSlotControlComponent>;
   private subscriptions = new Subscription();
-  private rankedCraftingOptions = new WeakSet<Craftable>();
-  private loadedCraftingOptions = new WeakSet<Craftable>();
-  private maxLevel = ItemFilters.MAX_LEVEL();
-  private hiddenPacks: ReadonlySet<string> = new Set<string>();
-  private optionsWithinMaxLevel = new WeakMap<CraftableOption[], {
-    maxLevel: number, hiddenPacks: ReadonlySet<string>, options: CraftableOption[]
-  }>();
 
   constructor(
     public equipped: EquippedService,
@@ -98,20 +68,8 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     private questService: QuestService,
     private userGear: UserGearService,
     private changeDetector: ChangeDetectorRef,
-    private suggestionDrawer: SuggestionDrawerService,
-    filters: FiltersService
-  ) {
-    // Subscribed here, not in ngOnInit, so the filters are known before ngOnChanges first builds the rows.
-    this.subscriptions.add(filters.getItemFilters().pipe(
-      map(itemFilters => ({ maxLevel: itemFilters.levelRange[1], hiddenPacks: itemFilters.hiddenPacks })),
-      distinctUntilChanged((a, b) => a.maxLevel === b.maxLevel && a.hiddenPacks === b.hiddenPacks)
-    ).subscribe(({ maxLevel, hiddenPacks }) => {
-      this.maxLevel = maxLevel;
-      this.hiddenPacks = hiddenPacks;
-      this.refreshDisplayRows();
-      this.changeDetector.markForCheck();
-    }));
-  }
+    private suggestionDrawer: SuggestionDrawerService
+  ) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['item'] && !(this.item instanceof Observable)) {
@@ -153,17 +111,9 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     this.refreshDisplayRows();
   }
 
-  describe(option: CraftableOption) {
-    perfCount('GearDescriptionComponent.describe');
-    if (option) {
-      return option.describe();
-    }
-    return '';
-  }
-
   private refreshDisplayRows() {
     const done = perfAggregateStart('GearDescriptionComponent.refreshDisplayRows');
-    this.normalizeAugmentSlotRows();
+    normalizeAugmentSlots(this.curItem);
     this.affixRows = this.buildAffixRows();
     this.craftingRows = this.buildCraftingRows();
     this.setRows = this.buildSetRows();
@@ -171,7 +121,6 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
       validItems: this.curItem ? 1 : 0,
       affixRows: this.affixRows.length,
       craftingRows: this.craftingRows.length,
-      craftingOptionRows: this.craftingRows.reduce((count, row) => count + row.options.length, 0),
       setRows: this.setRows.length
     });
   }
@@ -209,102 +158,14 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     const item = this.curItem;
-    const candidate = this.affixUi.candidateFor(item);
-    const rows = item.crafting.filter(craft => this.shouldShowCraftingRow(craft)).map(craft => {
-      const visibleOptions = this.visibleOptions(craft);
+    const rows = item.crafting.filter(craft => isCraftingSlotAvailable(item, craft)).map(craft => {
       const selectedAffix = craft.selected?.affixes?.[0];
-      const selectedAffixGroup = selectedAffix ? this.affixSvc.isAffixGroup(selectedAffix) : false;
       return {
         craft,
-        context: { item, craft },
-        visibleOptions,
-        className: this.affixUi.getClassForCraftable(craft, candidate),
-        tooltip: this.affixUi.getCraftingOptionRankTooltip(craft.selected, item.slot, candidate),
-        important: selectedAffix ? this.equipped.isImportantAffix(selectedAffix.name) : false,
-        selectedAffixGroup,
-        selectedGroupTooltip: selectedAffix && selectedAffixGroup ? this.affixUi.getAffixGroupTooltip(selectedAffix) : '',
-        selectedOptionTooltip: this.affixUi.getCraftingOptionTooltip(craft.selected),
-        options: this.buildCraftingOptionRows(craft, visibleOptions, this.rankedCraftingOptions.has(craft), this.loadedCraftingOptions.has(craft)),
-        optionsRanked: this.readonly || this.rankedCraftingOptions.has(craft),
-        optionsLoaded: this.readonly || this.loadedCraftingOptions.has(craft)
+        important: selectedAffix ? this.equipped.isImportantAffix(selectedAffix.name) : false
       };
     });
-    done({
-      rows: rows.length,
-      optionRows: rows.reduce((count, row) => count + row.options.length, 0),
-      rankedOptionRows: rows.reduce((count, row) => count + (row.optionsRanked ? row.options.length : 0), 0)
-    });
-    return rows;
-  }
-
-  private normalizeAugmentSlotRows() {
-    const slotOne = this.curItem?.getCraftingByName(AUGMENT_SLOT_1);
-    const slotTwo = this.curItem?.getCraftingByName(AUGMENT_SLOT_2);
-
-    if (slotOne && slotTwo) {
-      const availableSystems = availableSecondSlotSystems(
-        slotOne.selectedCraftingSystemName, slotTwo.getOptionsByCraftingSystem().keys());
-      slotTwo.setAvailableCraftingSystemOptions(availableSystems, slotTwo.selectedCraftingSystemName);
-
-      if (!canHaveSecondAugmentSlot(this.curItem)) {
-        slotTwo.selectCraftingSystem('');
-      }
-    }
-  }
-
-  private shouldShowCraftingRow(craft: Craftable) {
-    return isCraftingSlotAvailable(this.curItem, craft);
-  }
-
-  /**
-   * The options a character within the filters can use. Only the level maximum excludes one: an
-   * option below the minimum still slots in, and some effects only exist at low levels. An option
-   * only from hidden packs is left out too. The chosen option stays either way, so the control can
-   * still show it.
-   */
-  private visibleOptions(craft: Craftable): CraftableOption[] {
-    const all = craft.options || [];
-    const isVisible = (option: CraftableOption) =>
-      option.isWithinMaxLevel(this.maxLevel) && !isOptionHiddenByPacks(option, this.hiddenPacks);
-    let cached = this.optionsWithinMaxLevel.get(all);
-    if (!cached || cached.maxLevel !== this.maxLevel || cached.hiddenPacks !== this.hiddenPacks) {
-      const within = all.filter(isVisible);
-      // The same array when nothing is left out, so the picker's grouping of it stays cached.
-      cached = { maxLevel: this.maxLevel, hiddenPacks: this.hiddenPacks, options: within.length === all.length ? all : within };
-      this.optionsWithinMaxLevel.set(all, cached);
-    }
-    const selected = craft.selected;
-    return !selected || isVisible(selected)
-      ? cached.options
-      : all.filter(option => option === selected || isVisible(option));
-  }
-
-  private buildCraftingOptionRows(
-    craft: Craftable, visibleOptions: CraftableOption[], includeRank: boolean, includeAllOptions: boolean
-  ): CraftingOptionDisplayRow[] {
-    const done = perfAggregateStart('GearDescriptionComponent.buildCraftingOptionRows');
-    if (this.readonly) {
-      done();
-      return [];
-    }
-
-    const options = includeAllOptions ? visibleOptions : [craft.selected];
-    const rows = options.map(option => {
-      const ranking = includeRank && this.curItem
-        ? this.affixUi.rankCraftingOption(option, this.curItem.slot, false, { item: this.curItem, craft })
-        : null;
-      return {
-        option,
-        className: ranking?.className,
-        tooltip: (ranking ? ranking.tooltip : this.affixUi.getCraftingOptionTooltip(option)) || undefined,
-        description: option.describe()
-      };
-    });
-    done({
-      rows: rows.length,
-      rankedRows: includeRank ? rows.length : 0,
-      fullOptionLists: includeAllOptions ? 1 : 0
-    });
+    done({ rows: rows.length });
     return rows;
   }
 
@@ -330,37 +191,11 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
       this.equipped.set(this.curItem);
     }
     this.refreshDisplayRows();
+    // A change to one slot changes how the item's other slots' options rank.
+    this.craftingControls?.forEach(control => control.refresh());
     this.changeDetector.markForCheck();
     done();
     perfAfterFrames('paint after crafting option change');
-  }
-
-  chooseCraftingOption(row: CraftingDisplayRow, option: CraftableOption) {
-    row.craft.selected = option;
-    this.updateItem();
-  }
-
-  updateCraftingSystem(row: CraftingDisplayRow) {
-    row.craft.selectCraftingSystem(row.craft.selectedCraftingSystemName);
-    if (row.craft.name === AUGMENT_SLOT_1 && !canHaveSecondAugmentSlot(this.curItem)) {
-      this.curItem?.getCraftingByName(AUGMENT_SLOT_2)?.selectCraftingSystem('');
-    }
-    this.loadedCraftingOptions.delete(row.craft);
-    this.rankedCraftingOptions.delete(row.craft);
-    this.updateItem();
-  }
-
-  loadAndRankCraftingOptions(row: CraftingDisplayRow) {
-    if (row.optionsLoaded && row.optionsRanked) {
-      return;
-    }
-
-    this.loadedCraftingOptions.add(row.craft);
-    this.rankedCraftingOptions.add(row.craft);
-    row.options = this.buildCraftingOptionRows(row.craft, row.visibleOptions, true, true);
-    row.optionsLoaded = true;
-    row.optionsRanked = true;
-    this.changeDetector.markForCheck();
   }
 
   updateML() {
@@ -397,11 +232,6 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     return item?.name ? this.userGear.getItemLocations(item.name) : undefined;
   }
 
-  /** Where the trove has the augment or upgrade chosen in a crafting slot, if anywhere. */
-  getCraftLocations(craft: Craftable): UserItemLocation[] | undefined {
-    return this.userGear.getCraftingOptionLocations(craftSystemName(craft), craft.selected);
-  }
-
   isRaidLoot(item: Item | null): boolean {
     return this.questService.isRaidLoot(item);
   }
@@ -417,9 +247,4 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
   showItemsInSet(setName: string) {
     this.suggestionDrawer.openSet(setName);
   }
-
-  getCraftingSystemEmptyLabel(craft: Craftable) {
-    return craft.hasCraftingSystemOptions() ? 'No augment slot' : craft.name;
-  }
-
 }

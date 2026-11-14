@@ -226,13 +226,6 @@ def get_pack_info(pack_releases, expansion_releases):
 
 COUPON_CONTENT_HEADER = 'Content Granted'
 
-# Adventure_Pack's footnotes: these arcs are sold only as part of the
-# expansion, yet items cite them as sources and so they are packs of their own
-# in the filter. A coupon for the expansion grants them too.
-EXPANSION_PARTS = {
-    'Shadowfell Conspiracy': ('Disciples of Shadow', 'Shadow Over Wheloon', 'The Secret of the Storm Horns'),
-}
-
 
 def _plain_text(text):
     # The wiki pads date ranges with zero-width joiners.
@@ -303,10 +296,9 @@ def get_coupons_from_page(soup, official_packs, pack_name_map=None):
             if pack is None:
                 continue
 
-            granted = [pack] + [part for part in EXPANSION_PARTS.get(pack, ()) if part in official_packs]
             for idx, column in columns.items():
                 if str(cells[idx].get('data-sort-value') or '').strip() == '1':
-                    column['packs'].update(granted)
+                    column['packs'].add(pack)
 
         coupons = list(columns.values())
         break
@@ -353,6 +345,17 @@ PACK_NAME_OVERRIDES = {
     # its Adventure Pack column.
     'Illithid Invasion': FREE_TO_PLAY,
 }
+
+# Story arcs the wiki lists as adventure packs although they are sold only as
+# part of an expansion (Adventure_Pack's footnotes). Nobody can own one without
+# the other, so they aren't packs here: the arc's quests, and items that cite
+# the arc itself as their source, belong to the expansion.
+EXPANSION_ARCS = {
+    'Disciples of Shadow': 'Shadowfell Conspiracy',
+    'Shadow Over Wheloon': 'Shadowfell Conspiracy',
+    'The Secret of the Storm Horns': 'Shadowfell Conspiracy',
+}
+PACK_NAME_OVERRIDES.update(EXPANSION_ARCS)
 
 
 def _canonical_pack_name(pack, heading=None, pack_name_map=None):
@@ -690,6 +693,9 @@ def parse_quests():
         page = open(quests_path, "r", encoding='utf-8').read()
         soup = BeautifulSoup(page, 'html.parser')
         merge_pack_layer(out['packs'], get_quest_pack_map_from_sectioned_page(soup, pack_name_map), 'Quests_by_Adventure_Pack')
+
+    # Last, so a quest that happens to share an arc's name keeps its own row.
+    merge_pack_layer(out['packs'], EXPANSION_ARCS, 'EXPANSION_ARCS')
 
     free_quests = drop_free_to_play(out['packs'])
 

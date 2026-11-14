@@ -60,26 +60,35 @@
 
   <section class="filter-panel pack-filter-panel" id="packFilters" [hidden]="!showPackFilters">
     <div class="pack-filter-header">
-      <h4 class="filter-panel-title">Packs</h4>
-      <div class="pack-sort" role="group" aria-label="Sort packs by">
-        <span class="pack-sort-label" aria-hidden="true">Sort</span>
-        <button type="button" class="pack-sort-button" [class.active]="packSort === 'release'"
-          [attr.aria-pressed]="packSort === 'release'" (click)="setPackSort('release')">Release</button>
-        <button type="button" class="pack-sort-button" [class.active]="packSort === 'name'"
-          [attr.aria-pressed]="packSort === 'name'" (click)="setPackSort('name')">Name</button>
+      <h4 class="filter-panel-title" id="packModeTitle">Show gear from</h4>
+      <div class="pack-segments" role="group" aria-labelledby="packModeTitle">
+        <button type="button" class="pack-segment-button" [class.active]="packMode === 'all'"
+          [attr.aria-pressed]="packMode === 'all'" (click)="setPackMode('all')">Every pack</button>
+        <button type="button" class="pack-segment-button" [class.active]="packMode === 'owned'"
+          [attr.aria-pressed]="packMode === 'owned'" (click)="setPackMode('owned')">Only packs I own</button>
       </div>
-      <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="allPacks"
-          [checked]="areAllPacksChecked()" [indeterminate]="areSomePacksChecked() && !areAllPacksChecked()"
-          (change)="toggleAllPacks()">
-        <label class="form-check-label" for="allPacks">All packs</label>
-      </div>
+      @if (packMode === 'owned') {
+        <div class="pack-segments pack-sort" role="group" aria-label="Sort packs by">
+          <span class="pack-sort-label" aria-hidden="true">Sort</span>
+          <button type="button" class="pack-segment-button" [class.active]="packSort === 'release'"
+            [attr.aria-pressed]="packSort === 'release'" (click)="setPackSort('release')">Release</button>
+          <button type="button" class="pack-segment-button" [class.active]="packSort === 'name'"
+            [attr.aria-pressed]="packSort === 'name'" (click)="setPackSort('name')">Name</button>
+        </div>
+      }
     </div>
 
-    @if (questingCoupons.length || expansionCoupons.length) {
+    @if (packMode === 'all') {
+      <p class="pack-mode-help">
+        Gear from every adventure pack and expansion is shown. Choose "Only packs I own" to pick yours -
+        a free coupon you redeemed ticks all of its packs at once.
+      </p>
+    }
+
+    @if (packMode === 'owned' && (questingCoupons.length || expansionCoupons.length)) {
       <div class="pack-coupons">
-        <p class="pack-coupon-help">
-          Redeemed a free coupon? Tick it to tick every pack it gave you.
+        <p class="pack-mode-help">
+          Tick any free coupon you redeemed, then any other packs you own.
         </p>
         @if (questingCoupons.length) {
           <div class="pack-coupon-row" role="group" aria-labelledby="questingCouponsTitle">
@@ -102,7 +111,7 @@
       </div>
     }
 
-    @for (group of packGroups; track group.id) {
+    @for (group of packMode === 'owned' ? packGroups : []; track group.id) {
       <div class="pack-group" role="group" [attr.aria-labelledby]="'pack-group-' + group.id + '-label'">
         <div class="form-check pack-group-title">
           <input type="checkbox" class="form-check-input" id="pack-group-{{group.id}}"

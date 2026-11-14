@@ -92,10 +92,14 @@
   overflow-y: auto;
 }
 
-.pack-sort {
+.pack-segments {
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-4);
+}
+
+.pack-sort {
   margin-left: auto;
 }
 
@@ -106,17 +110,17 @@
   margin-right: var(--space-4);
 }
 
-.pack-sort-button {
+.pack-segment-button {
   background: transparent;
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   color: var(--text-secondary);
   font-size: 0.8rem;
   font-weight: 700;
-  padding: 0 var(--space-8);
+  padding: var(--space-4) var(--space-8);
 }
 
-.pack-sort-button.active {
+.pack-segment-button.active {
   background: var(--selected-row-bg);
   border-color: var(--primary-color);
   color: var(--text-primary);
@@ -130,7 +134,7 @@
   padding-bottom: var(--space-12);
 }
 
-.pack-coupon-help {
+.pack-mode-help {
   color: var(--text-secondary);
   font-size: 0.8rem;
   margin: 0;
@@ -169,8 +173,8 @@
 .pack-filter-header {
   align-items: center;
   display: flex;
-  gap: var(--space-16);
-  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-8) var(--space-16);
   margin-bottom: var(--space-8);
 }
 
@@ -204,5 +208,9 @@
   .owned-gear-status {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .pack-sort {
+    margin-left: 0;
   }
 }

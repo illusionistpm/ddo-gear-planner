@@ -343,6 +343,8 @@ def download_quest_pages(session=None):
     download_new_crafting_device_pages(os.path.join(pageDir, 'Crafting_devices.html'), session=session)
     download_page('Quests_by_Adventure_Pack', pageDir, session=session)
     download_page('Category:Expansion_Packs', pageDir, session=session)
+    # The coupons' pack lists, for the pack filter's "I redeemed this coupon" shortcuts.
+    download_page('Free_Questing_Coupon', pageDir, session=session)
 
     expansion_pack_category_path = os.path.join(pageDir, 'Expansion_Packs.html')
     if not os.path.exists(expansion_pack_category_path):

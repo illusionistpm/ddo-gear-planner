@@ -18,6 +18,7 @@ import { GearListComponent } from './gear-list/gear-list.component';
 import { TypeaheadComponent } from './typeahead/typeahead.component';
 import { GearDescriptionComponent } from './gear-description/gear-description.component';
 import { CraftingSlotControlComponent } from './crafting-slot-control/crafting-slot-control.component';
+import { CraftingSlotsComponent } from './planner/crafting-slots/crafting-slots.component';
 import { EffectsTableComponent } from './effects-table/effects-table.component';
 import { ItemsWithBonusTypeComponent } from './items-with-bonus-type/items-with-bonus-type.component';
 import { FiltersComponent } from './filters/filters.component';
@@ -76,6 +77,7 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         TypeaheadComponent,
         GearDescriptionComponent,
         CraftingSlotControlComponent,
+        CraftingSlotsComponent,
         CraftingOptionPickerComponent,
         TapTooltipComponent,
         EffectsTableComponent,

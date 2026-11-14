@@ -872,3 +872,25 @@ app-admin-link {
     --build-name-width: 20rem;
   }
 }
+
+/* Gear | Crafting slots, at the top of the Equipment panel. */
+.equipment-view-switch {
+  display: inline-flex;
+  gap: var(--space-4);
+  margin: 0 0 var(--space-8);
+}
+
+.equipment-view-option {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  padding: var(--space-2) var(--space-12);
+}
+
+.equipment-view-option.active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--on-accent-text-color);
+}

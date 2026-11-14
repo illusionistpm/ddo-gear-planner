@@ -78,6 +78,16 @@ describe('CraftingSlotsViewService', () => {
     expect(await firstValueFrom(equipped.getActiveMainTab().pipe(take(1)))).toBe('equipment');
   });
 
+  it('switches to the Equipment tab when a URL opens it, too', async () => {
+    const equipped = TestBed.inject(EquippedService);
+    equipped.setActiveMainTab('affixes');
+
+    await TestBed.inject(Router).navigateByUrl('/?b=z1.test#crafting');
+    TestBed.inject(CraftingSlotsViewService);
+
+    expect(await firstValueFrom(equipped.getActiveMainTab().pipe(take(1)))).toBe('equipment');
+  });
+
   it('gives way to the shopping list, and comes back when the list is closed', async () => {
     const view = await openFrom('/?b=z1.test');
     const list = TestBed.inject(ShoppingListViewService);

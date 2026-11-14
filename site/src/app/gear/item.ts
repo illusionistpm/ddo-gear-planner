@@ -1,6 +1,6 @@
 import { Affix } from '../affixes/affix';
 import { AffixService } from '../affixes/affix.service';
-import { Craftable } from './craftable';
+import { Craftable, CraftableOptionFilter } from './craftable';
 import { CraftableOption } from './craftable-option';
 import { CraftableInit, RawItem } from './game-data-types';
 import { getPackKeys } from './pack-filter';
@@ -132,47 +132,69 @@ export class Item {
         return this.getMatchingBonusType(affixName, bonusType, affixSvc, allowColoredAugmentSystem) != null;
     }
 
-    getMatchingBonusType(affixName: string, bonusType: string, affixSvc: AffixService, allowColoredAugmentSystem: boolean = false) {
+    /**
+     * Where the item gets the most of this affix and bonus type, and how much:
+     * [null, value] for its own affixes, [crafting system, value] for a crafting
+     * option `isAllowed` lets through (any, by default), or null if it can't have
+     * it. Its own affixes win a tie, then the earlier crafting system.
+     */
+    getMatchingBonusType(
+        affixName: string,
+        bonusType: string,
+        affixSvc: AffixService,
+        allowColoredAugmentSystem: boolean = false,
+        isAllowed?: CraftableOptionFilter
+    ): [string | null, number] | null {
+        const best = this._findBestMatch(affixName, bonusType, affixSvc, allowColoredAugmentSystem, isAllowed);
+        return best ? [best.craftable?.name ?? null, best.value] : null;
+    }
+
+    /**
+     * Selects the crafting option getMatchingBonusType reports. Changes nothing when the
+     * item's own affixes give at least as much, as a crafted copy wouldn't stack with them.
+     */
+    selectMatchingBonusType(affixName: string, bonusType: string, affixSvc?: AffixService, isAllowed?: CraftableOptionFilter) {
+        const best = this._findBestMatch(affixName, bonusType, affixSvc, false, isAllowed);
+        if (best?.craftable && best.option) {
+            best.craftable.selected = best.option;
+        }
+    }
+
+    private _findBestMatch(
+        affixName: string,
+        bonusType: string,
+        affixSvc: AffixService | undefined,
+        allowColoredAugmentSystem: boolean,
+        isAllowed: CraftableOptionFilter | undefined
+    ): { craftable: Craftable | null, option: CraftableOption | null, value: number } | null {
+        let best: { craftable: Craftable | null, option: CraftableOption | null, value: number } | null = null;
         for (const affix of this.affixes) {
-            let ungroupedAffixes = affixSvc.ungroupAffix(affix);
-            ungroupedAffixes = ungroupedAffixes.concat(affix);
-
+            const ungroupedAffixes = affixSvc ? affixSvc.ungroupAffix(affix).concat(affix) : [affix];
             for (const ungroupedAffix of ungroupedAffixes) {
-                if (ungroupedAffix.name === affixName && ungroupedAffix.type === bonusType) {
-                    return [null, ungroupedAffix.value];
+                if (ungroupedAffix.name === affixName && ungroupedAffix.type === bonusType
+                    && (!best || Number(ungroupedAffix.value) > Number(best.value))) {
+                    best = { craftable: null, option: null, value: ungroupedAffix.value };
                 }
             }
         }
 
-        if (this.crafting) {
-            for (const craftable of this.crafting) {
-                // We sometimes want to skip the colored augments because they're so ubiquitous.
-                if (!allowColoredAugmentSystem && craftable.isColoredAugmentSystem) {
-                    continue;
-                }
+        for (const craftable of this.crafting ?? []) {
+            // We sometimes want to skip the colored augments because they're so ubiquitous.
+            if (!allowColoredAugmentSystem && craftable.isColoredAugmentSystem) {
+                continue;
+            }
 
-                const value = craftable.getMatchingBonusType(affixName, bonusType, affixSvc);
-                if (value) {
-                    return [craftable.name, value];
-                }
+            const match = craftable.getBestMatchingOption(affixName, bonusType, affixSvc, isAllowed);
+            if (match && (!best || Number(match.value) > Number(best.value))) {
+                best = { craftable, option: match.option, value: match.value };
             }
         }
 
-        return null;
+        return best;
     }
 
-    selectMatchingBonusType(affixName: string, bonusType: string, affixSvc?: AffixService) {
-        if (this.crafting) {
-            for (const craftable of this.crafting) {
-                if (craftable.selectMatchingBonusType(affixName, bonusType, affixSvc)) {
-                    break;
-                }
-            }
-        }
-    }
-
-    getValue(affixName: string, bonusType: string, affixSvc: AffixService) {
-        const ret = this.getMatchingBonusType(affixName, bonusType, affixSvc);
+    getValue(affixName: string, bonusType: string, affixSvc: AffixService, isAllowed?: CraftableOptionFilter) {
+        const ret = this.getMatchingBonusType(affixName, bonusType, affixSvc, false, isAllowed);
         if (ret) {
             return ret[1];
         } else {

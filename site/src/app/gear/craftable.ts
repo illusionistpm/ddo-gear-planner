@@ -2,6 +2,9 @@ import { CraftableOption } from './craftable-option';
 import { AffixService } from '../affixes/affix.service';
 import { isAugmentSystemName } from './augment-slots';
 
+/** Which crafting options a search may pick, e.g. those within the level and pack filters. */
+export type CraftableOptionFilter = (option: CraftableOption) => boolean;
+
 // The empty option of these systems isn't "nothing": it's the item as it drops.
 const EMPTY_OPTION_LABELS: ReadonlyMap<string, string> = new Map([
     ['Upgrade Tier', 'Tier 1'],
@@ -123,27 +126,28 @@ export class Craftable {
         return '';
     }
 
-    getMatchingBonusType(affixName: string, bonusType: string, affixSvc?: AffixService): number | null {
+    /**
+     * The option granting the most of this affix and bonus type, of those `isAllowed`
+     * lets through (all of them by default), or null if none grants it. Ties go to the
+     * earlier option.
+     */
+    getBestMatchingOption(
+        affixName: string,
+        bonusType: string,
+        affixSvc?: AffixService,
+        isAllowed?: CraftableOptionFilter
+    ): { option: CraftableOption, value: number } | null {
+        let best: { option: CraftableOption, value: number } | null = null;
         for (const option of this.options) {
+            if (isAllowed && !isAllowed(option)) {
+                continue;
+            }
             const value = option.getMatchingBonusType(affixName, bonusType, affixSvc);
-            if (value) {
-                return value;
+            if (value && (!best || Number(value) > Number(best.value))) {
+                best = { option, value };
             }
         }
-
-        return null;
-    }
-
-    selectMatchingBonusType(affixName: string, bonusType: string, affixSvc?: AffixService): boolean {
-        for (const option of this.options) {
-            const value = option.getMatchingBonusType(affixName, bonusType, affixSvc);
-            if (value) {
-                this.selected = option;
-                return true;
-            }
-        }
-
-        return false;
+        return best;
     }
 
     selectByParamDescription(desc: string) {

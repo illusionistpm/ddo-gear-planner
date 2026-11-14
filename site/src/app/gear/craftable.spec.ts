@@ -288,24 +288,34 @@ describe('Craftable', () => {
     });
   });
 
-  describe('matching a tracked bonus type', () => {
-    it('finds and selects the first option granting it', () => {
-      const craftable = new Craftable('Prefix', [
-        new CraftableOption({ name: 'Con 14', affixes: [{ name: 'Constitution', type: 'Enhancement', value: 14 }] }),
-        new CraftableOption({ name: 'Con 15', affixes: [{ name: 'Constitution', type: 'Enhancement', value: 15 }] }),
+  describe('finding the best option for a tracked bonus type', () => {
+    const accuracy = (name: string, ml: number, value: number) =>
+      new CraftableOption({ name, ml, affixes: [{ name: 'Accuracy', type: 'Competence', value }] });
+
+    it('finds the option granting the most of it, wherever it sits', () => {
+      const craftable = new Craftable('Dolorous (Accessory)', [
+        accuracy('Heroic', 8, 8),
+        accuracy('Legendary', 34, 23),
+        accuracy('Middling', 20, 15),
       ]);
 
-      expect(craftable.getMatchingBonusType('Constitution', 'Enhancement')).toBe(14);
-      expect(craftable.selectMatchingBonusType('Constitution', 'Enhancement')).toBe(true);
-      expect(craftable.getSelectedParamDescription()).toBe('Con 14');
+      const best = craftable.getBestMatchingOption('Accuracy', 'Competence');
+      expect(best?.option.name).toBe('Legendary');
+      expect(best?.value).toBe(23);
     });
 
-    it('reports no match without changing the selection', () => {
+    it('picks the best of the options the filter allows', () => {
+      const craftable = new Craftable('Dolorous (Accessory)', [accuracy('Heroic', 8, 8), accuracy('Legendary', 34, 23)]);
+
+      const best = craftable.getBestMatchingOption('Accuracy', 'Competence', undefined, candidate => candidate.isWithinMaxLevel(30));
+      expect(best?.option.name).toBe('Heroic');
+      expect(craftable.getBestMatchingOption('Accuracy', 'Competence', undefined, () => false)).toBeNull();
+    });
+
+    it('reports no match', () => {
       const craftable = new Craftable('Prefix', [option('Meltfang')]);
 
-      expect(craftable.getMatchingBonusType('Constitution', 'Enhancement')).toBeNull();
-      expect(craftable.selectMatchingBonusType('Constitution', 'Enhancement')).toBe(false);
-      expect(craftable.getSelectedParamDescription()).toBe('');
+      expect(craftable.getBestMatchingOption('Constitution', 'Enhancement')).toBeNull();
     });
   });
 });

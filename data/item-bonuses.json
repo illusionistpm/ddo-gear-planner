@@ -1,0 +1,2356 @@
+{
+    "curses": [
+        {
+            "affixes": [
+                {
+                    "name": "Strength",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of Minor Strength"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Strength",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Major Strength"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Dexterity",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of Minor Dexterity"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Dexterity",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Major Dexterity"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Constitution",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of Minor Constitution"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Constitution",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Major Constitution"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Intelligence",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of Minor Intelligence"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Intelligence",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Major Intelligence"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Wisdom",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of Minor Wisdom"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Wisdom",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Major Wisdom"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Charisma",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of Minor Charisma"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Charisma",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Major Charisma"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Fortitude Save",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of Minor Fortitude"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Fortitude Save",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Major Fortitude"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Reflex Save",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of Minor Reflexes"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Reflex Save",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Major Reflexes"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Will Save",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of Minor Will"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Will Save",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Major Will"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Minor Sheltering"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Fortune",
+                    "value": "5"
+                }
+            ],
+            "name": "Curse of Major Sheltering"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Minor Warding"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Magical Sheltering",
+                    "type": "Fortune",
+                    "value": "5"
+                }
+            ],
+            "name": "Curse of Major Warding"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Accuracy",
+                    "type": "Fortune",
+                    "value": "1"
+                },
+                {
+                    "name": "Deadly",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of Minor Prowess"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Accuracy",
+                    "type": "Fortune",
+                    "value": "2"
+                },
+                {
+                    "name": "Deadly",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Major Prowess"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Ranged Power",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Minor Archery"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Ranged Power",
+                    "type": "Fortune",
+                    "value": "5"
+                }
+            ],
+            "name": "Curse of Major Archery"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of the Minor Combatant"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Melee Power",
+                    "type": "Fortune",
+                    "value": "5"
+                }
+            ],
+            "name": "Curse of the Major Combatant"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Combat Mastery",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of the Minor Tactician"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Combat Mastery",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of the Major Tactician"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Assassinate",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of the Minor Assassin"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Assassinate",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of the Major Assassin"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Sneak Attack Dice",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of Minor Betrayal"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Sneak Attack Dice",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Major Betrayal"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Imbue Dice",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of Minor Imbuement"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Imbue Dice",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Major Imbuement"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Fortune",
+                    "value": "4"
+                }
+            ],
+            "name": "Curse of Minor Spellwork"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Universal Spell Power",
+                    "type": "Fortune",
+                    "value": "10"
+                }
+            ],
+            "name": "Curse of Major Spellwork"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Breath Weapon Focus",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of Minor Breath"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Breath Weapon Focus",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Major Breath"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Rune Arm DCs",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of Minor Technica"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Rune Arm DCs",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Major Technica"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Search",
+                    "type": "Fortune",
+                    "value": "1"
+                },
+                {
+                    "name": "Spot",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of Minor Perception"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Search",
+                    "type": "Fortune",
+                    "value": "2"
+                },
+                {
+                    "name": "Spot",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Major Perception"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Open Lock",
+                    "type": "Fortune",
+                    "value": "1"
+                },
+                {
+                    "name": "Disable Device",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of Minor Mechanics"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Open Lock",
+                    "type": "Fortune",
+                    "value": "2"
+                },
+                {
+                    "name": "Disable Device",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Major Mechanics"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Hide",
+                    "type": "Fortune",
+                    "value": "1"
+                },
+                {
+                    "name": "Move Silently",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of Minor Obscurity"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Hide",
+                    "type": "Fortune",
+                    "value": "2"
+                },
+                {
+                    "name": "Move Silently",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Major Obscurity"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Spellcraft",
+                    "type": "Fortune",
+                    "value": "1"
+                },
+                {
+                    "name": "Concentration",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of Minor Arcana"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Spellcraft",
+                    "type": "Fortune",
+                    "value": "2"
+                },
+                {
+                    "name": "Concentration",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Major Arcana"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Heal",
+                    "type": "Fortune",
+                    "value": "1"
+                },
+                {
+                    "name": "Repair",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of Minor Renewal"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Heal",
+                    "type": "Fortune",
+                    "value": "2"
+                },
+                {
+                    "name": "Repair",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Major Renewal"
+        },
+        {
+            "affixes": [],
+            "name": "Curse of Minor Masterworks"
+        },
+        {
+            "affixes": [],
+            "name": "Curse of Major Masterworks"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Strength",
+                    "type": "Fortune",
+                    "value": "1"
+                },
+                {
+                    "name": "Dexterity",
+                    "type": "Fortune",
+                    "value": "1"
+                },
+                {
+                    "name": "Constitution",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of the Power of Body"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Intelligence",
+                    "type": "Fortune",
+                    "value": "1"
+                },
+                {
+                    "name": "Wisdom",
+                    "type": "Fortune",
+                    "value": "1"
+                },
+                {
+                    "name": "Charisma",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of the Power of Mind"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Abjuration Focus",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of the Abjurer"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Conjuration Focus",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of the Conjurer"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Enchantment Focus",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of the Enchanter"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Evocation Focus",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of the Evoker"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Illusion Focus",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of the Illusionist"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Necromancy Focus",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of the Necromancer"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Transmutation Focus",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of the Transmuter"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Acid Spell Power",
+                    "type": "Fortune",
+                    "value": "5"
+                },
+                {
+                    "name": "Acid Absorption",
+                    "type": "Fortune",
+                    "value": "1"
+                },
+                {
+                    "name": "Acid Resistance",
+                    "type": "Fortune",
+                    "value": "3"
+                }
+            ],
+            "name": "Curse of the Caustic One"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Electric Spell Power",
+                    "type": "Fortune",
+                    "value": "5"
+                },
+                {
+                    "name": "Electric Absorption",
+                    "type": "Fortune",
+                    "value": "1"
+                },
+                {
+                    "name": "Electric Resistance",
+                    "type": "Fortune",
+                    "value": "3"
+                }
+            ],
+            "name": "Curse of the Voltaic Way"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Cold Spell Power",
+                    "type": "Fortune",
+                    "value": "5"
+                },
+                {
+                    "name": "Cold Absorption",
+                    "type": "Fortune",
+                    "value": "1"
+                },
+                {
+                    "name": "Cold Resistance",
+                    "type": "Fortune",
+                    "value": "3"
+                }
+            ],
+            "name": "Curse of the Icebreaker"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Fire Spell Power",
+                    "type": "Fortune",
+                    "value": "5"
+                },
+                {
+                    "name": "Fire Absorption",
+                    "type": "Fortune",
+                    "value": "1"
+                },
+                {
+                    "name": "Fire Resistance",
+                    "type": "Fortune",
+                    "value": "3"
+                }
+            ],
+            "name": "Curse of the Flametouched"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Spell Critical Damage",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Uncontrollable Energy"
+        },
+        {
+            "affixes": [],
+            "name": "Curse of the Pact"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Favored Weapon",
+                    "type": "Bool",
+                    "value": 1
+                },
+                {
+                    "name": "Physical Sheltering",
+                    "type": "Fortune",
+                    "value": "4"
+                },
+                {
+                    "name": "Acid Absorption",
+                    "type": "Fortune",
+                    "value": "1"
+                },
+                {
+                    "name": "Cold Absorption",
+                    "type": "Fortune",
+                    "value": "1"
+                },
+                {
+                    "name": "Electric Absorption",
+                    "type": "Fortune",
+                    "value": "1"
+                },
+                {
+                    "name": "Spell Saves",
+                    "type": "Fortune",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of Divine Fortune"
+        },
+        {
+            "affixes": [],
+            "name": "Curse of the Sentient's Meal"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Damage vs. the Helpless",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Cruelty"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Dodge Cap",
+                    "type": "Fortune",
+                    "value": "2"
+                },
+                {
+                    "name": "Max Dex Bonus",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Intangibility"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Rune Arm Charge Rate",
+                    "type": "Fortune",
+                    "value": "3"
+                },
+                {
+                    "name": "Repair Amplification",
+                    "type": "Fortune",
+                    "value": "3"
+                }
+            ],
+            "name": "Curse of the Mechanical Marvel"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "False Life (%)",
+                    "type": "Fortune",
+                    "value": "2"
+                },
+                {
+                    "name": "Armor Class (%)",
+                    "type": "Fortune",
+                    "value": "3"
+                }
+            ],
+            "name": "Curse of the Unstoppable One"
+        },
+        {
+            "affixes": [],
+            "name": "Curse of Unparalleled Might"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Strikethrough",
+                    "type": "Fortune",
+                    "value": "5"
+                },
+                {
+                    "name": "Offhand Strike Chance",
+                    "type": "Fortune",
+                    "value": "2"
+                },
+                {
+                    "name": "Doublestrike",
+                    "type": "Fortune",
+                    "value": "2"
+                },
+                {
+                    "name": "Doubleshot",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Weapon's Touch"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Bluff",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of Charming Presence"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Intimidate",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of the Anger's Heart"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Perform",
+                    "type": "Fortune",
+                    "value": "2"
+                },
+                {
+                    "name": "Bard Song Charge",
+                    "type": "Untyped",
+                    "value": "1"
+                }
+            ],
+            "name": "Curse of the Unending Song"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Swim",
+                    "type": "Fortune",
+                    "value": "2"
+                },
+                {
+                    "name": "Water Breathing",
+                    "type": "Bool",
+                    "value": 1
+                }
+            ],
+            "name": "Curse of the Depths"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Spot",
+                    "type": "Fortune",
+                    "value": "2"
+                },
+                {
+                    "name": "True Seeing",
+                    "type": "Bool",
+                    "value": 1
+                }
+            ],
+            "name": "Curse of the Visionary"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Deathblock",
+                    "type": "Bool",
+                    "value": 1
+                }
+            ],
+            "name": "Curse of the Shadowtouched"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Feather Falling",
+                    "type": "Bool",
+                    "value": 1
+                }
+            ],
+            "name": "Curse of Butterflies"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Immunity to Fear",
+                    "type": "Bool",
+                    "value": 1
+                }
+            ],
+            "name": "Curse of the Forest's Embrace"
+        },
+        {
+            "affixes": [],
+            "name": "Curse of the Commander"
+        },
+        {
+            "affixes": [],
+            "name": "Curse of the Unbreakable"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Dodge Bypass",
+                    "type": "Fortune",
+                    "value": "5"
+                }
+            ],
+            "name": "Curse of Future Sight"
+        },
+        {
+            "affixes": [],
+            "name": "Curse of the Winding Dirge"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Seeker",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of the Merciless"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Magical Sheltering Cap",
+                    "type": "Fortune",
+                    "value": "2"
+                }
+            ],
+            "name": "Curse of the Unfeeling"
+        },
+        {
+            "affixes": [
+                {
+                    "name": "Ghost Touch",
+                    "type": "Bool",
+                    "value": 1
+                }
+            ],
+            "name": "Curse of Ghostly Haunting"
+        },
+        {
+            "affixes": [],
+            "name": "Curse of the Overloaded"
+        }
+    ],
+    "mythic": {
+        "Armor": [
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Mythic",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Mythic",
+                        "value": "2"
+                    }
+                ],
+                "name": "Mythic +2 (PRR/MRR)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Mythic",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Mythic",
+                        "value": "4"
+                    }
+                ],
+                "name": "Mythic +4 (PRR/MRR)"
+            }
+        ],
+        "Belt": [
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Mythic",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Mythic",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Mythic",
+                        "value": "1"
+                    }
+                ],
+                "name": "Mythic +1 (Melee/Ranged/Spell Power)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Mythic",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Mythic",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Mythic",
+                        "value": "3"
+                    }
+                ],
+                "name": "Mythic +3 (Melee/Ranged/Spell Power)"
+            }
+        ],
+        "Boots": [
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Mythic",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Mythic",
+                        "value": "1"
+                    }
+                ],
+                "name": "Mythic +1 (PRR/MRR)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Mythic",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Mythic",
+                        "value": "3"
+                    }
+                ],
+                "name": "Mythic +3 (PRR/MRR)"
+            }
+        ],
+        "Bracers": [
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Mythic",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Mythic",
+                        "value": "1"
+                    }
+                ],
+                "name": "Mythic +1 (PRR/MRR)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Mythic",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Mythic",
+                        "value": "3"
+                    }
+                ],
+                "name": "Mythic +3 (PRR/MRR)"
+            }
+        ],
+        "Cloak": [
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Mythic",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Mythic",
+                        "value": "1"
+                    }
+                ],
+                "name": "Mythic +1 (PRR/MRR)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Mythic",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Mythic",
+                        "value": "3"
+                    }
+                ],
+                "name": "Mythic +3 (PRR/MRR)"
+            }
+        ],
+        "Gloves": [
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Mythic",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Mythic",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Mythic",
+                        "value": "1"
+                    }
+                ],
+                "name": "Mythic +1 (Melee/Ranged/Spell Power)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Mythic",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Mythic",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Mythic",
+                        "value": "3"
+                    }
+                ],
+                "name": "Mythic +3 (Melee/Ranged/Spell Power)"
+            }
+        ],
+        "Goggles": [
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Mythic",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Mythic",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Mythic",
+                        "value": "1"
+                    }
+                ],
+                "name": "Mythic +1 (Melee/Ranged/Spell Power)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Mythic",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Mythic",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Mythic",
+                        "value": "3"
+                    }
+                ],
+                "name": "Mythic +3 (Melee/Ranged/Spell Power)"
+            }
+        ],
+        "Helm": [
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Mythic",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Mythic",
+                        "value": "1"
+                    }
+                ],
+                "name": "Mythic +1 (PRR/MRR)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Mythic",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Mythic",
+                        "value": "3"
+                    }
+                ],
+                "name": "Mythic +3 (PRR/MRR)"
+            }
+        ],
+        "Necklace": [
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Mythic",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Mythic",
+                        "value": "1"
+                    }
+                ],
+                "name": "Mythic +1 (PRR/MRR)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Mythic",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Mythic",
+                        "value": "3"
+                    }
+                ],
+                "name": "Mythic +3 (PRR/MRR)"
+            }
+        ],
+        "Offhand": [
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Mythic",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Mythic",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Mythic",
+                        "value": "2"
+                    }
+                ],
+                "name": "Mythic +2 (Melee/Ranged/Spell Power)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Mythic",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Mythic",
+                        "value": "2"
+                    }
+                ],
+                "name": "Mythic +2 (PRR/MRR)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Mythic",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Mythic",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Mythic",
+                        "value": "4"
+                    }
+                ],
+                "name": "Mythic +4 (Melee/Ranged/Spell Power)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Mythic",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Mythic",
+                        "value": "4"
+                    }
+                ],
+                "name": "Mythic +4 (PRR/MRR)"
+            }
+        ],
+        "Ring": [
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Mythic",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Mythic",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Mythic",
+                        "value": "1"
+                    }
+                ],
+                "name": "Mythic +1 (Melee/Ranged/Spell Power)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Mythic",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Mythic",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Mythic",
+                        "value": "3"
+                    }
+                ],
+                "name": "Mythic +3 (Melee/Ranged/Spell Power)"
+            }
+        ],
+        "Trinket": [
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Mythic",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Mythic",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Mythic",
+                        "value": "1"
+                    }
+                ],
+                "name": "Mythic +1 (Melee/Ranged/Spell Power)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Mythic",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Mythic",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Mythic",
+                        "value": "3"
+                    }
+                ],
+                "name": "Mythic +3 (Melee/Ranged/Spell Power)"
+            }
+        ],
+        "Weapon": [
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Mythic",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Mythic",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Mythic",
+                        "value": "2"
+                    }
+                ],
+                "name": "Mythic +2 (Melee/Ranged/Spell Power)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Mythic",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Mythic",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Mythic",
+                        "value": "4"
+                    }
+                ],
+                "name": "Mythic +4 (Melee/Ranged/Spell Power)"
+            }
+        ]
+    },
+    "reaper": {
+        "Armor": [
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Power"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Physical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Magical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Armor Class (%)",
+                        "type": "Reaper",
+                        "value": "5"
+                    },
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Armor Enchantment"
+            }
+        ],
+        "Belt": [
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Power"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Physical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Magical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "False Life",
+                        "type": "Reaper",
+                        "value": "10"
+                    },
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Belt Enchantment"
+            }
+        ],
+        "Boots": [
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Power"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Physical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Magical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Reaper",
+                        "value": "5"
+                    },
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Reaper",
+                        "value": "5"
+                    }
+                ],
+                "name": "Reaper Boots Enchantment"
+            }
+        ],
+        "Bracers": [
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Power"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Physical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Magical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Reaper",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Bracers Enchantment"
+            }
+        ],
+        "Cloak": [
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Power"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Physical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Magical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Dodge",
+                        "type": "Reaper",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Dodge Cap",
+                        "type": "Reaper",
+                        "value": "1"
+                    }
+                ],
+                "name": "Reaper Cloak Enchantment"
+            }
+        ],
+        "Gloves": [
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Power"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Physical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Magical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "All Skills",
+                        "type": "Reaper",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Gloves Enchantment"
+            }
+        ],
+        "Goggles": [
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Power"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Physical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Magical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Accuracy",
+                        "type": "Reaper",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Spell Penetration",
+                        "type": "Reaper",
+                        "value": "1"
+                    }
+                ],
+                "name": "Reaper Goggles Enchantment"
+            }
+        ],
+        "Helm": [
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Power"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Physical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Magical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Well Rounded",
+                        "type": "Reaper",
+                        "value": "2"
+                    }
+                ],
+                "name": "Reaper Helmet Enchantment"
+            }
+        ],
+        "Necklace": [
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Power"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Physical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Magical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Reaper",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Reaper",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Reaper",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Reaper",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Reaper",
+                        "value": "2"
+                    }
+                ],
+                "name": "Reaper Necklace Enchantment"
+            }
+        ],
+        "Offhand": [
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Power"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Physical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Magical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortification",
+                        "type": "Reaper",
+                        "value": "25"
+                    },
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Shield Enchantment"
+            }
+        ],
+        "Ring": [
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Power"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Physical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Magical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Reaper",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Combat Mastery",
+                        "type": "Reaper",
+                        "value": "1"
+                    },
+                    {
+                        "name": "Assassinate",
+                        "type": "Reaper",
+                        "value": "1"
+                    }
+                ],
+                "name": "Reaper Ring Boost (1)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Reaper",
+                        "value": "10"
+                    }
+                ],
+                "name": "Reaper Ring Boost (2)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Reaper",
+                        "value": "5"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Reaper",
+                        "value": "5"
+                    }
+                ],
+                "name": "Reaper Ring Boost (3)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Efficiency",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Ring Boost (4)"
+            }
+        ],
+        "Trinket": [
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Power"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Physical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Magical Resistance Rating"
+            }
+        ],
+        "Weapon": [
+            {
+                "affixes": [
+                    {
+                        "name": "Melee Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Ranged Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    },
+                    {
+                        "name": "Universal Spell Power",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Power"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Physical Resistance Rating"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Reaper",
+                        "value": "3"
+                    }
+                ],
+                "name": "Reaper Enchantment: Magical Resistance Rating"
+            }
+        ]
+    }
+}

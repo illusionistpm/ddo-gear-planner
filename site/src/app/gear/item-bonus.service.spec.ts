@@ -19,7 +19,7 @@ describe('ItemBonusService', () => {
 
   it('offers both rings the ring bonuses', () => {
     expect(names('Ring1', 'reaper')).toEqual(names('Ring2', 'reaper'));
-    expect(names('Ring1', 'reaper')).toContain('Reaper Ring Boost (4)');
+    expect(names('Ring1', 'reaper')).toContain('Reaper Ring Boost (+3% Spell Cost Reduction, +3 MRR)');
     expect(names('Ring1', 'mythic')).toEqual(['Mythic +1 (Melee/Ranged/Spell Power)', 'Mythic +3 (Melee/Ranged/Spell Power)']);
   });
 

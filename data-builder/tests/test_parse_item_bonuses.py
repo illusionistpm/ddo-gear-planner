@@ -187,7 +187,12 @@ def test_snapshot_reaper_options():
                'Reaper Enchantment: Magical Resistance Rating']
     assert [option['name'] for option in reaper['Weapon']] == general
     assert [option['name'] for option in reaper['Helm']] == general + ['Reaper Helmet Enchantment']
-    assert [option['name'] for option in reaper['Ring']] == general + [f'Reaper Ring Boost ({n})' for n in range(1, 5)]
+    assert [option['name'] for option in reaper['Ring']] == general + [
+        'Reaper Ring Boost (+1 Spell, Tactical, and Assassinate DCs)',
+        'Reaper Ring Boost (+10 Universal Spell Power)',
+        'Reaper Ring Boost (+5 Melee / Ranged Power)',
+        'Reaper Ring Boost (+3% Spell Cost Reduction, +3 MRR)',
+    ]
     assert names_and_values(reaper['Belt'][-1]['affixes']) == [
         ('False Life', 'Reaper', '10'), ('Physical Sheltering', 'Reaper', '3')]
 

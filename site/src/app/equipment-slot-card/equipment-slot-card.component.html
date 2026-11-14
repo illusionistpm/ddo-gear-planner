@@ -6,7 +6,7 @@
     [title]="getSlotTitle()"
     (click)="showSuggestedItems()">
     <div class="slot-name-row">
-      <span class="slot-name"><app-slot-icon [slot]="slot"></app-slot-icon><span class="slot-name-text">{{label}}</span></span>
+      <span class="slot-name"><app-slot-icon [slot]="slot"></app-slot-icon><span class="slot-name-text">{{label}}@if (slotDetail) {<span class="slot-item-type"> – {{slotDetail}}</span>}</span></span>
       <span class="slot-badges">
         @if (recommendedStart) {
           <span class="equipment-start-badge">Start Here</span>

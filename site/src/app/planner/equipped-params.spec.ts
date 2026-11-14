@@ -4,6 +4,8 @@ import { EssenceCraftingService } from '../gear/essence-crafting.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { Item } from '../gear/item';
 import { EquippedService } from './equipped.service';
+import { ItemBonusService } from '../gear/item-bonus.service';
+import { QueryParamRecord } from '../build/query-param-types';
 import { slotsFromParams } from './slots-from-params';
 
 // How EquippedService.updateFromParams turns a build's params into the
@@ -122,6 +124,63 @@ describe('EquippedService building items from params', () => {
     service.updateFromParams(paramsOf({ Ring1: 'No Such Ring', ml_Ring1: '3' }));
 
     expect(slot('Ring1')).toBeNull();
+  });
+
+  describe('Mythic Boosts, Reaper bonuses and Curses', () => {
+    const helm = 'Epic Deific Diadem';
+    const bonusNames = (item: Item | null) => Object.fromEntries(
+      Object.entries(item?.bonuses ?? {}).map(([kind, option]) => [kind, option?.name]));
+
+    it('puts each on the item in the slot its key names', () => {
+      service.updateFromParams(paramsOf({
+        Helm: helm,
+        mythic_Helm: 'Mythic +3 (PRR/MRR)',
+        reaper_Helm: 'Reaper Helmet Enchantment',
+        curse_Helm: 'Curse of Major Strength',
+      }));
+
+      expect(bonusNames(slot('Helm'))).toEqual({
+        mythic: 'Mythic +3 (PRR/MRR)',
+        reaper: 'Reaper Helmet Enchantment',
+        curse: 'Curse of Major Strength',
+      });
+      expect(slot('Helm')?.getActiveAffixes().filter(affix => affix.type === 'Fortune').map(affix => [affix.name, affix.value]))
+        .toEqual([['Strength', 2]]);
+    });
+
+    it('ignores one the slot can\'t carry, or one for an empty slot', () => {
+      const quiver = gearDb.getGearBySlot('Quiver')[0];
+
+      service.updateFromParams(paramsOf({
+        Helm: helm,
+        mythic_Helm: 'Mythic +4 (Melee/Ranged/Spell Power)',
+        Quiver: quiver.name,
+        curse_Quiver: 'Curse of Major Strength',
+        curse_Boots: 'Curse of Major Strength',
+      }));
+
+      expect(bonusNames(slot('Helm'))).toEqual({});
+      expect(bonusNames(slot('Quiver'))).toEqual({});
+    });
+
+    it('writes them back to the params it read them from', () => {
+      let written: QueryParamRecord | null = null;
+      (service as any).params.subscribe((params: QueryParamRecord | null) => (written = params));
+      const ring = gearDb.getGearBySlot('Ring2')[0];
+      const item = new Item(ring);
+      item.bonuses.curse = TestBed.inject(ItemBonusService).find('curse', 'Ring2', 'Curse of the Unbreakable');
+      item.bonuses.reaper = TestBed.inject(ItemBonusService).find('reaper', 'Ring2', 'Reaper Ring Boost (2)');
+
+      service.set(item);
+
+      expect(written!['curse_Ring2']).toBe('Curse of the Unbreakable');
+      expect(written!['reaper_Ring2']).toBe('Reaper Ring Boost (2)');
+      expect(written!['mythic_Ring2']).toBeUndefined();
+
+      const record = Object.fromEntries(Object.entries(written!).filter(([, value]) => typeof value === 'string')) as Record<string, string>;
+      service.updateFromParams(paramsOf(record));
+      expect(bonusNames(slot('Ring2'))).toEqual({ curse: 'Curse of the Unbreakable', reaper: 'Reaper Ring Boost (2)' });
+    });
   });
 
   it('is slotsFromParams, which works the items out without equipping them', () => {

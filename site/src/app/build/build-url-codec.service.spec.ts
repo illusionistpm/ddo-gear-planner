@@ -232,6 +232,29 @@ describe('BuildUrlCodecService', () => {
     });
     expect(service.inspect(craftEncoded).compactPayload?.c?.length).toBe(1);
     expect(service.inspect(craftEncoded).compactPayload?.x).toBeUndefined();
+
+    const bonusEncoded = service.encode({
+      mythic_Weapon: 'Mythic +4 (Melee/Ranged/Spell Power)',
+      reaper_Ring1: 'Reaper Ring Boost (2)',
+      curse_Ring1: 'Curse of Major Strength'
+    });
+    expect(service.inspect(bonusEncoded).compactPayload).toEqual({
+      my: { w: 'Mythic +4 (Melee/Ranged/Spell Power)' },
+      rp: { r1: 'Reaper Ring Boost (2)' },
+      cu: { r1: 'Curse of Major Strength' }
+    });
+  });
+
+  it('round-trips Mythic Boosts, Reaper bonuses and Curses, and decodes a link without them as before', () => {
+    const params = {
+      Helm: 'Epic Deific Diadem',
+      mythic_Helm: 'Mythic +3 (PRR/MRR)',
+      reaper_Helm: 'Reaper Helmet Enchantment',
+      curse_Helm: 'Curse of the Unbreakable'
+    };
+
+    expect(service.decode(service.encode(params))).toEqual(params);
+    expect(service.decode(service.encode({ Helm: 'Epic Deific Diadem' }))).toEqual({ Helm: 'Epic Deific Diadem' });
   });
 
   it('stores filigree names as dictionary indexes, and an unknown one as itself', () => {

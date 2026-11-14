@@ -17,11 +17,13 @@ import {
   storeTrackedAffixGroupMode
 } from './planner-view-state-storage';
 import {
-  craftKey, FILIGREE_KEY, mlKey, NONGEAR_KEY, TRACKED_KEY
+  craftKey, FILIGREE_KEY, itemBonusKey, mlKey, NONGEAR_KEY, TRACKED_KEY
 } from '../build/build-param-keys';
 import { AffixService } from '../affixes/affix.service';
 import { AffixAvailabilityService } from '../affixes/affix-availability.service';
 import { EssenceCraftingService } from '../gear/essence-crafting.service';
+import { ItemBonusService } from '../gear/item-bonus.service';
+import { ITEM_BONUS_KINDS } from '../gear/item-bonus';
 import { emptiesOffhand, limitsOffhandToRuneArms, slotsFromParams } from './slots-from-params';
 import { perfCount, perfMeasure, perfStart } from '../shared/perf-trace';
 import { CoveredBonusType, moderateValueThreshold } from '../affixes/tracked-affix-derivation';
@@ -167,7 +169,8 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     private availability: AffixAvailabilityService,
     private ngZone: NgZone,
     private filigreeDb: FiligreeDbService,
-    private filigree: FiligreeLoadoutService
+    private filigree: FiligreeLoadoutService,
+    private itemBonuses: ItemBonusService
   ) {
     this.coveredAffixes = new BehaviorSubject<Map<string, CoveredBonusType[]>>(new Map<string, CoveredBonusType[]>());
 
@@ -227,7 +230,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
         this.filigree.restore(params.get(FILIGREE_KEY));
         this.refreshDerivedStateAfterSlotChange();
 
-        for (const [slot, item] of slotsFromParams(params, this.gearList, this.essenceCrafting)) {
+        for (const [slot, item] of slotsFromParams(params, this.gearList, this.essenceCrafting, this.itemBonuses)) {
           this.setSlot(slot, item);
         }
       } finally {
@@ -303,6 +306,13 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
 
         if (item.isEssenceCrafted()) {
           params[mlKey(slot)] = item.ml;
+        }
+
+        for (const kind of ITEM_BONUS_KINDS) {
+          const bonus = item.bonuses[kind];
+          if (bonus) {
+            params[itemBonusKey(kind, slot)] = bonus.name;
+          }
         }
 
         if (item.crafting) {

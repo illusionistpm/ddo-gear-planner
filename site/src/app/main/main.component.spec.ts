@@ -358,6 +358,21 @@ describe('MainComponent', () => {
       expect(fixture.nativeElement.querySelector('.planner-filter-active button[aria-label="Show raid items"]')).not.toBeNull();
     });
 
+    it('keeps the sheet\'s chip row in place when the first filter is set', () => {
+      component.toggleFilters();
+      fixture.detectChanges();
+
+      const row = fixture.nativeElement.querySelector('.planner-filter-active');
+      expect(row.textContent).toContain('No filters');
+
+      TestBed.inject(FiltersService).setShowRaidItems(false);
+      fixture.detectChanges();
+
+      expect(fixture.nativeElement.querySelector('.planner-filter-active')).toBe(row);
+      expect(row.querySelector('button[aria-label="Show raid items"]')).not.toBeNull();
+      component.closeFilters();
+    });
+
     it('holds filter changes while the sheet is open, and applies them once it closes', async () => {
       const filters = TestBed.inject(FiltersService);
       let showRaidItems = true;

@@ -84,11 +84,6 @@
   overflow-wrap: anywhere;
 }
 
-.pack-filter-panel {
-  max-height: 28rem;
-  overflow-y: auto;
-}
-
 .pack-segments {
   align-items: center;
   display: flex;

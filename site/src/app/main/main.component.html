@@ -103,11 +103,16 @@
 
         @if (filtersOpen) {
             <section id="filtersPanel" class="planner-filter-sheet" aria-label="Filters">
-                @if (hasAnyActiveFilter()) {
-                    <div class="planner-filter-active" role="group" aria-label="Active filters">
+                <!-- Always there, so the first filter doesn't push the sheet down. -->
+                <div class="planner-filter-active" role="group" aria-label="Active filters">
+                    @if (hasAnyActiveFilter()) {
                         <ng-container *ngTemplateOutlet="activeFilterChips"></ng-container>
-                    </div>
-                }
+                    } @else {
+                        <span class="planner-filter-chip planner-filter-chip-none">No filters: showing all gear</span>
+                        <!-- Disabled rather than missing, so the row keeps its height. -->
+                        <button type="button" class="planner-filter-reset-all" disabled>Reset all</button>
+                    }
+                </div>
                 <app-filters (troveFileSelected)="onTroveFileSelected($event)"
                     (sortOwnedToTopChanged)="onSortOwnedToTopChanged($event)"></app-filters>
             </section>

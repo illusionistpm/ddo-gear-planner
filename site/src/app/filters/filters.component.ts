@@ -36,6 +36,9 @@ export interface CouponOption {
 
 export type PackSort = 'release' | 'name';
 
+/** 'all' shows gear from every pack; 'owned' opens the checklist to pick the packs you have. */
+export type PackMode = 'all' | 'owned';
+
 /** Tick state of a set of pack options, for a tri-state checkbox. */
 function allChecked(options: ReadonlyArray<PackOption>): boolean {
   return options.length > 0 && options.every(option => option.value);
@@ -67,6 +70,9 @@ export class FiltersComponent implements OnInit {
   /** Coupons that grant expansions. */
   expansionCoupons: CouponOption[] = [];
   packSort: PackSort = 'release';
+  packMode: PackMode = 'all';
+  /** The packs ticked when 'owned' was last left for 'all', so going back doesn't lose them. */
+  private ownedPacks: Set<string> | null = null;
 
   sortOwnedToTop: boolean = true;
 
@@ -92,6 +98,11 @@ export class FiltersComponent implements OnInit {
       this.showRaidItems = itemFilters.showRaidItems;
       this.showRareItems = itemFilters.showRareItems;
       this.packOptions.forEach(option => option.value = !itemFilters.hiddenPacks.has(this.packFilterValue(option.name)));
+      // A build that hides packs opens on the checklist. With nothing hidden the mode is
+      // the user's: they may be in 'owned' with every pack ticked.
+      if (this.packOptions.some(option => !option.value)) {
+        this.packMode = 'owned';
+      }
     });
     this.updateUserGearCount();
   }
@@ -157,18 +168,24 @@ export class FiltersComponent implements OnInit {
     this.showPackFilters = !this.showPackFilters;
   }
 
-  areAllPacksChecked() {
-    return this.packOptions.every(option => option.value);
-  }
+  /**
+   * 'all' ticks every pack. 'owned' starts from the packs ticked the last time it was
+   * open, or from the free content alone - then a coupon or two fills in the rest.
+   */
+  setPackMode(mode: PackMode): void {
+    if (mode === this.packMode) {
+      return;
+    }
 
-  areSomePacksChecked() {
-    return this.packOptions.some(option => option.value);
-  }
-
-  toggleAllPacks() {
-    const checked = !this.areAllPacksChecked();
-    this.packOptions.forEach(option => option.value = checked);
-    this.onChangePacks(this.packOptions, 'top_level');
+    if (mode === 'all') {
+      this.ownedPacks = new Set(this.packOptions.filter(option => option.value).map(option => option.name));
+      this.packOptions.forEach(option => option.value = true);
+    } else {
+      const owned = this.ownedPacks;
+      this.packOptions.forEach(option => option.value = owned ? owned.has(option.name) : !option.year);
+    }
+    this.onChangePacks(this.packOptions, mode === 'all' ? 'mode_all' : 'mode_owned');
+    this.packMode = mode;
   }
 
   onChangePackOption() {

@@ -25,7 +25,7 @@ describe('FiltersComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('starts with all pack options checked', () => {
+  it('starts with all pack options checked', async () => {
     expect(component.packOptions.length).toBeGreaterThan(0);
     expect(component.packOptions.every(option => option.value)).toBe(true);
   });
@@ -40,6 +40,23 @@ describe('FiltersComponent', () => {
       throw new Error(`No pack panel checkbox labelled "${labelStart}"`);
     }
     return (fixture.nativeElement as HTMLElement).querySelector<HTMLInputElement>(`#${label.htmlFor}`)!;
+  }
+
+  function button(text: string): HTMLButtonElement {
+    const found = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll<HTMLButtonElement>('#packFilters button'))
+      .find(candidate => candidate.textContent!.trim() === text);
+    if (!found) {
+      throw new Error(`No pack panel button "${text}"`);
+    }
+    return found;
+  }
+
+  /** Awaited: checkboxes the press reveals take their ngModel value a microtask later. */
+  async function press(text: string): Promise<void> {
+    button(text).click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
   }
 
   function click(labelStart: string): void {
@@ -72,33 +89,75 @@ describe('FiltersComponent', () => {
 
     expect(expansions.slice(0, 3)).toEqual(['Menace of the Underdark', 'Shadowfell Conspiracy', 'Mists of Ravenloft']);
     expect(packs).not.toContain('Mists of Ravenloft');
+    // Sold only inside Shadowfell Conspiracy, so not packs of their own.
+    expect(component.packOptions.map(option => option.name)).not.toContain('Shadow Over Wheloon');
     expect(packs.indexOf("Delera's Tomb")).toBeLessThan(packs.indexOf('Attack on Stormreach'));
     expect(packs.indexOf('Attack on Stormreach')).toBeLessThan(packs.indexOf('Keep on the Borderlands'));
     // Every listed pack is in exactly one group.
     expect(component.packGroups.flatMap(group => group.options).length).toBe(component.packOptions.length);
   });
 
-  it('sorts the packs by name on request', () => {
-    const sortByName = Array.from(
-      (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLButtonElement>('.pack-sort-button')
-    ).find(button => button.textContent!.trim() === 'Name')!;
-    sortByName.click();
-    fixture.detectChanges();
+  it('sorts the packs by name on request', async () => {
+    await press('Only packs I own');
+    await press('Name');
 
     const packs = groupPacks('Adventure packs');
     expect(packs).toEqual([...packs].sort((left, right) => left.localeCompare(right)));
-    expect(sortByName.getAttribute('aria-pressed')).toBe('true');
+    expect(button('Name').getAttribute('aria-pressed')).toBe('true');
   });
 
-  it('shows each pack\'s release year', () => {
+  it('starts on every pack, with the checklist put away', () => {
+    expect(button('Every pack').getAttribute('aria-pressed')).toBe('true');
+    expect((fixture.nativeElement as HTMLElement).querySelectorAll('#packFilters input').length).toBe(0);
+    expect(hiddenPacks().size).toBe(0);
+  });
+
+  it('starts "Only packs I own" from the free content alone', async () => {
+    await press('Only packs I own');
+
+    const hidden = hiddenPacks();
+    expect(hidden.has(NO_PACK_KEY)).toBe(false);
+    expect(hidden.has('DDO Store')).toBe(false);
+    expect(hidden.has("Delera's Tomb")).toBe(true);
+    expect(hidden.has('Mists of Ravenloft')).toBe(true);
+    expect(checkbox('Free Quests').checked).toBe(true);
+    expect(checkbox('2020').checked).toBe(false);
+  });
+
+  it('shows every pack again, and remembers the owned ones for next time', async () => {
+    await press('Only packs I own');
+    click('2020');
+    await press('Every pack');
+
+    expect(hiddenPacks().size).toBe(0);
+
+    await press('Only packs I own');
+
+    expect(hiddenPacks().has("Delera's Tomb")).toBe(false);
+    expect(hiddenPacks().has('Tavern Tales')).toBe(true);
+  });
+
+  it('opens on the checklist when the build already hides packs', async () => {
+    component.filters.setHiddenPacks(new Set(['Tavern Tales']));
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(button('Only packs I own').getAttribute('aria-pressed')).toBe('true');
+    expect(checkbox('Tavern Tales').checked).toBe(false);
+    expect(checkbox("Delera's Tomb").checked).toBe(true);
+  });
+
+  it('shows each pack\'s release year', async () => {
+    await press('Only packs I own');
     const label = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll('#packFilters label'))
       .find(candidate => candidate.textContent!.includes('Keep on the Borderlands'))!;
 
     expect(label.querySelector('.pack-year')!.textContent).toBe('2019');
   });
 
-  it('ticks the packs a coupon granted, and only those, after everything is unticked', () => {
-    click('All packs');
+  it('ticks the packs a coupon granted, and only those, after everything is unticked', async () => {
+    await press('Only packs I own');
     click('2020');
 
     const hidden = hiddenPacks();
@@ -116,8 +175,8 @@ describe('FiltersComponent', () => {
     expect(checkbox('2021').indeterminate).toBe(true);
   });
 
-  it('adds a later coupon\'s packs to an earlier one\'s', () => {
-    click('All packs');
+  it('adds a later coupon\'s packs to an earlier one\'s', async () => {
+    await press('Only packs I own');
     click('2020');
     click('2025');
 
@@ -128,12 +187,12 @@ describe('FiltersComponent', () => {
     expect(checkbox('2021').checked).toBe(true);
   });
 
-  it('offers the free expansions coupon apart from the yearly ones', () => {
+  it('offers the free expansions coupon apart from the yearly ones', async () => {
+    await press('Only packs I own');
     const rows = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll('.pack-coupon-row'));
     const expansionRow = rows.find(row => row.textContent!.includes('Free expansions coupon'))!;
     const box = expansionRow.querySelector<HTMLInputElement>('input')!;
 
-    click('All packs');
     box.click();
     fixture.detectChanges();
 
@@ -141,29 +200,33 @@ describe('FiltersComponent', () => {
     expect(expansionRow.textContent).toContain('BIGBYISBETTER');
     expect(hidden.has('Mists of Ravenloft')).toBe(false);
     expect(hidden.has('Menace of the Underdark')).toBe(false);
-    // Sold only as part of Shadowfell Conspiracy, which the coupon grants.
-    expect(hidden.has('Shadow Over Wheloon')).toBe(false);
+    expect(hidden.has('Shadowfell Conspiracy')).toBe(false);
     expect(hidden.has('Vecna Unleashed')).toBe(true);
     expect(hidden.has("Delera's Tomb")).toBe(true);
   });
 
-  it('unticks a coupon\'s packs when it is fully ticked', () => {
+  it('unticks a coupon\'s packs when it is fully ticked', async () => {
+    await press('Only packs I own');
+    click('2025');
     click('2020');
 
     const hidden = hiddenPacks();
     expect(hidden.has("Delera's Tomb")).toBe(true);
-    expect(hidden.has('Tavern Tales')).toBe(false);
+    expect(hidden.has('Slice of Life')).toBe(false);
     expect(hidden.has(NO_PACK_KEY)).toBe(false);
   });
 
-  it('ticks and unticks a whole group from its heading', () => {
+  it('ticks and unticks a whole group from its heading', async () => {
+    await press('Only packs I own');
     click('Expansions');
 
-    const hidden = hiddenPacks();
-    expect(hidden.has('Mists of Ravenloft')).toBe(true);
-    expect(hidden.has('Vecna Unleashed')).toBe(true);
-    expect(hidden.has("Delera's Tomb")).toBe(false);
-    expect(checkbox('All packs').indeterminate).toBe(true);
+    expect(hiddenPacks().has('Mists of Ravenloft')).toBe(false);
+    expect(hiddenPacks().has('Vecna Unleashed')).toBe(false);
+    expect(hiddenPacks().has("Delera's Tomb")).toBe(true);
+
+    click('Expansions');
+
+    expect(hiddenPacks().has('Mists of Ravenloft')).toBe(true);
   });
 
   it('starts with the inline pack filter section collapsed', () => {
@@ -174,12 +237,6 @@ describe('FiltersComponent', () => {
     component.togglePackFilters();
 
     expect(component.showPackFilters).toBe(true);
-  });
-
-  it('toggles all pack options together', () => {
-    component.toggleAllPacks();
-
-    expect(component.packOptions.every(option => !option.value)).toBe(true);
   });
 
   it('stores unchecked pack options as hidden packs', () => {

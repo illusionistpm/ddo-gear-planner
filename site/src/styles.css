@@ -472,6 +472,16 @@ a:focus {
   padding-top: var(--space-4);
 }
 
+/*
+ * Bootstrap draws an off switch's knob 25% black, invisible on the dark theme's
+ * surfaces, so an off switch read as a knobless, disabled one. Its own dark rule
+ * keys on [data-bs-theme=dark], which this theme doesn't set; this is that rule,
+ * a little brighter.
+ */
+:root.dark-theme .form-switch .form-check-input:not(:checked):not(:focus) {
+  --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%28255, 255, 255, 0.55%29'/%3e%3c/svg%3e");
+}
+
 :root.dark-theme .slot-header > .slot-select-button.btn-secondary {
   background: var(--surface-subtle-color);
   border: 0;

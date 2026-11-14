@@ -49,6 +49,11 @@ export function slotIcon(slot: string): string | undefined {
   return SLOT_ICONS[slot];
 }
 
+/** The number that tells a pair of slots apart ("1" for Ring1), or '' for a slot that's one of a kind. */
+export function slotNumber(slot: string): string {
+  return /(\d+)$/.exec(slot)?.[1] ?? '';
+}
+
 /** A slot's name for display: "Ring1" reads as "Ring 1". */
 export function slotLabel(slot: string): string {
   return slot.replace(/^(\D+)(\d+)$/, '$1 $2');

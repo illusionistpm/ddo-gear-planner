@@ -508,6 +508,25 @@ a:focus {
   opacity: 0.75;
 }
 
+/*
+ * An equipped weapon, offhand or armor adds its kind ("Weapon – Repeating Heavy
+ * Crossbow"), which can outgrow a narrow card beside its loot badges: the name gives
+ * way with an ellipsis, the badges don't.
+ */
+.slot-select-button .slot-name {
+  min-width: 0;
+}
+
+.slot-select-button .slot-name-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.slot-select-button .slot-badges {
+  flex-shrink: 0;
+}
+
 .slot-select-button:not(.is-empty) .slot-name app-slot-icon {
   font-size: 1.15em;
   margin-block: -0.1rem;

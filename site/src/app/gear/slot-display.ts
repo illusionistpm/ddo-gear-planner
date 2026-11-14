@@ -53,3 +53,38 @@ export function slotIcon(slot: string): string | undefined {
 export function slotLabel(slot: string): string {
   return slot.replace(/^(\D+)(\d+)$/, '$1 $2');
 }
+
+/** The slots whose items come in kinds worth naming: a long sword, a buckler, light armor. */
+const SLOTS_WITH_ITEM_TYPES: ReadonlySet<string> = new Set(['Weapon', 'Offhand', 'Armor']);
+
+/** Plurals the generic rule below would get wrong. */
+const ITEM_TYPE_SINGULARS: Readonly<Record<string, string>> = {
+  Handwraps: 'Handwraps',
+};
+
+/**
+ * An item's kind as a card shows it beside the slot name - "Long Sword", "Buckler",
+ * "Light Armor" - or '' when its slot doesn't name kinds or it has none (the Essence
+ * Crafting blanks). Game data names the kinds as plural categories ("Long Swords",
+ * "Large shields", "Cloth armor"); the last word is singularised and every word
+ * capitalised, so a kind added to the data reads sensibly without a change here.
+ */
+export function itemTypeLabel(slot: string, type: string | undefined): string {
+  if (!type || !SLOTS_WITH_ITEM_TYPES.has(slot)) {
+    return '';
+  }
+  const words = type.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1));
+  const last = words[words.length - 1]!;
+  words[words.length - 1] = ITEM_TYPE_SINGULARS[last] ?? singular(last);
+  return words.join(' ');
+}
+
+function singular(word: string): string {
+  if (/(sh|ch)es$/.test(word)) {
+    return word.slice(0, -2);
+  }
+  if (/[^s]s$/.test(word)) {
+    return word.slice(0, -1);
+  }
+  return word;
+}

@@ -5,7 +5,7 @@ import { AnalyticsService } from '../shared/analytics.service';
 import { preserveScrollOnMouseDown } from '../shared/preserve-scroll-position';
 import { EquippedService } from '../planner/equipped.service';
 import { Item } from '../gear/item';
-import { slotLabel } from '../gear/slot-display';
+import { itemTypeLabel, slotLabel } from '../gear/slot-display';
 import { QuestService } from '../gear/quest.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { UserGearService, UserItemLocation } from '../planner/user-gear.service';
@@ -26,6 +26,8 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
   @Input() recommendedStart = false;
 
   itemName = '';
+  /** The equipped item's kind ("Long Sword", "Buckler"), shown after the slot name; '' for none. */
+  itemTypeLabel = '';
   isArtifact = false;
   isRare = false;
   isRaid = false;
@@ -121,6 +123,14 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
     return this.isArtifact ? 'artifact' : null;
   }
 
+  /**
+   * What follows the slot name: the equipped item's kind ("Long Sword"), or, for an
+   * offhand a two-handed weapon has taken, that it's occupied.
+   */
+  get slotDetail(): string {
+    return this.equipped.isSlotDisabled(this.slot) ? 'Occupied' : this.itemTypeLabel;
+  }
+
   get label() {
     return slotLabel(this.slot);
   }
@@ -140,6 +150,7 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
   private setItem(item: Item | null) {
     if (item) {
       this.itemName = item.name;
+      this.itemTypeLabel = itemTypeLabel(this.slot, item.type);
       this.isArtifact = !!item.artifact;
       this.isRare = !!item.rare;
       this.isRaid = this.questService.isRaidLoot(item);
@@ -147,6 +158,7 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
     }
 
     this.itemName = '';
+    this.itemTypeLabel = '';
     this.isArtifact = false;
     this.isRare = false;
     this.isRaid = false;

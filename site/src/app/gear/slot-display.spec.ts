@@ -1,5 +1,5 @@
 import { SLOT_ICON_PATHS } from '../slot-icon/slot-icon-paths';
-import { slotIcon, slotLabel, sortSlotsForDisplay } from './slot-display';
+import { itemTypeLabel, slotIcon, slotLabel, sortSlotsForDisplay } from './slot-display';
 
 const SLOTS = [
   'Weapon', 'Offhand', 'Armor', 'Belt', 'Boots', 'Bracers', 'Cloak', 'Gloves',
@@ -53,5 +53,40 @@ describe('slot display', () => {
     for (const [key, icon] of Object.entries(SLOT_ICON_PATHS)) {
       expect(icon.author, key).toBeTruthy();
     }
+  });
+
+  describe('item type label', () => {
+    it('names a weapon, offhand or armor kind in the singular', () => {
+      const expected: Array<[string, string, string]> = [
+        ['Weapon', 'Long Swords', 'Long Sword'],
+        ['Weapon', 'Bastard Swords', 'Bastard Sword'],
+        ['Weapon', 'Khopeshes', 'Khopesh'],
+        ['Weapon', 'Great Axes', 'Great Axe'],
+        ['Weapon', 'Dwarven War Axes', 'Dwarven War Axe'],
+        ['Weapon', 'Quarterstaffs', 'Quarterstaff'],
+        ['Weapon', 'Kukris', 'Kukri'],
+        ['Weapon', 'Repeating Heavy Crossbows', 'Repeating Heavy Crossbow'],
+        ['Weapon', 'Handwraps', 'Handwraps'],
+        ['Offhand', 'Bucklers', 'Buckler'],
+        ['Offhand', 'Rune Arms', 'Rune Arm'],
+        ['Offhand', 'Large shields', 'Large Shield'],
+        ['Offhand', 'Orbs', 'Orb'],
+        ['Armor', 'Cloth armor', 'Cloth Armor'],
+        ['Armor', 'Docents', 'Docent'],
+      ];
+      for (const [slot, type, label] of expected) {
+        expect(itemTypeLabel(slot, type), type).toBe(label);
+      }
+    });
+
+    it('names no kind for other slots, where it would only repeat the slot', () => {
+      expect(itemTypeLabel('Ring1', 'Finger items')).toBe('');
+      expect(itemTypeLabel('Quiver', 'Quiver items')).toBe('');
+    });
+
+    it('names no kind for an item without one', () => {
+      expect(itemTypeLabel('Weapon', '')).toBe('');
+      expect(itemTypeLabel('Weapon', undefined)).toBe('');
+    });
   });
 });

@@ -172,6 +172,7 @@ SCENES = [
     Scene('set-drawer', steps=[click('.set-link')]),
     Scene('set-preview', steps=[click('.set-link'), click('app-items-in-set .item-preview-link')]),
     Scene('affix-builder', tab='affixes', steps=[click('.tracked-affix-edit-affixes')]),
+    Scene('crafting-slots', build=SHOPPING_BUILD, steps=[click('.equipment-view-option:has-text("Crafting slots")')]),
     Scene('shopping-list', build=SHOPPING_BUILD, steps=[open_shopping_list]),
     Scene('shopping-list-share', build=SHOPPING_BUILD, steps=[open_shopping_list, click('app-own-list-actions .list-action')]),
     Scene('shopping-list-arrange', build=SHOPPING_BUILD, steps=[open_shopping_list, click('.shopping-list-arrange')]),

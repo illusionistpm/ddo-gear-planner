@@ -1,0 +1,173 @@
+:host {
+    display: block;
+    padding: 0 0 var(--space-16);
+}
+
+.crafting-slots-none {
+    color: var(--text-secondary);
+    margin: var(--space-16) 0;
+}
+
+/* The counts at a glance, and the empty-only filter. */
+.crafting-slots-bar {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-8);
+    justify-content: space-between;
+    margin-bottom: var(--space-12);
+}
+
+.crafting-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4) var(--space-8);
+    min-width: 0;
+}
+
+.crafting-summary-chip,
+.crafting-only-empty {
+    align-items: center;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    color: var(--text-primary);
+    display: inline-flex;
+    font-size: 0.8rem;
+    gap: var(--space-4);
+    line-height: 1.2;
+    padding: var(--space-4) var(--space-8);
+}
+
+.crafting-summary-chip:hover,
+.crafting-summary-chip:focus-visible {
+    border-color: var(--primary-color);
+}
+
+.crafting-summary-label {
+    font-weight: 600;
+}
+
+.crafting-summary-count {
+    font-weight: 700;
+}
+
+.crafting-summary-empty,
+.crafting-group-empty {
+    color: var(--crafting-slot-empty-accent);
+    font-weight: 600;
+}
+
+.crafting-only-empty {
+    color: var(--text-secondary);
+}
+
+.crafting-only-empty.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--on-accent-text-color);
+}
+
+.crafting-only-empty:disabled {
+    opacity: 0.5;
+}
+
+.crafting-group {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: var(--space-12);
+    overflow: hidden;
+    scroll-margin-top: var(--space-8);
+}
+
+.crafting-group-heading {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.crafting-group-header {
+    align-items: baseline;
+    background: var(--surface-muted-color);
+    border: none;
+    color: var(--text-primary);
+    display: flex;
+    gap: var(--space-8);
+    padding: var(--space-8) var(--space-12);
+    text-align: left;
+    width: 100%;
+}
+
+.crafting-group-chevron {
+    align-self: center;
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    transition: transform 0.15s ease;
+}
+
+.crafting-group-header[aria-expanded="false"] .crafting-group-chevron {
+    transform: rotate(-90deg);
+}
+
+.crafting-group-name {
+    font-weight: 700;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.crafting-group-count {
+    color: var(--text-secondary);
+    font-weight: 700;
+}
+
+.crafting-group-empty {
+    font-size: 0.85rem;
+    margin-left: auto;
+}
+
+.crafting-group-rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* The gear it's on, then the slot's controls - stacked, so they get the width. */
+.crafting-slot-row {
+    border-left: 3px solid transparent;
+    border-top: 1px solid var(--border-color);
+    padding: var(--space-4) var(--space-8) var(--space-8);
+}
+
+.crafting-slot-row:nth-child(even) {
+    background: var(--row-alt-bg);
+}
+
+.crafting-slot-row.is-empty {
+    border-left-color: var(--crafting-slot-empty-accent);
+}
+
+.crafting-slot-source {
+    color: var(--text-secondary);
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.8rem;
+    gap: 0 var(--space-8);
+    margin-bottom: var(--space-2);
+}
+
+.crafting-slot-gear-slot {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.crafting-slot-item {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.crafting-slot-controls {
+    align-items: center;
+    margin-left: 0;
+    margin-right: 0;
+}

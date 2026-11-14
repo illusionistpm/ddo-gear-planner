@@ -64,7 +64,7 @@ export class FiltersComponent implements OnInit {
   packOptions: PackOption[] = [];
   /** packOptions as the panel lays them out: always-available content, expansions, adventure packs. */
   packGroups: PackGroup[] = [];
-  /** The yearly coupons, which grant adventure packs. */
+  /** The yearly coupons, which grant adventure packs, newest first. */
   questingCoupons: CouponOption[] = [];
   /** Coupons that grant expansions. */
   expansionCoupons: CouponOption[] = [];
@@ -91,7 +91,7 @@ export class FiltersComponent implements OnInit {
     this.packGroups = this.getPackGroups();
     const coupons = this.getCouponOptions();
     this.expansionCoupons = coupons.filter(coupon => coupon.options.some(option => option.expansion));
-    this.questingCoupons = coupons.filter(coupon => !this.expansionCoupons.includes(coupon));
+    this.questingCoupons = coupons.filter(coupon => !this.expansionCoupons.includes(coupon)).reverse();
     filters.getItemFilters().subscribe(itemFilters => {
       this.minLevel = itemFilters.levelRange[0];
       this.maxLevel = itemFilters.levelRange[1];
@@ -166,7 +166,8 @@ export class FiltersComponent implements OnInit {
 
   /**
    * 'all' ticks every pack. 'owned' starts from the packs ticked the last time it was
-   * open, or from the free content alone - then a coupon or two fills in the rest.
+   * open. The first time, it starts from what everyone could have for free: the free
+   * content, the newest yearly coupon and the expansions coupons.
    */
   setPackMode(mode: PackMode): void {
     if (mode === this.packMode) {
@@ -178,7 +179,14 @@ export class FiltersComponent implements OnInit {
       this.packOptions.forEach(option => option.value = true);
     } else {
       const owned = this.ownedPacks;
-      this.packOptions.forEach(option => option.value = owned ? owned.has(option.name) : !option.year);
+      if (owned) {
+        this.packOptions.forEach(option => option.value = owned.has(option.name));
+      } else {
+        this.packOptions.forEach(option => option.value = !option.year);
+        [...this.questingCoupons.slice(0, 1), ...this.expansionCoupons]
+          .forEach(coupon => coupon.options.forEach(option => option.value = true));
+        this.pickedCoupon = this.questingCoupons[0] ?? null;
+      }
     }
     this.onChangePacks(this.packOptions, mode === 'all' ? 'mode_all' : 'mode_owned');
     this.packMode = mode;
@@ -205,7 +213,7 @@ export class FiltersComponent implements OnInit {
 
   /**
    * The yearly coupon the dropdown shows: the one last picked while its packs are all
-   * still ticked, else the fully ticked coupon that granted the most (the later of two
+   * still ticked, else the fully ticked coupon that granted the most (the newer of two
    * that granted the same). Derived from the ticks, so a reloaded build shows it too.
    */
   get selectedQuestingCoupon(): CouponOption | null {
@@ -214,7 +222,7 @@ export class FiltersComponent implements OnInit {
     }
     let best: CouponOption | null = null;
     for (const coupon of this.questingCoupons) {
-      if (allChecked(coupon.options) && (!best || coupon.options.length >= best.options.length)) {
+      if (allChecked(coupon.options) && (!best || coupon.options.length > best.options.length)) {
         best = coupon;
       }
     }

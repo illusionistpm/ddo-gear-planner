@@ -134,19 +134,3 @@ a {
     min-width: 0;
     overflow-wrap: anywhere;
 }
-
-.readonly-crafting-option {
-    min-width: 0;
-    overflow-wrap: anywhere;
-}
-
-.crafting-option-picker {
-    flex: 1 1 auto;
-    min-width: 0;
-}
-
-/* Owned augment beside a crafting slot's choice. */
-.crafting-owned-badge {
-    flex: none;
-    margin-left: var(--space-4);
-}

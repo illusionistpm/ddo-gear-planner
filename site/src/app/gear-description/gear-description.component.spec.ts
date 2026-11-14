@@ -15,6 +15,7 @@ import { NO_PACK_KEY } from '../gear/pack-filter';
 import { UserGearService } from '../planner/user-gear.service';
 import { UserItemLocationTooltipPipe } from '../shared/user-item-location-tooltip.pipe';
 import { GearDbService } from '../gear/gear-db.service';
+import { CraftingSlotControlComponent, craftingSystemEmptyLabel } from '../crafting-slot-control/crafting-slot-control.component';
 
 describe('GearDescriptionComponent', () => {
   let component: GearDescriptionComponent;
@@ -22,7 +23,7 @@ describe('GearDescriptionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GearDescriptionComponent, TapTooltipComponent, CraftingOptionPickerComponent, UserItemLocationTooltipPipe ],
+      declarations: [ GearDescriptionComponent, CraftingSlotControlComponent, TapTooltipComponent, CraftingOptionPickerComponent, UserItemLocationTooltipPipe ],
       imports: [ FormsModule, NgbModule ]
     })
     .compileComponents();
@@ -57,7 +58,7 @@ describe('GearDescriptionComponent', () => {
     component['refreshDisplayRows']();
 
     expect(component.craftingRows.map(row => row.craft.name)).toEqual(['Augment Slot 1', 'Augment Slot 2']);
-    expect(component.getCraftingSystemEmptyLabel(item.getCraftingByName('Augment Slot 1') as Craftable)).toBe('No augment slot');
+    expect(craftingSystemEmptyLabel(item.getCraftingByName('Augment Slot 1') as Craftable)).toBe('No augment slot');
     expect(item.getCraftingByName('Augment Slot 2')?.craftingSystemOptions).toEqual(['Colorless Augment Slot']);
   });
 

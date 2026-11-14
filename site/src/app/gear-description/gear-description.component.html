@@ -82,59 +82,8 @@
           <button class="show-on-hover far fa-heart heart col-1"
           (click)="equipped.toggleImportantAffix(row.craft.selected.affixes[0].name)"></button>
         }
-        <div class="col ps-1 pe-0" [ngClass]="row.className" [title]="row.tooltip">
-          @if (row.craft.hasCraftingSystemOptions()) {
-            <select class="form-control SmallFont border border-secondary" [(ngModel)]="row.craft.selectedCraftingSystemName" (change)="updateCraftingSystem(row)">
-              <option [ngValue]="''">{{getCraftingSystemEmptyLabel(row.craft)}}</option>
-              @for (systemName of row.craft.craftingSystemOptions; track systemName) {
-                <option [ngValue]="systemName">{{systemName}}</option>
-              }
-            </select>
-          } @else {
-            {{row.craft.name}}
-          }
-        </div>
-        @if (!readonly) {
-          <div class="col-8 d-flex align-items-center">
-            @if (row.visibleOptions.length >= craftingPickerMinOptions) {
-              <app-crafting-option-picker class="crafting-option-picker"
-                [options]="row.visibleOptions" [selected]="row.craft.selected" [className]="row.className"
-                [slot]="curItem.slot" [itemIsEquipped]="equipOnChange" [context]="row.context"
-                (selectedChange)="chooseCraftingOption(row, $event)">
-              </app-crafting-option-picker>
-            } @else {
-              <select class="form-control SmallFont border border-secondary" [(ngModel)]="row.craft.selected" (focus)="loadAndRankCraftingOptions(row)" (mousedown)="loadAndRankCraftingOptions(row)" (change)="updateItem()" [ngClass]="row.className" [hidden]="row.visibleOptions.length < 2">
-                @for (optionRow of row.options; track optionRow.description) {
-                  <option [ngValue]="optionRow.option"
-                    [ngClass]="optionRow.className"
-                    [title]="optionRow.tooltip">
-                    {{optionRow.description}}
-                  </option>
-                }
-              </select>
-            }
-            @if (row.selectedOptionTooltip) {
-              <app-tap-tooltip [text]="row.selectedOptionTooltip" label="Show selected option details">
-                <i class="fas fa-eye small ms-2" [ngClass]="row.className" aria-hidden="true"></i>
-              </app-tap-tooltip>
-            }
-            @if (getCraftLocations(row.craft); as locations) {
-              <span class="owned-badge crafting-owned-badge" [title]="locations | userItemLocationTooltip">Owned</span>
-            }
-          </div>
-        } @else {
-          <div class="col-8 readonly-crafting-option" [ngClass]="row.className" [title]="row.tooltip">
-            {{describe(row.craft.selected) || 'Empty'}}
-            @if (row.selectedOptionTooltip) {
-              <app-tap-tooltip [text]="row.selectedOptionTooltip" label="Show selected option details">
-                <i class="fas fa-eye small ms-1" aria-hidden="true"></i>
-              </app-tap-tooltip>
-            }
-            @if (getCraftLocations(row.craft); as locations) {
-              <span class="owned-badge crafting-owned-badge" [title]="locations | userItemLocationTooltip">Owned</span>
-            }
-          </div>
-        }
+        <app-crafting-slot-control [item]="curItem" [craft]="row.craft" [readonly]="readonly"
+          [itemIsEquipped]="equipOnChange" (changed)="updateItem()"></app-crafting-slot-control>
       </div>
     }
     <!-- Sets -->

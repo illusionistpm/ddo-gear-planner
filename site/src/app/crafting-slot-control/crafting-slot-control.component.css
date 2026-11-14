@@ -1,0 +1,52 @@
+/* Two cells in the host's .row, no box of its own. */
+:host {
+    display: contents;
+}
+
+/* Bootstrap gives a .row's cells their gutters with `.row > *`, which these,
+   a level deeper in the DOM, don't match. The column classes set the widths. */
+.col,
+[class*="col-"] {
+    margin-top: var(--bs-gutter-y);
+    max-width: 100%;
+    padding-left: calc(var(--bs-gutter-x) * .5);
+    padding-right: calc(var(--bs-gutter-x) * .5);
+}
+
+.SmallFont {
+    font-size: 0.8125rem;
+}
+
+/*
+ * Compact the crafting dropdowns so their rows are close to the height of the plain
+ * affix rows; the global .form-control padding is sized for full-width form inputs.
+ */
+select.form-control.SmallFont {
+    background-position: right 0.5rem center;
+    background-size: 0.65rem;
+    border-radius: 6px;
+    line-height: 1.3;
+    padding: var(--space-4) 1.75rem var(--space-4) var(--space-8);
+}
+
+:host-context(.tracked-equipment-card) .col,
+:host-context(.tracked-equipment-card) [class*="col-"] {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.readonly-crafting-option {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.crafting-option-picker {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+/* Owned augment beside a crafting slot's choice. */
+.crafting-owned-badge {
+    flex: none;
+    margin-left: var(--space-4);
+}

@@ -7,6 +7,22 @@ import { CraftableOption } from './craftable-option';
 
 import { GameDataService } from './game-data.service';
 
+/**
+ * The elemental resistance options (plain and Insightful) used to take the wiki's
+ * "Resistance (save)" row by mistake: these values, by ML, from 1. Saved build URLs carry
+ * them as e.g. "Fire Resistance12", and the item's ML is what tells which value it meant,
+ * so each option built for an ML also answers to its old description at that ML.
+ */
+const ELEMENTAL_RESISTANCE_VALUES_BEFORE_FIX: ReadonlyArray<number> = [
+  1, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 11, 11, 11, 12, 12, 12, 12,
+];
+const ELEMENTAL_RESISTANCE_OPTION = /^(?:Insightful )?(?:Acid|Cold|Electric|Fire|Light|Negative|Poison|Sonic) Resistance$/;
+
+function getLegacyParamDescriptions(optionName: string, affixes: ReadonlyArray<Affix>, ml: number): string[] {
+  const oldValue = ELEMENTAL_RESISTANCE_VALUES_BEFORE_FIX[ml - 1];
+  return ELEMENTAL_RESISTANCE_OPTION.test(optionName) && oldValue !== undefined ? [affixes[0].name + oldValue] : [];
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -119,7 +135,7 @@ export class EssenceCraftingService {
       }
       const affixes = this._getOptionAffixNames(optionName).map(affix =>
         this._buildAffix(optionName, affix, essenceCraftingData.progression[optionName]?.[cappedMl - 1] ?? 0));
-      slotOptions.push(new CraftableOption({ affixes }));
+      slotOptions.push(new CraftableOption({ affixes }, '', getLegacyParamDescriptions(optionName, affixes, cappedMl)));
     }
 
     return new Craftable(essenceCraftingSlot, slotOptions);

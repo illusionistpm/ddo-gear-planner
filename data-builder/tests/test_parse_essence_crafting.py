@@ -257,3 +257,37 @@ def test_dual_prefixes_give_each_effect_its_own_progression(monkeypatch):
         'Honed (Vorpal + Holy Blast)',
     ]
     assert not any(option in output['progression'] for option in compounds)
+
+
+def test_elemental_and_save_resistance_rows_keep_their_own_progressions(monkeypatch):
+    written = {}
+    elemental = list(range(4, 40))
+    insightful_elemental = list(range(1, 37))
+    saves = [12] * 36
+    wiki_html = build_wiki_html(extra_rows=(
+        f'<tr><th>Resistance</th>{build_wiki_progression(elemental)}</tr>'
+        f'<tr><th>Ins. Resistance</th>{build_wiki_progression(insightful_elemental)}</tr>'
+        f'<tr><th>Resistance (save)</th>{build_wiki_progression(saves)}</tr>'
+    ))
+    stub_dependencies(
+        monkeypatch, written, wiki_html,
+        {'Fire Resistance': 'Enhancement', 'Resistance': 'Resistance'},
+        ['Fire Resistance', 'Insightful Fire Resistance', 'Resistance'],
+    )
+
+    module.parse_essence_crafting()
+
+    progression = written['essence-crafting']['progression']
+    assert progression['Fire Resistance'] == elemental[:34]
+    assert progression['Insightful Fire Resistance'] == insightful_elemental[:34]
+    assert progression['Resistance'] == saves[:34]
+
+
+def test_essence_crafting_table_rejects_rows_that_normalize_to_one_key():
+    wiki_html = build_wiki_html(extra_rows=(
+        f'<tr><th>Resistance (save)</th>{build_wiki_progression([1] * 36)}</tr>'
+        f'<tr><th>Resistance (Save)*</th>{build_wiki_progression([2] * 36)}</tr>'
+    ))
+
+    with pytest.raises(ValueError, match="collide on 'Resistance'"):
+        module.get_essence_crafting_progression_from_wiki(BeautifulSoup(wiki_html, 'html.parser'))

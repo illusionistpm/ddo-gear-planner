@@ -98,11 +98,11 @@ export function normalizeAugmentSlots(item: Item | null): void {
 
 /**
  * Coloured augment slots in the order they're planned around: Sun and Moon,
- * then Purple, Orange, Red, Green, Blue, Yellow, and Colorless last.
+ * then Purple, Orange, Red, Blue, Yellow, Green, and Colorless last.
  */
 export const AUGMENT_COLOR_ORDER: ReadonlyArray<string> = [
   'Sun', 'Moon',
-  'Purple', 'Orange', 'Red', 'Green', 'Blue', 'Yellow',
+  'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green',
   'Colorless'
 ];
 

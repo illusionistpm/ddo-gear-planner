@@ -31,7 +31,7 @@ describe('deriveCraftingSlotOverview', () => {
     expect(overview.groups.find(group => group.name === 'Sun Augment Slot')!.rows.map(row => row.empty)).toEqual([false, true]);
   });
 
-  it('orders Sun, Moon, Purple, Orange, Red, Green, Blue, Yellow, Colorless, the flexible slots, then the rest alphabetically', () => {
+  it('orders Sun, Moon, Purple, Orange, Red, Blue, Yellow, Green, Colorless, the flexible slots, then the rest alphabetically', () => {
     const overview = deriveCraftingSlotOverview(new Map([
       ['Helm', item('Helm', 'Helm', slot('Upgrade Tier'), slot('Colorless Augment Slot'), slot('Blue Augment Slot'), slot('Yellow Augment Slot'))],
       ['Belt', item('Belt', 'Belt', slot('Purple Augment Slot'), slot('Green Steel Tier 1'), slot('Moon Augment Slot'), slot('Red Augment Slot'))],
@@ -42,12 +42,12 @@ describe('deriveCraftingSlotOverview', () => {
     expect(overview.groups.map(group => group.name)).toEqual([
       'Sun Augment Slot', 'Moon Augment Slot',
       'Purple Augment Slot', 'Orange Augment Slot', 'Red Augment Slot',
-      'Green Augment Slot', 'Blue Augment Slot', 'Yellow Augment Slot',
+      'Blue Augment Slot', 'Yellow Augment Slot', 'Green Augment Slot',
       'Colorless Augment Slot', FLEXIBLE_AUGMENT_GROUP,
       'Green Steel Tier 1', 'Upgrade Tier',
     ]);
     expect(overview.summary.map(chip => chip.label)).toEqual(
-      ['Sun', 'Moon', 'Purple', 'Orange', 'Red', 'Green', 'Blue', 'Yellow', 'Colorless', 'Flexible']);
+      ['Sun', 'Moon', 'Purple', 'Orange', 'Red', 'Blue', 'Yellow', 'Green', 'Colorless', 'Flexible']);
   });
 
   it('keeps two slots of one colour on one item apart', () => {

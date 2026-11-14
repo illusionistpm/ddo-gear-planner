@@ -6,7 +6,44 @@ import { AnalyticsService } from '../shared/analytics.service';
 
 import { Output, EventEmitter } from '@angular/core';
 import { GameDataService } from '../gear/game-data.service';
-import { getPackKeys, NO_PACK_KEY, PSEUDO_PACKS } from '../gear/pack-filter';
+import { getPackInfo, getPackKeys, NO_PACK_KEY, PACK_COUPONS, PSEUDO_PACKS } from '../gear/pack-filter';
+
+export interface PackOption {
+  name: string;
+  value: boolean;
+  /** Release year, shown beside the name. Empty for free quests and the pseudo-packs. */
+  year: string;
+  /** ISO release date, for sorting. */
+  released: string;
+  expansion: boolean;
+}
+
+/** A titled run of pack checkboxes with a tick-all box of its own. */
+export interface PackGroup {
+  id: string;
+  title: string;
+  options: PackOption[];
+}
+
+/** A coupon as a shortcut: ticking it ticks every pack it granted. */
+export interface CouponOption {
+  /** The year it ran. */
+  year: string;
+  code: string;
+  available: string;
+  options: PackOption[];
+}
+
+export type PackSort = 'release' | 'name';
+
+/** Tick state of a set of pack options, for a tri-state checkbox. */
+function allChecked(options: ReadonlyArray<PackOption>): boolean {
+  return options.length > 0 && options.every(option => option.value);
+}
+
+function someChecked(options: ReadonlyArray<PackOption>): boolean {
+  return options.some(option => option.value);
+}
 
 @Component({
     selector: 'app-filters',
@@ -22,7 +59,14 @@ export class FiltersComponent implements OnInit {
   showRaidItems: boolean = false;
   showRareItems: boolean = true;
   showPackFilters: boolean = false;
-  packOptions: Array<{name: string, value: boolean}> = [];
+  packOptions: PackOption[] = [];
+  /** packOptions as the panel lays them out: always-available content, expansions, adventure packs. */
+  packGroups: PackGroup[] = [];
+  /** The yearly coupons, which grant adventure packs. */
+  questingCoupons: CouponOption[] = [];
+  /** Coupons that grant expansions. */
+  expansionCoupons: CouponOption[] = [];
+  packSort: PackSort = 'release';
 
   sortOwnedToTop: boolean = true;
 
@@ -38,6 +82,10 @@ export class FiltersComponent implements OnInit {
     private gameData: GameDataService
   ) {
     this.packOptions = this.getAllPackOptions();
+    this.packGroups = this.getPackGroups();
+    const coupons = this.getCouponOptions();
+    this.expansionCoupons = coupons.filter(coupon => coupon.options.some(option => option.expansion));
+    this.questingCoupons = coupons.filter(coupon => !this.expansionCoupons.includes(coupon));
     filters.getItemFilters().subscribe(itemFilters => {
       this.minLevel = itemFilters.levelRange[0];
       this.maxLevel = itemFilters.levelRange[1];
@@ -93,7 +141,7 @@ export class FiltersComponent implements OnInit {
     });
   }
 
-  onChangePacks(items: Array<{name: string, value: boolean}>, changeSource: string): void {
+  onChangePacks(items: ReadonlyArray<{name: string, value: boolean}>, changeSource: string): void {
     const hiddenPacks = new Set<string>();
     items.filter(item => !item.value)
       .forEach(item => hiddenPacks.add(this.packFilterValue(item.name)));
@@ -127,6 +175,31 @@ export class FiltersComponent implements OnInit {
     this.onChangePacks(this.packOptions, 'subgroup');
   }
 
+  areAllChecked(options: ReadonlyArray<PackOption>): boolean {
+    return allChecked(options);
+  }
+
+  areSomeChecked(options: ReadonlyArray<PackOption>): boolean {
+    return someChecked(options);
+  }
+
+  /** A group's or coupon's own checkbox: ticks all of its packs, or unticks them when all are ticked. */
+  togglePacks(options: ReadonlyArray<PackOption>, changeSource: string): void {
+    const checked = !allChecked(options);
+    options.forEach(option => option.value = checked);
+    this.onChangePacks(this.packOptions, changeSource);
+  }
+
+  couponTitle(coupon: CouponOption): string {
+    const packs = coupon.options.length === 1 ? '1 pack' : `${coupon.options.length} packs`;
+    return `${packs}. Redeemable ${coupon.available}.`;
+  }
+
+  setPackSort(sort: PackSort): void {
+    this.packSort = sort;
+    this.packGroups = this.getPackGroups();
+  }
+
   onTroveFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (!input.files || input.files.length === 0) {
@@ -153,7 +226,7 @@ export class FiltersComponent implements OnInit {
    * groups, then the real packs alphabetically. Augments with no source follow their host
    * item, so only those with sources add packs.
    */
-  private getAllPackOptions(): Array<{name: string, value: boolean}> {
+  private getAllPackOptions(): PackOption[] {
     const keys = new Set<string>();
 
     for (const item of this.gameData.items) {
@@ -174,10 +247,56 @@ export class FiltersComponent implements OnInit {
       .filter(key => !first.includes(key))
       .sort((left, right) => left.localeCompare(right));
 
-    return [...first, ...packs].map(key => ({
-      name: key === NO_PACK_KEY ? this.freeQuestsPackLabel : key,
-      value: true,
-    }));
+    return [...first, ...packs].map(key => {
+      const info = getPackInfo(key);
+      return {
+        name: key === NO_PACK_KEY ? this.freeQuestsPackLabel : key,
+        value: true,
+        year: info?.released.slice(0, 4) ?? '',
+        released: info?.released ?? '',
+        expansion: info?.expansion ?? false,
+      };
+    });
+  }
+
+  /**
+   * Free quests and the pseudo-packs, then expansions, then adventure packs - the last two
+   * oldest first by default, which is how players remember them and keeps what a coupon
+   * granted together. A pack the wiki's tables don't date is listed with the adventure
+   * packs, last.
+   */
+  private getPackGroups(): PackGroup[] {
+    const byName = (left: PackOption, right: PackOption) => left.name.localeCompare(right.name);
+    const byRelease = (left: PackOption, right: PackOption) =>
+      (left.released || '9999').localeCompare(right.released || '9999') || byName(left, right);
+    const order = this.packSort === 'release' ? byRelease : byName;
+
+    const always = new Set<string>([this.freeQuestsPackLabel, ...PSEUDO_PACKS]);
+    const groups: PackGroup[] = [
+      { id: 'always', title: 'Free and other', options: this.packOptions.filter(option => always.has(option.name)) },
+      { id: 'expansions', title: 'Expansions', options: this.packOptions.filter(option => option.expansion).sort(order) },
+      {
+        id: 'adventure-packs',
+        title: 'Adventure packs',
+        options: this.packOptions.filter(option => !option.expansion && !always.has(option.name)).sort(order),
+      },
+    ];
+    return groups.filter(group => group.options.length > 0);
+  }
+
+  /** The coupons that granted at least one pack the filter lists, oldest first. */
+  private getCouponOptions(): CouponOption[] {
+    const byName = new Map(this.packOptions.map(option => [option.name, option]));
+    return PACK_COUPONS
+      .map(coupon => ({
+        // The wiki labels a yearly coupon by its year and anything else by a nickname
+        // ("BIG26"); the dates it ran end with the year either way.
+        year: /^\d{4}$/.test(coupon.label) ? coupon.label : (/\d{4}$/.exec(coupon.available)?.[0] ?? coupon.label),
+        code: coupon.code,
+        available: coupon.available,
+        options: coupon.packs.map(pack => byName.get(pack)).filter((option): option is PackOption => !!option),
+      }))
+      .filter(coupon => coupon.options.length > 0);
   }
 
   private packFilterValue(packName: string): string {

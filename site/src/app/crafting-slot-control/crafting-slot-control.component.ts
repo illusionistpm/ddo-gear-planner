@@ -54,6 +54,11 @@ export class CraftingSlotControlComponent implements OnChanges, OnDestroy {
   @Input() readonly = false;
   /** Whether the item is the equipped one, which the picker's notes depend on. */
   @Input() itemIsEquipped = true;
+  /**
+   * Leave out a plain slot's name where its host already says it (a slot that
+   * picks a system first still shows that choice), giving the option the width.
+   */
+  @Input() hideName = false;
   @Output() readonly changed = new EventEmitter<void>();
 
   readonly craftingPickerMinOptions = CRAFTING_PICKER_MIN_OPTIONS;
@@ -97,6 +102,10 @@ export class CraftingSlotControlComponent implements OnChanges, OnDestroy {
       equipped.getImportantAffixesObservable(),
       equipped.getActiveSetBonusesObservable()
     ).subscribe(() => this.refresh()));
+  }
+
+  get showsNameCell(): boolean {
+    return !this.hideName || this.craft.hasCraftingSystemOptions();
   }
 
   ngOnChanges(): void {

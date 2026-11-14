@@ -26,6 +26,8 @@
   --section-accent-neutral-dark: #475569;
   --section-accent-neutral-dark-rgb: 71, 85, 105;
   --warning-color: #d97706;
+  /* Marks a crafting slot with nothing chosen yet in the crafting slots view. */
+  --crafting-slot-empty-accent: var(--warning-color);
   --danger-color: #ef4444;
   --danger-color-rgb: 239, 68, 68;
   --background-color: #f8fafc;
@@ -185,6 +187,7 @@
   --section-accent-neutral-dark: #64748b;
   --section-accent-neutral-dark-rgb: 100, 116, 139;
   --warning-color: #f59e0b;
+  --crafting-slot-empty-accent: var(--warning-color);
   --danger-color: #f87171;
   --danger-color-rgb: 248, 113, 113;
   --background-color: #0f172a;

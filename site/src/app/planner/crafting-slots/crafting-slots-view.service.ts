@@ -1,4 +1,6 @@
 import { inject, Injectable } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 import { CRAFTING_SLOTS_FRAGMENT, isCraftingSlotsFragment } from '../../build/crafting-slots-link';
 import { AnalyticsService } from '../../shared/analytics.service';
@@ -18,15 +20,20 @@ export type CraftingSlotsEntryPoint = 'switch' | 'url';
 export class CraftingSlotsViewService extends FragmentViewService<CraftingSlotsEntryPoint> {
   private readonly equipped = inject(EquippedService);
   private readonly analytics = inject(AnalyticsService);
+  private readonly openings: Subscription;
 
   constructor() {
     super(CRAFTING_SLOTS_FRAGMENT, isCraftingSlotsFragment);
+    // However it opens - the switch, a reload, Forward - it's the Equipment
+    // panel's view: on a phone, that's the tab to be on.
+    this.openings = this.isOpen$.pipe(filter(Boolean)).subscribe(() => {
+      this.equipped.setActiveMainTab('equipment');
+      this.analytics.track('open_crafting_slots', { from: this.openedFrom });
+    });
   }
 
-  override open(from: CraftingSlotsEntryPoint): void {
-    // It's the Equipment panel's view: on a phone, that's the tab to be on.
-    this.equipped.setActiveMainTab('equipment');
-    this.analytics.track('open_crafting_slots', { from });
-    super.open(from);
+  override ngOnDestroy(): void {
+    this.openings.unsubscribe();
+    super.ngOnDestroy();
   }
 }

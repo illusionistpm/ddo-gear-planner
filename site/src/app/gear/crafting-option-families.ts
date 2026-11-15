@@ -39,6 +39,16 @@ export function groupCraftingOptions(options: CraftableOption[]): CraftingOption
   return result.sort((a, b) => a.label.localeCompare(b.label) || a.key.localeCompare(b.key));
 }
 
+/**
+ * A short list as families of one option each, in its own order with the empty option first: with
+ * only a handful of options, a family of tiers would just be one more click to reach them.
+ */
+export function ungroupedCraftingOptions(options: CraftableOption[]): CraftingOptionFamily[] {
+  const isEmpty = (option: CraftableOption) => !option.describe();
+  return [...options.filter(isEmpty), ...options.filter(option => !isEmpty(option))]
+    .map((option, index) => ({ key: `${index}:${familyKey(option)}`, label: familyLabel(option), tiers: [option] }));
+}
+
 function familyKey(option: CraftableOption): string {
   if (!option.affixes.length) {
     return 'option:' + option.getParamDescription();

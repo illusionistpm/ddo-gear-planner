@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppModule } from '../app.module';
 import { FiltersComponent } from './filters.component';
 import { NO_PACK_KEY } from '../gear/pack-filter';
+import { ItemBonusSettingsService } from '../planner/item-bonus-settings.service';
 
 describe('FiltersComponent', () => {
   let component: FiltersComponent;
@@ -265,6 +266,27 @@ describe('FiltersComponent', () => {
 
     component.filters.getItemFilters().subscribe(filters => {
       expect(filters.hiddenPacks.has(firstPack.name === 'Free Quests' ? NO_PACK_KEY : firstPack.name)).toBe(true);
+    });
+  });
+
+  describe('Advanced bonuses', () => {
+    const panel = () => fixture.nativeElement.querySelector('.bonus-systems-panel') as HTMLElement;
+    const toggle = (kind: string) => panel().querySelector(`[data-bonus-kind="${kind}"] input`) as HTMLInputElement;
+
+    it('lists the three systems, all off', () => {
+      expect(Array.from(panel().querySelectorAll('label')).map(label => label.textContent!.trim()))
+        .toEqual(['Mythic Boosts', 'Reaper Bonuses', 'Curses']);
+      expect(Array.from(panel().querySelectorAll('input')).map(input => input.checked)).toEqual([false, false, false]);
+    });
+
+    it('switches one system on without the others', () => {
+      toggle('reaper').click();
+      fixture.detectChanges();
+
+      const settings = TestBed.inject(ItemBonusSettingsService);
+      expect([...settings.getEnabledKindsSnapshot()]).toEqual(['reaper']);
+      expect(toggle('reaper').checked).toBe(true);
+      expect(toggle('mythic').checked).toBe(false);
     });
   });
 });

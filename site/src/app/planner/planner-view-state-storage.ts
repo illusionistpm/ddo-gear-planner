@@ -1,4 +1,5 @@
 import type { PlannerTab, TrackedAffixGroupMode } from './equipped.service';
+import { isItemBonusKind, ItemBonusKind } from '../gear/item-bonus';
 
 // The active planner tab and tracked-affix grouping/collapse state used to
 // round-trip through the URL (tab/taGroup/taCollapsed) solely so a reload
@@ -14,6 +15,7 @@ const TRACKED_AFFIX_COLLAPSED_KEY = 'ddo-gear-planner-tracked-affix-collapsed';
 const HIDE_IRRELEVANT_CRAFTING_OPTIONS_KEY = 'ddo-gear-planner-hide-irrelevant-crafting-options';
 const HIDE_IRRELEVANT_FILIGREE_KEY = 'ddo-gear-planner-hide-irrelevant-filigree';
 const FILIGREE_GROUP_MODE_KEY = 'ddo-gear-planner-filigree-group-mode';
+const ITEM_BONUS_KINDS_KEY = 'ddo-gear-planner-item-bonus-kinds';
 
 /** How the filigree picker groups its list. */
 export type FiligreeGroupMode = 'set' | 'bonus';
@@ -67,6 +69,15 @@ export function getStoredFiligreeGroupMode(): FiligreeGroupMode {
 
 export function storeFiligreeGroupMode(mode: FiligreeGroupMode): void {
   writeValue(FILIGREE_GROUP_MODE_KEY, mode);
+}
+
+// The Mythic / Reaper / Curse systems the player has opted into (ItemBonusSettingsService). None by default.
+export function getStoredItemBonusKinds(): Set<ItemBonusKind> {
+  return new Set((readValue(ITEM_BONUS_KINDS_KEY) ?? '').split(',').filter(isItemBonusKind));
+}
+
+export function storeItemBonusKinds(kinds: ReadonlySet<ItemBonusKind>): void {
+  writeValue(ITEM_BONUS_KINDS_KEY, [...kinds].join(','));
 }
 
 function readValue(key: string): string | null {

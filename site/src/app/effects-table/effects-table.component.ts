@@ -26,7 +26,8 @@ import {
 } from '../affixes/tracked-affix-derivation';
 import { affixTypeKey } from '../affixes/affix-type-key';
 import { MAX_FILIGREE_SLOTS_AFFIX } from '../affixes/filigree-affix';
-import { SUMMED_FILIGREE_BONUS_TYPES } from '../gear/filigree';
+import { FILIGREE_ONLY_BONUS_TYPES } from '../gear/filigree';
+import { ITEM_BONUS_TYPES } from '../affixes/item-bonus-types';
 import { RECENT_CHANGE_HIGHLIGHT_MS } from '../planner/recent-change-highlight';
 import { AffixSourceHighlightService } from '../planner/affix-source-highlight.service';
 
@@ -448,10 +449,14 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
       );
     };
     const fileByScarcity = (affixName: string, chip: TrackedChip, info: RemainingAvailability) => {
-      // Gear never carries these, so open gear slots don't measure them; the filigree slots do.
-      const group = SUMMED_FILIGREE_BONUS_TYPES.has(chip.bonusType)
+      // Game data's gear never carries these, so open gear slots don't measure them: the filigree
+      // slots do, and any item can take a Mythic Boost, a Reaper bonus and a Curse. Those chips are
+      // only here for a system the player has switched on, or a bonus the build carries.
+      const group = FILIGREE_ONLY_BONUS_TYPES.has(chip.bonusType)
         ? bucket('filigree', 'Filigree', 0.5)
-        : scarcityBucket(chip.sourceAffixName, info);
+        : ITEM_BONUS_TYPES.has(chip.bonusType)
+          ? bucket('item-bonuses', 'Advanced bonuses', 0.6)
+          : scarcityBucket(chip.sourceAffixName, info);
       if (group) {
         rowFor(group, affixName).chips.push(chip);
       }

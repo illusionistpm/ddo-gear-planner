@@ -5,8 +5,8 @@ import {
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
 
 import { CraftableOption } from '../gear/craftable-option';
-import { CraftingOptionFamily, groupCraftingOptions } from '../gear/crafting-option-families';
-import { AffixUiService, CraftingOptionContext } from '../affixes/affix-ui.service';
+import { CraftingOptionFamily, groupCraftingOptions, ungroupedCraftingOptions } from '../gear/crafting-option-families';
+import { AffixUiService, contextCraftable, CraftingOptionContext } from '../affixes/affix-ui.service';
 import { getStoredHideIrrelevantCraftingOptions, storeHideIrrelevantCraftingOptions } from '../planner/planner-view-state-storage';
 import { buildFamilyRows, defaultTier, FamilyRow, TierRow } from './crafting-option-rows';
 import { craftSystemName } from '../gear/crafting-acquisition';
@@ -50,6 +50,11 @@ export class CraftingOptionPickerComponent implements OnChanges {
   @Input() itemIsEquipped = false;
   /** The item and crafting slot the options are for, so each is ranked as if chosen in place of the current one. */
   @Input() context?: CraftingOptionContext;
+  /**
+   * For a short list (a Mythic Boost's few options): every option its own entry rather than grouped into
+   * tiers, and no search box or "hide options that don't help", which only get in the way of a handful.
+   */
+  @Input() compact = false;
   @Output() selectedChange = new EventEmitter<CraftableOption>();
 
   @ViewChild(NgbDropdown) dropdown?: NgbDropdown;
@@ -166,13 +171,17 @@ export class CraftingOptionPickerComponent implements OnChanges {
   /** Ranks the list against the build as it is now, and opens it at the selected option. */
   private loadList() {
     if (this.options !== this.groupedOptions) {
-      this.groups = groupCraftingOptions(this.options);
+      this.groups = this.compact ? ungroupedCraftingOptions(this.options) : groupCraftingOptions(this.options);
       this.groupedOptions = this.options;
     }
     this.families = buildFamilyRows(this.groups,
       option => this.affixUi.rankCraftingOption(option, this.slot, this.itemIsEquipped && option === this.selected, this.context),
       this.affixUi,
-      option => !!this.userGear.getCraftingOptionLocations(this.context ? craftSystemName(this.context.craft) : '', option));
+      option => {
+        // Only a crafting option is something the player can own; a bonus belongs to their copy of the item.
+        const craft = contextCraftable(this.context);
+        return !!craft && !!this.userGear.getCraftingOptionLocations(craftSystemName(craft), option);
+      });
     this.selectedFamily = this.families.find(family => family.tiers.some(tier => tier.option === this.selected)) ?? null;
     this.expandedFamily = this.selectedFamily && this.selectedFamily.tiers.length > 1 ? this.selectedFamily : null;
     this.applyFilter();
@@ -182,7 +191,7 @@ export class CraftingOptionPickerComponent implements OnChanges {
     const term = this.search.trim().toLowerCase();
     const matching = term ? this.families.filter(family => family.searchText.includes(term)) : this.families;
     // With nothing in the list helping the build (say, no affixes tracked yet), hiding would leave it empty.
-    const hide = this.hideIrrelevant && this.families.some(family => family.hideable && family.relevant);
+    const hide = !this.compact && this.hideIrrelevant && this.families.some(family => family.hideable && family.relevant);
     this.visibleFamilies = matching.filter(family => !hide || !family.hideable || family.relevant || family === this.selectedFamily);
     this.hiddenCount = matching.length - this.visibleFamilies.length;
     this.buildEntries();
@@ -218,6 +227,10 @@ export class CraftingOptionPickerComponent implements OnChanges {
       read: () => {
         const active = this.list?.nativeElement.querySelector<HTMLElement>('.active');
         active?.scrollIntoView?.({ block: 'nearest' });
+        // With no search box to type in, the keyboard moves through the entries themselves.
+        if (this.compact && this.isOpen) {
+          active?.focus();
+        }
       }
     }, { injector: this.injector });
   }
@@ -228,7 +241,7 @@ export class CraftingOptionPickerComponent implements OnChanges {
    */
   private afterOpenRender() {
     this.scrollActiveIntoView();
-    if (this.focusSearchOnOpen) {
+    if (this.focusSearchOnOpen && !this.compact) {
       afterNextRender({ write: () => this.searchInput?.nativeElement.focus() }, { injector: this.injector });
     }
   }

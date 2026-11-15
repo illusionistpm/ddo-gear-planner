@@ -61,6 +61,22 @@
         <label class="form-check-label" for="sortOwnedToTop">Sort owned items to top</label>
       </div>
     </section>
+
+    <!-- Off by default, and nothing on the gear or in the build goals mentions these systems until one is on. -->
+    <section class="filter-panel bonus-systems-panel">
+      <h4 class="filter-panel-title">Advanced bonuses</h4>
+      <p class="owned-gear-help">
+        The following bonuses are hard to reliably acquire and are hidden by default. Toggle them on for high-end planning.
+      </p>
+      @for (system of bonusSystems; track system.kind) {
+        <div class="form-check form-switch bonus-system" [attr.data-bonus-kind]="system.kind">
+          <input type="checkbox" class="form-check-input" id="bonusSystem-{{system.kind}}"
+            [checked]="itemBonusSettings.isEnabled(system.kind)"
+            (change)="onToggleBonusSystem(system.kind, $any($event.target).checked)">
+          <label class="form-check-label" for="bonusSystem-{{system.kind}}">{{system.name}}</label>
+        </div>
+      }
+    </section>
   </div>
 
   @if (packMode === 'owned') {

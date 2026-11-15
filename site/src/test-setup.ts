@@ -3,12 +3,13 @@
 
 import { TestBed } from '@angular/core/testing';
 import { GameDataService } from './app/gear/game-data.service';
-import { RawCraftingData, RawEssenceCraftingData, RawFiligreeData, RawItem, RawSetData } from './app/gear/game-data-types';
+import { RawCraftingData, RawEssenceCraftingData, RawFiligreeData, RawItem, RawItemBonusData, RawSetData } from './app/gear/game-data-types';
 import itemsList from '@data/items.json';
 import craftingListRaw from '@data/crafting.json';
 import essenceCraftingList from '@data/essence-crafting.json';
 import setList from '@data/sets.json';
 import filigreeData from '@data/filigree.json';
+import itemBonusData from '@data/item-bonuses.json';
 
 // GameDataService loads its JSON via dynamic import() in production so the data lands
 // in lazy chunks instead of the initial bundle (see game-data.service.ts). Specs
@@ -21,6 +22,7 @@ const fakeGameData: GameDataService = {
   essenceCrafting: essenceCraftingList as RawEssenceCraftingData,
   sets: setList as RawSetData,
   filigree: filigreeData as RawFiligreeData,
+  itemBonuses: itemBonusData as RawItemBonusData,
   load: () => Promise.resolve(),
 } as GameDataService;
 
@@ -109,3 +111,7 @@ afterEach(() => {
 // and each pins that spec's whole service graph until the file ends - a 30-spec file can
 // exhaust the heap. Yield once per spec, after the previous spec's TestBed teardown.
 beforeEach(() => new Promise<void>(resolve => setTimeout(resolve, 0)));
+
+// The Mythic / Reaper / Curse opt-in is a stored preference (ItemBonusSettingsService) that changes
+// which bonus types every affix has: a spec that switches one on must not leave it on for the next.
+afterEach(() => localStorage.removeItem('ddo-gear-planner-item-bonus-kinds'));

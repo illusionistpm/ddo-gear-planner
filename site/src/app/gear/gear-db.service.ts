@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
 import { EssenceCraftingService } from './essence-crafting.service';
 import { FiltersService } from '../planner/filters.service';
@@ -14,6 +15,9 @@ import { classifyCraftSelection } from './crafting-acquisition';
 
 import { GameDataService } from './game-data.service';
 import { FiligreeDbService } from './filigree-db.service';
+import { ItemBonusService } from './item-bonus.service';
+import { ItemBonusKind } from './item-bonus';
+import { ItemBonusSettingsService } from '../planner/item-bonus-settings.service';
 import { FILIGREE_TRACKING_MIN_LEVEL, getMaxFiligreeSlots } from '../affixes/filigree-affix';
 import { AffixService, UNIVERSAL_COMPANION_AFFIXES } from '../affixes/affix.service';
 import { perfMeasure, perfStart } from '../shared/perf-trace';
@@ -49,6 +53,12 @@ interface UniversalCompanionContributionTracker {
 }
 
 type ItemAffixTypeIndex = Map<string, Set<Item>>;
+
+const copyAffixTypes = (map: Map<string, Set<string>>): Map<string, Set<string>> =>
+  new Map([...map].map(([affixName, bonusTypes]) => [affixName, new Set(bonusTypes)]));
+
+const copyAffixToBonusTypes = (map: Map<string, Map<string, number>>): Map<string, Map<string, number>> =>
+  new Map([...map].map(([affixName, bonusTypes]) => [affixName, new Map(bonusTypes)]));
 
 const recordAffixType = (map: Map<string, Set<string>>, affixName: string, bonusType: string): void => {
   let types = map.get(affixName);
@@ -94,6 +104,18 @@ export class GearDbService {
   // these as a "Universal <type>" companion row, so the plain per-element row
   // for them is a duplicate and gets suppressed.
   private allLevelUniversalCompanionOnlyAffixTypes: Map<string, Set<string>> = new Map<string, Set<string>>();
+  // What game data alone offers, before the Mythic / Reaper / Curse systems the player has switched on
+  // are added (_applyItemBonusTypes): at every level, with the contributions the universal-companion
+  // set above is collapsed from, and under the current filters. With no system on, the maps the rest
+  // of the app reads are these very objects.
+  private baseAllLevelAffixToBonusTypes: Map<string, Map<string, number>> = new Map<string, Map<string, number>>();
+  private baseAllLevelUniversalTracker: UniversalCompanionContributionTracker = {
+    fromUniversalCompanion: new Map<string, Set<string>>(),
+    fromLiteral: new Map<string, Set<string>>(),
+  };
+  private baseAffixToBonusTypes: Map<string, Map<string, number>> = new Map<string, Map<string, number>>();
+  private enabledItemBonusKinds: ReadonlySet<ItemBonusKind> = new Set<ItemBonusKind>();
+  private bonusTypesChanged = new Subject<void>();
   private allGearMaxLevel = ItemFilters.MAX_LEVEL();
 
   // (affixName, bonusType) -> the items (across the currently filtered gear)
@@ -129,17 +151,38 @@ export class GearDbService {
     public quests: QuestService,
     private affixSvc: AffixService,
     private gameData: GameDataService,
-    private filigreeDb: FiligreeDbService
+    private filigreeDb: FiligreeDbService,
+    private itemBonuses: ItemBonusService,
+    private itemBonusSettings: ItemBonusSettingsService
   ) {
     this._buildAugmentOptions();
     this._buildEssenceCraftingOptions();
     this.gear = new Map<string, Array<Item>>();
+    this.enabledItemBonusKinds = this.itemBonusSettings.getEnabledKindsSnapshot();
     this.allGear = this._loadAllItems();
 
     this.filters.getItemFilters().subscribe(itemFilters => {
       this.currentItemFilters = itemFilters;
       this.gear = this.applyItemFilters(itemFilters);
     });
+
+    // Emits the current set at once, which the two calls above have already applied.
+    this.itemBonusSettings.getEnabledKinds().subscribe(kinds => {
+      if (kinds === this.enabledItemBonusKinds) {
+        return;
+      }
+      this.enabledItemBonusKinds = kinds;
+      this._applyItemBonusTypes();
+      this.bonusTypesChanged.next();
+    });
+  }
+
+  /**
+   * Fires when the bonus types on offer change without the filters changing: the player switched a
+   * Mythic / Reaper / Curse system on or off. A filter change is announced by FiltersService.
+   */
+  getBonusTypesChanged(): Observable<void> {
+    return this.bonusTypesChanged.asObservable();
   }
 
   _mergeAugmentLists(left: string, right: string) {
@@ -319,14 +362,12 @@ export class GearDbService {
 
     this.filters.setMaxLevel(maxLevel);
     this.setLevels = this._buildSetLevels(gear);
-    const universalTracker: UniversalCompanionContributionTracker = {
-      fromUniversalCompanion: new Map<string, Set<string>>(),
-      fromLiteral: new Map<string, Set<string>>(),
-    };
-    this.allLevelAffixToBonusTypes = perfMeasure('GearDbService.loadAllItems.buildAllLevelAffixToBonusTypes', () =>
-      this._buildAffixToBonusTypes(gear, ItemFilters.MIN_LEVEL(), maxLevel, new Set<string>(), universalTracker)
+    this.baseAllLevelAffixToBonusTypes = perfMeasure('GearDbService.loadAllItems.buildAllLevelAffixToBonusTypes', () =>
+      this._buildAffixToBonusTypes(gear, ItemFilters.MIN_LEVEL(), maxLevel, new Set<string>(), this.baseAllLevelUniversalTracker)
     );
-    this.allLevelUniversalCompanionOnlyAffixTypes = this._buildUniversalCompanionOnlyAffixTypes(universalTracker);
+    this.baseAffixToBonusTypes = this.baseAllLevelAffixToBonusTypes;
+    this.allGear = gear;
+    this._applyItemBonusTypes();
 
     return gear;
   }
@@ -404,7 +445,6 @@ export class GearDbService {
 
       const gear = new Map<string, Array<Item>>();
 
-      this.affixToBonusTypes = new Map<string, Map<string, number>>();
       this.itemAffixTypeIndex = null;
       this.augmentHostSlotsIndex = null;
       this.setSlotsIndex = null;
@@ -429,13 +469,14 @@ export class GearDbService {
         }
       });
 
-      this.affixToBonusTypes = perfMeasure('GearDbService.applyItemFilters.buildAffixToBonusTypes', () => {
+      this.baseAffixToBonusTypes = perfMeasure('GearDbService.applyItemFilters.buildAffixToBonusTypes', () => {
         if (this.canReuseAllLevelAffixToBonusTypes(minLevel, maxLevel, showRaidItems, showRareItems, hiddenItemTypes, hiddenPacks)) {
-          return this.allLevelAffixToBonusTypes;
+          return this.baseAllLevelAffixToBonusTypes;
         }
 
         return this._buildAffixToBonusTypes(gear, minLevel, maxLevel, hiddenPacks);
       });
+      this._applyItemBonusTypes();
 
       return gear;
     });
@@ -534,6 +575,41 @@ export class GearDbService {
   }
 
   /** The most filigree slots any artifact in `gear` holds: the artifact half of the filigree maxima. */
+  /**
+   * Rebuilds the maps the app reads from game data's own (the base maps) plus the Mythic / Reaper /
+   * Curse systems the player has switched on. Any named item can carry those bonuses at any level,
+   * so they don't depend on the filters: the best option in every slot, combined as the type combines.
+   * A system that is off adds nothing, so its bonus type isn't offered for any affix.
+   */
+  private _applyItemBonusTypes() {
+    perfMeasure('GearDbService.applyItemBonusTypes', () => {
+      const maxima = this.enabledItemBonusKinds.size
+        ? this.itemBonuses.getMaxima(this.allGear.keys(), this.enabledItemBonusKinds)
+        : [];
+      if (!maxima.length) {
+        this.allLevelAffixToBonusTypes = this.baseAllLevelAffixToBonusTypes;
+        this.allLevelUniversalCompanionOnlyAffixTypes = this._buildUniversalCompanionOnlyAffixTypes(this.baseAllLevelUniversalTracker);
+        this.affixToBonusTypes = this.baseAffixToBonusTypes;
+        return;
+      }
+
+      const tracker: UniversalCompanionContributionTracker = {
+        fromUniversalCompanion: copyAffixTypes(this.baseAllLevelUniversalTracker.fromUniversalCompanion),
+        fromLiteral: copyAffixTypes(this.baseAllLevelUniversalTracker.fromLiteral),
+      };
+      this.allLevelAffixToBonusTypes = copyAffixToBonusTypes(this.baseAllLevelAffixToBonusTypes);
+      this._addAffixesToMap(this.allLevelAffixToBonusTypes, maxima, tracker);
+      this.allLevelUniversalCompanionOnlyAffixTypes = this._buildUniversalCompanionOnlyAffixTypes(tracker);
+
+      if (this.baseAffixToBonusTypes === this.baseAllLevelAffixToBonusTypes) {
+        this.affixToBonusTypes = this.allLevelAffixToBonusTypes;
+      } else {
+        this.affixToBonusTypes = copyAffixToBonusTypes(this.baseAffixToBonusTypes);
+        this._addAffixesToMap(this.affixToBonusTypes, maxima);
+      }
+    });
+  }
+
   private _getMaxArtifactFiligreeSlots(gear: Map<string, Array<Item>>): number {
     let most = 0;
     for (const items of gear.values()) {

@@ -1,6 +1,6 @@
 import { UserGearService, UserItemLocation } from '../planner/user-gear.service';
 import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { merge, Subscription } from 'rxjs';
 
 import { GearDbService, SetAffixMatch } from '../gear/gear-db.service';
 import { EquippedService } from '../planner/equipped.service';
@@ -28,6 +28,22 @@ import { isOptionHiddenByPacks } from '../gear/pack-filter';
 import { FiligreeAffixMatch, FiligreeDbService, FiligreeSetAffixMatch } from '../gear/filigree-db.service';
 import { FILIGREE_HOST_TEXT, FILIGREE_HOSTS, FiligreeHost } from '../gear/filigree';
 import { FiligreeLoadoutService } from '../planner/filigree-loadout.service';
+import { ITEM_BONUS_KINDS, ItemBonusKind } from '../gear/item-bonus';
+import { ItemBonusService } from '../gear/item-bonus.service';
+import { ITEM_BONUS_TYPE_BY_KIND } from '../affixes/item-bonus-types';
+import { ITEM_BONUS_KIND_LABELS } from '../planner/item-bonus-settings.service';
+import { slotLabel } from '../gear/slot-display';
+
+/** An equipped item and the Mythic Boost, Reaper bonus or Curse its slot offers that gives most of this affix and type. */
+interface ItemBonusMatch {
+  slot: string;
+  slotLabel: string;
+  itemName: string;
+  option: CraftableOption;
+  value: number;
+  /** The name of the bonus of this kind the item already carries, which keeps it out of the list; '' if none. */
+  carried: string;
+}
 
 /** An open augment slot on an equipped item that could take the chosen augment. */
 interface AugmentSlotChoice {
@@ -122,6 +138,14 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
   readonly filigreeHosts = FILIGREE_HOSTS;
   readonly filigreeHostText = FILIGREE_HOST_TEXT;
 
+  /** Set when the bonus type is one only a player's copy of an item carries: the kind, and where it can go. */
+  itemBonusKind: ItemBonusKind | null = null;
+  itemBonusLabel = '';
+  /** Equipped items with no bonus of the kind yet, which can be given one here. */
+  itemBonusMatches: ItemBonusMatch[] = [];
+  /** Equipped items that already carry a bonus of the kind: excluded by equipment, as a filled slot's items are. */
+  lockedItemBonusMatches: ItemBonusMatch[] = [];
+
   private collapsedSections = new Set<string>();
 
   selectedAugmentSlot?: AugmentSlotChoice;
@@ -138,6 +162,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
    */
   readonly filigreeSetPreview = new PreviewCarousel<FiligreeSetPreviewEntry>();
   private userItemsChangedSubscription?: Subscription;
+  private equippedSlotsSubscription?: Subscription;
 
   constructor(
     public gearDB: GearDbService,
@@ -152,12 +177,14 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     private drawerEquip: DrawerEquipService,
     private changeDetector: ChangeDetectorRef,
     private filigreeDb: FiligreeDbService,
-    public filigree: FiligreeLoadoutService
+    public filigree: FiligreeLoadoutService,
+    private itemBonuses: ItemBonusService
   ) {
   }
 
   ngOnDestroy() {
     this.userItemsChangedSubscription?.unsubscribe();
+    this.equippedSlotsSubscription?.unsubscribe();
   }
 
   userOwnsItem(item: Item): boolean {
@@ -176,6 +203,14 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     this.userItemsChangedSubscription = this.userGear.userItemsChanged$.subscribe(() => {
       this.updateSorting();
       this.changeDetector.markForCheck();
+    });
+    // A Mythic, Reaper or Curse list is of the equipped gear itself, so it follows every change to it,
+    // including one the drawer didn't make (the card, or the browser's back button restoring a build).
+    this.equippedSlotsSubscription = merge(...this.equipped.getSlots().values()).subscribe(() => {
+      if (this.itemBonusKind) {
+        this.refreshItemBonusMatches();
+        this.changeDetector.markForCheck();
+      }
     });
     if (this.affixName && this.bonusType) {
       this.refreshMatches();
@@ -341,6 +376,59 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     const flatten = (affixes: Affix[]) => this.affixSvc.flattenAffixGroups(affixes, true);
     this.filigreeMatches = this.filigreeDb.findFiligreesWithAffixAndType(this.affixName, this.bonusType, flatten);
     this.filigreeSetMatches = this.filigreeDb.findSetsWithAffixAndType(this.affixName, this.bonusType, flatten);
+
+    this.refreshItemBonusMatches();
+  }
+
+  /**
+   * A Mythic, Reaper or Fortune bonus comes from no item in game data: it is set on the gear already
+   * equipped. So the drawer lists that gear, each piece with the option its slot offers that gives the
+   * most, ready to set from here.
+   */
+  private refreshItemBonusMatches() {
+    const kind = ITEM_BONUS_KINDS.find(each => ITEM_BONUS_TYPE_BY_KIND[each] === this.bonusType) ?? null;
+    this.itemBonusKind = kind;
+    this.itemBonusLabel = kind ? ITEM_BONUS_KIND_LABELS[kind] : '';
+    this.itemBonusMatches = [];
+    this.lockedItemBonusMatches = [];
+    if (!kind) {
+      return;
+    }
+    for (const [slot, item] of this.equipped.getSlotsSnapshot()) {
+      if (!item) {
+        continue;
+      }
+      let best: CraftableOption | undefined;
+      let bestValue = 0;
+      for (const option of this.itemBonuses.getOptions(kind, slot)) {
+        const value = Number(option.getMatchingBonusType(this.affixName, this.bonusType, this.affixSvc) ?? 0);
+        if (value > bestValue) {
+          best = option;
+          bestValue = value;
+        }
+      }
+      if (!best) {
+        continue;
+      }
+      const carried = item.bonuses[kind];
+      // Like an item for a filled slot: one already carrying a bonus of this kind is listed as excluded.
+      (carried ? this.lockedItemBonusMatches : this.itemBonusMatches).push({
+        slot,
+        slotLabel: slotLabel(slot),
+        itemName: item.name,
+        option: best,
+        value: bestValue,
+        carried: carried?.name ?? '',
+      });
+    }
+  }
+
+  setItemBonus(match: ItemBonusMatch) {
+    if (!this.itemBonusKind) {
+      return;
+    }
+    this.equipped.setItemBonus(match.slot, this.itemBonusKind, match.option);
+    this.analytics.track('set_item_bonus_from_bonus_type', { kind: this.itemBonusKind, slot: match.slot });
   }
 
   showItemPreview(item: Item, items: Item[], index: number) {

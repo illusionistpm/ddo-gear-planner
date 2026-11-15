@@ -9,6 +9,8 @@ import { troveNameKey, UserGearService } from '../planner/user-gear.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { AnalyticsService } from '../shared/analytics.service';
 import { FiltersService } from '../planner/filters.service';
+import { ITEM_BONUS_KIND_LABELS, ItemBonusSettingsService } from '../planner/item-bonus-settings.service';
+import { ItemBonusKind } from '../gear/item-bonus';
 import { ItemFilters } from '../gear/item-filters';
 import { EquippedService, PlannerTab } from '../planner/equipped.service';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
@@ -40,6 +42,8 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   /** Set while held filter changes wait to be applied after the sheet closes. */
   private filterRelease: { frame?: number, timer?: ReturnType<typeof setTimeout> } | null = null;
   itemFilters = new ItemFilters();
+  /** The Mythic / Reaper / Curse systems switched on, shown beside the filter chips: they change what the gear and goals show too. */
+  bonusSystemChips: Array<{ kind: ItemBonusKind; label: string }> = [];
   onboardingActive = true;
   trackedAffixesHint = false;
   /** The intro has just been finished: its closing "you're all set" message is up. */
@@ -144,7 +148,8 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     private auth: AuthService,
     private shoppingListView: ShoppingListViewService,
     private craftingSlotsView: CraftingSlotsViewService,
-    private suggestionDrawer: SuggestionDrawerService
+    private suggestionDrawer: SuggestionDrawerService,
+    private itemBonusSettings: ItemBonusSettingsService
   ) {
     // Watching from here on, so a shopping list's page can come back to the planner as it was.
     inject(ListReturnService);
@@ -276,6 +281,9 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filterSubscription = this.filters.getEditedFilters().subscribe(itemFilters => {
       this.itemFilters = itemFilters;
     });
+    this.filterSubscription.add(this.itemBonusSettings.getEnabledKinds().subscribe(kinds => {
+      this.bonusSystemChips = [...kinds].map(kind => ({ kind, label: ITEM_BONUS_KIND_LABELS[kind] }));
+    }));
     this.signedInSubscription = this.auth.isAuthenticated$.subscribe(signedIn => this.signedIn = signedIn);
     this.refreshOnboardingState();
     this.onboardingSubscription = this.onboarding.getOnboardingState().subscribe(() => {
@@ -672,6 +680,12 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
       this.hasHiddenPacks(),
       this.hasHiddenTypes()
     ].filter(Boolean).length;
+  }
+
+  disableBonusSystem(kind: ItemBonusKind, event: Event) {
+    event.stopPropagation();
+    this.itemBonusSettings.setEnabled(kind, false);
+    this.analytics.track('toggle_item_bonus_system', { kind, enabled: false });
   }
 
   resetLevelRange(event: Event) {

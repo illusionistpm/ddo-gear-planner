@@ -9,16 +9,19 @@
     </button>
     <div #menu ngbDropdownMenu class="crafting-picker-menu">
       @if (isOpen) {
-        <input #searchBox type="search" class="form-control form-control-sm crafting-picker-search"
-            placeholder="Search options" aria-label="Search options"
-            role="combobox" aria-expanded="true" [attr.aria-controls]="id + '-list'"
-            [attr.aria-activedescendant]="entries.length ? entryId(activeIndex) : null"
-            [ngModel]="search" (ngModelChange)="onSearchChange($event)" (keydown)="onSearchKeydown($event)" />
-        <label class="crafting-picker-hide">
-          <input type="checkbox" [ngModel]="hideIrrelevant" (ngModelChange)="onHideIrrelevantChange($event)" />
-          Hide options that don't help{{hiddenCount ? ' (' + hiddenCount + ')' : ''}}
-        </label>
-        <div #list class="crafting-picker-list" role="listbox" aria-label="Options" [id]="id + '-list'">
+        @if (!compact) {
+          <input #searchBox type="search" class="form-control form-control-sm crafting-picker-search"
+              placeholder="Search options" aria-label="Search options"
+              role="combobox" aria-expanded="true" [attr.aria-controls]="id + '-list'"
+              [attr.aria-activedescendant]="entries.length ? entryId(activeIndex) : null"
+              [ngModel]="search" (ngModelChange)="onSearchChange($event)" (keydown)="onSearchKeydown($event)" />
+          <label class="crafting-picker-hide">
+            <input type="checkbox" [ngModel]="hideIrrelevant" (ngModelChange)="onHideIrrelevantChange($event)" />
+            Hide options that don't help{{hiddenCount ? ' (' + hiddenCount + ')' : ''}}
+          </label>
+        }
+        <div #list class="crafting-picker-list" role="listbox" aria-label="Options" [id]="id + '-list'"
+            (keydown)="compact && onSearchKeydown($event)">
           @for (entry of entries; track entry.tier ? entry.tier.option : entry.family.key; let i = $index) {
             @if (entry.tier; as tier) {
               <button type="button" role="option" class="crafting-picker-entry crafting-picker-tier" [id]="entryId(i)"

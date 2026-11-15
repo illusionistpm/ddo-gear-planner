@@ -164,6 +164,18 @@ describe('EquippedService filigree', () => {
       .toBe(AffixRank.BetterThanBest);
   });
 
+  it('ranks a filigree bonus on a candidate item as it ranks today, since swapping gear leaves filigree in place', () => {
+    service.set(weapon());
+    service.toggleImportantAffix('Armor Class');
+    Array.from({ length: 5 }, () => 'Unbreakable: Constitution').forEach((name, index) => filigree.set('weapon', index, { name, rare: false }));
+
+    const counted = new Affix({ name: 'Armor Class', type: FILIGREE_SET_BONUS_TYPE, value: 5 });
+    const notCounted = new Affix({ name: 'Armor Class', type: FILIGREE_SET_BONUS_TYPE, value: 3 });
+    const candidate = { slot: 'Weapon', activeAffixes: [counted], sets: [] };
+    expect(service.getAffixRankingAsEquipped(counted, candidate)).toEqual({ rank: AffixRank.Best });
+    expect(service.getAffixRankingAsEquipped(notCounted, candidate)).toEqual({ rank: AffixRank.BetterThanBest });
+  });
+
   it('lists gear sets before filigree sets, even one with fewer pieces', () => {
     service.set(weapon());
     [DEX, REFLEX, DEX].forEach((name, index) => filigree.set('weapon', index, { name, rare: false }));
@@ -224,6 +236,15 @@ describe('EquippedService filigree', () => {
     // Filigree bonuses add up across hosts; an Enhancement bonus takes the best, as on items.
     expect(value('Speed', 'Enhancement')).toBe(30);
     expect(value('Speed')).toBe(0);
+
+    expect(service.getSourcesForAffixType('Speed', 'Enhancement').map(source => [source.kind, source.value]))
+      .toEqual([['filigree', 30], ['filigree', 30]]);
+    service.set(new Item({
+      name: 'Test Boots', slot: 'Boots', type: 'Boots', ml: 30, crafting: [], quests: [],
+      affixes: [{ name: 'Speed', type: 'Enhancement', value: 20 }],
+    }));
+    expect(value('Speed', 'Enhancement')).toBe(30);
+    expect(service.getSourcesForAffixType('Speed', 'Enhancement').map(source => source.kind)).toEqual(['filigree', 'filigree']);
 
     filters.setLevelRange(1, 34);
     expect(gearDb.getTypesForAffix('Speed')).toContain('Enhancement');

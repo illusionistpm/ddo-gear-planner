@@ -1,8 +1,16 @@
 import { Affix } from '../affixes/affix';
 import { AffixRank, bestRankClass, compareRankClasses } from '../affixes/affix-rank.enum';
-import { CraftingOptionRanking } from '../affixes/affix-ui.service';
+import { AffixChange, CraftingOptionRanking } from '../affixes/affix-ui.service';
 import { CraftableOption } from '../gear/craftable-option';
 import { CraftingOptionFamily } from '../gear/crafting-option-families';
+
+/** What an option would add to the build, as the figure at the end of its row. */
+export interface GainChip {
+  /** "+2", or "+2 Strength, +2 Dexterity" when the option touches several tracked affixes. */
+  text: string;
+  /** Whether the build ends up better or worse off, neither ('none'), or some of each ('mixed'). */
+  direction: 'up' | 'down' | 'none' | 'mixed';
+}
 
 /** One tier of a family, as the picker lists it under the expanded family. */
 export interface TierRow {
@@ -15,6 +23,14 @@ export interface TierRow {
   tooltip: string;
   /** Whether the trove has this option. */
   owned: boolean;
+  /** What it would add to the tracked affixes; null when it touches none of them. */
+  gain: GainChip | null;
+  /** How much the gain is worth when tiers are compared: the changes added up. */
+  gainScore: number;
+  /** The detail under the list while the row is highlighted: one "False Life: +55 → +57 Insightful" per tracked affix. */
+  changeLines: string[];
+  /** Why it ranks as it does ("Overpowered by ..."), under the change lines. */
+  why: string;
 }
 
 /** One family, as the picker lists it. */
@@ -41,6 +57,8 @@ export interface FamilyRow {
   hideable: boolean;
   /** Whether the trove has any of its tiers. */
   owned: boolean;
+  /** The tier that adds the most, whose gain the family shows while its tiers are folded away. */
+  bestTier: TierRow;
 }
 
 /** The affix text the rows are written with; `AffixUiService` provides it. */
@@ -68,7 +86,11 @@ export function buildFamilyRows(
         name: value ? option.name : '',
         className: rankings[i].className,
         tooltip: rankings[i].tooltip,
-        owned: isOwned(option)
+        owned: isOwned(option),
+        gain: gainChip(rankings[i].changes, option.affixes.length !== 1),
+        gainScore: rankings[i].changes.reduce((total, change) => total + change.after - change.before, 0),
+        changeLines: rankings[i].changes.map(describeChange),
+        why: rankings[i].rankTooltip
       };
     });
     const first = family.tiers[0];
@@ -85,7 +107,9 @@ export function buildFamilyRows(
       searchText: [family.label, detail, ...family.tiers.map(option => option.describe())].join('\n').toLowerCase(),
       relevant: tiers.some(tier => tier.className !== IRRELEVANT),
       hideable: first.affixes.length > 0 || !!first.set || !!first.name,
-      owned: tiers.some(tier => tier.owned)
+      owned: tiers.some(tier => tier.owned),
+      // The highest of equally good tiers, as `defaultTier` opens a family at.
+      bestTier: tiers.reduce((best, tier) => tier.gainScore >= best.gainScore ? tier : best)
     };
   });
 }
@@ -106,6 +130,59 @@ export function defaultTier(family: FamilyRow, selected: CraftableOption | null)
     }
   }
   return best;
+}
+
+/** At most this many affixes are spelled out in a gain; the rest are counted. */
+const MAX_GAIN_PARTS = 2;
+
+/**
+ * The gain an option's row ends with. `named` says the figures need their affix beside them: an
+ * option with one affix is its own label, but "+2" on a set augment or a dual prefix could be anything.
+ */
+export function gainChip(changes: AffixChange[], named: boolean): GainChip | null {
+  if (!changes.length) {
+    return null;
+  }
+  const moved = changes.filter(change => change.after !== change.before);
+  if (!moved.length) {
+    return { text: '\u2014', direction: 'none' };
+  }
+  const parts = moved.map(change => {
+    const delta = change.after - change.before;
+    if (!Affix.isRealType(change.type)) {
+      // An on/off effect has nothing to count: the build gets it, or loses it.
+      return named ? `${delta > 0 ? '' : 'lose '}${change.name}` : delta > 0 ? 'new' : 'lost';
+    }
+    return named ? `${signed(delta)} ${change.name}` : signed(delta);
+  });
+  const shown = parts.slice(0, MAX_GAIN_PARTS);
+  if (parts.length > shown.length) {
+    shown.push(`+${parts.length - shown.length} more`);
+  }
+  const up = moved.some(change => change.after > change.before);
+  const down = moved.some(change => change.after < change.before);
+  return { text: shown.join(', '), direction: up && down ? 'mixed' : up ? 'up' : 'down' };
+}
+
+/** "False Life: +55 → +57 Insightful", or what stays as it is. */
+function describeChange(change: AffixChange): string {
+  const { name, type, before, after } = change;
+  if (!Affix.isRealType(type)) {
+    return `${name}: ${after === before ? (after ? 'already have it' : 'no change') : after > before ? 'new' : 'lost'}`;
+  }
+  const value = (amount: number) => amount ? signed(amount) : 'none';
+  if (!after && !before) {
+    return `${name}: no change`;
+  }
+  return after === before
+    ? `${name}: stays ${value(before)} ${type}`
+    : `${name}: ${value(before)} \u2192 ${value(after)} ${type}`;
+}
+
+function signed(amount: number): string {
+  // Summed fractions (a 0.5 on top of a 2.5) would otherwise trail floating-point noise.
+  const rounded = Math.round(amount * 100) / 100;
+  return rounded > 0 ? `+${rounded}` : `\u2212${Math.abs(rounded)}`;
 }
 
 /** The affix a tier's value is read from: its only affix, when that has a real bonus type. */

@@ -1,4 +1,4 @@
-import { buildFamilyRows, CraftingOptionText, defaultTier } from './crafting-option-rows';
+import { buildFamilyRows, CraftingOptionText, defaultTier, gainChip } from './crafting-option-rows';
 import { Affix } from '../affixes/affix';
 import { CraftingOptionRanking } from '../affixes/affix-ui.service';
 import { CraftableOption } from '../gear/craftable-option';
@@ -22,13 +22,13 @@ describe('buildFamilyRows', () => {
 
   function rows(options: CraftableOption[], rank: (option: CraftableOption) => Partial<CraftingOptionRanking> = () => ({})) {
     return buildFamilyRows(groupCraftingOptions(options),
-      opt => ({ className: 'Irrelevant', tooltip: '', note: '', ...rank(opt) }), text);
+      opt => ({ className: 'Irrelevant', tooltip: '', note: '', rankTooltip: '', changes: [], ...rank(opt) }), text);
   }
   const byLabel = (label: string, list: ReturnType<typeof rows>) => list.find(row => row.label === label)!;
 
   it('marks the tiers the trove has, and their family', () => {
     const list = buildFamilyRows(groupCraftingOptions([...charisma, acid]),
-      () => ({ className: 'Irrelevant', tooltip: '', note: '' }), text, opt => opt === charisma[1]);
+      () => ({ className: 'Irrelevant', tooltip: '', note: '', rankTooltip: '', changes: [] }), text, opt => opt === charisma[1]);
 
     expect(byLabel('Charisma', list).owned).toBe(true);
     expect(byLabel('Charisma', list).tiers.map(tier => tier.owned)).toEqual([false, true, false]);
@@ -104,6 +104,66 @@ describe('buildFamilyRows', () => {
     expect(row.aside).toBe('');
   });
 
+  describe('what an option adds', () => {
+    // The build has +3 Enhancement Charisma from elsewhere, so only the +5 adds anything.
+    const charismaChange = (opt: CraftableOption) =>
+      ({ name: 'Charisma', type: 'Enhancement', before: 3, after: Math.max(3, opt.affixes[0].value) });
+
+    it('is a bare figure on an option with one affix, and a dash when something else gives as much', () => {
+      const row = byLabel('Charisma', rows(charisma, opt => ({ changes: [charismaChange(opt)], rankTooltip: 'why' })));
+
+      expect(row.tiers.map(tier => tier.gain)).toEqual([
+        { text: '\u2014', direction: 'none' },
+        { text: '\u2014', direction: 'none' },
+        { text: '+2', direction: 'up' },
+      ]);
+      expect(row.tiers.map(tier => tier.changeLines)).toEqual([
+        ['Charisma: stays +3 Enhancement'], ['Charisma: stays +3 Enhancement'], ['Charisma: +3 \u2192 +5 Enhancement'],
+      ]);
+      expect(row.tiers[2].why).toBe('why');
+    });
+
+    it('is the best tier\'s on the family, the highest of equally good tiers', () => {
+      const row = byLabel('Charisma', rows(charisma, opt => ({ changes: [charismaChange(opt)] })));
+      expect(row.bestTier.option).toBe(charisma[2]);
+
+      expect(byLabel('Charisma', rows(charisma)).bestTier.option).toBe(charisma[2]);
+      const capped = byLabel('Charisma', rows(charisma,
+        opt => ({ changes: [{ name: 'Charisma', type: 'Enhancement', before: 0, after: opt === charisma[0] ? 1 : 0 }] })));
+      expect(capped.bestTier.option).toBe(charisma[0]);
+    });
+
+    it('is nothing on an option that touches no tracked affix', () => {
+      expect(byLabel('Acid Absorption', rows([acid])).tiers[0].gain).toBeNull();
+    });
+
+    it('names its affixes when the option has several, counting those past the second', () => {
+      const change = (name: string, before: number, after: number) => ({ name, type: 'Artifact', before, after });
+
+      expect(gainChip([change('Doublestrike', 0, 15), change('Doubleshot', 15, 15)], true))
+        .toEqual({ text: '+15 Doublestrike', direction: 'up' });
+      expect(gainChip([change('Strength', 0, 2), change('Dexterity', 0, 2), change('Wisdom', 0, 2), change('Charisma', 0, 2)], true))
+        .toEqual({ text: '+2 Strength, +2 Dexterity, +2 more', direction: 'up' });
+    });
+
+    it('shows a loss, and a gain with a loss as mixed', () => {
+      const change = (name: string, before: number, after: number) => ({ name, type: 'Artifact', before, after });
+
+      expect(gainChip([change('Strength', 3, 0)], true)).toEqual({ text: '\u22123 Strength', direction: 'down' });
+      expect(gainChip([change('Strength', 3, 0), change('Wisdom', 0, 2)], true))
+        .toEqual({ text: '\u22123 Strength, +2 Wisdom', direction: 'mixed' });
+    });
+
+    it('calls an on/off effect new rather than +1', () => {
+      const rowsFor = (before: number) => rows([ghostly], () => ({ changes: [{ name: 'Ghostly', type: 'Bool', before, after: 1 }] }));
+
+      expect(rowsFor(0)[0].tiers[0].gain).toEqual({ text: 'new', direction: 'up' });
+      expect(rowsFor(0)[0].tiers[0].changeLines).toEqual(['Ghostly: new']);
+      expect(rowsFor(1)[0].tiers[0].gain).toEqual({ text: '\u2014', direction: 'none' });
+      expect(rowsFor(1)[0].tiers[0].changeLines).toEqual(['Ghostly: already have it']);
+    });
+  });
+
   it('searches the label, the detail and every tier\'s own name', () => {
     const row = byLabel('Charisma', rows(charisma));
 
@@ -117,7 +177,7 @@ describe('defaultTier', () => {
   const tiers = [1, 3, 5, 7].map(value => new CraftableOption({ name: `+${value}`, affixes: [{ name: 'Charisma', type: 'Enhancement', value }] }));
   const ranks = ['Outranked', 'Best', 'Best', 'BestTied'];
   const [family] = buildFamilyRows(groupCraftingOptions(tiers),
-    option => ({ className: ranks[tiers.indexOf(option)], tooltip: '', note: '' }),
+    option => ({ className: ranks[tiers.indexOf(option)], tooltip: '', note: '', rankTooltip: '', changes: [] }),
     { getAffixValue: () => '', getAffixValueText: () => '', describeSetBonus: () => '' });
 
   it('is the best-ranked tier, the highest among equally ranked ones', () => {

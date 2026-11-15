@@ -8,6 +8,7 @@ import { GearDbService } from '../gear/gear-db.service';
 import { Craftable } from '../gear/craftable';
 import { CraftableOption } from '../gear/craftable-option';
 import { Item } from '../gear/item';
+import { FILIGREE_ONLY_BONUS_TYPES } from '../gear/filigree';
 import { perfCount } from '../shared/perf-trace';
 import { externalAffixAsAffix, ExternalAffixEntry } from './external-affix';
 import { getCountAffixUnit } from './count-affix';
@@ -19,6 +20,22 @@ export interface CraftingOptionRanking {
   tooltip: string;
   /** A caveat to show beside the option: the set pieces a set augment would make, while short. */
   note: string;
+  /** Why it has its rank: the part of `tooltip` after what the option is. */
+  rankTooltip: string;
+  /** What choosing it would do to each tracked affix it touches; empty when it touches none. */
+  changes: AffixChange[];
+}
+
+/**
+ * What a crafting option does to one bonus type of a tracked affix: the build's value with the
+ * option's slot left empty, and with the option in it. The two are equal when something else
+ * already gives as much.
+ */
+export interface AffixChange {
+  name: string;
+  type: string;
+  before: number;
+  after: number;
 }
 
 /** CSS class for a set bonus whose piece threshold isn't met yet. Styled in each view's stylesheet. */
@@ -294,7 +311,10 @@ export class AffixUiService {
     const sources = this.equipped.getSourcesForAffixType(affix.name, affix.type)
       .filter(source => source.slot !== currentSlot);
 
-    if (!sources.length) return '';
+    if (!sources.length) {
+      // The item's own bonus is the one in the way (a Heartshard's False Life against its augment's).
+      return currentSlot && this.equipped.getSourcesForAffixType(affix.name, affix.type).length ? 'this item' : '';
+    }
 
     return sources
       .map(source => source.kind === 'set' ? `${source.itemName} set bonus` : `${source.itemName} (${source.slot})`)
@@ -368,8 +388,50 @@ export class AffixUiService {
       className: this.getClassForCraftingOption(option, candidate),
       tooltip: [this.getCraftingOptionTooltip(option), rankingTooltip].filter(tooltip => tooltip).join('\n\n'),
       // Only while the set is short; a complete set's colour already says what it gives.
-      note: setPieces && setPieces.pieces < setPieces.required ? `${setPieces.pieces} of ${setPieces.required} set pieces` : ''
+      note: setPieces && setPieces.pieces < setPieces.required ? `${setPieces.pieces} of ${setPieces.required} set pieces` : '',
+      rankTooltip: rankingTooltip,
+      changes: this.getCraftingOptionChanges(option, context)
     };
+  }
+
+  /**
+   * What choosing `option` would add to the build, per tracked affix and bonus type: measured
+   * against its slot left empty rather than against the current choice, so every option in a
+   * list - the chosen one too - is on the same footing. Set bonuses are recounted, so a set
+   * augment shows what its set gives with the pieces there really are, and what it costs when
+   * it takes the place of the item's own set.
+   */
+  getCraftingOptionChanges(option: CraftableOption, context?: CraftingOptionContext): AffixChange[] {
+    if (!context || !option) {
+      return [];
+    }
+    const candidateWith = (chosen: CraftableOption | null) => 'craft' in context
+      ? this.candidateFor(context.item, context.craft, chosen)
+      : this.candidateFor(context.item, undefined, undefined, { kind: context.bonusKind, option: chosen });
+    const chosen = candidateWith(option);
+    const empty = candidateWith(null);
+
+    const touched = option.affixes.slice();
+    if (option.set) {
+      for (const set of new Set([...chosen.sets, ...empty.sets])) {
+        touched.push(...this.getSetBonusAffixes(set));
+      }
+    }
+    const tracked = this.equipped.getImportantAffixes();
+    const changes = new Map<string, AffixChange>();
+    for (const affix of this.affixSvc.flattenAffixGroups(touched, true)) {
+      const key = `${affix.name}\n${affix.type}`;
+      if (changes.has(key) || !tracked.has(affix.name) || FILIGREE_ONLY_BONUS_TYPES.has(affix.type)) {
+        continue;
+      }
+      changes.set(key, {
+        name: affix.name,
+        type: affix.type,
+        before: this.equipped.getValueForAffixTypeAsEquipped(affix.name, affix.type, empty),
+        after: this.equipped.getValueForAffixTypeAsEquipped(affix.name, affix.type, chosen)
+      });
+    }
+    return [...changes.values()];
   }
 
   /**

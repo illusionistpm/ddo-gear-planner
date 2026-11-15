@@ -25,17 +25,18 @@ import { EssenceCraftingService } from '../gear/essence-crafting.service';
 import { emptiesOffhand, limitsOffhandToRuneArms, slotsFromParams } from './slots-from-params';
 import { perfCount, perfMeasure, perfStart } from '../shared/perf-trace';
 import { CoveredBonusType, moderateValueThreshold } from '../affixes/tracked-affix-derivation';
-import { ExternalAffixEntry, isExternalAffixEntry, NON_GEAR_SLOT } from '../affixes/external-affix';
+import { ExternalAffixEntry, parseExternalAffixEntries } from '../affixes/external-affix';
 import { affixTypeKey } from '../affixes/affix-type-key';
 import { FILIGREE_TRACKING_MIN_LEVEL, MAX_FILIGREE_SLOTS_AFFIX } from '../affixes/filigree-affix';
 import { FiligreeDbService } from '../gear/filigree-db.service';
-import { FiligreeHost, SUMMED_FILIGREE_BONUS_TYPES } from '../gear/filigree';
+import { SUMMED_FILIGREE_BONUS_TYPES } from '../gear/filigree';
 import { FiligreeLoadoutService } from './filigree-loadout.service';
+import {
+  AffixSource, bestValueFor, BuildView, countSets, externalValuesFor, sourcesFor, valuesForAffixType
+} from '../affixes/build-totals';
+import { expandTrackedAffixNames } from '../affixes/tracked-affix-family';
 
-const TRACKED_AFFIX_COMPANIONS = new Map<string, Array<string>>([
-  ['Armor Class', ['Armor Class (%)']],
-  ['False Life', ['False Life (%)']],
-]);
+export type { AffixSource } from '../affixes/build-totals';
 
 /** Minimal shape of the browser's IdleDeadline, used without a lib.dom dependency. */
 interface IdleWorkDeadline {
@@ -76,20 +77,6 @@ export interface VisibleSetBonus {
   tiers: Array<SetBonusThreshold>;
   /** A filigree set, counted over the weapon's and artifact's filigrees; absent for a gear set. */
   filigree?: boolean;
-}
-
-/** The slot of the one value summed filigree bonuses of a type add up to (getValuesForAffixType). */
-const SUMMED_FILIGREE_SLOT = 'Filigree';
-
-export interface AffixSource {
-  kind: 'item' | 'set' | 'external' | 'filigree';
-  slot: string;
-  /** For a slotted filigree, the host it's in; absent for anything else, a filigree set included. */
-  filigreeHost?: FiligreeHost;
-  itemName: string;
-  affixName: string;
-  bonusType: string;
-  value: number;
 }
 
 export interface EquippedItemEvent {
@@ -157,6 +144,14 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
   private setOnlyUncoveredSets?: Set<string>;
   private openAugmentSlotsCache = new Map<string, Set<string>>();
   private availabilityWarmupToken = 0;
+
+  // The build as the stacking rules in build-totals.ts read it, over the live slots.
+  private readonly view: BuildView = {
+    items: () => this.slotEntries(),
+    setBonuses: () => this.activeSetBonuses.getValue(),
+    externalEntries: () => this.externalAffixes,
+    filigreeFor: (affixName, bonusType) => this.filigree.getContributionsFor(affixName, bonusType),
+  };
 
   constructor(
     private gearList: GearDbService,
@@ -503,25 +498,13 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
 
   getActiveSets() {
     perfCount('EquippedService.getActiveSets');
-    const setCounts = new Map<string, number>();
+    return countSets(this.slotEntries());
+  }
 
-    for (const slot of this.slots.values()) {
-      const item = slot.getValue();
-      if (item) {
-        for (const set of item.getSets()) {
-
-          let val = setCounts.get(set);
-
-          if (!val) {
-            val = 0;
-          }
-
-          setCounts.set(set, val + 1);
-        }
-      }
+  private *slotEntries(): Generator<[string, Item | null]> {
+    for (const [slot, subject] of this.slots) {
+      yield [slot, subject.getValue()];
     }
-
-    return setCounts;
   }
 
   private _updateActiveSetBonuses() {
@@ -565,73 +548,18 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
    * recounted with the candidate's sets. The candidate's own affixes are not included.
    */
   private getValuesForAffixType(affixName: string, bonusType: string, candidate?: RankCandidate) {
-    const values: Array<{ slot: string; value: number }> = [];
-    for (const slot of this.slots) {
-      const slotValue = slot[1].getValue();
-      if (slotValue && slot[0] !== candidate?.slot) {
-        for (const affix of this.affixSvc.getActiveAffixes(slotValue)) {
-          if (affix.name === affixName && affix.type === bonusType) {
-            values.push({ slot: slot[0], value: affix.value });
-          }
-        }
-      }
-    }
-
-    const setBonuses = candidate ? this.getSetBonusesWith(candidate) : this.getActiveSetBonuses();
-    for (const setToAffixes of setBonuses) {
-      for (const affix of setToAffixes[1]) {
-        if (this.affixSvc.resolvesToAffix(affix.name, affixName) && affix.type === bonusType) {
-          values.push({ slot: 'set', value: affix.value });
-        }
-      }
-    }
-
-    for (const entry of this.getExternalValuesFor(affixName, bonusType)) {
-      values.push({ slot: NON_GEAR_SLOT, value: entry.value });
-    }
-
-    const filigree = this.filigree.getContributionsFor(affixName, bonusType);
-    if (SUMMED_FILIGREE_BONUS_TYPES.has(bonusType)) {
-      if (filigree.length) {
-        values.push({ slot: SUMMED_FILIGREE_SLOT, value: filigree.reduce((sum, entry) => sum + entry.affix.value, 0) });
-      }
-    } else {
-      values.push(...filigree.map(entry => ({ slot: entry.slot, value: entry.affix.value })));
-    }
-
-    return values.sort((a, b) => b.value - a.value);
-  }
-
-  /**
-   * The non-gear values supplying `affixName` (of `bonusType`, when given). Like a set bonus, an entry
-   * for an affix group ("Combat Mastery") supplies each of its members ("Stunning", ...) at its value.
-   */
-  private getExternalValuesFor(affixName: string, bonusType?: string): ExternalAffixEntry[] {
-    return this.externalAffixes.filter(entry => entry.kind === 'value'
-      && (bonusType === undefined || entry.bonusType === bonusType)
-      && this.affixSvc.resolvesToAffix(entry.affixName, affixName));
+    return valuesForAffixType(this.view, this.affixSvc, affixName, bonusType,
+      candidate ? { skipSlot: candidate.slot, setBonuses: this.getSetBonusesWith(candidate) } : {});
   }
 
   /** The set bonuses the build would have once `candidate` replaced its slot. */
   private getSetBonusesWith(candidate: RankCandidate): Array<[string, Array<Affix>]> {
-    const setCounts = new Map<string, number>();
-    const count = (set: string) => setCounts.set(set, (setCounts.get(set) || 0) + 1);
-    for (const [slot, subject] of this.slots) {
-      if (slot !== candidate.slot) {
-        subject.getValue()?.getSets().forEach(count);
-      }
-    }
-    candidate.sets.forEach(count);
-    return [...setCounts].map(([set, pieces]) => [set, this.gearList.getSetBonus(set, pieces)]);
+    return [...countSets(this.slotEntries(), candidate.slot, candidate.sets)]
+      .map(([set, pieces]) => [set, this.gearList.getSetBonus(set, pieces)]);
   }
 
   private _getBestValueForAffixType(affixName: string, bonusType: string) {
-    const arr = this.getValuesForAffixType(affixName, bonusType);
-    if (arr.length) {
-      return arr[0].value;
-    }
-
-    return 0;
+    return bestValueFor(this.view, this.affixSvc, affixName, bonusType);
   }
 
   getCurrentValueForAffixType(affixName: string, bonusType: string) {
@@ -639,77 +567,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
   }
 
   getSourcesForAffixType(affixName: string, bonusType: string): AffixSource[] {
-    const bestValue = this._getBestValueForAffixType(affixName, bonusType);
-    if (!bestValue) {
-      return [];
-    }
-
-    const sources: AffixSource[] = [];
-    for (const slot of this.slots) {
-      const item = slot[1].getValue();
-      if (!item) {
-        continue;
-      }
-
-      for (const affix of this.affixSvc.getActiveAffixes(item)) {
-        if (affix.name === affixName && affix.type === bonusType && affix.value === bestValue) {
-          sources.push({
-            kind: 'item',
-            slot: slot[0],
-            itemName: item.name,
-            affixName: affix.name,
-            bonusType: affix.type,
-            value: affix.value
-          });
-        }
-      }
-    }
-
-    for (const setToAffixes of this.getActiveSetBonuses()) {
-      for (const affix of setToAffixes[1]) {
-        if (this.affixSvc.resolvesToAffix(affix.name, affixName) && affix.type === bonusType && affix.value === bestValue) {
-          sources.push({
-            kind: 'set',
-            slot: 'Set',
-            itemName: setToAffixes[0],
-            affixName: affix.name,
-            bonusType: affix.type,
-            value: affix.value
-          });
-        }
-      }
-    }
-
-    for (const entry of this.getExternalValuesFor(affixName, bonusType)) {
-      if (entry.value === bestValue) {
-        sources.push({
-          kind: 'external',
-          slot: NON_GEAR_SLOT,
-          itemName: entry.label,
-          affixName: entry.affixName,
-          bonusType: entry.bonusType,
-          value: entry.value
-        });
-      }
-    }
-
-    // A summed type's best value is all of them together, so every one is a source.
-    const summed = SUMMED_FILIGREE_BONUS_TYPES.has(bonusType);
-    for (const entry of this.filigree.getContributionsFor(affixName, bonusType)) {
-      if (summed || entry.affix.value === bestValue) {
-        sources.push({
-          kind: 'filigree',
-          slot: entry.slot,
-          ...(entry.host ? { filigreeHost: entry.host } : {}),
-          itemName: entry.itemName,
-          affixName: entry.affix.name,
-          bonusType: entry.affix.type,
-          value: entry.affix.value
-        });
-      }
-    }
-
-    return sources;
+    return sourcesFor(this.view, this.affixSvc, affixName, bonusType);
   }
 
   /**
@@ -736,7 +594,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
       }
     }
 
-    for (const entry of this.getExternalValuesFor(affixName)) {
+    for (const entry of externalValuesFor(this.externalAffixes, this.affixSvc, affixName)) {
       offer(entry.bonusType, entry.value);
     }
 
@@ -1010,25 +868,9 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     });
   }
 
-  private getTrackedAffixFamily(affix: string) {
-    const canonicalAffix = this.affixSvc.getCanonicalName(affix);
-    const trackedAffixes = new Set<string>([
-      canonicalAffix,
-      ...(TRACKED_AFFIX_COMPANIONS.get(canonicalAffix) || [])
-    ]);
-
-    return Array.from(trackedAffixes);
-  }
-
   /** What tracking these affixes actually tracks: each one along with its family. */
   expandTrackedAffixes(affixes: Iterable<string>) {
-    const expanded = new Set<string>();
-    for (const affix of affixes) {
-      for (const trackedAffix of this.getTrackedAffixFamily(affix)) {
-        expanded.add(trackedAffix);
-      }
-    }
-    return expanded;
+    return expandTrackedAffixNames(affixes, this.affixSvc);
   }
 
   setImportantAffixes(affixes: Array<string>) {
@@ -1037,21 +879,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
   }
 
   private _restoreExternalAffixesFromParam(raw: string | null) {
-    let entries: ExternalAffixEntry[] = [];
-    if (raw) {
-      try {
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) {
-          // Canonicalized so an entry saved under an affix's old name (Blindness Immunity,
-          // now Immunity to Blindness) still counts toward it.
-          entries = parsed
-            .filter((entry): entry is ExternalAffixEntry => isExternalAffixEntry(entry))
-            .map(entry => ({ ...entry, affixName: this.affixSvc.getCanonicalName(entry.affixName) }));
-        }
-      } catch {
-        console.log('Bad ext param, ignoring external affix entries: ' + raw);
-      }
-    }
+    const entries = parseExternalAffixEntries(raw, this.affixSvc);
 
     this.externalAffixes = entries;
     this.nextExternalAffixId = entries.reduce((max, entry) => Math.max(max, Number(entry.id) || 0), 0) + 1;

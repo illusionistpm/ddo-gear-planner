@@ -1,34 +1,21 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
-import { Affix } from '../affixes/affix';
 import { AffixService } from '../affixes/affix.service';
 import { FiligreeDbService } from '../gear/filigree-db.service';
 import {
-  countFiligreeSetPieces, CountedFiligree, emptyFiligreeLoadout, FILIGREE_HOST_TEXT, FiligreeChoice, FiligreeHost,
+  CountedFiligree, emptyFiligreeLoadout, FILIGREE_HOST_TEXT, FiligreeChoice, FiligreeHost,
   FiligreeLoadout
 } from '../gear/filigree';
 import type { Item } from '../gear/item';
-import { countLoadoutFiligree, filigreeCapacity, FiligreeHosts, findFiligreeHosts } from './filigree-loadout';
+import {
+  countLoadoutFiligree, filigreeCapacity, FiligreeContribution, filigreeContributionsFor, filigreeContributionsOf,
+  FiligreeHosts, filigreeSetPiecesOf, findFiligreeHosts
+} from './filigree-loadout';
 import { parseFiligreeLoadout, serializeFiligreeLoadout } from './filigree-params';
 
-/** Where filigree sources are reported (AffixSource.slot, as shown in tooltips). */
-export const FILIGREE_SOURCE_SLOTS: Readonly<Record<FiligreeHost | 'set', string>> = {
-  weapon: 'Weapon filigree',
-  artifact: 'Artifact filigree',
-  set: 'Filigree set',
-};
-
-/** One affix a slotted filigree, or an active filigree set, gives the build. */
-export interface FiligreeContribution {
-  /** The host the filigree is slotted in; null for a set bonus. */
-  host: FiligreeHost | null;
-  /** FILIGREE_SOURCE_SLOTS' entry for it. */
-  slot: string;
-  /** The filigree ("Celerity: Dexterity (Rare)") or set name. */
-  itemName: string;
-  affix: Affix;
-}
+export { FILIGREE_SOURCE_SLOTS } from './filigree-loadout';
+export type { FiligreeContribution } from './filigree-loadout';
 
 /**
  * The filigrees slotted in the sentient weapon and the minor artifact: what the player has chosen,
@@ -171,37 +158,16 @@ export class FiligreeLoadoutService {
 
   /** Filigree set -> pieces, over both hosts' counted filigrees. */
   getSetPieces(): Map<string, number> {
-    return this.setPiecesOf(this.getCounted());
-  }
-
-  private setPiecesOf(counted: ReadonlyArray<CountedFiligree>): Map<string, number> {
-    return countFiligreeSetPieces(counted, name => this.filigreeDb.getSets(name));
+    return filigreeSetPiecesOf(this.getCounted(), this.filigreeDb);
   }
 
   /** Recomputes what the filigrees give, after the loadout or the equipped items change. */
   refreshContributions() {
-    const contributions: FiligreeContribution[] = [];
-    const add = (host: FiligreeHost | null, itemName: string, affixes: Affix[]) => {
-      const slot = FILIGREE_SOURCE_SLOTS[host ?? 'set'];
-      for (const affix of this.affixSvc.flattenAffixGroups(affixes, true)) {
-        contributions.push({ host, slot, itemName, affix });
-      }
-    };
-    const counted = this.getCounted();
-    for (const entry of counted) {
-      if (entry.contributes) {
-        add(entry.host, entry.choice.name + (entry.choice.rare ? ' (Rare)' : ''), this.filigreeDb.getAffixes(entry.choice));
-      }
-    }
-    for (const [set, pieces] of this.setPiecesOf(counted)) {
-      add(null, set, this.filigreeDb.getSetBonus(set, pieces));
-    }
-    this.contributions = contributions;
+    this.contributions = filigreeContributionsOf(this.getCounted(), this.filigreeDb, this.affixSvc);
   }
 
   /** What the counted filigrees and active filigree sets give `affixName` of `bonusType` (any type when omitted). */
   getContributionsFor(affixName: string, bonusType?: string): FiligreeContribution[] {
-    return this.contributions.filter(entry => entry.affix.name === affixName
-      && (bonusType === undefined || entry.affix.type === bonusType));
+    return filigreeContributionsFor(this.contributions, affixName, bonusType);
   }
 }

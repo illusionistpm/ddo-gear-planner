@@ -1,4 +1,5 @@
 import { Affix } from './affix';
+import type { AffixService } from './affix.service';
 
 /**
  * A tracked-affix contribution from outside the gear planner (a spell, a
@@ -35,6 +36,29 @@ export function isExternalAffixEntry(value: unknown, requireId = true): boolean 
     && (entry.kind === 'value' || entry.kind === 'ignored')
     && typeof entry.value === 'number'
     && typeof entry.label === 'string';
+}
+
+/**
+ * The entries a build's `nongear` param holds, dropping any that aren't valid. Canonicalized so an
+ * entry saved under an affix's old name (Blindness Immunity, now Immunity to Blindness) still counts
+ * toward it.
+ */
+export function parseExternalAffixEntries(raw: string | null | undefined,
+    affixSvc: Pick<AffixService, 'getCanonicalName'>): ExternalAffixEntry[] {
+  if (!raw) {
+    return [];
+  }
+  try {
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) {
+      return parsed
+        .filter((entry): entry is ExternalAffixEntry => isExternalAffixEntry(entry))
+        .map(entry => ({ ...entry, affixName: affixSvc.getCanonicalName(entry.affixName) }));
+    }
+  } catch {
+    console.log('Bad ext param, ignoring external affix entries: ' + raw);
+  }
+  return [];
 }
 
 /** The entry as an Affix, so it can be valued and ranked like gear affixes. */

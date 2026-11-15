@@ -829,6 +829,48 @@ describe('EquippedService', () => {
     });
   });
 
+  describe('what a crafting option adds', () => {
+    const strengthOption = (value: number) =>
+      new CraftableOption({ name: `Strength +${value}`, affixes: [{ name: 'Strength', type: 'Enhancement', value }] });
+    const dexterity = new CraftableOption({ name: 'Dexterity +5', affixes: [{ name: 'Dexterity', type: 'Enhancement', value: 5 }] });
+    let service: EquippedService;
+    let affixUi: AffixUiService;
+    let item: Item;
+    let craft: Craftable;
+
+    const changes = (option: CraftableOption) => affixUi.getCraftingOptionChanges(option, { item, craft });
+
+    beforeEach(() => {
+      service = TestBed.inject(EquippedService);
+      affixUi = TestBed.inject(AffixUiService);
+      service.addImportantAffix('Strength');
+      service.set(makeItem('Belt', 'Belt', 'Belts', [{ name: 'Strength', type: 'Enhancement', value: 10 }]));
+      item = makeItem('Gloves', 'Gloves', 'Gloves');
+      craft = new Craftable('Colorless Augment Slot', [strengthOption(4), strengthOption(12), dexterity]);
+      craft.selected = new CraftableOption({ name: '' });
+      item.crafting = [craft];
+      service.set(item);
+    });
+
+    it('is only what it adds over the build\'s other sources', () => {
+      expect(changes(strengthOption(12))).toEqual([{ name: 'Strength', type: 'Enhancement', before: 10, after: 12 }]);
+      expect(changes(strengthOption(4))).toEqual([{ name: 'Strength', type: 'Enhancement', before: 10, after: 10 }]);
+    });
+
+    it('is measured against the slot left empty, so the chosen option shows what it is giving', () => {
+      const chosen = strengthOption(12);
+      craft.selected = chosen;
+      service.set(item);
+
+      expect(changes(chosen)).toEqual([{ name: 'Strength', type: 'Enhancement', before: 10, after: 12 }]);
+      expect(changes(strengthOption(4))).toEqual([{ name: 'Strength', type: 'Enhancement', before: 10, after: 10 }]);
+    });
+
+    it('leaves out affixes the build doesn\'t track', () => {
+      expect(changes(dexterity)).toEqual([]);
+    });
+  });
+
   // Brutal Blows gives +3 Artifact Strength at three pieces.
   describe('ranking a set augment as if chosen', () => {
     const brutalBlows = new CraftableOption({ name: 'Set Augment: Brutal Blows', set: 'Brutal Blows' });

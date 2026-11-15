@@ -21,6 +21,14 @@ interface ListEntry {
   tier?: TierRow;
 }
 
+/** What the highlighted entry would do to the build, spelled out under the list. */
+interface EntryDetail {
+  /** Which tier the rest is about, for a family standing in for its best one. */
+  heading: string;
+  changeLines: string[];
+  why: string;
+}
+
 let nextPickerId = 0;
 
 /**
@@ -101,6 +109,27 @@ export class CraftingOptionPickerComponent implements OnChanges {
 
   get useStaticMenu(): boolean {
     return typeof window.matchMedia === 'function' && window.matchMedia('(max-width: 575.98px)').matches;
+  }
+
+  readonly gainTitle = 'What it adds to the build, over leaving this slot empty';
+
+  /**
+   * The highlighted entry's effect in full, where the rows have room only for a figure. A folded
+   * family speaks for its best tier. Only where a pointer or the keyboard can highlight without
+   * choosing; the stylesheet hides it on phones, where a tap picks.
+   */
+  get activeDetail(): EntryDetail | null {
+    const entry = this.entries[this.activeIndex];
+    if (!entry) {
+      return null;
+    }
+    const tier = entry.tier ?? entry.family.bestTier;
+    const folded = !entry.tier && entry.family.tiers.length > 1;
+    return {
+      heading: folded && tier.changeLines.length ? `Best tier, ${tier.label}` : '',
+      changeLines: tier.changeLines,
+      why: tier.changeLines.length ? tier.why : 'Does nothing for the tracked affixes'
+    };
   }
 
   entryId(index: number): string {

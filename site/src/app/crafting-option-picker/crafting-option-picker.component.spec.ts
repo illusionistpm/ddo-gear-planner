@@ -49,7 +49,12 @@ describe('CraftingOptionPickerComponent', () => {
     vi.spyOn(TestBed.inject(AffixUiService), 'rankCraftingOption').mockImplementation(option => ({
       className: rankOf(option),
       tooltip: '',
-      note: option === helpfulSet ? '1 of 3 set pieces' : ''
+      note: option === helpfulSet ? '1 of 3 set pieces' : '',
+      rankTooltip: option === charisma[0] ? 'Overpowered by Hat (Head)' : '',
+      // The build has +3 Charisma from elsewhere.
+      changes: charisma.includes(option)
+        ? [{ name: 'Charisma', type: 'Enhancement', before: 3, after: Math.max(3, option.affixes[0].value) }]
+        : []
     }));
     component.selectedChange.subscribe(option => emitted.push(option));
     fixture.componentRef.setInput('options', options);
@@ -301,6 +306,45 @@ describe('CraftingOptionPickerComponent', () => {
     press('Enter');
 
     expect(emitted).toEqual([acid]);
+  });
+
+  describe('what each option adds', () => {
+    const gainOf = (button: Element) => button.querySelector('.crafting-picker-gain')?.textContent?.trim();
+    const detail = () => Array.from(document.body.querySelectorAll('.crafting-picker-detail > div'))
+      .map(line => line.textContent?.trim());
+
+    it('ends a family\'s row with its best tier\'s gain, and each tier\'s row with its own', async () => {
+      await open();
+      component.onHideIrrelevantChange(false);
+      fixture.detectChanges();
+      expect(gainOf(familyButton('Charisma'))).toBe('+4');
+      expect(gainOf(familyButton('Bluff'))).toBeUndefined();
+
+      familyButton('Charisma').click();
+      fixture.detectChanges();
+
+      expect(tierButtons().map(gainOf)).toEqual(['\u2014', '\u2014', '+2', '+4']);
+    });
+
+    it('spells out the highlighted entry under the list', async () => {
+      await open();
+      component.onHideIrrelevantChange(false);
+      fixture.detectChanges();
+
+      familyButton('Charisma').dispatchEvent(new Event('mouseenter'));
+      fixture.detectChanges();
+      expect(detail()).toEqual(['Best tier, +7 (ML 13)', 'Charisma: +3 \u2192 +7 Enhancement']);
+
+      familyButton('Charisma').click();
+      fixture.detectChanges();
+      tierButtons()[0].dispatchEvent(new Event('mouseenter'));
+      fixture.detectChanges();
+      expect(detail()).toEqual(['Charisma: stays +3 Enhancement', 'Overpowered by Hat (Head)']);
+
+      familyButton('Bluff').dispatchEvent(new Event('mouseenter'));
+      fixture.detectChanges();
+      expect(detail()).toEqual(['Does nothing for the tracked affixes']);
+    });
   });
 
   describe('compact, for a short list', () => {

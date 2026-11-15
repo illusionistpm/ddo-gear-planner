@@ -18,7 +18,6 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Host
     templateUrl: './tap-tooltip.component.html',
     styleUrls: ['./tap-tooltip.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false,
     host: { style: 'display: contents' }
 })
 export class TapTooltipComponent implements OnDestroy {
@@ -76,7 +75,6 @@ export class TapTooltipComponent implements OnDestroy {
     template: `@if (owner) {<div class="tap-tooltip-bubble tap-tooltip-panel-bubble" (click)="$event.stopPropagation()">{{owner.text}}</div>}`,
     styleUrls: ['./tap-tooltip.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false,
     host: { style: 'display: contents' }
 })
 export class TapTooltipPanelComponent {

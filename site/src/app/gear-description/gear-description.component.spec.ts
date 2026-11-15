@@ -23,8 +23,8 @@ describe('GearDescriptionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GearDescriptionComponent, CraftingSlotControlComponent, TapTooltipComponent, TapTooltipPanelComponent, CraftingOptionPickerComponent, UserItemLocationTooltipPipe ],
-      imports: [ FormsModule, NgbModule ]
+      declarations: [ GearDescriptionComponent, CraftingSlotControlComponent, CraftingOptionPickerComponent, UserItemLocationTooltipPipe ],
+      imports: [ FormsModule, NgbModule, TapTooltipComponent, TapTooltipPanelComponent ]
     })
     .compileComponents();
   });

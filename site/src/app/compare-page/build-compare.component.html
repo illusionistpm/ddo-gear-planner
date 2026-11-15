@@ -254,8 +254,13 @@
   </span>
   <span class="compare-breakdown-from">
     @for (source of sources; track source.key) {
-      <span class="compare-source" [class.changed]="source.changed" [title]="source.title">
-        <app-slot-icon [slot]="source.slot" [icon]="source.icon"></app-slot-icon>{{source.name}}
+      <span class="compare-source" [class.changed]="source.changed" [class.with-eye]="!!source.inGear" [title]="source.title">
+        <app-slot-icon [slot]="source.slot" [icon]="source.icon"></app-slot-icon><span class="compare-source-name">{{source.name}}</span>
+        @if (source.inGear) {
+          <app-tap-tooltip [text]="source.inGear" label="Which gear it's in">
+            <i class="fas fa-eye small" aria-hidden="true"></i>
+          </app-tap-tooltip>
+        }
       </span>
     } @empty {
       <span class="muted">—</span>

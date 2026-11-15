@@ -6,6 +6,8 @@ import { BehaviorSubject, of, throwError } from 'rxjs';
 import { BuildUrlCodecService } from '../build/build-url-codec.service';
 import { BuildsService } from '../build/builds.service';
 import { GearDbService } from '../gear/gear-db.service';
+import { isAugmentSystemName } from '../gear/augment-slots';
+import { CraftableOption } from '../gear/craftable-option';
 import { Item } from '../gear/item';
 import { AuthService } from '../shared/auth.service';
 import { BuildCompareComponent } from './build-compare.component';
@@ -118,6 +120,37 @@ describe('BuildCompareComponent', () => {
 
     expect(sources).toEqual([[rings.weak.name, 'Ring 1', true], [rings.strong.name, 'Ring 1', true]]);
     expect(line.querySelector('.compare-delta')!.textContent!.trim()).toBe(`+${rings.strongValue - rings.weakValue}`);
+  });
+
+  it('names an augment rather than its gear, with an eye that tells which gear it\'s in', async () => {
+    TestBed.configureTestingModule({});
+    const gearDb = TestBed.inject(GearDbService);
+    const codec = TestBed.inject(BuildUrlCodecService);
+    let found: { ring: Item; system: string; option: CraftableOption } | null = null;
+    for (const ring of gearDb.getGearBySlot('Ring1')) {
+      const craft = ring.crafting?.find(candidate => isAugmentSystemName(candidate.name));
+      const option = craft?.options.find(candidate => candidate.affixes?.length && candidate.name
+        && typeof candidate.affixes[0].value === 'number' && candidate.affixes[0].type !== 'Bool');
+      if (craft && option) {
+        found = { ring, system: craft.name, option };
+        break;
+      }
+    }
+    const { ring, system, option } = found!;
+    const affix = option.affixes[0].name;
+    saved['aug1'] = { name: 'Augmented', blob: codec.encode({
+      Ring1: ring.name, tracked: [affix],
+      craft_0_slot: 'Ring1', craft_0_system: system, craft_0_selected: option.getParamDescription(),
+    }) };
+    saved['bare1'] = { name: 'Bare', blob: codec.encode({ Ring1: ring.name, tracked: [affix] }) };
+    TestBed.resetTestingModule();
+    await create('aug1', 'bare1');
+
+    const augment = Array.from(row(affix)!.querySelectorAll<HTMLElement>('.compare-source'))
+      .find(source => source.textContent!.includes(option.name!))!;
+    expect(augment).toBeDefined();
+    expect(augment.textContent).not.toContain(ring.name);
+    expect(augment.querySelector('.tap-tooltip-trigger')!.getAttribute('title')).toBe(`In ${ring.name} (Ring 1)`);
   });
 
   it('shows an on/off affix as the planner\'s checkboxes, under Checklist', async () => {

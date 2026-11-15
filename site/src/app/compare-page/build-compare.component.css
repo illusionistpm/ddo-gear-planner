@@ -320,6 +320,7 @@
 
 .compare-breakdown-from {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   gap: var(--space-2);
   min-width: 0;
@@ -329,13 +330,24 @@
 .compare-source {
   align-items: baseline;
   color: var(--text-secondary);
-  display: inline-flex;
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--space-4);
   overflow-wrap: anywhere;
 }
 
 .compare-source app-slot-icon {
   align-self: center;
+}
+
+/* Capped so the icon, the name and its eye share a line; only a tapped eye's bubble wraps below. */
+.compare-source-name {
+  max-width: calc(100% - 1.5rem);
+  min-width: 0;
+}
+
+.compare-source.with-eye .compare-source-name {
+  max-width: calc(100% - 3rem);
 }
 
 .compare-source.changed {

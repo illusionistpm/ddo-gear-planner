@@ -26,9 +26,8 @@ describe('ItemsWithBonusTypeComponent', () => {
       declarations: [
         ItemsWithBonusTypeComponent, ItemPreviewComponent, ExternalAffixFormComponent, ExternalAffixValueComponent, AutofocusDirective,
         FiligreeSetPreviewComponent, FiligreeSetDetailsComponent, SetBonusSummaryComponent,
-        TapTooltipComponent, TapTooltipPanelComponent,
       ],
-      imports: [FormsModule, SlotIconComponent]
+      imports: [FormsModule, SlotIconComponent, TapTooltipComponent, TapTooltipPanelComponent]
     })
       .compileComponents();
   });

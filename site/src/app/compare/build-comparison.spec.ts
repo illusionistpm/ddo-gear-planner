@@ -8,6 +8,8 @@ import { BuildUrlCodecService } from '../build/build-url-codec.service';
 import { QueryParamRecord } from '../build/query-param-types';
 import { FiligreeDbService } from '../gear/filigree-db.service';
 import { GearDbService } from '../gear/gear-db.service';
+import { Craftable } from '../gear/craftable';
+import { CraftableOption } from '../gear/craftable-option';
 import { Item } from '../gear/item';
 import { BuildModel, buildModelOf, BuildSnapshot, contributedAffixNames } from '../planner/build-snapshot';
 import { CoveredBonusType, visibleTypeRulesOf } from '../affixes/tracked-affix-derivation';
@@ -98,6 +100,21 @@ describe('Comparing two saved builds', () => {
       expect(total.types.map(type => [type.label, type.value, type.sources.map(source => source.itemName)])).toEqual([
         ['Enhancement', 10, ['Strong Belt']],
         ['Insight', 3, ['Wise Ring']],
+      ]);
+    });
+
+    it('credits a value an augment gives to the augment, in the gear it\'s slotted in', () => {
+      const helm = item('Plain Helm', 'Helm', [{ name: 'Strength', type: 'Insight', value: 2 }]);
+      const ruby = new CraftableOption({ name: 'Ruby of Strength +6', affixes: [{ name: 'Strength', type: 'Enhancement', value: 6 }] });
+      const slot = new Craftable('Red Augment Slot', [ruby]);
+      slot.selected = slot.options[1];
+      helm.crafting = [slot];
+
+      const types = totalOf(model({ Helm: helm }), 'Strength').types;
+
+      expect(types.map(type => type.sources[0])).toEqual([
+        expect.objectContaining({ itemName: 'Plain Helm', augmentName: 'Ruby of Strength +6', value: 6 }),
+        expect.not.objectContaining({ augmentName: expect.anything() }),
       ]);
     });
 

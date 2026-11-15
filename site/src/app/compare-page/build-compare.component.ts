@@ -16,6 +16,7 @@ import { BuildsService } from '../build/builds.service';
 import { FILIGREE_HOST_TEXT } from '../gear/filigree';
 import { slotLabel } from '../gear/slot-display';
 import { SlotIconComponent } from '../slot-icon/slot-icon.component';
+import { TapTooltipComponent } from '../tap-tooltip/tap-tooltip.component';
 import { BuildModel } from '../planner/build-snapshot';
 import { AuthService } from '../shared/auth.service';
 import { BuildCompareService } from '../compare/build-compare.service';
@@ -42,6 +43,8 @@ export interface BreakdownSource {
   icon?: string;
   /** The other side doesn't get this bonus type from it. */
   changed: boolean;
+  /** For an augment, the gear it's slotted in: "In Legendary Cranium Sphere (Necklace)". */
+  inGear?: string;
 }
 
 /** A bonus type's row in an affix's breakdown, both sides. */
@@ -103,7 +106,7 @@ export interface UnknownItemWarning {
   templateUrl: './build-compare.component.html',
   styleUrls: ['../shared/pill-button.css', './build-compare.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgTemplateOutlet, SlotIconComponent],
+  imports: [NgTemplateOutlet, SlotIconComponent, TapTooltipComponent],
 })
 export class BuildCompareComponent implements OnInit, OnChanges, OnDestroy {
   @Input() a: string | null = null;
@@ -344,15 +347,20 @@ function breakdownRowOf(a: AffixTypeTotal | undefined, b: AffixTypeTotal | undef
   };
 }
 
-/** The same item, set or entry on both sides is the same source, whichever slot it moved to. */
+/** The same item, augment, set or entry on both sides is the same source, whatever it moved into. */
 function sourceKey(source: AffixSource): string {
-  return `${source.kind}|${source.itemName}`;
+  return `${source.kind}|${source.augmentName ?? source.itemName}`;
 }
 
 function breakdownSourceOf(source: AffixSource, changed: boolean): BreakdownSource {
   const base = { key: `${source.kind}|${source.slot}|${source.itemName}`, name: source.itemName, changed };
   switch (source.kind) {
-    case 'item': return { ...base, slot: source.slot, title: slotLabel(source.slot) };
+    case 'item': return source.augmentName
+      ? {
+        ...base, key: `${base.key}|${source.augmentName}`, name: source.augmentName, slot: source.slot,
+        title: slotLabel(source.slot), inGear: `In ${source.itemName} (${slotLabel(source.slot)})`,
+      }
+      : { ...base, slot: source.slot, title: slotLabel(source.slot) };
     case 'set': return { ...base, icon: 'linked-rings', title: 'Set bonus' };
     case 'external': return { ...base, icon: 'aura', title: 'Non-gear' };
     default: return { ...base, icon: 'cut-diamond', title: source.slot };

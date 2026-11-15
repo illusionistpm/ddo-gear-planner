@@ -1,6 +1,7 @@
 import { Affix } from './affix';
 import type { AffixService } from './affix.service';
 import { ExternalAffixEntry, NON_GEAR_SLOT } from './external-affix';
+import { isAugmentSystemName } from '../gear/augment-slots';
 import { FiligreeHost, SUMMED_FILIGREE_BONUS_TYPES } from '../gear/filigree';
 import type { FiligreeDbService } from '../gear/filigree-db.service';
 import type { GearDbService } from '../gear/gear-db.service';
@@ -38,6 +39,8 @@ export interface AffixSource {
   /** For a slotted filigree, the host it's in; absent for anything else, a filigree set included. */
   filigreeHost?: FiligreeHost;
   itemName: string;
+  /** For an item's value that comes from an augment slotted in it, the augment; absent otherwise. */
+  augmentName?: string;
   affixName: string;
   bonusType: string;
   value: number;
@@ -125,9 +128,15 @@ export function sourcesFor(view: BuildView, affixSvc: AffixService, affixName: s
     if (!item) {
       continue;
     }
-    for (const affix of affixSvc.getActiveAffixes(item)) {
-      if (affix.name === affixName && affix.type === bonusType && affix.value === bestValue) {
-        sources.push({ kind: 'item', slot, itemName: item.name, affixName: affix.name, bonusType: affix.type, value: affix.value });
+    // getActiveAffixes, a part at a time, so a value an augment gives is credited to the augment.
+    for (const part of itemParts(item)) {
+      for (const affix of affixSvc.flattenAffixGroups(part.affixes, true)) {
+        if (affix.name === affixName && affix.type === bonusType && affix.value === bestValue) {
+          sources.push({
+            kind: 'item', slot, itemName: item.name, ...(part.augmentName ? { augmentName: part.augmentName } : {}),
+            affixName: affix.name, bonusType: affix.type, value: affix.value
+          });
+        }
       }
     }
   }
@@ -166,6 +175,24 @@ export function sourcesFor(view: BuildView, affixSvc: AffixService, affixName: s
   }
 
   return sources;
+}
+
+/**
+ * An item's own affixes, then each crafting choice's (as Item.getActiveAffixes adds them up), with
+ * the augment's name for a choice in an augment slot: the coloured and colourless slots, Sun and Moon.
+ */
+function itemParts(item: Item): Array<{ affixes: ReadonlyArray<Affix>; augmentName?: string }> {
+  const parts: Array<{ affixes: ReadonlyArray<Affix>; augmentName?: string }> = [{ affixes: item.affixes }];
+  for (const craftable of item.crafting ?? []) {
+    if (craftable.selected?.affixes) {
+      const augment = isAugmentSystemName(craftable.name) || isAugmentSystemName(craftable.selectedCraftingSystemName);
+      parts.push({
+        affixes: craftable.selected.affixes,
+        ...(augment ? { augmentName: craftable.selected.describe(true, false) } : {}),
+      });
+    }
+  }
+  return parts;
 }
 
 /**

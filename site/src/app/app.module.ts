@@ -80,8 +80,6 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         CraftingSlotControlComponent,
         CraftingSlotsComponent,
         CraftingOptionPickerComponent,
-        TapTooltipComponent,
-        TapTooltipPanelComponent,
         EffectsTableComponent,
         ItemsWithBonusTypeComponent,
         FiltersComponent,
@@ -133,6 +131,8 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         CdkScrollable,
         MenuBackdropComponent,
         SlotIconComponent,
+        TapTooltipComponent,
+        TapTooltipPanelComponent,
         ListDialogComponent,
         BuildChoicesComponent,
         AuthModule.forRoot({

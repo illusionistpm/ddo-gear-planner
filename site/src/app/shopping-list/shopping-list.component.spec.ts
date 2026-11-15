@@ -72,8 +72,8 @@ describe('ShoppingListComponent', () => {
       stillNeededText: () => 'Still needed for my build (5):', stillNeededKeys: () => ['k1', 'k2', 'k3', 'k4'] };
     syncStates = new BehaviorSubject<ShoppingSyncState>('off');
     await TestBed.configureTestingModule({
-      declarations: [ShoppingListComponent, TapTooltipComponent, UserItemLocationTooltipPipe],
-      imports: [RouterLink],
+      declarations: [ShoppingListComponent, UserItemLocationTooltipPipe],
+      imports: [RouterLink, TapTooltipComponent],
       providers: [
         provideRouter([]),
         { provide: ShoppingListService, useValue: service },

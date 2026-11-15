@@ -2,7 +2,7 @@
   <h1 id="compare-heading" class="compare-heading">Compare builds</h1>
 
   <div class="compare-pickers">
-    @for (which of sidesList; track which.key) {
+    @for (which of pickers; track which.key) {
       <div class="compare-picker">
         <label class="compare-picker-label" [attr.for]="'compare-pick-' + which.key">{{which.label}}</label>
         <div class="compare-picker-row">
@@ -12,31 +12,31 @@
               @if (!which.id) {
                 <option value="" selected disabled>Pick a build…</option>
               }
-              @for (option of optionsFor(which.side, which.id); track option.shortId) {
+              @for (option of which.options; track option.shortId) {
                 <option [value]="option.shortId" [selected]="option.shortId === which.id">{{option.name}}</option>
               }
             </select>
           } @else {
             <span class="compare-picked" [id]="'compare-pick-' + which.key">
               @switch (which.side.status) {
-                @case ('ready') { {{$any(which.side).name}} }
+                @case ('ready') { {{which.name}} }
                 @case ('loading') { Loading… }
                 @case ('empty') { No build picked }
                 @default { {{which.id}} }
               }
             </span>
           }
-          @if (plannerPathOf(which.side); as path) {
+          @if (which.plannerPath; as path) {
             <a class="compare-open" [href]="path" target="_blank" rel="noopener" title="Open this build in the planner, in a new tab">
               <i class="fas fa-up-right-from-square" aria-hidden="true"></i><span class="visually-hidden">Open {{which.label}} in the planner</span>
             </a>
           }
         </div>
-        @if (which.side.status === 'error') {
+        @if (which.error; as error) {
           <div class="compare-side-error" role="alert">
-            @switch ($any(which.side).error) {
+            @switch (error) {
               @case ('not-found') { No saved build with this link - it may have been deleted. }
-              @case ('invalid') { This build was saved in a format this page can no longer read. }
+              @case ('invalid-link') { This build was saved in a format this page can no longer read. }
               @default {
                 Couldn't load this build. <button type="button" class="compare-link-button" (click)="retry()">Try again</button>
               }
@@ -91,7 +91,7 @@
     <h2 class="compare-section-heading">Tracked affixes</h2>
     @if (!result.tracked.length) {
       <p class="compare-empty">Neither build tracks any affixes.</p>
-    } @else if (!visibleTrackedCount) {
+    } @else if (!visibleTracked.length) {
       <p class="compare-empty">No tracked affix changes.</p>
     } @else {
       <div class="compare-table">
@@ -101,15 +101,13 @@
           <span class="num">After</span>
           <span class="num">Change</span>
         </div>
-        @for (group of result.tracked; track group.name) {
-          @if (visibleRows(group.rows).length) {
-            <div class="compare-group">
-              <div class="compare-group-name"><span>{{group.name}}</span></div>
-              @for (row of visibleRows(group.rows); track row.name) {
-                <ng-container *ngTemplateOutlet="affixRow; context: { $implicit: row }"></ng-container>
-              }
-            </div>
-          }
+        @for (group of visibleTracked; track group.name) {
+          <div class="compare-group">
+            <div class="compare-group-name"><span>{{group.name}}</span></div>
+            @for (row of group.rows; track row.name) {
+              <ng-container *ngTemplateOutlet="affixRow; context: { $implicit: row }"></ng-container>
+            }
+          </div>
         }
       </div>
     }

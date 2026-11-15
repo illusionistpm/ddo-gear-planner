@@ -16,7 +16,7 @@ import { FILIGREE_HOST_TEXT } from '../gear/filigree';
 import { BuildModel } from '../planner/build-snapshot';
 import { AuthService } from '../shared/auth.service';
 import { BuildCompareService } from '../compare/build-compare.service';
-import { AffixDiffRow, BuildComparison, GearSide, SetChange } from '../compare/build-comparison';
+import { AffixDiffGroup, AffixDiffRow, BuildComparison, GearSide, SetChange } from '../compare/build-comparison';
 
 const SITE_TITLE = 'DDO Gear Planner';
 /** A refetch on coming back to the tab waits at least this long after the last. */
@@ -27,7 +27,7 @@ export type CompareSide =
   | { status: 'empty' }
   | { status: 'loading' }
   | { status: 'ready'; shortId: string; name: string; blob: string; model: BuildModel }
-  | { status: 'error'; shortId: string; error: 'not-found' | 'invalid' | 'network' };
+  | { status: 'error'; shortId: string; error: 'not-found' | 'invalid-link' | 'network' };
 
 /** A bonus type's row in an affix's breakdown, both sides. */
 export interface BreakdownRow {
@@ -41,6 +41,30 @@ export interface BreakdownRow {
 
 export interface PickerOption {
   shortId: string;
+  name: string;
+}
+
+/** One side's picker, as the template shows it. */
+export interface PickerView {
+  key: 'a' | 'b';
+  label: 'Before' | 'After';
+  /** The build the URL names for this side. */
+  id: string | null;
+  side: CompareSide;
+  /** The build's name, once it's here. */
+  name: string | null;
+  /** Its page in the planner, once it's here. */
+  plannerPath: string | null;
+  /** Why it couldn't be shown, if it couldn't. */
+  error: Extract<CompareSide, { status: 'error' }>['error'] | null;
+  /** The builds to pick from: yours, and this side's if it isn't one. */
+  options: PickerOption[];
+}
+
+/** A build naming an item the game data no longer has. */
+export interface UnknownItemWarning {
+  side: 'Before' | 'After';
+  slot: string;
   name: string;
 }
 
@@ -71,6 +95,12 @@ export class BuildCompareComponent implements OnInit, OnChanges, OnDestroy {
   mineError = false;
   /** Rows with no change are hidden; on by default once anything changed. */
   changesOnly = true;
+
+  // Worked out when the builds, your builds or Changes only change (refreshView), not on every check.
+  pickers: PickerView[] = [];
+  unknownItems: UnknownItemWarning[] = [];
+  /** The tracked affixes Changes only leaves, by group; groups it empties are left out. */
+  visibleTracked: AffixDiffGroup[] = [];
   private changesOnlyChosen = false;
 
   private readonly ids = new BehaviorSubject<[string | null, string | null]>([null, null]);
@@ -90,6 +120,7 @@ export class BuildCompareComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges(): void {
     this.ids.next([this.a || null, this.b || null]);
+    this.refreshView();
   }
 
   ngOnInit(): void {
@@ -114,6 +145,7 @@ export class BuildCompareComponent implements OnInit, OnChanges, OnDestroy {
     ).subscribe(mine => {
       this.mineError = mine === null;
       this.mine = (mine ?? []).map(build => ({ shortId: build.shortId, name: build.name }));
+      this.refreshView();
       this.cdr.markForCheck();
     }));
   }
@@ -131,7 +163,7 @@ export class BuildCompareComponent implements OnInit, OnChanges, OnDestroy {
     const fetched = this.builds.getByShortId(shortId).pipe(
       map(({ name, blob }): CompareSide => {
         const model = this.compareService.modelOf(blob);
-        return model ? { status: 'ready', shortId, name, blob, model } : { status: 'error', shortId, error: 'invalid' };
+        return model ? { status: 'ready', shortId, name, blob, model } : { status: 'error', shortId, error: 'invalid-link' };
       }),
       catchError((error: unknown) => of<CompareSide>({
         status: 'error', shortId,
@@ -160,17 +192,30 @@ export class BuildCompareComponent implements OnInit, OnChanges, OnDestroy {
     const nameA = sideA.status === 'ready' ? sideA.name : null;
     const nameB = sideB.status === 'ready' ? sideB.name : null;
     this.title.setTitle(nameA && nameB ? `Compare ${nameA} and ${nameB} - ${SITE_TITLE}` : `Compare builds - ${SITE_TITLE}`);
+    this.refreshView();
     this.cdr.markForCheck();
   }
 
-  /** The builds a picker offers: yours, and whichever build it shows if that isn't one. */
-  optionsFor(side: CompareSide, shortId: string | null): PickerOption[] {
-    const options = this.mine ?? [];
-    if (!shortId || options.some(option => option.shortId === shortId)) {
-      return options;
-    }
-    const name = side.status === 'ready' ? side.name : shortId;
-    return [{ shortId, name }, ...options];
+  private refreshView(): void {
+    this.pickers = [this.pickerOf('a', 'Before', this.a, this.sideA), this.pickerOf('b', 'After', this.b, this.sideB)];
+    const unknownOf = (side: 'Before' | 'After', of: CompareSide): UnknownItemWarning[] => of.status === 'ready'
+      ? of.model.snapshot.unknownItems.map(entry => ({ side, ...entry }))
+      : [];
+    this.unknownItems = [...unknownOf('Before', this.sideA), ...unknownOf('After', this.sideB)];
+    this.visibleTracked = (this.comparison?.tracked ?? [])
+      .map(group => this.changesOnly ? { ...group, rows: group.rows.filter(row => row.delta !== 0) } : group)
+      .filter(group => group.rows.length);
+  }
+
+  private pickerOf(key: 'a' | 'b', label: 'Before' | 'After', id: string | null, side: CompareSide): PickerView {
+    const name = side.status === 'ready' ? side.name : null;
+    const mine = this.mine ?? [];
+    return {
+      key, label, id, side, name,
+      plannerPath: side.status === 'ready' ? buildPath(side.shortId, side.name) : null,
+      error: side.status === 'error' ? side.error : null,
+      options: !id || mine.some(option => option.shortId === id) ? mine : [{ shortId: id, name: name ?? id }, ...mine],
+    };
   }
 
   pick(which: 'a' | 'b', shortId: string): void {
@@ -194,30 +239,13 @@ export class BuildCompareComponent implements OnInit, OnChanges, OnDestroy {
   setChangesOnly(on: boolean): void {
     this.changesOnly = on;
     this.changesOnlyChosen = true;
-  }
-
-  plannerPathOf(side: CompareSide): string | null {
-    return side.status === 'ready' ? buildPath(side.shortId, side.name) : null;
+    this.refreshView();
   }
 
   get sameBuild(): boolean {
     return !!this.a && this.a === this.b;
   }
 
-  get unknownItems(): Array<{ side: string; slot: string; name: string }> {
-    const of = (label: string, side: CompareSide) => side.status === 'ready'
-      ? side.model.snapshot.unknownItems.map(entry => ({ side: label, ...entry }))
-      : [];
-    return [...of('Before', this.sideA), ...of('After', this.sideB)];
-  }
-
-  visibleRows(rows: AffixDiffRow[]): AffixDiffRow[] {
-    return this.changesOnly ? rows.filter(row => row.delta !== 0) : rows;
-  }
-
-  get visibleTrackedCount(): number {
-    return (this.comparison?.tracked ?? []).reduce((count, group) => count + this.visibleRows(group.rows).length, 0);
-  }
 
   valueText(row: AffixDiffRow, total: AffixTotal): string {
     if (row.checklist) {
@@ -260,14 +288,6 @@ export class BuildCompareComponent implements OnInit, OnChanges, OnDestroy {
       this.breakdowns.set(row, rows);
     }
     return rows;
-  }
-
-  /** Before's side, then After's, as the pickers show them. */
-  get sidesList(): Array<{ key: 'a' | 'b'; label: string; id: string | null; side: CompareSide }> {
-    return [
-      { key: 'a', label: 'Before', id: this.a, side: this.sideA },
-      { key: 'b', label: 'After', id: this.b, side: this.sideB },
-    ];
   }
 
   tierText(set: SetChange): string | null {

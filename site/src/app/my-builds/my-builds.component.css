@@ -90,9 +90,19 @@
 }
 
 .my-builds-name {
+  flex: 1 1 auto;
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* The row's buttons, together at its end, so each sits in the same place on every row. */
+.my-builds-actions {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  gap: var(--space-4);
 }
 
 .my-builds-compare,

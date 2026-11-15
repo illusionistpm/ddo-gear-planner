@@ -149,7 +149,7 @@ describe('EquipmentSlotCardComponent', () => {
       switchOn('mythic', 'reaper');
       const [mythic, reaper] = bonusRows(card);
 
-      expect(optionClass(mythic, 'Mythic +3 (PRR/MRR)')).toBe('BetterThanBest');
+      expect(optionClass(mythic, 'Mythic +3: PRR/MRR')).toBe('BetterThanBest');
       expect(optionClass(mythic, '')).toBe('Irrelevant');
       expect(optionClass(reaper, 'Reaper Enchantment: PRR')).toBe('BetterThanBest');
       expect(optionClass(reaper, 'Reaper Enchantment: Power')).toBe('Irrelevant');
@@ -159,10 +159,10 @@ describe('EquipmentSlotCardComponent', () => {
       equipped.setImportantAffixes(['Physical Sheltering']);
       const card = equip('Helm');
       switchOn('mythic');
-      choose(bonusRows(card)[0], 'Mythic +3 (PRR/MRR)');
+      choose(bonusRows(card)[0], 'Mythic +3: PRR/MRR');
 
-      expect(optionClass(bonusRows(card)[0], 'Mythic +3 (PRR/MRR)')).toBe('Best');
-      expect(optionClass(bonusRows(card)[0], 'Mythic +1 (PRR/MRR)')).toBe('Outranked');
+      expect(optionClass(bonusRows(card)[0], 'Mythic +3: PRR/MRR')).toBe('Best');
+      expect(optionClass(bonusRows(card)[0], 'Mythic +1: PRR/MRR')).toBe('Outranked');
     });
 
     it('picks every bonus from the crafting picker, whose entries wrap', () => {
@@ -184,7 +184,7 @@ describe('EquipmentSlotCardComponent', () => {
     it('takes a bonus off again with None, keeping the row while its system is on', () => {
       const card = equip('Helm');
       switchOn('mythic');
-      choose(bonusRows(card)[0], 'Mythic +3 (PRR/MRR)');
+      choose(bonusRows(card)[0], 'Mythic +3: PRR/MRR');
 
       choose(bonusRows(card)[0], '');
 

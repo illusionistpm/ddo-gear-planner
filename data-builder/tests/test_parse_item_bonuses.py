@@ -139,16 +139,16 @@ def test_mythic_values_depend_on_the_slot():
 
     assert set(mythic) == set(ITEM_SLOTS)
     assert [option['name'] for option in mythic['Weapon']] == [
-        'Mythic +2 (Melee/Ranged/Spell Power)', 'Mythic +4 (Melee/Ranged/Spell Power)']
-    assert [option['name'] for option in mythic['Cloak']] == ['Mythic +1 (PRR/MRR)', 'Mythic +3 (PRR/MRR)']
+        'Mythic +2: Power', 'Mythic +4: Power']
+    assert [option['name'] for option in mythic['Cloak']] == ['Mythic +1: PRR/MRR', 'Mythic +3: PRR/MRR']
     assert names_and_values(mythic['Ring'][1]['affixes']) == [
         ('Melee Power', 'Mythic', '3'), ('Ranged Power', 'Mythic', '3'), ('Universal Spell Power', 'Mythic', '3')]
 
 
 def test_offhand_items_can_take_either_mythic_boost():
     assert [option['name'] for option in build_mythic_options()['Offhand']] == [
-        'Mythic +2 (Melee/Ranged/Spell Power)', 'Mythic +2 (PRR/MRR)',
-        'Mythic +4 (Melee/Ranged/Spell Power)', 'Mythic +4 (PRR/MRR)']
+        'Mythic +2: Power', 'Mythic +2: PRR/MRR',
+        'Mythic +4: Power', 'Mythic +4: PRR/MRR']
 
 
 def test_mythic_rule_warnings_name_a_missing_sentence():
@@ -183,15 +183,14 @@ def test_snapshot_reaper_options():
     reaper = data['reaper']
 
     assert set(reaper) == set(ITEM_SLOTS)
-    general = ['Reaper Enchantment: Power', 'Reaper Enchantment: Physical Resistance Rating',
-               'Reaper Enchantment: Magical Resistance Rating']
+    general = ['Reaper Enchantment: Power', 'Reaper Enchantment: PRR', 'Reaper Enchantment: MRR']
     assert [option['name'] for option in reaper['Weapon']] == general
     assert [option['name'] for option in reaper['Helm']] == general + ['Reaper Helmet Enchantment']
     assert [option['name'] for option in reaper['Ring']] == general + [
-        'Reaper Ring Boost (+1 Spell, Tactical, and Assassinate DCs)',
-        'Reaper Ring Boost (+10 Universal Spell Power)',
-        'Reaper Ring Boost (+5 Melee / Ranged Power)',
-        'Reaper Ring Boost (+3% Spell Cost Reduction, +3 MRR)',
+        'Reaper Ring Boost: +1 Spell, Tactical, and Assassinate DCs',
+        'Reaper Ring Boost: +10 Universal Spell Power',
+        'Reaper Ring Boost: +5 Melee / Ranged Power',
+        'Reaper Ring Boost: +3% Spell Cost Reduction, +3 MRR',
     ]
     assert names_and_values(reaper['Belt'][-1]['affixes']) == [
         ('False Life', 'Reaper', '10'), ('Physical Sheltering', 'Reaper', '3')]

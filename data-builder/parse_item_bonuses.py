@@ -305,10 +305,24 @@ def get_reaper_slots(label):
     return None
 
 
+# Short names for the general enchantments, which take room in a narrow equipment card.
+REAPER_ENCHANTMENT_SHORT_NAMES = {
+    'Physical Resistance Rating': 'PRR',
+    'Magical Resistance Rating': 'MRR',
+}
+
+
 def get_reaper_option_name(label, effect):
-    """The wiki numbers the four ring boosts, which says nothing in a list: name those by their effect."""
+    """
+    The name a Reaper option is listed by. The wiki numbers the four ring boosts, which says nothing in a
+    list, so those are named by their effect, written like the general enchantments ("Reaper Ring Boost:
+    +10 Universal Spell Power"); PRR and MRR are abbreviated.
+    """
     if re.fullmatch(r'Reaper Ring Boost \(\d+\)', label):
-        return f"Reaper Ring Boost ({re.sub(r' Reaper Bonus to ', ' ', effect)})"
+        return f"Reaper Ring Boost: {re.sub(r' Reaper Bonus to ', ' ', effect)}"
+    search = re.fullmatch(r'Reaper Enchantment: (.+)', label)
+    if search and search.group(1) in REAPER_ENCHANTMENT_SHORT_NAMES:
+        return f"Reaper Enchantment: {REAPER_ENCHANTMENT_SHORT_NAMES[search.group(1)]}"
     return label
 
 
@@ -344,7 +358,7 @@ def parse_reaper_bonuses(soup, synonyms=None):
 MYTHIC_POWER = ['Melee Power', 'Ranged Power', 'Universal Spell Power']
 MYTHIC_DEFENSE = ['Physical Sheltering', 'Magical Sheltering']
 MYTHIC_KINDS = {
-    'Power': ('Melee/Ranged/Spell Power', MYTHIC_POWER),
+    'Power': ('Power', MYTHIC_POWER),
     'Defense': ('PRR/MRR', MYTHIC_DEFENSE),
 }
 MYTHIC_RULES = {
@@ -382,7 +396,7 @@ def build_mythic_options():
             for kind in kinds:
                 label, names = MYTHIC_KINDS[kind]
                 options.append({
-                    'name': f'Mythic +{value} ({label})',
+                    'name': f'Mythic +{value}: {label}',
                     'affixes': [_affix(name, MYTHIC_TYPE, value) for name in names],
                 })
         by_slot[slot] = options

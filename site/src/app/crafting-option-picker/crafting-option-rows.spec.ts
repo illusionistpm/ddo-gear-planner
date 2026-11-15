@@ -56,7 +56,7 @@ describe('buildFamilyRows', () => {
   });
 
   it('names a value shared by several affixes once', () => {
-    const mythic = option({ name: 'Mythic +3 (PRR/MRR)', affixes: [
+    const mythic = option({ name: 'Mythic +3: PRR/MRR', affixes: [
       { name: 'Physical Sheltering', type: 'Mythic', value: 3 }, { name: 'Magical Sheltering', type: 'Mythic', value: 3 }] });
 
     expect(rows([mythic])[0].detail).toBe('+3 Mythic');

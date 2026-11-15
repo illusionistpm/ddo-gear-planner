@@ -311,7 +311,7 @@ describe('AffixUiService', () => {
   describe('an item as a candidate for its slot', () => {
     const service = new AffixUiService({} as any, new AffixService(), {} as any);
     const curse = new CraftableOption({ name: 'Curse of Major Strength', affixes: [{ name: 'Strength', type: 'Fortune', value: 2 }] });
-    const mythic = new CraftableOption({ name: 'Mythic +3 (PRR/MRR)', affixes: [{ name: 'Physical Sheltering', type: 'Mythic', value: 3 }] });
+    const mythic = new CraftableOption({ name: 'Mythic +3: PRR/MRR', affixes: [{ name: 'Physical Sheltering', type: 'Mythic', value: 3 }] });
     const names = (affixes: Affix[]) => affixes.map(affix => `${affix.name} ${affix.type} ${affix.value}`);
 
     function cursedHelm() {

@@ -1082,7 +1082,7 @@
                         "value": "2"
                     }
                 ],
-                "name": "Mythic +2 (PRR/MRR)"
+                "name": "Mythic +2: PRR/MRR"
             },
             {
                 "affixes": [
@@ -1097,7 +1097,7 @@
                         "value": "4"
                     }
                 ],
-                "name": "Mythic +4 (PRR/MRR)"
+                "name": "Mythic +4: PRR/MRR"
             }
         ],
         "Belt": [
@@ -1119,7 +1119,7 @@
                         "value": "1"
                     }
                 ],
-                "name": "Mythic +1 (Melee/Ranged/Spell Power)"
+                "name": "Mythic +1: Power"
             },
             {
                 "affixes": [
@@ -1139,7 +1139,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Mythic +3 (Melee/Ranged/Spell Power)"
+                "name": "Mythic +3: Power"
             }
         ],
         "Boots": [
@@ -1156,7 +1156,7 @@
                         "value": "1"
                     }
                 ],
-                "name": "Mythic +1 (PRR/MRR)"
+                "name": "Mythic +1: PRR/MRR"
             },
             {
                 "affixes": [
@@ -1171,7 +1171,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Mythic +3 (PRR/MRR)"
+                "name": "Mythic +3: PRR/MRR"
             }
         ],
         "Bracers": [
@@ -1188,7 +1188,7 @@
                         "value": "1"
                     }
                 ],
-                "name": "Mythic +1 (PRR/MRR)"
+                "name": "Mythic +1: PRR/MRR"
             },
             {
                 "affixes": [
@@ -1203,7 +1203,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Mythic +3 (PRR/MRR)"
+                "name": "Mythic +3: PRR/MRR"
             }
         ],
         "Cloak": [
@@ -1220,7 +1220,7 @@
                         "value": "1"
                     }
                 ],
-                "name": "Mythic +1 (PRR/MRR)"
+                "name": "Mythic +1: PRR/MRR"
             },
             {
                 "affixes": [
@@ -1235,7 +1235,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Mythic +3 (PRR/MRR)"
+                "name": "Mythic +3: PRR/MRR"
             }
         ],
         "Gloves": [
@@ -1257,7 +1257,7 @@
                         "value": "1"
                     }
                 ],
-                "name": "Mythic +1 (Melee/Ranged/Spell Power)"
+                "name": "Mythic +1: Power"
             },
             {
                 "affixes": [
@@ -1277,7 +1277,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Mythic +3 (Melee/Ranged/Spell Power)"
+                "name": "Mythic +3: Power"
             }
         ],
         "Goggles": [
@@ -1299,7 +1299,7 @@
                         "value": "1"
                     }
                 ],
-                "name": "Mythic +1 (Melee/Ranged/Spell Power)"
+                "name": "Mythic +1: Power"
             },
             {
                 "affixes": [
@@ -1319,7 +1319,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Mythic +3 (Melee/Ranged/Spell Power)"
+                "name": "Mythic +3: Power"
             }
         ],
         "Helm": [
@@ -1336,7 +1336,7 @@
                         "value": "1"
                     }
                 ],
-                "name": "Mythic +1 (PRR/MRR)"
+                "name": "Mythic +1: PRR/MRR"
             },
             {
                 "affixes": [
@@ -1351,7 +1351,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Mythic +3 (PRR/MRR)"
+                "name": "Mythic +3: PRR/MRR"
             }
         ],
         "Necklace": [
@@ -1368,7 +1368,7 @@
                         "value": "1"
                     }
                 ],
-                "name": "Mythic +1 (PRR/MRR)"
+                "name": "Mythic +1: PRR/MRR"
             },
             {
                 "affixes": [
@@ -1383,7 +1383,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Mythic +3 (PRR/MRR)"
+                "name": "Mythic +3: PRR/MRR"
             }
         ],
         "Offhand": [
@@ -1405,7 +1405,7 @@
                         "value": "2"
                     }
                 ],
-                "name": "Mythic +2 (Melee/Ranged/Spell Power)"
+                "name": "Mythic +2: Power"
             },
             {
                 "affixes": [
@@ -1420,7 +1420,7 @@
                         "value": "2"
                     }
                 ],
-                "name": "Mythic +2 (PRR/MRR)"
+                "name": "Mythic +2: PRR/MRR"
             },
             {
                 "affixes": [
@@ -1440,7 +1440,7 @@
                         "value": "4"
                     }
                 ],
-                "name": "Mythic +4 (Melee/Ranged/Spell Power)"
+                "name": "Mythic +4: Power"
             },
             {
                 "affixes": [
@@ -1455,7 +1455,7 @@
                         "value": "4"
                     }
                 ],
-                "name": "Mythic +4 (PRR/MRR)"
+                "name": "Mythic +4: PRR/MRR"
             }
         ],
         "Ring": [
@@ -1477,7 +1477,7 @@
                         "value": "1"
                     }
                 ],
-                "name": "Mythic +1 (Melee/Ranged/Spell Power)"
+                "name": "Mythic +1: Power"
             },
             {
                 "affixes": [
@@ -1497,7 +1497,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Mythic +3 (Melee/Ranged/Spell Power)"
+                "name": "Mythic +3: Power"
             }
         ],
         "Trinket": [
@@ -1519,7 +1519,7 @@
                         "value": "1"
                     }
                 ],
-                "name": "Mythic +1 (Melee/Ranged/Spell Power)"
+                "name": "Mythic +1: Power"
             },
             {
                 "affixes": [
@@ -1539,7 +1539,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Mythic +3 (Melee/Ranged/Spell Power)"
+                "name": "Mythic +3: Power"
             }
         ],
         "Weapon": [
@@ -1561,7 +1561,7 @@
                         "value": "2"
                     }
                 ],
-                "name": "Mythic +2 (Melee/Ranged/Spell Power)"
+                "name": "Mythic +2: Power"
             },
             {
                 "affixes": [
@@ -1581,7 +1581,7 @@
                         "value": "4"
                     }
                 ],
-                "name": "Mythic +4 (Melee/Ranged/Spell Power)"
+                "name": "Mythic +4: Power"
             }
         ]
     },
@@ -1615,7 +1615,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Physical Resistance Rating"
+                "name": "Reaper Enchantment: PRR"
             },
             {
                 "affixes": [
@@ -1625,7 +1625,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Magical Resistance Rating"
+                "name": "Reaper Enchantment: MRR"
             },
             {
                 "affixes": [
@@ -1672,7 +1672,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Physical Resistance Rating"
+                "name": "Reaper Enchantment: PRR"
             },
             {
                 "affixes": [
@@ -1682,7 +1682,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Magical Resistance Rating"
+                "name": "Reaper Enchantment: MRR"
             },
             {
                 "affixes": [
@@ -1729,7 +1729,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Physical Resistance Rating"
+                "name": "Reaper Enchantment: PRR"
             },
             {
                 "affixes": [
@@ -1739,7 +1739,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Magical Resistance Rating"
+                "name": "Reaper Enchantment: MRR"
             },
             {
                 "affixes": [
@@ -1786,7 +1786,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Physical Resistance Rating"
+                "name": "Reaper Enchantment: PRR"
             },
             {
                 "affixes": [
@@ -1796,7 +1796,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Magical Resistance Rating"
+                "name": "Reaper Enchantment: MRR"
             },
             {
                 "affixes": [
@@ -1843,7 +1843,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Physical Resistance Rating"
+                "name": "Reaper Enchantment: PRR"
             },
             {
                 "affixes": [
@@ -1853,7 +1853,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Magical Resistance Rating"
+                "name": "Reaper Enchantment: MRR"
             },
             {
                 "affixes": [
@@ -1900,7 +1900,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Physical Resistance Rating"
+                "name": "Reaper Enchantment: PRR"
             },
             {
                 "affixes": [
@@ -1910,7 +1910,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Magical Resistance Rating"
+                "name": "Reaper Enchantment: MRR"
             },
             {
                 "affixes": [
@@ -1957,7 +1957,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Physical Resistance Rating"
+                "name": "Reaper Enchantment: PRR"
             },
             {
                 "affixes": [
@@ -1967,7 +1967,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Magical Resistance Rating"
+                "name": "Reaper Enchantment: MRR"
             },
             {
                 "affixes": [
@@ -2014,7 +2014,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Physical Resistance Rating"
+                "name": "Reaper Enchantment: PRR"
             },
             {
                 "affixes": [
@@ -2024,7 +2024,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Magical Resistance Rating"
+                "name": "Reaper Enchantment: MRR"
             },
             {
                 "affixes": [
@@ -2066,7 +2066,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Physical Resistance Rating"
+                "name": "Reaper Enchantment: PRR"
             },
             {
                 "affixes": [
@@ -2076,7 +2076,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Magical Resistance Rating"
+                "name": "Reaper Enchantment: MRR"
             },
             {
                 "affixes": [
@@ -2138,7 +2138,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Physical Resistance Rating"
+                "name": "Reaper Enchantment: PRR"
             },
             {
                 "affixes": [
@@ -2148,7 +2148,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Magical Resistance Rating"
+                "name": "Reaper Enchantment: MRR"
             },
             {
                 "affixes": [
@@ -2195,7 +2195,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Physical Resistance Rating"
+                "name": "Reaper Enchantment: PRR"
             },
             {
                 "affixes": [
@@ -2205,7 +2205,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Magical Resistance Rating"
+                "name": "Reaper Enchantment: MRR"
             },
             {
                 "affixes": [
@@ -2225,7 +2225,7 @@
                         "value": "1"
                     }
                 ],
-                "name": "Reaper Ring Boost (+1 Spell, Tactical, and Assassinate DCs)"
+                "name": "Reaper Ring Boost: +1 Spell, Tactical, and Assassinate DCs"
             },
             {
                 "affixes": [
@@ -2235,7 +2235,7 @@
                         "value": "10"
                     }
                 ],
-                "name": "Reaper Ring Boost (+10 Universal Spell Power)"
+                "name": "Reaper Ring Boost: +10 Universal Spell Power"
             },
             {
                 "affixes": [
@@ -2250,7 +2250,7 @@
                         "value": "5"
                     }
                 ],
-                "name": "Reaper Ring Boost (+5 Melee / Ranged Power)"
+                "name": "Reaper Ring Boost: +5 Melee / Ranged Power"
             },
             {
                 "affixes": [
@@ -2265,7 +2265,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Ring Boost (+3% Spell Cost Reduction, +3 MRR)"
+                "name": "Reaper Ring Boost: +3% Spell Cost Reduction, +3 MRR"
             }
         ],
         "Trinket": [
@@ -2297,7 +2297,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Physical Resistance Rating"
+                "name": "Reaper Enchantment: PRR"
             },
             {
                 "affixes": [
@@ -2307,7 +2307,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Magical Resistance Rating"
+                "name": "Reaper Enchantment: MRR"
             }
         ],
         "Weapon": [
@@ -2339,7 +2339,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Physical Resistance Rating"
+                "name": "Reaper Enchantment: PRR"
             },
             {
                 "affixes": [
@@ -2349,7 +2349,7 @@
                         "value": "3"
                     }
                 ],
-                "name": "Reaper Enchantment: Magical Resistance Rating"
+                "name": "Reaper Enchantment: MRR"
             }
         ]
     }

@@ -74,14 +74,14 @@ describe('ItemsWithBonusTypeComponent', () => {
       const element = show('Physical Sheltering', 'Mythic');
 
       expect(component.itemBonusMatches.map(match => [match.slot, match.option.name, match.value, match.chosen])).toEqual([
-        ['Armor', 'Mythic +4 (PRR/MRR)', 4, false],
-        ['Helm', 'Mythic +3 (PRR/MRR)', 3, false],
+        ['Armor', 'Mythic +4: PRR/MRR', 4, false],
+        ['Helm', 'Mythic +3: PRR/MRR', 3, false],
       ]);
 
       rows(element)[0].querySelector<HTMLButtonElement>('.equip-button')!.click();
       fixture.detectChanges();
 
-      expect(component.equipped.getSlotsSnapshot().get('Armor')?.bonuses.mythic?.name).toBe('Mythic +4 (PRR/MRR)');
+      expect(component.equipped.getSlotsSnapshot().get('Armor')?.bonuses.mythic?.name).toBe('Mythic +4: PRR/MRR');
       expect(rows(element)[0].querySelector('.equip-button')).toBeNull();
       expect(rows(element)[0].querySelector('.item-bonus-match-set')).not.toBeNull();
     });

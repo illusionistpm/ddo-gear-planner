@@ -51,7 +51,7 @@ function makeRandom(seed: number) {
 
 type Params = Record<string, string | number | boolean | string[]>;
 
-const ITEM_BONUS_NAMES = ['Mythic +4 (Melee/Ranged/Spell Power)', 'Reaper Ring Boost (2)', "Curse of the Anger's Heart"];
+const ITEM_BONUS_NAMES = ['Mythic +4: Power', 'Reaper Ring Boost (2)', "Curse of the Anger's Heart"];
 
 /**
  * Mythic Boosts, Reaper bonuses and Curses on some equipped slots. Drawn from their own stream, so

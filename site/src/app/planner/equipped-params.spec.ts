@@ -134,13 +134,13 @@ describe('EquippedService building items from params', () => {
     it('puts each on the item in the slot its key names', () => {
       service.updateFromParams(paramsOf({
         Helm: helm,
-        mythic_Helm: 'Mythic +3 (PRR/MRR)',
+        mythic_Helm: 'Mythic +3: PRR/MRR',
         reaper_Helm: 'Reaper Helmet Enchantment',
         curse_Helm: 'Curse of Major Strength',
       }));
 
       expect(bonusNames(slot('Helm'))).toEqual({
-        mythic: 'Mythic +3 (PRR/MRR)',
+        mythic: 'Mythic +3: PRR/MRR',
         reaper: 'Reaper Helmet Enchantment',
         curse: 'Curse of Major Strength',
       });
@@ -153,7 +153,7 @@ describe('EquippedService building items from params', () => {
 
       service.updateFromParams(paramsOf({
         Helm: helm,
-        mythic_Helm: 'Mythic +4 (Melee/Ranged/Spell Power)',
+        mythic_Helm: 'Mythic +4: Power',
         Quiver: quiver.name,
         curse_Quiver: 'Curse of Major Strength',
         curse_Boots: 'Curse of Major Strength',
@@ -169,17 +169,17 @@ describe('EquippedService building items from params', () => {
       const ring = gearDb.getGearBySlot('Ring2')[0];
       const item = new Item(ring);
       item.bonuses.curse = TestBed.inject(ItemBonusService).find('curse', 'Ring2', 'Curse of the Unbreakable');
-      item.bonuses.reaper = TestBed.inject(ItemBonusService).find('reaper', 'Ring2', 'Reaper Ring Boost (+10 Universal Spell Power)');
+      item.bonuses.reaper = TestBed.inject(ItemBonusService).find('reaper', 'Ring2', 'Reaper Ring Boost: +10 Universal Spell Power');
 
       service.set(item);
 
       expect(written!['curse_Ring2']).toBe('Curse of the Unbreakable');
-      expect(written!['reaper_Ring2']).toBe('Reaper Ring Boost (+10 Universal Spell Power)');
+      expect(written!['reaper_Ring2']).toBe('Reaper Ring Boost: +10 Universal Spell Power');
       expect(written!['mythic_Ring2']).toBeUndefined();
 
       const record = Object.fromEntries(Object.entries(written!).filter(([, value]) => typeof value === 'string')) as Record<string, string>;
       service.updateFromParams(paramsOf(record));
-      expect(bonusNames(slot('Ring2'))).toEqual({ curse: 'Curse of the Unbreakable', reaper: 'Reaper Ring Boost (+10 Universal Spell Power)' });
+      expect(bonusNames(slot('Ring2'))).toEqual({ curse: 'Curse of the Unbreakable', reaper: 'Reaper Ring Boost: +10 Universal Spell Power' });
     });
   });
 

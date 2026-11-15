@@ -13,14 +13,14 @@ describe('ItemBonusService', () => {
   });
 
   it('offers Mythic values by slot: +2/+4 on weapons and armor, +1/+3 on clothing and jewelry', () => {
-    expect(names('Weapon', 'mythic')).toEqual(['Mythic +2 (Melee/Ranged/Spell Power)', 'Mythic +4 (Melee/Ranged/Spell Power)']);
-    expect(names('Cloak', 'mythic')).toEqual(['Mythic +1 (PRR/MRR)', 'Mythic +3 (PRR/MRR)']);
+    expect(names('Weapon', 'mythic')).toEqual(['Mythic +2: Power', 'Mythic +4: Power']);
+    expect(names('Cloak', 'mythic')).toEqual(['Mythic +1: PRR/MRR', 'Mythic +3: PRR/MRR']);
   });
 
   it('offers both rings the ring bonuses', () => {
     expect(names('Ring1', 'reaper')).toEqual(names('Ring2', 'reaper'));
-    expect(names('Ring1', 'reaper')).toContain('Reaper Ring Boost (+3% Spell Cost Reduction, +3 MRR)');
-    expect(names('Ring1', 'mythic')).toEqual(['Mythic +1 (Melee/Ranged/Spell Power)', 'Mythic +3 (Melee/Ranged/Spell Power)']);
+    expect(names('Ring1', 'reaper')).toContain('Reaper Ring Boost: +3% Spell Cost Reduction, +3 MRR');
+    expect(names('Ring1', 'mythic')).toEqual(['Mythic +1: Power', 'Mythic +3: Power']);
   });
 
   it('offers every curse on every slot but Quiver', () => {
@@ -99,12 +99,12 @@ describe('Item bonuses', () => {
   it('copies its bonuses with the item, without sharing the copy\'s choices', () => {
     const helm = makeHelm();
     const bonuses = TestBed.inject(ItemBonusService);
-    helm.bonuses.mythic = bonuses.find('mythic', 'Helm', 'Mythic +3 (PRR/MRR)');
+    helm.bonuses.mythic = bonuses.find('mythic', 'Helm', 'Mythic +3: PRR/MRR');
 
     const copy = new Item(helm);
     copy.bonuses.curse = bonuses.find('curse', 'Helm', 'Curse of Major Strength');
 
-    expect(copy.bonuses.mythic?.name).toBe('Mythic +3 (PRR/MRR)');
+    expect(copy.bonuses.mythic?.name).toBe('Mythic +3: PRR/MRR');
     expect(helm.bonuses.curse).toBeUndefined();
   });
 

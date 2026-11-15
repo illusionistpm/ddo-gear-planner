@@ -234,12 +234,12 @@ describe('BuildUrlCodecService', () => {
     expect(service.inspect(craftEncoded).compactPayload?.x).toBeUndefined();
 
     const bonusEncoded = service.encode({
-      mythic_Weapon: 'Mythic +4 (Melee/Ranged/Spell Power)',
+      mythic_Weapon: 'Mythic +4: Power',
       reaper_Ring1: 'Reaper Ring Boost (2)',
       curse_Ring1: 'Curse of Major Strength'
     });
     expect(service.inspect(bonusEncoded).compactPayload).toEqual({
-      my: { w: 'Mythic +4 (Melee/Ranged/Spell Power)' },
+      my: { w: 'Mythic +4: Power' },
       rp: { r1: 'Reaper Ring Boost (2)' },
       cu: { r1: 'Curse of Major Strength' }
     });
@@ -248,7 +248,7 @@ describe('BuildUrlCodecService', () => {
   it('round-trips Mythic Boosts, Reaper bonuses and Curses, and decodes a link without them as before', () => {
     const params = {
       Helm: 'Epic Deific Diadem',
-      mythic_Helm: 'Mythic +3 (PRR/MRR)',
+      mythic_Helm: 'Mythic +3: PRR/MRR',
       reaper_Helm: 'Reaper Helmet Enchantment',
       curse_Helm: 'Curse of the Unbreakable'
     };

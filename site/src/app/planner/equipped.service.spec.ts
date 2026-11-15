@@ -1056,17 +1056,17 @@ describe('EquippedService', () => {
 
     it('keeps a slot\'s bonuses when a different item goes into it', () => {
       service.set(makeItem('Old Helm', 'Helm', 'Helm', []));
-      service.setItemBonus('Helm', 'mythic', bonuses.find('mythic', 'Helm', 'Mythic +3 (PRR/MRR)'));
+      service.setItemBonus('Helm', 'mythic', bonuses.find('mythic', 'Helm', 'Mythic +3: PRR/MRR'));
 
       service.set(makeItem('New Helm', 'Helm', 'Helm', []));
 
       expect(service.getSlotsSnapshot().get('Helm')?.name).toBe('New Helm');
-      expect(bonusNames('Helm')).toEqual({ mythic: 'Mythic +3 (PRR/MRR)' });
+      expect(bonusNames('Helm')).toEqual({ mythic: 'Mythic +3: PRR/MRR' });
     });
 
     it('takes the same item set again as it is given, so a bonus can be removed', () => {
       service.set(makeItem('Old Helm', 'Helm', 'Helm', []));
-      service.setItemBonus('Helm', 'mythic', bonuses.find('mythic', 'Helm', 'Mythic +3 (PRR/MRR)'));
+      service.setItemBonus('Helm', 'mythic', bonuses.find('mythic', 'Helm', 'Mythic +3: PRR/MRR'));
 
       service.set(makeItem('Old Helm', 'Helm', 'Helm', []));
 

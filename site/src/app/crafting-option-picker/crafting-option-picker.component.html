@@ -35,6 +35,10 @@
                 @if (tier.owned) {
                   <span class="owned-badge crafting-picker-owned">Owned</span>
                 }
+                @if (tier.gain; as gain) {
+                  <span class="crafting-picker-gain" [attr.data-direction]="gain.direction"
+                      [title]="gainTitle">{{gain.text}}</span>
+                }
               </button>
             } @else {
               @let family = entry.family;
@@ -61,6 +65,10 @@
                 @if (family.aside) {
                   <span class="crafting-picker-entry-aside" [class.crafting-picker-entry-note]="family.asideIsNote">{{family.aside}}</span>
                 }
+                @if (family.bestTier.gain; as gain) {
+                  <span class="crafting-picker-gain" [attr.data-direction]="gain.direction"
+                      [title]="single ? gainTitle : 'Its best tier: ' + gainTitle">{{gain.text}}</span>
+                }
               </button>
             }
           } @empty {
@@ -75,6 +83,19 @@
             </div>
           }
         </div>
+        @if (activeDetail; as detail) {
+          <div class="crafting-picker-detail">
+            @if (detail.heading) {
+              <div class="crafting-picker-detail-heading">{{detail.heading}}</div>
+            }
+            @for (line of detail.changeLines; track $index) {
+              <div>{{line}}</div>
+            }
+            @if (detail.why) {
+              <div class="crafting-picker-detail-why">{{detail.why}}</div>
+            }
+          </div>
+        }
       }
     </div>
   </div>

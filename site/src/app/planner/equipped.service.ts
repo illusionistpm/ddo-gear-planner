@@ -1309,6 +1309,18 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     return { rank: after.filter(value => value === best).length > 1 ? AffixRank.BestTied : AffixRank.Best };
   }
 
+  /**
+   * What the build would get from one bonus type of an affix once `candidate` replaced its slot,
+   * the candidate's own affixes counted: the best value, or the sum for a summed type.
+   */
+  getValueForAffixTypeAsEquipped(affixName: string, bonusType: string, candidate: RankCandidate): number {
+    const own = candidate.activeAffixes
+      .filter(affix => affix.name === affixName && affix.type === bonusType)
+      .map(affix => affix.value);
+    return combineBonusTypeValues(bonusType,
+      this.getValuesForAffixType(affixName, bonusType, candidate).map(entry => entry.value).concat(own));
+  }
+
   private _updateCoveredAffixes(updateRouterState = true) {
     // affixName => Array of {bonusType, Array of {slot: value}}
     this.setOnlyUncoveredSets = undefined;

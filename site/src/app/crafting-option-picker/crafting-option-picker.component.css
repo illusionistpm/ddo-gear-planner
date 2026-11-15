@@ -115,6 +115,62 @@
     margin-left: var(--space-4);
 }
 
+/* What the option adds to the build. Never wraps away from its row: it is the figure to compare. */
+.crafting-picker-gain {
+    color: var(--text-secondary);
+    flex: none;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    max-width: 50%;
+    text-align: right;
+}
+
+.crafting-picker-gain[data-direction="up"] {
+    color: var(--success-color);
+}
+
+.crafting-picker-gain[data-direction="up"]::before {
+    content: "\25B2\00A0";
+    font-size: 0.75em;
+}
+
+.crafting-picker-gain[data-direction="down"] {
+    color: var(--danger-color);
+}
+
+.crafting-picker-gain[data-direction="down"]::before {
+    content: "\25BC\00A0";
+    font-size: 0.75em;
+}
+
+/*
+ * The highlighted entry in full. Always three lines tall, scrolling past that: a height that
+ * followed its text would move the list under the pointer, which highlights another entry, which
+ * changes the height again.
+ */
+.crafting-picker-detail {
+    border-top: 1px solid var(--border-color);
+    box-sizing: content-box;
+    flex: none;
+    height: 3.9em;
+    overflow-y: auto;
+    padding: var(--space-4) var(--space-8) 0;
+    line-height: 1.3;
+}
+
+.crafting-picker-detail-heading,
+.crafting-picker-detail-why {
+    color: var(--text-secondary);
+    white-space: pre-line;
+}
+
+/* A tap picks, so nothing is ever highlighted to describe. */
+@media (max-width: 575.98px), (hover: none) {
+    .crafting-picker-detail {
+        display: none;
+    }
+}
+
 .crafting-picker-entry-note {
     font-style: italic;
 }
@@ -175,8 +231,17 @@
         row-gap: 0;
     }
 
+    /* The gain stays at the end of the first line; the aside drops below both. */
     .crafting-picker-family .crafting-picker-entry-label {
-        flex: 1 1 100%;
+        flex: 1 1 0;
+    }
+
+    .crafting-picker-family .crafting-picker-gain {
+        order: 1;
+    }
+
+    .crafting-picker-family .crafting-picker-entry-aside {
+        order: 2;
     }
 
     .crafting-picker-family .crafting-picker-entry-aside {

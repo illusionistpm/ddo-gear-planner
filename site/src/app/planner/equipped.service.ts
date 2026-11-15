@@ -145,9 +145,12 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
   private openAugmentSlotsCache = new Map<string, Set<string>>();
   private availabilityWarmupToken = 0;
 
+  // Each slot's item, kept in step with the slot subjects: what the stacking rules iterate,
+  // on the gear list's hot ranking path, without reading every subject each time.
+  private readonly slotValues = new Map<string, Item | null>();
   // The build as the stacking rules in build-totals.ts read it, over the live slots.
   private readonly view: BuildView = {
-    items: () => this.slotEntries(),
+    items: () => this.slotValues,
     setBonuses: () => this.activeSetBonuses.getValue(),
     externalEntries: () => this.externalAffixes,
     filigreeFor: (affixName, bonusType) => this.filigree.getContributionsFor(affixName, bonusType),
@@ -184,8 +187,10 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     this.queryParams.register(this, this.params);
     this.queryParams.subscribe(this);
 
-    for (const slot of this.slots) {
-      slot[1].subscribe(() => {
+    for (const [slot, subject] of this.slots) {
+      subject.subscribe(item => {
+        // The first subscriber, so the stacking rules read the new item from here on.
+        this.slotValues.set(slot, item);
         this.refreshDerivedStateAfterSlotChange();
       });
     }
@@ -498,13 +503,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
 
   getActiveSets() {
     perfCount('EquippedService.getActiveSets');
-    return countSets(this.slotEntries());
-  }
-
-  private *slotEntries(): Generator<[string, Item | null]> {
-    for (const [slot, subject] of this.slots) {
-      yield [slot, subject.getValue()];
-    }
+    return countSets(this.slotValues);
   }
 
   private _updateActiveSetBonuses() {
@@ -554,7 +553,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
 
   /** The set bonuses the build would have once `candidate` replaced its slot. */
   private getSetBonusesWith(candidate: RankCandidate): Array<[string, Array<Affix>]> {
-    return [...countSets(this.slotEntries(), candidate.slot, candidate.sets)]
+    return [...countSets(this.slotValues, candidate.slot, candidate.sets)]
       .map(([set, pieces]) => [set, this.gearList.getSetBonus(set, pieces)]);
   }
 

@@ -55,6 +55,13 @@ describe('buildFamilyRows', () => {
     expect(row.aside).toBe('Topaz of Acid Absorption');
   });
 
+  it('names a value shared by several affixes once', () => {
+    const mythic = option({ name: 'Mythic +3 (PRR/MRR)', affixes: [
+      { name: 'Physical Sheltering', type: 'Mythic', value: 3 }, { name: 'Magical Sheltering', type: 'Mythic', value: 3 }] });
+
+    expect(rows([mythic])[0].detail).toBe('+3 Mythic');
+  });
+
   it('gives an option without a valued affix no detail, and its own description as its tier label', () => {
     const row = byLabel('Ghostly', rows([ghostly]));
 

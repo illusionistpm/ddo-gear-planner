@@ -16,8 +16,8 @@ import { QuestService } from '../gear/quest.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { UserGearService, UserItemLocation } from '../planner/user-gear.service';
 import { isCraftingSlotAvailable, normalizeAugmentSlots } from '../gear/augment-slots';
-import { CraftingSlotControlComponent } from '../crafting-slot-control/crafting-slot-control.component';
 import { CRAFTING_PICKER_MIN_OPTIONS } from '../crafting-option-picker/crafting-option-picker.component';
+import { CraftingSlotControlComponent } from '../crafting-slot-control/crafting-slot-control.component';
 import { ITEM_BONUS_KINDS, ItemBonusKind } from '../gear/item-bonus';
 import { ItemBonusService } from '../gear/item-bonus.service';
 import { ITEM_BONUS_KIND_LABELS, ItemBonusSettingsService } from '../planner/item-bonus-settings.service';
@@ -38,13 +38,6 @@ interface CraftingDisplayRow {
   important: boolean;
 }
 
-interface CraftingOptionDisplayRow {
-  option: CraftableOption;
-  className?: string;
-  tooltip?: string;
-  description: string;
-}
-
 /** A Mythic Boost, Reaper bonus or Curse row: shown for a system the player has switched on, or a bonus the item carries anyway. */
 interface ItemBonusDisplayRow {
   kind: ItemBonusKind;
@@ -58,8 +51,6 @@ interface ItemBonusDisplayRow {
   tooltip: string;
   important: boolean;
   selectedOptionTooltip: string;
-  /** The native select's options, ranked as if chosen. Empty when the list is long enough for the picker, which ranks its own. */
-  options: CraftingOptionDisplayRow[];
 }
 
 interface SetDisplayRow {
@@ -87,8 +78,9 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
   affixRows: AffixDisplayRow[] = [];
   craftingRows: CraftingDisplayRow[] = [];
   bonusRows: ItemBonusDisplayRow[] = [];
-  setRows: SetDisplayRow[] = [];
+  /** A bonus list shorter than a crafting list that gets the full picker is shown compact. */
   readonly craftingPickerMinOptions = CRAFTING_PICKER_MIN_OPTIONS;
+  setRows: SetDisplayRow[] = [];
   @ViewChildren(CraftingSlotControlComponent) private craftingControls?: QueryList<CraftingSlotControlComponent>;
   private subscriptions = new Subscription();
   private bonusOptionLists = new WeakMap<readonly CraftableOption[], CraftableOption[]>();
@@ -210,26 +202,9 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     return rows;
   }
 
-  /** A native select's option rows for a bonus list, each ranked as if chosen in `context`. */
-  private buildBonusOptionRows(visibleOptions: CraftableOption[], context: CraftingOptionContext): CraftingOptionDisplayRow[] {
-    const done = perfAggregateStart('GearDescriptionComponent.buildBonusOptionRows');
-    const slot = context.item.slot;
-    const rows = visibleOptions.map(option => {
-      const ranking = this.affixUi.rankCraftingOption(option, slot, false, context);
-      return {
-        option,
-        className: ranking.className,
-        tooltip: ranking.tooltip || undefined,
-        description: option.describe()
-      };
-    });
-    done({ rows: rows.length });
-    return rows;
-  }
-
   /**
    * The Mythic, Reaper and Curse rows, built like crafting rows: the chosen bonus ranked with the item as
-   * it is, and each option ranked as if it replaced it. A list long enough gets the crafting picker.
+   * it is, and each option ranked as if it replaced it. Every list uses the crafting picker, whose entries wrap.
    */
   private buildBonusRows(): ItemBonusDisplayRow[] {
     const item = this.curItem;
@@ -248,7 +223,6 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
       }
       const selected = carried ?? this.itemBonuses.none;
       const context: CraftingOptionContext = { item, bonusKind: kind };
-      const usesPicker = visibleOptions.length >= CRAFTING_PICKER_MIN_OPTIONS;
       const selectedAffix = selected.affixes[0];
       rows.push({
         kind,
@@ -260,9 +234,6 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
         tooltip: this.affixUi.getCraftingOptionRankTooltip(selected, item.slot, candidate),
         important: selectedAffix ? this.equipped.isImportantAffix(selectedAffix.name) : false,
         selectedOptionTooltip: this.affixUi.getCraftingOptionTooltip(selected),
-        options: visibleOptions.length && !usesPicker
-          ? this.buildBonusOptionRows(visibleOptions, context)
-          : [],
       });
     }
     return rows;

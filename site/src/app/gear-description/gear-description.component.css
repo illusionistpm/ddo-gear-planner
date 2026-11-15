@@ -23,6 +23,12 @@ select.form-control.SmallFont {
     padding: var(--space-4) 1.75rem var(--space-4) var(--space-8);
 }
 
+/* The bonus rows' picker fills its cell, as a crafting row's does (crafting-slot-control's CSS). */
+.crafting-option-picker {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
 .hover-helper .show-on-hover {
     visibility: hidden;
 }

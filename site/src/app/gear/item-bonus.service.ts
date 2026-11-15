@@ -20,8 +20,8 @@ function dataSlotFor(slot: string): string {
   providedIn: 'root'
 })
 export class ItemBonusService {
-  /** What a bonus dropdown lists first, as a crafting slot lists its empty option. Never stored on an item. */
-  readonly none = new CraftableOption(null, 'None');
+  /** A bonus list's empty option, blank on the card and "Empty" in the list, as a crafting slot's is. Never stored on an item. */
+  readonly none = new CraftableOption(null);
 
   private index?: Map<ItemBonusKind, Map<string, readonly CraftableOption[]>>;
   private curses?: readonly CraftableOption[];

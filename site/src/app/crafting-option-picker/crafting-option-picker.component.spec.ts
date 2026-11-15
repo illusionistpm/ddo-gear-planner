@@ -302,4 +302,40 @@ describe('CraftingOptionPickerComponent', () => {
 
     expect(emitted).toEqual([acid]);
   });
+
+  describe('compact, for a short list', () => {
+    beforeEach(() => {
+      localStorage.setItem(HIDE_KEY, 'true');
+      fixture.componentRef.setInput('compact', true);
+      // Out of order, the empty option last: the list puts it first and keeps the rest as given.
+      fixture.componentRef.setInput('options', [charisma[2], charisma[3], acid, empty]);
+      fixture.detectChanges();
+    });
+
+    it('lists every option as its own entry, empty first, with no search box or hide toggle', async () => {
+      await open();
+
+      expect(searchBox()).toBeNull();
+      expect(hideCheckbox()).toBeNull();
+      expect(familyLabels()).toEqual(['Empty', 'Charisma', 'Charisma', 'Acid Absorption']);
+    });
+
+    it('picks an option in one click, where a full list would expand its family first', async () => {
+      await open();
+
+      Array.from(document.body.querySelectorAll<HTMLButtonElement>('.crafting-picker-family'))[2].click();
+
+      expect(emitted).toEqual([charisma[3]]);
+    });
+
+    it('moves through the entries with the arrow keys', async () => {
+      await open();
+      const list = document.body.querySelector('.crafting-picker-list')!;
+
+      list.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+      list.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+
+      expect(emitted).toEqual([charisma[2]]);
+    });
+  });
 });

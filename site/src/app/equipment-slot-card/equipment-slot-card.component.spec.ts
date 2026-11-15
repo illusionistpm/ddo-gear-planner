@@ -78,19 +78,27 @@ describe('EquipmentSlotCardComponent', () => {
 
     const bonusRows = (card: HTMLElement) => Array.from(card.querySelectorAll<HTMLElement>('.item-bonus-row'));
     const rowLabels = (card: HTMLElement) => bonusRows(card).map(row => row.querySelector('.col')!.textContent!.trim());
-    const optionClass = (row: HTMLElement, name: string) => Array.from(row.querySelectorAll('option'))
-      .find(option => option.textContent!.trim() === name)!.className;
-
-    function choose(row: HTMLElement, optionName: string) {
-      const select = row.querySelector('select')!;
-      select.selectedIndex = Array.from(select.options).findIndex(option => option.textContent!.trim() === optionName);
-      select.dispatchEvent(new Event('change'));
-      fixture.detectChanges();
+    /** The crafting picker in a bonus row. */
+    function pickerIn(row: HTMLElement): CraftingOptionPickerComponent {
+      const picker = fixture.debugElement.queryAll(By.directive(CraftingOptionPickerComponent))
+        .find(debug => row.contains(debug.nativeElement));
+      expect(picker).toBeTruthy();
+      return picker!.componentInstance as CraftingOptionPickerComponent;
     }
 
-    function chooseCurse(card: HTMLElement, name: string) {
-      const picker = fixture.debugElement.query(By.directive(CraftingOptionPickerComponent)).componentInstance as CraftingOptionPickerComponent;
-      picker.selectedChange.emit(picker.options.find(option => option.name === name));
+    /** The rank class an option gets in its row's list, opened as a player would. */
+    function optionClass(row: HTMLElement, name: string): string {
+      const picker = pickerIn(row);
+      picker.onOpenChange(true);
+      const tier = picker.families.flatMap(family => family.tiers).find(t => t.option.describe() === name);
+      picker.onOpenChange(false);
+      expect(tier).toBeTruthy();
+      return tier!.className;
+    }
+
+    function choose(row: HTMLElement, optionName: string) {
+      const picker = pickerIn(row);
+      picker.selectedChange.emit(picker.options.find(option => option.describe() === optionName));
       fixture.detectChanges();
     }
 
@@ -130,7 +138,7 @@ describe('EquipmentSlotCardComponent', () => {
 
       expect(rowLabels(card)).toEqual(['Reaper']);
 
-      choose(bonusRows(card)[0], 'None');
+      choose(bonusRows(card)[0], '');
 
       expect(bonusRows(card)).toEqual([]);
     });
@@ -142,8 +150,8 @@ describe('EquipmentSlotCardComponent', () => {
       const [mythic, reaper] = bonusRows(card);
 
       expect(optionClass(mythic, 'Mythic +3 (PRR/MRR)')).toBe('BetterThanBest');
-      expect(optionClass(mythic, 'None')).toBe('Irrelevant');
-      expect(optionClass(reaper, 'Reaper Enchantment: Physical Resistance Rating')).toBe('BetterThanBest');
+      expect(optionClass(mythic, '')).toBe('Irrelevant');
+      expect(optionClass(reaper, 'Reaper Enchantment: PRR')).toBe('BetterThanBest');
       expect(optionClass(reaper, 'Reaper Enchantment: Power')).toBe('Irrelevant');
     });
 
@@ -157,13 +165,18 @@ describe('EquipmentSlotCardComponent', () => {
       expect(optionClass(bonusRows(card)[0], 'Mythic +1 (PRR/MRR)')).toBe('Outranked');
     });
 
-    it('picks a curse from the searchable list long crafting lists use', () => {
+    it('picks every bonus from the crafting picker, whose entries wrap', () => {
       const card = equip('Helm');
-      switchOn('curse');
+      switchOn('mythic', 'reaper', 'curse');
 
-      expect(bonusRows(card)[0].querySelector('app-crafting-option-picker')).not.toBeNull();
+      expect(bonusRows(card).map(row => !!row.querySelector('app-crafting-option-picker'))).toEqual([true, true, true]);
+      expect(card.querySelector('.item-bonus-row select')).toBeNull();
+      // Mythic's and Reaper's few options are listed outright; the curses keep search.
+      expect(bonusRows(card).map(row => pickerIn(row).compact)).toEqual([true, true, false]);
+      // Nothing chosen reads as blank, as an empty crafting slot does.
+      expect(bonusRows(card).map(row => row.querySelector('.crafting-picker-toggle-label')!.textContent!.trim())).toEqual(['', '', '']);
 
-      chooseCurse(card, 'Curse of Major Strength');
+      choose(bonusRows(card)[2], 'Curse of Major Strength');
 
       expect(equipped.getSlotsSnapshot().get('Helm')?.bonuses.curse?.name).toBe('Curse of Major Strength');
     });
@@ -173,7 +186,7 @@ describe('EquipmentSlotCardComponent', () => {
       switchOn('mythic');
       choose(bonusRows(card)[0], 'Mythic +3 (PRR/MRR)');
 
-      choose(bonusRows(card)[0], 'None');
+      choose(bonusRows(card)[0], '');
 
       expect(equipped.getSlotsSnapshot().get('Helm')?.bonuses).toEqual({});
       expect(rowLabels(card)).toEqual(['Mythic']);

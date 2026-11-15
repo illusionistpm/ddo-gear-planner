@@ -125,9 +125,11 @@ function familyDetail(family: CraftingOptionFamily, text: CraftingOptionText): s
   }
   const typed = first.affixes.filter(affix => affix.hasRealType());
   // Tiers differ in value, so a family shows just the types; the range goes on the right.
-  return family.tiers.length > 1
-    ? typed.map(affix => affix.type).join(', ')
-    : typed.map(affix => text.getAffixValueText(affix)).join(', ');
+  // Each only once: a Mythic Boost's +3 to PRR and MRR reads "+3 Mythic", not "+3 Mythic, +3 Mythic".
+  const parts = family.tiers.length > 1
+    ? typed.map(affix => affix.type)
+    : typed.map(affix => text.getAffixValueText(affix));
+  return [...new Set(parts)].join(', ');
 }
 
 function familyAside(family: CraftingOptionFamily, text: CraftingOptionText): string {

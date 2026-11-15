@@ -4,6 +4,7 @@ import { ExternalAffixEntry, NON_GEAR_SLOT } from './external-affix';
 import { FiligreeHost, SUMMED_FILIGREE_BONUS_TYPES } from '../gear/filigree';
 import type { Item } from '../gear/item';
 import type { FiligreeContribution } from '../planner/filigree-loadout';
+import { isBoolAffixTypes, makeDisplayType, TrackedBonusTypeDisplay, visibleTypesOf } from './tracked-affix-derivation';
 
 /**
  * How a build's bonuses stack, as pure functions over what the build has equipped.
@@ -179,3 +180,83 @@ export function countSets(items: Iterable<[string, Item | null]>, skipSlot?: str
   return counts;
 }
 
+/** One bonus type's row of an affix's total, with where its value comes from. */
+export interface AffixTypeTotal {
+  /** "Enhancement", or "Universal Implement" for a universal companion's row. */
+  label: string;
+  /** The affix the row reads: the tracked one, or its universal companion. */
+  sourceAffixName: string;
+  bonusType: string;
+  value: number;
+  sources: AffixSource[];
+  /** The player ignores this bonus type. It still counts, as it does in the planner. */
+  ignored: boolean;
+}
+
+export interface AffixTotal {
+  name: string;
+  /** An on/off affix (an immunity, say): total is 1 when the build has it. */
+  checklist: boolean;
+  total: number;
+  /** The rows that make up the total, sorted as the planner sorts them; only those with a value. */
+  types: AffixTypeTotal[];
+  /** An equipped item carries a penalty to it. Penalties aren't numbers, so not in the total. */
+  hasPenalty: boolean;
+}
+
+/** What affixTotal needs to know about the game data. */
+export interface AffixTotalRules {
+  allLevelTypes(affixName: string): string[];
+  isUniversalCompanionOnly(affixName: string, bonusType: string): boolean;
+  isGroupMember(affixName: string, groupName: string): boolean;
+}
+
+/**
+ * The build's total for an affix, as the planner's Tracked Affixes table adds it up, over every
+ * bonus type the affix has at any level - so, unlike the planner, whatever its level filters.
+ */
+export function affixTotal(view: BuildView, affixSvc: AffixService, rules: AffixTotalRules, name: string): AffixTotal {
+  const value = (affixName: string, bonusType: string) => bestValueFor(view, affixSvc, affixName, bonusType);
+  const allTypes = rules.allLevelTypes(name);
+  const covered = allTypes.filter(bonusType => bonusType !== 'Penalty')
+    .map(bonusType => ({ bonusType, value: value(name, bonusType) }));
+  const hasPenalty = allTypes.includes('Penalty') && hasPenaltyTo(view, affixSvc, name);
+
+  if (isBoolAffixTypes(covered)) {
+    const has = covered[0].value > 0;
+    return {
+      name, checklist: true, total: has ? 1 : 0, hasPenalty,
+      types: has ? [typeTotal(view, affixSvc, name, makeDisplayType(name, 'Bool', covered[0].value))] : [],
+    };
+  }
+
+  const rows = visibleTypesOf(covered, name, value, { ...rules, isAvailable: () => false });
+  return {
+    name,
+    checklist: false,
+    total: rows.reduce((sum, row) => sum + row.value, 0),
+    types: rows.map(row => typeTotal(view, affixSvc, name, row)),
+    hasPenalty,
+  };
+}
+
+function typeTotal(view: BuildView, affixSvc: AffixService, name: string, row: TrackedBonusTypeDisplay): AffixTypeTotal {
+  return {
+    label: row.label,
+    sourceAffixName: row.sourceAffixName,
+    bonusType: row.bonusType,
+    value: row.value,
+    sources: sourcesFor(view, affixSvc, row.sourceAffixName, row.sourceBonusType),
+    ignored: view.externalEntries().some(entry => entry.kind === 'ignored'
+      && entry.affixName === name && entry.bonusType === row.bonusType),
+  };
+}
+
+function hasPenaltyTo(view: BuildView, affixSvc: AffixService, name: string): boolean {
+  for (const [, item] of view.items()) {
+    if (item && affixSvc.getActiveAffixes(item).some(affix => affix.name === name && affix.type === 'Penalty')) {
+      return true;
+    }
+  }
+  return false;
+}

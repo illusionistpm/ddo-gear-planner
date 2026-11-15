@@ -3,9 +3,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppModule } from '../app.module';
 import { FiltersComponent } from './filters.component';
 import { NO_PACK_KEY } from '../gear/pack-filter';
-import { EquippedService } from '../planner/equipped.service';
-import { GearDbService } from '../gear/gear-db.service';
-import { ItemBonusService } from '../gear/item-bonus.service';
 import { ItemBonusSettingsService } from '../planner/item-bonus-settings.service';
 
 describe('FiltersComponent', () => {
@@ -274,20 +271,12 @@ describe('FiltersComponent', () => {
 
   describe('Advanced bonuses', () => {
     const panel = () => fixture.nativeElement.querySelector('.bonus-systems-panel') as HTMLElement;
-    const system = (kind: string) => panel().querySelector(`[data-bonus-kind="${kind}"]`) as HTMLElement;
-    const toggle = (kind: string) => system(kind).querySelector('input') as HTMLInputElement;
+    const toggle = (kind: string) => panel().querySelector(`[data-bonus-kind="${kind}"] input`) as HTMLInputElement;
 
-    function equipHelm() {
-      const equipped = TestBed.inject(EquippedService);
-      equipped.set(TestBed.inject(GearDbService).getGearBySlot('Helm')[0]);
-      return equipped;
-    }
-
-    it('lists the three systems, all off, with nothing to act on', () => {
+    it('lists the three systems, all off', () => {
       expect(Array.from(panel().querySelectorAll('label')).map(label => label.textContent!.trim()))
         .toEqual(['Mythic Boosts', 'Reaper Bonuses', 'Curses']);
       expect(Array.from(panel().querySelectorAll('input')).map(input => input.checked)).toEqual([false, false, false]);
-      expect(panel().querySelector('.bonus-system-actions')).toBeNull();
     });
 
     it('switches one system on without the others', () => {
@@ -296,46 +285,8 @@ describe('FiltersComponent', () => {
 
       const settings = TestBed.inject(ItemBonusSettingsService);
       expect([...settings.getEnabledKindsSnapshot()]).toEqual(['reaper']);
-      expect(system('reaper').querySelector('.bonus-system-actions')).not.toBeNull();
-      expect(system('mythic').querySelector('.bonus-system-actions')).toBeNull();
-    });
-
-    it('fills the equipped gear for the build goals, then removes it again', () => {
-      const equipped = equipHelm();
-      equipped.setImportantAffixes(['Physical Sheltering']);
-      toggle('mythic').click();
-      fixture.detectChanges();
-
-      (system('mythic').querySelector('.bonus-system-fill') as HTMLButtonElement).click();
-      fixture.detectChanges();
-
-      expect(equipped.getSlotsSnapshot().get('Helm')?.bonuses.mythic?.name).toBe('Mythic +3 (PRR/MRR)');
-      expect(system('mythic').querySelector('.bonus-system-count')!.textContent).toBe('On 1 equipped item');
-
-      (system('mythic').querySelector('.bonus-system-clear') as HTMLButtonElement).click();
-      fixture.detectChanges();
-
-      expect(equipped.countItemBonuses('mythic')).toBe(0);
-      expect(system('mythic').querySelector('.bonus-system-clear')).toBeNull();
-    });
-
-    it('cannot fill without build goals to fill for', () => {
-      equipHelm();
-      toggle('mythic').click();
-      fixture.detectChanges();
-
-      expect((system('mythic').querySelector('.bonus-system-fill') as HTMLButtonElement).disabled).toBe(true);
-    });
-
-    it('offers to remove a bonus a build carries for a system that is off', () => {
-      const equipped = equipHelm();
-      equipped.setItemBonus('Helm', 'curse', TestBed.inject(ItemBonusService).find('curse', 'Helm', 'Curse of Major Strength'));
-      fixture.detectChanges();
-
-      expect(system('curse').querySelector('.bonus-system-fill')).toBeNull();
-      (system('curse').querySelector('.bonus-system-clear') as HTMLButtonElement).click();
-
-      expect(equipped.countItemBonuses('curse')).toBe(0);
+      expect(toggle('reaper').checked).toBe(true);
+      expect(toggle('mythic').checked).toBe(false);
     });
   });
 });

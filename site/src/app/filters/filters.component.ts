@@ -8,7 +8,6 @@ import { Output, EventEmitter } from '@angular/core';
 import { GameDataService } from '../gear/game-data.service';
 import { getPackInfo, getPackKeys, NO_PACK_KEY, PACK_COUPONS, PSEUDO_PACKS } from '../gear/pack-filter';
 import { ITEM_BONUS_KINDS, ItemBonusKind } from '../gear/item-bonus';
-import { EquippedService } from '../planner/equipped.service';
 import { ItemBonusSettingsService } from '../planner/item-bonus-settings.service';
 
 export interface PackOption {
@@ -55,13 +54,12 @@ function someChecked(options: ReadonlyArray<PackOption>): boolean {
 interface BonusSystemOption {
   kind: ItemBonusKind;
   name: string;
-  help: string;
 }
 
-const BONUS_SYSTEMS: Record<ItemBonusKind, Omit<BonusSystemOption, 'kind'>> = {
-  mythic: { name: 'Mythic Boosts', help: 'A random +1 to +4 Power or PRR/MRR on a named item.' },
-  reaper: { name: 'Reaper Bonuses', help: 'An extra enchantment on named loot from Reaper difficulty.' },
-  curse: { name: 'Curses', help: 'A curse applied to an item from the Deck of Many Curses.' },
+const BONUS_SYSTEM_NAMES: Record<ItemBonusKind, string> = {
+  mythic: 'Mythic Boosts',
+  reaper: 'Reaper Bonuses',
+  curse: 'Curses',
 };
 
 @Component({
@@ -94,7 +92,7 @@ export class FiltersComponent implements OnInit {
 
   @Output() troveFileSelected = new EventEmitter<File>();
   @Output() sortOwnedToTopChanged = new EventEmitter<boolean>();
-  readonly bonusSystems: BonusSystemOption[] = ITEM_BONUS_KINDS.map(kind => ({ kind, ...BONUS_SYSTEMS[kind] }));
+  readonly bonusSystems: BonusSystemOption[] = ITEM_BONUS_KINDS.map(kind => ({ kind, name: BONUS_SYSTEM_NAMES[kind] }));
   troveUploadStatus: string = '';
   userGearCount: number = 0;
 
@@ -103,8 +101,7 @@ export class FiltersComponent implements OnInit {
     private userGear: UserGearService,
     private analytics: AnalyticsService,
     private gameData: GameDataService,
-    public itemBonusSettings: ItemBonusSettingsService,
-    public equipped: EquippedService
+    public itemBonusSettings: ItemBonusSettingsService
   ) {
     this.packOptions = this.getAllPackOptions();
     this.packGroups = this.getPackGroups();
@@ -151,21 +148,6 @@ export class FiltersComponent implements OnInit {
   onToggleBonusSystem(kind: ItemBonusKind, enabled: boolean) {
     this.itemBonusSettings.setEnabled(kind, enabled);
     this.analytics.track('toggle_item_bonus_system', { kind, enabled });
-  }
-
-  /** Has goals to fill for: without any, no bonus is better than another. */
-  canAutoFillBonuses() {
-    return this.equipped.getImportantAffixes().size > 0 && !this.equipped.isBuildEmpty();
-  }
-
-  autoFillBonuses(kind: ItemBonusKind) {
-    this.equipped.autoFillItemBonuses(kind);
-    this.analytics.track('auto_fill_item_bonuses', { kind });
-  }
-
-  clearBonuses(kind: ItemBonusKind) {
-    this.equipped.clearItemBonuses(kind);
-    this.analytics.track('clear_item_bonuses', { kind });
   }
 
   onChangeLevelRange() {

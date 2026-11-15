@@ -1072,53 +1072,6 @@ describe('EquippedService', () => {
 
       expect(bonusNames('Helm')).toEqual({});
     });
-
-    it('fills every equipped item with the option that does most for the build goals', () => {
-      service.setImportantAffixes(['Physical Sheltering']);
-      service.set(makeItem('Helm', 'Helm', 'Helm', []));
-      service.set(makeItem('Armor', 'Armor', 'Armor', []));
-      service.set(makeItem('Belt', 'Belt', 'Belts', []));
-
-      service.autoFillItemBonuses('mythic');
-      service.autoFillItemBonuses('reaper');
-
-      expect(bonusNames('Helm')).toEqual({ mythic: 'Mythic +3 (PRR/MRR)', reaper: 'Reaper Enchantment: Physical Resistance Rating' });
-      expect(bonusNames('Armor').mythic).toBe('Mythic +4 (PRR/MRR)');
-      // A belt's Mythic Boost is Power only, which isn't a goal: left alone.
-      expect(bonusNames('Belt').mythic).toBeUndefined();
-      expect(service.countItemBonuses('mythic')).toBe(2);
-    });
-
-    it('fills a curse only where it adds to what the build has, since Fortune does not stack', () => {
-      service.setImportantAffixes(['Strength']);
-      service.set(makeItem('Helm', 'Helm', 'Helm', []));
-      service.set(makeItem('Armor', 'Armor', 'Armor', []));
-
-      service.autoFillItemBonuses('curse');
-
-      expect(service.countItemBonuses('curse')).toBe(1);
-      expect(service.getCurrentValueForAffixType('Strength', 'Fortune')).toBe(2);
-    });
-
-    it('keeps a bonus that already does more than any other would', () => {
-      service.setImportantAffixes(['Melee Power']);
-      service.set(makeItem('Helm', 'Helm', 'Helm', []));
-      service.setItemBonus('Helm', 'mythic', bonuses.find('mythic', 'Helm', 'Mythic +1 (PRR/MRR)'));
-
-      service.autoFillItemBonuses('mythic');
-
-      expect(bonusNames('Helm')).toEqual({ mythic: 'Mythic +1 (PRR/MRR)' });
-    });
-
-    it('removes every bonus of one kind, leaving the others', () => {
-      service.set(makeItem('Helm', 'Helm', 'Helm', []));
-      service.setItemBonus('Helm', 'mythic', bonuses.find('mythic', 'Helm', 'Mythic +3 (PRR/MRR)'));
-      service.setItemBonus('Helm', 'reaper', bonuses.find('reaper', 'Helm', 'Reaper Helmet Enchantment'));
-
-      service.clearItemBonuses('mythic');
-
-      expect(bonusNames('Helm')).toEqual({ reaper: 'Reaper Helmet Enchantment' });
-    });
   });
 
   it('covers a Fortune bonus, which does not stack, at its best value', () => {

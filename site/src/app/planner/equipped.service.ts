@@ -458,40 +458,6 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     done({ slot: item.slot, item: item.name });
   }
 
-  /** How many equipped items carry a bonus of `kind`. */
-  countItemBonuses(kind: ItemBonusKind): number {
-    return [...this.slots.values()].filter(subject => subject.getValue()?.bonuses[kind]).length;
-  }
-
-  /**
-   * Sets every equipped item's bonus of `kind` at once: to what `choose` picks from the options its slot
-   * can carry, or to none where it picks nothing. Slots that can't carry the kind are left alone. Items
-   * are set in slot order, each before the next is chosen, so `choose` sees the build so far.
-   */
-  setItemBonuses(kind: ItemBonusKind, choose: (item: Item, options: readonly CraftableOption[]) => CraftableOption | undefined) {
-    this.beginDerivedStateBatch();
-    try {
-      for (const [slot, subject] of this.slots) {
-        const item = subject.getValue();
-        const options = item ? this.itemBonuses.getOptions(kind, slot) : [];
-        const option = item && options.length ? choose(item, options) : undefined;
-        if (!item || !options.length || item.bonuses[kind] === option) {
-          continue;
-        }
-        const copy = new Item(item);
-        if (option) {
-          copy.bonuses[kind] = option;
-        } else {
-          delete copy.bonuses[kind];
-        }
-        this.setSlot(slot, copy);
-      }
-    } finally {
-      this.endDerivedStateBatch();
-    }
-    this._updateRouterState();
-  }
-
   /** Sets the bonus of `kind` on the item equipped in `slot`, or removes it. */
   setItemBonus(slot: string, kind: ItemBonusKind, option: CraftableOption | undefined) {
     const item = this.getSlotValue(slot);
@@ -506,42 +472,6 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     }
     this.setSlot(slot, copy);
     this._updateRouterState();
-  }
-
-  /** Removes every equipped item's bonus of `kind`. */
-  clearItemBonuses(kind: ItemBonusKind) {
-    this.setItemBonuses(kind, () => undefined);
-  }
-
-  /**
-   * Gives every equipped item the bonus of `kind` that does most for the build goals, scored as an item
-   * suggestion is (getScore): a type that stacks counts on every item, one that doesn't (a Curse's
-   * Fortune) only where it beats what the build already has - so a second item gets a different curse.
-   * An item none of whose options helps a goal keeps the bonus it has.
-   */
-  autoFillItemBonuses(kind: ItemBonusKind) {
-    this.setItemBonuses(kind, (item, options) => {
-      const withBonus = (option?: CraftableOption) => {
-        const copy = new Item(item);
-        if (option) {
-          copy.bonuses[kind] = option;
-        } else {
-          delete copy.bonuses[kind];
-        }
-        return this.getScore(copy);
-      };
-      let best = item.bonuses[kind];
-      let bestScore = withBonus(best);
-      const withoutScore = withBonus();
-      for (const option of options) {
-        const score = withBonus(option);
-        if (score > bestScore && score > withoutScore) {
-          best = option;
-          bestScore = score;
-        }
-      }
-      return best;
-    });
   }
 
   clearSlot(slot: string) {

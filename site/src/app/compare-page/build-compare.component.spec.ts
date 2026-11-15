@@ -110,16 +110,29 @@ describe('BuildCompareComponent', () => {
     expect(row('Fortification')!.textContent).toContain('tracked in Before');
   });
 
-  it('breaks a row down by bonus type, in bold where a side\'s source differs, with the change', async () => {
+  it('breaks a row down by bonus type, with what gives each side its value and the change', async () => {
     await create('old1', 'new1');
 
     const lines = Array.from(row(rings.affix)!.querySelectorAll('.compare-breakdown-row:not(.compare-breakdown-head)'));
     const line = lines.find(candidate => candidate.textContent!.includes(rings.weak.name))!;
     const sources = Array.from(line.querySelectorAll<HTMLElement>('.compare-source'))
-      .map(source => [source.textContent!.trim(), source.title, source.classList.contains('changed')]);
+      .map(source => [source.textContent!.trim(), source.title]);
 
-    expect(sources).toEqual([[rings.weak.name, 'Ring 1', true], [rings.strong.name, 'Ring 1', true]]);
+    expect(sources).toEqual([[rings.weak.name, 'Ring 1'], [rings.strong.name, 'Ring 1']]);
+    expect(line.querySelector('.compare-same')).toBeNull();
     expect(line.querySelector('.compare-delta')!.textContent!.trim()).toBe(`+${rings.strongValue - rings.weakValue}`);
+  });
+
+  it('says After is the same as Before rather than listing the same sources again', async () => {
+    // Nothing changed, so Changes only starts off and every row shows.
+    await create('old1', 'old1');
+
+    const line = row(rings.affix)!.querySelector('.compare-breakdown-row:not(.compare-breakdown-head)')!;
+    const [before, after] = Array.from(line.querySelectorAll('.compare-breakdown-side'));
+
+    expect(before.textContent).toContain(rings.weak.name);
+    expect(after.textContent).not.toContain(rings.weak.name);
+    expect(after.textContent).toContain('Same as before');
   });
 
   it('names an augment rather than its gear, with an eye that tells which gear it\'s in', async () => {

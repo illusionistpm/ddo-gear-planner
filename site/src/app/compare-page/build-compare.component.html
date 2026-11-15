@@ -223,7 +223,7 @@
               <ng-container *ngTemplateOutlet="side; context: { value: type.a, sources: type.aFrom, checklist: type.checklist }"></ng-container>
             </span>
             <span class="compare-breakdown-side" data-label="After">
-              <ng-container *ngTemplateOutlet="side; context: { value: type.b, sources: type.bFrom, checklist: type.checklist }"></ng-container>
+              <ng-container *ngTemplateOutlet="side; context: { value: type.b, sources: type.bFrom, checklist: type.checklist, same: type.sameSources }"></ng-container>
             </span>
             <span class="num">
               <span class="compare-delta small" [class]="deltaClass(type.delta)">{{deltaText(type.delta, type.checklist)}}</span>
@@ -247,14 +247,17 @@
   }
 </ng-template>
 
-<!-- One side of a bonus type: its value and what gives it, a source missing from the other side in bold. -->
-<ng-template #side let-value="value" let-sources="sources" let-checklist="checklist">
+<!-- One side of a bonus type: its value and what gives it, or for After, a note when that's what Before has. -->
+<ng-template #side let-value="value" let-sources="sources" let-checklist="checklist" let-same="same">
   <span class="compare-breakdown-value">
     <ng-container *ngTemplateOutlet="totalValue; context: { $implicit: value ?? 0, checklist: checklist }"></ng-container>
   </span>
   <span class="compare-breakdown-from">
+    @if (same) {
+      <span class="compare-same">Same as before</span>
+    } @else {
     @for (source of sources; track source.key) {
-      <span class="compare-source" [class.changed]="source.changed" [class.with-eye]="!!source.inGear" [title]="source.title">
+      <span class="compare-source" [class.with-eye]="!!source.inGear" [title]="source.title">
         <app-slot-icon [slot]="source.slot" [icon]="source.icon"></app-slot-icon><span class="compare-source-name">{{source.name}}</span>
         @if (source.inGear) {
           <app-tap-tooltip [text]="source.inGear" label="Which gear it's in">
@@ -264,6 +267,7 @@
       </span>
     } @empty {
       <span class="muted">—</span>
+    }
     }
   </span>
 </ng-template>

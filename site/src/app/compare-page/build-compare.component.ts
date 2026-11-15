@@ -41,8 +41,6 @@ export interface BreakdownSource {
   title: string;
   slot?: string;
   icon?: string;
-  /** The other side doesn't get this bonus type from it. */
-  changed: boolean;
   /** For an augment, the gear it's slotted in: "In Legendary Cranium Sphere (Necklace)". */
   inGear?: string;
 }
@@ -61,6 +59,8 @@ export interface BreakdownRow {
   delta: number;
   aFrom: BreakdownSource[];
   bFrom: BreakdownSource[];
+  /** After gets this bonus type from exactly what Before does, so its sources needn't be repeated. */
+  sameSources: boolean;
   ignored: boolean;
 }
 
@@ -331,6 +331,7 @@ function breakdownRowOf(a: AffixTypeTotal | undefined, b: AffixTypeTotal | undef
   const type = (a ?? b)!;
   const keysA = new Set((a?.sources ?? []).map(sourceKey));
   const keysB = new Set((b?.sources ?? []).map(sourceKey));
+  const sameSources = keysA.size > 0 && keysA.size === keysB.size && [...keysA].every(key => keysB.has(key));
   const valueA = a?.value ?? null;
   const valueB = b?.value ?? null;
   return {
@@ -341,8 +342,9 @@ function breakdownRowOf(a: AffixTypeTotal | undefined, b: AffixTypeTotal | undef
     a: valueA,
     b: valueB,
     delta: (valueB ?? 0) - (valueA ?? 0),
-    aFrom: (a?.sources ?? []).map(source => breakdownSourceOf(source, !keysB.has(sourceKey(source)))),
-    bFrom: (b?.sources ?? []).map(source => breakdownSourceOf(source, !keysA.has(sourceKey(source)))),
+    aFrom: (a?.sources ?? []).map(breakdownSourceOf),
+    bFrom: (b?.sources ?? []).map(breakdownSourceOf),
+    sameSources,
     ignored: !!a?.ignored || !!b?.ignored,
   };
 }
@@ -352,8 +354,8 @@ function sourceKey(source: AffixSource): string {
   return `${source.kind}|${source.augmentName ?? source.itemName}`;
 }
 
-function breakdownSourceOf(source: AffixSource, changed: boolean): BreakdownSource {
-  const base = { key: `${source.kind}|${source.slot}|${source.itemName}`, name: source.itemName, changed };
+function breakdownSourceOf(source: AffixSource): BreakdownSource {
+  const base = { key: `${source.kind}|${source.slot}|${source.itemName}`, name: source.itemName };
   switch (source.kind) {
     case 'item': return source.augmentName
       ? {

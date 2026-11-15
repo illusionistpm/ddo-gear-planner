@@ -350,9 +350,9 @@
   max-width: calc(100% - 3rem);
 }
 
-.compare-source.changed {
-  color: var(--text-primary);
-  font-weight: 700;
+.compare-same {
+  color: var(--text-secondary);
+  font-style: italic;
 }
 
 .compare-delta.small {

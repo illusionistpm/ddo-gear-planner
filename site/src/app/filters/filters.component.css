@@ -7,7 +7,7 @@
 .filters-grid {
   display: grid;
   gap: var(--space-12);
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .filter-panel {
@@ -193,6 +193,12 @@
 
 .pack-filter-option label {
   overflow-wrap: anywhere;
+}
+
+@media (max-width: 1399.98px) {
+  .filters-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 991.98px) {

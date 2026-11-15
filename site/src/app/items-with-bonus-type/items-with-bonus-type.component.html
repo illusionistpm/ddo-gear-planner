@@ -59,6 +59,60 @@
   (equip)="equipPreviewItem($event)"></app-item-preview>
 <app-filigree-set-preview [preview]="filigreeSetPreview"></app-filigree-set-preview>
 
+@if (itemBonusKind) {
+  <div class="drawer-section item-bonus-matches">
+    <button type="button" class="drawer-section-title" [attr.aria-expanded]="!isSectionCollapsed('item-bonus')" (click)="toggleSection('item-bonus')">
+      <span>{{itemBonusLabel}} on equipped gear</span>
+      <span class="drawer-section-collapse-indicator" [class.collapsed]="isSectionCollapsed('item-bonus')" aria-hidden="true">&#8250;</span>
+    </button>
+    @if (!isSectionCollapsed('item-bonus')) {
+      @if (itemBonusMatches.length || lockedItemBonusMatches.length) {
+        <div class="item-bonus-match-table">
+          <div class="row item-bonus-match-grid">
+            <div><b>Item</b></div>
+            <div class="text-end"><b>Value</b></div>
+            <div></div>
+          </div>
+          @for (match of itemBonusMatches; track match.slot) {
+            <div class="row item-result-row item-bonus-match-grid" [attr.data-slot]="match.slot">
+              <div class="item-bonus-match-name">
+                <div><span class="item-bonus-match-slot">{{match.slotLabel}}</span> {{match.itemName}}</div>
+                <div class="item-bonus-match-option">{{match.option.name}}</div>
+              </div>
+              <div class="text-end">{{match.value}}</div>
+              <div>
+                <button type="button" class="equip-button" (click)="setItemBonus(match)">Set</button>
+              </div>
+            </div>
+          }
+        </div>
+        @if (lockedItemBonusMatches.length) {
+          <div class="row">&nbsp;</div>
+          <div class="drawer-subsection-title">Excluded by equipment</div>
+          <div class="item-bonus-match-table item-bonus-locked-matches">
+            @for (match of lockedItemBonusMatches; track match.slot) {
+              <div class="row item-result-row item-bonus-match-grid" [attr.data-slot]="match.slot">
+                <div class="item-bonus-match-name">
+                  <div><span class="item-bonus-match-slot">{{match.slotLabel}}</span> {{match.itemName}}</div>
+                  <div class="item-bonus-match-option"><i>{{match.option.name}}</i>
+                    <span class="exclusion-note">Has {{match.carried}}</span>
+                  </div>
+                </div>
+                <div class="text-end"><i>{{match.value}}</i></div>
+                <div></div>
+              </div>
+            }
+          </div>
+        }
+      } @else {
+        <p class="slot-empty item-bonus-match-empty">
+          Nothing equipped can carry this yet. A {{itemBonusLabel}} bonus is set on a piece of gear you have equipped.
+        </p>
+      }
+    }
+  </div>
+}
+
 @if (optionToEligibleGear.size) {
   <div class="drawer-section">
     <button type="button" class="drawer-section-title" [attr.aria-expanded]="!isSectionCollapsed('augments')" (click)="toggleSection('augments')">

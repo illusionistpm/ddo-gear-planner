@@ -11,6 +11,7 @@ import type { EssenceCraftingService } from '../gear/essence-crafting.service';
 import { CountedFiligree, FiligreeLoadout } from '../gear/filigree';
 import type { FiligreeDbService } from '../gear/filigree-db.service';
 import type { GearDbService } from '../gear/gear-db.service';
+import type { ItemBonusService } from '../gear/item-bonus.service';
 import type { Item } from '../gear/item';
 import type { VisibleSetBonus } from './equipped.service';
 import {
@@ -38,6 +39,8 @@ export interface SnapshotDeps {
   essenceCrafting: Pick<EssenceCraftingService, 'setItemToML'>;
   filigreeDb: Pick<FiligreeDbService, 'get'>;
   affixSvc: Pick<AffixService, 'getCanonicalName'>;
+  /** To read the items' Mythic Boosts, Reaper bonuses and Curses; without it they're left off. */
+  itemBonuses?: Pick<ItemBonusService, 'find'>;
 }
 
 /** A saved build's gear and choices, from its blob; null for a blob this client can't read. */
@@ -47,7 +50,7 @@ export function snapshotFromBlob(blob: string, deps: SnapshotDeps): BuildSnapsho
     return null;
   }
   const params = convertToParamMap(decoded);
-  const slots = slotsFromParams(params, deps.gearDb, deps.essenceCrafting);
+  const slots = slotsFromParams(params, deps.gearDb, deps.essenceCrafting, deps.itemBonuses);
   const unknownItems: BuildSnapshot['unknownItems'] = [];
   for (const [slot, item] of slots) {
     const name = params.get(slot);

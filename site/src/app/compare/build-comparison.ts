@@ -4,6 +4,8 @@ import { MAX_FILIGREE_SLOTS_AFFIX } from '../affixes/filigree-affix';
 import { buildTrackedAffixGroups } from '../affixes/tracked-affix-derivation';
 import { FILIGREE_HOSTS, FiligreeHost } from '../gear/filigree';
 import type { Item } from '../gear/item';
+import { ITEM_BONUS_KINDS } from '../gear/item-bonus';
+import { ITEM_BONUS_KIND_LABELS } from '../planner/item-bonus-settings.service';
 import { sortSlotsForDisplay } from '../gear/slot-display';
 import { BuildModel, contributedAffixNames } from '../planner/build-snapshot';
 
@@ -50,7 +52,7 @@ export interface GearChange {
   kind: 'swapped' | 'added' | 'removed' | 'changed';
   a: GearSide | null;
   b: GearSide | null;
-  /** For the same item on both sides, the crafting and augment choices that differ. */
+  /** For the same item on both sides, the crafting, augment and Mythic / Reaper / Curse choices that differ. */
   crafting: CraftingChange[];
 }
 
@@ -168,7 +170,10 @@ function gearSide(item: Item): GearSide {
   return { name: item.name, ml: item.ml };
 }
 
-/** What a crafting system has chosen, keyed by how the build URL records it, with how to show it. */
+/**
+ * What each crafting system has chosen, and the item's Mythic, Reaper and Curse bonuses, keyed by how
+ * the build URL records them, with how to show them.
+ */
 function craftingChoices(item: Item): Map<string, { key: string; label: string | null }> {
   const choices = new Map<string, { key: string; label: string | null }>();
   for (const craftable of item.crafting ?? []) {
@@ -177,6 +182,10 @@ function craftingChoices(item: Item): Map<string, { key: string; label: string |
     const label = !key ? null
       : described || (craftable.selectedCraftingSystemName ? `${craftable.selectedCraftingSystemName} (empty)` : key);
     choices.set(craftable.name, { key, label });
+  }
+  for (const kind of ITEM_BONUS_KINDS) {
+    const bonus = item.bonuses[kind];
+    choices.set(ITEM_BONUS_KIND_LABELS[kind], { key: bonus?.name ?? '', label: bonus?.name ?? null });
   }
   return choices;
 }

@@ -2,7 +2,10 @@ import { Affix } from './affix';
 import type { AffixService } from './affix.service';
 import { ExternalAffixEntry, NON_GEAR_SLOT } from './external-affix';
 import { isAugmentSystemName } from '../gear/augment-slots';
-import { FiligreeHost, SUMMED_FILIGREE_BONUS_TYPES } from '../gear/filigree';
+import { FiligreeHost } from '../gear/filigree';
+import { ITEM_BONUS_KINDS } from '../gear/item-bonus';
+import { ITEM_BONUS_TYPES } from './item-bonus-types';
+import { combineBonusTypeValues, isSummedBonusType } from './summed-bonus-types';
 import type { FiligreeDbService } from '../gear/filigree-db.service';
 import type { GearDbService } from '../gear/gear-db.service';
 import type { Item } from '../gear/item';
@@ -45,9 +48,6 @@ export interface AffixSource {
   bonusType: string;
   value: number;
 }
-
-/** The slot of the one value summed filigree bonuses of a type add up to (valuesForAffixType). */
-export const SUMMED_FILIGREE_SLOT = 'Filigree';
 
 export interface AffixTypeValueOptions {
   /** Leave this slot's item out: it is about to be replaced. */
@@ -99,21 +99,16 @@ export function valuesForAffixType(view: BuildView, affixSvc: AffixService, affi
     values.push({ slot: NON_GEAR_SLOT, value: entry.value });
   }
 
-  const filigree = view.filigreeFor(affixName, bonusType);
-  if (SUMMED_FILIGREE_BONUS_TYPES.has(bonusType)) {
-    if (filigree.length) {
-      values.push({ slot: SUMMED_FILIGREE_SLOT, value: filigree.reduce((sum, entry) => sum + entry.affix.value, 0) });
-    }
-  } else {
-    values.push(...filigree.map(entry => ({ slot: entry.slot, value: entry.affix.value })));
+  for (const entry of view.filigreeFor(affixName, bonusType)) {
+    values.push({ slot: entry.slot, value: entry.affix.value });
   }
 
   return values.sort((a, b) => b.value - a.value);
 }
 
-/** The value the build has for an affix type: the best one, or every filigree one added up. 0 for none. */
+/** What the build gets from one bonus type of an affix: its best value, or the sum of all of them for a summed type. 0 for none. */
 export function bestValueFor(view: BuildView, affixSvc: AffixService, affixName: string, bonusType: string): number {
-  return valuesForAffixType(view, affixSvc, affixName, bonusType)[0]?.value ?? 0;
+  return combineBonusTypeValues(bonusType, valuesForAffixType(view, affixSvc, affixName, bonusType).map(entry => entry.value));
 }
 
 /** What supplies the build's value for an affix type: each source giving the best value, every one for a summed type. */
@@ -122,6 +117,9 @@ export function sourcesFor(view: BuildView, affixSvc: AffixService, affixName: s
   if (!bestValue) {
     return [];
   }
+  // A summed type's value is all of them together, so every one is a source.
+  const summed = isSummedBonusType(bonusType);
+  const counts = (value: number) => summed ? value !== 0 : value === bestValue;
 
   const sources: AffixSource[] = [];
   for (const [slot, item] of view.items()) {
@@ -131,7 +129,7 @@ export function sourcesFor(view: BuildView, affixSvc: AffixService, affixName: s
     // getActiveAffixes, a part at a time, so a value an augment gives is credited to the augment.
     for (const part of itemParts(item)) {
       for (const affix of affixSvc.flattenAffixGroups(part.affixes, true)) {
-        if (affix.name === affixName && affix.type === bonusType && affix.value === bestValue) {
+        if (affix.name === affixName && affix.type === bonusType && counts(affix.value)) {
           sources.push({
             kind: 'item', slot, itemName: item.name, ...(part.augmentName ? { augmentName: part.augmentName } : {}),
             affixName: affix.name, bonusType: affix.type, value: affix.value
@@ -143,14 +141,14 @@ export function sourcesFor(view: BuildView, affixSvc: AffixService, affixName: s
 
   for (const [setName, affixes] of view.setBonuses()) {
     for (const affix of affixes) {
-      if (affixSvc.resolvesToAffix(affix.name, affixName) && affix.type === bonusType && affix.value === bestValue) {
+      if (affixSvc.resolvesToAffix(affix.name, affixName) && affix.type === bonusType && counts(affix.value)) {
         sources.push({ kind: 'set', slot: 'Set', itemName: setName, affixName: affix.name, bonusType: affix.type, value: affix.value });
       }
     }
   }
 
   for (const entry of externalValuesFor(view.externalEntries(), affixSvc, affixName, bonusType)) {
-    if (entry.value === bestValue) {
+    if (counts(entry.value)) {
       sources.push({
         kind: 'external', slot: NON_GEAR_SLOT, itemName: entry.label, affixName: entry.affixName,
         bonusType: entry.bonusType, value: entry.value
@@ -158,10 +156,8 @@ export function sourcesFor(view: BuildView, affixSvc: AffixService, affixName: s
     }
   }
 
-  // A summed type's best value is all of them together, so every one is a source.
-  const summed = SUMMED_FILIGREE_BONUS_TYPES.has(bonusType);
   for (const entry of view.filigreeFor(affixName, bonusType)) {
-    if (summed || entry.affix.value === bestValue) {
+    if (counts(entry.affix.value)) {
       sources.push({
         kind: 'filigree',
         slot: entry.slot,
@@ -178,7 +174,8 @@ export function sourcesFor(view: BuildView, affixSvc: AffixService, affixName: s
 }
 
 /**
- * An item's own affixes, then each crafting choice's (as Item.getActiveAffixes adds them up), with
+ * An item's own affixes, each crafting choice's, then its Mythic, Reaper and Curse bonuses (as
+ * Item.getActiveAffixes adds them up), with
  * the augment's name for a choice in an augment slot: the coloured and colourless slots, Sun and Moon.
  */
 function itemParts(item: Item): Array<{ affixes: ReadonlyArray<Affix>; augmentName?: string }> {
@@ -192,7 +189,30 @@ function itemParts(item: Item): Array<{ affixes: ReadonlyArray<Affix>; augmentNa
       });
     }
   }
+  for (const kind of ITEM_BONUS_KINDS) {
+    const bonus = item.bonuses[kind];
+    if (bonus) {
+      parts.push({ affixes: bonus.affixes });
+    }
+  }
   return parts;
+}
+
+/**
+ * The item-bonus types (Mythic, Reaper, Fortune) the build's gear supplies for an affix. Game data
+ * offers only those whose system the player has switched on; a build that carries another (a shared
+ * link, or a system since switched off) still counts it.
+ */
+export function equippedItemBonusTypes(view: BuildView, affixSvc: AffixService, affixName: string): Set<string> {
+  const types = new Set<string>();
+  for (const [, item] of view.items()) {
+    for (const affix of item ? affixSvc.getActiveAffixes(item) : []) {
+      if (ITEM_BONUS_TYPES.has(affix.type) && affixSvc.resolvesToAffix(affix.name, affixName)) {
+        types.add(affix.type);
+      }
+    }
+  }
+  return types;
 }
 
 /**
@@ -272,7 +292,7 @@ export type AffixTotalRules = Omit<VisibleTypeRules, 'isAvailable'>;
  */
 export function affixTotal(view: BuildView, affixSvc: AffixService, rules: AffixTotalRules, name: string): AffixTotal {
   const value = (affixName: string, bonusType: string) => bestValueFor(view, affixSvc, affixName, bonusType);
-  const allTypes = rules.allLevelTypes(name);
+  const allTypes = [...new Set([...rules.allLevelTypes(name), ...equippedItemBonusTypes(view, affixSvc, name)])];
   const covered = allTypes.filter(bonusType => bonusType !== 'Penalty')
     .map(bonusType => ({ bonusType, value: value(name, bonusType) }));
   const hasPenalty = allTypes.includes('Penalty') && hasPenaltyTo(view, affixSvc, name);

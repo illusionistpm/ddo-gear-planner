@@ -34,7 +34,10 @@ export interface FamilyRow {
   searchText: string;
   /** Whether any tier does anything for the tracked affixes. */
   relevant: boolean;
-  /** Whether "hide options that don't help" may hide it: the empty option has nothing to judge. */
+  /**
+   * Whether "hide options that don't help" may hide it: the empty option has nothing to judge. A named
+   * option the planner can't express (a curse like Masterworks) can be, so it hides like any irrelevant one.
+   */
   hideable: boolean;
   /** Whether the trove has any of its tiers. */
   owned: boolean;
@@ -81,7 +84,7 @@ export function buildFamilyRows(
       tiers,
       searchText: [family.label, detail, ...family.tiers.map(option => option.describe())].join('\n').toLowerCase(),
       relevant: tiers.some(tier => tier.className !== IRRELEVANT),
-      hideable: first.affixes.length > 0 || !!first.set,
+      hideable: first.affixes.length > 0 || !!first.set || !!first.name,
       owned: tiers.some(tier => tier.owned)
     };
   });
@@ -122,16 +125,18 @@ function familyDetail(family: CraftingOptionFamily, text: CraftingOptionText): s
   }
   const typed = first.affixes.filter(affix => affix.hasRealType());
   // Tiers differ in value, so a family shows just the types; the range goes on the right.
-  return family.tiers.length > 1
-    ? typed.map(affix => affix.type).join(', ')
-    : typed.map(affix => text.getAffixValueText(affix)).join(', ');
+  // Each only once: a Mythic Boost's +3 to PRR and MRR reads "+3 Mythic", not "+3 Mythic, +3 Mythic".
+  const parts = family.tiers.length > 1
+    ? typed.map(affix => affix.type)
+    : typed.map(affix => text.getAffixValueText(affix));
+  return [...new Set(parts)].join(', ');
 }
 
 function familyAside(family: CraftingOptionFamily, text: CraftingOptionText): string {
   const first = family.tiers[0];
   if (family.tiers.length === 1) {
-    // A set augment's name only repeats the set.
-    return first.set ? '' : first.name;
+    // A set augment's name only repeats the set, and an option with no affixes is labelled by its name already.
+    return first.set || !first.affixes.length ? '' : first.name;
   }
   const affix = singleValuedAffix(first);
   const last = family.tiers[family.tiers.length - 1];

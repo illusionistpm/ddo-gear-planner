@@ -17,11 +17,14 @@ import {
   storeTrackedAffixGroupMode
 } from './planner-view-state-storage';
 import {
-  craftKey, FILIGREE_KEY, mlKey, NONGEAR_KEY, TRACKED_KEY
+  craftKey, FILIGREE_KEY, itemBonusKey, mlKey, NONGEAR_KEY, TRACKED_KEY
 } from '../build/build-param-keys';
 import { AffixService } from '../affixes/affix.service';
 import { AffixAvailabilityService } from '../affixes/affix-availability.service';
 import { EssenceCraftingService } from '../gear/essence-crafting.service';
+import { ItemBonusService } from '../gear/item-bonus.service';
+import { ITEM_BONUS_KINDS, ItemBonusKind } from '../gear/item-bonus';
+import { CraftableOption } from '../gear/craftable-option';
 import { emptiesOffhand, limitsOffhandToRuneArms, slotsFromParams } from './slots-from-params';
 import { perfCount, perfMeasure, perfStart } from '../shared/perf-trace';
 import { CoveredBonusType, moderateValueThreshold } from '../affixes/tracked-affix-derivation';
@@ -29,12 +32,14 @@ import { ExternalAffixEntry, parseExternalAffixEntries } from '../affixes/extern
 import { affixTypeKey } from '../affixes/affix-type-key';
 import { FILIGREE_TRACKING_MIN_LEVEL, MAX_FILIGREE_SLOTS_AFFIX } from '../affixes/filigree-affix';
 import { FiligreeDbService } from '../gear/filigree-db.service';
-import { SUMMED_FILIGREE_BONUS_TYPES } from '../gear/filigree';
+import { FILIGREE_ONLY_BONUS_TYPES } from '../gear/filigree';
 import { FiligreeLoadoutService } from './filigree-loadout.service';
 import {
-  AffixSource, bestValueFor, BuildView, countSets, externalValuesFor, setBonusesOf, sourcesFor, valuesForAffixType
+  AffixSource, bestValueFor, BuildView, countSets, equippedItemBonusTypes, externalValuesFor, setBonusesOf, sourcesFor,
+  valuesForAffixType
 } from '../affixes/build-totals';
 import { expandTrackedAffixNames } from '../affixes/tracked-affix-family';
+import { combineBonusTypeValues, isSummedBonusType } from '../affixes/summed-bonus-types';
 
 /** Minimal shape of the browser's IdleDeadline, used without a lib.dom dependency. */
 interface IdleWorkDeadline {
@@ -162,7 +167,8 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     private availability: AffixAvailabilityService,
     private ngZone: NgZone,
     private filigreeDb: FiligreeDbService,
-    private filigree: FiligreeLoadoutService
+    private filigree: FiligreeLoadoutService,
+    private itemBonuses: ItemBonusService
   ) {
     this.coveredAffixes = new BehaviorSubject<Map<string, CoveredBonusType[]>>(new Map<string, CoveredBonusType[]>());
 
@@ -212,6 +218,8 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
         this._updateCoveredAffixes(false);
       }
     });
+    // A Mythic / Reaper / Curse system switched on or off: its bonus type joins or leaves every affix.
+    this.gearList.getBonusTypesChanged().subscribe(() => this._updateCoveredAffixes(false));
   }
 
   updateFromParams(params: ParamsAdapter) {
@@ -224,7 +232,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
         this.filigree.restore(params.get(FILIGREE_KEY));
         this.refreshDerivedStateAfterSlotChange();
 
-        for (const [slot, item] of slotsFromParams(params, this.gearList, this.essenceCrafting)) {
+        for (const [slot, item] of slotsFromParams(params, this.gearList, this.essenceCrafting, this.itemBonuses)) {
           this.setSlot(slot, item);
         }
       } finally {
@@ -300,6 +308,13 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
 
         if (item.isEssenceCrafted()) {
           params[mlKey(slot)] = item.ml;
+        }
+
+        for (const kind of ITEM_BONUS_KINDS) {
+          const bonus = item.bonuses[kind];
+          if (bonus) {
+            params[itemBonusKey(kind, slot)] = bonus.name;
+          }
         }
 
         if (item.crafting) {
@@ -428,12 +443,36 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     }
 
     const done = perfStart('EquippedService.set');
-    this._set(new Item(item));
+    const copy = new Item(item);
+    // A different item for the slot keeps the slot's Mythic Boost, Reaper bonus and Curse: what a slot
+    // can carry doesn't depend on the item, and a plan to farm one outlives trying another piece there.
+    // The same item set again is an edit of it (a bonus set to None included), so it is taken as given.
+    const replaced = this.getSlotValue(item.slot);
+    if (replaced && replaced.name !== item.name) {
+      copy.bonuses = { ...replaced.bonuses, ...copy.bonuses };
+    }
+    this._set(copy);
     this._enforceOffhandCompatibility();
 
     this._updateRouterState();
     this.equippedItemSubject.next({ slot: item.slot, itemName: item.name });
     done({ slot: item.slot, item: item.name });
+  }
+
+  /** Sets the bonus of `kind` on the item equipped in `slot`, or removes it. */
+  setItemBonus(slot: string, kind: ItemBonusKind, option: CraftableOption | undefined) {
+    const item = this.getSlotValue(slot);
+    if (!item || item.bonuses[kind] === option) {
+      return;
+    }
+    const copy = new Item(item);
+    if (option) {
+      copy.bonuses[kind] = option;
+    } else {
+      delete copy.bonuses[kind];
+    }
+    this.setSlot(slot, copy);
+    this._updateRouterState();
   }
 
   clearSlot(slot: string) {
@@ -539,6 +578,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
       .map(([set, pieces]) => [set, this.gearList.getSetBonus(set, pieces)]);
   }
 
+  /** What the build gets from one bonus type of an affix: its best value, or the sum of all of them for a summed type. */
   private _getBestValueForAffixType(affixName: string, bonusType: string) {
     return bestValueFor(this.view, this.affixSvc, affixName, bonusType);
   }
@@ -547,6 +587,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     return this._getBestValueForAffixType(affixName, bonusType);
   }
 
+  /** The sources the build's value for this bonus type comes from: those at the best value, or every one for a summed type. */
   getSourcesForAffixType(affixName: string, bonusType: string): AffixSource[] {
     return sourcesFor(this.view, this.affixSvc, affixName, bonusType);
   }
@@ -559,7 +600,12 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
   private _getTotalValueForAffixTestingItem(affixName: string, testSlot: string, testItem: Item | null) {
     const bestByType = new Map<string, number>();
     const offer = (bonusType: string, value: number) => {
-      if (!this.isAffixTypeIgnored(affixName, bonusType) && (bestByType.get(bonusType) ?? 0) < value) {
+      if (this.isAffixTypeIgnored(affixName, bonusType)) {
+        return;
+      }
+      if (isSummedBonusType(bonusType)) {
+        bestByType.set(bonusType, (bestByType.get(bonusType) ?? 0) + value);
+      } else if ((bestByType.get(bonusType) ?? 0) < value) {
         bestByType.set(bonusType, value);
       }
     };
@@ -579,15 +625,9 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
       offer(entry.bonusType, entry.value);
     }
 
-    const filigreeSums = new Map<string, number>();
     for (const entry of this.filigree.getContributionsFor(affixName)) {
-      if (SUMMED_FILIGREE_BONUS_TYPES.has(entry.affix.type)) {
-        filigreeSums.set(entry.affix.type, (filigreeSums.get(entry.affix.type) ?? 0) + entry.affix.value);
-      } else {
-        offer(entry.affix.type, entry.affix.value);
-      }
+      offer(entry.affix.type, entry.affix.value);
     }
-    filigreeSums.forEach((value, type) => offer(type, value));
 
     return Array.from(bestByType.values()).reduce((acc, val) => acc + val, 0);
   }
@@ -776,13 +816,24 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     }
 
     for (const affixName of affixNames) {
-      let bonusTypes = this.gearList.affixToBonusTypes.get(affixName);
-      if (!bonusTypes) {
-        bonusTypes = new Map<string, number>();
+      const bonusTypes = new Map(this.gearList.affixToBonusTypes.get(affixName));
+      for (const bonusType of this.getEquippedItemBonusTypes(affixName)) {
+        if (!bonusTypes.has(bonusType)) {
+          bonusTypes.set(bonusType, 0);
+        }
       }
       important.set(affixName, bonusTypes);
     }
     return important;
+  }
+
+  /**
+   * The item-bonus types (Mythic, Reaper, Fortune) equipped gear supplies for an affix. GearDbService
+   * offers only those whose system the player has switched on; a build that carries another (a shared
+   * link, or a system since switched off) still shows it, since it counts towards the total.
+   */
+  private getEquippedItemBonusTypes(affixName: string): Set<string> {
+    return equippedItemBonusTypes(this.view, this.affixSvc, affixName);
   }
 
   private isFiligreeTrackingActive() {
@@ -995,16 +1046,14 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
       return AffixRank.Penalty;
     }
 
-    if (SUMMED_FILIGREE_BONUS_TYPES.has(affix.type)) {
-      // Filigree bonuses add up rather than competing, so one never outranks or ties another
-      // (ranked against the total, a +5 beside another +5 would read as outranked): one that is
-      // counted is part of the best, and any other would add to it.
-      return this.filigree.getContributionsFor(affix.name, affix.type).some(entry => entry.affix.value === affix.value)
-        ? AffixRank.Best
-        : AffixRank.BetterThanBest;
-    }
-
     const values = this.getValuesForAffixType(affix.name, affix.type);
+
+    // Values of a summed type add up rather than competing, so one never outranks or ties another
+    // (ranked against the total, a +5 beside another +5 would read as outranked): one the build
+    // already counts is part of the best, and any other would add to it.
+    if (isSummedBonusType(affix.type)) {
+      return values.some(entry => entry.value === affix.value) ? AffixRank.Best : AffixRank.BetterThanBest;
+    }
 
     if (values.length === 0 || affix.value > values[0].value) {
       return AffixRank.BetterThanBest;
@@ -1030,7 +1079,9 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     perfCount('EquippedService.getAffixRankingAsEquipped');
     // Today's ranking: how the value compares with the build as it is now.
     const rankNow = this.getAffixRanking(affix);
-    if (rankNow === AffixRank.Irrelevant || rankNow === AffixRank.Penalty || SUMMED_FILIGREE_BONUS_TYPES.has(affix.type)) {
+    // Filigree stays where it is when gear is swapped, so a filigree bonus ranks as it does today. (Weighing
+    // it against the total below would count it twice: once as the build's, once as the candidate's.)
+    if (rankNow === AffixRank.Irrelevant || rankNow === AffixRank.Penalty || FILIGREE_ONLY_BONUS_TYPES.has(affix.type)) {
       return { rank: rankNow };
     }
 
@@ -1043,6 +1094,17 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     const after = this.getValuesForAffixType(affix.name, affix.type, candidate)
       .map(entry => entry.value)
       .concat(own);
+
+    // A summed type has no best value to beat, only a total to raise or lower.
+    if (isSummedBonusType(affix.type)) {
+      const totalNow = this._getBestValueForAffixType(affix.name, affix.type);
+      const totalAfter = combineBonusTypeValues(affix.type, after);
+      if (totalAfter > totalNow) {
+        return { rank: AffixRank.BetterThanBest };
+      }
+      return totalAfter === totalNow ? { rank: AffixRank.Best } : { rank: AffixRank.Outranked, downgradeFrom: totalNow };
+    }
+
     const best = Math.max(...after);
     if (affix.value < best) {
       return { rank: AffixRank.Outranked };

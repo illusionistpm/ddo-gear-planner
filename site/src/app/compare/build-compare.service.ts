@@ -7,6 +7,7 @@ import { BuildUrlCodecService } from '../build/build-url-codec.service';
 import { EssenceCraftingService } from '../gear/essence-crafting.service';
 import { FiligreeDbService } from '../gear/filigree-db.service';
 import { GearDbService } from '../gear/gear-db.service';
+import { ItemBonusService } from '../gear/item-bonus.service';
 import { BuildModel, buildModelOf, snapshotFromBlob } from '../planner/build-snapshot';
 import { BuildComparison, compareBuilds } from './build-comparison';
 
@@ -25,7 +26,8 @@ export class BuildCompareService {
     private readonly gearDb: GearDbService,
     private readonly essenceCrafting: EssenceCraftingService,
     private readonly filigreeDb: FiligreeDbService,
-    private readonly affixSvc: AffixService
+    private readonly affixSvc: AffixService,
+    private readonly itemBonuses: ItemBonusService
   ) {
     this.rules = visibleTypeRulesOf(gearDb, affixSvc);
   }
@@ -38,7 +40,7 @@ export class BuildCompareService {
       }
       const snapshot = snapshotFromBlob(blob, {
         codec: this.codec, gearDb: this.gearDb, essenceCrafting: this.essenceCrafting,
-        filigreeDb: this.filigreeDb, affixSvc: this.affixSvc,
+        filigreeDb: this.filigreeDb, affixSvc: this.affixSvc, itemBonuses: this.itemBonuses,
       });
       this.models.set(blob, snapshot && buildModelOf(snapshot, {
         gearDb: this.gearDb, filigreeDb: this.filigreeDb, affixSvc: this.affixSvc,

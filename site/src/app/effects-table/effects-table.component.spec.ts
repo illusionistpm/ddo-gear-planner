@@ -554,6 +554,34 @@ describe('EffectsTableComponent', () => {
     expect(groups[0].rows.map(row => row.affixName)).toEqual(['Max Filigree Slots']);
   });
 
+  it('files filigree and Mythic/Reaper/Fortune chips in their own buckets, not by open gear slots', () => {
+    component.affixNames = ['Physical Sheltering'];
+    component.affixMap.set('Physical Sheltering', [
+      { bonusType: 'Profane', value: 0 },
+      { bonusType: 'Filigree', value: 0 },
+      { bonusType: 'Mythic', value: 0 },
+      { bonusType: 'Reaper', value: 0 },
+      { bonusType: 'Fortune', value: 0 },
+    ]);
+    vi.spyOn(component.gearDB, 'getAllLevelTypesForAffix').mockReturnValue([]);
+    vi.spyOn(component.gearDB, 'getBestValueForAffixType').mockReturnValue(5);
+    vi.spyOn(component.gearDB, 'getBestValueForAffix').mockReturnValue(5);
+    // No item in game data carries these types, so availability by gear slots finds none.
+    vi.spyOn((component as any).availability, 'getRemainingAvailability').mockImplementation((_affixName: any, bonusType: any) =>
+      bonusType === 'Profane'
+        ? { tier: 'scarce', slotCount: 2, eliminated: false, setSources: [] }
+        : { tier: 'unavailable', slotCount: 0, eliminated: false, setSources: [] });
+
+    const groups = component.getSlotGroups();
+
+    expect(groups.map(group => [group.key, group.label, group.rows.flatMap(row => row.chips.map(chip => chip.bonusType))]))
+      .toEqual([
+        ['filigree', 'Filigree', ['Filigree']],
+        ['item-bonuses', 'Advanced bonuses', ['Fortune', 'Mythic', 'Reaper']],
+        ['2', '2 open slots', ['Profane']],
+      ]);
+  });
+
   it('keeps every bonus type of one affix on a single row within a bucket', () => {
     component.affixNames = ['Fortitude Save'];
     component.affixMap.set('Fortitude Save', [

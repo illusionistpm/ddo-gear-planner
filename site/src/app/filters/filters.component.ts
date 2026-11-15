@@ -7,6 +7,8 @@ import { AnalyticsService } from '../shared/analytics.service';
 import { Output, EventEmitter } from '@angular/core';
 import { GameDataService } from '../gear/game-data.service';
 import { getPackInfo, getPackKeys, NO_PACK_KEY, PACK_COUPONS, PSEUDO_PACKS } from '../gear/pack-filter';
+import { ITEM_BONUS_KINDS, ItemBonusKind } from '../gear/item-bonus';
+import { ItemBonusSettingsService } from '../planner/item-bonus-settings.service';
 
 export interface PackOption {
   name: string;
@@ -48,6 +50,18 @@ function someChecked(options: ReadonlyArray<PackOption>): boolean {
   return options.some(option => option.value);
 }
 
+/** A Mythic / Reaper / Curse system as the Advanced bonuses panel lists it. */
+interface BonusSystemOption {
+  kind: ItemBonusKind;
+  name: string;
+}
+
+const BONUS_SYSTEM_NAMES: Record<ItemBonusKind, string> = {
+  mythic: 'Mythic Boosts',
+  reaper: 'Reaper Bonuses',
+  curse: 'Curses',
+};
+
 @Component({
     selector: 'app-filters',
     templateUrl: './filters.component.html',
@@ -78,6 +92,7 @@ export class FiltersComponent implements OnInit {
 
   @Output() troveFileSelected = new EventEmitter<File>();
   @Output() sortOwnedToTopChanged = new EventEmitter<boolean>();
+  readonly bonusSystems: BonusSystemOption[] = ITEM_BONUS_KINDS.map(kind => ({ kind, name: BONUS_SYSTEM_NAMES[kind] }));
   troveUploadStatus: string = '';
   userGearCount: number = 0;
 
@@ -85,7 +100,8 @@ export class FiltersComponent implements OnInit {
     public filters: FiltersService,
     private userGear: UserGearService,
     private analytics: AnalyticsService,
-    private gameData: GameDataService
+    private gameData: GameDataService,
+    public itemBonusSettings: ItemBonusSettingsService
   ) {
     this.packOptions = this.getAllPackOptions();
     this.packGroups = this.getPackGroups();
@@ -128,6 +144,11 @@ export class FiltersComponent implements OnInit {
     this.updateUserGearCount();
   }
 
+
+  onToggleBonusSystem(kind: ItemBonusKind, enabled: boolean) {
+    this.itemBonusSettings.setEnabled(kind, enabled);
+    this.analytics.track('toggle_item_bonus_system', { kind, enabled });
+  }
 
   onChangeLevelRange() {
     this.filters.setLevelRange(this.minLevel, this.maxLevel);

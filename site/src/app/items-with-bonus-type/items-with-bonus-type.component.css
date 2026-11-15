@@ -256,3 +256,45 @@
 .filigree-rare-value {
     color: var(--text-secondary);
 }
+
+/* Equipped gear and the Mythic / Reaper / Curse option each piece could carry: laid out like the filigree matches. */
+.item-bonus-match-table {
+    column-gap: var(--space-8);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+}
+
+.row.item-bonus-match-grid {
+    align-items: center;
+    column-gap: var(--space-8);
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+    margin: 0;
+    padding: var(--space-4) 0;
+}
+
+.item-bonus-match-name {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.item-bonus-match-slot {
+    color: var(--text-secondary);
+    font-weight: 700;
+}
+
+.item-bonus-match-option {
+    color: var(--text-secondary);
+    font-size: 0.8125rem;
+}
+
+.item-bonus-match-grid .equip-button {
+    font-size: 0.8125rem;
+    padding: var(--space-2) var(--space-8);
+    white-space: nowrap;
+}
+
+.item-bonus-match-empty {
+    margin: var(--space-4) 0;
+}

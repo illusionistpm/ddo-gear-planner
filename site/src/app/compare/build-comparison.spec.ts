@@ -4,7 +4,9 @@ import { convertToParamMap } from '@angular/router';
 import { AffixService } from '../affixes/affix.service';
 import { affixTotal } from '../affixes/build-totals';
 import { TrackedAffixDerivationService } from '../affixes/tracked-affix-derivation.service';
+import { itemBonusKey } from '../build/build-param-keys';
 import { BuildUrlCodecService } from '../build/build-url-codec.service';
+import { ItemBonusService } from '../gear/item-bonus.service';
 import { QueryParamRecord } from '../build/query-param-types';
 import { FiligreeDbService } from '../gear/filigree-db.service';
 import { GearDbService } from '../gear/gear-db.service';
@@ -222,6 +224,25 @@ describe('Comparing two saved builds', () => {
       expect(gear.some(change => change.slot === 'Ring1')).toBe(false);
       expect(gear.find(change => change.slot === 'Weapon')!.crafting)
         .toEqual([{ system: 'Augment Slot 1', a: null, b: 'Red Augment Slot (empty)' }]);
+    });
+
+    it('counts a Mythic Boost the build carries, with the system off, and lists it as a change', () => {
+      const helm = gearDb.getGearBySlot('Helm')[0];
+      const mythic = TestBed.inject(ItemBonusService).find('mythic', 'Helm', 'Mythic +3: PRR/MRR')!;
+      const boost = mythic.affixes[0];
+      const bare = compare.modelOf(codec.encode({ Helm: helm.name, tracked: [boost.name] }))!;
+      const boosted = compare.modelOf(codec.encode({
+        Helm: helm.name, tracked: [boost.name], [itemBonusKey('mythic', 'Helm')]: mythic.name,
+      }))!;
+      expect(gearDb.getAllLevelTypesForAffix(boost.name)).not.toContain('Mythic');
+
+      const comparison = compare.compare(bare, boosted);
+
+      expect(rowOf(comparison, boost.name)!.b.types.find(type => type.bonusType === 'Mythic')?.value).toBe(boost.value);
+      expect(rowOf(comparison, boost.name)!.delta).toBe(boost.value);
+      expect(comparison.gear).toEqual([expect.objectContaining({
+        slot: 'Helm', kind: 'changed', crafting: [{ system: 'Mythic', a: null, b: mythic.name }],
+      })]);
     });
 
     it('lists sets whose pieces or bonus tiers changed', () => {

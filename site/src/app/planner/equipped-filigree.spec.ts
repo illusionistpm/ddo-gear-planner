@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
 import { EquippedService } from './equipped.service';
-import { FILIGREE_SOURCE_SLOTS, FiligreeLoadoutService } from './filigree-loadout.service';
+import { FILIGREE_SOURCE_SLOTS } from './filigree-loadout';
+import { FiligreeLoadoutService } from './filigree-loadout.service';
 import { FiltersService } from './filters.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { Item } from '../gear/item';

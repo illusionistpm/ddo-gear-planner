@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { AffixSource, EquippedService } from './equipped.service';
+import { AffixSource } from '../affixes/build-totals';
+import { EquippedService } from './equipped.service';
 import { FiligreeLoadoutService } from './filigree-loadout.service';
 
 /** The gear list's jump target for the non-gear card. A slot's target is the slot's own name. */

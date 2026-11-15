@@ -14,9 +14,6 @@ import {
 } from './filigree-loadout';
 import { parseFiligreeLoadout, serializeFiligreeLoadout } from './filigree-params';
 
-export { FILIGREE_SOURCE_SLOTS } from './filigree-loadout';
-export type { FiligreeContribution } from './filigree-loadout';
-
 /**
  * The filigrees slotted in the sentient weapon and the minor artifact: what the player has chosen,
  * what the equipped items hold of it, and what that gives the build.

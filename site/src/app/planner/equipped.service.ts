@@ -36,8 +36,6 @@ import {
 } from '../affixes/build-totals';
 import { expandTrackedAffixNames } from '../affixes/tracked-affix-family';
 
-export type { AffixSource } from '../affixes/build-totals';
-
 /** Minimal shape of the browser's IdleDeadline, used without a lib.dom dependency. */
 interface IdleWorkDeadline {
   timeRemaining(): number;

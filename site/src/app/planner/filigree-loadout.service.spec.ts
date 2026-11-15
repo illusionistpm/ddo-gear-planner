@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FILIGREE_SOURCE_SLOTS, FiligreeLoadoutService } from './filigree-loadout.service';
+import { FILIGREE_SOURCE_SLOTS } from './filigree-loadout';
+import { FiligreeLoadoutService } from './filigree-loadout.service';
 import { Item } from '../gear/item';
 import { MAX_FILIGREE_SLOTS_AFFIX } from '../affixes/filigree-affix';
 

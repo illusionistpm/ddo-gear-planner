@@ -32,7 +32,7 @@ import { FiligreeDbService } from '../gear/filigree-db.service';
 import { SUMMED_FILIGREE_BONUS_TYPES } from '../gear/filigree';
 import { FiligreeLoadoutService } from './filigree-loadout.service';
 import {
-  AffixSource, bestValueFor, BuildView, countSets, externalValuesFor, sourcesFor, valuesForAffixType
+  AffixSource, bestValueFor, BuildView, countSets, externalValuesFor, setBonusesOf, sourcesFor, valuesForAffixType
 } from '../affixes/build-totals';
 import { expandTrackedAffixNames } from '../affixes/tracked-affix-family';
 
@@ -507,26 +507,10 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
   }
 
   private _updateActiveSetBonuses() {
-    const setToAffixes = new Array<[string, Array<Affix>]>();
-    const visibleSetBonuses = new Array<VisibleSetBonus>();
-    for (const pair of this.getActiveSets().entries()) {
-      const aff = this.gearList.getSetBonus(pair[0], pair[1]);
-      setToAffixes.push([pair[0], aff]);
-      visibleSetBonuses.push({
-        setName: pair[0],
-        pieces: pair[1],
-        tiers: this.gearList.getSetBonusThresholdDetails(pair[0], pair[1])
-      });
-    }
-    for (const [setName, pieces] of this.filigree.getSetPieces()) {
-      visibleSetBonuses.push({ setName, pieces, tiers: this.filigreeDb.getSetTiers(setName, pieces), filigree: true });
-    }
-    // Slot order would put a set wherever its first piece happens to be; the ones doing most go first,
-    // gear sets before filigree sets.
-    visibleSetBonuses.sort((a, b) => Number(!!a.filigree) - Number(!!b.filigree)
-      || b.pieces - a.pieces || a.setName.localeCompare(b.setName));
-    this.activeSetBonuses.next(setToAffixes);
-    this.visibleSetBonuses.next(visibleSetBonuses);
+    const { setBonuses, visibleSets } = setBonusesOf(this.getActiveSets(), this.filigree.getSetPieces(),
+      this.gearList, this.filigreeDb);
+    this.activeSetBonuses.next(setBonuses);
+    this.visibleSetBonuses.next(visibleSets);
   }
 
   getActiveSetBonuses() {

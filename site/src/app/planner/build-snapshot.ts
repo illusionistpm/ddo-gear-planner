@@ -2,7 +2,7 @@ import { convertToParamMap } from '@angular/router';
 
 import type { Affix } from '../affixes/affix';
 import type { AffixService } from '../affixes/affix.service';
-import { BuildView, countSets } from '../affixes/build-totals';
+import { BuildView, countSets, setBonusesOf } from '../affixes/build-totals';
 import { ExternalAffixEntry, externalAffixAsAffix, parseExternalAffixEntries } from '../affixes/external-affix';
 import { expandTrackedAffixNames } from '../affixes/tracked-affix-family';
 import { FILIGREE_KEY, NONGEAR_KEY, TRACKED_KEY } from '../build/build-param-keys';
@@ -68,7 +68,7 @@ export function snapshotFromBlob(blob: string, deps: SnapshotDeps): BuildSnapsho
 /** A snapshot with what its gear adds up to worked out once: the BuildView the stacking rules read. */
 export interface BuildModel extends BuildView {
   snapshot: BuildSnapshot;
-  /** Gear sets, then filigree sets, with their pieces and tiers. */
+  /** Gear sets, then filigree sets, with their pieces and tiers, as the planner lists them. */
   sets: VisibleSetBonus[];
   /** The filigrees that count, both hosts. */
   countedFiligree: CountedFiligree[];
@@ -83,16 +83,9 @@ export interface BuildModelDeps {
 }
 
 export function buildModelOf(snapshot: BuildSnapshot, deps: BuildModelDeps): BuildModel {
-  const setBonuses: Array<[string, Affix[]]> = [];
-  const sets: VisibleSetBonus[] = [];
-  for (const [setName, pieces] of countSets(snapshot.slots)) {
-    setBonuses.push([setName, deps.gearDb.getSetBonus(setName, pieces)]);
-    sets.push({ setName, pieces, tiers: deps.gearDb.getSetBonusThresholdDetails(setName, pieces) });
-  }
   const countedFiligree = countLoadoutFiligree(snapshot.filigreeLoadout, findFiligreeHosts(snapshot.slots));
-  for (const [setName, pieces] of filigreeSetPiecesOf(countedFiligree, deps.filigreeDb)) {
-    sets.push({ setName, pieces, tiers: deps.filigreeDb.getSetTiers(setName, pieces), filigree: true });
-  }
+  const { setBonuses, visibleSets: sets } = setBonusesOf(countSets(snapshot.slots),
+    filigreeSetPiecesOf(countedFiligree, deps.filigreeDb), deps.gearDb, deps.filigreeDb);
   const filigree = filigreeContributionsOf(countedFiligree, deps.filigreeDb, deps.affixSvc);
   return {
     snapshot,

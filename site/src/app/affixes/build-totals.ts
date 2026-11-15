@@ -2,7 +2,10 @@ import { Affix } from './affix';
 import type { AffixService } from './affix.service';
 import { ExternalAffixEntry, NON_GEAR_SLOT } from './external-affix';
 import { FiligreeHost, SUMMED_FILIGREE_BONUS_TYPES } from '../gear/filigree';
+import type { FiligreeDbService } from '../gear/filigree-db.service';
+import type { GearDbService } from '../gear/gear-db.service';
 import type { Item } from '../gear/item';
+import type { VisibleSetBonus } from '../planner/equipped.service';
 import type { FiligreeContribution } from '../planner/filigree-loadout';
 import { isBoolAffixTypes, makeDisplayType, TrackedBonusTypeDisplay, visibleTypesOf } from './tracked-affix-derivation';
 
@@ -178,6 +181,33 @@ export function countSets(items: Iterable<[string, Item | null]>, skipSlot?: str
   }
   extraSets.forEach(count);
   return counts;
+}
+
+export interface BuildSetBonuses {
+  /** Each active gear set and the bonuses its piece count earns, as BuildView.setBonuses gives them. */
+  setBonuses: Array<[string, Affix[]]>;
+  /** Gear and filigree sets with their pieces and tiers: gear sets first, then the ones doing most. */
+  visibleSets: VisibleSetBonus[];
+}
+
+/** What a build's gear set pieces (countSets) and filigree set pieces earn. */
+export function setBonusesOf(gearSetCounts: ReadonlyMap<string, number>, filigreeSetPieces: ReadonlyMap<string, number>,
+    gearDb: Pick<GearDbService, 'getSetBonus' | 'getSetBonusThresholdDetails'>,
+    filigreeDb: Pick<FiligreeDbService, 'getSetTiers'>): BuildSetBonuses {
+  const setBonuses: Array<[string, Affix[]]> = [];
+  const visibleSets: VisibleSetBonus[] = [];
+  for (const [setName, pieces] of gearSetCounts) {
+    setBonuses.push([setName, gearDb.getSetBonus(setName, pieces)]);
+    visibleSets.push({ setName, pieces, tiers: gearDb.getSetBonusThresholdDetails(setName, pieces) });
+  }
+  for (const [setName, pieces] of filigreeSetPieces) {
+    visibleSets.push({ setName, pieces, tiers: filigreeDb.getSetTiers(setName, pieces), filigree: true });
+  }
+  // Slot order would put a set wherever its first piece happens to be; the ones doing most go first,
+  // gear sets before filigree sets.
+  visibleSets.sort((a, b) => Number(!!a.filigree) - Number(!!b.filigree)
+    || b.pieces - a.pieces || a.setName.localeCompare(b.setName));
+  return { setBonuses, visibleSets };
 }
 
 /** One bonus type's row of an affix's total, with where its value comes from. */

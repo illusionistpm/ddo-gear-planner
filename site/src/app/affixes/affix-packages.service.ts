@@ -42,9 +42,9 @@ export class AffixPackagesService {
     private equipped: EquippedService
   ) {
     this.packages.set('Basic', ['Healing Amplification', 'Physical Sheltering',
-      'Magical Sheltering', 'Constitution', 'Dodge', 'Fortitude Save', 'Reflex Save', 'Will Save', 'Concealment', 'Parrying', 'Incorporeality',
+      'Magical Sheltering', 'Constitution', 'Dodge', 'Fortitude Save', 'Reflex Save', 'Will Save', 'Concealment', 'Incorporeality',
       'Fortification', 'False Life', 'Speed', 'Freedom of Movement', 'Feather Falling', 'Immunity to Blindness',
-      'Immunity to Fear', 'Heroic Inspiration', 'Undying', 'Acid Absorption', 'Cold Absorption', 'Fire Absorption',
+      'Immunity to Fear', 'Deathblock', 'Heroic Inspiration', 'Undying', 'Acid Absorption', 'Cold Absorption', 'Fire Absorption',
       'Electric Absorption', 'Sonic Absorption']);
     // Not the weaker 'Blood Rage', which is a different effect.
     this.packages.set('Melee', ['Melee Alacrity', 'Melee Power', 'Doublestrike', 'Deadly', 'Seeker', 'Accuracy', 'Armor-Piercing',

@@ -103,15 +103,9 @@
 }
 
 .compare-note,
-.compare-empty,
-.compare-footnote {
+.compare-empty {
   color: var(--text-secondary);
   margin: var(--space-12) 0 0;
-}
-
-.compare-footnote {
-  font-size: 0.85rem;
-  margin-top: var(--space-24);
 }
 
 .compare-warning {
@@ -281,15 +275,22 @@
   border-top: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
-  padding: var(--space-8) var(--space-12) var(--space-12);
+  padding: var(--space-8) var(--space-4) var(--space-8);
 }
 
+/* Bonus type | Before | After | Change; striped so a line can be followed across. */
 .compare-breakdown-row {
+  align-items: baseline;
+  border-radius: var(--border-radius);
   display: grid;
   font-size: 0.88rem;
   gap: var(--space-8);
-  grid-template-columns: minmax(0, 10rem) minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 9rem) minmax(0, 1fr) minmax(0, 1fr) 5rem;
+  padding: var(--space-4) var(--space-8);
+}
+
+.compare-breakdown-row:not(.compare-breakdown-head):nth-child(even) {
+  background: rgba(var(--primary-color-rgb), 0.06);
 }
 
 .compare-breakdown-head {
@@ -318,9 +319,33 @@
 }
 
 .compare-breakdown-from {
-  color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
   min-width: 0;
+}
+
+/* A source, after its slot's icon; one the other side lacks is in bold, so changes stand out. */
+.compare-source {
+  align-items: baseline;
+  color: var(--text-secondary);
+  display: inline-flex;
+  gap: var(--space-4);
   overflow-wrap: anywhere;
+}
+
+.compare-source app-slot-icon {
+  align-self: center;
+}
+
+.compare-source.changed {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.compare-delta.small {
+  font-size: 0.8rem;
+  min-width: 3rem;
 }
 
 .muted {
@@ -351,7 +376,15 @@
 }
 
 .compare-gear-slot {
+  align-items: flex-start;
+  display: inline-flex;
   font-weight: 700;
+  gap: var(--space-4);
+}
+
+/* On the first line of a name that wraps. */
+.compare-gear-slot app-slot-icon {
+  margin-top: 0.15em;
 }
 
 .compare-gear-items {
@@ -423,9 +456,17 @@
     font-size: 0.8rem;
   }
 
-  .compare-breakdown-row,
   .compare-gear {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* The bonus type with its change beside it, then Before and After beneath. */
+  .compare-breakdown-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .compare-breakdown-side {
+    grid-column: 1 / -1;
   }
 
   .compare-breakdown-head {
@@ -434,15 +475,13 @@
 
   .compare-breakdown-side::before {
     color: var(--text-secondary);
+    content: attr(data-label);
     font-size: 0.8rem;
     min-width: 3.25rem;
   }
 
-  .compare-breakdown-side:nth-of-type(2)::before {
-    content: "Before";
-  }
-
-  .compare-breakdown-side:nth-of-type(3)::before {
-    content: "After";
+  .compare-breakdown-row > .num {
+    grid-column: 2;
+    grid-row: 1;
   }
 }

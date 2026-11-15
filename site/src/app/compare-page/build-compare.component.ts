@@ -8,11 +8,14 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, fromEvent, merge, Observable, of, Subscription } from 'rxjs';
 import { catchError, filter, map, switchMap, throttleTime } from 'rxjs/operators';
 
-import { AffixSource, AffixTotal, AffixTypeTotal } from '../affixes/build-totals';
+import { AffixSource, AffixTypeTotal } from '../affixes/build-totals';
+import { sortBonusTypes } from '../affixes/tracked-affix-derivation';
 import { BuildSummary } from '../build/build';
 import { buildPath, comparePath } from '../build/build-route';
 import { BuildsService } from '../build/builds.service';
 import { FILIGREE_HOST_TEXT } from '../gear/filigree';
+import { slotLabel } from '../gear/slot-display';
+import { SlotIconComponent } from '../slot-icon/slot-icon.component';
 import { BuildModel } from '../planner/build-snapshot';
 import { AuthService } from '../shared/auth.service';
 import { BuildCompareService } from '../compare/build-compare.service';
@@ -29,13 +32,32 @@ export type CompareSide =
   | { status: 'ready'; shortId: string; name: string; blob: string; model: BuildModel }
   | { status: 'error'; shortId: string; error: 'not-found' | 'invalid-link' | 'network' };
 
+/** Something giving a bonus type its value, shown with its slot's icon (or a set's, non-gear's or filigree's). */
+export interface BreakdownSource {
+  key: string;
+  name: string;
+  /** Where it is: "Ring 1", "Set bonus", ... */
+  title: string;
+  slot?: string;
+  icon?: string;
+  /** The other side doesn't get this bonus type from it. */
+  changed: boolean;
+}
+
 /** A bonus type's row in an affix's breakdown, both sides. */
 export interface BreakdownRow {
+  /** "Enhancement", "Universal Implement", or "Checklist" for an on/off affix. */
   label: string;
+  bonusType: string;
+  sourceAffixName: string;
+  /** An on/off affix: values are 1 or 0, shown as checkboxes. */
+  checklist: boolean;
   a: number | null;
   b: number | null;
-  aFrom: string;
-  bFrom: string;
+  /** b minus a. */
+  delta: number;
+  aFrom: BreakdownSource[];
+  bFrom: BreakdownSource[];
   ignored: boolean;
 }
 
@@ -81,7 +103,7 @@ export interface UnknownItemWarning {
   templateUrl: './build-compare.component.html',
   styleUrls: ['../shared/pill-button.css', './build-compare.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgTemplateOutlet],
+  imports: [NgTemplateOutlet, SlotIconComponent],
 })
 export class BuildCompareComponent implements OnInit, OnChanges, OnDestroy {
   @Input() a: string | null = null;
@@ -247,18 +269,11 @@ export class BuildCompareComponent implements OnInit, OnChanges, OnDestroy {
   }
 
 
-  valueText(row: AffixDiffRow, total: AffixTotal): string {
-    if (row.checklist) {
-      return total.total ? 'Yes' : '—';
+  deltaText(delta: number, checklist: boolean): string {
+    if (checklist) {
+      return delta > 0 ? 'Gained' : delta < 0 ? 'Lost' : '—';
     }
-    return String(total.total);
-  }
-
-  deltaText(row: AffixDiffRow): string {
-    if (row.checklist) {
-      return row.delta > 0 ? 'Gained' : row.delta < 0 ? 'Lost' : '—';
-    }
-    return row.delta > 0 ? `+${row.delta}` : row.delta < 0 ? `−${-row.delta}` : '—';
+    return delta > 0 ? `+${delta}` : delta < 0 ? `−${-delta}` : '—';
   }
 
   deltaClass(delta: number): string {
@@ -269,25 +284,26 @@ export class BuildCompareComponent implements OnInit, OnChanges, OnDestroy {
     return row.trackedIn === 'a' ? 'tracked in Before' : row.trackedIn === 'b' ? 'tracked in After' : null;
   }
 
-  /** The row's bonus types, both sides lined up, for its expanded breakdown. */
+  /** The row's bonus types, both sides lined up and in the planner's order, for its expanded breakdown. */
   breakdown(row: AffixDiffRow): BreakdownRow[] {
     let rows = this.breakdowns.get(row);
     if (!rows) {
-      const byKey = new Map<string, BreakdownRow>();
+      const byKey = new Map<string, { a?: AffixTypeTotal; b?: AffixTypeTotal }>();
       const add = (type: AffixTypeTotal, side: 'a' | 'b') => {
         const key = `${type.sourceAffixName}|${type.bonusType}`;
-        const entry = byKey.get(key) ?? { label: type.label, a: null, b: null, aFrom: '', bFrom: '', ignored: false };
-        entry[side] = type.value;
-        entry[side === 'a' ? 'aFrom' : 'bFrom'] = type.sources.map(sourceText).join(', ');
-        entry.ignored ||= type.ignored;
-        byKey.set(key, entry);
+        byKey.set(key, { ...byKey.get(key), [side]: type });
       };
       row.a.types.forEach(type => add(type, 'a'));
       row.b.types.forEach(type => add(type, 'b'));
-      rows = [...byKey.values()];
+      rows = sortBonusTypes([...byKey.values()].map(({ a, b }) => breakdownRowOf(a, b, row.checklist)));
       this.breakdowns.set(row, rows);
     }
     return rows;
+  }
+
+  /** "Ring 1" for Ring1, as the planner names slots. */
+  slotName(slot: string): string {
+    return slotLabel(slot);
   }
 
   tierText(set: SetChange): string | null {
@@ -308,11 +324,37 @@ export class BuildCompareComponent implements OnInit, OnChanges, OnDestroy {
   }
 }
 
-function sourceText(source: AffixSource): string {
+function breakdownRowOf(a: AffixTypeTotal | undefined, b: AffixTypeTotal | undefined, checklist: boolean): BreakdownRow {
+  const type = (a ?? b)!;
+  const keysA = new Set((a?.sources ?? []).map(sourceKey));
+  const keysB = new Set((b?.sources ?? []).map(sourceKey));
+  const valueA = a?.value ?? null;
+  const valueB = b?.value ?? null;
+  return {
+    label: checklist ? 'Checklist' : type.label,
+    bonusType: type.bonusType,
+    sourceAffixName: type.sourceAffixName,
+    checklist,
+    a: valueA,
+    b: valueB,
+    delta: (valueB ?? 0) - (valueA ?? 0),
+    aFrom: (a?.sources ?? []).map(source => breakdownSourceOf(source, !keysB.has(sourceKey(source)))),
+    bFrom: (b?.sources ?? []).map(source => breakdownSourceOf(source, !keysA.has(sourceKey(source)))),
+    ignored: !!a?.ignored || !!b?.ignored,
+  };
+}
+
+/** The same item, set or entry on both sides is the same source, whichever slot it moved to. */
+function sourceKey(source: AffixSource): string {
+  return `${source.kind}|${source.itemName}`;
+}
+
+function breakdownSourceOf(source: AffixSource, changed: boolean): BreakdownSource {
+  const base = { key: `${source.kind}|${source.slot}|${source.itemName}`, name: source.itemName, changed };
   switch (source.kind) {
-    case 'item': return `${source.itemName} (${source.slot})`;
-    case 'set': return `${source.itemName} (set)`;
-    case 'external': return `${source.itemName} (non-gear)`;
-    default: return `${source.itemName} (${source.slot.toLowerCase()})`;
+    case 'item': return { ...base, slot: source.slot, title: slotLabel(source.slot) };
+    case 'set': return { ...base, icon: 'linked-rings', title: 'Set bonus' };
+    case 'external': return { ...base, icon: 'aura', title: 'Non-gear' };
+    default: return { ...base, icon: 'cut-diamond', title: source.slot };
   }
 }

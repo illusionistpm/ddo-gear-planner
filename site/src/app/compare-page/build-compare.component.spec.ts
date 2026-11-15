@@ -42,7 +42,7 @@ describe('BuildCompareComponent', () => {
     .find(candidate => (candidate.getAttribute('aria-label') ?? candidate.textContent?.replace(/\s+/g, ' ').trim()) === label);
   const row = (name: string) => Array.from(el().querySelectorAll<HTMLElement>('.compare-row'))
     .find(candidate => candidate.querySelector('.compare-name')?.textContent?.trim().startsWith(name));
-  const cells = (name: string) => Array.from(row(name)!.querySelectorAll('.num')).map(cell => cell.textContent!.trim());
+  const cells = (name: string) => Array.from(row(name)!.querySelectorAll('.compare-row-summary .num')).map(cell => cell.textContent!.trim());
 
   async function create(a: string | null, b: string | null, { signedInAtStart = true } = {}): Promise<void> {
     signedIn = new BehaviorSubject(signedInAtStart);
@@ -108,13 +108,33 @@ describe('BuildCompareComponent', () => {
     expect(row('Fortification')!.textContent).toContain('tracked in Before');
   });
 
-  it('breaks a row down by bonus type, with what gives each side its value', async () => {
+  it('breaks a row down by bonus type, in bold where a side\'s source differs, with the change', async () => {
     await create('old1', 'new1');
 
-    const breakdown = row(rings.affix)!.querySelector('.compare-breakdown')!.textContent!.replace(/\s+/g, ' ');
+    const lines = Array.from(row(rings.affix)!.querySelectorAll('.compare-breakdown-row:not(.compare-breakdown-head)'));
+    const line = lines.find(candidate => candidate.textContent!.includes(rings.weak.name))!;
+    const sources = Array.from(line.querySelectorAll<HTMLElement>('.compare-source'))
+      .map(source => [source.textContent!.trim(), source.title, source.classList.contains('changed')]);
 
-    expect(breakdown).toContain(`${rings.weak.name} (Ring1)`);
-    expect(breakdown).toContain(`${rings.strong.name} (Ring1)`);
+    expect(sources).toEqual([[rings.weak.name, 'Ring 1', true], [rings.strong.name, 'Ring 1', true]]);
+    expect(line.querySelector('.compare-delta')!.textContent!.trim()).toBe(`+${rings.strongValue - rings.weakValue}`);
+  });
+
+  it('shows an on/off affix as the planner\'s checkboxes, under Checklist', async () => {
+    TestBed.configureTestingModule({});
+    const gearDb = TestBed.inject(GearDbService);
+    const vorpal = gearDb.getGearBySlot('Weapon').find(weapon => weapon.affixes.some(affix => affix.name === 'Vorpal'))!;
+    const codec = TestBed.inject(BuildUrlCodecService);
+    saved['sharp1'] = { name: 'Sharp', blob: codec.encode({ Weapon: vorpal.name, tracked: ['Vorpal'] }) };
+    saved['blunt1'] = { name: 'Blunt', blob: codec.encode({ tracked: ['Vorpal'] }) };
+    TestBed.resetTestingModule();
+    await create('sharp1', 'blunt1');
+
+    const [before, after, change] = Array.from(row('Vorpal')!.querySelectorAll('.compare-row-summary .num'));
+    expect(before.querySelector('.fa-square-check')).not.toBeNull();
+    expect(after.querySelector('.fa-square')).not.toBeNull();
+    expect(change.textContent!.trim()).toBe('Lost');
+    expect(row('Vorpal')!.querySelector('.compare-breakdown-type')!.textContent!.trim()).toBe('Checklist');
   });
 
   it('says so when a build is missing, and still shows the other', async () => {

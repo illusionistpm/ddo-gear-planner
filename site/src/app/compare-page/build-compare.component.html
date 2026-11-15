@@ -117,7 +117,7 @@
       <ul class="compare-list">
         @for (change of result.gear; track change.slot) {
           <li class="compare-gear">
-            <span class="compare-gear-slot">{{change.slot}}</span>
+            <span class="compare-gear-slot"><app-slot-icon [slot]="change.slot"></app-slot-icon>{{slotName(change.slot)}}</span>
             <span class="compare-gear-items">
               @if (change.kind === 'changed') {
                 <span class="compare-gear-name">{{change.b!.name}}</span>
@@ -137,7 +137,7 @@
         }
         @for (change of result.filigree; track change.host) {
           <li class="compare-gear">
-            <span class="compare-gear-slot">{{hostLabel(change.host)}} filigree</span>
+            <span class="compare-gear-slot"><app-slot-icon icon="cut-diamond"></app-slot-icon>{{hostLabel(change.host)}} filigree</span>
             <span class="compare-gear-items">
               @for (name of change.removed; track $index) {
                 <span class="compare-gear-detail down">− {{name}}</span>
@@ -159,7 +159,9 @@
       <ul class="compare-list">
         @for (set of result.sets; track set.setName + set.filigree) {
           <li class="compare-gear">
-            <span class="compare-gear-slot">{{set.setName}}@if (set.filigree) { <span class="compare-tag">filigree</span> }</span>
+            <span class="compare-gear-slot">
+              <app-slot-icon [icon]="set.filigree ? 'cut-diamond' : 'linked-rings'"></app-slot-icon>{{set.setName}}@if (set.filigree) { <span class="compare-tag">filigree</span> }
+            </span>
             <span class="compare-gear-items">
               <span>{{set.aPieces}} → {{set.bPieces}} pieces</span>
               @if (tierText(set); as tiers) {
@@ -182,9 +184,6 @@
       </details>
     }
 
-    <p class="compare-footnote">
-      Totals count everything equipped, whatever your planner's level and pack filters. Open a row to see what gives each bonus.
-    </p>
   } @else if (sideA.status === 'loading' || sideB.status === 'loading') {
     <p class="compare-empty" aria-live="polite">Loading…</p>
   } @else if (!a || !b) {
@@ -200,33 +199,66 @@
         @if (trackedNote(row); as note) { <span class="compare-tag">{{note}}</span> }
         @if (row.a.hasPenalty || row.b.hasPenalty) { <span class="compare-tag down">penalty</span> }
       </span>
-      <span class="num" data-label="Before">{{valueText(row, row.a)}}</span>
-      <span class="num" data-label="After">{{valueText(row, row.b)}}</span>
-      <span class="num"><span class="compare-delta" [class]="deltaClass(row.delta)">{{deltaText(row)}}</span></span>
+      <span class="num" data-label="Before">
+        <ng-container *ngTemplateOutlet="totalValue; context: { $implicit: row.a.total, checklist: row.checklist }"></ng-container>
+      </span>
+      <span class="num" data-label="After">
+        <ng-container *ngTemplateOutlet="totalValue; context: { $implicit: row.b.total, checklist: row.checklist }"></ng-container>
+      </span>
+      <span class="num"><span class="compare-delta" [class]="deltaClass(row.delta)">{{deltaText(row.delta, row.checklist)}}</span></span>
     </summary>
     <div class="compare-breakdown">
-      @if (breakdown(row).length) {
-        <div class="compare-breakdown-row compare-breakdown-head" aria-hidden="true">
-          <span>Bonus type</span><span>Before</span><span>After</span>
-        </div>
-      }
-      @for (type of breakdown(row); track type.label) {
-        <div class="compare-breakdown-row">
-          <span class="compare-breakdown-type">
-            {{type.label}}@if (type.ignored) { <span class="compare-tag">ignored</span> }
-          </span>
-          <span class="compare-breakdown-side">
-            <span class="compare-breakdown-value">{{type.a ?? 0}}</span>
-            <span class="compare-breakdown-from">{{type.aFrom || 'nothing'}}</span>
-          </span>
-          <span class="compare-breakdown-side">
-            <span class="compare-breakdown-value">{{type.b ?? 0}}</span>
-            <span class="compare-breakdown-from">{{type.bFrom || 'nothing'}}</span>
-          </span>
-        </div>
-      } @empty {
-        <div class="compare-breakdown-row muted">Neither build gives it.</div>
+      @if (breakdown(row); as types) {
+        @if (types.length) {
+          <div class="compare-breakdown-row compare-breakdown-head" aria-hidden="true">
+            <span>Bonus type</span><span>Before</span><span>After</span><span class="num">Change</span>
+          </div>
+        }
+        @for (type of types; track type.sourceAffixName + type.bonusType) {
+          <div class="compare-breakdown-row">
+            <span class="compare-breakdown-type">
+              {{type.label}}@if (type.ignored) { <span class="compare-tag">ignored</span> }
+            </span>
+            <span class="compare-breakdown-side" data-label="Before">
+              <ng-container *ngTemplateOutlet="side; context: { value: type.a, sources: type.aFrom, checklist: type.checklist }"></ng-container>
+            </span>
+            <span class="compare-breakdown-side" data-label="After">
+              <ng-container *ngTemplateOutlet="side; context: { value: type.b, sources: type.bFrom, checklist: type.checklist }"></ng-container>
+            </span>
+            <span class="num">
+              <span class="compare-delta small" [class]="deltaClass(type.delta)">{{deltaText(type.delta, type.checklist)}}</span>
+            </span>
+          </div>
+        } @empty {
+          <div class="compare-breakdown-row muted">Neither build gives it.</div>
+        }
       }
     </div>
   </details>
+</ng-template>
+
+<!-- A total: a number, or for an on/off affix the checkbox the planner shows. -->
+<ng-template #totalValue let-total let-checklist="checklist">
+  @if (checklist) {
+    <span class="far" [class]="total ? 'fa-square-check max-value' : 'fa-square no-value'" aria-hidden="true"></span>
+    <span class="visually-hidden">{{total ? 'Yes' : 'No'}}</span>
+  } @else {
+    {{total}}
+  }
+</ng-template>
+
+<!-- One side of a bonus type: its value and what gives it, a source missing from the other side in bold. -->
+<ng-template #side let-value="value" let-sources="sources" let-checklist="checklist">
+  <span class="compare-breakdown-value">
+    <ng-container *ngTemplateOutlet="totalValue; context: { $implicit: value ?? 0, checklist: checklist }"></ng-container>
+  </span>
+  <span class="compare-breakdown-from">
+    @for (source of sources; track source.key) {
+      <span class="compare-source" [class.changed]="source.changed" [title]="source.title">
+        <app-slot-icon [slot]="source.slot" [icon]="source.icon"></app-slot-icon>{{source.name}}
+      </span>
+    } @empty {
+      <span class="muted">—</span>
+    }
+  </span>
 </ng-template>

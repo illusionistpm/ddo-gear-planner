@@ -108,7 +108,6 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         DrawerHeadingComponent,
         ExternalAffixFormComponent,
         ExternalAffixValueComponent,
-        SlotIconComponent,
         CreditsComponent,
         SupportLinkComponent,
         PageChromeComponent,
@@ -133,6 +132,7 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         FormsModule,
         CdkScrollable,
         MenuBackdropComponent,
+        SlotIconComponent,
         ListDialogComponent,
         BuildChoicesComponent,
         AuthModule.forRoot({

@@ -4,6 +4,7 @@ import { MAX_FILIGREE_SLOTS_AFFIX } from '../affixes/filigree-affix';
 import { buildTrackedAffixGroups } from '../affixes/tracked-affix-derivation';
 import { FILIGREE_HOSTS, FiligreeHost } from '../gear/filigree';
 import type { Item } from '../gear/item';
+import { sortSlotsForDisplay } from '../gear/slot-display';
 import { BuildModel, contributedAffixNames } from '../planner/build-snapshot';
 
 /**
@@ -182,7 +183,8 @@ function craftingChoices(item: Item): Map<string, { key: string; label: string |
 
 export function gearChanges(a: BuildModel, b: BuildModel): GearChange[] {
   const changes: GearChange[] = [];
-  for (const [slot, itemA] of a.snapshot.slots) {
+  for (const slot of sortSlotsForDisplay([...a.snapshot.slots.keys()])) {
+    const itemA = a.snapshot.slots.get(slot) ?? null;
     const itemB = b.snapshot.slots.get(slot) ?? null;
     if (!itemA && !itemB) {
       continue;

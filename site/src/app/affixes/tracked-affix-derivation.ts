@@ -1,5 +1,8 @@
-import { AffixService } from './affix.service';
+import { AffixService, UNIVERSAL_COMPANION_AFFIXES } from './affix.service';
 import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from './affix-organization';
+import { affixTypeKey } from './affix-type-key';
+import { getCountAffixChipLabel } from './count-affix';
+import type { GearDbService } from '../gear/gear-db.service';
 
 /**
  * Pure rules for deriving the tracked-affix display from the covered-affix map.
@@ -155,4 +158,92 @@ export function buildTrackedAffixGroups(
     checklistAffixes: checklistAffixNames
   });
   return groups;
+}
+
+/** What visibleTypesOf needs to know about the game data. */
+export interface VisibleTypeRules {
+  /** Every bonus type the affix has at any level. */
+  allLevelTypes(affixName: string): string[];
+  /** A bonus type that only reaches this per-element affix through a universal companion (GearDbService). */
+  isUniversalCompanionOnly(affixName: string, bonusType: string): boolean;
+  /** Whether a row with no value is still worth showing: gear could give it. */
+  isAvailable(affixName: string, bonusType: string): boolean;
+  isGroupMember(affixName: string, groupName: string): boolean;
+}
+
+/**
+ * The rules over the game data. A row with no value shows only when `isAvailable` says gear could
+ * give it: the planner's level range does; by default none does.
+ */
+export function visibleTypeRulesOf(
+    gearDb: Pick<GearDbService, 'getAllLevelTypesForAffix' | 'isBonusTypeOnlyFromUniversalCompanion'>,
+    affixSvc: Pick<AffixService, 'isGroupMember'>,
+    isAvailable: VisibleTypeRules['isAvailable'] = () => false): VisibleTypeRules {
+  return {
+    allLevelTypes: affixName => gearDb.getAllLevelTypesForAffix(affixName),
+    isUniversalCompanionOnly: (affixName, bonusType) => gearDb.isBonusTypeOnlyFromUniversalCompanion(affixName, bonusType),
+    isAvailable,
+    isGroupMember: (affixName, groupName) => affixSvc.isGroupMember(affixName, groupName),
+  };
+}
+
+/** A bonus type as a row; a universal companion's rows read "Universal <type>". */
+export function makeDisplayType(sourceAffixName: string, bonusType: string, value: number): TrackedBonusTypeDisplay {
+  const label = getCountAffixChipLabel(sourceAffixName) ?? (bonusType ? bonusType : 'Untyped');
+  return {
+    bonusType,
+    value,
+    label: UNIVERSAL_COMPANION_AFFIXES.includes(sourceAffixName) ? 'Universal ' + label : label,
+    sourceAffixName,
+    sourceBonusType: bonusType,
+  };
+}
+
+/** The universal companion affixes ("Universal Spell Power") an affix is a member of. */
+export function universalCompanionsOf(affixName: string, rules: Pick<VisibleTypeRules, 'isGroupMember'>): string[] {
+  return UNIVERSAL_COMPANION_AFFIXES.filter(groupName => rules.isGroupMember(affixName, groupName));
+}
+
+/**
+ * The bonus types to show for one tracked affix: those it has (`covered`) or could get, plus a
+ * "Universal <type>" row for each universal companion affix it belongs to, valued by
+ * `currentValue`. Penalties are excluded, and so is a plain row for a type that only comes from
+ * a universal companion, which its Universal row already shows.
+ *
+ * Its rows' values add up to the affix's total, as the Tracked Affixes table shows it.
+ */
+export function visibleTypesOf(covered: ReadonlyArray<CoveredBonusType>, affixName: string,
+    currentValue: (affixName: string, bonusType: string) => number, rules: VisibleTypeRules): TrackedBonusTypeDisplay[] {
+  const typeMap = new Map<string, TrackedBonusTypeDisplay>();
+
+  for (const type of covered) {
+    if (rules.isUniversalCompanionOnly(affixName, type.bonusType)) {
+      continue;
+    }
+    if (type.bonusType !== 'Penalty' && (type.value || rules.isAvailable(affixName, type.bonusType))) {
+      typeMap.set(affixTypeKey(affixName, type.bonusType), makeDisplayType(affixName, type.bonusType, type.value));
+    }
+  }
+
+  for (const bonusType of rules.allLevelTypes(affixName)) {
+    if (rules.isUniversalCompanionOnly(affixName, bonusType)) {
+      continue;
+    }
+    const key = affixTypeKey(affixName, bonusType);
+    if (bonusType !== 'Penalty' && !typeMap.has(key) && rules.isAvailable(affixName, bonusType)) {
+      typeMap.set(key, makeDisplayType(affixName, bonusType, 0));
+    }
+  }
+
+  for (const sourceAffixName of universalCompanionsOf(affixName, rules)) {
+    for (const bonusType of rules.allLevelTypes(sourceAffixName)) {
+      const value = currentValue(sourceAffixName, bonusType);
+      const key = affixTypeKey(sourceAffixName, bonusType);
+      if (bonusType !== 'Penalty' && !typeMap.has(key) && (value || rules.isAvailable(sourceAffixName, bonusType))) {
+        typeMap.set(key, makeDisplayType(sourceAffixName, bonusType, value));
+      }
+    }
+  }
+
+  return sortBonusTypes(Array.from(typeMap.values()));
 }

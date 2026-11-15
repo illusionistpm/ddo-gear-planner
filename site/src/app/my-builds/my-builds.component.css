@@ -90,11 +90,22 @@
 }
 
 .my-builds-name {
+  flex: 1 1 auto;
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+/* The row's buttons, together at its end, so each sits in the same place on every row. */
+.my-builds-actions {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  gap: var(--space-4);
+}
+
+.my-builds-compare,
 .my-builds-delete {
   flex: 0 0 auto;
   background: transparent;
@@ -104,7 +115,12 @@
   padding: var(--space-4);
 }
 
+.my-builds-compare:hover {
+  color: var(--primary-color);
+}
+
 @media (pointer: coarse) {
+  .my-builds-compare,
   .my-builds-delete {
     min-height: 2rem;
     min-width: 2rem;

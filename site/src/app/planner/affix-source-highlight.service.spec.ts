@@ -3,7 +3,8 @@ import { TestBed } from '@angular/core/testing';
 import {
   AffixSourceHighlightService, filigreeSetJumpTarget, NON_GEAR_JUMP_TARGET, setJumpTarget
 } from './affix-source-highlight.service';
-import { AffixSource, EquippedService } from './equipped.service';
+import { AffixSource } from '../affixes/build-totals';
+import { EquippedService } from './equipped.service';
 import { FiligreeLoadoutService } from './filigree-loadout.service';
 
 describe('AffixSourceHighlightService', () => {

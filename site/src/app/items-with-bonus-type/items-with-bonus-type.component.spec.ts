@@ -26,10 +26,9 @@ describe('ItemsWithBonusTypeComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [
         ItemsWithBonusTypeComponent, ItemPreviewComponent, ExternalAffixFormComponent, ExternalAffixValueComponent, AutofocusDirective,
-        FiligreeSetPreviewComponent, FiligreeSetDetailsComponent, SetBonusSummaryComponent, SlotIconComponent,
-        TapTooltipComponent, TapTooltipPanelComponent,
+        FiligreeSetPreviewComponent, FiligreeSetDetailsComponent, SetBonusSummaryComponent,
       ],
-      imports: [FormsModule]
+      imports: [FormsModule, SlotIconComponent, TapTooltipComponent, TapTooltipPanelComponent]
     })
       .compileComponents();
   });

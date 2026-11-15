@@ -6,7 +6,7 @@ import { BuildSummary, MAX_BUILDS_PER_USER } from '../build/build';
 import { BuildsService } from '../build/builds.service';
 import { CurrentBuildService } from '../build/current-build.service';
 import { confirmLeaveUnsavedChanges } from '../build/unsaved-changes.guard';
-import { buildPath } from '../build/build-route';
+import { buildPath, comparePath } from '../build/build-route';
 import { EquippedService } from '../planner/equipped.service';
 
 @Component({
@@ -94,6 +94,26 @@ export class MyBuildsComponent implements OnInit {
 
     this.router.navigateByUrl(buildPath(build.shortId, build.name));
     this.closed.emit();
+  }
+
+  /**
+   * The compare page, with this build as Before and the one open as After: after saving a copy to
+   * try new gear, the original is in the list and the copy is open. With no saved build open, the
+   * page asks for the other one.
+   */
+  compareWith(build: BuildSummary, event: Event): void {
+    event.stopPropagation();
+    this.router.navigateByUrl(comparePath(build.shortId, this.currentBuild.value.shortId));
+    this.closed.emit();
+  }
+
+  compareTitle(build: BuildSummary): string {
+    const current = this.currentBuild.value;
+    if (!current.shortId) {
+      return `Compare ${build.name} with another build`;
+    }
+    return `Compare ${build.name} with ${current.name ?? 'this build'}`
+      + (current.isDirty ? ' as last saved - save first to include your changes' : '');
   }
 
   requestDelete(build: BuildSummary, event: Event): void {

@@ -61,6 +61,33 @@ describe('MyBuildsComponent', () => {
     return component;
   }
 
+  it('compares a build with the one open, as Before and After, without asking about unsaved changes', () => {
+    const component = create();
+    const closed = vi.fn();
+    component.closed.subscribe(closed);
+    Object.assign(currentBuild.value, { savedBuildId: 'build-2', shortId: 'open1', name: 'Trying new rings', isDirty: true });
+    const event = { stopPropagation: vi.fn() } as unknown as Event;
+    const confirm = vi.spyOn(window, 'confirm');
+
+    component.compareWith(makeBuild(), event);
+
+    expect(event.stopPropagation).toHaveBeenCalled();
+    expect(router.navigateByUrl).toHaveBeenCalledWith('/compare/abc123/open1');
+    expect(closed).toHaveBeenCalled();
+    expect(confirm).not.toHaveBeenCalled();
+    expect(component.compareTitle(makeBuild()))
+      .toBe('Compare My Build with Trying new rings as last saved - save first to include your changes');
+  });
+
+  it('compares a build with one still to pick when no saved build is open', () => {
+    const component = create();
+
+    component.compareWith(makeBuild(), { stopPropagation: () => undefined } as unknown as Event);
+
+    expect(router.navigateByUrl).toHaveBeenCalledWith('/compare/abc123');
+    expect(component.compareTitle(makeBuild())).toBe('Compare My Build with another build');
+  });
+
   it('loads the list on init', () => {
     const component = create([makeBuild({ name: 'A' }), makeBuild({ id: 'build-2', name: 'B' })]);
 

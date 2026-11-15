@@ -1,0 +1,14 @@
+<div class="container compare-page">
+  <app-page-chrome [backTo]="plannerLink"></app-page-chrome>
+  <div class="compare-page-scroll">
+    @if (body) {
+      <ng-container *ngComponentOutlet="body; inputs: inputs"></ng-container>
+    } @else if (loadFailed) {
+      <div class="compare-page-message" role="alert">
+        Couldn't load this page. <button type="button" class="compare-page-retry" (click)="loadBody()">Try again</button>
+      </div>
+    } @else {
+      <p class="compare-page-message" aria-live="polite">Loading…</p>
+    }
+  </div>
+</div>

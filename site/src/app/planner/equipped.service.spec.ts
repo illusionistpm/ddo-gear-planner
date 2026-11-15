@@ -403,6 +403,32 @@ describe('EquippedService', () => {
     expect(service.getExternalAffixesForType('Concentration', 'Insight')).toEqual([]);
   });
 
+  it('counts an equipped item\'s ignored bonus type at its full value', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+    service.set(makeItem('Focus Ring', 'Ring1', 'Rings', [{ name: 'Concentration', type: 'Insight', value: 4 }]));
+
+    service.addExternalAffixIgnored('Concentration', 'Insight', 'Not worth chasing');
+
+    expect(service.getCurrentValueForAffixType('Concentration', 'Insight')).toBe(4);
+  });
+
+  it('gives an item\'s affix group to its members at their component values, but a non-gear group at its full value', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+    // Riposte's Armor Class is half its value rounded up, its saves half rounded down.
+    service.set(makeItem('Riposte Gloves', 'Gloves', 'Gloves', [{ name: 'Riposte', type: 'Insight', value: 5 }]));
+
+    expect(service.getCurrentValueForAffixType('Armor Class', 'Insight')).toBe(3);
+    expect(service.getCurrentValueForAffixType('Will Save', 'Insight')).toBe(2);
+    expect(service.getSourcesForAffixType('Armor Class', 'Insight')).toEqual([{
+      kind: 'item', slot: 'Gloves', itemName: 'Riposte Gloves', affixName: 'Armor Class', bonusType: 'Insight', value: 3,
+    }]);
+
+    service.addExternalAffixValue('Riposte', 'Insight', 5, 'Stance');
+
+    expect(service.getCurrentValueForAffixType('Armor Class', 'Insight')).toBe(5);
+    expect(service.getCurrentValueForAffixType('Will Save', 'Insight')).toBe(5);
+  });
+
   it('emits an event when an item is equipped', () => {
     const service: EquippedService = TestBed.inject(EquippedService);
     const events: Array<{

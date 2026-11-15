@@ -1,0 +1,273 @@
+<section class="compare" aria-labelledby="compare-heading">
+  <h1 id="compare-heading" class="compare-heading">Compare builds</h1>
+
+  <div class="compare-pickers">
+    @for (which of pickers; track which.key) {
+      <div class="compare-picker">
+        <label class="compare-picker-label" [attr.for]="'compare-pick-' + which.key">{{which.label}}</label>
+        <div class="compare-picker-row">
+          @if (signedIn && mine && (mine.length || which.id)) {
+            <select class="compare-select" [id]="'compare-pick-' + which.key"
+              (change)="pick(which.key, $any($event.target).value)">
+              @if (!which.id) {
+                <option value="" selected disabled>Pick a build…</option>
+              }
+              @for (option of which.options; track option.shortId) {
+                <option [value]="option.shortId" [selected]="option.shortId === which.id">{{option.name}}</option>
+              }
+            </select>
+          } @else {
+            <span class="compare-picked" [id]="'compare-pick-' + which.key">
+              @switch (which.side.status) {
+                @case ('ready') { {{which.name}} }
+                @case ('loading') { Loading… }
+                @case ('empty') { No build picked }
+                @default { {{which.id}} }
+              }
+            </span>
+          }
+          @if (which.plannerPath; as path) {
+            <a class="compare-open" [href]="path" target="_blank" rel="noopener" title="Open this build in the planner, in a new tab">
+              <i class="fas fa-up-right-from-square" aria-hidden="true"></i><span class="visually-hidden">Open {{which.label}} in the planner</span>
+            </a>
+          }
+        </div>
+        @if (which.error; as error) {
+          <div class="compare-side-error" role="alert">
+            @switch (error) {
+              @case ('not-found') { No saved build with this link - it may have been deleted. }
+              @case ('invalid-link') { This build was saved in a format this page can no longer read. }
+              @default {
+                Couldn't load this build. <button type="button" class="compare-link-button" (click)="retry()">Try again</button>
+              }
+            }
+          </div>
+        }
+      </div>
+      @if (which.key === 'a') {
+        <button type="button" class="compare-swap" (click)="swap()" [disabled]="!a && !b"
+          title="Swap Before and After" aria-label="Swap Before and After">
+          <i class="fas fa-right-left" aria-hidden="true"></i>
+        </button>
+      }
+    }
+  </div>
+
+  @if (!signedIn) {
+    <p class="compare-note">
+      <button type="button" class="pill-button primary" (click)="signIn()">Sign in to pick from your builds</button>
+    </p>
+  } @else if (mineError) {
+    <p class="compare-note">Couldn't load your builds to pick from.</p>
+  } @else if (mine && !mine.length) {
+    <p class="compare-note">You have no saved builds yet. Save a build, then save a copy with the gear you're considering, and compare the two.</p>
+  }
+
+  @if (sameBuild) {
+    <p class="compare-note">Same build on both sides - pick another to compare.</p>
+  }
+
+  @if (unknownItems.length) {
+    <div class="compare-warning" role="status">
+      @for (entry of unknownItems; track entry.side + entry.slot) {
+        <div>{{entry.side}}: {{entry.name}} ({{entry.slot}}) isn't in the game data any more, so it counts as empty.</div>
+      }
+    </div>
+  }
+
+  @if (comparison; as result) {
+    <div class="compare-summary">
+      <div class="compare-counts" aria-live="polite">
+        <span class="compare-count up"><i class="fas fa-arrow-up" aria-hidden="true"></i> {{result.summary.higher}} higher</span>
+        <span class="compare-count down"><i class="fas fa-arrow-down" aria-hidden="true"></i> {{result.summary.lower}} lower</span>
+        <span class="compare-count same">{{result.summary.unchanged}} unchanged</span>
+      </div>
+      <label class="compare-toggle">
+        <input type="checkbox" [checked]="changesOnly" (change)="setChangesOnly($any($event.target).checked)">
+        Changes only
+      </label>
+    </div>
+
+    <h2 class="compare-section-heading">Tracked affixes</h2>
+    @if (!result.tracked.length) {
+      <p class="compare-empty">Neither build tracks any affixes.</p>
+    } @else if (!visibleTracked.length) {
+      <p class="compare-empty">No tracked affix changes.</p>
+    } @else {
+      <div class="compare-table">
+        <div class="compare-head" aria-hidden="true">
+          <span>Affix</span>
+          <span class="num">Before</span>
+          <span class="num">After</span>
+          <span class="num">Change</span>
+        </div>
+        @for (group of visibleTracked; track group.name) {
+          <div class="compare-group">
+            <div class="compare-group-name"><span>{{group.name}}</span></div>
+            @for (row of group.rows; track row.name) {
+              <ng-container *ngTemplateOutlet="affixRow; context: { $implicit: row }"></ng-container>
+            }
+          </div>
+        }
+      </div>
+    }
+
+    @if (result.gear.length || result.filigree.length) {
+      <h2 class="compare-section-heading">Gear changes</h2>
+      <ul class="compare-list">
+        @for (change of result.gear; track change.slot) {
+          <li class="compare-gear">
+            <span class="compare-gear-slot"><app-slot-icon [slot]="change.slot"></app-slot-icon>{{slotName(change.slot)}}</span>
+            <span class="compare-gear-items">
+              @if (change.kind === 'changed') {
+                <span class="compare-gear-name">{{change.b!.name}}</span>
+                @if (change.a!.ml !== change.b!.ml) {
+                  <span class="compare-gear-detail">ML {{change.a!.ml}} → {{change.b!.ml}}</span>
+                }
+                @for (craft of change.crafting; track craft.system) {
+                  <span class="compare-gear-detail">{{craft.system}}: {{craft.a ?? 'nothing'}} → {{craft.b ?? 'nothing'}}</span>
+                }
+              } @else {
+                <span class="compare-gear-name" [class.muted]="!change.a">{{gearText(change.a)}}</span>
+                <i class="fas fa-arrow-right compare-arrow" aria-label="becomes"></i>
+                <span class="compare-gear-name" [class.muted]="!change.b">{{gearText(change.b)}}</span>
+              }
+            </span>
+          </li>
+        }
+        @for (change of result.filigree; track change.host) {
+          <li class="compare-gear">
+            <span class="compare-gear-slot"><app-slot-icon icon="cut-diamond"></app-slot-icon>{{hostLabel(change.host)}} filigree</span>
+            <span class="compare-gear-items">
+              @for (name of change.removed; track $index) {
+                <span class="compare-gear-detail down">− {{name}}</span>
+              }
+              @for (name of change.added; track $index) {
+                <span class="compare-gear-detail up">+ {{name}}</span>
+              }
+            </span>
+          </li>
+        }
+      </ul>
+    } @else {
+      <h2 class="compare-section-heading">Gear changes</h2>
+      <p class="compare-empty">The same gear on both sides.</p>
+    }
+
+    @if (result.sets.length) {
+      <h2 class="compare-section-heading">Set bonuses</h2>
+      <ul class="compare-list">
+        @for (set of result.sets; track set.setName + set.filigree) {
+          <li class="compare-gear">
+            <span class="compare-gear-slot">
+              <app-slot-icon [icon]="set.filigree ? 'cut-diamond' : 'linked-rings'"></app-slot-icon>{{set.setName}}@if (set.filigree) { <span class="compare-tag">filigree</span> }
+            </span>
+            <span class="compare-gear-items">
+              <span>{{set.aPieces}} → {{set.bPieces}} pieces</span>
+              @if (tierText(set); as tiers) {
+                <span class="compare-gear-detail" [class]="deltaClass(set.bTiers - set.aTiers)">{{tiers}}</span>
+              }
+            </span>
+          </li>
+        }
+      </ul>
+    }
+
+    @if (result.other.length) {
+      <details class="compare-other">
+        <summary class="compare-section-heading">Other changes <span class="compare-tag">{{result.other.length}} not tracked</span></summary>
+        <div class="compare-table">
+          @for (row of result.other; track row.name) {
+            <ng-container *ngTemplateOutlet="affixRow; context: { $implicit: row }"></ng-container>
+          }
+        </div>
+      </details>
+    }
+
+  } @else if (sideA.status === 'loading' || sideB.status === 'loading') {
+    <p class="compare-empty" aria-live="polite">Loading…</p>
+  } @else if (!a || !b) {
+    <p class="compare-empty">Pick two builds to see how their stats differ.</p>
+  }
+</section>
+
+<ng-template #affixRow let-row>
+  <details class="compare-row">
+    <summary class="compare-row-summary">
+      <span class="compare-name">
+        <i class="fas fa-chevron-right compare-caret" aria-hidden="true"></i>{{row.name}}
+        @if (trackedNote(row); as note) { <span class="compare-tag">{{note}}</span> }
+        @if (row.a.hasPenalty || row.b.hasPenalty) { <span class="compare-tag down">penalty</span> }
+      </span>
+      <span class="num" data-label="Before">
+        <ng-container *ngTemplateOutlet="totalValue; context: { $implicit: row.a.total, checklist: row.checklist }"></ng-container>
+      </span>
+      <span class="num" data-label="After">
+        <ng-container *ngTemplateOutlet="totalValue; context: { $implicit: row.b.total, checklist: row.checklist }"></ng-container>
+      </span>
+      <span class="num"><span class="compare-delta" [class]="deltaClass(row.delta)">{{deltaText(row.delta, row.checklist)}}</span></span>
+    </summary>
+    <div class="compare-breakdown">
+      @if (breakdown(row); as types) {
+        @if (types.length) {
+          <div class="compare-breakdown-row compare-breakdown-head" aria-hidden="true">
+            <span>Bonus type</span><span>Before</span><span>After</span><span class="num">Change</span>
+          </div>
+        }
+        @for (type of types; track type.sourceAffixName + type.bonusType) {
+          <div class="compare-breakdown-row">
+            <span class="compare-breakdown-type">
+              {{type.label}}@if (type.ignored) { <span class="compare-tag">ignored</span> }
+            </span>
+            <span class="compare-breakdown-side" data-label="Before">
+              <ng-container *ngTemplateOutlet="side; context: { value: type.a, sources: type.aFrom, checklist: type.checklist }"></ng-container>
+            </span>
+            <span class="compare-breakdown-side" data-label="After">
+              <ng-container *ngTemplateOutlet="side; context: { value: type.b, sources: type.bFrom, checklist: type.checklist, same: type.sameSources }"></ng-container>
+            </span>
+            <span class="num">
+              <span class="compare-delta small" [class]="deltaClass(type.delta)">{{deltaText(type.delta, type.checklist)}}</span>
+            </span>
+          </div>
+        } @empty {
+          <div class="compare-breakdown-row muted">Neither build gives it.</div>
+        }
+      }
+    </div>
+  </details>
+</ng-template>
+
+<!-- A total: a number, or for an on/off affix the checkbox the planner shows. -->
+<ng-template #totalValue let-total let-checklist="checklist">
+  @if (checklist) {
+    <span class="far" [class]="total ? 'fa-square-check max-value' : 'fa-square no-value'" aria-hidden="true"></span>
+    <span class="visually-hidden">{{total ? 'Yes' : 'No'}}</span>
+  } @else {
+    {{total}}
+  }
+</ng-template>
+
+<!-- One side of a bonus type: its value and what gives it, or for After, a note when that's what Before has. -->
+<ng-template #side let-value="value" let-sources="sources" let-checklist="checklist" let-same="same">
+  <span class="compare-breakdown-value">
+    <ng-container *ngTemplateOutlet="totalValue; context: { $implicit: value ?? 0, checklist: checklist }"></ng-container>
+  </span>
+  <span class="compare-breakdown-from">
+    @if (same) {
+      <span class="compare-same">Same as before</span>
+    } @else {
+    @for (source of sources; track source.key) {
+      <span class="compare-source" [class.with-eye]="!!source.inGear" [title]="source.title">
+        <app-slot-icon [slot]="source.slot" [icon]="source.icon"></app-slot-icon><span class="compare-source-name">{{source.name}}</span>
+        @if (source.inGear) {
+          <app-tap-tooltip [text]="source.inGear" label="Which gear it's in">
+            <i class="fas fa-eye small" aria-hidden="true"></i>
+          </app-tap-tooltip>
+        }
+      </span>
+    } @empty {
+      <span class="muted">—</span>
+    }
+    }
+  </span>
+</ng-template>

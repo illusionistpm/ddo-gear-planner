@@ -66,6 +66,24 @@ export function isGroupRunRoute(routePath: string): boolean {
   return GROUP_RUN_ROUTE.test(routePath);
 }
 
+// Two saved builds side by side (ComparePageComponent): a page of its own,
+// which reads both builds itself and never loads either into the planner.
+// /compare picks both, /compare/:a the second, /compare/:a/:b shows them.
+const COMPARE_ROUTE = /^\/compare(?:\/[^/]+){0,2}$/;
+
+/** Whether a route path is the compare page: /compare(/:a(/:b)). */
+export function isCompareRoute(routePath: string): boolean {
+  return COMPARE_ROUTE.test(routePath);
+}
+
+/** The compare page for two saved builds or short links, by shortId; either can be left to pick. */
+export function comparePath(a?: string | null, b?: string | null): string {
+  if (!a) {
+    return b ? comparePath(b) : '/compare';
+  }
+  return `/compare/${encodeURIComponent(a)}${b ? `/${encodeURIComponent(b)}` : ''}`;
+}
+
 /** The path to a friend's view of what a saved build still needs: /still-needed/:shortId/:slug. */
 export function stillNeededPath(shortId: string, name: string | null): string {
   return `/still-needed${shortIdPath(shortId, name)}`;

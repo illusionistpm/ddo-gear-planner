@@ -26,7 +26,6 @@ import { SLOT_ICON_PATHS } from './slot-icon-paths';
     }
   `],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false
 })
 export class SlotIconComponent {
   @Input() slot?: string;

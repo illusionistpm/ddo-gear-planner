@@ -9,7 +9,9 @@ import { EquippedService } from './planner/equipped.service';
 import { FiltersService } from './planner/filters.service';
 import { QueryParamsService } from './build/query-params.service';
 import { CurrentBuildService } from './build/current-build.service';
-import { isBuildShortIdRoute, isGroupRunRoute, isStillNeededRoute, routePathOf, urlWithoutFragment } from './build/build-route';
+import {
+  isBuildShortIdRoute, isCompareRoute, isGroupRunRoute, isStillNeededRoute, routePathOf, urlWithoutFragment
+} from './build/build-route';
 import { hasUnsavedWork } from './build/unsaved-changes.guard';
 import { PlannerOnboardingService } from './planner/planner-onboarding.service';
 import { perfAfterFrames, perfStart } from './shared/perf-trace';
@@ -105,11 +107,11 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     const routePath = routePathOf(this.router.url);
-    if (isStillNeededRoute(routePath) || isGroupRunRoute(routePath)) {
-      // A friend's still-needed page, or a group run's, reads its builds
-      // itself, and leaves the planner as it was - applying this URL's
-      // (empty) params would clear it.
-      done({ skipped: isStillNeededRoute(routePath) ? 'stillNeededRoute' : 'groupRunRoute' });
+    if (isStillNeededRoute(routePath) || isGroupRunRoute(routePath) || isCompareRoute(routePath)) {
+      // A friend's still-needed page, a group run's or the compare page reads
+      // its builds itself, and leaves the planner as it was - applying this
+      // URL's (empty) params would clear it.
+      done({ skipped: isStillNeededRoute(routePath) ? 'stillNeededRoute' : isGroupRunRoute(routePath) ? 'groupRunRoute' : 'compareRoute' });
       return;
     }
     const queryParamMap = this.router.parseUrl(this.router.url).queryParamMap;

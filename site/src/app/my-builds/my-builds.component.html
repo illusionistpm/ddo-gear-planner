@@ -32,25 +32,31 @@
         <li class="my-builds-row" (click)="open(build)">
           <span class="my-builds-name">{{ build.name }}</span>
 
-          @if (confirmingDeleteId === build.id) {
-            <span class="my-builds-confirm-delete">
-              <span>Delete?</span>
-              <button type="button" (click)="confirmDelete(build, $event)" [disabled]="deletingId === build.id">
-                {{ deletingId === build.id ? 'Deleting…' : 'Yes' }}
+          <span class="my-builds-actions">
+            @if (confirmingDeleteId === build.id) {
+              <span class="my-builds-confirm-delete">
+                <span>Delete?</span>
+                <button type="button" (click)="confirmDelete(build, $event)" [disabled]="deletingId === build.id">
+                  {{ deletingId === build.id ? 'Deleting…' : 'Yes' }}
+                </button>
+                <button type="button" (click)="cancelDelete($event)" [disabled]="deletingId === build.id">No</button>
+              </span>
+            } @else if (isCurrentBuild(build)) {
+              <button type="button" class="my-builds-delete" disabled
+                  aria-label="Can't delete the build you currently have open"
+                  title="Can't delete the build you currently have open">
+                <i class="fas fa-trash" aria-hidden="true"></i>
               </button>
-              <button type="button" (click)="cancelDelete($event)" [disabled]="deletingId === build.id">No</button>
-            </span>
-          } @else if (isCurrentBuild(build)) {
-            <button type="button" class="my-builds-delete" disabled
-                aria-label="Can't delete the build you currently have open"
-                title="Can't delete the build you currently have open">
-              <i class="fas fa-trash" aria-hidden="true"></i>
-            </button>
-          } @else {
-            <button type="button" class="my-builds-delete" aria-label="Delete build" (click)="requestDelete(build, $event)">
-              <i class="fas fa-trash" aria-hidden="true"></i>
-            </button>
-          }
+            } @else {
+              <button type="button" class="my-builds-compare" [title]="compareTitle(build)" [attr.aria-label]="compareTitle(build)"
+                  (click)="compareWith(build, $event)">
+                <i class="fas fa-code-compare" aria-hidden="true"></i>
+              </button>
+              <button type="button" class="my-builds-delete" aria-label="Delete build" (click)="requestDelete(build, $event)">
+                <i class="fas fa-trash" aria-hidden="true"></i>
+              </button>
+            }
+          </span>
         </li>
       }
     </ul>

@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { CanDeactivateFn } from '@angular/router';
 
-import { isBuildShortIdRoute, isGroupRunRoute, routePathOf } from './build-route';
+import { isBuildShortIdRoute, isCompareRoute, isGroupRunRoute, routePathOf } from './build-route';
 import { CurrentBuildService } from './current-build.service';
 import { EquippedService } from '../planner/equipped.service';
 import { MainComponent } from '../main/main.component';
@@ -74,6 +74,10 @@ export const unsavedChangesGuard: CanDeactivateFn<MainComponent> = (_component, 
   // stays in its root services, and the list's Planner link comes back to
   // its URL (ListReturnService). Nothing is lost by going there.
   if (isGroupRunRoute(nextPath)) {
+    return true;
+  }
+  // So does the compare page, which reads saved builds and comes back the same way.
+  if (isCompareRoute(nextPath)) {
     return true;
   }
 

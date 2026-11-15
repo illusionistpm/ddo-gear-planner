@@ -21,9 +21,9 @@ describe('CraftingSlotsComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [
         CraftingSlotsComponent, CraftingSlotControlComponent, CraftingOptionPickerComponent,
-        TapTooltipComponent, TapTooltipPanelComponent, SlotIconComponent, UserItemLocationTooltipPipe
+        UserItemLocationTooltipPipe
       ],
-      imports: [FormsModule, NgbModule]
+      imports: [FormsModule, NgbModule, SlotIconComponent, TapTooltipComponent, TapTooltipPanelComponent]
     }).compileComponents();
     equipped = TestBed.inject(EquippedService);
   });

@@ -3,6 +3,7 @@ import { RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main/main.component';
 import { StillNeededPageComponent } from './still-needed-page/still-needed-page.component';
 import { GroupRunPageComponent } from './group-run-page/group-run-page.component';
+import { ComparePageComponent } from './compare-page/compare-page.component';
 import { MainRouteReuseStrategy } from './build/main-route-reuse-strategy';
 import { redirectLegacyRouteToRootGuard } from './build/redirect-legacy-route.guard';
 import { unsavedChangesGuard } from './build/unsaved-changes.guard';
@@ -27,7 +28,11 @@ const routes: Routes = [
   // A shopping list of several builds, yours and friends', shopped for as
   // one. The invite token rides in the fragment (see groups.service.ts's
   // groupPath).
-  { path: 'list/:shortId', component: GroupRunPageComponent }
+  { path: 'list/:shortId', component: GroupRunPageComponent },
+  // Two saved builds side by side; see build-route.ts's isCompareRoute.
+  { path: 'compare', component: ComparePageComponent },
+  { path: 'compare/:a', component: ComparePageComponent },
+  { path: 'compare/:a/:b', component: ComparePageComponent }
 ];
 
 @NgModule({

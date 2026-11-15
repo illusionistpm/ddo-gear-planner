@@ -3,7 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { isGroupRunRoute, isStillNeededRoute, routePathOf, urlWithoutFragment } from './build-route';
+import { isCompareRoute, isGroupRunRoute, isStillNeededRoute, routePathOf, urlWithoutFragment } from './build-route';
 import { SHOPPING_LIST_FRAGMENT } from './shopping-list-link';
 
 /**
@@ -49,7 +49,7 @@ export class ListReturnService implements OnDestroy {
 
   private remember(url: string): void {
     const path = routePathOf(url);
-    if (!isGroupRunRoute(path) && !isStillNeededRoute(path)) {
+    if (!isGroupRunRoute(path) && !isStillNeededRoute(path) && !isCompareRoute(path)) {
       this.plannerUrl = urlWithoutFragment(url);
     }
   }

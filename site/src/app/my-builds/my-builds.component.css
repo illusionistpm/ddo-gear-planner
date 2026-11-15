@@ -95,6 +95,7 @@
   white-space: nowrap;
 }
 
+.my-builds-compare,
 .my-builds-delete {
   flex: 0 0 auto;
   background: transparent;
@@ -104,7 +105,12 @@
   padding: var(--space-4);
 }
 
+.my-builds-compare:hover {
+  color: var(--primary-color);
+}
+
 @media (pointer: coarse) {
+  .my-builds-compare,
   .my-builds-delete {
     min-height: 2rem;
     min-width: 2rem;

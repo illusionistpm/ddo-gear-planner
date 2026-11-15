@@ -43,6 +43,9 @@
               <i class="fas fa-copy build-menu-icon" aria-hidden="true"></i>Save as a new build…
             </button>
           }
+          <button type="button" class="build-menu-item" (click)="onCompareMenuItemClick()">
+            <i class="fas fa-code-compare build-menu-icon" aria-hidden="true"></i>Compare builds…
+          </button>
           <app-my-builds (closed)="closeMenu()"></app-my-builds>
         } @else {
           <button #buildMenuItem type="button" class="build-menu-item build-menu-sign-in" (click)="signIn()">

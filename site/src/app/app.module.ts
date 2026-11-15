@@ -63,6 +63,7 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingListShareMenuComponent } from './shopping-list/shopping-list-share-menu.component';
 import { StillNeededPageComponent } from './still-needed-page/still-needed-page.component';
 import { GroupRunPageComponent } from './group-run-page/group-run-page.component';
+import { ComparePageComponent } from './compare-page/compare-page.component';
 import { MenuBackdropComponent } from './menu-backdrop/menu-backdrop.component';
 import { BuildChoicesComponent } from './shopping-list/build-choices.component';
 import { ListDialogComponent } from './shopping-list/list-dialog.component';
@@ -122,7 +123,8 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         ShoppingListComponent,
         ShoppingListShareMenuComponent,
         GroupRunPageComponent,
-        StillNeededPageComponent
+        StillNeededPageComponent,
+        ComparePageComponent
     ],
     imports: [
         AppRoutingModule,

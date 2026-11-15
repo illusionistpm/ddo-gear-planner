@@ -99,6 +99,15 @@ describe('unsavedChangesGuard', () => {
     expect(window.confirm).not.toHaveBeenCalled();
   });
 
+  it('does not confirm for the compare page, which leaves the planner as it is', () => {
+    currentBuild.value.isDirty = true;
+    vi.spyOn(window, 'confirm').mockReturnValue(false);
+
+    expect(run('/compare/abc/def')).toBe(true);
+    expect(run('/compare')).toBe(true);
+    expect(window.confirm).not.toHaveBeenCalled();
+  });
+
   it('still confirms when the destination is genuinely outside the build editor', () => {
     currentBuild.value.isDirty = true;
     vi.spyOn(window, 'confirm').mockReturnValue(true);

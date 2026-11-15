@@ -1,5 +1,5 @@
 import {
-  buildPath, isBuildShortIdRoute, isStillNeededRoute, routePathOf, routeSegmentsOf, stillNeededPath, urlFragmentOf, urlWithoutFragment
+  buildPath, comparePath, isBuildShortIdRoute, isCompareRoute, isStillNeededRoute, routePathOf, routeSegmentsOf, stillNeededPath, urlFragmentOf, urlWithoutFragment
 } from './build-route';
 
 describe('routeSegmentsOf and routePathOf', () => {
@@ -74,6 +74,25 @@ describe("a friend's still-needed page", () => {
     expect(isStillNeededRoute('/still-needed/abc123/my-build')).toBe(true);
     for (const path of ['/still-needed', '/still-needed/abc123/my-build/extra', '/build/abc123', '/']) {
       expect(isStillNeededRoute(path)).toBe(false);
+    }
+  });
+});
+
+describe('the compare page', () => {
+  it('is at /compare/:a/:b, with either side left to pick', () => {
+    expect(comparePath('abc', 'def')).toBe('/compare/abc/def');
+    expect(comparePath('abc', null)).toBe('/compare/abc');
+    expect(comparePath(null, 'def')).toBe('/compare/def');
+    expect(comparePath()).toBe('/compare');
+    expect(comparePath('a b', 'c/d')).toBe('/compare/a%20b/c%2Fd');
+  });
+
+  it('is recognized with none, one or two builds, and nothing else is', () => {
+    for (const path of ['/compare', '/compare/abc', '/compare/abc/def']) {
+      expect(isCompareRoute(path)).toBe(true);
+    }
+    for (const path of ['/compare/abc/def/ghi', '/comparison', '/build/abc', '/']) {
+      expect(isCompareRoute(path)).toBe(false);
     }
   });
 });

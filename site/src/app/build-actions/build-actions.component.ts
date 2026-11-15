@@ -1,10 +1,12 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostListener, inject, OnDestroy, OnInit, ViewChild
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from '../shared/auth.service';
 import { CurrentBuildService, CurrentBuildState } from '../build/current-build.service';
+import { comparePath } from '../build/build-route';
 import { MAX_BUILD_NAME_LENGTH, validateBuildName } from '../save-build-dialog/save-build-dialog.component';
 import { BuildSaveError, BuildSaveService } from './build-save.service';
 
@@ -95,6 +97,7 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   @ViewChild('nameInput') private readonly nameInputRef?: ElementRef<HTMLInputElement>;
   @ViewChild('nameTrigger') private readonly nameTriggerRef?: ElementRef<HTMLButtonElement>;
 
+  private readonly router = inject(Router);
   private buildStateSub?: Subscription;
   private authSub?: Subscription;
   private userSub?: Subscription;
@@ -375,6 +378,13 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
     // 'unknown' falls through to nothing - the button is disabled in this
     // state (see saveControl), so a click shouldn't reach here at all; this
     // is just not assuming that stays true forever.
+  }
+
+  /** The compare page, with the build that's open (as last saved) on its Before side. */
+  onCompareMenuItemClick(): void {
+    this.cancelRename();
+    this.closeMenu();
+    this.router.navigateByUrl(comparePath(this.currentBuild.value.shortId));
   }
 
   onSaveAsMenuItemClick(): void {

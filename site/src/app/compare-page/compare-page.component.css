@@ -1,0 +1,37 @@
+/* As the planner's page is laid out (main.component.css): the page scrolls under a fixed header. */
+.compare-page {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100svh;
+  max-width: none;
+  overflow: hidden;
+  padding-left: var(--space-16);
+  padding-right: 0;
+  width: 100%;
+}
+
+.compare-page-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-right: var(--space-16);
+  scrollbar-gutter: stable;
+}
+
+.compare-page-message {
+  color: var(--text-secondary);
+  margin: 1.5rem auto;
+  text-align: center;
+}
+
+.compare-page-retry {
+  background: none;
+  border: none;
+  color: var(--link-color);
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  text-decoration: underline;
+}

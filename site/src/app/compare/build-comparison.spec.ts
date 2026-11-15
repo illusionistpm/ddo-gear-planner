@@ -10,7 +10,7 @@ import { FiligreeDbService } from '../gear/filigree-db.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { Item } from '../gear/item';
 import { BuildModel, buildModelOf, BuildSnapshot, contributedAffixNames } from '../planner/build-snapshot';
-import { CoveredBonusType } from '../affixes/tracked-affix-derivation';
+import { CoveredBonusType, visibleTypeRulesOf } from '../affixes/tracked-affix-derivation';
 import { EquippedService } from '../planner/equipped.service';
 import { BuildCompareService } from './build-compare.service';
 import { AffixDiffRow, BuildComparison } from './build-comparison';
@@ -81,11 +81,8 @@ describe('Comparing two saved builds', () => {
   });
 
   describe('an affix\'s total', () => {
-    const totalOf = (built: BuildModel, name: string) => affixTotal(built, TestBed.inject(AffixService), {
-      allLevelTypes: affix => gearDb.getAllLevelTypesForAffix(affix),
-      isUniversalCompanionOnly: (affix, type) => gearDb.isBonusTypeOnlyFromUniversalCompanion(affix, type),
-      isGroupMember: (affix, group) => TestBed.inject(AffixService).isGroupMember(affix, group),
-    }, name);
+    const totalOf = (built: BuildModel, name: string) => affixTotal(built, TestBed.inject(AffixService),
+      visibleTypeRulesOf(gearDb, TestBed.inject(AffixService)), name);
 
     it('adds the best value of each bonus type, with what supplies it', () => {
       const built = model({

@@ -2,6 +2,7 @@ import { AffixService, UNIVERSAL_COMPANION_AFFIXES } from './affix.service';
 import { AffixGroupDisplay, groupAffixNames, UTILITY_CHECKLIST_CATEGORY } from './affix-organization';
 import { affixTypeKey } from './affix-type-key';
 import { getCountAffixChipLabel } from './count-affix';
+import type { GearDbService } from '../gear/gear-db.service';
 
 /**
  * Pure rules for deriving the tracked-affix display from the covered-affix map.
@@ -168,6 +169,22 @@ export interface VisibleTypeRules {
   /** Whether a row with no value is still worth showing: gear could give it. */
   isAvailable(affixName: string, bonusType: string): boolean;
   isGroupMember(affixName: string, groupName: string): boolean;
+}
+
+/**
+ * The rules over the game data. A row with no value shows only when `isAvailable` says gear could
+ * give it: the planner's level range does; by default none does.
+ */
+export function visibleTypeRulesOf(
+    gearDb: Pick<GearDbService, 'getAllLevelTypesForAffix' | 'isBonusTypeOnlyFromUniversalCompanion'>,
+    affixSvc: Pick<AffixService, 'isGroupMember'>,
+    isAvailable: VisibleTypeRules['isAvailable'] = () => false): VisibleTypeRules {
+  return {
+    allLevelTypes: affixName => gearDb.getAllLevelTypesForAffix(affixName),
+    isUniversalCompanionOnly: (affixName, bonusType) => gearDb.isBonusTypeOnlyFromUniversalCompanion(affixName, bonusType),
+    isAvailable,
+    isGroupMember: (affixName, groupName) => affixSvc.isGroupMember(affixName, groupName),
+  };
 }
 
 /** A bonus type as a row; a universal companion's rows read "Universal <type>". */

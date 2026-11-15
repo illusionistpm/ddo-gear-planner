@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { AffixService } from '../affixes/affix.service';
 import { AffixTotalRules } from '../affixes/build-totals';
+import { visibleTypeRulesOf } from '../affixes/tracked-affix-derivation';
 import { BuildUrlCodecService } from '../build/build-url-codec.service';
 import { EssenceCraftingService } from '../gear/essence-crafting.service';
 import { FiligreeDbService } from '../gear/filigree-db.service';
@@ -26,11 +27,7 @@ export class BuildCompareService {
     private readonly filigreeDb: FiligreeDbService,
     private readonly affixSvc: AffixService
   ) {
-    this.rules = {
-      allLevelTypes: affixName => this.gearDb.getAllLevelTypesForAffix(affixName),
-      isUniversalCompanionOnly: (affixName, bonusType) => this.gearDb.isBonusTypeOnlyFromUniversalCompanion(affixName, bonusType),
-      isGroupMember: (affixName, groupName) => this.affixSvc.isGroupMember(affixName, groupName),
-    };
+    this.rules = visibleTypeRulesOf(gearDb, affixSvc);
   }
 
   /** A saved build's gear and what it adds up to; null for a blob this client can't read. */

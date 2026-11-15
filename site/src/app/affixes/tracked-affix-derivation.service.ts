@@ -4,7 +4,8 @@ import { AffixService } from './affix.service';
 import { EquippedService } from '../planner/equipped.service';
 import { GearDbService } from '../gear/gear-db.service';
 import {
-  CoveredBonusType, makeDisplayType, TrackedBonusTypeDisplay, universalCompanionsOf, visibleTypesOf, VisibleTypeRules
+  CoveredBonusType, makeDisplayType, TrackedBonusTypeDisplay, universalCompanionsOf, visibleTypeRulesOf, visibleTypesOf,
+  VisibleTypeRules
 } from './tracked-affix-derivation';
 
 /**
@@ -23,12 +24,8 @@ export class TrackedAffixDerivationService {
     private gearDB: GearDbService,
     private affixSvc: AffixService
   ) {
-    this.rules = {
-      allLevelTypes: affixName => this.gearDB.getAllLevelTypesForAffix(affixName),
-      isUniversalCompanionOnly: (affixName, bonusType) => this.gearDB.isBonusTypeOnlyFromUniversalCompanion(affixName, bonusType),
-      isAvailable: (affixName, bonusType) => this.gearDB.getBestValueForAffixType(affixName, bonusType) > 0,
-      isGroupMember: (affixName, groupName) => this.affixSvc.isGroupMember(affixName, groupName),
-    };
+    this.rules = visibleTypeRulesOf(gearDB, affixSvc,
+      (affixName, bonusType) => gearDB.getBestValueForAffixType(affixName, bonusType) > 0);
   }
 
   /**
@@ -46,12 +43,12 @@ export class TrackedAffixDerivationService {
    * the same universal-companion handling as getVisibleTypes.
    */
   getAllLevelDisplayTypes(affixName: string): TrackedBonusTypeDisplay[] {
-    const displayTypes = this.gearDB.getAllLevelTypesForAffix(affixName)
+    const displayTypes = this.rules.allLevelTypes(affixName)
       .filter(bonusType => !this.rules.isUniversalCompanionOnly(affixName, bonusType))
       .map(bonusType => makeDisplayType(affixName, bonusType, 0));
 
     for (const sourceAffixName of universalCompanionsOf(affixName, this.rules)) {
-      for (const bonusType of this.gearDB.getAllLevelTypesForAffix(sourceAffixName)) {
+      for (const bonusType of this.rules.allLevelTypes(sourceAffixName)) {
         displayTypes.push(makeDisplayType(sourceAffixName, bonusType, 0));
       }
     }

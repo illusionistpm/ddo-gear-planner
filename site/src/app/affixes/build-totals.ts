@@ -7,7 +7,9 @@ import type { GearDbService } from '../gear/gear-db.service';
 import type { Item } from '../gear/item';
 import type { VisibleSetBonus } from '../planner/equipped.service';
 import type { FiligreeContribution } from '../planner/filigree-loadout';
-import { isBoolAffixTypes, makeDisplayType, TrackedBonusTypeDisplay, visibleTypesOf } from './tracked-affix-derivation';
+import {
+  isBoolAffixTypes, makeDisplayType, TrackedBonusTypeDisplay, VisibleTypeRules, visibleTypesOf
+} from './tracked-affix-derivation';
 
 /**
  * How a build's bonuses stack, as pure functions over what the build has equipped.
@@ -234,12 +236,8 @@ export interface AffixTotal {
   hasPenalty: boolean;
 }
 
-/** What affixTotal needs to know about the game data. */
-export interface AffixTotalRules {
-  allLevelTypes(affixName: string): string[];
-  isUniversalCompanionOnly(affixName: string, bonusType: string): boolean;
-  isGroupMember(affixName: string, groupName: string): boolean;
-}
+/** What affixTotal needs to know about the game data (visibleTypeRulesOf); it never shows empty rows. */
+export type AffixTotalRules = Omit<VisibleTypeRules, 'isAvailable'>;
 
 /**
  * The build's total for an affix, as the planner's Tracked Affixes table adds it up, over every

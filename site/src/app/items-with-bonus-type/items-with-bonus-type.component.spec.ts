@@ -73,29 +73,44 @@ describe('ItemsWithBonusTypeComponent', () => {
       component.equipped.set(item('Test Belt', 'Belt'));
       const element = show('Physical Sheltering', 'Mythic');
 
-      expect(component.itemBonusMatches.map(match => [match.slot, match.option.name, match.value, match.chosen])).toEqual([
-        ['Armor', 'Mythic +4: PRR/MRR', 4, false],
-        ['Helm', 'Mythic +3: PRR/MRR', 3, false],
+      expect(component.itemBonusMatches.map(match => [match.slot, match.option.name, match.value])).toEqual([
+        ['Armor', 'Mythic +4: PRR/MRR', 4],
+        ['Helm', 'Mythic +3: PRR/MRR', 3],
       ]);
 
       rows(element)[0].querySelector<HTMLButtonElement>('.equip-button')!.click();
       fixture.detectChanges();
 
       expect(component.equipped.getSlotsSnapshot().get('Armor')?.bonuses.mythic?.name).toBe('Mythic +4: PRR/MRR');
-      expect(rows(element)[0].querySelector('.equip-button')).toBeNull();
-      expect(rows(element)[0].querySelector('.item-bonus-match-set')).not.toBeNull();
+      expect(component.itemBonusMatches.map(match => match.slot)).toEqual(['Helm']);
+      expect(component.lockedItemBonusMatches.map(match => match.slot)).toEqual(['Armor']);
     });
 
-    it('offers to replace a lesser bonus the item carries', () => {
+    it('lists an item that already carries a bonus of the kind as excluded by equipment, as a filled slot\'s items are', () => {
       component.equipped.set(item('Test Helm', 'Helm'));
       component.equipped.setItemBonus('Helm', 'reaper',
         TestBed.inject(ItemBonusService).find('reaper', 'Helm', 'Reaper Enchantment: Power'));
 
       const element = show('Physical Sheltering', 'Reaper');
 
-      const button = rows(element)[0].querySelector<HTMLButtonElement>('.equip-button')!;
-      expect(button.textContent).toBe('Replace');
-      expect(button.title).toBe('Replaces Reaper Enchantment: Power');
+      expect(component.itemBonusMatches).toEqual([]);
+      const locked = element.querySelector<HTMLElement>('.item-bonus-locked-matches .item-result-row')!;
+      expect(locked.querySelector('.equip-button')).toBeNull();
+      expect(locked.querySelector('.exclusion-note')!.textContent).toBe('Has Reaper Enchantment: Power');
+    });
+
+    it('follows a change to the equipped gear it didn\'t make, as the back button restoring a build is', () => {
+      component.equipped.set(item('Test Helm', 'Helm'));
+      show('Physical Sheltering', 'Reaper');
+      component.equipped.setItemBonus('Helm', 'reaper',
+        TestBed.inject(ItemBonusService).find('reaper', 'Helm', 'Reaper Enchantment: PRR'));
+      expect(component.lockedItemBonusMatches.map(match => match.slot)).toEqual(['Helm']);
+
+      component.equipped.setItemBonus('Helm', 'reaper', undefined);
+      fixture.detectChanges();
+
+      expect(component.itemBonusMatches.map(match => match.slot)).toEqual(['Helm']);
+      expect(component.lockedItemBonusMatches).toEqual([]);
     });
   });
 

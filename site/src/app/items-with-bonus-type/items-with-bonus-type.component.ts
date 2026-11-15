@@ -1,6 +1,6 @@
 import { UserGearService, UserItemLocation } from '../planner/user-gear.service';
 import { Component, OnInit, OnDestroy, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { merge, Subscription } from 'rxjs';
 
 import { GearDbService, SetAffixMatch } from '../gear/gear-db.service';
 import { EquippedService } from '../planner/equipped.service';
@@ -41,10 +41,8 @@ interface ItemBonusMatch {
   itemName: string;
   option: CraftableOption;
   value: number;
-  /** The item carries this very option. */
-  chosen: boolean;
-  /** What the item carries of this kind instead, which choosing this would replace. */
-  replaces: string;
+  /** The name of the bonus of this kind the item already carries, which keeps it out of the list; '' if none. */
+  carried: string;
 }
 
 /** An open augment slot on an equipped item that could take the chosen augment. */
@@ -143,7 +141,10 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
   /** Set when the bonus type is one only a player's copy of an item carries: the kind, and where it can go. */
   itemBonusKind: ItemBonusKind | null = null;
   itemBonusLabel = '';
+  /** Equipped items with no bonus of the kind yet, which can be given one here. */
   itemBonusMatches: ItemBonusMatch[] = [];
+  /** Equipped items that already carry a bonus of the kind: excluded by equipment, as a filled slot's items are. */
+  lockedItemBonusMatches: ItemBonusMatch[] = [];
 
   private collapsedSections = new Set<string>();
 
@@ -161,6 +162,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
    */
   readonly filigreeSetPreview = new PreviewCarousel<FiligreeSetPreviewEntry>();
   private userItemsChangedSubscription?: Subscription;
+  private equippedSlotsSubscription?: Subscription;
 
   constructor(
     public gearDB: GearDbService,
@@ -182,6 +184,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
 
   ngOnDestroy() {
     this.userItemsChangedSubscription?.unsubscribe();
+    this.equippedSlotsSubscription?.unsubscribe();
   }
 
   userOwnsItem(item: Item): boolean {
@@ -200,6 +203,14 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     this.userItemsChangedSubscription = this.userGear.userItemsChanged$.subscribe(() => {
       this.updateSorting();
       this.changeDetector.markForCheck();
+    });
+    // A Mythic, Reaper or Curse list is of the equipped gear itself, so it follows every change to it,
+    // including one the drawer didn't make (the card, or the browser's back button restoring a build).
+    this.equippedSlotsSubscription = merge(...this.equipped.getSlots().values()).subscribe(() => {
+      if (this.itemBonusKind) {
+        this.refreshItemBonusMatches();
+        this.changeDetector.markForCheck();
+      }
     });
     if (this.affixName && this.bonusType) {
       this.refreshMatches();
@@ -379,6 +390,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     this.itemBonusKind = kind;
     this.itemBonusLabel = kind ? ITEM_BONUS_KIND_LABELS[kind] : '';
     this.itemBonusMatches = [];
+    this.lockedItemBonusMatches = [];
     if (!kind) {
       return;
     }
@@ -388,26 +400,26 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
       }
       let best: CraftableOption | undefined;
       let bestValue = 0;
-      const carried = item.bonuses[kind];
       for (const option of this.itemBonuses.getOptions(kind, slot)) {
         const value = Number(option.getMatchingBonusType(this.affixName, this.bonusType, this.affixSvc) ?? 0);
-        // The option the item carries wins a tie, so a piece already at its best reads as set.
-        if (value > bestValue || (value === bestValue && value > 0 && option === carried)) {
+        if (value > bestValue) {
           best = option;
           bestValue = value;
         }
       }
-      if (best) {
-        this.itemBonusMatches.push({
-          slot,
-          slotLabel: slotLabel(slot),
-          itemName: item.name,
-          option: best,
-          value: bestValue,
-          chosen: carried === best,
-          replaces: carried && carried !== best ? carried.name : '',
-        });
+      if (!best) {
+        continue;
       }
+      const carried = item.bonuses[kind];
+      // Like an item for a filled slot: one already carrying a bonus of this kind is listed as excluded.
+      (carried ? this.lockedItemBonusMatches : this.itemBonusMatches).push({
+        slot,
+        slotLabel: slotLabel(slot),
+        itemName: item.name,
+        option: best,
+        value: bestValue,
+        carried: carried?.name ?? '',
+      });
     }
   }
 
@@ -417,7 +429,6 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     }
     this.equipped.setItemBonus(match.slot, this.itemBonusKind, match.option);
     this.analytics.track('set_item_bonus_from_bonus_type', { kind: this.itemBonusKind, slot: match.slot });
-    this.refreshMatches();
   }
 
   showItemPreview(item: Item, items: Item[], index: number) {

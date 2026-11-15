@@ -289,13 +289,6 @@
     font-size: 0.8125rem;
 }
 
-.item-bonus-match-set {
-    color: var(--success-color);
-    font-size: 0.8125rem;
-    font-weight: 700;
-    white-space: nowrap;
-}
-
 .item-bonus-match-grid .equip-button {
     font-size: 0.8125rem;
     padding: var(--space-2) var(--space-8);

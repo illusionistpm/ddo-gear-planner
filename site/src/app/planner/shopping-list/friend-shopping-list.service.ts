@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { convertToParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -8,11 +7,10 @@ import { LiveBuildList, LiveBuildListService, LiveBuildState, LiveConnection } f
 import { EssenceCraftingService } from '../../gear/essence-crafting.service';
 import { GearDbService } from '../../gear/gear-db.service';
 import { QuestService } from '../../gear/quest.service';
-import { slotsFromParams } from '../slots-from-params';
+import { AffixService } from '../../affixes/affix.service';
+import { snapshotFromBlob } from '../build-snapshot';
 import { deriveShoppingEntries, ShoppingSourceLookup } from './shopping-list-entries';
 import { FiligreeDbService } from '../../gear/filigree-db.service';
-import { FILIGREE_KEY } from '../../build/build-param-keys';
-import { parseFiligreeLoadout } from '../filigree-params';
 import { shoppingFiligreeLookup } from './filigree-sources';
 import type { ShoppingEntry, ShoppingListView, ShoppingProgress } from './shopping-list-types';
 import { buildShoppingListView } from './shopping-list-view-model';
@@ -62,7 +60,8 @@ export class FriendShoppingListService {
     private readonly gearDb: GearDbService,
     private readonly essenceCrafting: EssenceCraftingService,
     quests: QuestService,
-    private readonly filigreeDb: FiligreeDbService
+    private readonly filigreeDb: FiligreeDbService,
+    private readonly affixSvc: AffixService
   ) {
     this.sources = { isRaid: quest => quests.isRaid(quest), packOf: quest => quests.getPack(quest) };
   }
@@ -94,14 +93,12 @@ export class FriendShoppingListService {
 
   /** Everything a saved build's gear needs, from its blob; null for a blob this client can't read. */
   entriesOf(blob: string): ShoppingEntry[] | null {
-    const decoded = this.codec.decode(blob);
-    if (!decoded) {
-      return null;
-    }
-    const params = convertToParamMap(decoded);
-    const slots = slotsFromParams(params, this.gearDb, this.essenceCrafting);
-    const loadout = parseFiligreeLoadout(params.get(FILIGREE_KEY), name => !!this.filigreeDb.get(name));
-    return deriveShoppingEntries(slots, this.sources, shoppingFiligreeLookup(this.filigreeDb, loadout));
+    const snapshot = snapshotFromBlob(blob, {
+      codec: this.codec, gearDb: this.gearDb, essenceCrafting: this.essenceCrafting, filigreeDb: this.filigreeDb,
+      affixSvc: this.affixSvc,
+    });
+    return snapshot && deriveShoppingEntries(snapshot.slots, this.sources,
+      shoppingFiligreeLookup(this.filigreeDb, snapshot.filigreeLoadout));
   }
 
   private readBuild({ name, blob }: LiveBuildList): FriendBuild {

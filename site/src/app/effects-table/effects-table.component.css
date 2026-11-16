@@ -3,6 +3,18 @@
     font-weight: 400;
 }
 
+/* On the intro's filled chip the muted grey all but vanished: the best value reads like the rest. */
+.tracked-bonus-chip-onboarding-target .max-available {
+    color: var(--on-accent-text-color);
+}
+
+.tracked-affix-scarcity-note {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    margin: 0 0 var(--space-8);
+    text-align: right;
+}
+
 .tracked-affixes-content {
     min-width: 0;
 }

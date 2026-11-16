@@ -8,7 +8,7 @@
 >
   <header class="save-dialog-header">
     <strong>{{ title }}</strong>
-    <button type="button" class="save-dialog-close" aria-label="Cancel" [disabled]="saving" (click)="cancelled.emit()">x</button>
+    <button type="button" class="save-dialog-close" aria-label="Cancel" [disabled]="saving" (click)="cancelled.emit()"><span aria-hidden="true">&times;</span></button>
   </header>
 
   <form (ngSubmit)="submit()">

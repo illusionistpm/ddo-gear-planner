@@ -50,7 +50,7 @@
       </p>
       <label for="trove-upload" class="btn btn-success btn-sm w-100 mb-2">Load TroveExport.csv</label>
       <input id="trove-upload" type="file" accept=".csv" style="display:none" (change)="onTroveFileSelected($event)">
-      @if (userGearCount !== undefined) {
+      @if (userGearCount) {
         <div class="owned-gear-status">
           <span>{{userGearCount}} item{{userGearCount === 1 ? '' : 's'}} loaded</span>
           <button type="button" class="btn btn-sm btn-outline-danger" (click)="onClearUserGear()">Clear</button>

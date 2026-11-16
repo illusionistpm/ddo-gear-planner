@@ -332,6 +332,12 @@
           <div class="col-2 text-end">{{findMatchingValue(item)[1]}}</div>
         </div>
       }
+      @if (rowsNotShown(matches); as more) {
+        <!-- The list was cut here with no sign of it: say so, and offer the rest. -->
+        <button type="button" class="item-rows-more" (click)="showAllItems()">
+          Showing {{maxRenderedItems}} of {{matches.length}} - show all {{more}} more
+        </button>
+      }
 
       @if (lockedMatches.length > 0) {
         <div class="row">&nbsp;</div>
@@ -367,6 +373,11 @@
             </div>
           }
         </i>
+        @if (rowsNotShown(lockedMatches); as more) {
+          <button type="button" class="item-rows-more" (click)="showAllItems()">
+            Showing {{maxRenderedItems}} of {{lockedMatches.length}} - show all {{more}} more
+          </button>
+        }
       }
     }
   </div>

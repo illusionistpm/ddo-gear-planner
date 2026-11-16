@@ -140,3 +140,19 @@ a {
     min-width: 0;
     overflow-wrap: anywhere;
 }
+
+/* A button, since it opens the set's drawer rather than going anywhere: dressed as the link it was. */
+.set-link {
+  background: none;
+  border: 0;
+  color: var(--link-color);
+  font: inherit;
+  padding: 0;
+  text-align: left;
+  text-decoration: underline;
+}
+
+.set-link:hover,
+.set-link:focus-visible {
+  color: var(--link-hover-color);
+}

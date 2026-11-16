@@ -298,3 +298,26 @@
 .item-bonus-match-empty {
     margin: var(--space-4) 0;
 }
+
+/* Under a list the row limit cut short. */
+.item-rows-more {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    display: block;
+    font-weight: 600;
+    margin: var(--space-8) auto;
+    padding: var(--space-4) var(--space-12);
+}
+
+.item-rows-more:hover,
+.item-rows-more:focus-visible {
+    border-color: var(--primary-color);
+}
+
+@media (pointer: coarse) {
+    .item-rows-more {
+        min-height: 2.75rem;
+    }
+}

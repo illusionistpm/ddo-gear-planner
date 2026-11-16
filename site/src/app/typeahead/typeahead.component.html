@@ -9,4 +9,7 @@
     [container]="container"
     placeholder="{{placeholder}}"
     [appAutofocus]="autofocus"
+    (blur)="noMatches = false"
     />
+<!-- ngb-typeahead shows nothing for no results: without this, a typo looks like a search that never ran. -->
+<div class="typeahead-empty" role="status">@if (noMatches) {No matches}</div>

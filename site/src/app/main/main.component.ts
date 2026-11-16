@@ -26,6 +26,7 @@ import { CraftingSlotsViewService } from '../planner/crafting-slots/crafting-slo
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { SupportLinkComponent } from '../support-link/support-link.component';
 import { PageChromeBack } from '../page-chrome/page-chrome.component';
+import { CloseRequestRelease, CloseRequestService } from '../shared/close-request.service';
 
 @Component({
     selector: 'app-main',
@@ -46,6 +47,8 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   bonusSystemChips: Array<{ kind: ItemBonusKind; label: string }> = [];
   onboardingActive = true;
   trackedAffixesHint = false;
+  private readonly closeRequests = inject(CloseRequestService);
+  private releaseFilterCloseRequest?: CloseRequestRelease;
   /** The intro has just been finished: its closing "you're all set" message is up. */
   wrapUpShown = false;
   /** For the wrap-up: the sign-in suggestion is only for someone signed out. */
@@ -317,6 +320,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     // Nothing left to cover: apply any held filter changes now.
+    this.releaseFilterCloseRequest?.();
     this.cancelFilterRelease();
     this.filters.applyHeldChanges();
     this.chromeObserver?.disconnect();
@@ -600,6 +604,8 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     this.cancelFilterRelease();
     this.filtersOpen = true;
     this.filters.holdChanges();
+    // Escape and the back gesture close it, as they do the drawers and menus.
+    this.releaseFilterCloseRequest = this.closeRequests.listen(() => this.closeFilters());
   }
 
   /** The list's way back to the planner, in the header it shows while open. */
@@ -622,6 +628,8 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
     this.filtersOpen = false;
+    this.releaseFilterCloseRequest?.();
+    this.releaseFilterCloseRequest = undefined;
     this.cancelFilterRelease();
     const release: { frame?: number, timer?: ReturnType<typeof setTimeout> } = {};
     this.filterRelease = release;

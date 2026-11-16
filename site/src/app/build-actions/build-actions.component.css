@@ -85,6 +85,14 @@
   white-space: nowrap;
 }
 
+/* Shown only where the name itself has no room (below). */
+.build-name-icon {
+  color: var(--text-secondary);
+  display: none;
+  flex: 0 0 auto;
+  font-size: 0.85rem;
+}
+
 .build-unsaved-dot {
   background: var(--warning-color);
   border-radius: 50%;
@@ -479,10 +487,15 @@
     display: none;
   }
 
-  /* Without the name, the caret on its own needs to read as a button. */
+  /* Without the name, a caret alone says "menu" but not of what: the icon
+     stands in for the build. */
+  .build-name-icon {
+    display: inline;
+  }
+
   .build-name-trigger {
     border-color: var(--border-color);
-    padding-left: var(--space-4);
+    padding-left: var(--space-8);
   }
 }
 

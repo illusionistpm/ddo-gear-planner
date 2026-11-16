@@ -1,10 +1,11 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostListener, inject, OnDestroy, OnInit, ViewChild
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostListener, inject, Injector, OnDestroy, OnInit, ViewChild
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from '../shared/auth.service';
+import { EquippedService } from '../planner/equipped.service';
 import { CurrentBuildService, CurrentBuildState } from '../build/current-build.service';
 import { comparePath } from '../build/build-route';
 import { MAX_BUILD_NAME_LENGTH, validateBuildName } from '../save-build-dialog/save-build-dialog.component';
@@ -40,6 +41,8 @@ export interface SaveControlViewModel {
   // revealed.)
   hasMenu: boolean;
 }
+
+const NEW_BUILD_CONFIRM_MESSAGE = 'Start a new build? The gear on this one will be cleared.';
 
 @Component({
   selector: 'app-build-actions',
@@ -98,6 +101,8 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   @ViewChild('nameTrigger') private readonly nameTriggerRef?: ElementRef<HTMLButtonElement>;
 
   private readonly router = inject(Router);
+  // Looked up when New build is used, not held: only that needs the gear.
+  private readonly injector = inject(Injector);
   private buildStateSub?: Subscription;
   private authSub?: Subscription;
   private userSub?: Subscription;
@@ -143,6 +148,20 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
 
   signIn(): void {
     this.auth.signIn();
+  }
+
+  /**
+   * Starting over without an account (signed in, it's My builds' "New
+   * build"). Nothing is saved to go back to, so any gear on the build is
+   * asked about first.
+   */
+  newBuild(): void {
+    if (!this.injector.get(EquippedService).isBuildEmpty() && !window.confirm(NEW_BUILD_CONFIRM_MESSAGE)) {
+      return;
+    }
+    this.closeBuildMenu();
+    this.currentBuild.reset();
+    this.router.navigateByUrl('/');
   }
 
   signOut(): void {

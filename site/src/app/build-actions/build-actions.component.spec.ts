@@ -11,6 +11,7 @@ import { BuildsService } from '../build/builds.service';
 import { CurrentBuildService, CurrentBuildState } from '../build/current-build.service';
 import { QueryParamsService } from '../build/query-params.service';
 import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
+import { EquippedService } from '../planner/equipped.service';
 import { BuildActionsComponent, BuildActionsMenu } from './build-actions.component';
 import { BuildSaveService } from './build-save.service';
 
@@ -38,6 +39,8 @@ describe('BuildActionsComponent', () => {
   let router: MockedObject<Router>;
   let shoppingList: { progressForSave: ReturnType<typeof vi.fn>; savedWithBuild: ReturnType<typeof vi.fn> };
   let component: BuildActionsComponent;
+  // What New build asks the gear: tests of it say otherwise.
+  let buildIsEmpty = true;
 
   function create(): BuildActionsComponent {
     const state$ = new BehaviorSubject<CurrentBuildState>(makeState());
@@ -93,7 +96,8 @@ describe('BuildActionsComponent', () => {
         { provide: AuthService, useValue: auth },
         { provide: Router, useValue: router },
         { provide: ShoppingListService, useValue: shoppingList },
-        { provide: ChangeDetectorRef, useValue: cdr }
+        { provide: ChangeDetectorRef, useValue: cdr },
+        { provide: EquippedService, useValue: { isBuildEmpty: () => buildIsEmpty } }
       ]
     });
 
@@ -120,6 +124,43 @@ describe('BuildActionsComponent', () => {
   // asserting on a component property the way showPrimarySave/showSaveAs
   // used to. saveControl itself is deliberately auth-agnostic (see its
   // comment) - it has nothing meaningful to say about "signed out".
+
+  describe('New build, signed out', () => {
+    function withGear(empty: boolean) {
+      buildIsEmpty = empty;
+    }
+
+    it('starts over straight away when there is no gear to lose', () => {
+      withGear(true);
+      const confirm = vi.spyOn(window, 'confirm').mockReturnValue(false);
+
+      component.newBuild();
+
+      expect(confirm).not.toHaveBeenCalled();
+      expect(currentBuild.reset).toHaveBeenCalledTimes(1);
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/');
+    });
+
+    it('asks before clearing gear, and keeps the build when the answer is no', () => {
+      withGear(false);
+      vi.spyOn(window, 'confirm').mockReturnValue(false);
+
+      component.newBuild();
+
+      expect(currentBuild.reset).not.toHaveBeenCalled();
+      expect(router.navigateByUrl).not.toHaveBeenCalled();
+    });
+
+    it('clears the gear once confirmed', () => {
+      withGear(false);
+      vi.spyOn(window, 'confirm').mockReturnValue(true);
+
+      component.newBuild();
+
+      expect(currentBuild.reset).toHaveBeenCalledTimes(1);
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/');
+    });
+  });
 
   it('offers only "Save…", no caret, for an unnamed build', () => {
     auth.isAuthenticated$.next(true);

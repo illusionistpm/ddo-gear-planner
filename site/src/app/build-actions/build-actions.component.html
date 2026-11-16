@@ -12,6 +12,7 @@
       [attr.aria-label]="'Build: ' + (buildState.name || 'Untitled build') + (showUnsavedDot ? ', unsaved changes' : '') + '. Rename, save as, or switch builds'"
       [title]="(buildState.name ?? 'Untitled build') + (showUnsavedDot ? ' (unsaved changes)' : '')"
       (click)="toggleBuildMenu()">
+      <i class="fas fa-folder-open build-name-icon" aria-hidden="true"></i>
       <span class="build-name" appShrinkToFit>{{ buildState.name || 'Untitled build' }}</span>
       @if (showUnsavedDot) {
         <span class="build-unsaved-dot" aria-hidden="true"></span>
@@ -48,6 +49,10 @@
           </button>
           <app-my-builds (closed)="closeMenu()"></app-my-builds>
         } @else {
+          <!-- Signed in, starting over is in My builds; signed out, there is no list, so it is here. -->
+          <button type="button" class="build-menu-item build-menu-new" (click)="newBuild()">
+            <i class="fas fa-plus build-menu-icon" aria-hidden="true"></i>New build
+          </button>
           <button #buildMenuItem type="button" class="build-menu-item build-menu-sign-in" (click)="signIn()">
             <i class="fas fa-right-to-bracket build-menu-icon" aria-hidden="true"></i>Sign in to save builds
           </button>

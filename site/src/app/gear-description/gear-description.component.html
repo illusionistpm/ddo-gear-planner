@@ -49,11 +49,13 @@
           [class.highlighted-affix-row]="isHighlightedAffix(row.affix)"
           [title]="row.tooltip">
         @if (row.important) {
-          <button class="show-on-hover fas fa-heart heart col-1"
+          <button type="button" [attr.aria-label]="'Stop tracking ' + row.affix.name" [title]="'Stop tracking ' + row.affix.name + ' as a build goal'"
+          class="show-on-hover fas fa-heart heart col-1"
           (click)="equipped.toggleImportantAffix(row.affix.name)"></button>
         }
         @if (!row.important) {
-          <button class="show-on-hover far fa-heart heart col-1"
+          <button type="button" [attr.aria-label]="'Track ' + row.affix.name" [title]="'Track ' + row.affix.name + ' as a build goal'"
+          class="show-on-hover far fa-heart heart col-1"
           (click)="equipped.toggleImportantAffix(row.affix.name)"></button>
         }
         <div class="col ps-1">{{row.affix.name}}
@@ -77,11 +79,13 @@
           <span class="show-never fas fa-heart heart col-1"></span>
         }
         @if (row.craft.selected.affixes.length && row.important) {
-          <button class="show-on-hover fas fa-heart heart col-1"
+          <button type="button" [attr.aria-label]="'Stop tracking ' + row.craft.selected.affixes[0].name" [title]="'Stop tracking ' + row.craft.selected.affixes[0].name + ' as a build goal'"
+          class="show-on-hover fas fa-heart heart col-1"
           (click)="equipped.toggleImportantAffix(row.craft.selected.affixes[0].name)"></button>
         }
         @if (row.craft.selected.affixes.length && !row.important) {
-          <button class="show-on-hover far fa-heart heart col-1"
+          <button type="button" [attr.aria-label]="'Track ' + row.craft.selected.affixes[0].name" [title]="'Track ' + row.craft.selected.affixes[0].name + ' as a build goal'"
+          class="show-on-hover far fa-heart heart col-1"
           (click)="equipped.toggleImportantAffix(row.craft.selected.affixes[0].name)"></button>
         }
         <app-crafting-slot-control [item]="curItem" [craft]="row.craft" [readonly]="readonly"
@@ -94,7 +98,9 @@
         @if (!row.selected.affixes.length) {
           <span class="show-never fas fa-heart heart col-1"></span>
         } @else {
-          <button class="show-on-hover fa-heart heart col-1" [class.fas]="row.important" [class.far]="!row.important"
+          <button type="button" class="show-on-hover fa-heart heart col-1" [class.fas]="row.important" [class.far]="!row.important"
+            [attr.aria-label]="(row.important ? 'Stop tracking ' : 'Track ') + row.selected.affixes[0].name"
+            [title]="(row.important ? 'Stop tracking ' : 'Track ') + row.selected.affixes[0].name + ' as a build goal'"
             (click)="equipped.toggleImportantAffix(row.selected.affixes[0].name)"></button>
         }
         <div class="col ps-1 pe-0" [ngClass]="row.className" [title]="row.tooltip">{{row.label}}</div>
@@ -120,7 +126,7 @@
     <!-- Sets -->
     @for (set of setRows; track set.name) {
       <div class="row table-striped table-condensed small" >
-        <span class="col">Set:&nbsp;<a class="set-link" href='javascript:;' (click)="showItemsInSet(set.name)">{{set.name}}</a> ({{set.count}})</span>
+        <span class="col">Set:&nbsp;<button type="button" class="set-link" (click)="showItemsInSet(set.name)">{{set.name}}</button> ({{set.count}})</span>
       </div>
     }
   </div>

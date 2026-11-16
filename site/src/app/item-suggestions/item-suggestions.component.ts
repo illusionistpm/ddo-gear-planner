@@ -9,6 +9,11 @@ import { AnalyticsService } from '../shared/analytics.service';
 import { perfAfterFrames, perfMeasure, perfStart } from '../shared/perf-trace';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { DrawerEquipService } from '../suggestion-drawer/drawer-equip.service';
+import { slotLabel } from '../gear/slot-display';
+import { SlotUndoService } from '../undo/slot-undo.service';
+
+/** How many items the list shows at first, and adds with each "Show more". */
+const PAGE_SIZE = 20;
 
 @Component({
     selector: 'app-item-suggestions',
@@ -25,8 +30,17 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
   filteredGear: Array<Item> = [];
   essenceCrafting: Array<Item> = [];
   searchQuery = '';
+  /** What's in the slot now, shown above the list with a way to clear it. */
+  currentItem: Item | null = null;
+  /** Items the list could still show: `gear` is the first of `matches`. */
+  remaining = 0;
+  /** With nothing to show, how many items the filters are holding back. */
+  hiddenByFilters = 0;
   private suggestedGear: Array<Item> = [];
+  private matches: Array<Item> = [];
+  private visibleCount = PAGE_SIZE;
   private userItemsChangedSubscription?: Subscription;
+  private currentItemSubscription?: Subscription;
 
   constructor(
     public gearDB: GearDbService,
@@ -35,11 +49,30 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
     private analytics: AnalyticsService,
     private suggestionDrawer: SuggestionDrawerService,
     private drawerEquip: DrawerEquipService,
+    private slotUndo: SlotUndoService,
     private changeDetector: ChangeDetectorRef
   ) { }
 
   ngOnDestroy() {
     this.userItemsChangedSubscription?.unsubscribe();
+    this.currentItemSubscription?.unsubscribe();
+  }
+
+  get slotName(): string {
+    return slotLabel(this.slot);
+  }
+
+  get nextPageSize(): number {
+    return Math.min(PAGE_SIZE, this.remaining);
+  }
+
+  isCurrent(item: Item): boolean {
+    return !!this.currentItem && item.name === this.currentItem.name;
+  }
+
+  showMore() {
+    this.visibleCount += PAGE_SIZE;
+    this.showMatches();
   }
 
   userOwnsItem(item: Item): boolean {
@@ -56,6 +89,11 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
       this.changeDetector.markForCheck();
     });
     this.current = this.equipped.getSlot(this.slot);
+    this.currentItemSubscription?.unsubscribe();
+    this.currentItemSubscription = this.current?.subscribe(item => {
+      this.currentItem = item;
+      this.changeDetector.markForCheck();
+    });
 
     const shortlist: Array<Item> = [];
     this.filteredGear = this.equipped.getCompatibleGearForSlot(this.slot, this.gearDB.getFilteredGearBySlot(this.slot) || []);
@@ -75,7 +113,7 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
       shortlist.sort((a, b) => (scores.get(b) || 0) - (scores.get(a) || 0));
     });
 
-    this.suggestedGear = shortlist.slice(0, 20);
+    this.suggestedGear = shortlist;
     this.updateDisplayedGear();
 
     this.essenceCrafting = this.filteredGear.filter(item => item.isGeneratedEssenceCraftingBlank());
@@ -89,7 +127,9 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
   }
 
   clearSlot() {
+    const before = this.slotUndo.before();
     this.equipped.clearSlot(this.slot);
+    this.slotUndo.offerUndo(before);
     this.analytics.track('planner_clear_slot', {
       slot: this.slot,
       clear_source: 'slot_suggestions'
@@ -122,14 +162,26 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
 
   private updateDisplayedGear() {
     const query = this.searchQuery.trim().toLowerCase();
-    if (!query) {
-      this.gear = this.suggestedGear;
-      return;
-    }
+    this.visibleCount = PAGE_SIZE;
+    this.matches = query
+      ? this.filteredGear
+        .filter(item => this.itemMatchesSearch(item, query))
+        .sort(this.sortSearchResults(query))
+      : this.suggestedGear;
+    this.hiddenByFilters = this.matches.length ? 0 : this.countHiddenByFilters(query);
+    this.showMatches();
+  }
 
-    this.gear = this.filteredGear
-      .filter(item => this.itemMatchesSearch(item, query))
-      .sort(this.sortSearchResults(query));
+  private showMatches() {
+    this.gear = this.matches.slice(0, this.visibleCount);
+    this.remaining = this.matches.length - this.gear.length;
+  }
+
+  /** Items that would be listed with every filter off: only worked out when the list is empty. */
+  private countHiddenByFilters(query: string) {
+    const unfiltered = this.equipped.getCompatibleGearForSlot(this.slot, this.gearDB.getGearBySlot(this.slot) || []);
+    const shown = new Set(this.filteredGear);
+    return unfiltered.filter(item => !shown.has(item) && (!query || this.itemMatchesSearch(item, query))).length;
   }
 
   private itemMatchesSearch(item: Item, query: string) {

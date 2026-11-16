@@ -11,6 +11,7 @@ import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.
 import { UserGearService, UserItemLocation } from '../planner/user-gear.service';
 import { perfAfterFrames, perfStart } from '../shared/perf-trace';
 import { FiligreeHost } from '../gear/filigree';
+import { SlotUndoService } from '../undo/slot-undo.service';
 
 @Component({
   selector: 'app-equipment-slot-card',
@@ -40,7 +41,8 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
     private analytics: AnalyticsService,
     private questService: QuestService,
     private suggestionDrawer: SuggestionDrawerService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private slotUndo: SlotUndoService
   ) { }
 
   /** Lets the gear list's jump bar find this card. */
@@ -104,7 +106,9 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
       return;
     }
 
+    const before = this.slotUndo.before();
     this.equipped.clearSlot(this.slot);
+    this.slotUndo.offerUndo(before);
     this.analytics.track('planner_clear_slot', {
       slot: this.slot
     });

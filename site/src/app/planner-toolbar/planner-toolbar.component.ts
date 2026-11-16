@@ -14,6 +14,7 @@ import { EquippedService, PlannerTab } from '../planner/equipped.service';
 import { ShoppingListViewService } from '../planner/shopping-list/shopping-list-view.service';
 import { AnalyticsService } from '../shared/analytics.service';
 import { TypeaheadResult } from '../typeahead/typeahead.component';
+import { SlotUndoService } from '../undo/slot-undo.service';
 
 /**
  * The workspace toolbar: the Equipment / Build Goals switch, the gear search,
@@ -61,7 +62,8 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
     private affixEditor: AffixEditorService,
     private affixPackages: AffixPackagesService,
     private analytics: AnalyticsService,
-    private zone: NgZone
+    private zone: NgZone,
+    private slotUndo: SlotUndoService
   ) { }
 
   ngOnInit() {
@@ -267,7 +269,9 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
       if (!this.equipped.canEquip(actualItem)) {
         return;
       }
+      const before = this.slotUndo.before();
       this.equipped.set(actualItem);
+      this.slotUndo.offerUndo(before);
       this.analytics.track('planner_equip_item', {
         equip_source: 'global_search',
         slot: actualItem.slot

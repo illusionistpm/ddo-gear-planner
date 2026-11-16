@@ -8,6 +8,9 @@
  * the ultrawide dual-pane layout.
  */
 .equipment-grid {
+    /* Each card its own height: stretched to its row, an empty slot beside a
+       card with an item on it became a tall blank panel under its header. */
+    align-items: start;
     display: grid;
     /* Row gap matches the Affixes view's own vertical spacing between
        category sections (--space-12) - it had been --space-16, 4px more,

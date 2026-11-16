@@ -121,7 +121,9 @@
     </header>
 
     @if (shouldHighlightTrackedAffixes() && !shoppingListOpen) {
-        <section class="planner-onboarding-hint onboarding-instruction-panel" aria-label="Build goals next step">
+        <!-- One view at a time only (see the CSS): side by side, Build Goals is
+             already on screen with its own next step. -->
+        <section class="planner-onboarding-hint planner-goals-step-hint onboarding-instruction-panel" aria-label="Build goals next step">
             <div>
                 <div class="onboarding-step-label">Next step</div>
                 <h2>Check which bonuses your gear covers</h2>

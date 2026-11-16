@@ -41,3 +41,83 @@
   padding: var(--space-4) var(--space-12);
   width: auto;
 }
+
+/* What the slot holds now: its name, and Clear at the far end. */
+.slot-current {
+  align-items: center;
+  background: var(--surface-muted-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  display: flex;
+  gap: var(--space-8);
+  justify-content: space-between;
+  margin-bottom: var(--space-12);
+  padding: var(--space-8) var(--space-12);
+}
+
+.slot-current-text {
+  min-width: 0;
+}
+
+.slot-current-label {
+  color: var(--text-secondary);
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.slot-current-name {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.slot-current-clear,
+.slot-suggestions-more {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-primary);
+  flex: 0 0 auto;
+  font-weight: 700;
+  padding: var(--space-4) var(--space-12);
+}
+
+.slot-current-clear:hover,
+.slot-current-clear:focus-visible {
+  border-color: var(--danger-color);
+  color: var(--danger-color);
+}
+
+.slot-suggestions-more {
+  display: block;
+  margin: 0 auto var(--space-16);
+}
+
+.slot-suggestions-more:hover,
+.slot-suggestions-more:focus-visible {
+  border-color: var(--primary-color);
+}
+
+.slot-suggestions-more-count {
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.slot-suggestions-empty {
+  color: var(--text-secondary);
+  margin: var(--space-12) 0;
+}
+
+.slot-suggestions-hidden {
+  display: block;
+  margin-top: var(--space-4);
+}
+
+@media (pointer: coarse) {
+  .slot-current-clear,
+  .slot-suggestions-more {
+    min-height: 2.75rem;
+  }
+}

@@ -65,6 +65,7 @@ import { StillNeededPageComponent } from './still-needed-page/still-needed-page.
 import { GroupRunPageComponent } from './group-run-page/group-run-page.component';
 import { ComparePageComponent } from './compare-page/compare-page.component';
 import { MenuBackdropComponent } from './menu-backdrop/menu-backdrop.component';
+import { UndoStripComponent } from './undo/undo-strip.component';
 import { BuildChoicesComponent } from './shopping-list/build-choices.component';
 import { ListDialogComponent } from './shopping-list/list-dialog.component';
 import { ServerShoppingProgressStore } from './planner/shopping-list/server-shopping-progress-store';
@@ -130,6 +131,7 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         FormsModule,
         CdkScrollable,
         MenuBackdropComponent,
+        UndoStripComponent,
         SlotIconComponent,
         TapTooltipComponent,
         TapTooltipPanelComponent,

@@ -4,13 +4,24 @@
       <span aria-hidden="true">&times;</span>
     </button>
     <h1>
-      {{slot}} Choices
+      {{slotName}} Choices
     </h1>
   </div>
 
+  @if (currentItem; as equippedItem) {
+    <!-- What the slot holds now, and the way to empty it without leaving the drawer. -->
+    <div class="slot-current">
+      <span class="slot-current-text">
+        <span class="slot-current-label">Equipped</span>
+        <span class="slot-current-name">{{equippedItem.name}}</span>
+      </span>
+      <button type="button" class="slot-current-clear" (click)="clearSlot()">Clear slot</button>
+    </div>
+  }
+
   <div class="row">
-    <span>Search by name: </span>
-    <input appAutofocus type="text" class="form-control col-8" placeholder="Enter an item name"
+    <label for="slotItemSearch">Search by name: </label>
+    <input id="slotItemSearch" appAutofocus type="text" class="form-control col-8" placeholder="Enter an item name"
       [(ngModel)]="searchQuery" (input)="onSearchQueryChanged()">
   </div>
 
@@ -35,19 +46,43 @@
     <hr>
 
       <div class="row">
-        <span>Suggested items: </span>
+        <span>{{searchQuery.trim() ? 'Matching items:' : 'Suggested items:'}} </span>
       </div>
 
       @for (item of gear; track item.name) {
         <div class="container">
           <div class="row">
             <span class="col">{{item.name}}</span>
-            <button class="equip-button suggestion-equip-button" (click)="equipItem(item)">Equip</button>
+            @if (isCurrent(item)) {
+              <button class="equip-button suggestion-equip-button" disabled>Equipped</button>
+            } @else {
+              <button class="equip-button suggestion-equip-button" (click)="equipItem(item)">Equip</button>
+            }
           </div>
           <div class="row">
             <app-gear-description class="col" [item]=item [readonly]=true></app-gear-description>
           </div>
           <hr>
           </div>
+        } @empty {
+          <!-- Said, rather than a blank panel: and when the filters are why, that too. -->
+          <p class="slot-suggestions-empty" role="status">
+            @if (searchQuery.trim()) {
+              No {{slotName}} items match "{{searchQuery.trim()}}".
+            } @else {
+              No {{slotName}} items to suggest.
+            }
+            @if (hiddenByFilters) {
+              <span class="slot-suggestions-hidden">
+                {{hiddenByFilters}} {{hiddenByFilters === 1 ? 'is' : 'are'}} hidden by your filters - change them under Filters in the toolbar.
+              </span>
+            }
+          </p>
+        }
+
+        @if (remaining) {
+          <button type="button" class="slot-suggestions-more" (click)="showMore()">
+            Show {{nextPageSize}} more <span class="slot-suggestions-more-count">({{remaining}} left)</span>
+          </button>
         }
       </div>

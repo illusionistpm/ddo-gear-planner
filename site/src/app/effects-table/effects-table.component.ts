@@ -30,6 +30,7 @@ import { FILIGREE_ONLY_BONUS_TYPES } from '../gear/filigree';
 import { ITEM_BONUS_TYPES } from '../affixes/item-bonus-types';
 import { RECENT_CHANGE_HIGHLIGHT_MS } from '../planner/recent-change-highlight';
 import { AffixSourceHighlightService } from '../planner/affix-source-highlight.service';
+import { GoalUndoService } from '../undo/goal-undo.service';
 
 /** One bonus-type chip. Both groupings render the same chip for the same type. */
 interface TrackedChip {
@@ -137,7 +138,8 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     private suggestionDrawer: SuggestionDrawerService,
     private availability: AffixAvailabilityService,
     private derivation: TrackedAffixDerivationService,
-    public sourceHighlight: AffixSourceHighlightService
+    public sourceHighlight: AffixSourceHighlightService,
+    private goalUndo: GoalUndoService
   ) {
     this.affixNames = [];
     this.boolAffixNames = [];
@@ -220,7 +222,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   removeAffix(affixName: string) {
-    this.equipped.removeImportantAffix(affixName);
+    this.goalUndo.remove(affixName);
   }
 
   readonly preserveScrollOnMouseDown = preserveScrollOnMouseDown;

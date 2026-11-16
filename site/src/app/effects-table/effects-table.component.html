@@ -105,11 +105,17 @@
         <span class="segmented-toggle-label">Group by</span>
         <span class="segmented-toggle-options">
             <button type="button" class="tracked-affix-groupby-option segmented-toggle-option" [class.active]="groupMode === 'category'"
-                [attr.aria-pressed]="groupMode === 'category'" (click)="setGroupMode('category')">Category</button>
+                [attr.aria-pressed]="groupMode === 'category'" title="Group goals by kind: attributes, defense, offense and so on"
+                (click)="setGroupMode('category')">Category</button>
             <button type="button" class="tracked-affix-groupby-option segmented-toggle-option" [class.active]="groupMode === 'slots'"
-                [attr.aria-pressed]="groupMode === 'slots'" (click)="setGroupMode('slots')">Scarcity</button>
+                [attr.aria-pressed]="groupMode === 'slots'" title="Group goals by how few slots have gear that gives them"
+                (click)="setGroupMode('slots')">Scarcity</button>
         </span>
     </div>
+    @if (groupMode === 'slots' && trackedDisplay.slotGroups.length) {
+        <!-- What the grouping means: the word alone doesn't say, and a title is no help on a phone. -->
+        <p class="tracked-affix-scarcity-note">Hardest to fit first: bonuses are grouped by how few slots have gear that gives them.</p>
+    }
     <ng-container *ngIf="groupMode === 'slots'">
         <p class="tracked-affix-slots-empty" *ngIf="!needsStart && !trackedDisplay.slotGroups.length">
             No build goals yet. Add some with <strong><app-goals-label for="editor-button"></app-goals-label></strong> in the toolbar above.

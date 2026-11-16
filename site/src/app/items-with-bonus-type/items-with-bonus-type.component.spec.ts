@@ -507,6 +507,38 @@ describe('ItemsWithBonusTypeComponent', () => {
     expect(component.craftOptionMatchValue(keys[0])).toBe(7);
   });
 
+  it('says when the item list is cut short, and shows the rest on request', () => {
+    component.affixName = 'Disable Device';
+    component.bonusType = 'Insight';
+    const items = Array.from({ length: 130 }, (_, index) => new Item({
+      name: `Ring ${index}`, slot: 'Ring1', type: 'Ring', ml: 30, quests: [], crafting: [],
+      affixes: [{ name: 'Disable Device', type: 'Insight', value: 7 }]
+    }));
+
+    vi.spyOn(component.gearDB, 'findGearWithAffixAndType').mockReturnValue(items);
+    vi.spyOn(component.gearDB, 'findAugmentsWithAffixAndType').mockReturnValue([]);
+    vi.spyOn(component.gearDB, 'findSetsWithAffixAndType').mockReturnValue([] as any);
+    vi.spyOn(component.equipped, 'getCompatibleGear').mockReturnValue(items);
+    vi.spyOn(component.equipped, 'getUnlockedSlots').mockReturnValue(new Set(['Ring1']));
+    vi.spyOn(component.equipped, 'getActiveSets').mockReturnValue(new Map());
+    vi.spyOn(component.equipped, 'getSlotsSnapshot').mockReturnValue(new Map());
+
+    (component as any).refreshMatches();
+    fixture.detectChanges();
+
+    const element = fixture.nativeElement as HTMLElement;
+    const rows = () => element.querySelectorAll('.item-result-row').length;
+    const more = element.querySelector<HTMLButtonElement>('.item-rows-more');
+    expect(rows()).toBe(100);
+    expect(more?.textContent).toContain('Showing 100 of 130');
+
+    more!.click();
+    fixture.detectChanges();
+
+    expect(rows()).toBe(130);
+    expect(element.querySelector('.item-rows-more')).toBeNull();
+  });
+
   it('gives every craft row its own slot choice and a working Equip', () => {
     component.affixName = 'Disable Device';
     component.bonusType = 'Insight';

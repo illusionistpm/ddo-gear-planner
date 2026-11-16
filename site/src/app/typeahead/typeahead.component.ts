@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, debounceTime, distinctUntilChanged, map } from 'rxjs';
 import { AnalyticsService } from '../shared/analytics.service';
@@ -37,6 +37,8 @@ export class TypeaheadComponent {
   @ViewChild('inputElement', { static: true }) inputElement!: ElementRef;
 
   itemName!: string;
+  /** The term typed matches nothing: said under the box, where the results would have been. */
+  noMatches = false;
 
   formatter = (x: { name: string }) => x.name;
 
@@ -46,15 +48,18 @@ export class TypeaheadComponent {
       distinctUntilChanged(),
       map((term): TypeaheadResult[] => {
         const matches = (value: string) => value.toLowerCase().indexOf(term.toLowerCase()) > -1;
-        return this.source.filter(v => matches(v.name) || (v.synonyms && v.synonyms.some(matches)))
+        const results = this.source.filter(v => matches(v.name) || (v.synonyms && v.synonyms.some(matches)))
         // If the entry has any synonyms, search on them as well. If they match, we want to show an entry like "Canonical Text (Synonym)".
         // If we matched on a synonym, we also add another field to the response, 'original', which is the canonical name.
         .map((v): TypeaheadResult => matches(v.name) ? v : { name: `${v.name} (${v.synonyms!.find(matches)})`, original: v.name })
         .sort(this._sortResults(term)).slice(0, 6);
+        this.noMatches = !!term.trim() && !results.length;
+        this.changeDetector.markForCheck();
+        return results;
       })
       );
 
-  constructor(private analytics: AnalyticsService) { }
+  constructor(private analytics: AnalyticsService, private changeDetector: ChangeDetectorRef) { }
 
   onSelectItemMine(e: NgbTypeaheadSelectItemEvent<TypeaheadResult>) {
     if (this.searchType) {
@@ -63,6 +68,7 @@ export class TypeaheadComponent {
         result_selected: true
       });
     }
+    this.noMatches = false;
     this.onChange(e.item);
     setTimeout(() => {
       this.itemName = '';

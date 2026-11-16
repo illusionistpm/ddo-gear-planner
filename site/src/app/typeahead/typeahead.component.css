@@ -41,3 +41,27 @@ input.form-control {
     padding: var(--space-8) var(--space-12);
   }
 }
+
+:host {
+  position: relative;
+}
+
+/* Where the results list would open. Always in the DOM, for screen readers; it takes no room. */
+.typeahead-empty {
+  left: 0;
+  position: absolute;
+  top: 100%;
+  z-index: 1000;
+}
+
+.typeahead-empty:not(:empty) {
+  background: var(--surface-elevated-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-shadow: var(--shadow-md);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-top: var(--space-2);
+  padding: var(--space-4) var(--space-12);
+  white-space: nowrap;
+}

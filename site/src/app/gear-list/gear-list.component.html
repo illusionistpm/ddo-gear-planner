@@ -147,11 +147,13 @@
                   [ngClass]="affixUi.getClassForSetAffix(affix, tier.eligible)"
                   [title]="getSetBonusTooltip(tier.eligible, tier.threshold, setBonus.pieces, affix)">
                   @if (equipped.isImportantAffix(affix.name)) {
-                    <button class="show-on-hover fas fa-heart heart col-1"
+                    <button type="button" class="show-on-hover fas fa-heart heart col-1"
+                    [attr.aria-label]="'Stop tracking ' + affix.name" [title]="'Stop tracking ' + affix.name + ' as a build goal'"
                     (click)="equipped.toggleImportantAffix(affix.name)"></button>
                   }
                   @if (!equipped.isImportantAffix(affix.name)) {
-                    <button class="show-on-hover far fa-heart heart col-1"
+                    <button type="button" class="show-on-hover far fa-heart heart col-1"
+                    [attr.aria-label]="'Track ' + affix.name" [title]="'Track ' + affix.name + ' as a build goal'"
                     (click)="equipped.toggleImportantAffix(affix.name)"></button>
                   }
                   <div class="col-auto ps-1 pe-0 set-threshold">{{tier.threshold}} pc</div>

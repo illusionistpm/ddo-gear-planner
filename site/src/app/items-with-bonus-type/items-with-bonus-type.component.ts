@@ -60,6 +60,9 @@ interface CraftSlotChoice {
   optionString: string;
 }
 
+/** How many item rows a list shows before "Show all": a long list is slow to render and rarely read to the end. */
+const ITEM_ROW_LIMIT = 100;
+
 @Component({
     selector: 'app-items-with-bonus-type',
     templateUrl: './items-with-bonus-type.component.html',
@@ -156,8 +159,17 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
 
   private collapsedSections = new Set<string>();
 
-  /** The item list renders at most this many rows, and the preview carousel spans only those. */
-  readonly maxRenderedItems = 100;
+  /** The item lists render at most this many rows, and the preview carousel spans only those, until Show all. */
+  maxRenderedItems = ITEM_ROW_LIMIT;
+
+  /** Rows of `list` the limit is holding back. */
+  rowsNotShown(list: Item[]): number {
+    return Math.max(0, list.length - this.maxRenderedItems);
+  }
+
+  showAllItems() {
+    this.maxRenderedItems = Infinity;
+  }
   readonly preview = new ItemPreviewController(item => {
     if (this.findMatchingValue(item)[0]) {
       item.selectMatchingBonusType(this.affixName, this.bonusType, this.affixSvc, this.craftingOptionFilter());
@@ -230,6 +242,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     this.craftIntoEquippedGear = new Map<string, Map<Item, Array<Craftable>>>();
     this.craftIntoEquippedOptions = new Map<string, CraftableOption>();
     this.preview.close();
+    this.maxRenderedItems = ITEM_ROW_LIMIT;
 
     const matchingGear = this.equipped.getCompatibleGear(
       this.gearDB.findGearWithAffixAndType(this.affixName, this.bonusType)

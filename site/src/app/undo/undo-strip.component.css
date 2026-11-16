@@ -1,0 +1,71 @@
+/* Over the page and the suggestion drawer, under a dialog; clear of the phone's home bar. */
+.undo-strip {
+  bottom: calc(var(--space-16) + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  max-width: calc(100vw - 2 * var(--space-12));
+  position: fixed;
+  transform: translateX(-50%);
+  z-index: 1250;
+}
+
+.undo-strip.active {
+  align-items: center;
+  background: var(--surface-elevated-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  color: var(--text-primary);
+  display: flex;
+  gap: var(--space-8);
+  padding: var(--space-4) var(--space-4) var(--space-4) var(--space-12);
+  width: max-content;
+}
+
+.undo-strip-message {
+  font-size: 0.9rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.undo-strip-action,
+.undo-strip-dismiss {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  flex: 0 0 auto;
+  min-height: 2rem;
+  min-width: 2rem;
+}
+
+.undo-strip-action {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  font-weight: 700;
+  padding: 0 var(--space-12);
+}
+
+.undo-strip-action:hover,
+.undo-strip-action:focus-visible {
+  background: var(--primary-color);
+  color: var(--on-accent-text-color);
+}
+
+.undo-strip-dismiss {
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.undo-strip-dismiss:hover,
+.undo-strip-dismiss:focus-visible {
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+@media (pointer: coarse) {
+  .undo-strip-action,
+  .undo-strip-dismiss {
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+  }
+}

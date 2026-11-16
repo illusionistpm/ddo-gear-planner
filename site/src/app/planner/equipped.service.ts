@@ -480,6 +480,18 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     this._updateRouterState();
   }
 
+  /**
+   * Puts slots back as they were, for Undo: each holds the item given (or
+   * nothing) exactly as it was, crafting choices included. No compatibility
+   * rules run - the caller restores a combination that was worn together.
+   */
+  restoreSlots(slots: ReadonlyArray<readonly [string, Item | null]>) {
+    for (const [slot, item] of slots) {
+      this.setSlot(slot, item);
+    }
+    this._updateRouterState();
+  }
+
   getSlot(slot: string) {
     const val = this.slots.get(slot);
     if (val) {

@@ -9,7 +9,9 @@ import { SuggestionDrawerService } from './suggestion-drawer.service';
 describe('DrawerEquipService', () => {
   it('equips the item, reports its source, and closes the drawer', () => {
     const equipped = {
-      set: vi.fn().mockName('EquippedService.set')
+      set: vi.fn().mockName('EquippedService.set'),
+      // What the Undo offer compares before and after: nothing replaced here.
+      getSlotsSnapshot: vi.fn(() => new Map())
     };
     const analytics = {
       track: vi.fn().mockName('AnalyticsService.track')

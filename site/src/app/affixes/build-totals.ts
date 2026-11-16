@@ -1,5 +1,5 @@
 import { Affix } from './affix';
-import type { AffixService } from './affix.service';
+import { UNIVERSAL_COMPANION_AFFIXES, type AffixService } from './affix.service';
 import { ExternalAffixEntry, NON_GEAR_SLOT } from './external-affix';
 import { isAugmentSystemName } from '../gear/augment-slots';
 import { FiligreeHost } from '../gear/filigree';
@@ -22,6 +22,9 @@ import {
  * saved build read from its blob) both value affixes through these, so the two can't
  * disagree. Within a bonus type only the best value counts and different types add
  * up, except the filigree types, which add up within the type too.
+ *
+ * A compound affix (AffixService.getCompoundParts) also has, per bonus type, the lowest of what
+ * the build gives its parts: Light Lore and Alignment Lore from two items are Radiance Lore.
  */
 
 /** Everything the stacking rules read about a build. */
@@ -54,6 +57,33 @@ export interface AffixTypeValueOptions {
   skipSlot?: string | null;
   /** Use these set bonuses instead of the build's own (recounted for a replacement). */
   setBonuses?: ReadonlyArray<[string, Affix[]]>;
+  /**
+   * Leave out what a universal companion ("Universal Spell Lore") gives its members. It stacks with
+   * them and has its own row, so it is no part of the compound a member belongs to.
+   */
+  withoutUniversal?: boolean;
+}
+
+/** valuesForAffixType's slot for the value a compound affix has through its parts. */
+export const COMPOUND_PARTS_SLOT = 'compound-parts';
+
+const isUniversalCompanion = (affixName: string | undefined) =>
+  affixName !== undefined && UNIVERSAL_COMPANION_AFFIXES.includes(affixName);
+
+/** AffixService.flattenAffixGroups(affixes, true), under `options`. */
+function flattened(affixSvc: AffixService, affixes: ReadonlyArray<Affix>, options: AffixTypeValueOptions): Affix[] {
+  return affixSvc.flattenAffixGroups(
+    options.withoutUniversal ? affixes.filter(affix => !isUniversalCompanion(affix.name)) : affixes, true);
+}
+
+function activeAffixesOf(affixSvc: AffixService, item: Item, options: AffixTypeValueOptions): Affix[] {
+  return options.withoutUniversal ? flattened(affixSvc, item.getActiveAffixes(), options) : affixSvc.getActiveAffixes(item);
+}
+
+function filigreeValuesFor(view: BuildView, affixName: string, bonusType: string | undefined,
+    options: AffixTypeValueOptions): ReadonlyArray<FiligreeContribution> {
+  const entries = view.filigreeFor(affixName, bonusType);
+  return options.withoutUniversal ? entries.filter(entry => !isUniversalCompanion(entry.group)) : entries;
 }
 
 /**
@@ -61,9 +91,10 @@ export interface AffixTypeValueOptions {
  * for an affix group ("Combat Mastery") supplies each of its members ("Stunning", ...) at its value.
  */
 export function externalValuesFor(entries: ReadonlyArray<ExternalAffixEntry>, affixSvc: AffixService,
-    affixName: string, bonusType?: string): ExternalAffixEntry[] {
+    affixName: string, bonusType?: string, options: AffixTypeValueOptions = {}): ExternalAffixEntry[] {
   return entries.filter(entry => entry.kind === 'value'
     && (bonusType === undefined || entry.bonusType === bonusType)
+    && !(options.withoutUniversal && isUniversalCompanion(entry.affixName))
     && affixSvc.resolvesToAffix(entry.affixName, affixName));
 }
 
@@ -73,13 +104,15 @@ export function externalValuesFor(entries: ReadonlyArray<ExternalAffixEntry>, af
  * Items and filigree count an affix group at its members' own values (flattened, so Riposte's
  * Armor Class is half of it), while set bonuses and non-gear entries give each member the group's
  * full value.
+ *
+ * What a compound affix has through its parts beyond those is one more value, in COMPOUND_PARTS_SLOT.
  */
 export function valuesForAffixType(view: BuildView, affixSvc: AffixService, affixName: string, bonusType: string,
     options: AffixTypeValueOptions = {}): Array<{ slot: string; value: number }> {
   const values: Array<{ slot: string; value: number }> = [];
   for (const [slot, item] of view.items()) {
     if (item && slot !== options.skipSlot) {
-      for (const affix of affixSvc.getActiveAffixes(item)) {
+      for (const affix of activeAffixesOf(affixSvc, item, options)) {
         if (affix.name === affixName && affix.type === bonusType) {
           values.push({ slot, value: affix.value });
         }
@@ -89,31 +122,109 @@ export function valuesForAffixType(view: BuildView, affixSvc: AffixService, affi
 
   for (const [, affixes] of options.setBonuses ?? view.setBonuses()) {
     for (const affix of affixes) {
-      if (affixSvc.resolvesToAffix(affix.name, affixName) && affix.type === bonusType) {
+      if (suppliesFromSet(affixSvc, affix, affixName, options) && affix.type === bonusType) {
         values.push({ slot: 'set', value: affix.value });
       }
     }
   }
 
-  for (const entry of externalValuesFor(view.externalEntries(), affixSvc, affixName, bonusType)) {
+  for (const entry of externalValuesFor(view.externalEntries(), affixSvc, affixName, bonusType, options)) {
     values.push({ slot: NON_GEAR_SLOT, value: entry.value });
   }
 
-  for (const entry of view.filigreeFor(affixName, bonusType)) {
+  for (const entry of filigreeValuesFor(view, affixName, bonusType, options)) {
     values.push({ slot: entry.slot, value: entry.affix.value });
+  }
+
+  // The parts' values include everything above (a compound gives each part its own value), so
+  // only what they add to it is new - for a summed type, the rest of the sum.
+  const fromParts = compoundValueFor(view, affixSvc, affixName, bonusType, options);
+  const direct = combineBonusTypeValues(bonusType, values.map(entry => entry.value));
+  if (fromParts > direct) {
+    values.push({ slot: COMPOUND_PARTS_SLOT, value: isSummedBonusType(bonusType) ? fromParts - direct : fromParts });
   }
 
   return values.sort((a, b) => b.value - a.value);
 }
 
-/** What the build gets from one bonus type of an affix: its best value, or the sum of all of them for a summed type. 0 for none. */
-export function bestValueFor(view: BuildView, affixSvc: AffixService, affixName: string, bonusType: string): number {
-  return combineBonusTypeValues(bonusType, valuesForAffixType(view, affixSvc, affixName, bonusType).map(entry => entry.value));
+function suppliesFromSet(affixSvc: AffixService, affix: Affix, affixName: string, options: AffixTypeValueOptions): boolean {
+  return affixSvc.resolvesToAffix(affix.name, affixName) && !(options.withoutUniversal && isUniversalCompanion(affix.name));
 }
 
-/** What supplies the build's value for an affix type: each source giving the best value, every one for a summed type. */
-export function sourcesFor(view: BuildView, affixSvc: AffixService, affixName: string, bonusType: string): AffixSource[] {
-  const bestValue = bestValueFor(view, affixSvc, affixName, bonusType);
+/**
+ * What a compound affix has of one bonus type through its parts: the lowest of the values the
+ * build gives them, so 0 unless it gives every part some. 0 for anything that isn't a compound.
+ */
+export function compoundValueFor(view: BuildView, affixSvc: AffixService, affixName: string, bonusType: string,
+    options: AffixTypeValueOptions = {}): number {
+  const parts = affixSvc.getCompoundParts(affixName);
+  if (!parts || bonusType === 'Penalty') {
+    return 0;
+  }
+  let lowest = Infinity;
+  for (const part of parts) {
+    const value = bestValueFor(view, affixSvc, part, bonusType, { ...options, withoutUniversal: true });
+    if (!(value > 0)) {
+      return 0;
+    }
+    lowest = Math.min(lowest, value);
+  }
+  return lowest;
+}
+
+/**
+ * The bonus types a compound affix has through its parts, which game data needn't list for it:
+ * no item gives Radiance Lore an Insight bonus, but Insight Light Lore and Alignment Lore do.
+ */
+export function compoundBonusTypes(view: BuildView, affixSvc: AffixService, affixName: string): string[] {
+  const parts = affixSvc.getCompoundParts(affixName);
+  if (!parts) {
+    return [];
+  }
+  return [...suppliedTypes(view, affixSvc, parts[0])]
+    .filter(bonusType => compoundValueFor(view, affixSvc, affixName, bonusType) > 0);
+}
+
+/** Every bonus type the build gives an affix, whatever its value. */
+function suppliedTypes(view: BuildView, affixSvc: AffixService, affixName: string): Set<string> {
+  const types = new Set<string>(compoundBonusTypes(view, affixSvc, affixName));
+  for (const [, item] of view.items()) {
+    for (const affix of item ? affixSvc.getActiveAffixes(item) : []) {
+      if (affix.name === affixName) {
+        types.add(affix.type);
+      }
+    }
+  }
+  for (const [, affixes] of view.setBonuses()) {
+    for (const affix of affixes) {
+      if (affixSvc.resolvesToAffix(affix.name, affixName)) {
+        types.add(affix.type);
+      }
+    }
+  }
+  for (const entry of externalValuesFor(view.externalEntries(), affixSvc, affixName)) {
+    types.add(entry.bonusType);
+  }
+  for (const entry of view.filigreeFor(affixName)) {
+    types.add(entry.affix.type);
+  }
+  return types;
+}
+
+/** What the build gets from one bonus type of an affix: its best value, or the sum of all of them for a summed type. 0 for none. */
+export function bestValueFor(view: BuildView, affixSvc: AffixService, affixName: string, bonusType: string,
+    options: AffixTypeValueOptions = {}): number {
+  return combineBonusTypeValues(bonusType,
+    valuesForAffixType(view, affixSvc, affixName, bonusType, options).map(entry => entry.value));
+}
+
+/**
+ * What supplies the build's value for an affix type: each source giving the best value, every one for a summed type.
+ * For a compound affix whose value is what its parts have, their sources too.
+ */
+export function sourcesFor(view: BuildView, affixSvc: AffixService, affixName: string, bonusType: string,
+    options: Pick<AffixTypeValueOptions, 'withoutUniversal'> = {}): AffixSource[] {
+  const bestValue = bestValueFor(view, affixSvc, affixName, bonusType, options);
   if (!bestValue) {
     return [];
   }
@@ -128,7 +239,7 @@ export function sourcesFor(view: BuildView, affixSvc: AffixService, affixName: s
     }
     // getActiveAffixes, a part at a time, so a value an augment gives is credited to the augment.
     for (const part of itemParts(item)) {
-      for (const affix of affixSvc.flattenAffixGroups(part.affixes, true)) {
+      for (const affix of flattened(affixSvc, part.affixes, options)) {
         if (affix.name === affixName && affix.type === bonusType && counts(affix.value)) {
           sources.push({
             kind: 'item', slot, itemName: item.name, ...(part.augmentName ? { augmentName: part.augmentName } : {}),
@@ -141,13 +252,13 @@ export function sourcesFor(view: BuildView, affixSvc: AffixService, affixName: s
 
   for (const [setName, affixes] of view.setBonuses()) {
     for (const affix of affixes) {
-      if (affixSvc.resolvesToAffix(affix.name, affixName) && affix.type === bonusType && counts(affix.value)) {
+      if (suppliesFromSet(affixSvc, affix, affixName, options) && affix.type === bonusType && counts(affix.value)) {
         sources.push({ kind: 'set', slot: 'Set', itemName: setName, affixName: affix.name, bonusType: affix.type, value: affix.value });
       }
     }
   }
 
-  for (const entry of externalValuesFor(view.externalEntries(), affixSvc, affixName, bonusType)) {
+  for (const entry of externalValuesFor(view.externalEntries(), affixSvc, affixName, bonusType, options)) {
     if (counts(entry.value)) {
       sources.push({
         kind: 'external', slot: NON_GEAR_SLOT, itemName: entry.label, affixName: entry.affixName,
@@ -156,7 +267,7 @@ export function sourcesFor(view: BuildView, affixSvc: AffixService, affixName: s
     }
   }
 
-  for (const entry of view.filigreeFor(affixName, bonusType)) {
+  for (const entry of filigreeValuesFor(view, affixName, bonusType, options)) {
     if (counts(entry.affix.value)) {
       sources.push({
         kind: 'filigree',
@@ -167,6 +278,20 @@ export function sourcesFor(view: BuildView, affixSvc: AffixService, affixName: s
         bonusType: entry.affix.type,
         value: entry.affix.value
       });
+    }
+  }
+
+  if (compoundValueFor(view, affixSvc, affixName, bonusType, options) >= bestValue) {
+    const sourceKey = (source: AffixSource) =>
+      [source.kind, source.slot, source.filigreeHost, source.itemName, source.augmentName].join('\u0000');
+    const seen = new Set(sources.map(sourceKey));
+    for (const part of affixSvc.getCompoundParts(affixName) ?? []) {
+      for (const source of sourcesFor(view, affixSvc, part, bonusType, { withoutUniversal: true })) {
+        if (!seen.has(sourceKey(source))) {
+          seen.add(sourceKey(source));
+          sources.push(source);
+        }
+      }
     }
   }
 
@@ -292,7 +417,9 @@ export type AffixTotalRules = Omit<VisibleTypeRules, 'isAvailable'>;
  */
 export function affixTotal(view: BuildView, affixSvc: AffixService, rules: AffixTotalRules, name: string): AffixTotal {
   const value = (affixName: string, bonusType: string) => bestValueFor(view, affixSvc, affixName, bonusType);
-  const allTypes = [...new Set([...rules.allLevelTypes(name), ...equippedItemBonusTypes(view, affixSvc, name)])];
+  const allTypes = [...new Set([
+    ...rules.allLevelTypes(name), ...equippedItemBonusTypes(view, affixSvc, name), ...compoundBonusTypes(view, affixSvc, name)
+  ])];
   const covered = allTypes.filter(bonusType => bonusType !== 'Penalty')
     .map(bonusType => ({ bonusType, value: value(name, bonusType) }));
   const hasPenalty = allTypes.includes('Penalty') && hasPenaltyTo(view, affixSvc, name);

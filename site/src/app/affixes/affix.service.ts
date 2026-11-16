@@ -147,8 +147,33 @@ export class AffixService {
     return this.affixGroups.has(affix.name) || this.affixGroupComponents.has(affix.name);
   }
 
+  /**
+   * True when `groupName` gives `affixName`: it is one of the group's members, or a compound whose
+   * parts all are (Radiance Lore is Light and Alignment Lore, and Universal Spell Lore gives both).
+   */
   isGroupMember(affixName: string, groupName: string): boolean {
-    return (this.affixGroups.get(groupName) || []).includes(affixName);
+    const members = this.affixGroups.get(groupName) || [];
+    if (members.includes(affixName)) {
+      return true;
+    }
+    const parts = affixName === groupName ? null : this.getCompoundParts(affixName);
+    return !!parts && parts.every(part => members.includes(part));
+  }
+
+  /**
+   * The parts of a compound affix that is exactly its parts, each at the compound's own bonus type
+   * and value - so a build with every part has the compound too, at the lowest of their values.
+   * Null for anything else: a group with fixed or scaled components (Riposte's half Armor Class), a
+   * universal companion, which stacks with its members rather than being made of them, and a group
+   * of one, which is another name for its member and may stand for effects the data doesn't model.
+   */
+  getCompoundParts(affixName: string): ReadonlyArray<string> | null {
+    const members = this.affixGroups.get(affixName);
+    if (!members || members.length < 2 || this.affixGroupComponents.has(affixName)
+        || UNIVERSAL_COMPANION_AFFIXES.includes(affixName)) {
+      return null;
+    }
+    return members;
   }
 
   getActiveAffixes(item: Item) {

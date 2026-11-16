@@ -122,7 +122,7 @@ describe('GearDescriptionComponent', () => {
       expect(select).toBeTruthy();
       select!.dispatchEvent(new Event('focus'));
       fixture.detectChanges();
-      return Array.from(select!.options).map(option => option.textContent!.trim()).filter(Boolean);
+      return Array.from(select!.options).map(option => option.textContent!.trim()).filter(label => label !== 'Empty');
     }
 
     it('offers options up to the maximum level, however far below the minimum', () => {
@@ -234,7 +234,7 @@ describe('GearDescriptionComponent', () => {
       expect(select).toBeTruthy();
       select!.dispatchEvent(new Event('focus'));
       fixture.detectChanges();
-      return Array.from(select!.options).map(option => option.textContent!.trim()).filter(Boolean);
+      return Array.from(select!.options).map(option => option.textContent!.trim()).filter(label => label !== 'Empty');
     }
 
     it('leaves out an augment only from hidden packs, keeping sourceless and partly-shown ones', () => {

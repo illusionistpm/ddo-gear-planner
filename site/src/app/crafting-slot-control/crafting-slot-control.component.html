@@ -28,7 +28,7 @@
           <option [ngValue]="optionRow.option"
             [ngClass]="optionRow.className"
             [title]="optionRow.tooltip">
-            {{optionRow.description}}
+            {{optionRow.description || 'Empty'}}
           </option>
         }
       </select>

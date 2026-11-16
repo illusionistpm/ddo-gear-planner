@@ -95,7 +95,7 @@ export class CraftingOptionPickerComponent implements OnChanges {
   }
 
   get selectedLabel(): string {
-    // Blank when nothing is chosen, as the native selects it stands in for are.
+    // '' when nothing is chosen: the toggle then shows "Empty", from its CSS.
     return this.selected?.describe() ?? '';
   }
 

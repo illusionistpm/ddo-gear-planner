@@ -507,6 +507,40 @@ describe('ItemsWithBonusTypeComponent', () => {
     expect(component.craftOptionMatchValue(keys[0])).toBe(7);
   });
 
+  it('gives every craft row its own slot choice and a working Equip', () => {
+    component.affixName = 'Disable Device';
+    component.bonusType = 'Insight';
+
+    const tier = (name: string, value: number) => new Craftable(name, [
+      new CraftableOption({ affixes: [{ name: 'Disable Device', type: 'Insight', value }] }),
+    ]);
+    const necklace = new Item(null);
+    necklace.name = 'Legendary Green Steel Necklace';
+    necklace.slot = 'Neck';
+    necklace.crafting = [tier('T1 (Equipment)', 5), tier('T2 (Equipment)', 7)];
+
+    vi.spyOn(component.gearDB, 'findGearWithAffixAndType').mockReturnValue([]);
+    vi.spyOn(component.gearDB, 'findAugmentsWithAffixAndType').mockReturnValue([]);
+    vi.spyOn(component.gearDB, 'findSetsWithAffixAndType').mockReturnValue([] as any);
+    vi.spyOn(component.equipped, 'getCompatibleGear').mockReturnValue([]);
+    vi.spyOn(component.equipped, 'getUnlockedSlots').mockReturnValue(new Set());
+    vi.spyOn(component.equipped, 'getActiveSets').mockReturnValue(new Map());
+    vi.spyOn(component.equipped, 'getSlotsSnapshot').mockReturnValue(new Map([['Neck', necklace]]));
+
+    (component as any).refreshMatches();
+    fixture.detectChanges();
+
+    const element = fixture.nativeElement as HTMLElement;
+    const selects = Array.from(element.querySelectorAll<HTMLSelectElement>('.augment-slot-select'));
+    const buttons = Array.from(element.querySelectorAll<HTMLButtonElement>('.slot-equip'));
+    expect(selects.length).toBe(2);
+    expect(selects.map(select => select.selectedOptions[0]?.textContent?.trim()).sort()).toEqual([
+      'Legendary Green Steel Necklace - T1 (Equipment)',
+      'Legendary Green Steel Necklace - T2 (Equipment)',
+    ]);
+    expect(buttons.map(button => button.disabled)).toEqual([false, false]);
+  });
+
   it('offers crafting tiers up to the maximum level, however far below the minimum', () => {
     component.affixName = 'Disable Device';
     component.bonusType = 'Insight';

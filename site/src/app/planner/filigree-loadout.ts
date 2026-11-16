@@ -24,6 +24,8 @@ export interface FiligreeContribution {
   /** The filigree ("Celerity: Dexterity (Rare)") or set name. */
   itemName: string;
   affix: Affix;
+  /** For a member's share of an affix group the filigree gives, the group ("Universal Spell Power"). */
+  group?: string;
 }
 
 /** The items holding filigrees, with their slots: the main-hand weapon, and whichever minor artifact is equipped. */
@@ -68,8 +70,10 @@ export function filigreeContributionsOf(counted: ReadonlyArray<CountedFiligree>,
   const contributions: FiligreeContribution[] = [];
   const add = (host: FiligreeHost | null, itemName: string, affixes: Affix[]) => {
     const slot = FILIGREE_SOURCE_SLOTS[host ?? 'set'];
-    for (const affix of affixSvc.flattenAffixGroups(affixes, true)) {
-      contributions.push({ host, slot, itemName, affix });
+    for (const given of affixes) {
+      for (const affix of affixSvc.flattenAffixGroups([given], true)) {
+        contributions.push({ host, slot, itemName, affix, ...(affix === given ? {} : { group: given.name }) });
+      }
     }
   };
   for (const entry of counted) {

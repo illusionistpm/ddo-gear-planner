@@ -751,6 +751,11 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     const maxValue = this.gearDB.getBestValueForAffixType(this.getSourceAffixName(affixName, type), this.getSourceBonusType(type));
     const shortBy = maxValue - type.value;
 
+    if (maxValue === 0 && type.value > 0) {
+      // A compound affix's value from its parts, of a type no gear gives the compound itself.
+      return 'Supplied by the affixes it is made of.';
+    }
+
     if (maxValue === 0) {
       return 'No gear with this bonus type is available in the current level range.';
     }

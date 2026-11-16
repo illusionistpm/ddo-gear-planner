@@ -528,6 +528,14 @@ app-admin-link {
   padding: var(--space-12) var(--space-12);
 }
 
+/* 995px: both views side by side, so "switch to Build Goals" has nothing to
+   switch to - and Build Goals shows the step that follows, beside the gear. */
+@media (min-width: 995px) {
+  .planner-goals-step-hint {
+    display: none;
+  }
+}
+
 .planner-onboarding-actions {
   align-items: center;
   display: flex;

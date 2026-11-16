@@ -26,6 +26,13 @@
     white-space: normal;
 }
 
+/* Nothing chosen: says so, muted, rather than a blank box that reads as a missing value. */
+.crafting-picker-toggle-label:empty::before {
+    color: var(--text-secondary);
+    content: 'Empty';
+    font-weight: 400;
+}
+
 /* Bootstrap's dropdown-toggle caret, placed where a select's chevron sits. */
 .crafting-picker-toggle::after {
     position: absolute;

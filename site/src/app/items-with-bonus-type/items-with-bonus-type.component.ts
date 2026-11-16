@@ -121,7 +121,15 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
   // string maps to the equipped items (and their open tiers) it could go into.
   craftIntoEquippedGear: Map<string, Map<Item, Array<Craftable>>> = new Map<string, Map<Item, Array<Craftable>>>();
   craftIntoEquippedOptions: Map<string, CraftableOption> = new Map<string, CraftableOption>();
-  selectedCraftSlot?: CraftSlotChoice;
+  /**
+   * Per option row: the slots it could go into, and the one picked (the first,
+   * until another is chosen), so every row's Equip works without a visit to
+   * its dropdown. Built once per refresh - the dropdown matches by identity.
+   */
+  augmentChoices = new Map<string, AugmentSlotChoice[]>();
+  augmentPicks = new Map<string, AugmentSlotChoice>();
+  craftChoices = new Map<string, CraftSlotChoice[]>();
+  craftPicks = new Map<string, CraftSlotChoice>();
 
   sets: SetAffixMatch[] = [];
   unreachableSets: SetAffixMatch[] = [];
@@ -148,7 +156,6 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
 
   private collapsedSections = new Set<string>();
 
-  selectedAugmentSlot?: AugmentSlotChoice;
   /** The item list renders at most this many rows, and the preview carousel spans only those. */
   readonly maxRenderedItems = 100;
   readonly preview = new ItemPreviewController(item => {
@@ -222,7 +229,6 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     this.lockedMatches = [];
     this.craftIntoEquippedGear = new Map<string, Map<Item, Array<Craftable>>>();
     this.craftIntoEquippedOptions = new Map<string, CraftableOption>();
-    this.selectedCraftSlot = undefined;
     this.preview.close();
 
     const matchingGear = this.equipped.getCompatibleGear(
@@ -348,6 +354,8 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
         }
       }
     }
+
+    this.buildSlotChoices();
 
     // JAK: FIXME!! I need to add sets to the bonus type list
     // Split by whether the set can still reach its piece threshold given the
@@ -576,14 +584,52 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     return this.affixUi.getClassForAffix(option.affixes[0], undefined, this.affixUi.candidateForAddedOption(option));
   }
 
-  equipAugment() {
+  private buildSlotChoices() {
+    this.augmentChoices = new Map();
+    this.augmentPicks = new Map();
+    for (const [optionString, gear] of this.optionToEligibleGear) {
+      const choices: AugmentSlotChoice[] = [];
+      for (const [item, entries] of gear) {
+        for (const entry of entries) {
+          choices.push({ item, craftable: entry.craftable, systemName: entry.systemName, optionString });
+        }
+      }
+      this.augmentChoices.set(optionString, choices);
+      if (choices.length) {
+        this.augmentPicks.set(optionString, choices[0]);
+      }
+    }
+
+    this.craftChoices = new Map();
+    this.craftPicks = new Map();
+    for (const [optionString, gear] of this.craftIntoEquippedGear) {
+      const choices: CraftSlotChoice[] = [];
+      for (const [item, craftables] of gear) {
+        for (const craftable of craftables) {
+          choices.push({ item, craftable, optionString });
+        }
+      }
+      this.craftChoices.set(optionString, choices);
+      if (choices.length) {
+        this.craftPicks.set(optionString, choices[0]);
+      }
+    }
+  }
+
+  /** "Legendary Mirage - Red Augment Slot": the item and the slot on it. */
+  slotChoiceLabel(choice: { item: Item, craftable: Craftable }): string {
+    return `${choice.item.name} - ${choice.craftable.name}`;
+  }
+
+  equipAugment(optionKey: string) {
     const done = perfStart('ItemsWithBonusTypeComponent.equipAugment');
-    if (!this.selectedAugmentSlot) {
+    const pick = this.augmentPicks.get(optionKey);
+    if (!pick) {
       done({ skipped: 'no selection' });
       return;
     }
-    const { craftable, optionString, systemName } = this.selectedAugmentSlot;
-    const item = new Item(this.selectedAugmentSlot.item);
+    const { craftable, optionString, systemName } = pick;
+    const item = new Item(pick.item);
 
     for (const itemCraftable of item.crafting) {
       if (itemCraftable.name == craftable.name) {
@@ -614,14 +660,15 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     return value == null ? '' : value;
   }
 
-  equipCraftIntoEquipped() {
+  equipCraftIntoEquipped(optionKey: string) {
     const done = perfStart('ItemsWithBonusTypeComponent.equipCraftIntoEquipped');
-    if (!this.selectedCraftSlot) {
+    const pick = this.craftPicks.get(optionKey);
+    if (!pick) {
       done({ skipped: 'no selection' });
       return;
     }
-    const { craftable, optionString } = this.selectedCraftSlot;
-    const item = new Item(this.selectedCraftSlot.item);
+    const { craftable, optionString } = pick;
+    const item = new Item(pick.item);
 
     for (const itemCraftable of item.crafting) {
       if (itemCraftable.name == craftable.name) {

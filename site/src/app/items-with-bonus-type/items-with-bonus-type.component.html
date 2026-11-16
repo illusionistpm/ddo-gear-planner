@@ -132,22 +132,21 @@
           <div class="col-9">{{option.describe(false, false)}}</div>
           <div class="col-2 text-end">{{option.affixes[0].value}}</div>
           <div class="col-12 slot-controls">
-            @if (elem.value.size > 0) {
-              <select class="augment-slot-select form-control border border-secondary" [(ngModel)]="selectedAugmentSlot" [title]="selectedAugmentSlot ? selectedAugmentSlot.item.name + ' - ' + selectedAugmentSlot.craftable.name : ''">
-                @for (innerElem of elem.value | keyvalue; track innerElem.key.name) {
-                  @for (entry of innerElem.value; track entry.craftable.name + '|' + entry.systemName) {
-                    <option [ngValue]="{item: innerElem.key, craftable: entry.craftable, systemName: entry.systemName, optionString: elem.key}"
-                      [ngClass]="getAugmentClass(option)"
-                      [title]="innerElem.key.name + ' - ' + entry.craftable.name">
-                      {{innerElem.key.name}} - {{entry.craftable.name}}
-                    </option>
-                  }
+            @let augmentPick = augmentPicks.get(elem.key);
+            @if (augmentPick) {
+              <select class="augment-slot-select form-control border border-secondary" aria-label="Slot to put it in"
+                [ngModel]="augmentPick" (ngModelChange)="augmentPicks.set(elem.key, $event)" [title]="slotChoiceLabel(augmentPick)">
+                @for (choice of augmentChoices.get(elem.key); track $index) {
+                  <option [ngValue]="choice" [ngClass]="getAugmentClass(option)" [title]="slotChoiceLabel(choice)">
+                    {{slotChoiceLabel(choice)}}
+                  </option>
                 }
               </select>
+              <button type="button" class="equip-button slot-equip" (click)="equipAugment(elem.key)">Equip</button>
             } @else {
-              <span class="slot-empty">No free slots available</span>
+              <!-- Why there is nothing to equip into, in place of a dead button. -->
+              <span class="slot-empty">No free slot for it on your equipped gear</span>
             }
-            <button class="equip-button slot-equip" (click)="equipAugment()" [disabled]="!selectedAugmentSlot || selectedAugmentSlot.optionString !== elem.key">Equip</button>
           </div>
         </div>
       }
@@ -174,19 +173,16 @@
           <div class="col-9">{{craftOption.describe(false, false)}}</div>
           <div class="col-2 text-end">{{craftOptionMatchValue(elem.key)}}</div>
           <div class="col-12 slot-controls">
-            <select class="augment-slot-select form-control border border-secondary" [(ngModel)]="selectedCraftSlot"
-              [title]="selectedCraftSlot ? selectedCraftSlot.item.name + ' - ' + selectedCraftSlot.craftable.name : ''">
-              @for (innerElem of elem.value | keyvalue; track innerElem.key.name) {
-                @for (craftable of innerElem.value; track craftable.name) {
-                  <option [ngValue]="{item: innerElem.key, craftable: craftable, optionString: elem.key}"
-                    [title]="innerElem.key.name + ' - ' + craftable.name">
-                    {{innerElem.key.name}} - {{craftable.name}}
-                  </option>
+            @let craftPick = craftPicks.get(elem.key);
+            @if (craftPick) {
+              <select class="augment-slot-select form-control border border-secondary" aria-label="Slot to craft it into"
+                [ngModel]="craftPick" (ngModelChange)="craftPicks.set(elem.key, $event)" [title]="slotChoiceLabel(craftPick)">
+                @for (choice of craftChoices.get(elem.key); track $index) {
+                  <option [ngValue]="choice" [title]="slotChoiceLabel(choice)">{{slotChoiceLabel(choice)}}</option>
                 }
-              }
-            </select>
-            <button class="equip-button slot-equip" (click)="equipCraftIntoEquipped()"
-              [disabled]="!selectedCraftSlot || selectedCraftSlot.optionString !== elem.key">Equip</button>
+              </select>
+              <button type="button" class="equip-button slot-equip" (click)="equipCraftIntoEquipped(elem.key)">Equip</button>
+            }
           </div>
         </div>
       }

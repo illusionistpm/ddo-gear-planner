@@ -82,6 +82,33 @@ describe('handleCreateBuild build-count limit', () => {
   });
 });
 
+describe('handleCreateBuild summary', () => {
+  it('stores the summary sent with the build', async () => {
+    const { env, db } = makeEnv();
+
+    await handleCreateBuild(request({ name: 'My Fighter', blob: 'z1.abc', summary: { weapon: 'Kinesis', minLevel: 33, maxLevel: 35 } }), user, env);
+
+    expect(db.builds[0].summary).toBe('{"weapon":"Kinesis","minLevel":33,"maxLevel":35}');
+  });
+
+  it('stores null without one', async () => {
+    const { env, db } = makeEnv();
+
+    await handleCreateBuild(request({ name: 'My Fighter', blob: 'z1.abc' }), user, env);
+
+    expect(db.builds[0].summary).toBeNull();
+  });
+
+  it('rejects a summary that is not a JSON object', async () => {
+    const { env, db } = makeEnv();
+
+    const response = await handleCreateBuild(request({ name: 'My Fighter', blob: 'z1.abc', summary: 'Kinesis' }), user, env);
+
+    expect(response.status).toBe(400);
+    expect(db.builds).toHaveLength(0);
+  });
+});
+
 describe('handleCreateBuild duplicate names', () => {
   it('rejects a second build with the same name (case-insensitive) for the same owner', async () => {
     const { env, db } = makeEnv();
@@ -214,6 +241,50 @@ describe('handleUpdateBuild / handleDeleteBuild ownership', () => {
     expect(db.builds[1].name).toBe('My Wizard');
   });
 
+  it('stores the summary sent with new gear', async () => {
+    const { env, db } = makeEnv();
+    seedUser(db, 'user-1', user);
+    seedBuild(db, { id: 'build-1', short_id: 'short01', owner_user_id: 'user-1', summary: '{"weapon":"Old"}' });
+
+    const response = await handleUpdateBuild(request({ blob: 'z1.new', summary: { weapon: 'New', minLevel: 30, maxLevel: 34 } }, 'PUT'),
+      'build-1', user, env, noWait);
+
+    expect(response.status).toBe(200);
+    expect(db.builds[0].summary).toBe('{"weapon":"New","minLevel":30,"maxLevel":34}');
+  });
+
+  it('clears the summary when new gear comes without one, so it never describes the old gear', async () => {
+    const { env, db } = makeEnv();
+    seedUser(db, 'user-1', user);
+    seedBuild(db, { id: 'build-1', short_id: 'short01', owner_user_id: 'user-1', summary: '{"weapon":"Old"}' });
+
+    await handleUpdateBuild(request({ blob: 'z1.new' }, 'PUT'), 'build-1', user, env, noWait);
+
+    expect(db.builds[0].summary).toBeNull();
+  });
+
+  it('keeps the summary on a rename', async () => {
+    const { env, db } = makeEnv();
+    seedUser(db, 'user-1', user);
+    seedBuild(db, { id: 'build-1', short_id: 'short01', owner_user_id: 'user-1', summary: '{"weapon":"Old"}' });
+
+    await handleUpdateBuild(request({ name: 'Renamed' }, 'PUT'), 'build-1', user, env, noWait);
+
+    expect(db.builds[0].summary).toBe('{"weapon":"Old"}');
+  });
+
+  it('rejects a summary that is not a JSON object, or is too long, and saves nothing', async () => {
+    const { env, db } = makeEnv();
+    seedUser(db, 'user-1', user);
+    seedBuild(db, { id: 'build-1', short_id: 'short01', owner_user_id: 'user-1' });
+
+    for (const summary of ['Kinesis', [1, 2], { weapon: 'x'.repeat(2000) }]) {
+      const response = await handleUpdateBuild(request({ blob: 'z1.new', summary }, 'PUT'), 'build-1', user, env, noWait);
+      expect(response.status).toBe(400);
+    }
+    expect(db.builds[0].blob).toBe('z1.abc');
+  });
+
   it('allows the owner to delete their own build', async () => {
     const { env, db } = makeEnv();
     seedUser(db, 'user-1', user);
@@ -268,6 +339,24 @@ describe('handleListMine', () => {
     const body = await response.json() as Array<{ id: string; blob?: string }>;
     expect(body.map(b => b.id)).toEqual(['build-2', 'build-1']);
     expect(body.every(b => !('blob' in b))).toBe(true);
+  });
+
+  it('lists each build\'s stored summary, and null for one with none', async () => {
+    const { env, db } = makeEnv();
+    seedUser(db, 'user-1', user);
+    seedBuild(db, { id: 'build-1', short_id: 'short01', owner_user_id: 'user-1', name: 'Old', updated_at: '2026-01-01' });
+    seedBuild(db, {
+      id: 'build-2', short_id: 'short02', owner_user_id: 'user-1', name: 'New', updated_at: '2026-02-01',
+      summary: '{"weapon":"Kinesis, the Hidden Force","minLevel":33,"maxLevel":35}'
+    });
+
+    const response = await handleListMine(user, env);
+
+    const body = await response.json() as Array<{ id: string; summary: unknown }>;
+    expect(body.map(b => [b.id, b.summary])).toEqual([
+      ['build-2', { weapon: 'Kinesis, the Hidden Force', minLevel: 33, maxLevel: 35 }],
+      ['build-1', null]
+    ]);
   });
 
   it('returns an empty list for a caller with no user row yet, rather than erroring', async () => {

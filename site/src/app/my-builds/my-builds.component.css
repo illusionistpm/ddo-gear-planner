@@ -75,26 +75,115 @@
 }
 
 .my-builds-row {
-  display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-12);
-  padding: var(--space-4) var(--space-8);
   border-radius: 6px;
-  cursor: pointer;
+  display: flex;
+  gap: var(--space-12);
+  justify-content: space-between;
   min-height: 2.25rem;
+  padding: var(--space-8);
+  position: relative;
 }
 
+/*
+ * A hairline between rows, so each name stays with its own summary line
+ * rather than reading as the caption of the row below. Inset from the row's
+ * ends, and dropped beside a highlighted row, whose background separates it.
+ */
+.my-builds-row + .my-builds-row::before {
+  border-top: 1px solid var(--border-color);
+  content: '';
+  left: var(--space-8);
+  position: absolute;
+  right: var(--space-8);
+  top: 0;
+}
+
+.my-builds-row:hover::before,
+.my-builds-row:hover + .my-builds-row::before,
+.my-builds-row-current::before,
+.my-builds-row-current + .my-builds-row::before {
+  display: none;
+}
+
+/* A tint of the primary colour, not --surface-subtle-color, which is darker than the menu in dark mode. */
 .my-builds-row:hover {
-  background: var(--surface-subtle-color);
+  background: rgba(var(--primary-color-rgb), 0.08);
 }
 
-.my-builds-name {
+/* The build that's open now: tinted, with a bar at its start like a selected row elsewhere. */
+.my-builds-row-current,
+.my-builds-row-current:hover {
+  background: var(--selected-row-bg);
+}
+
+/* A straight bar with rounded caps, rather than an edge that bends round the row's corners. */
+.my-builds-row-current::after {
+  background: var(--primary-color);
+  border-radius: 2px;
+  bottom: var(--space-4);
+  content: '';
+  left: 0;
+  position: absolute;
+  top: var(--space-4);
+  width: 3px;
+}
+
+/*
+ * The name and summary: a button for the keyboard and screen readers, whose
+ * ::after stretches its click area over the whole row. The action buttons
+ * sit above it (.my-builds-actions), so they still get their own clicks.
+ */
+.my-builds-open {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
   flex: 1 1 auto;
+  flex-direction: column;
+  font: inherit;
   min-width: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.my-builds-open::after {
+  border-radius: 6px;
+  content: '';
+  inset: 0;
+  position: absolute;
+}
+
+.my-builds-open:focus {
+  outline: none;
+}
+
+/* The focus ring goes round the row, where the click area is, not just the text. */
+.my-builds-open:focus-visible::after {
+  outline: 2px solid var(--primary-color);
+  outline-offset: -2px;
+}
+
+/* The name, and under it the weapon and level range, each cut short rather than wrapped. */
+.my-builds-name,
+.my-builds-summary {
+  max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.my-builds-name {
+  font-weight: 600;
+}
+
+/* Dark mode's --text-secondary is close to the name's colour, so size and weight carry the difference. */
+.my-builds-summary {
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 400;
+  margin-top: 1px;
 }
 
 /* The row's buttons, together at its end, so each sits in the same place on every row. */
@@ -103,6 +192,8 @@
   display: flex;
   flex: 0 0 auto;
   gap: var(--space-4);
+  position: relative;
+  z-index: 1;
 }
 
 .my-builds-compare,
@@ -113,6 +204,26 @@
   color: var(--text-secondary);
   cursor: pointer;
   padding: var(--space-4);
+  transition: opacity 0.12s ease;
+}
+
+/*
+ * The same two icons on every row are noise, so they rest faint and come up
+ * on the row being pointed at or tabbed through. Where there's no hover
+ * (touch), they stay at full strength.
+ */
+@media (hover: hover) {
+  .my-builds-compare,
+  .my-builds-delete:not(:disabled) {
+    opacity: 0.45;
+  }
+
+  .my-builds-row:hover .my-builds-compare,
+  .my-builds-row:hover .my-builds-delete:not(:disabled),
+  .my-builds-row:focus-within .my-builds-compare,
+  .my-builds-row:focus-within .my-builds-delete:not(:disabled) {
+    opacity: 1;
+  }
 }
 
 .my-builds-compare:hover {

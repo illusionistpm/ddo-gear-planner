@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 
 import { BuildSummary, MAX_BUILDS_PER_USER } from '../build/build';
+import { gearSummaryLabel } from '../build/build-gear-summary';
 import { BuildsService } from '../build/builds.service';
 import { CurrentBuildService } from '../build/current-build.service';
 import { confirmLeaveUnsavedChanges } from '../build/unsaved-changes.guard';
@@ -62,6 +63,11 @@ export class MyBuildsComponent implements OnInit {
         this.cdr.markForCheck();
       }
     });
+  }
+
+  /** Its weapon and level range, under the name; "" for a build saved without them. */
+  labelOf(build: BuildSummary): string {
+    return gearSummaryLabel(build.summary);
   }
 
   isCurrentBuild(build: BuildSummary): boolean {

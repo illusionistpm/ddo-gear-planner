@@ -30,6 +30,7 @@ export interface FakeBuildRow {
   owner_user_id: string;
   name: string;
   blob: string;
+  summary?: string | null;
   visibility: string;
   created_at: string;
   updated_at: string;
@@ -304,7 +305,7 @@ export class FakeD1 {
         .slice()
         .sort((a, b) => (a.updated_at < b.updated_at ? 1 : a.updated_at > b.updated_at ? -1 : 0));
       if (sql.includes('SELECT id, short_id')) {
-        return rows.map(({ blob, ...summary }) => summary);
+        return rows.map(({ blob, ...row }) => ({ ...row, summary: row.summary ?? null }));
       }
       return rows;
     }
@@ -378,8 +379,8 @@ export class FakeD1 {
     // INSERT whose WHERE clause is the live build-count re-check. Matched
     // by both markers since the real query spans multiple lines.
     if (sql.includes('INSERT INTO builds') && sql.includes('WHERE (SELECT COUNT')) {
-      const [id, shortId, ownerUserId, name, blob, visibility, createdAt, updatedAt, countOwnerUserId, max] =
-        args as [string, string, string, string, string, string, string, string, string, number];
+      const [id, shortId, ownerUserId, name, blob, summary, visibility, createdAt, updatedAt, countOwnerUserId, max] =
+        args as [string, string, string, string, string, string | null, string, string, string, string, number];
       const currentCount = this.builds.filter(b => b.owner_user_id === countOwnerUserId).length;
       if (currentCount >= max) {
         return { meta: { changes: 0 } };
@@ -390,7 +391,9 @@ export class FakeD1 {
       if (unique(this.builds, b => b.owner_user_id === ownerUserId && b.name.toLowerCase() === name.toLowerCase())) {
         throw new Error('D1_ERROR: UNIQUE constraint failed: builds.owner_user_id, builds.name');
       }
-      this.builds.push({ id, short_id: shortId, owner_user_id: ownerUserId, name, blob, visibility, created_at: createdAt, updated_at: updatedAt });
+      this.builds.push({
+        id, short_id: shortId, owner_user_id: ownerUserId, name, blob, summary, visibility, created_at: createdAt, updated_at: updatedAt
+      });
       return { meta: { changes: 1 } };
     }
 
@@ -410,6 +413,9 @@ export class FakeD1 {
       }
       if (sql.includes('blob = ?')) {
         build.blob = args[argIndex++] as string;
+      }
+      if (sql.includes('summary = ?')) {
+        build.summary = args[argIndex++] as string | null;
       }
       build.updated_at = args[argIndex] as string;
       return { meta: { changes: 1 } };

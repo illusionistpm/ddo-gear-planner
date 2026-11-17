@@ -16,6 +16,8 @@ export interface BuildRow {
   owner_user_id: string;
   name: string;
   blob: string;
+  /** The gear summary the list shows, as JSON - see migrations/0009. */
+  summary: string | null;
   visibility: BuildVisibility;
   created_at: string;
   updated_at: string;
@@ -23,9 +25,9 @@ export interface BuildRow {
 
 // Same shape as BuildRow minus `blob` - listBuildsByOwner's callers (the
 // My Builds list, the duplicate-name checks on save/rename, ownership
-// confirmation) only ever read id/shortId/name/timestamps, never the gear
-// blob itself. At the 100-build cap, selecting the full blob for every row
-// just to discard it was up to ~400KB of dead weight per listMine() call.
+// confirmation) only ever read id/shortId/name/timestamps/summary, never the
+// gear blob itself. At the 100-build cap, selecting the full blob for every
+// row just to discard it was up to ~400KB of dead weight per listMine() call.
 export type BuildSummaryRow = Omit<BuildRow, 'blob'>;
 
 export type ShortIdKind = 'build' | 'shortlink' | 'group';
@@ -239,10 +241,11 @@ export async function reserveAndInsertBuildIfUnderLimit(
     db.prepare('INSERT INTO short_ids (short_id, kind, created_at) VALUES (?, ?, ?)')
       .bind(row.short_id, 'build', row.created_at),
     db.prepare(
-      `INSERT INTO builds (id, short_id, owner_user_id, name, blob, visibility, created_at, updated_at)
-       SELECT ?, ?, ?, ?, ?, ?, ?, ?
+      `INSERT INTO builds (id, short_id, owner_user_id, name, blob, summary, visibility, created_at, updated_at)
+       SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?
        WHERE (SELECT COUNT(*) FROM builds WHERE owner_user_id = ?) < ?`
-    ).bind(row.id, row.short_id, row.owner_user_id, row.name, row.blob, row.visibility, row.created_at, row.updated_at, limit.ownerUserId, limit.max)
+    ).bind(row.id, row.short_id, row.owner_user_id, row.name, row.blob, row.summary, row.visibility, row.created_at, row.updated_at,
+      limit.ownerUserId, limit.max)
   ]);
   return (result[1]?.meta.changes ?? 0) > 0;
 }
@@ -257,7 +260,7 @@ export async function getBuildById(db: D1Database, id: string): Promise<BuildRow
 
 export async function listBuildSummariesByOwner(db: D1Database, ownerUserId: string): Promise<BuildSummaryRow[]> {
   const result = await db.prepare(
-    'SELECT id, short_id, owner_user_id, name, visibility, created_at, updated_at FROM builds WHERE owner_user_id = ? ORDER BY updated_at DESC'
+    'SELECT id, short_id, owner_user_id, name, summary, visibility, created_at, updated_at FROM builds WHERE owner_user_id = ? ORDER BY updated_at DESC'
   )
     .bind(ownerUserId)
     .all<BuildSummaryRow>();
@@ -275,9 +278,9 @@ export async function countBuildsByOwner(db: D1Database, ownerUserId: string): P
   return row?.count ?? 0;
 }
 
-/** Renames a build and/or replaces its blob, as a statement to run in a batch with others. */
+/** Renames a build and/or replaces its blob and summary, as a statement to run in a batch with others. */
 export function updateBuildStatement(
-  db: D1Database, id: string, fields: { name?: string; blob?: string }, updatedAt: string
+  db: D1Database, id: string, fields: { name?: string; blob?: string; summary?: string | null }, updatedAt: string
 ): D1PreparedStatement {
   const sets: string[] = [];
   const values: unknown[] = [];
@@ -289,6 +292,10 @@ export function updateBuildStatement(
   if (fields.blob !== undefined) {
     sets.push('blob = ?');
     values.push(fields.blob);
+  }
+  if (fields.summary !== undefined) {
+    sets.push('summary = ?');
+    values.push(fields.summary);
   }
   sets.push('updated_at = ?');
   values.push(updatedAt);

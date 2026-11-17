@@ -30,7 +30,7 @@ describe('MyBuildsComponent', () => {
   let router: MockedObject<Router>;
   let cdr: MockedObject<ChangeDetectorRef>;
 
-  function create(builds: Build[] = [makeBuild()]): MyBuildsComponent {
+  function mockServices(builds: Build[]): void {
     buildsService = {
       listMine: vi.fn().mockName('BuildsService.listMine'),
       delete: vi.fn().mockName('BuildsService.delete')
@@ -55,7 +55,10 @@ describe('MyBuildsComponent', () => {
         { provide: Router, useValue: router }
       ]
     });
+  }
 
+  function create(builds: Build[] = [makeBuild()]): MyBuildsComponent {
+    mockServices(builds);
     const component = TestBed.runInInjectionContext(() => new MyBuildsComponent(buildsService, currentBuild, router, cdr, equippedWithGear));
     component.ngOnInit();
     return component;
@@ -93,6 +96,15 @@ describe('MyBuildsComponent', () => {
 
     expect(component.builds?.length).toBe(2);
     expect(component.loadError).toBeNull();
+  });
+
+  it('labels each build with its stored weapon and level range, and nothing without them', () => {
+    const component = create();
+
+    expect(component.labelOf(makeBuild({ summary: { weapon: 'Legendary Calamitous Sceptre', minLevel: 31, maxLevel: 34 } })))
+      .toBe('Leg. Calamitous Sceptre · ML 31–34');
+    expect(component.labelOf(makeBuild({ summary: null }))).toBe('');
+    expect(component.labelOf(makeBuild())).toBe('');
   });
 
   it('exposes the per-account build limit for the header\'s X/100 indicator', () => {
@@ -310,5 +322,61 @@ describe('MyBuildsComponent', () => {
 
     expect(component.deleteError).toContain('Could not delete');
     expect(component.builds).toEqual([build]);
+  });
+
+  describe('rendered rows', () => {
+    // Through the DOM, so a row's markup can change without these noticing.
+    function render(builds: Build[], openBuildId: string | null = null): HTMLElement {
+      mockServices(builds);
+      Object.defineProperty(currentBuild, 'value', {
+        value: { savedBuildId: openBuildId, shortId: null, name: null, isDirty: false, ownership: 'owned' }
+      });
+      TestBed.configureTestingModule({
+        declarations: [MyBuildsComponent],
+        providers: [{ provide: EquippedService, useValue: equippedWithGear }]
+      });
+      const fixture = TestBed.createComponent(MyBuildsComponent);
+      fixture.detectChanges();
+      return fixture.nativeElement as HTMLElement;
+    }
+
+    function rowNamed(root: HTMLElement, name: string): HTMLElement {
+      const row = [...root.querySelectorAll<HTMLElement>('li')]
+        .find(li => li.textContent?.includes(name));
+      if (!row) {
+        throw new Error(`No row for ${name}`);
+      }
+      return row;
+    }
+
+    it('opens a build from a real button in its row, so the keyboard can reach it', () => {
+      const root = render([makeBuild({ id: 'b1', shortId: 'abc123', name: 'Fire Wizard Build' })]);
+
+      const button = rowNamed(root, 'Fire Wizard Build').querySelector<HTMLButtonElement>('button:not([disabled])');
+      expect(button?.textContent).toContain('Fire Wizard Build');
+      button?.click();
+
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/build/abc123/fire-wizard-build');
+    });
+
+    it('marks the open build as current, and only that one', () => {
+      const root = render([
+        makeBuild({ id: 'b1', name: 'Open One' }),
+        makeBuild({ id: 'b2', name: 'Other One' })
+      ], 'b1');
+
+      expect(rowNamed(root, 'Open One').querySelector('[aria-current="true"]')).not.toBeNull();
+      expect(rowNamed(root, 'Other One').querySelector('[aria-current]')).toBeNull();
+    });
+
+    it("doesn't open the build when its compare or delete button is clicked", () => {
+      const root = render([makeBuild({ id: 'b1', name: 'Fire Wizard Build' })]);
+      const row = rowNamed(root, 'Fire Wizard Build');
+
+      row.querySelector<HTMLButtonElement>('[aria-label="Delete build"]')?.click();
+      row.querySelector<HTMLButtonElement>('button[title^="Compare"]')?.click();
+
+      expect(router.navigateByUrl).not.toHaveBeenCalledWith(expect.stringMatching(/^\/build\//));
+    });
   });
 });

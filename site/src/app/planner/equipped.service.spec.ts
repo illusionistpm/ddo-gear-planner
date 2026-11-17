@@ -864,7 +864,15 @@ describe('EquippedService', () => {
 
       expect(changes(chosen)).toEqual([{ name: 'Strength', type: 'Enhancement', before: 12, after: 12 }]);
       expect(changes(strengthOption(4))).toEqual([{ name: 'Strength', type: 'Enhancement', before: 12, after: 10 }]);
-      expect(changes(dexterity)).toEqual([{ name: 'Strength', type: 'Enhancement', before: 12, after: 10 }]);
+    });
+
+    it('leaves out what the current choice gives when the option is for something else', () => {
+      service.addImportantAffix('Dexterity');
+      craft.selected = strengthOption(12);
+      service.set(item);
+
+      expect(changes(dexterity)).toEqual([{ name: 'Dexterity', type: 'Enhancement', before: 0, after: 5 }]);
+      expect(changes(new CraftableOption({ name: '' }))).toEqual([]);
     });
 
     it('leaves out affixes the build doesn\'t track', () => {

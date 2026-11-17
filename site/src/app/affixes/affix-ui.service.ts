@@ -395,11 +395,12 @@ export class AffixUiService {
   }
 
   /**
-   * What choosing `option` in place of the current choice would do to the build, per tracked affix
-   * and bonus type - the same comparison the rank colours make, so the current choice changes
-   * nothing, and an option that would lose what the current one gives shows the loss. Set bonuses
-   * are recounted, so a set augment shows what its set gives with the pieces there really are,
-   * and what it costs when it takes the place of the item's own set.
+   * What choosing `option` in place of the current choice would do to the build, for each tracked
+   * affix the option gives - the same comparison the rank colours make, so the current choice
+   * changes nothing. What the current choice gives counts only towards the affixes the option
+   * gives too: swapping one Dexterity augment for another is net of the one given up, but an
+   * option for something else entirely isn't charged with the loss. Set bonuses are recounted,
+   * so a set augment shows what its set gives with the pieces there really are.
    */
   getCraftingOptionChanges(option: CraftableOption, context?: CraftingOptionContext): AffixChange[] {
     if (!context || !option) {
@@ -411,16 +412,16 @@ export class AffixUiService {
       : this.candidateFor(context.item, undefined, undefined, { kind: context.bonusKind, option });
     const now = this.candidateFor(context.item);
 
-    // The current choice's affixes too: what switching away from it would lose.
-    const touched = [...option.affixes, ...(current?.affixes ?? [])];
-    if (option.set || current?.set) {
-      for (const set of new Set([...chosen.sets, ...now.sets])) {
-        touched.push(...this.getSetBonusAffixes(set));
-      }
-    }
+    const given = (choice: CraftableOption | null | undefined) => this.affixSvc.flattenAffixGroups([
+      ...(choice?.affixes ?? []),
+      ...(choice?.set ? this.getSetBonusAffixes(choice.set) : [])
+    ], true);
+    const offered = given(option);
+    const names = new Set(offered.map(affix => affix.name));
+    const touched = [...offered, ...given(current).filter(affix => names.has(affix.name))];
     const tracked = this.equipped.getImportantAffixes();
     const changes = new Map<string, AffixChange>();
-    for (const affix of this.affixSvc.flattenAffixGroups(touched, true)) {
+    for (const affix of touched) {
       const key = `${affix.name}\n${affix.type}`;
       if (changes.has(key) || !tracked.has(affix.name) || FILIGREE_ONLY_BONUS_TYPES.has(affix.type)) {
         continue;

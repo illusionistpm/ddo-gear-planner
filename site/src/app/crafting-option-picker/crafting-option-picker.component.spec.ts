@@ -78,7 +78,7 @@ describe('CraftingOptionPickerComponent', () => {
   const familyButton = (label: string) => Array.from(document.body.querySelectorAll<HTMLButtonElement>('.crafting-picker-family'))
     .find(button => button.querySelector('.crafting-picker-family-name')?.textContent?.trim() === label)!;
   const tierButtons = () => Array.from(document.body.querySelectorAll<HTMLButtonElement>('.crafting-picker-tier'));
-  const tierLabels = () => tierButtons().map(button => button.querySelector('.crafting-picker-entry-label')!.textContent?.trim());
+  const tierLabels = () => tierButtons().map(button => button.querySelector('.crafting-picker-tier-value')!.textContent?.trim());
   const activeEntry = () => document.body.querySelector('.crafting-picker-entry.active')!;
   const searchBox = () => document.body.querySelector('.crafting-picker-search') as HTMLInputElement;
   const hideCheckbox = () => document.body.querySelector('.crafting-picker-hide input') as HTMLInputElement;
@@ -227,7 +227,7 @@ describe('CraftingOptionPickerComponent', () => {
     fixture.detectChanges();
 
     expect(tierLabels()).toEqual(['+1 (ML 1)', '+3 (ML 5)', '+5 (ML 9)', '+7 (ML 13)']);
-    expect(tierButtons().map(button => button.querySelector('.crafting-picker-entry-label')!.classList[1]))
+    expect(tierButtons().map(button => button.querySelector('.crafting-picker-tier-value')!.classList[1]))
       .toEqual(['Outranked', 'BestTied', 'Best', 'Best']);
     expect(tierButtons()[0].querySelector('.crafting-picker-entry-aside')!.textContent!.trim()).toBe('Diamond of Charisma +1');
     expect(emitted).toEqual([]);

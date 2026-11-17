@@ -23,9 +23,9 @@ export interface TierRow {
   tooltip: string;
   /** Whether the trove has this option. */
   owned: boolean;
-  /** What it would add to the tracked affixes; null when it touches none of them. */
+  /** What switching to it would do to the tracked affixes; null when it touches none of them. */
   gain: GainChip | null;
-  /** How much the gain is worth when tiers are compared: the changes added up. */
+  /** How much switching is worth when tiers are compared: the changes added up. */
   gainScore: number;
   /** The detail under the list while the row is highlighted: one "False Life: +55 → +57 Insightful" per tracked affix. */
   changeLines: string[];
@@ -87,7 +87,7 @@ export function buildFamilyRows(
         className: rankings[i].className,
         tooltip: rankings[i].tooltip,
         owned: isOwned(option),
-        gain: gainChip(rankings[i].changes, option.affixes.length !== 1),
+        gain: gainChip(rankings[i].changes, !isOnlyAbout(option, rankings[i].changes)),
         gainScore: rankings[i].changes.reduce((total, change) => total + change.after - change.before, 0),
         changeLines: rankings[i].changes.map(describeChange),
         why: rankings[i].rankTooltip
@@ -143,24 +143,31 @@ export function gainChip(changes: AffixChange[], named: boolean): GainChip | nul
   if (!changes.length) {
     return null;
   }
-  const moved = changes.filter(change => change.after !== change.before);
+  // Bonus types of one affix add up, so the figure is the net change to its total: swapping a +5
+  // Insight for a +2 Festive is -3, not "+2, -5". (An on/off effect has one type, so nets as itself.)
+  const byAffix = new Map<string, { delta: number; type: string }>();
+  for (const change of changes) {
+    const entry = byAffix.get(change.name) ?? { delta: 0, type: change.type };
+    entry.delta += change.after - change.before;
+    byAffix.set(change.name, entry);
+  }
+  const moved = [...byAffix].filter(([, { delta }]) => Math.round(delta * 100) !== 0);
   if (!moved.length) {
     return { text: '\u2014', direction: 'none' };
   }
-  const parts = moved.map(change => {
-    const delta = change.after - change.before;
-    if (!Affix.isRealType(change.type)) {
+  const parts = moved.map(([name, { delta, type }]) => {
+    if (!Affix.isRealType(type)) {
       // An on/off effect has nothing to count: the build gets it, or loses it.
-      return named ? `${delta > 0 ? '' : 'lose '}${change.name}` : delta > 0 ? 'new' : 'lost';
+      return named ? `${delta > 0 ? '' : 'lose '}${name}` : delta > 0 ? 'new' : 'lost';
     }
-    return named ? `${signed(delta)} ${change.name}` : signed(delta);
+    return named ? `${signed(delta)} ${name}` : signed(delta);
   });
   const shown = parts.slice(0, MAX_GAIN_PARTS);
   if (parts.length > shown.length) {
     shown.push(`+${parts.length - shown.length} more`);
   }
-  const up = moved.some(change => change.after > change.before);
-  const down = moved.some(change => change.after < change.before);
+  const up = moved.some(([, { delta }]) => delta > 0);
+  const down = moved.some(([, { delta }]) => delta < 0);
   return { text: shown.join(', '), direction: up && down ? 'mixed' : up ? 'up' : 'down' };
 }
 
@@ -170,13 +177,18 @@ function describeChange(change: AffixChange): string {
   if (!Affix.isRealType(type)) {
     return `${name}: ${after === before ? (after ? 'already have it' : 'no change') : after > before ? 'new' : 'lost'}`;
   }
-  const value = (amount: number) => amount ? signed(amount) : 'none';
+  const value = (amount: number) => amount ? signed(amount) : '0';
   if (!after && !before) {
     return `${name}: no change`;
   }
   return after === before
     ? `${name}: stays ${value(before)} ${type}`
     : `${name}: ${value(before)} \u2192 ${value(after)} ${type}`;
+}
+
+/** Whether every change is to the option's one affix, so a bare figure can't be misread. */
+function isOnlyAbout(option: CraftableOption, changes: AffixChange[]): boolean {
+  return option.affixes.length === 1 && changes.every(change => change.name === option.affixes[0].name);
 }
 
 function signed(amount: number): string {

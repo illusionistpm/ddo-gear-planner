@@ -111,7 +111,7 @@ export class CraftingOptionPickerComponent implements OnChanges {
     return typeof window.matchMedia === 'function' && window.matchMedia('(max-width: 575.98px)').matches;
   }
 
-  readonly gainTitle = 'What it adds to the build, over leaving this slot empty';
+  readonly gainTitle = 'What switching to it would do to the build';
 
   /**
    * The highlighted entry's effect in full, where the rows have room only for a figure. A folded

@@ -857,13 +857,14 @@ describe('EquippedService', () => {
       expect(changes(strengthOption(4))).toEqual([{ name: 'Strength', type: 'Enhancement', before: 10, after: 10 }]);
     });
 
-    it('is measured against the slot left empty, so the chosen option shows what it is giving', () => {
+    it('is measured against the current choice: nothing for it, and what switching away would lose', () => {
       const chosen = strengthOption(12);
       craft.selected = chosen;
       service.set(item);
 
-      expect(changes(chosen)).toEqual([{ name: 'Strength', type: 'Enhancement', before: 10, after: 12 }]);
-      expect(changes(strengthOption(4))).toEqual([{ name: 'Strength', type: 'Enhancement', before: 10, after: 10 }]);
+      expect(changes(chosen)).toEqual([{ name: 'Strength', type: 'Enhancement', before: 12, after: 12 }]);
+      expect(changes(strengthOption(4))).toEqual([{ name: 'Strength', type: 'Enhancement', before: 12, after: 10 }]);
+      expect(changes(dexterity)).toEqual([{ name: 'Strength', type: 'Enhancement', before: 12, after: 10 }]);
     });
 
     it('leaves out affixes the build doesn\'t track', () => {

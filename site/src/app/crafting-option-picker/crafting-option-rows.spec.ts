@@ -146,6 +146,22 @@ describe('buildFamilyRows', () => {
         .toEqual({ text: '+2 Strength, +2 Dexterity, +2 more', direction: 'up' });
     });
 
+    it('names the affix when the change is to another affix than the option\'s own', () => {
+      // Switching to Charisma from a Strength augment.
+      const row = byLabel('Charisma', rows(charisma, opt => ({ changes: [
+        { name: 'Charisma', type: 'Enhancement', before: 3, after: Math.max(3, opt.affixes[0].value) },
+        { name: 'Strength', type: 'Enhancement', before: 6, after: 0 }] })));
+
+      expect(row.tiers[2].gain).toEqual({ text: '+2 Charisma, \u22126 Strength', direction: 'mixed' });
+    });
+
+    it('nets the bonus types of one affix, since they add up', () => {
+      // Swapping a +5 Insight Dexterity for a +2 Festive one.
+      expect(gainChip([
+        { name: 'Dexterity', type: 'Festive', before: 0, after: 2 },
+        { name: 'Dexterity', type: 'Insight', before: 5, after: 0 }], false)).toEqual({ text: '\u22123', direction: 'down' });
+    });
+
     it('shows a loss, and a gain with a loss as mixed', () => {
       const change = (name: string, before: number, after: number) => ({ name, type: 'Artifact', before, after });
 

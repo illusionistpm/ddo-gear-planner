@@ -35,7 +35,7 @@ import { FiligreeDbService } from '../gear/filigree-db.service';
 import { FILIGREE_ONLY_BONUS_TYPES } from '../gear/filigree';
 import { FiligreeLoadoutService } from './filigree-loadout.service';
 import {
-  AffixSource, bestValueFor, BuildView, countSets, equippedItemBonusTypes, externalValuesFor, setBonusesOf, sourcesFor,
+  AffixSource, bestValueFor, BuildView, compoundBonusTypes, countSets, equippedItemBonusTypes, externalValuesFor, setBonusesOf, sourcesFor,
   valuesForAffixType
 } from '../affixes/build-totals';
 import { expandTrackedAffixNames } from '../affixes/tracked-affix-family';
@@ -817,7 +817,9 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
 
     for (const affixName of affixNames) {
       const bonusTypes = new Map(this.gearList.affixToBonusTypes.get(affixName));
-      for (const bonusType of this.getEquippedItemBonusTypes(affixName)) {
+      // Types the level range's gear doesn't list for the affix but the build has all the same.
+      const builtTypes = [...this.getEquippedItemBonusTypes(affixName), ...compoundBonusTypes(this.view, this.affixSvc, affixName)];
+      for (const bonusType of builtTypes) {
         if (!bonusTypes.has(bonusType)) {
           bonusTypes.set(bonusType, 0);
         }

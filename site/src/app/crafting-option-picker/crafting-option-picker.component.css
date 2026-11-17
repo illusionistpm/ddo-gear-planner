@@ -28,7 +28,7 @@
 
 /* Nothing chosen: says so, muted, rather than a blank box that reads as a missing value. */
 .crafting-picker-toggle-label:empty::before {
-    color: var(--text-secondary);
+    color: var(--empty-value-text-color);
     content: 'Empty';
     font-weight: 400;
 }

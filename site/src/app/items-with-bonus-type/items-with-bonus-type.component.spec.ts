@@ -529,8 +529,8 @@ describe('ItemsWithBonusTypeComponent', () => {
     const element = fixture.nativeElement as HTMLElement;
     const rows = () => element.querySelectorAll('.item-result-row').length;
     const more = element.querySelector<HTMLButtonElement>('.item-rows-more');
-    expect(rows()).toBe(100);
-    expect(more?.textContent).toContain('Showing 100 of 130');
+    expect(rows()).toBe(50);
+    expect(more?.textContent).toContain('Showing 50 of 130');
 
     more!.click();
     fixture.detectChanges();
@@ -567,8 +567,8 @@ describe('ItemsWithBonusTypeComponent', () => {
     const buttons = Array.from(element.querySelectorAll<HTMLButtonElement>('.slot-equip'));
     expect(selects.length).toBe(2);
     expect(selects.map(select => select.selectedOptions[0]?.textContent?.trim()).sort()).toEqual([
-      'Legendary Green Steel Necklace - T1 (Equipment)',
-      'Legendary Green Steel Necklace - T2 (Equipment)',
+      'Neck: T1 (Equipment)',
+      'Neck: T2 (Equipment)',
     ]);
     expect(buttons.map(button => button.disabled)).toEqual([false, false]);
   });
@@ -688,12 +688,12 @@ describe('ItemsWithBonusTypeComponent item preview', () => {
     expect(selectedRows()[0].textContent).toContain('Beta');
   });
 
-  it('only carries the carousel across the 100 rows it renders', () => {
-    const items = Array.from({ length: 101 }, (_, i) => makeItem('Item ' + (101 - i), 'Neck', 101 - i));
+  it('only carries the carousel across the 50 rows it renders', () => {
+    const items = Array.from({ length: 51 }, (_, i) => makeItem('Item ' + (51 - i), 'Neck', 51 - i));
     render(items);
-    expect(rowLinks().length).toBe(100);
+    expect(rowLinks().length).toBe(50);
 
-    click(rowLinks()[99]);
+    click(rowLinks()[49]);
 
     expect(panelTitle()).toBe('Item 2');
     expect(button('Next item').disabled).toBe(true);

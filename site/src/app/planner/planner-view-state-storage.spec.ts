@@ -58,12 +58,22 @@ describe('planner-view-state-storage', () => {
     expect(getStoredTrackedAffixGroupMode()).toBe('slots');
   });
 
-  it('defaults collapsed tracked-affix groups to empty when nothing is stored', () => {
-    expect(getStoredCollapsedTrackedAffixGroups()).toEqual(new Set());
+  it('starts the Scarcity view\'s Filigree and Advanced bonuses collapsed, and nothing else', () => {
+    expect(getStoredCollapsedTrackedAffixGroups()).toEqual(new Set(['filigree', 'item-bonuses']));
   });
 
   it('round-trips collapsed tracked-affix groups', () => {
-    storeCollapsedTrackedAffixGroups(new Set(['Defense', 'set-only']));
-    expect(getStoredCollapsedTrackedAffixGroups()).toEqual(new Set(['Defense', 'set-only']));
+    storeCollapsedTrackedAffixGroups(new Set(['Defense', 'set-only', 'filigree', 'item-bonuses']));
+    expect(getStoredCollapsedTrackedAffixGroups()).toEqual(new Set(['Defense', 'set-only', 'filigree', 'item-bonuses']));
+  });
+
+  it('keeps a group that starts collapsed open once the player opens it', () => {
+    storeCollapsedTrackedAffixGroups(new Set(['item-bonuses']));
+    expect(getStoredCollapsedTrackedAffixGroups()).toEqual(new Set(['item-bonuses']));
+  });
+
+  it('keeps a Filigree group collapsed before this default, collapsed', () => {
+    localStorage.setItem('ddo-gear-planner-tracked-affix-collapsed', 'filigree,Defense');
+    expect(getStoredCollapsedTrackedAffixGroups()).toEqual(new Set(['filigree', 'Defense', 'item-bonuses']));
   });
 });

@@ -36,13 +36,28 @@ export function storeTrackedAffixGroupMode(mode: TrackedAffixGroupMode): void {
   writeValue(TRACKED_AFFIX_GROUP_MODE_KEY, mode);
 }
 
+/**
+ * Build Goals groups that start collapsed: the Scarcity view's Filigree and
+ * Advanced bonuses, long lists that most builds have. One the player opens is
+ * stored as '!key', so it stays open; every other key is stored when collapsed.
+ */
+export const TRACKED_AFFIX_GROUPS_COLLAPSED_BY_DEFAULT: readonly string[] = ['filigree', 'item-bonuses'];
+
 export function getStoredCollapsedTrackedAffixGroups(): Set<string> {
   const raw = readValue(TRACKED_AFFIX_COLLAPSED_KEY);
-  return new Set(raw ? raw.split(',').filter(Boolean) : []);
+  const entries = raw ? raw.split(',').filter(Boolean) : [];
+  const collapsed = new Set(entries.filter(entry => !entry.startsWith('!')));
+  for (const key of TRACKED_AFFIX_GROUPS_COLLAPSED_BY_DEFAULT) {
+    if (!entries.includes('!' + key)) {
+      collapsed.add(key);
+    }
+  }
+  return collapsed;
 }
 
 export function storeCollapsedTrackedAffixGroups(groups: ReadonlySet<string>): void {
-  writeValue(TRACKED_AFFIX_COLLAPSED_KEY, Array.from(groups).join(','));
+  const opened = TRACKED_AFFIX_GROUPS_COLLAPSED_BY_DEFAULT.filter(key => !groups.has(key)).map(key => '!' + key);
+  writeValue(TRACKED_AFFIX_COLLAPSED_KEY, [...groups, ...opened].join(','));
 }
 
 // On unless the user has turned it off, so only 'off' is ever meaningful here.

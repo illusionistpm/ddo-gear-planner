@@ -4,10 +4,12 @@ import { Router } from '@angular/router';
 import { Observable, catchError, map, of, switchMap, tap, throwError } from 'rxjs';
 
 import { Build, BuildSummary, MAX_BLOB_LENGTH } from '../build/build';
+import { gearSummaryOf } from '../build/build-gear-summary';
 import { buildPath, urlFragmentOf } from '../build/build-route';
 import { BuildsService } from '../build/builds.service';
 import { CurrentBuildService } from '../build/current-build.service';
 import { QueryParamsService } from '../build/query-params.service';
+import { EquippedService } from '../planner/equipped.service';
 import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
 
 /** A save/rename failure, carrying the message to show the user. */
@@ -32,7 +34,8 @@ export class BuildSaveService {
     private readonly currentBuild: CurrentBuildService,
     private readonly queryParams: QueryParamsService,
     private readonly router: Router,
-    private readonly shoppingList: ShoppingListService
+    private readonly shoppingList: ShoppingListService,
+    private readonly equipped: EquippedService
   ) { }
 
   /** Creates a new build row from the current build - both "Save…" and Save As. */
@@ -40,7 +43,7 @@ export class BuildSaveService {
     return this.rejectDuplicateName(name, null).pipe(
       switchMap(() => {
         const blob = this.encodeWithinLimit();
-        return this.buildsService.create(name, blob).pipe(
+        return this.buildsService.create(name, blob, this.gearSummary()).pipe(
           // Surface the worker's specific reason when it gives one (e.g. the
           // per-account build limit - worker/src/routes/builds.ts's
           // MAX_BUILDS_PER_USER) rather than always the generic fallback.
@@ -61,8 +64,9 @@ export class BuildSaveService {
    */
   saveInPlace(savedBuildId: string): Observable<void> {
     return of(null).pipe(
-      map(() => ({ blob: this.encodeWithinLimit(), progress: this.shoppingList.progressForSave() })),
-      switchMap(({ blob, progress }) => this.buildsService.update(savedBuildId, progress ? { blob, progress } : { blob }).pipe(
+      map(() => ({ blob: this.encodeWithinLimit(), summary: this.gearSummary(), progress: this.shoppingList.progressForSave() })),
+      switchMap(({ blob, summary, progress }) => this.buildsService.update(savedBuildId,
+        progress ? { blob, summary, progress } : { blob, summary }).pipe(
         catchError(() => throwError(() => new BuildSaveError(SAVE_FAILED))),
         map(build => ({ build, progress }))
       )),
@@ -114,6 +118,11 @@ export class BuildSaveService {
       throw new BuildSaveError(TOO_LARGE);
     }
     return blob;
+  }
+
+  /** What the build list shows for the gear being saved. */
+  private gearSummary() {
+    return gearSummaryOf(this.equipped.getSlotsSnapshot());
   }
 
   /**

@@ -95,6 +95,15 @@ describe('MyBuildsComponent', () => {
     expect(component.loadError).toBeNull();
   });
 
+  it('labels each build with its stored weapon and level range, and nothing without them', () => {
+    const component = create();
+
+    expect(component.labelOf(makeBuild({ summary: { weapon: 'Legendary Calamitous Sceptre', minLevel: 31, maxLevel: 34 } })))
+      .toBe('Leg. Calamitous Sceptre · ML 31–34');
+    expect(component.labelOf(makeBuild({ summary: null }))).toBe('');
+    expect(component.labelOf(makeBuild())).toBe('');
+  });
+
   it('exposes the per-account build limit for the header\'s X/100 indicator', () => {
     const component = create([makeBuild({ name: 'A' })]);
 

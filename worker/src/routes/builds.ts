@@ -35,6 +35,10 @@ export const MAX_NAME_LENGTH = sharedConstants.maxNameLength;
 // writes. A real compact build payload should be well under 1-2 KB.
 const MAX_BLOB_LENGTH = sharedConstants.maxBlobLength;
 
+// The gear summary the owner's list shows (migrations/0009) is opaque here
+// too: the site decides what goes in it. A real one is well under 200 chars.
+const MAX_SUMMARY_LENGTH = 1024;
+
 // A generous ceiling, not a real storage/cost constraint at this scale -
 // mainly a backstop against a runaway client (or a scripted abuse of the
 // public API) piling up unbounded rows for one owner.
@@ -86,6 +90,32 @@ export function validateBlob(blob: unknown): string | null {
   return typeof blob === 'string' && blob.length > 0 && blob.length <= MAX_BLOB_LENGTH ? blob : null;
 }
 
+/**
+ * A summary as sent, ready to store: its JSON, or null for an explicit null.
+ * Undefined when it's not a JSON object of a sane size.
+ */
+export function validateSummary(summary: unknown): string | null | undefined {
+  if (summary === null) {
+    return null;
+  }
+  if (typeof summary !== 'object' || Array.isArray(summary)) {
+    return undefined;
+  }
+  const json = JSON.stringify(summary);
+  return json.length <= MAX_SUMMARY_LENGTH ? json : undefined;
+}
+
+function parseStoredSummary(json: string | null): unknown {
+  if (!json) {
+    return null;
+  }
+  try {
+    return JSON.parse(json);
+  } catch {
+    return null;
+  }
+}
+
 function toBuildResponse(row: BuildRow) {
   return {
     id: row.id,
@@ -98,12 +128,14 @@ function toBuildResponse(row: BuildRow) {
 }
 
 // No `blob` - see BuildSummaryRow's comment. listMine's callers (My Builds,
-// the duplicate-name checks, ownership confirmation) never read it.
+// the duplicate-name checks, ownership confirmation) never read it; My
+// Builds reads `summary` instead.
 function toBuildSummaryResponse(row: BuildSummaryRow) {
   return {
     id: row.id,
     shortId: row.short_id,
     name: row.name,
+    summary: parseStoredSummary(row.summary),
     createdAt: row.created_at,
     updatedAt: row.updated_at
   };
@@ -127,11 +159,15 @@ async function resolveOwnerUserIdForCreate(env: Env, user: AuthenticatedUser): P
 }
 
 export async function handleCreateBuild(request: Request, user: AuthenticatedUser, env: Env): Promise<Response> {
-  const body = await request.json().catch(() => null) as { name?: unknown; blob?: unknown } | null;
+  const body = await request.json().catch(() => null) as { name?: unknown; blob?: unknown; summary?: unknown } | null;
   const name = validateName(body?.name);
   const blob = validateBlob(body?.blob);
   if (!name || !blob) {
     return errorResponse(400, `A build needs a name (1-${MAX_NAME_LENGTH} chars) and a blob.`);
+  }
+  const summary = body?.summary === undefined ? null : validateSummary(body.summary);
+  if (summary === undefined) {
+    return errorResponse(400, 'Invalid summary.');
   }
 
   const ownerUserId = await resolveOwnerUserIdForCreate(env, user);
@@ -157,6 +193,7 @@ export async function handleCreateBuild(request: Request, user: AuthenticatedUse
           owner_user_id: ownerUserId,
           name,
           blob,
+          summary,
           visibility: 'public',
           created_at: now,
           updated_at: now
@@ -240,8 +277,9 @@ export async function handleGetByShortId(shortId: string, env: Env): Promise<Res
 }
 
 /**
- * Renames a build or saves new gear into it. Body: {name?, blob?,
- * progress?}. progress is the shopping list as it is for the build as
+ * Renames a build or saves new gear into it. Body: {name?, blob?, summary?,
+ * progress?}. New gear without a summary clears the stored one, so the list
+ * never describes the gear it replaced. progress is the shopping list as it is for the build as
  * saved, {needed, route, order?} as PUT .../progress takes them: a save
  * changes what's still needed, and sending both together lets a friend's
  * page switch to the new gear and its list in one step, instead of
@@ -267,8 +305,8 @@ export async function handleUpdateBuild(
   if (parsed instanceof Response) {
     return parsed;
   }
-  const body = parsed as { name?: unknown; blob?: unknown; progress?: unknown } | undefined;
-  const fields: { name?: string; blob?: string } = {};
+  const body = parsed as { name?: unknown; blob?: unknown; summary?: unknown; progress?: unknown } | undefined;
+  const fields: { name?: string; blob?: string; summary?: string | null } = {};
 
   if (body?.name !== undefined) {
     const name = validateName(body.name);
@@ -283,6 +321,15 @@ export async function handleUpdateBuild(
       return errorResponse(400, 'Invalid blob.');
     }
     fields.blob = blob;
+  }
+  if (body?.summary !== undefined) {
+    const summary = validateSummary(body.summary);
+    if (summary === undefined) {
+      return errorResponse(400, 'Invalid summary.');
+    }
+    fields.summary = summary;
+  } else if (fields.blob !== undefined) {
+    fields.summary = null;
   }
   let progress: ProgressPut | undefined;
   if (body?.progress !== undefined) {

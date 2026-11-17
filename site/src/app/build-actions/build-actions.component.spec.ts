@@ -10,6 +10,7 @@ import { AuthService } from '../shared/auth.service';
 import { BuildsService } from '../build/builds.service';
 import { CurrentBuildService, CurrentBuildState } from '../build/current-build.service';
 import { QueryParamsService } from '../build/query-params.service';
+import { EquippedService } from '../planner/equipped.service';
 import { ShoppingListService } from '../planner/shopping-list/shopping-list.service';
 import { BuildActionsComponent, BuildActionsMenu } from './build-actions.component';
 import { BuildSaveService } from './build-save.service';
@@ -93,6 +94,8 @@ describe('BuildActionsComponent', () => {
         { provide: AuthService, useValue: auth },
         { provide: Router, useValue: router },
         { provide: ShoppingListService, useValue: shoppingList },
+        // No gear, so a save's summary is null (build-gear-summary.spec covers what it holds).
+        { provide: EquippedService, useValue: { getSlotsSnapshot: () => new Map() } },
         { provide: ChangeDetectorRef, useValue: cdr }
       ]
     });
@@ -337,7 +340,7 @@ describe('BuildActionsComponent', () => {
 
     component.onSaveControlPrimaryClick();
 
-    expect(buildsService.update).toHaveBeenCalledWith('build-1', { blob: 'z1.encoded' });
+    expect(buildsService.update).toHaveBeenCalledWith('build-1', { blob: 'z1.encoded', summary: null });
     expect(component.dialogOpen).toBe(false);
     expect(currentBuild.markSaved).toHaveBeenCalledWith({
       savedBuildId: 'build-1', shortId: 'abc123', name: 'My Build', canonicalParams: { Weapon: 'Sword' }
@@ -357,7 +360,7 @@ describe('BuildActionsComponent', () => {
 
     component.onSaveControlPrimaryClick();
 
-    expect(buildsService.update).toHaveBeenCalledWith('build-1', { blob: 'z1.encoded', progress });
+    expect(buildsService.update).toHaveBeenCalledWith('build-1', { blob: 'z1.encoded', summary: null, progress });
     expect(shoppingList.savedWithBuild).toHaveBeenCalledWith(progress, false);
   });
 
@@ -429,7 +432,7 @@ describe('BuildActionsComponent', () => {
     component.openDialog('create', '');
     component.onDialogConfirmed('My New Build');
 
-    expect(buildsService.create).toHaveBeenCalledWith('My New Build', 'z1.encoded');
+    expect(buildsService.create).toHaveBeenCalledWith('My New Build', 'z1.encoded', null);
     expect(currentBuild.markSaved).toHaveBeenCalledWith({
       savedBuildId: 'build-1', shortId: 'abc123', name: 'My New Build', canonicalParams: { Weapon: 'Sword' }
     });
@@ -475,7 +478,7 @@ describe('BuildActionsComponent', () => {
     component.openDialog('create', '');
     component.onDialogConfirmed('My Build');
 
-    expect(buildsService.create).toHaveBeenCalledWith('My Build', 'z1.encoded');
+    expect(buildsService.create).toHaveBeenCalledWith('My Build', 'z1.encoded', null);
   });
 
   it('proceeds with the save if the duplicate-name check itself fails', () => {
@@ -486,7 +489,7 @@ describe('BuildActionsComponent', () => {
     component.openDialog('create', '');
     component.onDialogConfirmed('My Build');
 
-    expect(buildsService.create).toHaveBeenCalledWith('My Build', 'z1.encoded');
+    expect(buildsService.create).toHaveBeenCalledWith('My Build', 'z1.encoded', null);
   });
 
   it('rejects an oversized blob client-side, before ever calling create()', () => {

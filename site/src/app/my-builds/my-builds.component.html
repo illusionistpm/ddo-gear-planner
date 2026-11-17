@@ -30,7 +30,12 @@
     <ul class="my-builds-list">
       @for (build of builds; track build.id) {
         <li class="my-builds-row" (click)="open(build)">
-          <span class="my-builds-name">{{ build.name }}</span>
+          <span class="my-builds-text">
+            <span class="my-builds-name">{{ build.name }}</span>
+            @if (labelOf(build); as label) {
+              <span class="my-builds-summary">{{ label }}</span>
+            }
+          </span>
 
           <span class="my-builds-actions">
             @if (confirmingDeleteId === build.id) {

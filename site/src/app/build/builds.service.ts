@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Build, BuildSummary } from './build';
+import type { BuildGearSummary } from './build-gear-summary';
 import type { ShoppingSaveProgress } from '../planner/shopping-list/shopping-list-types';
 import { environment } from '../../environments/environment';
 
@@ -22,6 +23,7 @@ interface BuildSummaryResponse {
   id: string;
   shortId: string;
   name: string;
+  summary: BuildGearSummary | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -42,8 +44,9 @@ export class BuildsService {
 
   constructor(private readonly http: HttpClient) {}
 
-  create(name: string, blob: string): Observable<Build> {
-    return this.http.post<BuildResponse>(`${this.baseUrl}/builds`, { name, blob });
+  /** `summary` is what the build list will show for it (build-gear-summary.ts). */
+  create(name: string, blob: string, summary: BuildGearSummary | null): Observable<Build> {
+    return this.http.post<BuildResponse>(`${this.baseUrl}/builds`, { name, blob, summary });
   }
 
   listMine(): Observable<BuildSummary[]> {
@@ -58,9 +61,11 @@ export class BuildsService {
    * Renames a build or saves new gear into it. `progress`, the shopping
    * list for the build as saved, is stored with it in one step (see the
    * worker's handleUpdateBuild); `progressSaved` in the answer says whether
-   * it was, present only when it was sent.
+   * it was, present only when it was sent. New gear goes with its `summary`:
+   * a blob without one clears the stored summary.
    */
-  update(id: string, fields: { name?: string; blob?: string; progress?: ShoppingSaveProgress }): Observable<Build & { progressSaved?: boolean }> {
+  update(id: string, fields: { name?: string; blob?: string; summary?: BuildGearSummary | null; progress?: ShoppingSaveProgress }):
+      Observable<Build & { progressSaved?: boolean }> {
     return this.http.put<BuildResponse & { progressSaved?: boolean }>(`${this.baseUrl}/builds/${encodeURIComponent(id)}`, fields);
   }
 

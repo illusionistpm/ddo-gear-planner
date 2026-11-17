@@ -89,12 +89,24 @@
   background: var(--surface-subtle-color);
 }
 
-.my-builds-name {
+/* The name, and under it the weapon and level range, each cut short rather than wrapped. */
+.my-builds-text {
+  display: flex;
   flex: 1 1 auto;
+  flex-direction: column;
   min-width: 0;
+}
+
+.my-builds-name,
+.my-builds-summary {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.my-builds-summary {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
 }
 
 /* The row's buttons, together at its end, so each sits in the same place on every row. */

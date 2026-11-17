@@ -1,4 +1,5 @@
 import sharedConstants from '../../../../shared/constants.json';
+import type { BuildGearSummary } from './build-gear-summary';
 
 // A build's identity/metadata, without its gear - what GET /api/builds/mine
 // actually returns (worker/src/routes/builds.ts's toBuildSummaryResponse).
@@ -10,6 +11,8 @@ export interface BuildSummary {
   id: string;
   shortId: string;
   name: string;
+  /** Its weapon and level range, stored when saved; null for a build saved without one. Only the list carries it. */
+  summary?: BuildGearSummary | null;
   createdAt?: string;
   updatedAt?: string;
 }

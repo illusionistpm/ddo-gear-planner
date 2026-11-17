@@ -119,6 +119,8 @@
 .crafting-picker-gain {
     color: var(--text-secondary);
     flex: none;
+    /* A column of its own, so the asides before it line up whatever the figure's width. */
+    min-width: 3.5rem;
     font-variant-numeric: tabular-nums;
     font-weight: 600;
     max-width: 50%;
@@ -179,12 +181,16 @@
     padding-left: 1.75rem;
 }
 
-/* A tier's label is only its value, so the name beside it can have the rest of the row. */
+/*
+ * A tier's label is only its value (and its Owned badge), so the name beside it can have the rest
+ * of the row, pushed against the gain column.
+ */
 .crafting-picker-tier .crafting-picker-entry-label {
     flex: none;
 }
 
 .crafting-picker-tier .crafting-picker-entry-aside {
+    margin-left: auto;
     max-width: none;
 }
 

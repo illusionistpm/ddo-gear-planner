@@ -541,7 +541,7 @@ describe('GearDescriptionComponent', () => {
 
       // The selected +7 matches its row; the +5 would only tie the belt.
       expect(fixture.nativeElement.querySelector('.crafting-picker-toggle-label').classList).toContain('BetterThanBest');
-      const tierClass = (label: string) => Array.from(document.body.querySelectorAll('.crafting-picker-tier .crafting-picker-entry-label'))
+      const tierClass = (label: string) => Array.from(document.body.querySelectorAll('.crafting-picker-tier .crafting-picker-tier-value'))
         .find(element => element.textContent?.trim().startsWith(label))?.classList;
       expect(tierClass('+7')).toContain('BetterThanBest');
       expect(tierClass('+5')).toContain('BestTied');

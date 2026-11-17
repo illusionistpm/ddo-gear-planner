@@ -1,6 +1,7 @@
 import {
   storeActiveTab,
   storeCollapsedTrackedAffixGroups,
+  TRACKED_AFFIX_GROUPS_COLLAPSED_BY_DEFAULT,
   storeTrackedAffixGroupMode
 } from '../planner/planner-view-state-storage';
 
@@ -62,6 +63,7 @@ function migrateLegacyViewStateParams(): void {
 
   const taCollapsed = params.get('taCollapsed');
   if (taCollapsed) {
-    storeCollapsedTrackedAffixGroups(new Set(taCollapsed.split(',').filter(Boolean)));
+    // Those links predate the groups that start collapsed, so they leave them as they start.
+    storeCollapsedTrackedAffixGroups(new Set([...taCollapsed.split(',').filter(Boolean), ...TRACKED_AFFIX_GROUPS_COLLAPSED_BY_DEFAULT]));
   }
 }

@@ -75,7 +75,8 @@
 
         <div class="planner-chrome-break" aria-hidden="true"></div>
 
-        <div class="planner-filter-control" [class.open]="filtersOpen">
+        <div class="planner-filter-control" [class.open]="filtersOpen" [class.peek-suppressed]="filterPeekSuppressed"
+            (mouseleave)="filterPeekSuppressed = false" (focusout)="filterPeekSuppressed = false">
             <button type="button" class="planner-filter-toggle"
                 [class.open]="filtersOpen"
                 [attr.aria-expanded]="filtersOpen"

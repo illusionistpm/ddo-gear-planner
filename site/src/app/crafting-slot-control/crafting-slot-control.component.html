@@ -22,7 +22,7 @@
         (selectedChange)="chooseOption($event)">
       </app-crafting-option-picker>
     } @else {
-      <select class="form-control SmallFont border border-secondary" [(ngModel)]="craft.selected" (focus)="loadAndRankOptions()" (mousedown)="loadAndRankOptions()" (change)="onSelectChange()" [ngClass]="className" [hidden]="visibleOptions.length < 2"
+      <select class="form-control SmallFont border border-secondary" [(ngModel)]="craft.selected" (focus)="loadAndRankOptions()" (mousedown)="loadAndRankOptions()" (change)="onSelectChange()" [ngClass]="className" [class.crafting-select-empty]="!craft.selected.affixes.length" [hidden]="visibleOptions.length < 2"
         [attr.aria-label]="craft.selectedCraftingSystemName || craft.name">
         @for (optionRow of options; track optionRow.description) {
           <option [ngValue]="optionRow.option"

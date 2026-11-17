@@ -749,7 +749,7 @@ describe('EquippedService', () => {
 
     expect(localStorage.getItem('ddo-gear-planner-active-tab')).toBe('affixes');
     expect(localStorage.getItem('ddo-gear-planner-tracked-affix-group-mode')).toBe('slots');
-    expect(localStorage.getItem('ddo-gear-planner-tracked-affix-collapsed')).toBe('Defense,set-only');
+    expect(localStorage.getItem('ddo-gear-planner-tracked-affix-collapsed')).toBe('filigree,item-bonuses,Defense,set-only');
   });
 
   it('ignores tab/taGroup/taCollapsed if a URL still carries them (legacy links)', () => {
@@ -784,7 +784,7 @@ describe('EquippedService', () => {
 
     expect(tab).toBe('affixes');
     expect(state?.groupMode).toBe('slots');
-    expect([...(state?.collapsed ?? [])].sort()).toEqual(['2', 'set-only']);
+    expect([...(state?.collapsed ?? [])].sort()).toEqual(['2', 'filigree', 'item-bonuses', 'set-only']);
   });
 
   describe('ranking as if equipped', () => {

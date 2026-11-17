@@ -13,6 +13,7 @@
 /* Augment / craft rows: the usual ML / description / value columns, then a control
    line with the slot dropdown and an Equip button sized to match it. */
 .slot-controls {
+    align-items: center;
     display: flex;
     gap: var(--space-8);
     margin-bottom: var(--space-4);
@@ -320,4 +321,11 @@
     .item-rows-more {
         min-height: 2.75rem;
     }
+}
+
+/* The chosen slot's gear, beside its dropdown: options can't carry an icon of their own. */
+.slot-choice-icon {
+    color: var(--text-secondary);
+    flex: 0 0 auto;
+    font-size: 1.1rem;
 }

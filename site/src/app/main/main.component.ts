@@ -49,6 +49,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   trackedAffixesHint = false;
   private readonly closeRequests = inject(CloseRequestService);
   private releaseFilterCloseRequest?: CloseRequestRelease;
+  filterPeekSuppressed = false;
   /** The intro has just been finished: its closing "you're all set" message is up. */
   wrapUpShown = false;
   /** For the wrap-up: the sign-in suggestion is only for someone signed out. */
@@ -605,7 +606,12 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filtersOpen = true;
     this.filters.holdChanges();
     // Escape and the back gesture close it, as they do the drawers and menus.
-    this.releaseFilterCloseRequest = this.closeRequests.listen(() => this.closeFilters());
+    this.releaseFilterCloseRequest = this.closeRequests.listen(() => {
+      // The toggle keeps keyboard focus, which shows the peek of what's filtered: just
+      // dismissed, the player isn't asking for it. It comes back once focus or the mouse moves on.
+      this.filterPeekSuppressed = true;
+      this.closeFilters();
+    });
   }
 
   /** The list's way back to the planner, in the header it shows while open. */

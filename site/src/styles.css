@@ -37,6 +37,8 @@
   --surface-subtle-color: #e8eef5;
   --text-primary: #1e293b;
   --text-secondary: #64748b;
+  /* "Empty" in a crafting dropdown with nothing chosen: a placeholder, quieter than text. */
+  --empty-value-text-color: var(--text-secondary);
   --link-color: var(--primary-color);
   --link-hover-color: var(--primary-dark);
   --border-color: #e2e8f0;
@@ -197,6 +199,7 @@
   --surface-subtle-color: #162033;
   --text-primary: #f8fafc;
   --text-secondary: #cbd5e1;
+  --empty-value-text-color: #94a3b8;
   --link-color: #93c5fd;
   --link-hover-color: #bfdbfe;
   --bs-link-color-rgb: 147, 197, 253;
@@ -1581,4 +1584,18 @@ select.form-control {
    slot's controls. */
 .crafting-slot-row > app-tap-tooltip > .tap-tooltip-bubble {
   order: 1;
+}
+
+/*
+ * A crafting dropdown with nothing chosen reads "Empty" in the placeholder colour.
+ * Its options keep their own colours: :where() leaves this rule weaker than the
+ * value classes (.max-value and the rest) on them. Global, since a component's
+ * scoping would add an attribute to `option` and outrank those classes.
+ */
+.crafting-select-empty {
+  color: var(--empty-value-text-color);
+}
+
+:where(.crafting-select-empty) option {
+  color: var(--text-primary);
 }

@@ -61,7 +61,7 @@ interface CraftSlotChoice {
 }
 
 /** How many item rows a list shows before "Show all": a long list is slow to render and rarely read to the end. */
-const ITEM_ROW_LIMIT = 100;
+const ITEM_ROW_LIMIT = 50;
 
 @Component({
     selector: 'app-items-with-bonus-type',
@@ -86,7 +86,6 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
 
   private _sortItems(items: Item[]): Item[] {
     const userOwnsItem = (item: Item) => this.userGear.hasItem(item.name);
-    const isAllowed = this.craftingOptionFilter();
     return [...items].sort((a, b) => {
       if (this.sortOwnedToTop) {
         if (userOwnsItem(a) && !userOwnsItem(b)) {
@@ -96,9 +95,26 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
         }
       }
       
-      return Number(b.getValue(this.affixName, this.bonusType, this.affixSvc, isAllowed)) -
-             Number(a.getValue(this.affixName, this.bonusType, this.affixSvc, isAllowed));
+      return this.itemValue(b) - this.itemValue(a);
     });
+  }
+
+  /**
+   * An item's value for this bonus type, and the crafting option that gives it: worked
+   * out once per refresh. Each is a walk over the item's crafting options, and they were
+   * asked for on every comparison of a sort and twice per row on every change detection
+   * pass - most of the time it took a long list (200 rows) to open.
+   */
+  private valueCache = new Map<Item, number>();
+  private matchCache = new Map<Item, [string, string | number]>();
+
+  private itemValue(item: Item): number {
+    let value = this.valueCache.get(item);
+    if (value === undefined) {
+      value = Number(item.getValue(this.affixName, this.bonusType, this.affixSvc, this.craftingOptionFilter()));
+      this.valueCache.set(item, value);
+    }
+    return value;
   }
 
   private updateSorting() {
@@ -237,6 +253,8 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
   }
 
   protected refreshMatches() {
+    this.valueCache = new Map();
+    this.matchCache = new Map();
     this.matches = [];
     this.lockedMatches = [];
     this.craftIntoEquippedGear = new Map<string, Map<Item, Array<Craftable>>>();
@@ -536,10 +554,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
   }
 
   _sortByValue(array: Array<Item>) {
-    const isAllowed = this.craftingOptionFilter();
-    return array.sort((a, b) =>
-      Number(b.getValue(this.affixName, this.bonusType, this.affixSvc, isAllowed))
-      - Number(a.getValue(this.affixName, this.bonusType, this.affixSvc, isAllowed)));
+    return array.sort((a, b) => this.itemValue(b) - this.itemValue(a));
   }
 
   /**
@@ -552,7 +567,11 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     return option => option.isWithinMaxLevel(maxLevel) && !isOptionHiddenByPacks(option, hiddenPacks);
   }
 
-  findMatchingValue(item: Item) {
+  findMatchingValue(item: Item): [string, string | number] {
+    const cached = this.matchCache.get(item);
+    if (cached) {
+      return cached;
+    }
     const ret = item.getMatchingBonusType(this.affixName, this.bonusType, this.affixSvc, false, this.craftingOptionFilter());
     let crafting = (ret && ret[0]) || '';
     if (crafting) {
@@ -560,7 +579,12 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     }
     const value = (ret && ret[1]) || '';
 
-    return [crafting, value];
+    const match: [string, string | number] = [crafting, value];
+    // Only the list's own items: an item being equipped is a copy, and its crafting changes.
+    if (this.valueCache.has(item)) {
+      this.matchCache.set(item, match);
+    }
+    return match;
   }
 
   equipPreviewItem(item: Item) {
@@ -629,8 +653,16 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     }
   }
 
-  /** "Legendary Mirage - Red Augment Slot": the item and the slot on it. */
+  /**
+   * "Weapon: Red" - which gear slot, and which crafting slot on it, without the item's
+   * name, which made each option a line of text. The icon beside the dropdown shows the
+   * chosen one's gear slot, and the title still names the item.
+   */
   slotChoiceLabel(choice: { item: Item, craftable: Craftable }): string {
+    return `${slotLabel(choice.item.slot)}: ${choice.craftable.name.replace(/ Augment Slot$/, '')}`;
+  }
+
+  slotChoiceTitle(choice: { item: Item, craftable: Craftable }): string {
     return `${choice.item.name} - ${choice.craftable.name}`;
   }
 

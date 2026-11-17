@@ -79,14 +79,46 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-12);
-  padding: var(--space-4) var(--space-8);
+  padding: var(--space-8);
   border-radius: 6px;
   cursor: pointer;
   min-height: 2.25rem;
 }
 
+/*
+ * A hairline between rows, so each name stays with its own summary line
+ * rather than reading as the caption of the row below. Inset from the row's
+ * ends, and dropped beside a highlighted row, whose background separates it.
+ */
+.my-builds-row {
+  position: relative;
+}
+
+.my-builds-row + .my-builds-row::before {
+  border-top: 1px solid var(--border-color);
+  content: '';
+  left: var(--space-8);
+  position: absolute;
+  right: var(--space-8);
+  top: 0;
+}
+
+.my-builds-row:hover::before,
+.my-builds-row:hover + .my-builds-row::before,
+.my-builds-row-current::before,
+.my-builds-row-current + .my-builds-row::before {
+  display: none;
+}
+
 .my-builds-row:hover {
   background: var(--surface-subtle-color);
+}
+
+/* The build that's open now: tinted and edged, like a selected row elsewhere. */
+.my-builds-row-current,
+.my-builds-row-current:hover {
+  background: var(--selected-row-bg);
+  box-shadow: inset 3px 0 0 var(--primary-color);
 }
 
 /* The name, and under it the weapon and level range, each cut short rather than wrapped. */
@@ -104,9 +136,16 @@
   white-space: nowrap;
 }
 
+.my-builds-name {
+  font-weight: 600;
+}
+
+/* Dark mode's --text-secondary is close to the name's colour, so size and weight carry the difference. */
 .my-builds-summary {
   color: var(--text-secondary);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
+  font-weight: 400;
+  margin-top: 1px;
 }
 
 /* The row's buttons, together at its end, so each sits in the same place on every row. */

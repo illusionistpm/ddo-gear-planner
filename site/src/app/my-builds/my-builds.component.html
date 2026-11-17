@@ -29,7 +29,8 @@
     }
     <ul class="my-builds-list">
       @for (build of builds; track build.id) {
-        <li class="my-builds-row" (click)="open(build)">
+        <li class="my-builds-row" [class.my-builds-row-current]="isCurrentBuild(build)"
+            [attr.aria-current]="isCurrentBuild(build) ? 'true' : null" (click)="open(build)">
           <span class="my-builds-text">
             <span class="my-builds-name">{{ build.name }}</span>
             @if (labelOf(build); as label) {

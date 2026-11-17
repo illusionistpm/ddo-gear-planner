@@ -28,12 +28,14 @@
                   [class.active]="i === activeIndex" [class.selected]="tier.option === selected"
                   [attr.aria-selected]="tier.option === selected" [title]="tier.tooltip"
                   (click)="pickTier(tier)" (mouseenter)="activeIndex = i">
-                <span class="crafting-picker-entry-label" [ngClass]="tier.className">{{tier.label}}</span>
+                <span class="crafting-picker-entry-label">
+                  <span class="crafting-picker-tier-value" [ngClass]="tier.className">{{tier.label}}</span>
+                  @if (tier.owned) {
+                    <span class="owned-badge crafting-picker-owned">Owned</span>
+                  }
+                </span>
                 @if (tier.name) {
                   <span class="crafting-picker-entry-aside">{{tier.name}}</span>
-                }
-                @if (tier.owned) {
-                  <span class="owned-badge crafting-picker-owned">Owned</span>
                 }
                 @if (tier.gain; as gain) {
                   <span class="crafting-picker-gain" [attr.data-direction]="gain.direction"

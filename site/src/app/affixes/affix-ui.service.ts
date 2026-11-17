@@ -28,8 +28,8 @@ export interface CraftingOptionRanking {
 
 /**
  * What a crafting option does to one bonus type of a tracked affix: the build's value with the
- * option's slot left empty, and with the option in it. The two are equal when something else
- * already gives as much.
+ * current choice, and with the option in its place. The two are equal when something else
+ * already gives as much, or for the current choice itself.
  */
 export interface AffixChange {
   name: string;
@@ -395,25 +395,26 @@ export class AffixUiService {
   }
 
   /**
-   * What choosing `option` would add to the build, per tracked affix and bonus type: measured
-   * against its slot left empty rather than against the current choice, so every option in a
-   * list - the chosen one too - is on the same footing. Set bonuses are recounted, so a set
-   * augment shows what its set gives with the pieces there really are, and what it costs when
-   * it takes the place of the item's own set.
+   * What choosing `option` in place of the current choice would do to the build, per tracked affix
+   * and bonus type - the same comparison the rank colours make, so the current choice changes
+   * nothing, and an option that would lose what the current one gives shows the loss. Set bonuses
+   * are recounted, so a set augment shows what its set gives with the pieces there really are,
+   * and what it costs when it takes the place of the item's own set.
    */
   getCraftingOptionChanges(option: CraftableOption, context?: CraftingOptionContext): AffixChange[] {
     if (!context || !option) {
       return [];
     }
-    const candidateWith = (chosen: CraftableOption | null) => 'craft' in context
-      ? this.candidateFor(context.item, context.craft, chosen)
-      : this.candidateFor(context.item, undefined, undefined, { kind: context.bonusKind, option: chosen });
-    const chosen = candidateWith(option);
-    const empty = candidateWith(null);
+    const current = 'craft' in context ? context.craft.selected : context.item.bonuses[context.bonusKind];
+    const chosen = 'craft' in context
+      ? this.candidateFor(context.item, context.craft, option)
+      : this.candidateFor(context.item, undefined, undefined, { kind: context.bonusKind, option });
+    const now = this.candidateFor(context.item);
 
-    const touched = option.affixes.slice();
-    if (option.set) {
-      for (const set of new Set([...chosen.sets, ...empty.sets])) {
+    // The current choice's affixes too: what switching away from it would lose.
+    const touched = [...option.affixes, ...(current?.affixes ?? [])];
+    if (option.set || current?.set) {
+      for (const set of new Set([...chosen.sets, ...now.sets])) {
         touched.push(...this.getSetBonusAffixes(set));
       }
     }
@@ -427,7 +428,7 @@ export class AffixUiService {
       changes.set(key, {
         name: affix.name,
         type: affix.type,
-        before: this.equipped.getValueForAffixTypeAsEquipped(affix.name, affix.type, empty),
+        before: this.equipped.getValueForAffixTypeAsEquipped(affix.name, affix.type, now),
         after: this.equipped.getValueForAffixTypeAsEquipped(affix.name, affix.type, chosen)
       });
     }

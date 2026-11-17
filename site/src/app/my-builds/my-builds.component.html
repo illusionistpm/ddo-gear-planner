@@ -29,14 +29,20 @@
     }
     <ul class="my-builds-list">
       @for (build of builds; track build.id) {
-        <li class="my-builds-row" [class.my-builds-row-current]="isCurrentBuild(build)"
-            [attr.aria-current]="isCurrentBuild(build) ? 'true' : null" (click)="open(build)">
-          <span class="my-builds-text">
+        <!--
+          The name is the row's button, so the keyboard and screen readers
+          reach it; its click area is stretched over the whole row (CSS),
+          under the compare and delete buttons.
+        -->
+        <li class="my-builds-row" [class.my-builds-row-current]="isCurrentBuild(build)">
+          <button type="button" class="my-builds-open"
+              [attr.aria-current]="isCurrentBuild(build) ? 'true' : null"
+              (click)="open(build)">
             <span class="my-builds-name">{{ build.name }}</span>
             @if (labelOf(build); as label) {
               <span class="my-builds-summary">{{ label }}</span>
             }
-          </span>
+          </button>
 
           <span class="my-builds-actions">
             @if (confirmingDeleteId === build.id) {

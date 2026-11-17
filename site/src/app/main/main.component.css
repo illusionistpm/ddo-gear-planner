@@ -357,6 +357,11 @@ app-admin-link {
   .planner-filter-control:has(:focus-visible) .planner-filter-peek {
     display: block;
   }
+
+  /* Just closed with Escape: see filterPeekSuppressed. Same weight as the rules above, so later wins. */
+  .planner-filter-control.peek-suppressed .planner-filter-peek {
+    display: none;
+  }
 }
 
 .planner-filter-peek-panel,

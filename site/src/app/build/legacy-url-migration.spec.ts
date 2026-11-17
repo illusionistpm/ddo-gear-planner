@@ -83,7 +83,7 @@ describe('migrateLegacyUrlIfNeeded', () => {
 
     expect(localStorage.getItem('ddo-gear-planner-active-tab')).toBe('affixes');
     expect(localStorage.getItem('ddo-gear-planner-tracked-affix-group-mode')).toBe('slots');
-    expect(localStorage.getItem('ddo-gear-planner-tracked-affix-collapsed')).toBe('set-only,2');
+    expect(localStorage.getItem('ddo-gear-planner-tracked-affix-collapsed')).toBe('set-only,2,filigree,item-bonuses');
   });
 
   it('migrates legacy view-state params carried in a hash-routed link too', () => {

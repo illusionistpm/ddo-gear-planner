@@ -1,6 +1,6 @@
 import json
 import os
-from provenance_io import get_asset_json_path, get_provenance_json_path, include_affix_provenance, strip_provenance
+from provenance_io import get_asset_json_path, get_provenance_json_path, include_affix_provenance, record_affix_tooltips, strip_provenance
 
 
 def _write_json_file(path: str, contents: str) -> None:
@@ -11,6 +11,7 @@ def _write_json_file(path: str, contents: str) -> None:
 
 
 def write_json(dict, fileName):
+    record_affix_tooltips(dict)
     out = json.dumps(strip_provenance(dict), sort_keys=True, indent=4)
     path = get_asset_json_path(fileName)
     _write_json_file(path, out)

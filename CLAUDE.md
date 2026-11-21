@@ -223,6 +223,11 @@ Things that behave differently from the Jasmine/Chrome days, and cost real time:
   is a cheap one): the NgModule otherwise isn't in the program, and the
   build type-checks every NgModule component against nothing. Pure specs
   don't need it.
+- **Set the level range only after `GearDbService` exists.** Constructing it
+  sets the filters' max level, which resets the range to 1-36, so a
+  `filters.setLevelRange(...)` made before the first `inject(GearDbService)`
+  silently doesn't apply. That put a whole run of the suggestion harness
+  (`src/app/suggestion-eval/`) at the wrong levels.
 - `vi.spyOn` calls through by default, where Jasmine's `spyOn` stubbed
   (returned `undefined`). A spy that must not run the real method needs
   `.mockReturnValue(...)`.

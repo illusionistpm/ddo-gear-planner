@@ -48,51 +48,111 @@ interface RunResult {
   profile: string;
   policy: string;
   needs: number;
+  /** Total value (see legacyObjective) as a share of every need at its best: the headline number. */
+  value: number;
+  /** The same for the items alone, before any crafting slot is filled. */
+  valueItemsOnly: number;
   needsMet: number;
-  /** Needs met by the items alone, before any crafting slot is filled. */
-  needsMetItemsOnly?: number;
   meanFill: number;
-  legacy: number;
   items: Record<string, string>;
-  /** The need each finished build misses that its augments couldn't make up, by affix. */
-  missed: string[];
+  artifact: string;
+  /** The artifacts the scorer liked best for this build, with what each swap gained. */
+  artifactShortlist: string[];
+  /** Per tracked affix, the share of its best total the finished build reaches. */
+  affixTotals: Record<string, number>;
   firstPicks: string[];
 }
 
-function runPolicy(ctx: Ctx, scorer: Scorer, name: string, profile: string): RunResult & { finished: BuildState } {
-  let state = new BuildState(ctx.index, ctx.gearDB);
-  const firstPicks: string[] = [];
-  const open = SLOTS.slice();
+/** Every policy's build is finished the same way, so the comparison is about the items picked. */
+const FINISH_OBJECTIVE = legacyObjective;
+
+function greedy(ctx: Ctx, scorer: Scorer, start: BuildState, open: string[], picks: string[]): BuildState {
+  let state = start;
+  open = open.slice();
   while (open.length) {
-    const pick = argmax(ctx, state, open, scorer(ctx, state, open));
+    const pick = argmax(ctx, state, open, scorer(ctx, state, open), 'none');
     if (!pick) {
       break;
     }
     state = state.clone();
     state.setItem(pick.slot, pick.item);
     open.splice(open.indexOf(pick.slot), 1);
-    if (firstPicks.length < 4) {
-      firstPicks.push(`${pick.slot}: ${pick.item.name}`);
+    picks.push(`${pick.slot}: ${pick.item.name}`);
+  }
+  return state;
+}
+
+/**
+ * A minor artifact is a given in any endgame build, so each policy takes exactly one, as its own
+ * decision: fill the build without artifacts, find the artifact whose swap into its slot the scorer
+ * rates highest, then refill the other slots around it.
+ */
+function runPolicy(ctx: Ctx, scorer: Scorer, name: string, profile: string): RunResult & { finished: BuildState } {
+  const firstPicks: string[] = [];
+  const draft = greedy(ctx, scorer, new BuildState(ctx.index, ctx.gearDB), SLOTS, firstPicks);
+
+  const swaps: Array<{ slot: string; item: Item; gain: number }> = [];
+  for (const slot of SLOTS) {
+    const without = draft.clone();
+    without.items.delete(slot);
+    without.recompute();
+    const score = scorer(ctx, without, [slot]);
+    const current = draft.items.get(slot);
+    const baseline = current ? score(current, slot) : 0;
+    for (const item of candidates(ctx, without, slot, 'only')) {
+      swaps.push({ slot, item, gain: score(item, slot) - baseline });
     }
   }
-  // Every policy's build is finished the same way, under the same objective, so the comparison is
-  // about which items were picked.
-  const finished = fillCrafting(state, ctx.index, meanFill, ctx.maxLevel);
+  swaps.sort((a, b) => b.gain - a.gain);
+  let state = new BuildState(ctx.index, ctx.gearDB);
+  const artifact = swaps[0];
+  if (artifact) {
+    state.setItem(artifact.slot, artifact.item);
+  }
+  state = greedy(ctx, scorer, state, SLOTS.filter(slot => slot !== artifact?.slot), []);
+
+  return summarise(ctx, state, name, profile, {
+    artifact: artifact ? `${artifact.slot}: ${artifact.item.name}` : '(none)',
+    artifactShortlist: swaps.slice(0, 5).map(swap => `${swap.slot}: ${swap.item.name} (+${swap.gain.toFixed(2)})`),
+    firstPicks: firstPicks.slice(0, 4),
+  });
+}
+
+/** Finishes a build's crafting and measures it. */
+function summarise(ctx: Ctx, state: BuildState, policy: string, profile: string,
+                   extra: Pick<RunResult, 'artifact' | 'artifactShortlist' | 'firstPicks'>): RunResult & { finished: BuildState } {
+  const finished = fillCrafting(state, ctx.index, FINISH_OBJECTIVE, ctx.maxLevel);
   const values = finished.values;
   const needs = ctx.index.needs;
+  const best = needs.map(need => need.best);
+  const share = (vs: number[]) => evaluate(legacyObjective, needs, vs) / evaluate(legacyObjective, needs, best);
+  const affixTotals: Record<string, number> = {};
+  const affixBest: Record<string, number> = {};
+  needs.forEach((need, i) => {
+    affixTotals[need.affix] = (affixTotals[need.affix] ?? 0) + Math.min(values[i], need.best);
+    affixBest[need.affix] = need.affixBest;
+  });
+  for (const affix of Object.keys(affixTotals)) {
+    affixTotals[affix] = +(affixTotals[affix] / affixBest[affix]).toFixed(2);
+  }
   return {
     profile,
-    policy: name,
+    policy,
     needs: needs.length,
+    value: share(values),
+    valueItemsOnly: share(state.values),
     needsMet: evaluate(needsMet, needs, values),
-    needsMetItemsOnly: evaluate(needsMet, needs, state.values),
     meanFill: evaluate(meanFill, needs, values),
-    legacy: evaluate(legacyObjective, needs, values) / evaluate(legacyObjective, needs, needs.map(need => need.best)),
     items: Object.fromEntries(Array.from(state.items).map(([slot, item]) => [slot, item.name])),
-    missed: needs.filter((need, i) => values[i] < 0.75 * need.best).map(need => `${need.affix} (${need.type})`),
-    firstPicks,
+    affixTotals,
+    ...extra,
     finished,
   };
+}
+
+function describeResult(result: RunResult, seconds: number) {
+  return `${result.profile} | ${result.policy} | value ${(result.value * 100).toFixed(1)}% (items only ${(result.valueItemsOnly * 100).toFixed(1)}%)`
+    + ` | needs met ${(result.needsMet * 100).toFixed(1)}% | artifact ${result.artifact} | ${seconds.toFixed(1)}s`;
 }
 
 function trackedSnapshot(equipped: EquippedService): Set<string> {
@@ -171,7 +231,8 @@ describe.skipIf(!ENABLED)('suggestion evaluation', () => {
           fixture.push({ source: 'saved', owner: `u${fixture.length % 3}`, name: `${profile.name} / ${name}`,
             blob: codec.encode(record), createdAt: new Date().toISOString() });
         }
-        log(`${profile.name} | ${name} | met ${(result.needsMet * 100).toFixed(1)}% of ${result.needs} (items only ${((result.needsMetItemsOnly ?? 0) * 100).toFixed(1)}%) | fill ${(result.meanFill * 100).toFixed(1)}% | legacy ${(result.legacy * 100).toFixed(1)}% | ${((Date.now() - started) / 1000).toFixed(1)}s`);
+        log(describeResult(result, (Date.now() - started) / 1000));
+        log(`    artifact shortlist: ${result.artifactShortlist.join('; ')}`);
       }
     }
 
@@ -185,16 +246,15 @@ describe.skipIf(!ENABLED)('suggestion evaluation', () => {
         const index = new NeedIndex(TestBed.inject(AffixService), gearDB, coveredSnapshot(equipped), trackedSnapshot(equipped));
         const ctx: Ctx = { equipped, gearDB, availability, index, maxLevel: LEVEL_RANGE[1] };
         const started = Date.now();
-        const seedName = 'per-need fill, augment-aware + discount';
-        const seed = runPolicy(ctx, SCORERS.find(([n]) => n === seedName)![1], seedName, profile.name);
+        const seedName = 'total value, augment-aware + discount';
+        const seedScorer = SCORERS.find(([n]) => n === seedName)![1];
+        const seed = runPolicy(ctx, seedScorer, seedName, profile.name);
         let state = new BuildState(index, gearDB);
         for (const [slot, name] of Object.entries(seed.items)) {
           state.setItem(slot, (gearDB.getFilteredGearBySlot(slot) ?? []).find(item => item.name === name)!);
         }
-        const judge = (candidate: BuildState) => {
-          const values = fillCrafting(candidate, index, meanFill, ctx.maxLevel).values;
-          return evaluate(needsMet, index.needs, values) + evaluate(meanFill, index.needs, values) * 1e-3;
-        };
+        const judge = (candidate: BuildState) =>
+          evaluate(FINISH_OBJECTIVE, index.needs, fillCrafting(candidate, index, FINISH_OBJECTIVE, ctx.maxLevel).values);
         let current = judge(state);
         let improved = true;
         let sweeps = 0;
@@ -205,11 +265,13 @@ describe.skipIf(!ENABLED)('suggestion evaluation', () => {
             const without = state.clone();
             without.items.delete(slot);
             without.recompute();
+            // Keep exactly one artifact: an artifact's slot takes another artifact, any other slot none.
+            const rule = state.items.get(slot)?.artifact ? 'only' : 'none';
             // Shortlist by quick marginal gain before the costly judge.
-            const quick = SCORERS.find(([n]) => n === seedName)![1](ctx, without, [slot]);
-            const shortlist = candidates(ctx, without, slot)
+            const quick = seedScorer(ctx, without, [slot]);
+            const shortlist = candidates(ctx, without, slot, rule)
               .map(item => ({ item, s: quick(item, slot) }))
-              .sort((a, b) => b.s - a.s)
+              .sort((x, y) => y.s - x.s)
               .slice(0, 12);
             for (const { item } of shortlist) {
               if (item.name === state.items.get(slot)?.name) {
@@ -224,39 +286,39 @@ describe.skipIf(!ENABLED)('suggestion evaluation', () => {
                 improved = true;
               }
             }
-            log(`  local search ${profile.name}: sweep ${sweeps} ${slot} -> ${(current * 100).toFixed(1)}% (${((Date.now() - started) / 1000).toFixed(0)}s)`);
+            log(`  local search ${profile.name}: sweep ${sweeps} ${slot} (${((Date.now() - started) / 1000).toFixed(0)}s)`);
           }
         }
-        const values = fillCrafting(state, index, meanFill, ctx.maxLevel).values;
-        const result: RunResult = {
-          profile: profile.name, policy: 'local search from best greedy', needs: index.needs.length,
-          needsMet: evaluate(needsMet, index.needs, values), meanFill: evaluate(meanFill, index.needs, values),
-          legacy: evaluate(legacyObjective, index.needs, values) / evaluate(legacyObjective, index.needs, index.needs.map(n => n.best)),
-          items: Object.fromEntries(Array.from(state.items).map(([slot, item]) => [slot, item.name])),
-          missed: index.needs.filter((need, i) => values[i] < 0.75 * need.best).map(need => `${need.affix} (${need.type})`),
-          firstPicks: [],
-        };
-        results.push(result);
-        log(`${profile.name} | ${result.policy} | met ${(result.needsMet * 100).toFixed(1)}% of ${result.needs} | fill ${(result.meanFill * 100).toFixed(1)}% | legacy ${(result.legacy * 100).toFixed(1)}% | ${((Date.now() - started) / 1000).toFixed(1)}s`);
+        const artifactSlot = Array.from(state.items).find(([, item]) => item.artifact);
+        const result = summarise(ctx, state, 'local search from best greedy', profile.name, {
+          artifact: artifactSlot ? `${artifactSlot[0]}: ${artifactSlot[1].name}` : '(none)', artifactShortlist: [], firstPicks: [],
+        });
+        const plain: RunResult = { ...result };
+        delete (plain as Partial<typeof result>).finished;
+        results.push(plain);
+        log(describeResult(plain, (Date.now() - started) / 1000));
       }
     }
 
     // Over-representation: from an empty build, which affixes turn up in each slot's top 20 far more
     // often than among all of that slot's candidates? Ratio > 1 means the scorer favours carriers.
+    const overrepOnly = process.env['SUGGESTION_EVAL_POLICIES']?.split(',');
     const overrep: Array<{ profile: string; scorer: string; affix: string; topShare: number; baseShare: number; ratio: number }> = [];
     for (const profile of process.env['SUGGESTION_EVAL_SKIP_OVERREP'] ? [] : PROFILES) {
       setUpProfile(profile);
       const index = new NeedIndex(TestBed.inject(AffixService), gearDB, coveredSnapshot(equipped), trackedSnapshot(equipped));
       const ctx: Ctx = { equipped, gearDB, availability, index, maxLevel: LEVEL_RANGE[1] };
       const empty = new BuildState(index, gearDB);
-      for (const [name, scorer] of SCORERS.filter(([n]) => n === 'live getScore' || n.includes('+ discount') && n.startsWith('per-need'))) {
+      for (const [name, scorer] of SCORERS.filter(([n]) => !overrepOnly || overrepOnly.some(o => n.includes(o)))
+        .filter(([n]) => n === 'live getScore' || n.startsWith('total value, augment-aware'))) {
         const score = scorer(ctx, empty, SLOTS);
         const top = new Map<string, number>();
         const all = new Map<string, number>();
         let topCount = 0;
         let allCount = 0;
         for (const slot of SLOTS) {
-          const items = candidates(ctx, empty, slot);
+          // Artifacts are a separate decision (one per build), so rank the rest.
+          const items = candidates(ctx, empty, slot, 'none');
           const ranked = items.map(item => ({ item, s: score(item, slot) })).sort((a, b) => b.s - a.s).slice(0, 20);
           const count = (list: Item[], into: Map<string, number>) => {
             for (const item of list) {

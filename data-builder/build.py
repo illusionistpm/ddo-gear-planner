@@ -10,6 +10,8 @@ from build_affix_groups import build_affix_groups
 from build_crafting import build_crafting
 from build_synonyms import build_synonyms
 from build_url_codec_dictionary import build_url_codec_dictionary
+from affix_descriptions import write_affix_descriptions
+from provenance_io import start_tooltip_capture
 from get_data_stats import get_data_stats, diff_data_stats, get_data_stats_description, check_stats_thresholds, get_unresolved_sources_in_data
 from validate_data import audit_data
 from build_problems import describe_problems, post_to_discord
@@ -94,6 +96,9 @@ def build_data(clearSnapshot, previewDir=None, offline=False):
 
         print('#### Download complete. Beginning data build')
     print(f"### Writing to '{get_output_path()}")
+    # Every file written from here on hands its affixes' wiki tooltips to
+    # write_affix_descriptions, which runs once they all have.
+    start_tooltip_capture()
     build_synonyms()
 
     parse_essence_crafting()
@@ -116,6 +121,7 @@ def build_data(clearSnapshot, previewDir=None, offline=False):
     build_url_codec_dictionary()
 
     itemBonusWarnings = parse_item_bonuses()
+    write_affix_descriptions()
 
     # builtAt records when the snapshot was fetched. An offline rebuild of the
     # same snapshot keeps it, so it reproduces data/ byte for byte.

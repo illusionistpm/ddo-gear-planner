@@ -10,12 +10,12 @@ from get_inverted_synonym_map import get_inverted_synonym_map
 from allowed_bonus_types import get_allowed_bonus_types, get_parser_bonus_type_regex, normalize_bonus_type
 from compound_affixes import load_compound_affixes
 from build_affix_groups import get_all_skills
-from provenance_io import include_affix_provenance
+from provenance_io import attach_affix_provenance
 import copy
 
 
 def add_affix_provenance(affix, source_text, source_tooltip, parser_source):
-    if not include_affix_provenance() or not isinstance(affix, dict):
+    if not attach_affix_provenance() or not isinstance(affix, dict):
         return affix
 
     if source_text:

@@ -4,8 +4,11 @@ import os
 import pytest
 from bs4 import BeautifulSoup
 
-from parse_items import add_upgrade_tier_options, keep_best_of_each_bonus
-from parse_vota_items import get_vota_enchantment_cells_from_page, is_vota_placeholder
+import provenance_io
+from get_snapshot_path import get_snapshot_path
+from parse_items import add_upgrade_tier_options, get_items_from_page, keep_best_of_each_bonus
+from provenance_io import strip_provenance
+from parse_vota_items import get_vota_enchantment_cells, get_vota_enchantment_cells_from_page, is_vota_placeholder
 from upgrade_tiers import UPGRADE_TIER_SYSTEM, UpgradeTier, get_replaced_entry, get_upgrade_entry, has_tier_markers, own_text, split_upgrade_tiers
 
 
@@ -226,3 +229,19 @@ def test_committed_epic_ring_of_the_stalker_upgrades_through_its_tiers():
     assert [tier['name'] for tier in tiers] == ['Tier 2', 'Tier 3']
     assert values(tiers[0]['affixes'])[('Seeker', 'Enhancement')] == '10'
     assert values(tiers[1]['affixes'])[('Seeker', 'Enhancement')] == '11'
+
+
+def test_upgrade_tiers_are_the_same_with_tooltips_captured():
+    # The build attaches each affix's tooltip while it runs (affix_descriptions.py). An upgrade the
+    # planner can't see ("Sonic Guard +2 -> +3", both Bool) differs only in that text, and mustn't
+    # turn into a replacement because of it.
+    page = get_snapshot_path('items', 'Trinket_items.html')
+
+    def chime_tiers():
+        crafting: dict = {}
+        get_items_from_page(page, crafting, {}, votaCells=get_vota_enchantment_cells())
+        return strip_provenance(crafting['Upgrade Tier']['Blasting Chime (level 7)'])
+
+    plain = chime_tiers()
+    provenance_io.start_tooltip_capture()
+    assert chime_tiers() == plain

@@ -12,7 +12,7 @@ from build import DATA_BUILDER_DIR, ensure_data_builder_cwd, write_build_info
 BUILD_STEPS = [
     'build_synonyms', 'parse_essence_crafting', 'build_affix_groups', 'parse_set_page', 'parse_quests',
     'build_crafting', 'parse_item_augment_page', 'parse_items', 'parse_minor_artifacts', 'parse_filigree', 'parse_item_types',
-    'build_url_codec_dictionary',
+    'build_url_codec_dictionary', 'write_affix_descriptions',
 ]
 
 
@@ -28,6 +28,7 @@ def stubbed_build(monkeypatch, tmp_path):
     monkeypatch.setattr(build, 'check_stats_thresholds', lambda new, old: [])
     monkeypatch.setattr(build, 'audit_data', lambda: [])
     monkeypatch.setattr(build, 'get_unresolved_sources_in_data', lambda: [])
+    monkeypatch.setattr(build, 'start_tooltip_capture', lambda: None)
     for name in ['download_wiki_pages', 'clear_wiki_snapshot', 'write_build_info', *BUILD_STEPS]:
         monkeypatch.setattr(build, name, lambda name=name: calls.append(name))
     return calls

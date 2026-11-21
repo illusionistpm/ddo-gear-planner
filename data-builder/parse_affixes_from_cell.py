@@ -534,6 +534,22 @@ def canonicalize_affix_name(name, affix_type=None):
     return name
 
 
+# Stats whose percentage bonus is a different, multiplicative affix from the flat one:
+# "+10% Maximum Spell Points" is Maximum Spell Points (%), not more Wizardry.
+PERCENT_COMPANION_NAMES = {
+    'AC': 'AC (%)',
+    'Armor Class': 'Armor Class (%)',
+    'Conditioning': 'Conditioning (%)',
+    'Maximum Spell Points': 'Maximum Spell Points (%)',
+    'Maximum Spellpoints': 'Maximum Spell Points (%)',
+}
+
+
+def percent_companion_name(name):
+    """The (%) affix for a stat stated as a percentage, or the name unchanged."""
+    return PERCENT_COMPANION_NAMES.get(name, name)
+
+
 def is_legendary_false_life_percent_affix(affix):
     if not isinstance(affix, dict):
         return False
@@ -1076,8 +1092,8 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
     if aff['name'] == 'Maximum Charge Tier' and aff['type'] == 'Bool':
         return []
 
-    if aff['name'] in ['AC', 'Armor Class', 'Conditioning', 'Maximum Spell Points'] and '%' in source_text:
-        aff['name'] = aff['name'] + ' (%)'
+    if '%' in source_text:
+        aff['name'] = percent_companion_name(aff['name'])
 
     aff['name'] = canonicalize_affix_name(aff['name'], aff.get('type'))
 
@@ -1402,8 +1418,8 @@ def convert_affix_text_map_to_affix_map(textMap):
 
     # case exists for affix types that provide a percentage (%) bonus
     # add a (%) string to the affix name
-    if ((affixMap['name'] in ['AC', 'Armor Class', 'Conditioning', 'Maximum Spell Points']) and ('%' in textMap['text'])):
-        affixMap['name'] = affixMap['name'] + ' (%)'
+    if '%' in textMap['text']:
+        affixMap['name'] = percent_companion_name(affixMap['name'])
 
     # special case exists for Natural Armor
     if (affixMap['name'] in ['Natural Armor']):

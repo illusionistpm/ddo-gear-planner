@@ -28696,7 +28696,7 @@
                 "value": "6"
             },
             {
-                "name": "Turning",
+                "name": "Turn Undead Charge",
                 "type": "Enhancement",
                 "value": "3"
             }
@@ -66589,7 +66589,7 @@
                 "value": "9"
             },
             {
-                "name": "Turning",
+                "name": "Turn Undead Charge",
                 "type": "Enhancement",
                 "value": "3"
             }
@@ -80446,7 +80446,7 @@
                 "value": "111"
             },
             {
-                "name": "Turning",
+                "name": "Turn Undead Charge",
                 "type": "Enhancement",
                 "value": "3"
             }
@@ -137240,7 +137240,7 @@
                 "value": "13"
             },
             {
-                "name": "Turning",
+                "name": "Turn Undead Charge",
                 "type": "Enhancement",
                 "value": "3"
             }
@@ -301333,7 +301333,7 @@
                 "value": 1
             },
             {
-                "name": "Major Anger",
+                "name": "Rage Charges",
                 "type": "Enhancement",
                 "value": "5"
             },

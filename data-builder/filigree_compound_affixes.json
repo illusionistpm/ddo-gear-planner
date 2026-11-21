@@ -228,7 +228,7 @@
   "Sneak Attack and Sneak Attack Damage": {
     "components": [
       {
-        "name": "Sneak Attack Accuracy",
+        "name": "Deception",
         "type": "<TypeAlreadyParsed>",
         "value": {
           "mode": "same_as_affix_number"

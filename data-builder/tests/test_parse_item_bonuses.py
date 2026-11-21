@@ -86,7 +86,7 @@ def test_vs_does_not_end_a_sentence():
                   'Additionally, +4 Fortune Bonus to PRR, and +1 Fortune Bonus to Saves vs. Spells') == ([
         ('Favored Weapon', 'Bool', 1),
         ('Physical Sheltering', 'Fortune', '4'),
-        ('Spell Saves', 'Fortune', '1'),
+        ('Spell Save', 'Fortune', '1'),
     ], [])
 
 

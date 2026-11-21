@@ -81,7 +81,27 @@
   {
     "name": "Combat Mastery",
     "synonyms": [
-      "tactics DCs"
+      "tactics DCs",
+      "Tactical Abilities",
+      "your Tactical Abilities"
+    ]
+  },
+  {
+    "name": "Critical Multiplier on a roll of 19-20",
+    "synonyms": [
+      "Critical Multiplier on a 19-20"
+    ]
+  },
+  {
+    "name": "Dexterity Skills",
+    "synonyms": [
+      "all Dexterity based Skills"
+    ]
+  },
+  {
+    "name": "Efficient Metamagic - Empower Healing",
+    "synonyms": [
+      "Efficient Metamagic - Empower Heal"
     ]
   },
   {
@@ -134,6 +154,12 @@
       "Electric Spellpower",
       "Lightning Spell Power",
       "Lightning Spellpower"
+    ]
+  },
+  {
+    "name": "item becomes a Spellcasting Implement",
+    "synonyms": [
+      "Item becomes a Spellcasting Implement"
     ]
   },
   {
@@ -296,6 +322,12 @@
     ]
   },
   {
+    "name": "Maximum Spell Points (%)",
+    "synonyms": [
+      "Maximum Spellpoints (%)"
+    ]
+  },
+  {
     "name": "Negative Amplification",
     "synonyms": [
       "Negative Healing Amplification"
@@ -345,7 +377,8 @@
       "Anger",
       "Minor Anger",
       "Rages",
-      "Rage Charge"
+      "Rage Charge",
+      "Major Anger"
     ]
   },
   {
@@ -374,6 +407,19 @@
     ]
   },
   {
+    "name": "Resistance",
+    "synonyms": [
+      "Saving Throws",
+      "all Saving Throws"
+    ]
+  },
+  {
+    "name": "Rune Arm Charge Rate",
+    "synonyms": [
+      "Rune Arm Recharge Rate"
+    ]
+  },
+  {
     "name": "Seeker",
     "synonyms": [
       "Critical Confirmation and Critical Damage"
@@ -394,7 +440,8 @@
   {
     "name": "Smite Evil Charges",
     "synonyms": [
-      "Extra Smites"
+      "Extra Smites",
+      "Smite Evil charges"
     ]
   },
   {
@@ -445,6 +492,18 @@
     ]
   },
   {
+    "name": "Spell Save",
+    "synonyms": [
+      "Spell Saves"
+    ]
+  },
+  {
+    "name": "Strikethrough",
+    "synonyms": [
+      "Strikethrough Chance"
+    ]
+  },
+  {
     "name": "Stunning",
     "synonyms": [
       "Stunning DCs"
@@ -459,9 +518,15 @@
     ]
   },
   {
-    "name": "Tactical Abilities",
+    "name": "Turn Undead",
     "synonyms": [
-      "your Tactical Abilities"
+      "Turn Undead Effective Level"
+    ]
+  },
+  {
+    "name": "Turn Undead Charge",
+    "synonyms": [
+      "Turning"
     ]
   },
   {
@@ -519,6 +584,12 @@
       "all of your Ability Scores",
       "each Ability Score",
       "Well-Rounded"
+    ]
+  },
+  {
+    "name": "Wild Empathy Charges",
+    "synonyms": [
+      "Wild Empathy Uses"
     ]
   },
   {

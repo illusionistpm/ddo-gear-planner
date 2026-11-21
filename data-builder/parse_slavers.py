@@ -245,6 +245,10 @@ def parse_slavers_sets():
                 affixes = []
                 for affix in SET_AFFIXES[wiki_set_name][threshold]:
                     affix_name = synMap.get(affix, affix)
+                    # "Spell Power" here is a bonus to each spell power, which the planner
+                    # calls Potency; Universal Spell Power is a separate stacking channel.
+                    if affix_name == 'Spell Power':
+                        affix_name = 'Potency'
                     affixes.append({'name': affix_name, 'value': get_slavers_set_value(cell_text, affix), 'type': 'Artifact'})
 
                 sets[name].append({'threshold': threshold, 'affixes': affixes})

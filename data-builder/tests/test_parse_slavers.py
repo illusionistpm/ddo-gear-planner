@@ -80,7 +80,7 @@ def test_parse_slavers_sets_preserves_legacy_output_shape(monkeypatch):
     sets = module.parse_slavers_sets()
 
     assert sets["Slave Lord's Sorcery"][1]['affixes'] == [
-        {'name': 'Spell Power', 'type': 'Artifact', 'value': 5},
+        {'name': 'Potency', 'type': 'Artifact', 'value': 5},
         {'name': 'Spell Focus Mastery', 'type': 'Artifact', 'value': 2},
         {'name': 'Intelligence', 'type': 'Artifact', 'value': 1},
         {'name': 'Wisdom', 'type': 'Artifact', 'value': 1},

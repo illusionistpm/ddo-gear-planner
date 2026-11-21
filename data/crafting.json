@@ -10093,7 +10093,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Smite Evil charges",
+                        "name": "Smite Evil Charges",
                         "type": "Enhancement",
                         "value": "3"
                     }
@@ -41934,7 +41934,7 @@
             {
                 "affixes": [
                     {
-                        "name": "Item becomes a Spellcasting Implement",
+                        "name": "item becomes a Spellcasting Implement",
                         "type": "Bool",
                         "value": 1
                     },

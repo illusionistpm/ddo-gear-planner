@@ -104,7 +104,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Efficient Metamagic - Empower Heal",
+                    "name": "Efficient Metamagic - Empower Healing",
                     "type": "Untyped",
                     "value": "2"
                 },
@@ -841,7 +841,7 @@
                     "value": "10"
                 },
                 {
-                    "name": "Saving Throws",
+                    "name": "Resistance",
                     "type": "Artifact",
                     "value": "1"
                 }
@@ -1372,7 +1372,7 @@
         {
             "affixes": [
                 {
-                    "name": "Maximum Spellpoints",
+                    "name": "Maximum Spell Points (%)",
                     "type": "Legendary",
                     "value": "10"
                 }
@@ -1813,7 +1813,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "all Saving Throws",
+                    "name": "Resistance",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -2111,7 +2111,7 @@
                     "value": "10"
                 },
                 {
-                    "name": "all Saving Throws",
+                    "name": "Resistance",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -2189,7 +2189,7 @@
                     "value": "2"
                 },
                 {
-                    "name": "Saving Throws",
+                    "name": "Resistance",
                     "type": "Artifact",
                     "value": "2"
                 },
@@ -2752,7 +2752,7 @@
                     "value": "10"
                 },
                 {
-                    "name": "Strikethrough Chance",
+                    "name": "Strikethrough",
                     "type": "Artifact",
                     "value": "5"
                 },
@@ -3289,7 +3289,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Saving Throws",
+                    "name": "Resistance",
                     "type": "Artifact",
                     "value": "3"
                 }
@@ -3767,7 +3767,7 @@
                     "value": "30"
                 },
                 {
-                    "name": "Strikethrough Chance",
+                    "name": "Strikethrough",
                     "type": "Artifact",
                     "value": "15"
                 },
@@ -3883,7 +3883,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "all Saving Throws",
+                    "name": "Resistance",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -4376,7 +4376,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "all Saving Throws",
+                    "name": "Resistance",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -4408,7 +4408,7 @@
                     "value": 2
                 },
                 {
-                    "name": "Spell Saves",
+                    "name": "Spell Save",
                     "type": "Artifact",
                     "value": 2
                 }
@@ -4438,7 +4438,7 @@
                     "value": 4
                 },
                 {
-                    "name": "Spell Saves",
+                    "name": "Spell Save",
                     "type": "Artifact",
                     "value": 4
                 }
@@ -4502,7 +4502,7 @@
         {
             "affixes": [
                 {
-                    "name": "Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": 5
                 },
@@ -4517,7 +4517,7 @@
         {
             "affixes": [
                 {
-                    "name": "Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": 10
                 },
@@ -4785,7 +4785,7 @@
         {
             "affixes": [
                 {
-                    "name": "all Saving Throws",
+                    "name": "Resistance",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -4854,7 +4854,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "Saving Throws",
+                    "name": "Resistance",
                     "type": "Artifact",
                     "value": "3"
                 },
@@ -5220,7 +5220,7 @@
                     "value": "15"
                 },
                 {
-                    "name": "all Dexterity based Skills",
+                    "name": "Dexterity Skills",
                     "type": "Exceptional",
                     "value": "2"
                 }
@@ -5870,7 +5870,7 @@
         {
             "affixes": [
                 {
-                    "name": "Critical Multiplier on a 19-20",
+                    "name": "Critical Multiplier on a roll of 19-20",
                     "type": "Artifact",
                     "value": "1"
                 },
@@ -5892,7 +5892,7 @@
         {
             "affixes": [
                 {
-                    "name": "Critical Multiplier on a 19-20",
+                    "name": "Critical Multiplier on a roll of 19-20",
                     "type": "Artifact",
                     "value": "1"
                 },
@@ -6209,7 +6209,7 @@
                     "value": "3"
                 },
                 {
-                    "name": "all Saving Throws",
+                    "name": "Resistance",
                     "type": "Artifact",
                     "value": "3"
                 }
@@ -6236,7 +6236,7 @@
                     "value": 1
                 },
                 {
-                    "name": "Spell Saves",
+                    "name": "Spell Save",
                     "type": "Artifact",
                     "value": 1
                 }
@@ -6266,7 +6266,7 @@
                     "value": 2
                 },
                 {
-                    "name": "Spell Saves",
+                    "name": "Spell Save",
                     "type": "Artifact",
                     "value": 2
                 }
@@ -6330,7 +6330,7 @@
         {
             "affixes": [
                 {
-                    "name": "Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": 2
                 },
@@ -6345,7 +6345,7 @@
         {
             "affixes": [
                 {
-                    "name": "Spell Power",
+                    "name": "Potency",
                     "type": "Artifact",
                     "value": 5
                 },
@@ -7080,7 +7080,7 @@
         {
             "affixes": [
                 {
-                    "name": "all Saving Throws",
+                    "name": "Resistance",
                     "type": "Artifact",
                     "value": "1"
                 },
@@ -7314,7 +7314,7 @@
                     "value": "1"
                 },
                 {
-                    "name": "Saving Throws",
+                    "name": "Resistance",
                     "type": "Artifact",
                     "value": "1"
                 },

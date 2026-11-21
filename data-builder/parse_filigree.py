@@ -45,10 +45,11 @@ COMPOUNDS_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'filig
 # item parsers' output doesn't move.
 FILIGREE_AFFIX_NAMES = {
     'Universal SP': 'Universal Spell Power',
-    'Spell Power': 'Universal Spell Power',
+    # A bare "Spell Power" bonus applies to each spell power, like Potency; only bonuses the
+    # wiki labels Universal take the separate Universal Spell Power channel.
+    'Spell Power': 'Potency',
     'Spell Crit Chance': 'Universal Spell Lore',
     'Universal Spell Crit Damage': 'Universal Spell Critical Damage',
-    'Spell Critical Damage': 'Universal Spell Critical Damage',
     'Cold Spell Crit Damage': 'Ice Intensity',
     'Light Spell Critical Damage': 'Radiance Intensity',
     'Positive Spell Crit Damage': 'Healing Intensity',
@@ -71,10 +72,10 @@ FILIGREE_AFFIX_NAMES = {
     'DCs of Necromancy Spells': 'Necromancy Focus',
     'the DC of Assassinate': 'Assassinate',
     'Stunning DC': 'Stunning',
-    'Tactics DC': 'Tactical Abilities',
+    'Tactics DC': 'Combat Mastery',
     'Runearm DC': 'Rune Arm DCs',
     'Runearm DCs': 'Rune Arm DCs',
-    'Runearm Recharge Rate': 'Rune Arm Recharge Rate',
+    'Runearm Recharge Rate': 'Rune Arm Charge Rate',
     'Electricity Absorption': 'Electric Absorption',
     'Negative Absorption': 'Negative Energy Absorption',
     'Threat on Melee Attacks': 'Incite',
@@ -82,7 +83,6 @@ FILIGREE_AFFIX_NAMES = {
     'Chance to Deflect Missiles': 'Missile Deflection',
     'Critical Confirmation and Damage': 'Seeker',
     'Positive, Negative and Repair Amplification': 'each Amplification',
-    'Strikethrough': 'Strikethrough Chance',
     'Imbue die': 'Imbue Dice',
     'Pact Die': 'Power in Pact',
     'Bardic Inspiration Charges': 'Bard Song Charge',
@@ -90,7 +90,7 @@ FILIGREE_AFFIX_NAMES = {
     'Turn Undead Max Charges': 'Turn Undead Charge',
     'Turn Undead Max Dice': 'Turn Undead Maximum Dice',
     'Turn Undead Total Hit Dice': 'Turn Undead Hit Dice',
-    'Uses of Wild Empathy': 'Wild Empathy Uses',
+    'Uses of Wild Empathy': 'Wild Empathy Charges',
     'Caster Level with Arcane Spells': 'Arcane Caster Levels',
     'Caster Level with Positive Spells': 'Positive Caster Levels',
     'caster levels with healing spells': 'Healing Caster Levels',

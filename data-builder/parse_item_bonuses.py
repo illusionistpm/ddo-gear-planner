@@ -50,7 +50,7 @@ TARGET_AFFIXES = {
     'fortitude saving throws': ['Fortitude Save'],
     'reflex saving throws': ['Reflex Save'],
     'will saving throws': ['Will Save'],
-    'saves vs. spells': ['Spell Saves'],
+    'saves vs. spells': ['Spell Save'],
     'physical resistance rating': ['Physical Sheltering'],
     'magical resistance rating': ['Magical Sheltering'],
     'mrr': ['Magical Sheltering'],

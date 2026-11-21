@@ -83,7 +83,7 @@
         "Angelic Wings: Turn Undead Hit Dice": {
             "affixes": [
                 {
-                    "name": "Turn Undead Effective Level",
+                    "name": "Turn Undead",
                     "type": "Filigree",
                     "value": 4
                 }
@@ -1712,7 +1712,7 @@
         "Dreadbringer: Tactics DC": {
             "affixes": [
                 {
-                    "name": "Tactical Abilities",
+                    "name": "Combat Mastery",
                     "type": "Filigree",
                     "value": 1
                 }
@@ -2152,7 +2152,7 @@
         "Embraced by Light: Turn Undead": {
             "affixes": [
                 {
-                    "name": "Turn Undead Effective Level",
+                    "name": "Turn Undead",
                     "type": "Filigree",
                     "value": 4
                 }
@@ -4552,7 +4552,7 @@
         "Shadowstrike: Deception": {
             "affixes": [
                 {
-                    "name": "Sneak Attack Accuracy",
+                    "name": "Deception",
                     "type": "Filigree",
                     "value": 2
                 },
@@ -8499,7 +8499,7 @@
         "Wildhunter: Deception": {
             "affixes": [
                 {
-                    "name": "Sneak Attack Accuracy",
+                    "name": "Deception",
                     "type": "Filigree",
                     "value": 2
                 },
@@ -9445,7 +9445,7 @@
                 {
                     "affixes": [
                         {
-                            "name": "Universal Spell Critical Damage",
+                            "name": "Spell Critical Damage",
                             "type": "Filigree Set",
                             "value": 5
                         }
@@ -9465,7 +9465,7 @@
                 {
                     "affixes": [
                         {
-                            "name": "Universal Spell Critical Damage",
+                            "name": "Spell Critical Damage",
                             "type": "Filigree Set",
                             "value": 5
                         }
@@ -10070,7 +10070,7 @@
                 {
                     "affixes": [
                         {
-                            "name": "Strikethrough Chance",
+                            "name": "Strikethrough",
                             "type": "Filigree Set",
                             "value": 5
                         }
@@ -10725,7 +10725,7 @@
                 {
                     "affixes": [
                         {
-                            "name": "Rune Arm Recharge Rate",
+                            "name": "Rune Arm Charge Rate",
                             "type": "Filigree Set",
                             "value": 20
                         }
@@ -10990,7 +10990,7 @@
                 {
                     "affixes": [
                         {
-                            "name": "Universal Spell Power",
+                            "name": "Potency",
                             "type": "Filigree Set",
                             "value": 10
                         }
@@ -11630,7 +11630,7 @@
                 {
                     "affixes": [
                         {
-                            "name": "Wild Empathy Uses",
+                            "name": "Wild Empathy Charges",
                             "type": "Filigree Set",
                             "value": 2
                         }

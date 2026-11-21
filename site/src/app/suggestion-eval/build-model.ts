@@ -134,8 +134,9 @@ export const meanFill: Objective = {
 };
 
 /**
- * What the current scorer (EquippedService.getScore) adds up, without its scarcity factor: each
- * affix is worth its weight in total, split across its bonus types by value.
+ * Total value: each affix's values summed over its bonus types, as a share of the most it could
+ * reach, times its weight - "big numbers". It's what the current scorer (EquippedService.getScore)
+ * adds up, without its scarcity factor.
  */
 export const legacyObjective: Objective = {
   perNeed: (need, value) => Math.min(value, need.best) / need.affixBest * need.affixWeight,

@@ -62,9 +62,12 @@ suggestions (the hand-picked ones) as the more telling.
 
 `src/app/suggestion-eval/suggestion-eval.spec.ts` needs no export. It
 simulates a player filling an empty level 28-34 build from the suggestions,
-for four tracked-affix profiles, fills every crafting slot greedily, and
-reports the share of tracked needs met. It also reports which affixes are
-over-represented in each slot's top 20 suggestions.
+for four tracked-affix profiles. Each build takes exactly one minor artifact,
+chosen as its own decision. The harness fills every crafting slot greedily and
+reports total value (each affix's values summed over its bonus types, as a
+share of its best, times its weight - the live scorer's own objective). It
+also reports which affixes are over-represented in each slot's top 20
+suggestions, artifacts left out.
 
 ```sh
 SUGGESTION_EVAL=1 SUGGESTION_EVAL_LOG=/tmp/eval.log \

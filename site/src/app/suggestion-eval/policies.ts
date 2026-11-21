@@ -19,18 +19,23 @@ export interface Ctx {
  */
 export type Scorer = (ctx: Ctx, state: BuildState, open: string[]) => (item: Item, slot: string) => number;
 
-export function candidates(ctx: Ctx, state: BuildState, slot: string): Item[] {
+/** Which items a decision may consider: any, none that are minor artifacts, or only those. */
+export type ArtifactRule = 'any' | 'none' | 'only';
+
+export function candidates(ctx: Ctx, state: BuildState, slot: string, artifacts: ArtifactRule = 'any'): Item[] {
   const equippedNames = new Set(Array.from(state.items.values()).map(item => item.name));
   const hasArtifact = Array.from(state.items.values()).some(item => item.artifact);
   return (ctx.gearDB.getFilteredGearBySlot(slot) ?? [])
     .filter(item => !item.isGeneratedEssenceCraftingBlank())
-    .filter(item => !equippedNames.has(item.name) && !(hasArtifact && item.artifact));
+    .filter(item => !equippedNames.has(item.name) && !(hasArtifact && item.artifact))
+    .filter(item => artifacts === 'any' || (artifacts === 'only') === !!item.artifact);
 }
 
-export function argmax(ctx: Ctx, state: BuildState, open: string[], score: (item: Item, slot: string) => number) {
+export function argmax(ctx: Ctx, state: BuildState, open: string[], score: (item: Item, slot: string) => number,
+                       artifacts: ArtifactRule = 'any') {
   let best: { slot: string; item: Item; score: number } | null = null;
   for (const slot of open) {
-    for (const item of candidates(ctx, state, slot)) {
+    for (const item of candidates(ctx, state, slot, artifacts)) {
       const s = score(item, slot);
       if (!best || s > best.score) {
         best = { slot, item, score: s };
@@ -70,17 +75,53 @@ export interface MarginalOptions {
    * bring augment slots too, so full credit overrates augment-rich items early in a build.
    */
   ownCraftingCredit?: number;
+  /**
+   * While the build has no minor artifact, assume one is coming: count the augment slots most endgame
+   * artifacts carry (Blue, Green, Yellow) as already there, empty. An artifact candidate is scored
+   * without that stand-in, since it would replace it.
+   */
+  planArtifact?: boolean;
+}
+
+let plannedArtifactCache: { gearDB: GearDbService; item: Item | null } | null = null;
+/** An endgame minor artifact with exactly Blue, Green and Yellow augment slots, stripped of its own affixes. */
+function plannedArtifact(ctx: Ctx): Item | null {
+  if (plannedArtifactCache?.gearDB !== ctx.gearDB) {
+    let found: Item | null = null;
+    for (const slot of ctx.gearDB.getSlots()) {
+      for (const item of ctx.gearDB.getFilteredGearBySlot(slot) ?? []) {
+        const names = (item.crafting ?? []).map(c => c.name).sort().join('|');
+        if (!found && item.artifact && !item.getOwnSets().length && names === 'Blue Augment Slot|Green Augment Slot|Yellow Augment Slot') {
+          found = new Item(item);
+          found.affixes = [];
+        }
+      }
+    }
+    plannedArtifactCache = { gearDB: ctx.gearDB, item: found };
+  }
+  return plannedArtifactCache.item;
 }
 
 /** Marginal gain of a candidate under a separable objective (a sum over needs). */
 export function marginalScorer(objective: Objective, opts: MarginalOptions): Scorer {
   return (ctx, state, open) => {
-    const base = opts.augmentAware ? fillCrafting(state, ctx.index, objective, ctx.maxLevel) : state;
-    const baseValues = base.values;
+    const fill = (from: BuildState) => opts.augmentAware ? fillCrafting(from, ctx.index, objective, ctx.maxLevel) : from;
+    const realBase = fill(state);
+    let plannedBase = realBase;
+    const stand = opts.planArtifact && !Array.from(state.items.values()).some(item => item.artifact) ? plannedArtifact(ctx) : null;
+    if (stand) {
+      const withStand = state.clone();
+      withStand.setItem('(planned artifact)', stand);
+      plannedBase = fill(withStand);
+    }
+    const realValues = realBase.values;
+    const plannedValues = plannedBase === realBase ? realValues : plannedBase.values;
     const needs = ctx.index.needs;
     const openSet = new Set(open);
     const factors = needs.map(need => opts.scarcity ? opts.scarcity(ctx, need, openSet) : 1);
     return item => {
+      const base = item.artifact ? realBase : plannedBase;
+      const baseValues = item.artifact ? realValues : plannedValues;
       let values = base.valuesWithItem(item);
       if (opts.augmentAware) {
         const crafted = withOwnCrafting(ctx, item, values, objective);
@@ -179,10 +220,10 @@ function augmentCarriesBest(ctx: Ctx, need: Need): boolean {
 
 export const SCORERS: Array<[string, Scorer]> = [
   ['live getScore', liveScorer],
-  ['legacy objective, no scarcity', marginalScorer(legacyObjective, { augmentAware: false })],
-  ['legacy objective, augment-aware', marginalScorer(legacyObjective, { augmentAware: true })],
-  ['legacy objective, augment-aware + discount', marginalScorer(legacyObjective, { augmentAware: true, scarcity: scarcityWithDiscount(0.35) })],
-  ['per-need fill, augment-aware', marginalScorer(meanFill, { augmentAware: true })],
+  ['total value, items only', marginalScorer(legacyObjective, { augmentAware: false })],
+  ['total value, augment-aware', marginalScorer(legacyObjective, { augmentAware: true })],
+  ['total value, augment-aware + discount', marginalScorer(legacyObjective, { augmentAware: true, scarcity: scarcityWithDiscount(0.35) })],
+  ['total value, augment-aware + discount, half crafting credit', marginalScorer(legacyObjective, { augmentAware: true, scarcity: scarcityWithDiscount(0.35), ownCraftingCredit: 0.5 })],
   ['per-need fill, augment-aware + discount', marginalScorer(meanFill, { augmentAware: true, scarcity: scarcityWithDiscount(0.35) })],
-  ['per-need fill, half crafting credit + discount', marginalScorer(meanFill, { augmentAware: true, scarcity: scarcityWithDiscount(0.35), ownCraftingCredit: 0.5 })],
+  ['total value, augment-aware, planned artifact', marginalScorer(legacyObjective, { augmentAware: true, planArtifact: true })],
 ];

@@ -2,47 +2,58 @@
 
 ## Summary
 
-- **The suspicion is right.** From an empty level 28-34 build, Speed turns up
-  in 18% of each slot's top 20 suggestions, **about 4× its share among all the
-  candidates**. Concealment (14-18%, 3.6-4.7×) and Constitution (20%, 2.6×)
-  follow the same pattern. Under the alternative scorer below, Speed drops to
-  about its base rate (5%, 1.0×). All three can go almost anywhere. Speed
-  comes from a level-8 Topaz that fits any Yellow, Green or Orange slot, or
-  from a Blue Sapphire, and every equipment slot has endgame items with those
-  slots. Concealment is on items in 11 of the 13 slots. Enhancement
-  Constitution is a Colorless Diamond.
-- **There are four causes in `EquippedService.getScore`, and they add up.**
-  1. Each tracked affix is worth one point, split across its bonus types by
-     value. An affix with a single bonus type (Speed, Concealment, the boolean
-     immunities) puts the whole point on one easy source, while an affix with
-     five types spreads it thin.
-  2. Scarcity can only raise a weight (×1 to ×2.2), never lower it, so a need
-     that an augment can cover almost anywhere scores the same as an ordinary
-     one.
-  3. A candidate's empty augment slots and crafting systems are worth nothing.
-     Only its built-in affixes count.
-  4. Set bonuses barely count: just a nudge when a set is the only source of an
-     uncovered need.
-- **What it costs, measured.** I simulated a player filling 12 slots (all but
-  weapon, offhand and quiver) of a level 28-34 build, taking the top
-  suggestion each time, then filling every augment slot. Across four tracked
-  profiles the live scorer meets **39-41%** of tracked needs. Scoring each
-  need on its own, counting augments, and discounting needs an augment covers
-  anywhere meets **44-51%** with the same slots, about +8 points on average.
-  Judged by the live scorer's *own* value-weighted objective, the
-  augment-aware version of it still does better (49-54% → 55-56%), so this
-  isn't just a different definition of "good".
+Two premises, both from how people actually build: **total value per affix
+is what matters** ("big numbers", not how evenly an affix's bonus types are
+covered), and **every endgame build wears one minor artifact**. The
+simulation scores builds by total value and makes each policy choose exactly
+one artifact. (An earlier version of this note scored "share of bonus types
+covered" instead and recommended scoring each type on its own. Under total
+value that recommendation is worse than what's live, so it's gone.)
 
-  | Profile | live | per-need, augment-aware + discount | same, half crafting credit |
+- **The suspicion is right.** From an empty level 28-34 build, Speed is in
+  16-17% of each slot's top 20 suggestions (artifacts left out), **about 3.8×
+  its share among all the candidates**. Concealment (15-19%, 3.5-4.4×) and
+  Constitution (18-19%, about 2.5×) follow the same pattern. Speed comes from
+  a level-8 Topaz that fits any Yellow, Green or Orange slot, or from a Blue
+  Sapphire, and endgame items in every slot have those augment slots.
+- **The objective is fine; the scorer just can't see augments.** The live
+  scorer already adds up total value per affix: each affix is worth its weight
+  in total, and a bonus type counts for its share of the affix. What's wrong is
+  how it credits *sources*:
+  1. **It doesn't know a need can go in an augment.** A Speed item gets full
+     credit even though Speed will cost an augment slot almost anywhere, and
+     an artifact's Yellow slot all but guarantees one.
+  2. **It gives a candidate's augment slots no value.** Only its built-in
+     affixes count.
+  3. **Scarcity can only raise a weight** (×1 to ×2.2), never lower one.
+  4. **Set bonuses barely count:** just a nudge when a set is the only source
+     of an uncovered need.
+  5. **It doesn't treat the artifact as a given.** It compares artifacts with
+     ordinary items slot by slot. The Healer profile, following its top picks,
+     ended up with no artifact at all.
+- **What fixing that is worth, measured.** I simulated a player filling 12
+  slots (all but weapon, offhand and quiver) of a level 28-34 build from the
+  top suggestion, with one artifact, then filling every augment slot for the
+  most total value. The table shows total value as a share of every tracked
+  need at its best:
+
+  | Profile | live | total value, augment-aware | same, planning for the artifact |
   |---|---|---|---|
-  | Melee (Basic + Melee + Str) | 39.5% | 43.8% | 42.7% |
-  | Ranged (Basic + Ranged + Dex) | 41.4% | 47.3% | 47.3% |
-  | Fire caster | 40.4% | 49.1% | 50.3% |
-  | Healer | 39.0% | 51.2% | 50.0% |
-- **Augments do almost half the work.** In the live scorer's finished builds,
-  the items alone meet 21-25% of tracked needs, and filling the augment slots
-  brings that to 39-41%. The suggestions ignore augments entirely, and players
-  fill them by hand.
+  | Melee (Basic + Melee + Str) | 53.4% | 57.9% | 56.8% |
+  | Ranged (Basic + Ranged + Dex) | 51.4% | 56.7% | 56.4% |
+  | Fire caster | 52.9% | 57.0% | 57.0% |
+  | Healer | 50.2% | 54.6% | 56.7% |
+  | **average** | **52.0%** | **56.6%** | **56.7%** |
+
+  Same objective as the live scorer, about +4.7 points. Planning for the
+  artifact means counting an empty Blue + Green + Yellow artifact as already
+  equipped until the real one is chosen. It doesn't add total value on
+  average, but it's steadier (Healer +2.1), and it's what takes Speed out of
+  the top 20: down to 1.1-1.5× its base rate, from 3.8×.
+- **Augments do over a third of the work.** In the live scorer's finished
+  builds, the items alone reach 33-38% total value and filling the augment
+  slots brings that to 50-53%. The suggestions ignore augments entirely, and
+  players fill them by hand.
 - **Sun/Moon or sets is a real fork**, and the data makes it sharp. None of
   the 264 endgame items with a Sun or Moon slot belongs to a set. A Sun item
   can only go in Armor, Cloak, Helm, Goggles or Trinket, and a Moon item only
@@ -78,9 +89,13 @@ Rough numbers at level 28-34:
 | Insight Doublestrike 8 (Belt, Ring) | 0.33 | 8 of ~46, × 1.9 |
 | Insight Constitution 7 (Cloak, Necklace) | 1.48 | attribute weight 4, × 1.9 |
 
-The level-8 Topaz of Striding covers Speed in almost any slot, yet an item
-with Speed scores **three times** an item with Insight Doublestrike, which
-only Belts and Rings carry.
+Under total value these per-affix shares are right: 30 Speed is all of
+Speed, and 8 Insight Doublestrike is a small part of Doublestrike. What's
+wrong is that the item gets that credit at all. The level-8 Topaz of Striding
+covers Speed in almost any slot, and the build's artifact will almost
+certainly have a Yellow slot for it. So an item's Speed adds almost nothing
+that wasn't coming anyway, yet it scores three times an item with Insight
+Doublestrike, which only Belts and Rings carry.
 
 Two more gaps:
 
@@ -114,6 +129,31 @@ Where augment slots exist on endgame items (count of items, by slot):
 - Sun: Armor 83, Cloak 36, Helm 33, Goggles 19, Trinket 17 - nowhere else.
 - Moon: Bracers 17, Necklace 16, Boots 15, Belt 14, Gloves 14 - nowhere else.
 
+## The minor artifact
+
+There are 91 minor artifacts at level 28-34, in every slot but Weapon,
+Offhand and Armor (Rings 18, Necklace 14, Bracers 11, Boots 10, Trinket 9,
+Goggles 8, Gloves 8, Helm 7, Belt 5, Cloak 1). 80 of them carry Blue + Green
++ Yellow augment slots. Since one is a given, that changes the calculation in
+three ways:
+
+- **It's a build-wide choice, like the weapon.** The question is never "this
+  artifact or that ordinary item for my Ring", but "which artifact, and so
+  which slot". The simulation picks it by the gain of swapping each artifact
+  into its slot of a draft build, then refills the other slots around it.
+  Rings won most often, then Goggles and Necklaces (The Autumn Equinox, Sigil
+  of the Triumvirate, Syne, Legendary Agony's Eyes, Breath of Vitality).
+- **It's guaranteed augment capacity.** A Blue, a Green and a Yellow slot are
+  coming whatever else the player picks, so any need one of those can carry at
+  its best (Speed, Enhancement Sheltering, Healing Amp, Deadly, Doublestrike,
+  Feather Falling...) is close to free from the start. Counting a planned
+  artifact makes the scorer see that before the artifact is chosen.
+- **Suggestions should list artifacts separately.** Ranked together with
+  ordinary items, three-slot artifacts take a large share of every slot's
+  top 20, although only one can be worn. A separate "your artifact" list
+  across all slots (with the slot each would take), plus each slot's ordinary
+  items ranked among themselves, is both more honest and more useful.
+
 ## Artifact and Profane: gems or sets?
 
 These are tracked Artifact/Profane needs met by the best options, for the four
@@ -144,28 +184,32 @@ out per build rather than written as a rule:
 
 ### 1. Scorer v2 (measured above; ready to build)
 
-- **Score each tracked need on its own.** A need counts for the fraction of its
-  best value the candidate adds, times an affix weight. An affix should no
-  longer be one point split thinly across its bonus types.
-- **Discount floating needs.** Lower the weight (×0.35 in the simulation) when
-  an augment at ¾ of best or more fits at least four of the slots still open.
-  This is the "you can put Speed anywhere" rule.
-- **Count augment slots, at partial credit.** Credit a candidate's empty
-  crafting slots with what they could add after the build's own open augment
-  slots have been used. Full credit over-rates augment-rich items early, when
-  every later item will bring slots too. Under full credit, minor artifacts
-  with Blue + Green + Yellow slots take 27-43% of the top 20, even though only
-  one can be worn. Half credit cuts that to 18-39% and finishes builds about as
-  well (within a point either way). The right answer is probably to credit only
-  augment needs beyond what the remaining open slots can be expected to bring,
-  and to collapse artifacts in the list.
-- **Count set bonuses.** Credit the marginal value of the tier a piece unlocks,
+Keep the live scorer's objective (total value per affix, times the affix
+weight) and change how it credits sources:
+
+- **Augment-aware.** Fill the build's own empty augment slots first (greedily,
+  for total value), then score a candidate by what it adds on top. A need the
+  build can already cover in an open augment slot stops counting for a
+  candidate that carries it natively. Credit a candidate's own empty augment
+  slots with what they would add.
+- **Plan for the artifact.** Until one is equipped, count an empty Blue +
+  Green + Yellow artifact as already worn. Score artifact candidates without
+  that stand-in, since one would replace it.
+- **Artifacts in their own list,** ranked across slots by what swapping them in
+  gains, as described above.
+- **Set bonuses.** Credit the marginal value of the tier a piece unlocks,
   scaled by whether the set can still reach its threshold
-  (`isSetReachable` already exists).
+  (`isSetReachable` already exists). Not in the simulation yet.
+
+Tried and not worth it under total value: a hand-tuned discount for
+"floating" needs (×0.35) and half credit for a candidate's augment slots.
+Each moved the average by under a point, and both brought Concealment's
+inflation back. Augment-awareness plus the planned artifact does the
+discount's job from the data.
 
 The harness (`site/src/app/suggestion-eval/`) runs every variant, so the
-weights can be tuned against the simulation and, once the export is run,
-against what players actually chose.
+remaining choices (affix weights, the normaliser) can be tuned against the
+simulation and, once the export is run, against what players actually chose.
 
 ### 2. "Fill this slot next"
 
@@ -186,11 +230,11 @@ your 5 Sun gems, or a set".
 
 ### 4. "Fill my augments"
 
-Augments carry almost half of what a finished build covers (21-25% of
-needs from items alone, 39-41% once augments are filled). The harness's greedy
+Augments carry over a third of a finished build's total value (33-38% from
+items alone, 50-53% once augments are filled). The harness's greedy
 augment fill (`fillCrafting` in `build-model.ts`) is already a one-click
 feature: for every empty augment slot on equipped gear,
-pick the gem that covers the most uncovered tracked need. Today players do this
+pick the gem that adds the most total value. Today players do this
 by hand, slot by slot. Add it as a button that proposes a set of gems to accept
 or adjust. It needs the cross-slot crafting rules (one of each Slaver's affix,
 and so on) that the harness skips.
@@ -204,33 +248,37 @@ normal build state so the player can leave at any point:
    today.
 2. **Weapon and offhand.** These come first because they're build-defining,
    and two-handers take the offhand away.
-3. **Artifact and Profane.** "How will you get Artifact bonuses?" Offer *Sun
+3. **Minor artifact.** The "your artifact" list: the best few across all
+   slots, each with the slot it takes and what it brings.
+4. **Artifact and Profane bonuses.** "How will you get Artifact bonuses?" Offer *Sun
    gems*, *one set (+ gems in the rest)*, *both*, each scored against the
    tracked list (as in the table above) with the slots it uses. Ask the same
    for Profane, then show the joint plan, because the two compete for Moon
-   slots. Choosing a set fixes its slots, and choosing gems marks those slots
+   slots (and with the artifact's slot). Choosing a set fixes its slots, and choosing gems marks those slots
    "Sun item wanted", which narrows those slots' suggestions to items with
    that slot.
-4. **Slot-bound picks.** Walk the slots from proposal 2 in order: "Goggles
+5. **Slot-bound picks.** Walk the slots from proposal 2 in order: "Goggles
    carry your only Insight Dodge - choose one of these 3."
-5. **The rest.** Scorer v2 suggestions for the remaining slots.
-6. **Augments.** Run "Fill my augments" (proposal 4), then show what's still
+6. **The rest.** Scorer v2 suggestions for the remaining slots.
+7. **Augments.** Run "Fill my augments" (proposal 4), then show what's still
    uncovered and why (set-only, eliminated by earlier choices).
 
 ### 6. Later: a whole-build optimizer
 
-The headroom check started from the best greedy build for the Melee profile,
-swapped one item at a time, and refilled augments after each swap. It went
-from 43.8% to **48.1%** of needs met, about as far beyond v2 as v2 is beyond
-the live scorer (39.5%). So a greedy scorer, however well tuned, leaves a
-real amount on the table, because a slot's best item depends on what the
-other slots end up holding. A small optimizer in a Web Worker could propose
-two or three complete builds, and slot suggestions would then be "what the
-good complete builds put here". It should come after v2 and "Fill my augments", since it
-needs the same pieces. The harness's local search is a starting point,
-though at about 20 minutes per profile it needs to be much faster first:
-evaluate swaps incrementally instead of refilling every crafting slot each
-time.
+A headroom check (local search from the best greedy build for the Melee
+profile, swapping one item at a time and refilling augments after each swap)
+found as much again beyond the best greedy scorer as that scorer found
+beyond the live one. That run used the earlier "bonus types covered" measure
+and no artifact rule, and hasn't been redone under total value. The point
+stands, though: a greedy scorer, however well tuned, leaves something on the
+table, because a slot's best item depends on what the other slots end up
+holding. A small optimizer in a Web Worker could propose two or three complete
+builds, and slot suggestions would then be "what the good complete builds put
+here". It should come after v2 and "Fill my augments", since it needs the same
+pieces. The harness's local search (`SUGGESTION_EVAL_LOCAL_SEARCH`) is a
+starting point, but at about 20 minutes per profile it needs to be much
+faster first: evaluate swaps incrementally instead of refilling every crafting
+slot each time.
 
 ## The real-build data
 
@@ -241,11 +289,12 @@ aggregate report. It covers:
 - **What people track.** This also tests whether the four test profiles are
   representative.
 - **Where finished builds get each covered need**: item / augment colour / Sun /
-  Moon / other crafting / set. This calibrates the floating discount: if 80% of
-  covered Speed comes from augments, the discount is right.
+  Moon / other crafting / set. If most covered Speed comes from augments,
+  augment-aware scoring matches what players do.
 - **Needs people track but rarely cover.** These are the real gaps to point the
   guide at.
-- **The Artifact/Profane strategies** players use.
+- **The Artifact/Profane strategies** players use, and the most-used items per
+  slot (artifacts included).
 - **Leave-one-out ranking.** Empty each slot of a finished build and see where
   the player's own item ranks under each scorer (hit@1/5/20, MRR, per slot).
   This is the closest thing to an accuracy measure. It flatters the live
@@ -255,18 +304,20 @@ See `tools/build-stats/README.md` for how to run it.
 
 ## Caveats on the simulation
 
-- Every tracked bonus type counts the same in "needs met", including small
-  ones (Festive +2, Exceptional +1). That favours the per-need scorers, which
-  optimise for exactly that. On the live scorer's value-weighted objective they
-  score a little *below* the live scorer (47-53% against 49-54%). What holds
-  under both measures is the augment-aware change: keeping the live
-  objective but counting augments beats the live scorer on needs met (41-44%
-  against 39-41%) *and* on its own objective (55-56% against 49-54%). How
-  much small bonus types should count is the open question, and the real-build
-  data (which bonus types players bother to cover) is the way to settle it.
+- **Total value is normalised per affix by the sum of its bonus types' best
+  values.** That's what the live scorer does. It isn't reachable in practice
+  (no build gets every bonus type at its best), so the percentages are low in
+  absolute terms. Only comparisons between policies mean anything. A better
+  normaliser would be what good finished builds actually reach, and the
+  real-build export can supply that.
+- **The affix weights are the live scorer's** (attributes 4, DCs 3, booleans
+  0.5, the rest 1), not tuned.
 - Weapon, Offhand and Quiver are left out. Those are chosen for the weapon,
   not for affixes.
 - Augment filling is greedy and ignores cross-slot crafting rules, so finished
   builds are slightly optimistic for every policy alike.
 - Four profiles, all at level 28-34. The real-build export is what will say
   whether they're typical.
+- The harness still reports "needs met" (share of bonus types at 3/4 of best)
+  as a secondary number. A per-type scorer wins on that measure but loses on
+  total value, which is how that idea got dropped.

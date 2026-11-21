@@ -117,6 +117,26 @@ describe('UserGearService', () => {
     expect(changes).toBe(2);
   });
 
+  describe('the last import', () => {
+    afterEach(() => localStorage.removeItem('ddo-user-gear-import'));
+
+    it('records the file, its counts and when, and keeps them for the next visit', () => {
+      service.recordImport('TroveExport.csv', { items: 12, augments: 3 }, new Date('2026-11-20T10:00:00Z'));
+
+      const fresh = new UserGearService();
+      fresh.loadFromStorage();
+      expect(fresh.getImportInfo()).toEqual({ fileName: 'TroveExport.csv', items: 12, augments: 3, loadedAt: '2026-11-20T10:00:00.000Z' });
+    });
+
+    it('forgets it on Clear', () => {
+      service.recordImport('TroveExport.csv', { items: 1, augments: 0 });
+      service.clear();
+
+      expect(service.getImportInfo()).toBeNull();
+      expect(localStorage.getItem('ddo-user-gear-import')).toBeNull();
+    });
+  });
+
   describe('storage', () => {
     it('persists an import and loads it into a fresh service', () => {
       service.importFromTroveCsv(csv('HASH,A,Bank,Main,Drow Scimitar,1,BtA'), valid);

@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BehaviorSubject } from 'rxjs';
 
 import { FiltersService } from '../planner/filters.service';
@@ -36,7 +37,8 @@ export class FilterItemTypeComponent {
       this.getTypesWithAttribute(group.attributes);
     }
 
-    filters.getEditedFilters().subscribe(itemFilters => {
+    // Made afresh each time the section opens, so it must let go when it closes.
+    filters.getEditedFilters().pipe(takeUntilDestroyed()).subscribe(itemFilters => {
       const groups = this.splitTypeSetIntoGroups(itemFilters.hiddenItemTypes);
       for (const group of this.groups) {
         const key = group.attributes.join(' ');

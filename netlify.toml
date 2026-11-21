@@ -1,6 +1,8 @@
 [build]
   base = "site"
   command = "ng build --configuration production"
+  # Link previews for shared builds, lists and comparisons (link-preview.ts). Relative to `base`.
+  edge_functions = "netlify/edge-functions"
   # Runs from `base`. Exit 0 skips the build, so this skips only when nothing
   # the site is built from changed: site/ itself, data/ (the generated game
   # data, imported via @data/*) and shared/ (constants.json).

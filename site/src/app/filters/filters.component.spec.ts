@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AppModule } from '../app.module';
-import { FiltersComponent } from './filters.component';
+import { FiltersComponent, loadedAgo } from './filters.component';
+import { UserGearService } from '../planner/user-gear.service';
 import { NO_PACK_KEY } from '../gear/pack-filter';
 import { ItemBonusSettingsService } from '../planner/item-bonus-settings.service';
 
@@ -288,5 +289,60 @@ describe('FiltersComponent', () => {
       expect(toggle('reaper').checked).toBe(true);
       expect(toggle('mythic').checked).toBe(false);
     });
+  });
+
+  it('narrows the pack checklist to the packs whose names match', async () => {
+    await press('Only packs I own');
+    component.packQuery = 'ravenloft';
+    fixture.detectChanges();
+
+    const labels = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll('.pack-filter-option label'))
+      .map(label => label.textContent!.trim());
+    expect(labels.length).toBeGreaterThan(0);
+    expect(labels.every(label => label.toLowerCase().includes('ravenloft'))).toBe(true);
+  });
+
+  it('says why a file that isn\'t a .csv wasn\'t loaded', () => {
+    const loaded = vi.fn();
+    component.troveFileSelected.subscribe(loaded);
+    const input = (fixture.nativeElement as HTMLElement).querySelector<HTMLInputElement>('#trove-upload')!;
+    Object.defineProperty(input, 'files', { value: [new File(['x'], 'notes.txt')], configurable: true });
+    input.dispatchEvent(new Event('change'));
+    fixture.detectChanges();
+
+    expect(loaded).not.toHaveBeenCalled();
+    expect((fixture.nativeElement as HTMLElement).querySelector('.owned-gear-error')?.textContent).toContain("notes.txt isn't a .csv file");
+  });
+
+  it('says where the owned gear came from and when', () => {
+    const userGear = TestBed.inject(UserGearService);
+    userGear.importFromTroveCsv('HASH,A,Bank,Main,Drow Scimitar,1', new Set(['drow scimitar']));
+    userGear.recordImport('TroveExport.csv', { items: 1, augments: 0 });
+    fixture.detectChanges();
+
+    expect((fixture.nativeElement as HTMLElement).querySelector('.owned-gear-status')?.textContent?.replace(/\s+/g, ' '))
+      .toContain('1 item and 0 augments from TroveExport.csv, loaded today');
+    userGear.clear();
+  });
+
+  it('describes when a file was loaded in plain words', () => {
+    const now = new Date(2026, 10, 21, 12);
+    expect(loadedAgo(new Date(2026, 10, 21, 8).toISOString(), now)).toBe('today');
+    expect(loadedAgo(new Date(2026, 10, 20, 23).toISOString(), now)).toBe('yesterday');
+    expect(loadedAgo(new Date(2026, 10, 16, 9).toISOString(), now)).toBe('5 days ago');
+  });
+
+  it('folds every section but Content on a phone', () => {
+    component.narrow = true;
+    fixture.detectChanges();
+    const toggles = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll<HTMLButtonElement>('.filter-panel-toggle'));
+
+    expect(toggles.map(toggle => [toggle.textContent!.trim(), toggle.getAttribute('aria-expanded')])).toEqual([
+      ['Content', 'true'], ['Allowed Item Types', 'false'], ['Owned Gear', 'false'], ['Advanced bonuses', 'false'],
+    ]);
+
+    toggles[2].click();
+    fixture.detectChanges();
+    expect((fixture.nativeElement as HTMLElement).querySelector('#trove-upload')).not.toBeNull();
   });
 });

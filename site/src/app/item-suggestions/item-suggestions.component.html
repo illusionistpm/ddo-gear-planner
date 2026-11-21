@@ -74,7 +74,8 @@
             }
             @if (hiddenByFilters) {
               <span class="slot-suggestions-hidden">
-                {{hiddenByFilters}} {{hiddenByFilters === 1 ? 'is' : 'are'}} hidden by your filters - change them under Filters in the toolbar.
+                {{hiddenByFilters}} more {{hiddenByFilters === 1 ? 'is' : 'are'}} hidden by your filters.
+                <button type="button" class="slot-suggestions-filters" (click)="openFilters()">Open filters</button>
               </span>
             }
           </p>

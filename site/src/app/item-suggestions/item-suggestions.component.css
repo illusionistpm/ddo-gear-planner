@@ -121,3 +121,11 @@
     min-height: 2.75rem;
   }
 }
+
+.slot-suggestions-filters {
+  background: none;
+  border: 0;
+  color: var(--link-color);
+  padding: 0;
+  text-decoration: underline;
+}

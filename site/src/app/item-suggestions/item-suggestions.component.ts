@@ -11,6 +11,7 @@ import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.
 import { DrawerEquipService } from '../suggestion-drawer/drawer-equip.service';
 import { slotLabel } from '../gear/slot-display';
 import { SlotUndoService } from '../undo/slot-undo.service';
+import { FilterSheetService } from '../planner/filter-sheet.service';
 
 /** How many items the list shows at first, and adds with each "Show more". */
 const PAGE_SIZE = 20;
@@ -50,6 +51,7 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
     private suggestionDrawer: SuggestionDrawerService,
     private drawerEquip: DrawerEquipService,
     private slotUndo: SlotUndoService,
+    private filterSheet: FilterSheetService,
     private changeDetector: ChangeDetectorRef
   ) { }
 
@@ -68,6 +70,10 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
 
   isCurrent(item: Item): boolean {
     return !!this.currentItem && item.name === this.currentItem.name;
+  }
+
+  openFilters() {
+    this.filterSheet.open();
   }
 
   showMore() {

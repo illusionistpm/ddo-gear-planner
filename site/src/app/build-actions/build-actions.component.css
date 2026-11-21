@@ -488,9 +488,14 @@
   }
 
   /* Without the name, a caret alone says "menu" but not of what: the icon
-     stands in for the build. */
+     stands in for the build, in the caret's place - the two together don't
+     fit the room the bar leaves at 360px. */
   .build-name-icon {
     display: inline;
+  }
+
+  .build-name-caret {
+    display: none;
   }
 
   .build-name-trigger {

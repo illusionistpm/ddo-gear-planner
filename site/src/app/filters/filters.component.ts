@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { UserGearService } from '../planner/user-gear.service';
+import { Component, OnInit, ChangeDetectionStrategy, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TroveImportInfo, UserGearService } from '../planner/user-gear.service';
 
 import { FiltersService } from '../planner/filters.service';
 import { AnalyticsService } from '../shared/analytics.service';
@@ -56,6 +57,32 @@ interface BonusSystemOption {
   name: string;
 }
 
+/** The sheet's sections, which fold away on a phone. */
+export type FilterPanelKey = 'content' | 'types' | 'owned' | 'bonuses';
+
+/** Below this the sheet is one column: its sections fold, and only Content starts open. */
+const NARROW_QUERY = '(max-width: 767.98px)';
+
+/** "today", "yesterday", "3 days ago", or the date. */
+export function loadedAgo(iso: string, now = new Date()): string {
+  const loaded = new Date(iso);
+  if (isNaN(loaded.getTime())) {
+    return 'earlier';
+  }
+  const startOfDay = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
+  const days = Math.round((startOfDay(now) - startOfDay(loaded)) / 86_400_000);
+  if (days <= 0) {
+    return 'today';
+  }
+  if (days === 1) {
+    return 'yesterday';
+  }
+  if (days < 30) {
+    return `${days} days ago`;
+  }
+  return loaded.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
 const BONUS_SYSTEM_NAMES: Record<ItemBonusKind, string> = {
   mythic: 'Mythic Boosts',
   reaper: 'Reaper Bonuses',
@@ -95,6 +122,17 @@ export class FiltersComponent implements OnInit {
   readonly bonusSystems: BonusSystemOption[] = ITEM_BONUS_KINDS.map(kind => ({ kind, name: BONUS_SYSTEM_NAMES[kind] }));
   troveUploadStatus: string = '';
   userGearCount: number = 0;
+  importInfo: TroveImportInfo | null = null;
+  /** A file is being dragged over the Owned Gear drop area. */
+  troveDragging = false;
+  /** Narrows the pack checklist to names containing it. */
+  packQuery = '';
+  readonly loadedAgo = loadedAgo;
+
+  /** One column, on a phone: the sections fold, and only Content starts open. */
+  narrow = typeof window !== 'undefined' && typeof window.matchMedia === 'function' && window.matchMedia(NARROW_QUERY).matches;
+  private openPanels = new Set<FilterPanelKey>(['content']);
+  private readonly destroyRef = inject(DestroyRef);
 
   constructor(
     public filters: FiltersService,
@@ -108,7 +146,7 @@ export class FiltersComponent implements OnInit {
     const coupons = this.getCouponOptions();
     this.expansionCoupons = coupons.filter(coupon => coupon.options.some(option => option.expansion));
     this.questingCoupons = coupons.filter(coupon => !this.expansionCoupons.includes(coupon)).reverse();
-    filters.getEditedFilters().subscribe(itemFilters => {
+    filters.getEditedFilters().pipe(takeUntilDestroyed()).subscribe(itemFilters => {
       this.minLevel = itemFilters.levelRange[0];
       this.maxLevel = itemFilters.levelRange[1];
       this.showRaidItems = itemFilters.showRaidItems;
@@ -124,23 +162,62 @@ export class FiltersComponent implements OnInit {
   }
   ngOnInit() {
     this.updateUserGearCount();
+    // A load (here or by dropping a file) or a Clear: the panel's count follows.
+    this.userGear.userItemsChanged$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => this.updateUserGearCount());
+    if (typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
+      const query = window.matchMedia(NARROW_QUERY);
+      const onChange = (event: MediaQueryListEvent) => this.narrow = event.matches;
+      query.addEventListener?.('change', onChange);
+      this.destroyRef.onDestroy(() => query.removeEventListener?.('change', onChange));
+    }
   }
+
   updateUserGearCount() {
-    try {
-      const data = localStorage.getItem('ddo-user-gear');
-      if (data) {
-        const arr = JSON.parse(data);
-        this.userGearCount = Array.isArray(arr) ? arr.length : 0;
-      } else {
-        this.userGearCount = 0;
-      }
-    } catch {
-      this.userGearCount = 0;
+    this.userGearCount = this.userGear.size;
+    this.importInfo = this.userGear.getImportInfo();
+  }
+
+  /** Whether a section shows: always, unless the sheet is narrow and it is folded. */
+  isPanelOpen(key: FilterPanelKey): boolean {
+    return !this.narrow || this.openPanels.has(key);
+  }
+
+  togglePanel(key: FilterPanelKey): void {
+    if (this.openPanels.has(key)) {
+      this.openPanels.delete(key);
+    } else {
+      this.openPanels.add(key);
+    }
+  }
+
+  /** A group's packs that match what's typed in Find a pack: all of them while it's empty. */
+  visiblePacks(group: PackGroup): PackOption[] {
+    const query = this.packQuery.trim().toLowerCase();
+    return query ? group.options.filter(pack => pack.name.toLowerCase().includes(query)) : group.options;
+  }
+
+  anyPackMatches(): boolean {
+    return this.packGroups.some(group => this.visiblePacks(group).length > 0);
+  }
+
+  onTroveDragOver(event: DragEvent) {
+    // Without this the browser opens the dropped file itself.
+    event.preventDefault();
+    this.troveDragging = true;
+  }
+
+  onTroveDrop(event: DragEvent) {
+    event.preventDefault();
+    this.troveDragging = false;
+    const file = event.dataTransfer?.files?.[0];
+    if (file) {
+      this.loadTroveFile(file);
     }
   }
 
   onClearUserGear() {
     this.userGear.clear();
+    this.troveUploadStatus = '';
     this.updateUserGearCount();
   }
 
@@ -281,19 +358,22 @@ export class FiltersComponent implements OnInit {
 
   onTroveFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
-    if (!input.files || input.files.length === 0) {
-      this.troveUploadStatus = 'No file selected.';
+    const file = input.files?.[0];
+    if (file) {
+      this.loadTroveFile(file);
+    }
+    // The same file again should load again, so the input forgets it.
+    input.value = '';
+  }
+
+  /** Hands the file on to be read (MainComponent parses it), or says why not. */
+  private loadTroveFile(file: File) {
+    if (!file.name.toLowerCase().endsWith('.csv')) {
+      this.troveUploadStatus = `${file.name} isn't a .csv file: load the TroveExport.csv the Trove plugin wrote.`;
       return;
     }
-    const file = input.files[0];
-    if (!file.name.endsWith('.csv')) {
-      this.troveUploadStatus = 'Please upload a .csv file.';
-      return;
-    }
-    this.troveUploadStatus = 'File loaded. Processing...';
+    this.troveUploadStatus = '';
     this.troveFileSelected.emit(file);
-    // Update the userGearCount after the parent processes the file (with a small delay to ensure storage is updated)
-    setTimeout(() => this.updateUserGearCount(), 100);
   }
 
   onSortOwnedToTopChanged() {

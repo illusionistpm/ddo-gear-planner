@@ -1,10 +1,8 @@
-<section class="filter-panel item-type-panel">
-  <h4 class="filter-panel-title">Allowed Item Types</h4>
-  <div class="item-type-groups">
-    @for (group of groups; track group.name) {
-      <app-expanding-checkboxes [invert]="true" title="{{group.name}}"
-        [list]="(getTypesWithAttribute(group.attributes) | async) ?? []" [onChangeFn]="makeOnChangeFn(group.name.toLowerCase())">
-      </app-expanding-checkboxes>
-    }
-  </div>
-</section>
+<!-- The panel and its heading are the Filters sheet's (FiltersComponent), like its other sections. -->
+<div class="item-type-groups">
+  @for (group of groups; track group.name) {
+    <app-expanding-checkboxes [invert]="true" title="{{group.name}}"
+      [list]="(getTypesWithAttribute(group.attributes) | async) ?? []" [onChangeFn]="makeOnChangeFn(group.name.toLowerCase())">
+    </app-expanding-checkboxes>
+  }
+</div>

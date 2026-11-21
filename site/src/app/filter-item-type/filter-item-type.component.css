@@ -1,20 +1,4 @@
-.filter-panel {
-  background: var(--panel-bg);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-sm);
-  min-width: 0;
-  padding: var(--space-12);
-}
-
-.filter-panel-title {
-  color: var(--text-primary);
-  font-size: 0.9rem;
-  font-weight: 800;
-  margin: 0 0 var(--space-12);
-}
-
 .item-type-groups {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-2);
 }

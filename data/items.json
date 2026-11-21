@@ -38689,8 +38689,8 @@
             },
             {
                 "name": "Chitinous Covering",
-                "type": "Bool",
-                "value": 1
+                "type": "Enhancement",
+                "value": "19"
             },
             {
                 "name": "Armor Class",
@@ -140500,8 +140500,8 @@
             },
             {
                 "name": "Chitinous Covering",
-                "type": "Bool",
-                "value": 1
+                "type": "Enhancement",
+                "value": "34"
             },
             {
                 "name": "Armor Class",

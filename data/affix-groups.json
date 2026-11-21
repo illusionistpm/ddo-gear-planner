@@ -692,6 +692,15 @@
     },
     {
         "affixes": [
+            "Law Absorption",
+            "Chaos Absorption",
+            "Good Absorption",
+            "Evil Absorption"
+        ],
+        "name": "Alignment Absorption"
+    },
+    {
+        "affixes": [
             "Wizardry"
         ],
         "components": [
@@ -757,6 +766,25 @@
             }
         ],
         "name": "Bottled Heart"
+    },
+    {
+        "affixes": [
+            "Armor Class"
+        ],
+        "components": [
+            {
+                "name": "Armor Class",
+                "type": "Deflection",
+                "value": 2
+            }
+        ],
+        "name": "Chaosguard"
+    },
+    {
+        "affixes": [
+            "Fire Absorption"
+        ],
+        "name": "Chitinous Covering"
     },
     {
         "affixes": [
@@ -843,6 +871,19 @@
     },
     {
         "affixes": [
+            "Strength"
+        ],
+        "components": [
+            {
+                "name": "Strength",
+                "type": "Profane",
+                "value": 2
+            }
+        ],
+        "name": "Demonic Might"
+    },
+    {
+        "affixes": [
             "Fire Absorption",
             "Evil Absorption"
         ],
@@ -859,6 +900,37 @@
             }
         ],
         "name": "Devil's Bones"
+    },
+    {
+        "affixes": [
+            "Armor Class",
+            "Fortitude Save",
+            "Reflex Save",
+            "Will Save"
+        ],
+        "components": [
+            {
+                "name": "Armor Class",
+                "type": "Insight",
+                "value": 1
+            },
+            {
+                "name": "Fortitude Save",
+                "type": "Insight",
+                "value": 1
+            },
+            {
+                "name": "Reflex Save",
+                "type": "Insight",
+                "value": 1
+            },
+            {
+                "name": "Will Save",
+                "type": "Insight",
+                "value": 1
+            }
+        ],
+        "name": "Dragonshard Focus: Sentinel"
     },
     {
         "affixes": [
@@ -884,6 +956,13 @@
             }
         ],
         "name": "Dream Vision"
+    },
+    {
+        "affixes": [
+            "Electric Absorption",
+            "Acid Absorption"
+        ],
+        "name": "Electricity and Acid Absorption"
     },
     {
         "affixes": [
@@ -1314,6 +1393,18 @@
             }
         ],
         "name": "Greater Stability"
+    },
+    {
+        "affixes": [
+            "Armor Class"
+        ],
+        "name": "Hardened Exterior"
+    },
+    {
+        "affixes": [
+            "Armor Class"
+        ],
+        "name": "Heightened Awareness"
     },
     {
         "affixes": [
@@ -2402,6 +2493,12 @@
     },
     {
         "affixes": [
+            "Cold Absorption"
+        ],
+        "name": "Shining Silver Scales"
+    },
+    {
+        "affixes": [
             "Healing Lore",
             "Light Lore",
             "Alignment Lore"
@@ -2791,5 +2888,18 @@
             }
         ],
         "name": "Winter's Impertenence"
+    },
+    {
+        "affixes": [
+            "Doublestrike"
+        ],
+        "components": [
+            {
+                "name": "Doublestrike",
+                "type": "Enhancement",
+                "value": 18
+            }
+        ],
+        "name": "Yeenoghu's Butchery"
     }
 ]

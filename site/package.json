@@ -8,6 +8,7 @@
     "admin:build": "ng build admin",
     "build": "ng build",
     "test": "ng test",
+    "test:edge": "node --experimental-strip-types --test netlify/tests/link-preview.test.ts",
     "lint": "ng lint && node tools/check-css-colors.js"
   },
   "engines": {

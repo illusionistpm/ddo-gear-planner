@@ -13,3 +13,5 @@ data-builder/llm/compound_affix_candidates.json
 .angular/
 tools/visual-diff/shots/
 data-preview/
+
+tools/build-stats/*.local.json

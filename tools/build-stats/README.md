@@ -1,0 +1,86 @@
+# Build stats
+
+What people actually do with the planner, from the saved builds and share
+links in D1, and how well the slot suggestions predict it. Two steps:
+export (needs Cloudflare access), then analyse (runs locally, offline).
+
+## 1. Export
+
+From the repository root, once `npx wrangler login` has been done in `worker/`:
+
+```sh
+node tools/build-stats/export-builds.mjs            # or --no-names to drop build names
+```
+
+That writes `tools/build-stats/builds.local.json` (gitignored): each saved
+build's blob, name and timestamps, plus share links whose gear no saved build
+has. Owners become `u1`, `u2`, ...; emails, display names and user ids are
+never read. Build names are kept by default because they often say the class
+(useful for grouping later); pass `--no-names` if you'd rather not.
+
+## 2. Analyse
+
+From `site/`:
+
+```sh
+SUGGESTION_EVAL_BUILDS=$PWD/../tools/build-stats/builds.local.json \
+SUGGESTION_EVAL_REPORT=$PWD/../tools/build-stats/report.local.json \
+  npx ng test --watch=false --include src/app/suggestion-eval/real-builds.spec.ts
+```
+
+This loads each build into the planner the way its link would
+(`src/app/suggestion-eval/real-builds.spec.ts`) and writes an aggregate
+report - no names or blobs, so it's safe to share:
+
+- **corpus**: builds decoded, owners, how many are "finished" (9+ slots filled),
+  level ranges, how many affixes people track;
+- **trackedAffixes / bundles**: what people track;
+- **sourcesByAffix / sourceTotals**: for every tracked bonus type a finished
+  build covers (3/4 of best or more), where the value comes from - the item's
+  own affix, an augment by gem colour, a Sun or Moon gem, another crafting
+  system, a set bonus, or non-gear;
+- **needCoverage**: per tracked bonus type, how often finished builds cover it -
+  low numbers are the needs people want and can't fit;
+- **artifactProfaneStrategies / sunMoonSlots**: whether builds take Artifact and
+  Profane bonuses from Sun/Moon gems, a set, both or neither;
+- **topItemsBySlot / topSets**;
+- **leaveOneOut**: for each filled slot of a finished build, empty that slot and
+  rank its candidates by each scorer; record where the item the player chose
+  lands (mean rank, MRR, hit@1/5/20), overall and per slot.
+
+Leave-one-out is the slow part (every candidate of every slot of every build,
+for each scorer). `SUGGESTION_EVAL_SAMPLE=100` limits it to the first 100
+finished builds; `SUGGESTION_EVAL_POLICIES="live,discount"` limits the
+scorers by name substring.
+
+Caveat for leave-one-out: players who followed the suggestions will have
+picked what the live scorer ranked well, which flatters it. Compare scorers
+per slot, and weigh builds whose tracked list and gear disagree with the
+suggestions (the hand-picked ones) as the more telling.
+
+## The synthetic harness
+
+`src/app/suggestion-eval/suggestion-eval.spec.ts` needs no export. It
+simulates a player filling an empty level 28-34 build from the suggestions,
+for four tracked-affix profiles, fills every crafting slot greedily, and
+reports the share of tracked needs met. It also reports which affixes are
+over-represented in each slot's top 20 suggestions.
+
+```sh
+SUGGESTION_EVAL=1 SUGGESTION_EVAL_LOG=/tmp/eval.log \
+  npx ng test --watch=false --include src/app/suggestion-eval/suggestion-eval.spec.ts
+```
+
+Both specs are skipped in the normal test run unless their variable is set.
+
+## Game-data scripts
+
+These two read `data/*.json` only, with no export needed:
+
+- `affix-sources.py data rows.json`: for each bonus type of the affixes in
+  the common bundles, at level 28-34, which item slots carry it near its best
+  value, which augment colours do (and in how many slots), and which sets.
+  Each row is classed floating / Sun-Moon / slot-bound / limited / set-only.
+- `artifact-profane-strategies.py data`: for four tracked profiles, how many
+  tracked Artifact and Profane needs Sun/Moon gems alone cover, against each
+  set plus gems in the gem slots it leaves free.

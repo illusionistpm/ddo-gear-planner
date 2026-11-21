@@ -812,10 +812,6 @@ select.form-control {
   }
 }
 
-.filter-popover.popover {
-  z-index: 1200;
-}
-
 .suggestion-drawer .modal-body {
   padding: var(--space-16);
 }

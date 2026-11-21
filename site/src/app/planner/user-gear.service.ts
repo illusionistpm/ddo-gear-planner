@@ -29,6 +29,13 @@ export function troveNameKey(name: string): string {
   return name.replace(/\s+/g, ' ').trim().toLowerCase();
 }
 
+/** What the last Trove import was: shown in the Owned Gear panel. */
+export interface TroveImportInfo extends TroveImportCounts {
+  fileName: string;
+  /** When it was loaded, as an ISO timestamp. */
+  loadedAt: string;
+}
+
 export interface UserGearEntry {
   itemName: string;
   locations: UserItemLocation[];
@@ -42,6 +49,8 @@ export class UserGearService {
   // crafting pieces that are things in their own right.
   private userItems: Map<string, UserGearEntry> = new Map();
   private storageKey = 'ddo-user-gear';
+  private importInfoKey = 'ddo-user-gear-import';
+  private importInfo: TroveImportInfo | null = null;
   private userItemsChangedSubject = new Subject<void>();
   readonly userItemsChanged$ = this.userItemsChangedSubject.asObservable();
 
@@ -134,7 +143,30 @@ export class UserGearService {
 
   clear() {
     this.userItems.clear();
+    this.importInfo = null;
     localStorage.removeItem(this.storageKey);
+    localStorage.removeItem(this.importInfoKey);
+    this.userItemsChangedSubject.next();
+  }
+
+  /** How many entries are loaded: items and augments together. */
+  get size(): number {
+    return this.userItems.size;
+  }
+
+  /** The last import, or null if none is recorded (or gear was loaded before this was kept). */
+  getImportInfo(): TroveImportInfo | null {
+    return this.importInfo;
+  }
+
+  /** Records where the gear just imported came from, and when. */
+  recordImport(fileName: string, counts: TroveImportCounts, loadedAt = new Date()): void {
+    this.importInfo = { fileName, ...counts, loadedAt: loadedAt.toISOString() };
+    try {
+      localStorage.setItem(this.importInfoKey, JSON.stringify(this.importInfo));
+    } catch {
+      // Storage full or unavailable: the panel just won't say where it came from next visit.
+    }
     this.userItemsChangedSubject.next();
   }
 
@@ -148,6 +180,12 @@ export class UserGearService {
   }
 
   loadFromStorage() {
+    try {
+      const info = localStorage.getItem(this.importInfoKey);
+      this.importInfo = info ? JSON.parse(info) as TroveImportInfo : null;
+    } catch {
+      this.importInfo = null;
+    }
     const data = localStorage.getItem(this.storageKey);
     if (!data) return;
     try {

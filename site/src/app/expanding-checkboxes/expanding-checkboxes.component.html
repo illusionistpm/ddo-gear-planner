@@ -1,18 +1,28 @@
-<div>
-  <input type="checkbox" [indeterminate]="isTopLevelIndeterminate()"
-    [checked]="isTopLevelChecked()" (click)="toggleTopLevel()">
-
-    <ng-template #popContent>
+<!-- A group of types: a tick for all of them, and a row that opens in place to pick them one by one. -->
+<div class="type-group" [class.open]="open">
+  <div class="type-group-row">
+    <input type="checkbox" class="form-check-input type-group-check" [attr.aria-label]="'Show all ' + title"
+      [indeterminate]="isTopLevelIndeterminate()" [checked]="isTopLevelChecked()" (click)="toggleTopLevel()">
+    <button type="button" class="type-group-toggle" [attr.aria-expanded]="open" [attr.aria-controls]="id + '-list'"
+      (click)="open = !open">
+      <span class="type-group-name">{{title}}</span>
+      <span class="type-group-count" [attr.aria-label]="shownCount() + ' of ' + list.length + ' shown'">{{shownCount()}}/{{list.length}}</span>
+      <span class="fas fa-chevron-down type-group-chevron" aria-hidden="true"></span>
+    </button>
+  </div>
+  @if (open) {
+    <div class="type-group-list" [id]="id + '-list'" role="group" [attr.aria-label]="title">
+      <div class="type-group-bulk">
+        <button type="button" class="type-group-bulk-button" (click)="setAll(true)">All</button>
+        <button type="button" class="type-group-bulk-button" (click)="setAll(false)">None</button>
+      </div>
       @for (elem of list; track elem.name; let i = $index) {
-        <div class="form-check form-check-inline">
-          <input type="checkbox" class="form-check-input" id="chk-{{elem.name}}" [ngModel]="isChecked(i)"
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" [id]="id + '-' + i" [ngModel]="isChecked(i)"
             (ngModelChange)="toggle($event, i)">
-            <label class="form-check-label" for="chk-{{elem.name}}">{{elem.name}}</label>
-          </div>
-        }
-      </ng-template>
-      <a href="" onclick="return false;" [ngbPopover]="popContent" [autoClose]="'outside'" container="body"
-        popoverClass="filter-popover">
-        {{title}}
-      </a>
+          <label class="form-check-label" [for]="id + '-' + i">{{elem.name}}</label>
+        </div>
+      }
     </div>
+  }
+</div>

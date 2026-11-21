@@ -27,6 +27,7 @@ import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.
 import { SupportLinkComponent } from '../support-link/support-link.component';
 import { PageChromeBack } from '../page-chrome/page-chrome.component';
 import { CloseRequestRelease, CloseRequestService } from '../shared/close-request.service';
+import { FilterSheetService } from '../planner/filter-sheet.service';
 
 @Component({
     selector: 'app-main',
@@ -48,6 +49,8 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   onboardingActive = true;
   trackedAffixesHint = false;
   private readonly closeRequests = inject(CloseRequestService);
+  private readonly filterSheet = inject(FilterSheetService);
+  private filterSheetSubscription?: Subscription;
   private releaseFilterCloseRequest?: CloseRequestRelease;
   filterPeekSuppressed = false;
   /** The intro has just been finished: its closing "you're all set" message is up. */
@@ -269,6 +272,11 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
       this.closeFilters();
       this.refreshOnboardingState();
     });
+    this.filterSheetSubscription = this.filterSheet.openRequests$.subscribe(() => {
+      // From a drawer whose list the filters cut short: the sheet takes its place.
+      this.suggestionDrawer.close();
+      this.openFilters();
+    });
     this.shoppingListSubscription = this.shoppingListView.isOpen$.subscribe(open => {
       this.shoppingListOpen = open;
       if (open) {
@@ -325,6 +333,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     this.cancelFilterRelease();
     this.filters.applyHeldChanges();
     this.chromeObserver?.disconnect();
+    this.filterSheetSubscription?.unsubscribe();
     this.filterSubscription?.unsubscribe();
     this.onboardingSubscription?.unsubscribe();
     this.signedInSubscription?.unsubscribe();
@@ -808,6 +817,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
       // readAsText always yields a string.
       const text = reader.result as string;
       const counts = this.userGear.importFromTroveCsv(text, this.getValidItemNames(), this.getTroveCraftingOptionNames());
+      this.userGear.recordImport(file.name, counts);
       this.analytics.track('import_trove_csv', {
         imported_item_count_bucket: this.getImportCountBucket(counts.items),
         imported_augment_count_bucket: this.getImportCountBucket(counts.augments)

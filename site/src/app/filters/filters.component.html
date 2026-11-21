@@ -1,7 +1,27 @@
+<!--
+  A section's heading: on a phone a button that folds the section away, since
+  the sheet is one long column there; elsewhere every section shows.
+-->
+<ng-template #panelTitle let-key let-title="title">
+  @if (narrow) {
+    <h4 class="filter-panel-title">
+      <button type="button" class="filter-panel-toggle" [attr.aria-expanded]="isPanelOpen(key)"
+        [attr.aria-controls]="'filterPanel-' + key" (click)="togglePanel(key)">
+        <span>{{title}}</span>
+        <span class="fas fa-chevron-down filter-panel-chevron" aria-hidden="true"></span>
+      </button>
+    </h4>
+  } @else {
+    <h4 class="filter-panel-title">{{title}}</h4>
+  }
+</ng-template>
+
 <div class="filters-shell">
   <div class="filters-grid">
-    <section class="filter-panel">
-      <h4 class="filter-panel-title">Content</h4>
+    <section class="filter-panel" [class.folded]="!isPanelOpen('content')">
+      <ng-container *ngTemplateOutlet="panelTitle; context: { $implicit: 'content', title: 'Content' }"></ng-container>
+      @if (isPanelOpen('content')) {
+      <div id="filterPanel-content">
       <div class="level-range-control">
         <label for="minLevel">Level range</label>
         <div class="level-inputs">
@@ -35,36 +55,67 @@
             [attr.aria-pressed]="packMode === 'owned'" (click)="setPackMode('owned')">Only packs I own</button>
         </div>
       </div>
+      </div>
+      }
     </section>
 
-    <app-filter-item-type></app-filter-item-type>
+    <section class="filter-panel" [class.folded]="!isPanelOpen('types')">
+      <ng-container *ngTemplateOutlet="panelTitle; context: { $implicit: 'types', title: 'Allowed Item Types' }"></ng-container>
+      @if (isPanelOpen('types')) {
+        <app-filter-item-type id="filterPanel-types"></app-filter-item-type>
+      }
+    </section>
 
-    <section class="filter-panel">
-      <h4 class="filter-panel-title">Owned Gear</h4>
-      <p class="owned-gear-help">
-        <a href='https://dungeonhelper.com/'>Dungeon Helper</a>'s Trove plugin can extract your owned gear from the game and export it to a CSV file. 
-        Uploading that file here will label the gear that you already own.
-        After exporting, the file typically lives at
-        <code>C:\Users\USERNAME\AppData\Roaming\Dungeon Helper\plugins\Trove\SERVER\</code>.
-        Your item data is private and never leaves your computer.
-      </p>
-      <label for="trove-upload" class="btn btn-success btn-sm w-100 mb-2">Load TroveExport.csv</label>
+    <section class="filter-panel" [class.folded]="!isPanelOpen('owned')">
+      <ng-container *ngTemplateOutlet="panelTitle; context: { $implicit: 'owned', title: 'Owned Gear' }"></ng-container>
+      @if (isPanelOpen('owned')) {
+      <div id="filterPanel-owned">
+      <!-- The file goes in by the button or by dropping it here. -->
+      <div class="owned-gear-drop" [class.dragging]="troveDragging"
+        (dragover)="onTroveDragOver($event)" (dragleave)="troveDragging = false" (drop)="onTroveDrop($event)">
+        <label for="trove-upload" class="btn btn-success btn-sm w-100">Load TroveExport.csv</label>
+        <span class="owned-gear-drop-hint" aria-hidden="true">or drop it here</span>
+      </div>
       <input id="trove-upload" type="file" accept=".csv" style="display:none" (change)="onTroveFileSelected($event)">
+      @if (troveUploadStatus) {
+        <p class="owned-gear-error" role="alert">{{troveUploadStatus}}</p>
+      }
       @if (userGearCount) {
         <div class="owned-gear-status">
-          <span>{{userGearCount}} item{{userGearCount === 1 ? '' : 's'}} loaded</span>
+          <span>
+            @if (importInfo; as info) {
+              {{info.items}} item{{info.items === 1 ? '' : 's'}} and {{info.augments}} augment{{info.augments === 1 ? '' : 's'}}
+              <span class="owned-gear-source">from {{info.fileName}}, loaded {{loadedAgo(info.loadedAt)}}</span>
+            } @else {
+              {{userGearCount}} item{{userGearCount === 1 ? '' : 's'}} loaded
+            }
+          </span>
           <button type="button" class="btn btn-sm btn-outline-danger" (click)="onClearUserGear()">Clear</button>
         </div>
       }
+      <details class="owned-gear-howto">
+        <summary>How do I get this file?</summary>
+        <p class="owned-gear-help">
+          <a href='https://dungeonhelper.com/' target="_blank" rel="noreferrer">Dungeon Helper</a>'s Trove plugin reads the gear
+          your characters own from the game and exports it to a CSV file. Loading that file here labels the gear you already own.
+          After exporting, the file is usually in
+          <code>C:\Users\USERNAME\AppData\Roaming\Dungeon Helper\plugins\Trove\SERVER\</code>.
+        </p>
+      </details>
+      <p class="owned-gear-help owned-gear-private">Your item data stays on this computer: it is never uploaded.</p>
       <div class="form-check form-switch">
         <input type="checkbox" class="form-check-input" id="sortOwnedToTop" [(ngModel)]="sortOwnedToTop" (change)="onSortOwnedToTopChanged()">
         <label class="form-check-label" for="sortOwnedToTop">Sort owned items to top</label>
       </div>
+      </div>
+      }
     </section>
 
     <!-- Off by default, and nothing on the gear or in the build goals mentions these systems until one is on. -->
-    <section class="filter-panel bonus-systems-panel">
-      <h4 class="filter-panel-title">Advanced bonuses</h4>
+    <section class="filter-panel bonus-systems-panel" [class.folded]="!isPanelOpen('bonuses')">
+      <ng-container *ngTemplateOutlet="panelTitle; context: { $implicit: 'bonuses', title: 'Advanced bonuses' }"></ng-container>
+      @if (isPanelOpen('bonuses')) {
+      <div id="filterPanel-bonuses">
       <p class="owned-gear-help">
         The following bonuses are hard to reliably acquire and are hidden by default. Toggle them on for high-end planning.
       </p>
@@ -75,6 +126,8 @@
             (change)="onToggleBonusSystem(system.kind, $any($event.target).checked)">
           <label class="form-check-label" for="bonusSystem-{{system.kind}}">{{system.name}}</label>
         </div>
+      }
+      </div>
       }
     </section>
   </div>
@@ -92,7 +145,13 @@
         </div>
       </div>
 
-      @if (questingCoupons.length || expansionCoupons.length) {
+      <div class="pack-search">
+        <i class="fas fa-search pack-search-icon" aria-hidden="true"></i>
+        <input type="search" class="form-control form-control-sm" placeholder="Find a pack" aria-label="Find a pack"
+          [(ngModel)]="packQuery">
+      </div>
+
+      @if (!packQuery.trim() && (questingCoupons.length || expansionCoupons.length)) {
         <div class="pack-coupons">
           @if (questingCoupons.length) {
             <div class="pack-coupon">
@@ -126,16 +185,18 @@
       }
 
       @for (group of packGroups; track group.id) {
+        @let shownPacks = visiblePacks(group);
+        @if (shownPacks.length) {
         <div class="pack-group" role="group" [attr.aria-labelledby]="'pack-group-' + group.id + '-label'">
           <div class="form-check pack-group-title">
             <input type="checkbox" class="form-check-input" id="pack-group-{{group.id}}"
-              [checked]="areAllChecked(group.options)"
-              [indeterminate]="areSomeChecked(group.options) && !areAllChecked(group.options)"
-              (change)="togglePacks(group.options, 'group')">
+              [checked]="areAllChecked(shownPacks)"
+              [indeterminate]="areSomeChecked(shownPacks) && !areAllChecked(shownPacks)"
+              (change)="togglePacks(shownPacks, 'group')">
             <label class="form-check-label" for="pack-group-{{group.id}}" id="pack-group-{{group.id}}-label">{{group.title}}</label>
           </div>
           <div class="pack-filter-grid">
-            @for (pack of group.options; track pack.name) {
+            @for (pack of shownPacks; track pack.name) {
               <div class="form-check pack-filter-option">
                 <input type="checkbox" class="form-check-input" id="pack-{{group.id}}-{{$index}}"
                   [(ngModel)]="pack.value" (change)="onChangePackOption()">
@@ -149,6 +210,10 @@
             }
           </div>
         </div>
+        }
+      }
+      @if (packQuery.trim() && !anyPackMatches()) {
+        <p class="owned-gear-help">No pack matches "{{packQuery.trim()}}".</p>
       }
     </section>
   }

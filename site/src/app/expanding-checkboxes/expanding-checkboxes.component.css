@@ -1,0 +1,97 @@
+.type-group-row {
+  align-items: center;
+  display: flex;
+  gap: var(--space-8);
+}
+
+.type-group-check {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+/* The rest of the row: the name, how many of its types are shown, and a chevron. */
+.type-group-toggle {
+  align-items: center;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--text-primary);
+  display: flex;
+  flex: 1 1 auto;
+  gap: var(--space-8);
+  min-width: 0;
+  padding: var(--space-2) var(--space-4);
+  text-align: left;
+}
+
+.type-group-toggle:hover,
+.type-group-toggle:focus-visible {
+  background: var(--surface-subtle-color);
+  border-color: var(--border-color);
+}
+
+.type-group-name {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.type-group-count {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.type-group-chevron {
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+  transition: transform 0.15s ease-out;
+}
+
+.type-group.open .type-group-chevron {
+  transform: rotate(180deg);
+}
+
+/* Its types, indented under the row; columns when there is room. */
+.type-group-list {
+  column-gap: var(--space-16);
+  column-width: 9rem;
+  margin: var(--space-4) 0 var(--space-8) 1.6rem;
+}
+
+.type-group-list .form-check {
+  break-inside: avoid;
+  margin-bottom: var(--space-2);
+}
+
+.type-group-bulk {
+  column-span: all;
+  display: flex;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.type-group-bulk-button {
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0 var(--space-8);
+}
+
+.type-group-bulk-button:hover,
+.type-group-bulk-button:focus-visible {
+  border-color: var(--primary-color);
+  color: var(--text-primary);
+}
+
+@media (pointer: coarse) {
+  .type-group-toggle {
+    min-height: 2.75rem;
+  }
+
+  .type-group-bulk-button {
+    min-height: 2rem;
+  }
+}

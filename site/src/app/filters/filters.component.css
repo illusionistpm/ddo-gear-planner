@@ -218,3 +218,115 @@
     margin-left: 0;
   }
 }
+
+/* A section's heading on a phone: the whole row folds the section away. */
+.filter-panel-toggle {
+  align-items: center;
+  background: none;
+  border: 0;
+  color: inherit;
+  display: flex;
+  font: inherit;
+  justify-content: space-between;
+  min-height: 2.75rem;
+  padding: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.filter-panel-chevron {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  transition: transform 0.15s ease-out;
+}
+
+.filter-panel-toggle[aria-expanded="false"] .filter-panel-chevron {
+  transform: rotate(-90deg);
+}
+
+/* Folded, a section is its heading alone. */
+.filter-panel.folded {
+  padding-bottom: var(--space-4);
+  padding-top: var(--space-4);
+}
+
+.filter-panel.folded .filter-panel-title {
+  margin-bottom: 0;
+}
+
+/* The load button, which a dropped file also reaches. */
+.owned-gear-drop {
+  border: 1px dashed transparent;
+  border-radius: var(--border-radius);
+  margin-bottom: var(--space-8);
+  padding: var(--space-2);
+  text-align: center;
+}
+
+.owned-gear-drop.dragging {
+  background: rgba(var(--primary-color-rgb), 0.08);
+  border-color: var(--primary-color);
+}
+
+.owned-gear-drop-hint {
+  color: var(--text-secondary);
+  display: block;
+  font-size: 0.75rem;
+  margin-top: var(--space-2);
+}
+
+/* No dragging on a touch screen: the hint would promise something it can't do. */
+@media (pointer: coarse) {
+  .owned-gear-drop-hint {
+    display: none;
+  }
+}
+
+.owned-gear-error {
+  color: var(--danger-color);
+  font-size: 0.8rem;
+  margin: 0 0 var(--space-8);
+}
+
+.owned-gear-source {
+  color: var(--text-secondary);
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 400;
+  overflow-wrap: anywhere;
+}
+
+.owned-gear-howto {
+  margin-bottom: var(--space-8);
+}
+
+.owned-gear-howto summary {
+  color: var(--link-color);
+  cursor: pointer;
+  font-size: 0.8rem;
+  margin-bottom: var(--space-4);
+}
+
+.owned-gear-private {
+  margin-bottom: var(--space-8);
+}
+
+.pack-search {
+  margin-bottom: var(--space-12);
+  max-width: 20rem;
+  position: relative;
+}
+
+.pack-search-icon {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  left: var(--space-8);
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.pack-search input {
+  padding-left: 1.6rem;
+}

@@ -11,6 +11,7 @@ import { Item } from '../gear/item';
 import { perfCount } from '../shared/perf-trace';
 import { externalAffixAsAffix, ExternalAffixEntry } from './external-affix';
 import { getCountAffixUnit } from './count-affix';
+import { AffixDescriptionService } from './affix-description.service';
 
 /** How a crafting option ranks against the build, as a list of options shows it. */
 export interface CraftingOptionRanking {
@@ -60,7 +61,8 @@ export class AffixUiService {
   constructor(
     private equipped: EquippedService,
     private affixSvc: AffixService,
-    private gearDb: GearDbService
+    private gearDb: GearDbService,
+    private descriptions: AffixDescriptionService
   ) {}
 
   getAffixValue(affix: Affix): string {
@@ -301,11 +303,19 @@ export class AffixUiService {
       .join(', ');
   }
 
-  getAffixGroupTooltip(affix: Affix): string {
-    perfCount('AffixUiService.getAffixGroupTooltip');
-    if (!affix || !this.affixSvc.isAffixGroup(affix)) return '';
-    const groupAffixes = this.affixSvc.ungroupAffix(affix);
-    return groupAffixes.length ? affix.name + ' is:\n' + groupAffixes.map(groupAffix => '- ' + this.getAffixDescription(groupAffix)).join('\n') : '';
+  /**
+   * What the eye beside an affix shows: what it does, in DDO Wiki's words, then - for a compound
+   * affix - the planner affixes it counts toward, which only the planner can say. A compound whose
+   * wiki text only restated its parts keeps the plain "X is:" list. '' when there's neither.
+   */
+  getAffixDetailsTooltip(affix: Affix): string {
+    perfCount('AffixUiService.getAffixDetailsTooltip');
+    if (!affix) return '';
+    const description = this.descriptions.describe(affix);
+    const groupAffixes = this.affixSvc.isAffixGroup(affix) ? this.affixSvc.ungroupAffix(affix) : [];
+    if (!groupAffixes.length) return description;
+    const parts = groupAffixes.map(groupAffix => '- ' + this.getAffixDescription(groupAffix)).join('\n');
+    return description ? `${description}\n\nCounts toward:\n${parts}` : `${affix.name} is:\n${parts}`;
   }
 
   getCraftingOptionTooltip(option: CraftableOption): string {

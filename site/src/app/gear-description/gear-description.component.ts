@@ -4,6 +4,7 @@ import { EquippedService } from '../planner/equipped.service';
 import { EssenceCraftingService } from '../gear/essence-crafting.service';
 import { AffixService } from '../affixes/affix.service';
 import { AffixUiService, CraftingOptionContext } from '../affixes/affix-ui.service';
+import { AffixDescriptionService } from '../affixes/affix-description.service';
 import { Affix } from '../affixes/affix';
 import { Craftable } from '../gear/craftable';
 import { CraftableOption } from '../gear/craftable-option';
@@ -27,8 +28,8 @@ interface AffixDisplayRow {
   className: string;
   tooltip: string;
   important: boolean;
-  affixGroup: boolean;
-  groupTooltip: string;
+  /** What the affix does and, for a compound, what it counts toward; '' hides the eye. */
+  detailsTooltip: string;
   valueText: string;
 }
 
@@ -83,6 +84,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
   setRows: SetDisplayRow[] = [];
   @ViewChildren(CraftingSlotControlComponent) private craftingControls?: QueryList<CraftingSlotControlComponent>;
   private subscriptions = new Subscription();
+  private destroyed = false;
   private bonusOptionLists = new WeakMap<readonly CraftableOption[], CraftableOption[]>();
 
   constructor(
@@ -95,7 +97,8 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     private changeDetector: ChangeDetectorRef,
     private suggestionDrawer: SuggestionDrawerService,
     private itemBonuses: ItemBonusService,
-    private itemBonusSettings: ItemBonusSettingsService
+    private itemBonusSettings: ItemBonusSettingsService,
+    private affixDescriptions: AffixDescriptionService
   ) {}
 
   ngOnChanges(changes: SimpleChanges) {
@@ -126,6 +129,14 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
       this.refreshDisplayRows();
       this.changeDetector.markForCheck();
     }));
+    // The rows are built before the descriptions' lazy chunk may have arrived; their eyes come with it.
+    if (!this.affixDescriptions.loaded) {
+      this.affixDescriptions.load().then(() => {
+        if (this.destroyed) return;
+        this.affixRows = this.buildAffixRows();
+        this.changeDetector.markForCheck();
+      });
+    }
     // A system switched on or off adds or removes its row. skip(1): the current set is already in the rows.
     this.subscriptions.add(this.itemBonusSettings.getEnabledKinds().pipe(skip(1)).subscribe(() => {
       this.bonusRows = this.buildBonusRows();
@@ -134,6 +145,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy() {
+    this.destroyed = true;
     this.subscriptions.unsubscribe();
   }
 
@@ -168,14 +180,12 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     // Ranked as if this item were equipped in its slot - which, for the equipped item, it is.
     const candidate = this.affixUi.candidateFor(this.curItem);
     const rows = this.curItem.affixes.map(affix => {
-      const affixGroup = this.affixSvc.isAffixGroup(affix);
       return {
         affix,
         className: this.affixUi.getClassForAffix(affix, undefined, candidate),
         tooltip: this.affixUi.getAffixTooltip(affix, undefined, this.curItem?.slot, candidate),
         important: this.equipped.isImportantAffix(affix.name),
-        affixGroup,
-        groupTooltip: affixGroup ? this.affixUi.getAffixGroupTooltip(affix) : '',
+        detailsTooltip: this.affixUi.getAffixDetailsTooltip(affix),
         valueText: affix.hasRealType() ? this.affixUi.getAffixValueText(affix) : ''
       };
     });

@@ -1582,3 +1582,11 @@ select.form-control {
 .crafting-slot-row > app-tap-tooltip > .tap-tooltip-bubble {
   order: 1;
 }
+
+/* A typeahead result's description line (typeahead.component.css) sits inside
+   ng-bootstrap's .dropdown-item, outside that component's style scope; on the
+   highlighted result's accent background, the muted grey would be unreadable. */
+.dropdown-item.active .typeahead-result-detail {
+  color: inherit;
+  opacity: 0.85;
+}

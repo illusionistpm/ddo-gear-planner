@@ -5,6 +5,7 @@ import { EquippedService } from '../planner/equipped.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { AffixService } from '../affixes/affix.service';
 import { buildAffixTypeaheadEntries } from '../affixes/affix-typeahead';
+import { AffixDescriptionService } from '../affixes/affix-description.service';
 import { AnalyticsService } from '../shared/analytics.service';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
 import { AffixPackagesService } from '../affixes/affix-packages.service';
@@ -61,7 +62,8 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
     private affixPackages: AffixPackagesService,
     private editor: AffixEditorService,
     private cdr: ChangeDetectorRef,
-    private host: ElementRef<HTMLElement>
+    private host: ElementRef<HTMLElement>,
+    private affixDescriptions: AffixDescriptionService
   ) {
     this.savedSet = new Set<string>();
 
@@ -77,6 +79,8 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    // Search results describe themselves; fetched now so they can by the time anyone types.
+    void this.affixDescriptions.load();
     this.importantAffixesSubscription = this.equipped.getImportantAffixesObservable()
       .subscribe(affixes => this.syncFromImportantAffixes(affixes));
     this.onboardingActive = this.onboarding.shouldShowOnboarding();
@@ -284,6 +288,10 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
     this.updateConditionalSections();
     this.refreshOnboardingHints();
   }
+
+  /** What a search result does, under its name, so a search tells apart affixes the player hasn't met. */
+  readonly describeResult = (result: TypeaheadResult) =>
+    this.affixDescriptions.describe({ name: 'original' in result ? result.original : result.name });
 
   onChange() {
     return (affix: TypeaheadResult) => {

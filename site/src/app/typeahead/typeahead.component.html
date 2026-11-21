@@ -2,7 +2,7 @@
     (selectItem)="onSelectItemMine($event)" 
     [ngbTypeahead]="search" 
     [inputFormatter]="formatter" 
-    [resultFormatter]="resultFormatter || formatter"
+    [resultTemplate]="resultView"
     [editable]='false'
     [value]="itemName ? itemName : ''"
     placement='auto'
@@ -10,3 +10,10 @@
     placeholder="{{placeholder}}"
     [appAutofocus]="autofocus"
     />
+<!-- ngb-typeahead's own result markup, plus, with a resultDetail, a line under the name. -->
+<ng-template #resultView let-result="result" let-term="term">
+  <ngb-highlight [result]="formatResult(result)" [term]="term"></ngb-highlight>
+  @if (resultDetail?.(result); as detail) {
+    <div class="typeahead-result-detail">{{detail}}</div>
+  }
+</ng-template>

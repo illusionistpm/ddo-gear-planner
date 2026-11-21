@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, ChangeDetectorRe
 import { Subscription } from 'rxjs';
 
 import { AffixService } from '../affixes/affix.service';
+import { AffixDescriptionService } from '../affixes/affix-description.service';
 import { AffixUiService } from '../affixes/affix-ui.service';
 import { buildAffixTypeaheadEntries } from '../affixes/affix-typeahead';
 import { isCountAffix } from '../affixes/count-affix';
@@ -46,12 +47,15 @@ export class ExternalAffixSlotCardComponent implements OnInit, OnDestroy {
     private affixUi: AffixUiService,
     private gearDB: GearDbService,
     affixSvc: AffixService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private affixDescriptions: AffixDescriptionService
   ) {
     this.affixSource = buildAffixTypeaheadEntries(gearDB.getAllAffixes().filter(name => !isCountAffix(name)), affixSvc);
   }
 
   ngOnInit() {
+    // Read in the template, from a signal: the rows' eyes appear when the text arrives.
+    void this.affixDescriptions.load();
     this.subscription = this.equipped.getExternalAffixesObservable().subscribe(entries => {
       // Display only - the stored order (and so the build URL) is untouched.
       this.entries = [...entries].sort(compareForDisplay);
@@ -82,9 +86,9 @@ export class ExternalAffixSlotCardComponent implements OnInit, OnDestroy {
     return this.affixUi.getAffixTooltip(externalAffixAsAffix(entry), undefined, NON_GEAR_SLOT);
   }
 
-  /** What an affix-group entry is made of; empty for any other affix. */
-  getGroupTooltip(entry: ExternalAffixEntry): string {
-    return this.affixUi.getAffixGroupTooltip(externalAffixAsAffix(entry));
+  /** What the entry's affix does and, for a compound, what it counts toward; '' hides the eye. */
+  getDetailsTooltip(entry: ExternalAffixEntry): string {
+    return this.affixUi.getAffixDetailsTooltip(externalAffixAsAffix(entry));
   }
 
   remove(id: string) {

@@ -7,6 +7,7 @@ import { Craftable } from '../gear/craftable';
 import { CraftableOption } from '../gear/craftable-option';
 import { Item } from '../gear/item';
 import { Affix } from '../affixes/affix';
+import { AffixDescriptionService } from '../affixes/affix-description.service';
 import { EquippedService } from '../planner/equipped.service';
 import { FiltersService } from '../planner/filters.service';
 import { TapTooltipComponent, TapTooltipPanelComponent } from '../tap-tooltip/tap-tooltip.component';
@@ -141,6 +142,36 @@ describe('GearDescriptionComponent', () => {
     fixture.componentRef.setInput('item', new Item(helm));
     fixture.detectChanges();
     expect(label()).toBe('Legendary Delight of the Devourer');
+  });
+
+  describe('affix details', () => {
+    function showAffixes(affixes: Affix[]) {
+      const item = new Item(null);
+      item.name = 'Test Gloves';
+      item.slot = 'Gloves';
+      item.ml = 20;
+      item.affixes = affixes;
+      fixture.componentRef.setInput('item', item);
+      fixture.detectChanges();
+    }
+
+    function affixRow(name: string): HTMLElement {
+      return Array.from(fixture.nativeElement.querySelectorAll('.row') as NodeListOf<HTMLElement>)
+        .find(row => row.textContent?.trim().startsWith(name))!;
+    }
+
+    it('gives an affix the wiki describes an eye showing what it does, and leaves the rest without one', () => {
+      TestBed.inject(AffixDescriptionService).use({ Deadly: { '*': '+{v} {type} bonus to weapon damage.' } });
+      showAffixes([
+        new Affix({ name: 'Deadly', type: 'Competence', value: 7 }),
+        new Affix({ name: 'Strength', type: 'Enhancement', value: 7 }),
+      ]);
+
+      const trigger = affixRow('Deadly').querySelector('.tap-tooltip-trigger') as HTMLButtonElement;
+      expect(trigger.title).toBe('+7 Competence bonus to weapon damage.');
+      expect(trigger.getAttribute('aria-label')).toBe('Show affix details');
+      expect(affixRow('Strength').querySelector('.tap-tooltip-trigger')).toBeNull();
+    });
   });
 
   describe('crafting options with minimum levels', () => {

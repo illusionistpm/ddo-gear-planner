@@ -2,7 +2,7 @@
     (selectItem)="onSelectItemMine($event)" 
     [ngbTypeahead]="search" 
     [inputFormatter]="formatter" 
-    [resultFormatter]="resultFormatter || formatter"
+    [resultTemplate]="resultView"
     [editable]='false'
     [value]="itemName ? itemName : ''"
     placement='auto'
@@ -13,3 +13,10 @@
     />
 <!-- ngb-typeahead shows nothing for no results: without this, a typo looks like a search that never ran. -->
 <div class="typeahead-empty" role="status">@if (noMatches) {No matches}</div>
+<!-- ngb-typeahead's own result markup, plus, with a resultDetail, a line under the name. -->
+<ng-template #resultView let-result="result" let-term="term">
+  <ngb-highlight [result]="formatResult(result)" [term]="term"></ngb-highlight>
+  @if (resultDetail?.(result); as detail) {
+    <div class="typeahead-result-detail">{{detail}}</div>
+  }
+</ng-template>

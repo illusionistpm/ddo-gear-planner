@@ -2,10 +2,32 @@ import { Affix } from './affix';
 import { AffixRank } from './affix-rank.enum';
 import { AffixService } from './affix.service';
 import { AffixUiService } from './affix-ui.service';
+import { AffixDescriptionService } from './affix-description.service';
 import { CraftableOption } from '../gear/craftable-option';
 import { Item } from '../gear/item';
 
 describe('AffixUiService', () => {
+  it('puts the wiki text first and lists a compound affix\'s parts after it', () => {
+    const affixSvc = new AffixService();
+    affixSvc.affixGroups.set('Paired Riposte', ['Armor Class']);
+    const descriptions = new AffixDescriptionService();
+    descriptions.use({ 'Paired Riposte': { '*': 'When Missed by an attack: Deals damage to your attacker.' } });
+    const service = new AffixUiService({} as any, affixSvc, {} as any, descriptions);
+
+    expect(service.getAffixDetailsTooltip(new Affix({ name: 'Paired Riposte', type: 'Insight', value: 2 })))
+      .toBe('When Missed by an attack: Deals damage to your attacker.\n\nCounts toward:\n- Armor Class: +2 Insight');
+  });
+
+  it('shows an ordinary affix\'s wiki text alone, and nothing for an affix without any', () => {
+    const descriptions = new AffixDescriptionService();
+    descriptions.use({ Deadly: { '*': '+{v} {type} bonus to weapon damage.' } });
+    const service = new AffixUiService({} as any, new AffixService(), {} as any, descriptions);
+
+    expect(service.getAffixDetailsTooltip(new Affix({ name: 'Deadly', type: 'Competence', value: 6 })))
+      .toBe('+6 Competence bonus to weapon damage.');
+    expect(service.getAffixDetailsTooltip(new Affix({ name: 'Strength', type: 'Enhancement', value: 6 }))).toBe('');
+  });
+
   it('describes fixed affix group components', () => {
     const affixSvc = new AffixService();
     affixSvc.affixGroups.set('Songblade', ['Perform']);
@@ -13,9 +35,9 @@ describe('AffixUiService', () => {
       new Affix({ name: 'Perform', type: 'Enhancement', value: 2 })
     ]);
 
-    const service = new AffixUiService({} as any, affixSvc, {} as any);
+    const service = new AffixUiService({} as any, affixSvc, {} as any, new AffixDescriptionService());
 
-    expect(service.getAffixGroupTooltip(new Affix({ name: 'Songblade', type: 'Bool', value: 1 })))
+    expect(service.getAffixDetailsTooltip(new Affix({ name: 'Songblade', type: 'Bool', value: 1 })))
       .toBe('Songblade is:\n- Perform: +2 Enhancement');
   });
 
@@ -27,9 +49,9 @@ describe('AffixUiService', () => {
       { name: 'Deathblock', type: 'Bool', value: 1 }
     ]);
 
-    const service = new AffixUiService({} as any, affixSvc, {} as any);
+    const service = new AffixUiService({} as any, affixSvc, {} as any, new AffixDescriptionService());
 
-    expect(service.getAffixGroupTooltip(new Affix({ name: 'Lifesealed', type: 'Enhancement', value: 28 })))
+    expect(service.getAffixDetailsTooltip(new Affix({ name: 'Lifesealed', type: 'Enhancement', value: 28 })))
       .toBe('Lifesealed is:\n- Negative Energy Absorption: +28 Enhancement\n- Deathblock');
   });
 
@@ -37,14 +59,14 @@ describe('AffixUiService', () => {
     const affixSvc = new AffixService();
     affixSvc.affixGroups.set('Purifying Flame Lore', ['Fire Lore', 'Radiance Lore']);
 
-    const service = new AffixUiService({} as any, affixSvc, {} as any);
+    const service = new AffixUiService({} as any, affixSvc, {} as any, new AffixDescriptionService());
 
-    expect(service.getAffixGroupTooltip(new Affix({ name: 'Purifying Flame Lore', type: 'Enhancement', value: 21 })))
+    expect(service.getAffixDetailsTooltip(new Affix({ name: 'Purifying Flame Lore', type: 'Enhancement', value: 21 })))
       .toBe('Purifying Flame Lore is:\n- Fire Lore: +21 Enhancement\n- Radiance Lore: +21 Enhancement');
   });
 
   it('shows filigree slots as a count, without the Untyped bonus type', () => {
-    const service = new AffixUiService({} as any, new AffixService(), {} as any);
+    const service = new AffixUiService({} as any, new AffixService(), {} as any, new AffixDescriptionService());
     const filigree = new Affix({ name: 'Max Filigree Slots', type: 'Untyped', value: '3' });
 
     expect(service.getAffixValueText(filigree)).toBe('3 slots');
@@ -57,7 +79,7 @@ describe('AffixUiService', () => {
   });
 
   it('describes crafting option affixes', () => {
-    const service = new AffixUiService({} as any, new AffixService(), {} as any);
+    const service = new AffixUiService({} as any, new AffixService(), {} as any, new AffixDescriptionService());
     const option = { name: 'Flamehorn', affixes: [new Affix({ name: 'Legendary Ash', type: 'Bool', value: 1 })] } as any;
 
     expect(service.getCraftingOptionTooltip(option))
@@ -67,7 +89,7 @@ describe('AffixUiService', () => {
   it('expands crafting option affix groups', () => {
     const affixSvc = new AffixService();
     affixSvc.affixGroups.set('All Skills', ['Balance', 'Spot']);
-    const service = new AffixUiService({} as any, affixSvc, {} as any);
+    const service = new AffixUiService({} as any, affixSvc, {} as any, new AffixDescriptionService());
     const option = {
       name: 'Skill Gem',
       affixes: [new Affix({ name: 'All Skills', type: 'Competence', value: 5 })]
@@ -83,7 +105,7 @@ describe('AffixUiService', () => {
         ? AffixRank.Best
         : AffixRank.Irrelevant
     };
-    const service = new AffixUiService(equipped as any, new AffixService(), {} as any);
+    const service = new AffixUiService(equipped as any, new AffixService(), {} as any, new AffixDescriptionService());
     const option = {
       affixes: [
         new Affix({ name: 'Evil Aligned', type: 'Bool', value: 1 }),
@@ -100,7 +122,7 @@ describe('AffixUiService', () => {
         ? AffixRank.Best
         : AffixRank.Irrelevant
     };
-    const service = new AffixUiService(equipped as any, new AffixService(), {} as any);
+    const service = new AffixUiService(equipped as any, new AffixService(), {} as any, new AffixDescriptionService());
     const universalLore = new Affix({ name: 'Universal Spell Lore', type: 'Exceptional', value: 5 });
 
     expect(service.getClassForAffix(universalLore)).toBe(AffixRank[AffixRank.Best]);
@@ -142,7 +164,7 @@ describe('AffixUiService', () => {
         getAffixRanking: (affix: Affix) => ranks[affix.name] ?? AffixRank.Irrelevant,
         getSourcesForAffixType: (name: string) => sources[name] ?? [],
       };
-      return new AffixUiService(equipped as any, new AffixService(), {} as any);
+      return new AffixUiService(equipped as any, new AffixService(), {} as any, new AffixDescriptionService());
     }
 
     it('rank as their most useful part, marked partial, when another part is outranked', () => {
@@ -207,7 +229,7 @@ describe('AffixUiService', () => {
   });
 
   describe('describeExternalAffix', () => {
-    const service = new AffixUiService({} as any, {} as any, {} as any);
+    const service = new AffixUiService({} as any, {} as any, {} as any, new AffixDescriptionService());
     const entry = (overrides: object) => ({
       id: '1', affixName: 'Strength', bonusType: 'Insight', kind: 'value' as const, value: 3, label: 'Spell', ...overrides
     });
@@ -247,7 +269,7 @@ describe('AffixUiService', () => {
         getSetBonusThresholdDetails: (set: string) => set === 'Quickblade' ? [{ threshold: 3, eligible: false, affixes: quickblade }] : [],
         getSetBonusThresholds: (set: string) => set === 'Quickblade' ? [3] : [],
       };
-      return new AffixUiService(equipped as any, new AffixService(), gearDb as any);
+      return new AffixUiService(equipped as any, new AffixService(), gearDb as any, new AffixDescriptionService());
     }
     const setAugment = new CraftableOption({ name: 'Set Augment: Quickblade', set: 'Quickblade' });
 
@@ -298,7 +320,7 @@ describe('AffixUiService', () => {
     function makeService(piecesEquipped: number) {
       const equipped = { getActiveSets: () => new Map([['Quickblade', piecesEquipped]]) };
       const gearDb = { getSetBonusThresholds: () => [3] };
-      return new AffixUiService(equipped as any, new AffixService(), gearDb as any);
+      return new AffixUiService(equipped as any, new AffixService(), gearDb as any, new AffixDescriptionService());
     }
     const setAugment = new CraftableOption({ name: 'Set Augment: Quickblade', set: 'Quickblade' });
 
@@ -317,7 +339,7 @@ describe('AffixUiService', () => {
   });
 
   describe('an item as a candidate for its slot', () => {
-    const service = new AffixUiService({} as any, new AffixService(), {} as any);
+    const service = new AffixUiService({} as any, new AffixService(), {} as any, new AffixDescriptionService());
     const curse = new CraftableOption({ name: 'Curse of Major Strength', affixes: [{ name: 'Strength', type: 'Fortune', value: 2 }] });
     const mythic = new CraftableOption({ name: 'Mythic +3: PRR/MRR', affixes: [{ name: 'Physical Sheltering', type: 'Mythic', value: 3 }] });
     const names = (affixes: Affix[]) => affixes.map(affix => `${affix.name} ${affix.type} ${affix.value}`);

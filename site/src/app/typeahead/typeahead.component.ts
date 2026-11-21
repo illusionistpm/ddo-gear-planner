@@ -27,6 +27,8 @@ export class TypeaheadComponent {
   @Input() onChange!: (result: TypeaheadResult) => void;
   @Input() placeholder!: string;
   @Input() resultFormatter!: (result: TypeaheadResult) => string;
+  /** A second, muted line under a result; '' for none. */
+  @Input() resultDetail?: (result: TypeaheadResult) => string;
   @Input() inputClass!: string;
   @Input() searchType!: string;
   /** Set to 'body' when an ancestor clips overflow, so the results popup isn't cut off. */
@@ -41,6 +43,10 @@ export class TypeaheadComponent {
   noMatches = false;
 
   formatter = (x: { name: string }) => x.name;
+
+  formatResult(result: TypeaheadResult): string {
+    return (this.resultFormatter || this.formatter)(result);
+  }
 
   search = (text$: Observable<string>) =>
     text$.pipe(

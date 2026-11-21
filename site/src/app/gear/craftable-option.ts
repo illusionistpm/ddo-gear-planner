@@ -18,6 +18,11 @@ import { getPackKeys } from './pack-filter';
  * - Immunities became "Immunity to X": Blindness Immunity is Immunity to Blindness on the
  *   Essence Crafting option and Legendary Green Steel's T1 (Equipment) option. (Petrification
  *   and Web Immunity are only on named options and items, which don't travel this way.)
+ * - Affix names the parser misread off the wiki got their real names (the values stayed):
+ *   Legendary Green Steel's inherent resistances ("Inherent Fire Resistance - 25") are Fire
+ *   Resistance, its Undying options' autoheal is Positive Autoheal, Fell Shiv's and Magistrate's
+ *   Scepter's "Natural Bane VI" is the Bool proc Natural Bane (it was a Natural-typed "Bane"),
+ *   and Master's Riposte's Solar option lost a wiki template error read as a second affix.
  *
  * A rescale whose old value depends on the item's ML can't be a single entry here: the
  * option carries its own (see legacyParamDescriptions, and EssenceCraftingService for the
@@ -31,6 +36,21 @@ const LEGACY_PARAM_DESCRIPTIONS: Readonly<Record<string, string>> = {
     'Underwater Action1': 'Water Breathing1',
     'Blindness Immunity1': 'Immunity to Blindness1',
     'Blindness Immunity1|Proof Against Disease4': 'Immunity to Blindness1|Proof Against Disease4',
+    'Inherent Acid Resistance -17': 'Acid Resistance17',
+    'Inherent Acid Resistance -25': 'Acid Resistance25',
+    'Inherent Cold Resistance -17': 'Cold Resistance17',
+    'Inherent Cold Resistance -25': 'Cold Resistance25',
+    'Inherent Electric Resistance -17': 'Electric Resistance17',
+    'Inherent Electric Resistance -25': 'Electric Resistance25',
+    'Inherent Fire Resistance -17': 'Fire Resistance17',
+    'Inherent Fire Resistance -25': 'Fire Resistance25',
+    'Undying32|. Only the highest value of each Autoheal type applies4': 'Undying32|Positive Autoheal4',
+    'Undying64|. Only the highest value of each Autoheal type applies8': 'Undying64|Positive Autoheal8',
+    'Undying128|. Only the highest value of each Autoheal type applies16': 'Undying128|Positive Autoheal16',
+    'Bane5': 'Natural Bane1',
+    'Bane6': 'Natural Bane1',
+    'Bane8': 'Natural Bane1',
+    'Solar1|Maximum number of loops have been performedMaximum number of loops have been performed0d41': 'Solar1',
 };
 
 export class CraftableOption {

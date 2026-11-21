@@ -5,7 +5,7 @@ The wiki lists them as one enchantments list with "Upgradeable - Tier N"
 markers. Everything up to the second marker is the item as it drops. Each
 later marker's entries are what that upgrade changes:
 
-- "A → B": B replaces A
+- "A → B" (or "A becomes B"): B replaces A
 - "Adds X": X is new, often an augment slot
 - anything else: added as it is
 
@@ -22,6 +22,8 @@ UPGRADE_TIER_SYSTEM = 'Upgrade Tier'
 
 TIER_MARKER_PATTERN = re.compile(r'^Upgradeable - Tier (\d+)$')
 ARROW = '→'
+# Some upgrades are written out: "Potency +36 becomes Potency +44".
+BECOMES = ' becomes '
 ADDS = 'Adds'
 
 
@@ -98,9 +100,11 @@ def _entry_after(marker_string: NavigableString, marker: str) -> Tag:
 
 def get_upgrade_entry(li: Tag) -> Tag:
     """The part of an upgrade entry that is the effect the item gains."""
-    arrow = li.find(string=lambda text: ARROW in text)
-    if arrow is not None:
-        return _entry_after(arrow, ARROW)
+    for marker in (ARROW, BECOMES):
+        # Only the entry's own text: a tooltip can say "becomes" in passing.
+        found = li.find(string=lambda text: marker in text and not text.find_parent('span', class_='tooltip'))
+        if found is not None:
+            return _entry_after(found, marker)
 
     first = next((child for child in li.children if not isinstance(child, NavigableString) or child.strip()), None)
     if isinstance(first, NavigableString) and first.strip().split(' ', 1)[0] == ADDS:

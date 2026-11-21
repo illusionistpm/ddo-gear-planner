@@ -1306,9 +1306,9 @@
                 "value": "4"
             },
             {
-                "name": "Diversion 20% (Insight)",
-                "type": "Bool",
-                "value": 1
+                "name": "Diversion",
+                "type": "Insight",
+                "value": "20"
             }
         ],
         "ml": 24,
@@ -1518,8 +1518,9 @@
     {
         "affixes": [
             {
-                "name": "Required Class: Paladin (UMD",
-                "value": "0"
+                "name": "Required Class: Paladin",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Healing Lore",
@@ -4693,6 +4694,7 @@
             },
             {
                 "name": "Ice Guard",
+                "type": "Untyped",
                 "value": "2"
             }
         ],
@@ -5683,9 +5685,9 @@
                 "value": 1
             },
             {
-                "name": "Vitality +20 (only from chain end reward)",
-                "type": "Bool",
-                "value": 1
+                "name": "False Life",
+                "type": "Vitality",
+                "value": "20"
             }
         ],
         "ml": 12,
@@ -18629,7 +18631,7 @@
             {
                 "name": "Arcane Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "2"
             }
         ],
         "crafting": [
@@ -21360,7 +21362,7 @@
             {
                 "name": "Divine Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "2"
             }
         ],
         "artifact": true,
@@ -29118,8 +29120,9 @@
     {
         "affixes": [
             {
-                "name": "Required Trait: Lawful (UMD",
-                "value": "20"
+                "name": "Required Trait: Lawful",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Heroism",
@@ -31424,6 +31427,7 @@
             },
             {
                 "name": "Corroding",
+                "type": "Untyped",
                 "value": "7"
             },
             {
@@ -31962,7 +31966,7 @@
                 "value": 1
             },
             {
-                "name": "Invisibility (Protection",
+                "name": "Armor Class",
                 "type": "Deflection",
                 "value": "2"
             },
@@ -35031,11 +35035,6 @@
                 "name": "Seeker",
                 "type": "Enhancement",
                 "value": "2"
-            },
-            {
-                "name": "\ud83d\uddc4\u2009This is working as intended\u2009\ud83d\uddc4",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "ml": 18,
@@ -35884,7 +35883,8 @@
         "affixes": [
             {
                 "name": "Lesser Divine Augmentation",
-                "value": "9"
+                "type": "Untyped",
+                "value": "1"
             },
             {
                 "name": "Wizardry",
@@ -39122,7 +39122,7 @@
             {
                 "name": "Arcane Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "2"
             },
             {
                 "name": "Spell Focus Mastery",
@@ -41991,9 +41991,9 @@
                 "value": 1
             },
             {
-                "name": ". It deals an extra 7d67 to 42 of damage against the foes",
-                "type": "Enhancement",
-                "value": "8"
+                "name": "Thunderbane",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Forged Lightning",
@@ -62257,8 +62257,9 @@
                 "value": 1
             },
             {
-                "name": "Glacial Mint Bon Bon (Cone of Cold, CL",
-                "value": "10"
+                "name": "Glacial Mint Bon Bon (Cone of Cold, CL 10)",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "ml": 1,
@@ -62847,8 +62848,9 @@
     {
         "affixes": [
             {
-                "name": "Required Trait: Chaotic (UMD",
-                "value": "0"
+                "name": "Required Trait: Chaotic",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Enhancement Bonus (Armor)",
@@ -63111,8 +63113,9 @@
     {
         "affixes": [
             {
-                "name": "Required Class: Paladin (UMD",
-                "value": "16"
+                "name": "Required Class: Paladin",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Healing Lore",
@@ -73773,7 +73776,8 @@
                 "value": "17"
             },
             {
-                "name": "Improved Deception +17 (Bug: Provides +5 to bluff, not",
+                "name": "Improved Deception",
+                "type": "Enhancement",
                 "value": "17"
             },
             {
@@ -74301,7 +74305,7 @@
             {
                 "name": "Improved Fire Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "3"
             },
             {
                 "name": "Fortification",
@@ -79448,7 +79452,7 @@
     {
         "affixes": [
             {
-                "name": "Major Mnemonic Aid (CL:15, 3/day)",
+                "name": "Major Mnemonic Aid",
                 "type": "Bool",
                 "value": 1
             }
@@ -80066,7 +80070,7 @@
             {
                 "name": "Lesser Arcane Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "1"
             },
             {
                 "name": "False Life",
@@ -84016,7 +84020,7 @@
             {
                 "name": "Arcane Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "2"
             },
             {
                 "name": "Efficient Metamagic - Maximize",
@@ -90639,6 +90643,7 @@
             },
             {
                 "name": "Illusory Death",
+                "type": "Untyped",
                 "value": "3"
             },
             {
@@ -93490,7 +93495,7 @@
     {
         "affixes": [
             {
-                "name": "Good Luck - Reflex",
+                "name": "Reflex Save",
                 "type": "Luck",
                 "value": "1"
             },
@@ -94595,7 +94600,7 @@
             {
                 "name": "Arcane Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "2"
             },
             {
                 "name": "Spell Focus Mastery",
@@ -101136,6 +101141,7 @@
             },
             {
                 "name": "Ice Guard",
+                "type": "Untyped",
                 "value": "2"
             }
         ],
@@ -102328,7 +102334,7 @@
             {
                 "name": "Arcane Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "2"
             },
             {
                 "name": "Spellcraft",
@@ -103677,7 +103683,7 @@
             {
                 "name": "Divine Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "2"
             },
             {
                 "name": "Spell Focus Mastery",
@@ -112066,6 +112072,7 @@
             },
             {
                 "name": "Lightning Guard",
+                "type": "Untyped",
                 "value": "7"
             }
         ],
@@ -112765,6 +112772,7 @@
             },
             {
                 "name": "Illusory Death",
+                "type": "Untyped",
                 "value": "1"
             },
             {
@@ -118311,11 +118319,12 @@
             {
                 "name": "Lesser Arcane Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "1"
             },
             {
                 "name": "Lesser Divine Augmentation",
-                "value": "9"
+                "type": "Untyped",
+                "value": "1"
             },
             {
                 "name": "Alchemical Conservation",
@@ -119757,7 +119766,8 @@
             },
             {
                 "name": "Lesser Evocation Augmentation",
-                "value": "9"
+                "type": "Untyped",
+                "value": "1"
             },
             {
                 "name": "Trace of Madness",
@@ -119788,7 +119798,8 @@
             },
             {
                 "name": "Lesser Evocation Augmentation",
-                "value": "9"
+                "type": "Untyped",
+                "value": "1"
             },
             {
                 "name": "Trace of Madness",
@@ -120548,9 +120559,9 @@
                 "value": "2"
             },
             {
-                "name": "Diversion 20% (Insight)",
-                "type": "Bool",
-                "value": 1
+                "name": "Diversion",
+                "type": "Insight",
+                "value": "20"
             }
         ],
         "ml": 16,
@@ -121487,9 +121498,9 @@
                 "value": "5"
             },
             {
-                "name": "Magnetism +66 (only from chest)",
-                "type": "Bool",
-                "value": 1
+                "name": "Electric Spell Power",
+                "type": "Equipment",
+                "value": "66"
             },
             {
                 "name": "Spell Absorption clicky",
@@ -121574,9 +121585,9 @@
                 "value": "10"
             },
             {
-                "name": "Magnetism +108 (only from chest)",
-                "type": "Bool",
-                "value": 1
+                "name": "Electric Spell Power",
+                "type": "Equipment",
+                "value": "108"
             },
             {
                 "name": "Spell Absorption clicky",
@@ -137868,6 +137879,7 @@
             },
             {
                 "name": "Corroding",
+                "type": "Untyped",
                 "value": "16"
             },
             {
@@ -139630,7 +139642,7 @@
             {
                 "name": "Divine Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "2"
             },
             {
                 "name": "Wizardry",
@@ -140662,7 +140674,7 @@
             {
                 "name": "Arcane Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "2"
             },
             {
                 "name": "Spell Focus Mastery",
@@ -152272,8 +152284,9 @@
     {
         "affixes": [
             {
-                "name": "Required Trait: Chaotic (UMD",
-                "value": "0"
+                "name": "Required Trait: Chaotic",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Enhancement Bonus (Armor)",
@@ -155707,7 +155720,7 @@
             {
                 "name": "Arcane Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "2"
             },
             {
                 "name": "Spell Focus Mastery",
@@ -164537,6 +164550,7 @@
             },
             {
                 "name": "Illusory Death",
+                "type": "Untyped",
                 "value": "3"
             },
             {
@@ -166296,7 +166310,7 @@
             {
                 "name": "Improved Fire Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "3"
             },
             {
                 "name": "Fortification",
@@ -167100,12 +167114,12 @@
             {
                 "name": "Arcane Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "2"
             },
             {
                 "name": "Divine Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "2"
             },
             {
                 "name": "Alchemical Conservation",
@@ -176070,6 +176084,7 @@
             },
             {
                 "name": "Corroding",
+                "type": "Untyped",
                 "value": "16"
             },
             {
@@ -182492,7 +182507,7 @@
     {
         "affixes": [
             {
-                "name": "Major Mnemonic Aid (CL:15, 5/day)",
+                "name": "Major Mnemonic Aid",
                 "type": "Bool",
                 "value": 1
             }
@@ -192964,7 +192979,7 @@
             {
                 "name": "Arcane Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "2"
             },
             {
                 "name": "Efficient Metamagic - Maximize",
@@ -193199,7 +193214,7 @@
             {
                 "name": "Arcane Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "2"
             }
         ],
         "crafting": [
@@ -197599,7 +197614,8 @@
             },
             {
                 "name": "Improved Cold Augmentation",
-                "value": "9"
+                "type": "Untyped",
+                "value": "3"
             },
             {
                 "name": "Deathblock",
@@ -206238,6 +206254,7 @@
         "affixes": [
             {
                 "name": "Extra Lay on Hands",
+                "type": "Untyped",
                 "value": "3"
             },
             {
@@ -206445,6 +206462,7 @@
             },
             {
                 "name": "Litany of the Dead - Ability Bonus",
+                "type": "Untyped",
                 "value": "1"
             },
             {
@@ -216644,9 +216662,9 @@
                 "value": "3"
             },
             {
-                "name": "Diversion 20% (Insight)",
-                "type": "Bool",
-                "value": 1
+                "name": "Diversion",
+                "type": "Insight",
+                "value": "20"
             }
         ],
         "ml": 20,
@@ -221420,6 +221438,7 @@
             },
             {
                 "name": "Corroding",
+                "type": "Untyped",
                 "value": "7"
             },
             {
@@ -223039,9 +223058,9 @@
     {
         "affixes": [
             {
-                "name": "Diversion 20% (Insight)",
-                "type": "Bool",
-                "value": 1
+                "name": "Diversion",
+                "type": "Insight",
+                "value": "20"
             },
             {
                 "name": "Arcane Casting Dexterity",
@@ -223071,9 +223090,9 @@
     {
         "affixes": [
             {
-                "name": "Diversion 20% (Insight)",
-                "type": "Bool",
-                "value": 1
+                "name": "Diversion",
+                "type": "Insight",
+                "value": "20"
             },
             {
                 "name": "Arcane Casting Dexterity",
@@ -223103,9 +223122,9 @@
     {
         "affixes": [
             {
-                "name": "Diversion 20% (Insight)",
-                "type": "Bool",
-                "value": 1
+                "name": "Diversion",
+                "type": "Insight",
+                "value": "20"
             },
             {
                 "name": "Arcane Casting Dexterity",
@@ -223135,9 +223154,9 @@
     {
         "affixes": [
             {
-                "name": "Diversion 20% (Insight)",
-                "type": "Bool",
-                "value": 1
+                "name": "Diversion",
+                "type": "Insight",
+                "value": "20"
             },
             {
                 "name": "Arcane Casting Dexterity",
@@ -223172,9 +223191,9 @@
     {
         "affixes": [
             {
-                "name": "Diversion 20% (Insight)",
-                "type": "Bool",
-                "value": 1
+                "name": "Diversion",
+                "type": "Insight",
+                "value": "20"
             },
             {
                 "name": "Arcane Casting Dexterity",
@@ -223209,9 +223228,9 @@
     {
         "affixes": [
             {
-                "name": "Diversion 20% (Insight)",
-                "type": "Bool",
-                "value": 1
+                "name": "Diversion",
+                "type": "Insight",
+                "value": "20"
             },
             {
                 "name": "Arcane Casting Dexterity",
@@ -227492,9 +227511,9 @@
                 "value": "4"
             },
             {
-                "name": "Resistance +2 (Reflex)",
-                "type": "Bool",
-                "value": 1
+                "name": "Reflex Save",
+                "type": "Exceptional",
+                "value": "2"
             },
             {
                 "name": "Fortification",
@@ -230234,6 +230253,7 @@
             },
             {
                 "name": "Enchanting Death",
+                "type": "Untyped",
                 "value": "3"
             },
             {
@@ -231676,7 +231696,7 @@
             {
                 "name": "Improved Fire Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "3"
             },
             {
                 "name": "Fortification",
@@ -238068,6 +238088,7 @@
             },
             {
                 "name": "Increases all threat generated by",
+                "type": "Untyped",
                 "value": "15"
             },
             {
@@ -239809,8 +239830,9 @@
     {
         "affixes": [
             {
-                "name": "Required Trait: Lawful (UMD",
-                "value": "20"
+                "name": "Required Trait: Lawful",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Speed",
@@ -242973,8 +242995,9 @@
     {
         "affixes": [
             {
-                "name": "Required Trait: Good (UMD",
-                "value": "0"
+                "name": "Required Trait: Good",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Raise Dead clicky",
@@ -243584,11 +243607,6 @@
                 "name": "Strength",
                 "type": "Exceptional",
                 "value": "1"
-            },
-            {
-                "name": "\ud83d\uddc4\u2009This is working as intended\u2009\ud83d\uddc4",
-                "type": "Bool",
-                "value": 1
             },
             {
                 "name": "Incredible Potential",
@@ -244666,7 +244684,7 @@
             {
                 "name": "Arcane Augmentation",
                 "type": "Untyped",
-                "value": "1"
+                "value": "2"
             },
             {
                 "name": "False Life",
@@ -245857,8 +245875,9 @@
                 "value": "7"
             },
             {
-                "name": "Class Required: Wizard, Sorcerer, Bard (UMD",
-                "value": "0"
+                "name": "Required Class: Wizard, Sorcerer, Bard",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Armor Class",
@@ -260031,8 +260050,9 @@
     {
         "affixes": [
             {
-                "name": "Required Trait: Chaotic (UMD",
-                "value": "20"
+                "name": "Required Trait: Chaotic",
+                "type": "Bool",
+                "value": 1
             },
             {
                 "name": "Shout clicky",
@@ -268520,7 +268540,7 @@
             {
                 "name": "Lesser Arcane Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "1"
             },
             {
                 "name": "Good Luck",
@@ -268817,7 +268837,7 @@
             {
                 "name": "Lesser Arcane Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "1"
             },
             {
                 "name": "Equipoised Focus",
@@ -268868,7 +268888,7 @@
             {
                 "name": "Lesser Arcane Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "1"
             },
             {
                 "name": "Necromancy Focus",
@@ -279249,9 +279269,9 @@
                 "value": 1
             },
             {
-                "name": "Doublestrike chance. In addition, on hit with this weapon, you deal an extra 15d615 to 90 Piercing Damage to Bosses and creatures who have been Paralyzed",
-                "type": "Enhancement",
-                "value": "18"
+                "name": "Yeenoghu's Butchery",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -279290,9 +279310,9 @@
                 "value": 1
             },
             {
-                "name": "Doublestrike chance. In addition, on hit with this weapon, you deal an extra 15d615 to 90 Piercing Damage to Bosses and creatures who have been Paralyzed",
-                "type": "Enhancement",
-                "value": "18"
+                "name": "Yeenoghu's Butchery",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -279331,9 +279351,9 @@
                 "value": 1
             },
             {
-                "name": "Doublestrike chance. In addition, on hit with this weapon, you deal an extra 15d615 to 90 Piercing Damage to Bosses and creatures who have been Paralyzed",
-                "type": "Enhancement",
-                "value": "18"
+                "name": "Yeenoghu's Butchery",
+                "type": "Bool",
+                "value": 1
             }
         ],
         "crafting": [
@@ -280929,7 +280949,7 @@
             {
                 "name": "Arcane Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "2"
             }
         ],
         "crafting": [
@@ -282484,6 +282504,7 @@
             },
             {
                 "name": "Sunburst",
+                "type": "Untyped",
                 "value": "45"
             },
             {
@@ -283194,6 +283215,7 @@
             },
             {
                 "name": "Sunburst",
+                "type": "Untyped",
                 "value": "117"
             },
             {
@@ -283418,6 +283440,7 @@
             },
             {
                 "name": "Illusory Death",
+                "type": "Untyped",
                 "value": "3"
             },
             {
@@ -283578,6 +283601,7 @@
             },
             {
                 "name": "Critical Bewildering",
+                "type": "Untyped",
                 "value": "3"
             },
             {
@@ -284044,6 +284068,7 @@
             },
             {
                 "name": "Illusory Death",
+                "type": "Untyped",
                 "value": "1"
             },
             {
@@ -293050,7 +293075,7 @@
             {
                 "name": "Arcane Augmentation",
                 "type": "Untyped",
-                "value": "9"
+                "value": "2"
             },
             {
                 "name": "Spell Lore",

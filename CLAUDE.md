@@ -82,6 +82,13 @@ and PR Checks fails when it isn't. So:
   copy of. Commit it unchanged, with the parser and its `data/`. A wiki edit
   that makes a parser raise also needs that route: the nightly can't commit
   the page that breaks it.
+- **"Universal" is its own stacking channel; an unqualified bonus isn't.**
+  `Universal Spell Power` / `Lore` / `Critical Damage` are companions that stack
+  with each element's bonus. A bare "+N Spell Power" (or "Spell Critical Damage")
+  is a bonus to *each* element, which the data calls `Potency` (and `Spell
+  Critical Damage`) - never map it to Universal. Likewise flat spell points
+  (`Wizardry`, filigree's "Maximum Spellpoints") add, while "+N% Maximum Spell
+  Points" is the multiplicative `Maximum Spell Points (%)`.
 - **Never hand-edit `wiki-snapshot/`.** Pages are normalized on download
   (`normalize_wiki_html.py`) to the heading, `#mw-content-text` and `#catlinks`,
   which strips the per-request noise; a parser that reads anything else

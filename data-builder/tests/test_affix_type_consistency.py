@@ -133,6 +133,12 @@ UNTYPED_WITH_TYPED = {
     # stacks with the items' Enhancement bonus to the same charges.
     'Greater Dragonmark Charges',
     'Rage Charges',
+    # Likewise "+N additional Turn Undead Charges after resting" (sets) alongside Turning's
+    # Enhancement bonus to Turn Undead attempts.
+    'Turn Undead Charge',
+    # Extra Smites' "+N Smite Evil uses per rest" names no type, and stacks with the Emerald of
+    # Greater Smiting's "+3 Enhancement bonus to Smite Evil charges".
+    'Smite Evil Charges',
 }
 
 

@@ -30,6 +30,13 @@ def get_has_tooltip_spans(tag):
     return tag.find_all('span', class_='has_tooltip')
 
 
+def get_top_level_tooltip_spans(tag):
+    """The effects on a line: tooltip spans not nested inside another's tooltip. A tooltip can
+    carry its own, for damage dice ("deal an extra [15d6] Piercing Damage"), and those are part
+    of the effect around them, not effects of their own."""
+    return [span for span in get_has_tooltip_spans(tag) if not span.find_parent('span', class_='tooltip')]
+
+
 def get_text_map_from_tooltip_span(span):
     textMap = {}
     spanCopy = copy.copy(span)
@@ -55,7 +62,7 @@ def get_affix_map_list_from_multi_tooltip_tag(tag):
     # literally named "6d6", with nothing to say which proc or element it belonged to.
     return [
         convert_affix_text_map_to_affix_map(text_map)
-        for text_map in (get_text_map_from_tooltip_span(span) for span in get_has_tooltip_spans(tag))
+        for text_map in (get_text_map_from_tooltip_span(span) for span in get_top_level_tooltip_spans(tag))
         if not is_bare_dice_text(text_map.get('text'))
     ]
 
@@ -216,6 +223,8 @@ def apply_known_affix_type_defaults(affix):
         'Efficient Metamagic - Embolden',
         'Efficient Metamagic - Empower',
         'Efficient Metamagic - Empower Healing',
+        # Alchemist's Lore's spelling; the synonym table renames it after this
+        'Efficient Metamagic - Empower Heal',
         'Efficient Metamagic - Enlarge',
         'Efficient Metamagic - Extend',
         'Efficient Metamagic - Heighten',
@@ -408,6 +417,95 @@ def strip_bonus_types(name):
         return search.group(2)
 
     return name
+
+
+SAVE_NAMES = r'(Fortitude|Reflex|Will)'
+
+
+def parse_special_affix_text(text):
+    """Affix labels whose shape the general patterns misread. Returns the parts it can tell, or None."""
+    text = cleanup_whitespace(text or '')
+    bonus_type = get_parser_bonus_type_regex()
+
+    # "Diversion 20% (Insight)"
+    search = re.fullmatch(r"([A-Z][A-Za-z' ]+?) \+?(\d+)% \(" + bonus_type + r"\)", text)
+    if search:
+        return {'name': search.group(1), 'value': search.group(2), 'type': normalize_bonus_type(search.group(3))}
+
+    # "Exceptional Resistance +2 (Reflex)": a bonus to one save
+    search = re.fullmatch(r'(?:' + bonus_type + r' )?Resistance \+(\d+) \(' + SAVE_NAMES + r'\)', text)
+    if search:
+        return {'name': search.group(3) + ' Save', 'value': search.group(2),
+                'type': normalize_bonus_type(search.group(1)) if search.group(1) else 'Resistance'}
+
+    # "Good Luck - Reflex +1": Good Luck limited to one save
+    search = re.fullmatch(r'Good Luck - ' + SAVE_NAMES + r' \+(\d+)', text)
+    if search:
+        return {'name': search.group(1) + ' Save', 'value': search.group(2), 'type': 'Luck'}
+
+    # "Inherent Fire Resistance - 25": the tooltip gives the bonus type
+    search = re.fullmatch(r'Inherent ([A-Za-z]+ Resistance) - (\d+)', text)
+    if search:
+        return {'name': search.group(1), 'value': search.group(2)}
+
+    # "Insightful Positive Autoheal +8 every 10 seconds": unprefixed, the tooltip gives the bonus type
+    search = re.fullmatch(r'(?:' + bonus_type + r' )?([A-Za-z]+ Autoheal) \+(\d+)(?: every \d+(?: seconds)?)?', text)
+    if search:
+        autoheal = {'name': search.group(2), 'value': search.group(3)}
+        if search.group(1):
+            autoheal['type'] = normalize_bonus_type(search.group(1))
+        return autoheal
+
+    return None
+
+
+def has_balanced_parentheses(text):
+    return text.count('(') == text.count(')')
+
+
+# "Required Trait: Chaotic (UMD: 20)": who can use the item, and the Use Magic Device check to
+# get around it. A flag, not a bonus.
+USE_REQUIREMENT_PATTERN = re.compile(r'^(?:Required (Trait|Class)|(Class) Required): (.*?) \(UMD: ?\d+\)$')
+
+
+def parse_use_requirement(text):
+    search = USE_REQUIREMENT_PATTERN.match(cleanup_whitespace(text or ''))
+    if not search:
+        return None
+    return {'name': f'Required {search.group(1) or search.group(2)}: {search.group(3)}', 'type': 'Bool', 'value': 1}
+
+
+# "Arcane Augmentation IX: Increases the wearer's caster level when casting ninth level or lower
+# sorcerer or wizard spells by two." The numeral is the highest spell level it covers; the bonus
+# is the caster levels.
+AUGMENTATION_CASTER_LEVELS = re.compile(r"caster level when casting .*? by (one|two|three|four|five)\b")
+NUMBER_WORDS = {'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5}
+
+
+def apply_augmentation_caster_levels(affix, tooltip):
+    if not affix.get('name', '').endswith(' Augmentation'):
+        return affix
+    search = AUGMENTATION_CASTER_LEVELS.search(tooltip or '')
+    if search:
+        affix['value'] = str(NUMBER_WORDS[search.group(1)])
+        affix['type'] = 'Untyped'
+    return affix
+
+
+def strip_outside_commentary(text, label):
+    """The tooltip's label alone, when everything else on the line is commentary around it:
+    "Vitality +20 (only from chain end reward)", "Improved Deception +17 (Bug: ...)", or the
+    wrapper in "Invisibility (Protection +2)". A qualifier the parser reads, "(if Quarterstaff)",
+    stays."""
+    if not label or text == label:
+        return text
+    if text.startswith(label):
+        rest = text[len(label):].strip()
+        if re.fullmatch(r'\((?!if )[^()]*(?:\([^()]*\)[^()]*)*\)', rest):
+            return label
+    if re.fullmatch(r"[A-Za-z' ]+\(\s*" + re.escape(label) + r'\s*\)', text):
+        return label
+    return text
 
 
 def is_compound_affix_name(name):
@@ -808,12 +906,14 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
         aff['name'] = primary_tooltip_text
         return aff
 
-    if not tag.find('ul') and len(get_has_tooltip_spans(tag)) > 1:
+    if not tag.find('ul') and len(get_top_level_tooltip_spans(tag)) > 1:
         return get_affix_map_list_from_multi_tooltip_tag(tag)
 
     tooltipSpan = tag.find('span', {'class': 'tooltip'})
     source_tooltip = cleanup_whitespace(cleanup_unicode(tooltipSpan.getText())) if tooltipSpan else ''
+    labelSpan = tooltipSpan.find_parent('span', class_='has_tooltip') if tooltipSpan else None
     tooltip = tooltipSpan.extract() if tooltipSpan else None
+    label = cleanup_whitespace(cleanup_unicode(labelSpan.getText())) if labelSpan else None
     words = str(tooltip)
 
     # Ignore child lists, which are typically lists of possible attributes,
@@ -825,16 +925,25 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
     affixName = cleanup_unicode(affixName)
     affixName = cleanup_whitespace(affixName)
+    affixName = strip_outside_commentary(affixName, label)
     affixLabel = affixName
     sacred_turn_undead_affix = parse_sacred_turn_undead_bonus(affixName, source_tooltip)
     if sacred_turn_undead_affix:
         return add_affix_provenance(sacred_turn_undead_affix, source_text, source_tooltip, 'translate_list_tag_to_affix_map:sacred-turn-undead')
 
-    compound_affix = parse_compound_affix_text(affixName)
+    use_requirement = parse_use_requirement(affixName)
+    if use_requirement:
+        return add_affix_provenance(use_requirement, source_text, source_tooltip, 'translate_list_tag_to_affix_map:use-requirement')
+
+    special_affix = parse_special_affix_text(affixName)
+    if special_affix:
+        aff.update(special_affix)
+
+    compound_affix = parse_compound_affix_text(affixName) if not special_affix else None
     if compound_affix:
         aff.update(compound_affix)
 
-    prefixed_bonus_type_affix = parse_bonus_type_prefixed_affix_text(affixName)
+    prefixed_bonus_type_affix = parse_bonus_type_prefixed_affix_text(affixName) if not special_affix else None
     if prefixed_bonus_type_affix:
         aff.update(prefixed_bonus_type_affix)
 
@@ -895,6 +1004,10 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
 
     # ex: Doublestrike 16%
     affixNameSearch = re.search(r'^(.*?) (- )?\(?\+?(-?[0-9]+)\%?\)?$', affixName)
+    # A number inside an unclosed parenthesis belongs to it, not to the name
+    # ("Glacial Mint Bon Bon (Cone of Cold, CL 10)")
+    if affixNameSearch and not has_balanced_parentheses(affixNameSearch.group(1)):
+        affixNameSearch = None
     if ((affixNameSearch) and ('name' not in aff)):
         aff['name'] = affixNameSearch.group(1).strip()
         aff['value'] = affixNameSearch.group(3).strip()
@@ -1080,10 +1193,15 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
             aff['value'] = str(switch.get(resistanceGroup.group(2), 99997))
             aff['name'] = resistanceGroup.group(3) + ' Resistance'
 
+    aff = apply_augmentation_caster_levels(aff, source_tooltip)
+
     # if all the work is done and we still dont have a value defined, treat value as 1 and type as boolean
     if 'value' not in aff:
         aff['type'] = 'Bool'
         aff['value'] = 1
+    elif 'type' not in aff:
+        # A number with no bonus type named anywhere: Corroding 7, Ice Guard 2, Illusory Death 3
+        aff['type'] = 'Untyped'
 
     aff = rename_bool_variant(aff)
 
@@ -1248,7 +1366,11 @@ def convert_affix_text_map_to_affix_map(textMap):
     if immunity_affix:
         affixMap.update(immunity_affix)
 
-    compound_affix = parse_compound_affix_text(textMap["text"])
+    special_affix = parse_special_affix_text(textMap["text"]) if 'name' not in affixMap else None
+    if special_affix:
+        affixMap.update(special_affix)
+
+    compound_affix = parse_compound_affix_text(textMap["text"]) if 'name' not in affixMap else None
     if compound_affix:
         affixMap.update(compound_affix)
 
@@ -1302,6 +1424,8 @@ def convert_affix_text_map_to_affix_map(textMap):
     # detect if text is in format (affix bonus name) (missing bonus type) (affix bonus value [integer format])
     # ex: Accuracy +2
     affixTextSearch = re.search(r'^(.*?) \+?([0-9]+)%?$', textMap["text"])
+    if affixTextSearch and not has_balanced_parentheses(affixTextSearch.group(1)):
+        affixTextSearch = None
     if (('name' not in affixMap) and (affixTextSearch)):
         affixMap['name'] = affixTextSearch.group(1).strip()
         affixMap['value'] = affixTextSearch.group(2).strip()
@@ -1377,6 +1501,10 @@ def convert_affix_text_map_to_affix_map(textMap):
 
         # final pass where we try to calculate bonus name/type/value from tooltip
         affixTextSearch = re.search(r'^' + affixExceptionDetectionString + r'.*?\+?([0-9]+)%?.*?' + bonusTypeString + r'(?: [Bb]onus)?(?: to)?(?: your)?(.*?)\.?$', textMap["tooltip"])
+        # Only a name-like rest is the stat: a tooltip that goes on ("... to Doublestrike chance. In
+        # addition, ...") is an effect with more to it than one bonus, and stays under its label.
+        if affixTextSearch and not re.fullmatch(r"[A-Za-z][A-Za-z0-9' ,/&-]{0,60}", affixTextSearch.group(3).strip()):
+            affixTextSearch = None
         if (('name' not in affixMap) and (affixTextSearch)):
             affixMap['name'] = affixTextSearch.group(3).strip()
             affixMap['type'] = affixTextSearch.group(2).strip()
@@ -1452,7 +1580,7 @@ def get_affix_map_list_from_tag(tag):
     # if tag passed in is a unordered list (ul) tag, process each list item (li) tag as a unique affix
     if (tag.name == 'ul'):
         for li_tag in tag.find_all('li', recursive=False):
-            if len(get_has_tooltip_spans(li_tag)) > 1:
+            if len(get_top_level_tooltip_spans(li_tag)) > 1:
                 # a timed, stacking proc (ex: Crystallized Drop of Tea's "Once every three seconds when you take
                 # physical damage, you get Psionic Universal Spell Power +8 ... up to +24") is not a passive bonus,
                 # but each of its tooltips would otherwise parse as one

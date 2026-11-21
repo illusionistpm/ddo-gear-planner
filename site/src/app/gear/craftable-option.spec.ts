@@ -47,6 +47,20 @@ describe('CraftableOption', () => {
     expect(greenSteel.matchesParamDescription('Blindness Immunity1|Proof Against Disease4')).toBe(true);
   });
 
+  it.each([
+    ['Inherent Fire Resistance -25', [{ name: 'Fire Resistance', type: 'Insight', value: '25' }]],
+    ['Inherent Cold Resistance -17', [{ name: 'Cold Resistance', type: 'Competence', value: '17' }]],
+    ['Undying64|. Only the highest value of each Autoheal type applies8', [
+      { name: 'Undying', type: 'Enhancement', value: '64' },
+      { name: 'Positive Autoheal', type: 'Insight', value: '8' },
+    ]],
+    ['Bane6', [{ name: 'Natural Bane', type: 'Bool', value: 1 }]],
+  ])('still matches the misparsed description %s a saved build carries', (legacy, affixes) => {
+    const option = new CraftableOption({ affixes });
+
+    expect(option.matchesParamDescription(legacy)).toBe(true);
+  });
+
   it('carries the quests it comes from, sharing the data array', () => {
     const quests = ['One Dame Thing After Another'];
     const option = new CraftableOption({ name: 'Crystallized Unicorn Tear', quests });

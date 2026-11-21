@@ -26588,15 +26588,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Bane",
-                        "type": "Natural",
-                        "value": "6"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Dazing",
                         "type": "Enhancement",
                         "value": "11"
@@ -26634,6 +26625,7 @@
                 "affixes": [
                     {
                         "name": "Draining",
+                        "type": "Untyped",
                         "value": "6"
                     }
                 ]
@@ -26695,6 +26687,15 @@
             {
                 "affixes": [
                     {
+                        "name": "Natural Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Riposte",
                         "type": "Insight",
                         "value": "6"
@@ -26705,6 +26706,7 @@
                 "affixes": [
                     {
                         "name": "Stumbling",
+                        "type": "Untyped",
                         "value": "6"
                     }
                 ]
@@ -26723,15 +26725,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Bane",
-                        "type": "Natural",
-                        "value": "6"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Dazing",
                         "type": "Enhancement",
                         "value": "11"
@@ -26769,6 +26762,7 @@
                 "affixes": [
                     {
                         "name": "Draining",
+                        "type": "Untyped",
                         "value": "6"
                     }
                 ]
@@ -26830,6 +26824,15 @@
             {
                 "affixes": [
                     {
+                        "name": "Natural Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Riposte",
                         "type": "Insight",
                         "value": "6"
@@ -26840,6 +26843,7 @@
                 "affixes": [
                     {
                         "name": "Stumbling",
+                        "type": "Untyped",
                         "value": "6"
                     }
                 ]
@@ -26858,15 +26862,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Bane",
-                        "type": "Natural",
-                        "value": "6"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Dazing",
                         "type": "Enhancement",
                         "value": "11"
@@ -26904,6 +26899,7 @@
                 "affixes": [
                     {
                         "name": "Draining",
+                        "type": "Untyped",
                         "value": "6"
                     }
                 ]
@@ -26965,6 +26961,15 @@
             {
                 "affixes": [
                     {
+                        "name": "Natural Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Riposte",
                         "type": "Insight",
                         "value": "6"
@@ -26975,6 +26980,7 @@
                 "affixes": [
                     {
                         "name": "Stumbling",
+                        "type": "Untyped",
                         "value": "6"
                     }
                 ]
@@ -27269,15 +27275,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Bane",
-                        "type": "Natural",
-                        "value": "5"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Dazing",
                         "type": "Enhancement",
                         "value": "10"
@@ -27306,6 +27303,7 @@
                 "affixes": [
                     {
                         "name": "Draining",
+                        "type": "Untyped",
                         "value": "5"
                     }
                 ]
@@ -27349,6 +27347,15 @@
             {
                 "affixes": [
                     {
+                        "name": "Natural Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Ribcracker",
                         "type": "Bool",
                         "value": 1
@@ -27368,6 +27375,7 @@
                 "affixes": [
                     {
                         "name": "Stumbling",
+                        "type": "Untyped",
                         "value": "5"
                     }
                 ]
@@ -27386,15 +27394,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Bane",
-                        "type": "Natural",
-                        "value": "5"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Dazing",
                         "type": "Enhancement",
                         "value": "10"
@@ -27423,6 +27422,7 @@
                 "affixes": [
                     {
                         "name": "Draining",
+                        "type": "Untyped",
                         "value": "5"
                     }
                 ]
@@ -27466,6 +27466,15 @@
             {
                 "affixes": [
                     {
+                        "name": "Natural Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Ribcracker",
                         "type": "Bool",
                         "value": 1
@@ -27485,6 +27494,7 @@
                 "affixes": [
                     {
                         "name": "Stumbling",
+                        "type": "Untyped",
                         "value": "5"
                     }
                 ]
@@ -27503,15 +27513,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Bane",
-                        "type": "Natural",
-                        "value": "5"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Dazing",
                         "type": "Enhancement",
                         "value": "10"
@@ -27540,6 +27541,7 @@
                 "affixes": [
                     {
                         "name": "Draining",
+                        "type": "Untyped",
                         "value": "5"
                     }
                 ]
@@ -27583,6 +27585,15 @@
             {
                 "affixes": [
                     {
+                        "name": "Natural Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Ribcracker",
                         "type": "Bool",
                         "value": 1
@@ -27602,6 +27613,7 @@
                 "affixes": [
                     {
                         "name": "Stumbling",
+                        "type": "Untyped",
                         "value": "5"
                     }
                 ]
@@ -27620,15 +27632,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Bane",
-                        "type": "Natural",
-                        "value": "8"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Dazing",
                         "type": "Enhancement",
                         "value": "13"
@@ -27657,6 +27660,7 @@
                 "affixes": [
                     {
                         "name": "Draining",
+                        "type": "Untyped",
                         "value": "8"
                     }
                 ]
@@ -27709,6 +27713,15 @@
             {
                 "affixes": [
                     {
+                        "name": "Natural Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Ribcracker",
                         "type": "Bool",
                         "value": 1
@@ -27728,6 +27741,7 @@
                 "affixes": [
                     {
                         "name": "Stumbling",
+                        "type": "Untyped",
                         "value": "8"
                     }
                 ]
@@ -27746,15 +27760,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Bane",
-                        "type": "Natural",
-                        "value": "8"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Dazing",
                         "type": "Enhancement",
                         "value": "13"
@@ -27783,6 +27788,7 @@
                 "affixes": [
                     {
                         "name": "Draining",
+                        "type": "Untyped",
                         "value": "8"
                     }
                 ]
@@ -27835,6 +27841,15 @@
             {
                 "affixes": [
                     {
+                        "name": "Natural Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Ribcracker",
                         "type": "Bool",
                         "value": 1
@@ -27854,6 +27869,7 @@
                 "affixes": [
                     {
                         "name": "Stumbling",
+                        "type": "Untyped",
                         "value": "8"
                     }
                 ]
@@ -27872,15 +27888,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Bane",
-                        "type": "Natural",
-                        "value": "8"
-                    }
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Dazing",
                         "type": "Enhancement",
                         "value": "13"
@@ -27909,6 +27916,7 @@
                 "affixes": [
                     {
                         "name": "Draining",
+                        "type": "Untyped",
                         "value": "8"
                     }
                 ]
@@ -27961,6 +27969,15 @@
             {
                 "affixes": [
                     {
+                        "name": "Natural Bane",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Ribcracker",
                         "type": "Bool",
                         "value": 1
@@ -27980,6 +27997,7 @@
                 "affixes": [
                     {
                         "name": "Stumbling",
+                        "type": "Untyped",
                         "value": "8"
                     }
                 ]
@@ -37845,11 +37863,6 @@
                         "name": "Solar",
                         "type": "Bool",
                         "value": 1
-                    },
-                    {
-                        "name": "Maximum number of loops have been performedMaximum number of loops have been performed0d4",
-                        "type": "Bool",
-                        "value": 1
                     }
                 ]
             }
@@ -47557,7 +47570,7 @@
                         "value": "128"
                     },
                     {
-                        "name": ". Only the highest value of each Autoheal type applies",
+                        "name": "Positive Autoheal",
                         "type": "Enhancement",
                         "value": "16"
                     }
@@ -47991,6 +48004,42 @@
             {
                 "affixes": [
                     {
+                        "name": "Acid Resistance",
+                        "type": "Insight",
+                        "value": "25"
+                    }
+                ],
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Resistance",
+                        "type": "Insight",
+                        "value": "25"
+                    }
+                ],
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Resistance",
+                        "type": "Insight",
+                        "value": "25"
+                    }
+                ],
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Evil Guard",
                         "type": "Untyped",
                         "value": "14"
@@ -48078,6 +48127,18 @@
             {
                 "affixes": [
                     {
+                        "name": "Fire Resistance",
+                        "type": "Insight",
+                        "value": "25"
+                    }
+                ],
+                "quests": [
+                    "Legendary Altar of Subjugation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Fortitude Save",
                         "type": "Insight",
                         "value": "7"
@@ -48155,54 +48216,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Inherent Acid Resistance -",
-                        "type": "Insight",
-                        "value": "25"
-                    }
-                ],
-                "quests": [
-                    "Legendary Altar of Subjugation"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Inherent Cold Resistance -",
-                        "type": "Insight",
-                        "value": "25"
-                    }
-                ],
-                "quests": [
-                    "Legendary Altar of Subjugation"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Inherent Electric Resistance -",
-                        "type": "Insight",
-                        "value": "25"
-                    }
-                ],
-                "quests": [
-                    "Legendary Altar of Subjugation"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Inherent Fire Resistance -",
-                        "type": "Insight",
-                        "value": "25"
-                    }
-                ],
-                "quests": [
-                    "Legendary Altar of Subjugation"
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Lightning Guard",
                         "type": "Untyped",
                         "value": "14"
@@ -48244,8 +48257,8 @@
                         "value": "64"
                     },
                     {
-                        "name": ". Only the highest value of each Autoheal type applies",
-                        "type": "Enhancement",
+                        "name": "Positive Autoheal",
+                        "type": "Insight",
                         "value": "8"
                     }
                 ],
@@ -48678,6 +48691,30 @@
             {
                 "affixes": [
                     {
+                        "name": "Acid Resistance",
+                        "type": "Competence",
+                        "value": "17"
+                    }
+                ],
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Resistance",
+                        "type": "Competence",
+                        "value": "17"
+                    }
+                ],
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Deathblock",
                         "type": "Bool",
                         "value": 1
@@ -48686,6 +48723,18 @@
                         "name": "Negative Resistance",
                         "type": "Enhancement",
                         "value": "25"
+                    }
+                ],
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Resistance",
+                        "type": "Competence",
+                        "value": "17"
                     }
                 ],
                 "quests": [
@@ -48782,6 +48831,18 @@
             {
                 "affixes": [
                     {
+                        "name": "Fire Resistance",
+                        "type": "Competence",
+                        "value": "17"
+                    }
+                ],
+                "quests": [
+                    "Legendary Altar of Devastation"
+                ]
+            },
+            {
+                "affixes": [
+                    {
                         "name": "Fortitude Save",
                         "type": "Quality",
                         "value": "2"
@@ -48842,54 +48903,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Inherent Acid Resistance -",
-                        "type": "Competence",
-                        "value": "17"
-                    }
-                ],
-                "quests": [
-                    "Legendary Altar of Devastation"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Inherent Cold Resistance -",
-                        "type": "Competence",
-                        "value": "17"
-                    }
-                ],
-                "quests": [
-                    "Legendary Altar of Devastation"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Inherent Electric Resistance -",
-                        "type": "Competence",
-                        "value": "17"
-                    }
-                ],
-                "quests": [
-                    "Legendary Altar of Devastation"
-                ]
-            },
-            {
-                "affixes": [
-                    {
-                        "name": "Inherent Fire Resistance -",
-                        "type": "Competence",
-                        "value": "17"
-                    }
-                ],
-                "quests": [
-                    "Legendary Altar of Devastation"
-                ]
-            },
-            {
-                "affixes": [
-                    {
                         "name": "Lightning Guard",
                         "type": "Untyped",
                         "value": "15"
@@ -48931,8 +48944,8 @@
                         "value": "32"
                     },
                     {
-                        "name": ". Only the highest value of each Autoheal type applies",
-                        "type": "Enhancement",
+                        "name": "Positive Autoheal",
+                        "type": "Quality",
                         "value": "4"
                     }
                 ],
@@ -52498,7 +52511,7 @@
                     {
                         "name": "Parrying",
                         "type": "Insight",
-                        "value": "4"
+                        "value": "8"
                     }
                 ],
                 "name": "Tier 2"
@@ -52513,7 +52526,7 @@
                     {
                         "name": "Parrying",
                         "type": "Insight",
-                        "value": "4"
+                        "value": "8"
                     },
                     {
                         "name": "Dexterity",
@@ -53709,11 +53722,6 @@
                         "name": "Potency",
                         "type": "Equipment",
                         "value": "36"
-                    },
-                    {
-                        "name": "each Spell Power. becomes Potency +36Potency +36: Passive: +36 Equipment bonus to each Spell Power. \" has not been verified in-game. Please verify it!",
-                        "type": "Equipment",
-                        "value": "36"
                     }
                 ],
                 "name": "Tier 2"
@@ -53724,16 +53732,6 @@
                         "name": "Potency",
                         "type": "Equipment",
                         "value": "44"
-                    },
-                    {
-                        "name": "each Spell Power. becomes Potency +36Potency +36: Passive: +36 Equipment bonus to each Spell Power. \" has not been verified in-game. Please verify it!",
-                        "type": "Equipment",
-                        "value": "36"
-                    },
-                    {
-                        "name": "each Spell Power. becomes Potency +44Potency +44: Passive: +44 Equipment bonus to each Spell Power. \" has not been verified in-game. Please verify it!",
-                        "type": "Equipment",
-                        "value": "36"
                     }
                 ],
                 "name": "Tier 3"
@@ -53797,26 +53795,6 @@
             {
                 "affixes": [
                     {
-                        "name": "Fire Spell Power",
-                        "type": "Equipment",
-                        "value": "48"
-                    },
-                    {
-                        "name": "Cold Spell Power",
-                        "type": "Equipment",
-                        "value": "48"
-                    },
-                    {
-                        "name": "Electric Spell Power",
-                        "type": "Equipment",
-                        "value": "48"
-                    },
-                    {
-                        "name": "Acid Spell Power",
-                        "type": "Equipment",
-                        "value": "48"
-                    },
-                    {
                         "name": "Potency",
                         "type": "Equipment",
                         "value": "32"
@@ -53826,26 +53804,6 @@
             },
             {
                 "affixes": [
-                    {
-                        "name": "Fire Spell Power",
-                        "type": "Equipment",
-                        "value": "48"
-                    },
-                    {
-                        "name": "Cold Spell Power",
-                        "type": "Equipment",
-                        "value": "48"
-                    },
-                    {
-                        "name": "Electric Spell Power",
-                        "type": "Equipment",
-                        "value": "48"
-                    },
-                    {
-                        "name": "Acid Spell Power",
-                        "type": "Equipment",
-                        "value": "48"
-                    },
                     {
                         "name": "Potency",
                         "type": "Equipment",

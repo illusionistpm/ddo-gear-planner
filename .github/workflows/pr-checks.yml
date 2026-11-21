@@ -45,6 +45,9 @@ jobs:
             exit 1
           fi
 
+      - name: Test the link-preview edge function
+        run: npm run test:edge
+
       - name: Lint
         run: npm run lint
 

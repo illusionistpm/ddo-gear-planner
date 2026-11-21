@@ -6,6 +6,7 @@ non-obvious or have caused real bugs - the rest is discoverable from the code.
 ## Layout
 
 - `site/` — the Angular 22 planner app (projects `site` and `admin`).
+- `site/netlify/edge-functions/` — the link-preview Edge Function, run by Netlify on Deno. Netlify deploys every top-level file there as a function, so its tests live in `site/netlify/tests/` (`npm run test:edge`).
 - `worker/` — Cloudflare Worker API: saved builds, short links, auth, friends' live shopping lists (a Durable Object per build, `worker/src/live.ts`), and shopping lists of several builds (the site's `/list/:shortId`, called groups in the code and API: a Durable Object per group; `routes/groups.ts`).
 - `data-builder/` — Python scrapers that regenerate `data/*.json`.
 - `data/` — the generated game-data JSON. Build-time input only: the site imports it via the `@data/*` alias (`site/tsconfig.json`) and it is bundled into JS chunks, never served as raw files.

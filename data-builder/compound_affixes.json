@@ -1,4 +1,37 @@
 {
+  "Alignment Absorption": {
+    "components": [
+      {
+        "name": "Law Absorption",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Chaos Absorption",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Good Absorption",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Evil Absorption",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Absorption of alignment damage: the same bonus to Law, Chaos, Good and Evil absorption."
+  },
   "Alluring Skills Bonus": {
     "components": [
       {
@@ -152,6 +185,19 @@
       }
     ]
   },
+  "Chaosguard": {
+    "components": [
+      {
+        "name": "Armor Class",
+        "type": "Deflection",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Chaosguard: +2 Deflection bonus to AC and +2 Resistance bonus to saves from Chaotic enemies. As with Protection from Evil, only the AC is tracked: the saves only apply against chaotic attackers."
+  },
   "Charisma Skills": {
     "components": [
       {
@@ -198,6 +244,18 @@
       }
     ],
     "notes": "Grants permanent Exceptional bonus to multiple Charisma-based skills, treated as compound because it affects multiple distinct skill stats."
+  },
+  "Chitinous Covering": {
+    "components": [
+      {
+        "name": "Fire Absorption",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Chitinous Covering +N%: \"+N% Enhancement bonus to Fire absorption.\""
   },
   "Command": {
     "components": [
@@ -321,6 +379,19 @@
     ],
     "notes": "Dark Restoration Lore is spell critical hit chance for Negative, Poison and Positive (Healing Lore) spells, matching Power of the Dark Restoration."
   },
+  "Demonic Might": {
+    "components": [
+      {
+        "name": "Strength",
+        "type": "Profane",
+        "value": {
+          "amount": 2,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Demonic Might: a +2 Profane bonus to Strength."
+  },
   "Devil's Bones": {
     "components": [
       {
@@ -339,6 +410,43 @@
       }
     ],
     "notes": "Decomposed +23% Enhancement bonus to Fire and Evil Absorption into separate components as permanent stat bonuses."
+  },
+  "Dragonshard Focus: Sentinel": {
+    "components": [
+      {
+        "name": "Armor Class",
+        "type": "Insight",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Fortitude Save",
+        "type": "Insight",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Reflex Save",
+        "type": "Insight",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      },
+      {
+        "name": "Will Save",
+        "type": "Insight",
+        "value": {
+          "amount": 1,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "Its tooltip is Parrying I: +1 Insight bonus to Armor Class and to Fortitude, Reflex and Will saves."
   },
   "Dream Vision": {
     "components": [
@@ -365,6 +473,25 @@
       }
     ],
     "notes": "Passive Competence bonus to attack and damage rolls, and melee and ranged attacks bypass incorporeal miss chance as if they had Ghost Touch."
+  },
+  "Electricity and Acid Absorption": {
+    "components": [
+      {
+        "name": "Electric Absorption",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      },
+      {
+        "name": "Acid Absorption",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "The same bonus to Electric and Acid absorption, like Fire and Cold Absorption."
   },
   "Elemental Absorption": {
     "components": [
@@ -1134,6 +1261,30 @@
       }
     ],
     "notes": "Bonuses apply only for characters of True Neutral alignment but are permanent while the item is equipped."
+  },
+  "Hardened Exterior": {
+    "components": [
+      {
+        "name": "Armor Class",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Hardened Exterior N: \"You gain a +N profane bonus to AC.\""
+  },
+  "Heightened Awareness": {
+    "components": [
+      {
+        "name": "Armor Class",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Heightened Awareness N: \"You gain a +N Insight bonus to AC.\""
   },
   "Heroism": {
     "components": [
@@ -2776,6 +2927,18 @@
     ],
     "notes": "This blade bypasses the incorporeal miss chance of ethereal monsters innately."
   },
+  "Shining Silver Scales": {
+    "components": [
+      {
+        "name": "Cold Absorption",
+        "type": "<TypeAlreadyParsed>",
+        "value": {
+          "mode": "same_as_affix_number"
+        }
+      }
+    ],
+    "notes": "Shining Silver Scales +N%: \"+N% Enhancement bonus to Cold absorption.\""
+  },
   "Silver Flame Lore": {
     "components": [
       {
@@ -3341,5 +3504,18 @@
         }
       }
     ]
+  },
+  "Yeenoghu's Butchery": {
+    "components": [
+      {
+        "name": "Doublestrike",
+        "type": "Enhancement",
+        "value": {
+          "amount": 18,
+          "mode": "fixed"
+        }
+      }
+    ],
+    "notes": "+18% Enhancement bonus to Doublestrike chance; the extra damage to bosses and paralyzed creatures is conditional and not tracked."
   }
 }

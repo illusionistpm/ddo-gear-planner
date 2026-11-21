@@ -2,6 +2,7 @@ from typing import Any, Literal, cast
 
 from bs4 import BeautifulSoup
 import copy
+from provenance_io import strip_provenance
 import os
 import re
 import collections
@@ -537,8 +538,9 @@ def get_items_from_page(
                             continue
                         before = parse_cell(as_cell([left]))
                         after = parse_cell(as_cell([get_upgrade_entry(entry)]))
-                        if before == after:
-                            # A change the planner can't see ("Sonic Guard +2 -> +3", both Bool).
+                        # A change the planner can't see ("Sonic Guard +2 -> +3", both Bool) - which
+                        # the tooltips the build may attach (provenance_io) would otherwise tell apart.
+                        if strip_provenance(before) == strip_provenance(after):
                             continue
                         by = after[0] if len(after) == 1 else None
                         upgrade.replaced += [(affix, by) for affix in before]

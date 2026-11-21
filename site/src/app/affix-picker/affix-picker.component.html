@@ -149,7 +149,7 @@
       <div class="affix-search">
         <i class="fas fa-search affix-search-icon" aria-hidden="true"></i>
         <app-typeahead id="effect-search" type="text" placeholder="Search any affix"
-          [source]=allAffixes searchType="affix" [onChange]=onChange()>
+          [source]=allAffixes searchType="affix" [onChange]=onChange() [resultDetail]="describeResult">
         </app-typeahead>
       </div>
       <!-- The tracked list can be well below a tall editor: say here what a pick did. -->

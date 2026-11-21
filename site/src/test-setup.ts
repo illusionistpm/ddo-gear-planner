@@ -3,6 +3,7 @@
 
 import { TestBed } from '@angular/core/testing';
 import { GameDataService } from './app/gear/game-data.service';
+import { AffixDescriptionService } from './app/affixes/affix-description.service';
 import { RawCraftingData, RawEssenceCraftingData, RawFiligreeData, RawItem, RawItemBonusData, RawSetData } from './app/gear/game-data-types';
 import itemsList from '@data/items.json';
 import craftingListRaw from '@data/crafting.json';
@@ -30,6 +31,13 @@ const originalConfigureTestingModule = TestBed.configureTestingModule.bind(TestB
 TestBed.configureTestingModule = (moduleDef) => {
   const result = originalConfigureTestingModule(moduleDef);
   TestBed.overrideProvider(GameDataService, { useValue: fakeGameData });
+  // Loaded, with no text: a spec's affix rows look as they did before descriptions, and nothing
+  // waits on the lazy chunk. A spec about descriptions gives its own with use().
+  TestBed.overrideProvider(AffixDescriptionService, { useFactory: () => {
+    const descriptions = new AffixDescriptionService();
+    descriptions.use({});
+    return descriptions;
+  } });
   return result;
 };
 

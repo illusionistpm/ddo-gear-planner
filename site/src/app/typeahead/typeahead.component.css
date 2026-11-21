@@ -65,3 +65,18 @@ input.form-control {
   padding: var(--space-4) var(--space-12);
   white-space: nowrap;
 }
+
+/* The dropdown's items don't wrap (Bootstrap's .dropdown-item), so a long
+   description would widen the popup past the screen; two lines is enough to
+   tell affixes apart, and the full text is a tap away once it's tracked. */
+.typeahead-result-detail {
+  color: var(--text-secondary);
+  display: -webkit-box;
+  font-size: 0.8em;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  max-width: min(28rem, 80vw);
+  overflow: hidden;
+  white-space: normal;
+}

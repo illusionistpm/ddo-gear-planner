@@ -20,7 +20,8 @@ import { FiltersService } from '../planner/filters.service';
 import { BehaviorSubject } from 'rxjs';
 import { BuildUrlCodecService } from '../build/build-url-codec.service';
 import { QueryParamRecord } from '../build/query-param-types';
-import { BuildState, evaluate, fillCrafting, legacyObjective, meanFill, NeedIndex, needsMet } from './build-model';
+import { BuildState, evaluate, expertObjective, fillCrafting, legacyObjective, meanFill, NeedIndex, needsMet } from './build-model';
+import { applyExpertWeights, expertAffixes, expertWeights } from './expert-priorities';
 import { argmax, candidates, Ctx, Scorer, SCORERS } from './policies';
 import { Item } from '../gear/item';
 
@@ -36,13 +37,30 @@ const ENABLED = !!process.env['SUGGESTION_EVAL'];
 const LEVEL_RANGE: [number, number] = [28, 34];
 const SLOTS = ['Armor', 'Belt', 'Boots', 'Bracers', 'Cloak', 'Gloves', 'Goggles', 'Helm', 'Necklace', 'Ring1', 'Ring2', 'Trinket'];
 
-interface Profile { name: string; packages: string[]; spellpower?: string[]; extra?: string[] }
-const PROFILES: Profile[] = [
-  { name: 'Melee (Basic + Melee + Strength)', packages: ['Basic', 'Melee'], extra: ['Strength'] },
-  { name: 'Ranged (Basic + Ranged + Dexterity)', packages: ['Basic', 'Ranged'], extra: ['Dexterity'] },
+/**
+ * A tracked-affix profile: bundles plus extras, or (`expertOnly`) exactly the affixes an expert's
+ * list names. `expert` scores finished builds against that role's priorities as well.
+ */
+interface Profile {
+  name: string;
+  packages: string[];
+  spellpower?: string[];
+  extra?: string[];
+  expert?: string;
+  expertOnly?: boolean;
+}
+const ALL_PROFILES: Profile[] = [
+  { name: 'Melee (Basic + Melee + Strength)', packages: ['Basic', 'Melee'], extra: ['Strength'], expert: 'Melee' },
+  { name: 'Ranged (Basic + Ranged + Dexterity)', packages: ['Basic', 'Ranged'], extra: ['Dexterity'], expert: 'Ranged' },
   { name: 'Fire caster (Basic + Caster + Fire + Int + Evocation)', packages: ['Basic', 'Caster'], spellpower: ['Fire'], extra: ['Intelligence', 'Evocation Focus'] },
-  { name: 'Healer (Basic + Caster + Healing + Wis)', packages: ['Basic', 'Caster'], spellpower: ['Healing'], extra: ['Wisdom'] },
+  { name: 'Healer (Basic + Caster + Healing + Wis)', packages: ['Basic', 'Caster'], spellpower: ['Healing'], extra: ['Wisdom'], expert: 'Healer' },
+  { name: 'Lominal melee', packages: [], expert: 'Melee', expertOnly: true },
+  { name: 'Lominal ranged', packages: [], expert: 'Ranged', expertOnly: true },
+  { name: 'Lominal healer', packages: [], expert: 'Healer', expertOnly: true },
 ];
+// SUGGESTION_EVAL_PROFILES picks profiles by name substring.
+const PROFILES = ALL_PROFILES.filter(profile =>
+  !process.env['SUGGESTION_EVAL_PROFILES'] || process.env['SUGGESTION_EVAL_PROFILES'].split(',').some(p => profile.name.includes(p)));
 
 interface RunResult {
   profile: string;
@@ -52,6 +70,8 @@ interface RunResult {
   value: number;
   /** The same for the items alone, before any crafting slot is filled. */
   valueItemsOnly: number;
+  /** The expert's priorities (see expert-priorities.ts) as a share of every listed type at its best, where the profile has an expert. */
+  expert?: number;
   needsMet: number;
   meanFill: number;
   items: Record<string, string>;
@@ -141,6 +161,9 @@ function summarise(ctx: Ctx, state: BuildState, policy: string, profile: string,
     needs: needs.length,
     value: share(values),
     valueItemsOnly: share(state.values),
+    ...(needs.some(need => need.expertWeight) ? {
+      expert: evaluate(expertObjective, needs, values) / evaluate(expertObjective, needs, best),
+    } : {}),
     needsMet: evaluate(needsMet, needs, values),
     meanFill: evaluate(meanFill, needs, values),
     items: Object.fromEntries(Array.from(state.items).map(([slot, item]) => [slot, item.name])),
@@ -152,6 +175,7 @@ function summarise(ctx: Ctx, state: BuildState, policy: string, profile: string,
 
 function describeResult(result: RunResult, seconds: number) {
   return `${result.profile} | ${result.policy} | value ${(result.value * 100).toFixed(1)}% (items only ${(result.valueItemsOnly * 100).toFixed(1)}%)`
+    + (result.expert !== undefined ? ` | expert ${(result.expert * 100).toFixed(1)}%` : '')
     + ` | needs met ${(result.needsMet * 100).toFixed(1)}% | artifact ${result.artifact} | ${seconds.toFixed(1)}s`;
 }
 
@@ -180,8 +204,11 @@ describe.skipIf(!ENABLED)('suggestion evaluation', () => {
     const availability = TestBed.inject(AffixAvailabilityService);
     const packages = TestBed.inject(AffixPackagesService);
 
-    const setUpProfile = (profile: Profile) => {
+    const setUpProfile = (profile: Profile): NeedIndex => {
       const tracked = new Set<string>(profile.extra ?? []);
+      if (profile.expertOnly && profile.expert) {
+        expertAffixes(profile.expert).forEach(affix => tracked.add(affix));
+      }
       for (const name of profile.packages) {
         packages.packages.get(name)?.forEach(affix => tracked.add(affix));
       }
@@ -192,6 +219,11 @@ describe.skipIf(!ENABLED)('suggestion evaluation', () => {
         equipped.clearSlot(slot);
       }
       equipped.setImportantAffixes(Array.from(tracked));
+      const index = new NeedIndex(TestBed.inject(AffixService), gearDB, coveredSnapshot(equipped), trackedSnapshot(equipped));
+      if (profile.expert) {
+        applyExpertWeights(index, expertWeights(profile.expert, gearDB));
+      }
+      return index;
     };
 
     const codec = TestBed.inject(BuildUrlCodecService);
@@ -200,8 +232,7 @@ describe.skipIf(!ENABLED)('suggestion evaluation', () => {
     const only = process.env['SUGGESTION_EVAL_POLICIES']?.split(',');
     const results: RunResult[] = [];
     for (const profile of skipRuns ? [] : PROFILES) {
-      setUpProfile(profile);
-      const index = new NeedIndex(TestBed.inject(AffixService), gearDB, coveredSnapshot(equipped), trackedSnapshot(equipped));
+      const index = setUpProfile(profile);
       const ctx: Ctx = { equipped, gearDB, availability, index, maxLevel: LEVEL_RANGE[1] };
 
       for (const [name, scorer] of SCORERS) {
@@ -242,8 +273,7 @@ describe.skipIf(!ENABLED)('suggestion evaluation', () => {
     if (process.env['SUGGESTION_EVAL_LOCAL_SEARCH']) {
       const lsProfiles = PROFILES.filter(p => p.name.startsWith(process.env['SUGGESTION_EVAL_LOCAL_SEARCH']!) || process.env['SUGGESTION_EVAL_LOCAL_SEARCH'] === '1');
       for (const profile of lsProfiles) {
-        setUpProfile(profile);
-        const index = new NeedIndex(TestBed.inject(AffixService), gearDB, coveredSnapshot(equipped), trackedSnapshot(equipped));
+        const index = setUpProfile(profile);
         const ctx: Ctx = { equipped, gearDB, availability, index, maxLevel: LEVEL_RANGE[1] };
         const started = Date.now();
         const seedName = 'total value, augment-aware + discount';
@@ -305,8 +335,7 @@ describe.skipIf(!ENABLED)('suggestion evaluation', () => {
     const overrepOnly = process.env['SUGGESTION_EVAL_POLICIES']?.split(',');
     const overrep: Array<{ profile: string; scorer: string; affix: string; topShare: number; baseShare: number; ratio: number }> = [];
     for (const profile of process.env['SUGGESTION_EVAL_SKIP_OVERREP'] ? [] : PROFILES) {
-      setUpProfile(profile);
-      const index = new NeedIndex(TestBed.inject(AffixService), gearDB, coveredSnapshot(equipped), trackedSnapshot(equipped));
+      const index = setUpProfile(profile);
       const ctx: Ctx = { equipped, gearDB, availability, index, maxLevel: LEVEL_RANGE[1] };
       const empty = new BuildState(index, gearDB);
       for (const [name, scorer] of SCORERS.filter(([n]) => !overrepOnly || overrepOnly.some(o => n.includes(o)))

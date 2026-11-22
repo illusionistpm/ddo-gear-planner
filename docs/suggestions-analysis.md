@@ -54,15 +54,22 @@ value that recommendation is worse than what's live, so it's gone.)
   builds, the items alone reach 33-38% total value and filling the augment
   slots brings that to 50-53%. The suggestions ignore augments entirely, and
   players fill them by hand.
+- **An expert agrees, by his own measure.** Lominal's build guide ranks
+  effects by tier. Scored by his tiers, the augment-aware scorer beats the
+  live one on all six test profiles, by about 11 points (59.9% → 70.6%). His
+  "is it augmentable" calls match the data on 100 of 100 effects. His "is it
+  hard to find" calls match the planner's scarcity measure on only 49, but an
+  item count matches 92. Details under "Checking against an expert".
 - **Sun/Moon or sets is a real fork**, and the data makes it sharp. None of
   the 264 endgame items with a Sun or Moon slot belongs to a set. A Sun item
   can only go in Armor, Cloak, Helm, Goggles or Trinket, and a Moon item only
   in Bracers, Necklace, Boots, Belt or Gloves. So gems alone give at most 5
   Artifact and 5 Profane picks. A good set plus gems in the gem slots it leaves
-  free gives 8-11 tracked Artifact needs (see the table below). But sets take
-  up the same slots, Artifact sets often sit in Moon slots, and set items are
-  older (ML 29-31 against 33-34). That trade-off is what a "guide me" step
-  should settle.
+  free covers more tracked Artifact bonus types (8-11). But sets take up the
+  same slots, Artifact sets often sit in Moon slots, and set items are older
+  (ML 29-31 against 33-34). An expert's guide (below) says gems usually win
+  now, and that 2-3 Lunar gems are typically all a build wants. That trade-off
+  is what a "guide me" step should settle.
 
 ## How the current scorer works
 
@@ -156,10 +163,18 @@ three ways:
 
 ## Artifact and Profane: gems or sets?
 
-These are tracked Artifact/Profane needs met by the best options, for the four
-test profiles (`tools/build-stats/artifact-profane-strategies.py`). The count
-is set bonuses plus gems in the gem slots the set doesn't occupy, with set
-pieces placed in non-gem slots first.
+**Read this table as an upper bound for sets.** It counts tracked
+Artifact/Profane bonus types, not their value, and it ignores what the set's
+slots could otherwise hold. The expert check below suggests gems usually
+win: Lominal writes that since Solar gems arrived, "item sets have been a lot
+less relevant". He also says Lunar gems are "almost always more efficient, as
+you typically only need 2-3, and want at most 4". A total-value ranking of the
+gems reproduces that (see "Checking against an expert").
+
+These are tracked Artifact/Profane bonus types covered by the best options, for
+the four test profiles (`tools/build-stats/artifact-profane-strategies.py`).
+The count is set bonuses plus gems in the gem slots the set doesn't occupy,
+with set pieces placed in non-gem slots first.
 
 | Profile | Artifact: gems only | best Artifact set + gems | Profane: gems only | best Profane set + gems |
 |---|---|---|---|---|
@@ -179,6 +194,102 @@ out per build rather than written as a rule:
   Most set items are ML 29-31.
 - **Values.** Set Artifact values mostly equal the gem's (Melee Power 15,
   Sheltering 30), but some sets give less (Potency 15 against 25).
+
+## Checking against an expert
+
+Lominal's build guide ("Gearing at cap", Lominal's Endgame Builds) gives, for
+melee DPS, ranged DPS and healers, the effects worth chasing in three tiers
+(critical, strong, filler). It colours each one by whether it's hard to find
+and whether it can be augmented. I transcribed it into
+`tools/build-stats/lominal-priorities.json`, mapping each effect onto the
+planner's affix and bonus type, and checked it against the data and the
+simulation.
+
+**His rule for judging an item is the scorer's job description.** He writes:
+"How hard is it to find the stats from this item on other items, and how
+flexible is the item in what stats it can have? ... How many good stats does
+it give?" Augment-awareness answers the first question, augment slots the
+second, and total value the third.
+
+**Augmentable: the data agrees with him on all 100 mapped entries.** Effects
+he marks as augmentable have an augment at 7/10 of their best value or more,
+and the others don't. (`tools/build-stats/expert-check.py`.)
+
+**Hard to find: the planner measures it the wrong way.** The planner's
+scarcity (`AffixAvailabilityService`) counts *slots* that can carry an
+effect. That agrees with his "rare" calls on only 49 of 100 entries. Counting
+*items* instead (25 or fewer endgame items carrying it at 7/10 of best, or
+3 or fewer slots) agrees on 92.
+
+- Insightful Doublestrike, for example, is on 17 items, spread over 10 slots.
+  The planner calls it common; he calls it rare, and the item count agrees
+  with him.
+- The thresholds are fitted to about 55 distinct effects, so take the exact
+  numbers loosely. The direction is clear, though.
+- The 8 mismatches left are mostly borderline. Fortification bypass is on 45
+  items but he calls it rare. Insightful Sheltering is on 51-55 items, many of
+  them older content. Doubleshot is on 18 items, which he calls common.
+
+**Lunar gems: total value reproduces his advice, but only without the ×4
+attribute weight.** Ranked by the share of each affix's total a gem gives,
+the melee Lunar gems come out:
+
+- Profane Melee Power 0.24
+- Physical Sheltering 0.23
+- Magical Sheltering 0.20
+- then a drop: Deadly 0.12, Strength 0.11, Constitution 0.10
+
+That's "2-3, at most 4". Healers show the same shape: Physical and Magical
+Sheltering on top, then a drop. With the live scorer's weights, attributes
+count four times, and Lunar Strength and Constitution (+4) jump to the top
+(0.41-0.42), which he clearly wouldn't do. Solar gems for melee rank
+Elemental Absorption first (four absorbs in one gem, and he lists absorbs as
+critical and rare), then Fortification Bypass, Doublestrike, Melee Power and
+the two Sheltering gems.
+
+**He thinks in targets for some effects.** Melee builds want about 310%
+Fortification against the newest content, and ranged builds about 220%. The
+Fortification types' best values add up to about 308 (Enhancement 162,
+Insight 81, Quality 40, Artifact 25). So melee needs every type, and ranged
+needs only Enhancement and Insight, which matches his tiers: Quality
+Fortification is critical for melee and filler for ranged. Value past a
+target is worth nothing. Per-affix targets would be a natural refinement of
+total value.
+
+**Trance covers Insight Deadly, Accuracy and tactics.** He leaves those types
+out deliberately because every DPS build carries a trance, which gives more.
+The planner's Melee and Ranged bundles already add a Trance non-gear entry
+for Insight Deadly. Extending it to Accuracy and tactics would stop the
+scorer chasing them on items.
+
+**Under his priorities, in the simulation:** the harness scores finished builds against
+his tiers too: each listed bonus type's share of its best value, times 3, 2
+or 1 for its tier. An effect named without a type counts its main type, and,
+as an assumption, its Artifact and Profane types too. Six profiles: the three
+bundle profiles, and three that track exactly his lists. In each, a player
+fills a level 28-34 build with one artifact.
+
+| Profile | live | augment-aware, planned artifact | same, flat weights | flat weights + item-count scarcity |
+|---|---|---|---|---|
+| Melee (bundles) | 59.3% | 64.8% | 61.2% | 69.1% |
+| Ranged (bundles) | 57.7% | 70.8% | 66.0% | 69.4% |
+| Healer (bundles) | 52.4% | 67.8% | 67.7% | 68.1% |
+| Lominal melee | 61.4% | 67.6% | 69.5% | 68.2% |
+| Lominal ranged | 61.5% | 74.2% | 71.3% | 70.3% |
+| Lominal healer | 67.0% | 78.3% | 82.0% | 81.9% |
+| **average** | **59.9%** | **70.6%** | **69.6%** | **71.2%** |
+
+None of these scorers knows his tiers, and augment-awareness still raises
+his score by about 11 points on every profile. That is the strongest evidence
+here that v2 is right. The other two changes are second-order in the
+simulation:
+
+- **Flat weights** come out about a point worse on average and win on half
+  the profiles. Where the ×4 attribute weight demonstrably goes wrong is
+  choosing Lunar gems (above).
+- **Item-count scarcity** adds about a point on average.
+
+Both are worth keeping for the reasons above, but neither is proven by this.
 
 ## Proposals
 
@@ -200,6 +311,18 @@ weight) and change how it credits sources:
 - **Set bonuses.** Credit the marginal value of the tier a piece unlocks,
   scaled by whether the set can still reach its threshold
   (`isSetReachable` already exists). Not in the simulation yet.
+- **Rethink the ×4 attribute weight.** Total value already counts an
+  attribute by its share of the attribute's total. With ×4 on top, a +4
+  Profane Strength gem outranks Profane Melee Power, which contradicts expert
+  advice (see "Checking against an expert"). The simulation runs a flat-weight
+  variant.
+- **Measure scarcity by items, not slots.** Count the endgame items carrying a
+  need near its best value, as described in "Checking against an expert".
+  This feeds the score and the scarcity view alike.
+- **Role presets with tiers.** A "Melee DPS" bundle could carry an expert's
+  tiers (critical / strong / filler) as per-type weights, not just a list of
+  affixes to track. That also says which bonus types to leave alone: Insight
+  Deadly comes from trance.
 
 Tried and not worth it under total value: a hand-tuned discount for
 "floating" needs (×0.35) and half credit for a candidate's augment slots.
@@ -223,7 +346,9 @@ new analysis.
 
 ### 3. Say how a need can be filled, in the scarcity view
 
-Add the classes above to the scarcity grouping, especially **floating**: "Speed
+Use the expert's four colours, which the data reproduces on 92 of 100
+effects with an item count: easy and not an augment; easy and augmentable;
+rare; rare but augmentable. Lead with **floating** needs: "Speed
 - any Yellow, Green or Orange slot (Topaz of Striding)". That tells people
 directly not to spend an item slot on it. For a Sun/Moon need, say "one of
 your 5 Sun gems, or a set".

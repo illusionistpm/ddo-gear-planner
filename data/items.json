@@ -1337,7 +1337,7 @@
             "Orange Augment Slot",
             "Red Augment Slot"
         ],
-        "ml": 1,
+        "ml": 12,
         "name": "Adamantine Knuckles (level 12)",
         "quests": [
             "A Cabal for One"
@@ -18525,7 +18525,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 5,
         "name": "Bottled Fear",
         "slot": "Weapon",
         "type": "Darts",
@@ -29348,7 +29348,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 12,
         "name": "Charoush's Inferno (level 12)",
         "quests": [
             "The Prison of the Planes"
@@ -40910,7 +40910,7 @@
                 "value": "10"
             }
         ],
-        "ml": 1,
+        "ml": 12,
         "name": "Crystallized Eternity (level 12)",
         "slot": "Weapon",
         "type": "Great Clubs",
@@ -40944,7 +40944,7 @@
                 "value": "12"
             }
         ],
-        "ml": 1,
+        "ml": 16,
         "name": "Crystallized Eternity (level 16)",
         "slot": "Weapon",
         "type": "Great Clubs",
@@ -40978,7 +40978,7 @@
                 "value": "15"
             }
         ],
-        "ml": 1,
+        "ml": 20,
         "name": "Crystallized Eternity (level 20)",
         "slot": "Weapon",
         "type": "Great Clubs",
@@ -41012,7 +41012,7 @@
                 "value": "17"
             }
         ],
-        "ml": 1,
+        "ml": 24,
         "name": "Crystallized Eternity (level 24)",
         "slot": "Weapon",
         "type": "Great Clubs",
@@ -41046,7 +41046,7 @@
                 "value": "20"
             }
         ],
-        "ml": 1,
+        "ml": 28,
         "name": "Crystallized Eternity (level 28)",
         "slot": "Weapon",
         "type": "Great Clubs",
@@ -41080,7 +41080,7 @@
                 "value": "22"
             }
         ],
-        "ml": 1,
+        "ml": 32,
         "name": "Crystallized Eternity (level 32)",
         "slot": "Weapon",
         "type": "Great Clubs",
@@ -41114,7 +41114,7 @@
                 "value": "24"
             }
         ],
-        "ml": 1,
+        "ml": 36,
         "name": "Crystallized Eternity (level 36)",
         "slot": "Weapon",
         "type": "Great Clubs",
@@ -41148,7 +41148,7 @@
                 "value": "5"
             }
         ],
-        "ml": 1,
+        "ml": 4,
         "name": "Crystallized Eternity (level 4)",
         "slot": "Weapon",
         "type": "Great Clubs",
@@ -41182,7 +41182,7 @@
                 "value": "8"
             }
         ],
-        "ml": 1,
+        "ml": 8,
         "name": "Crystallized Eternity (level 8)",
         "slot": "Weapon",
         "type": "Great Clubs",
@@ -88205,7 +88205,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 24,
         "name": "Epic Wraps of Endless Light (level 24)",
         "slot": "Weapon",
         "type": "Handwraps",
@@ -88239,7 +88239,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 32,
         "name": "Epic Wraps of Endless Light (level 32)",
         "slot": "Weapon",
         "type": "Handwraps",
@@ -203702,7 +203702,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 36,
         "name": "Legendary Wraps of Endless Light (level 36)",
         "slot": "Weapon",
         "type": "Handwraps",
@@ -233280,7 +233280,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 12,
         "name": "Pick of Endless Light (level 12)",
         "slot": "Weapon",
         "type": "Light Picks",
@@ -233309,7 +233309,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 16,
         "name": "Pick of Endless Light (level 16)",
         "slot": "Weapon",
         "type": "Light Picks",
@@ -233343,7 +233343,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 20,
         "name": "Pick of Endless Light (level 20)",
         "slot": "Weapon",
         "type": "Light Picks",
@@ -233377,7 +233377,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 24,
         "name": "Pick of Endless Light (level 24)",
         "slot": "Weapon",
         "type": "Light Picks",
@@ -233411,7 +233411,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 28,
         "name": "Pick of Endless Light (level 28)",
         "slot": "Weapon",
         "type": "Light Picks",
@@ -233445,7 +233445,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 32,
         "name": "Pick of Endless Light (level 32)",
         "slot": "Weapon",
         "type": "Light Picks",
@@ -233479,7 +233479,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 36,
         "name": "Pick of Endless Light (level 36)",
         "slot": "Weapon",
         "type": "Light Picks",
@@ -233503,7 +233503,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 4,
         "name": "Pick of Endless Light (level 4)",
         "slot": "Weapon",
         "type": "Light Picks",
@@ -233527,7 +233527,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 8,
         "name": "Pick of Endless Light (level 8)",
         "slot": "Weapon",
         "type": "Light Picks",
@@ -265071,7 +265071,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 12,
         "name": "Spectral Dagger (level 12)",
         "slot": "Weapon",
         "type": "Daggers",
@@ -265105,7 +265105,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 16,
         "name": "Spectral Dagger (level 16)",
         "slot": "Weapon",
         "type": "Daggers",
@@ -265139,7 +265139,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 20,
         "name": "Spectral Dagger (level 20)",
         "slot": "Weapon",
         "type": "Daggers",
@@ -265173,7 +265173,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 24,
         "name": "Spectral Dagger (level 24)",
         "slot": "Weapon",
         "type": "Daggers",
@@ -265207,7 +265207,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 28,
         "name": "Spectral Dagger (level 28)",
         "slot": "Weapon",
         "type": "Daggers",
@@ -265241,7 +265241,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 32,
         "name": "Spectral Dagger (level 32)",
         "slot": "Weapon",
         "type": "Daggers",
@@ -265275,7 +265275,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 36,
         "name": "Spectral Dagger (level 36)",
         "slot": "Weapon",
         "type": "Daggers",
@@ -265304,7 +265304,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 4,
         "name": "Spectral Dagger (level 4)",
         "slot": "Weapon",
         "type": "Daggers",
@@ -265338,7 +265338,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 8,
         "name": "Spectral Dagger (level 8)",
         "slot": "Weapon",
         "type": "Daggers",
@@ -265407,7 +265407,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 12,
         "name": "Spectral Great Axe (level 12)",
         "slot": "Weapon",
         "type": "Great Axes",
@@ -265441,7 +265441,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 16,
         "name": "Spectral Great Axe (level 16)",
         "slot": "Weapon",
         "type": "Great Axes",
@@ -265475,7 +265475,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 20,
         "name": "Spectral Great Axe (level 20)",
         "slot": "Weapon",
         "type": "Great Axes",
@@ -265509,7 +265509,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 24,
         "name": "Spectral Great Axe (level 24)",
         "slot": "Weapon",
         "type": "Great Axes",
@@ -265543,7 +265543,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 28,
         "name": "Spectral Great Axe (level 28)",
         "slot": "Weapon",
         "type": "Great Axes",
@@ -265577,7 +265577,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 32,
         "name": "Spectral Great Axe (level 32)",
         "slot": "Weapon",
         "type": "Great Axes",
@@ -265611,7 +265611,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 36,
         "name": "Spectral Great Axe (level 36)",
         "slot": "Weapon",
         "type": "Great Axes",
@@ -265640,7 +265640,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 4,
         "name": "Spectral Great Axe (level 4)",
         "slot": "Weapon",
         "type": "Great Axes",
@@ -265674,7 +265674,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 8,
         "name": "Spectral Great Axe (level 8)",
         "slot": "Weapon",
         "type": "Great Axes",
@@ -265708,7 +265708,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 12,
         "name": "Spectral Great Crossbow (level 12)",
         "slot": "Weapon",
         "type": "Great Crossbows",
@@ -265742,7 +265742,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 16,
         "name": "Spectral Great Crossbow (level 16)",
         "slot": "Weapon",
         "type": "Great Crossbows",
@@ -265776,7 +265776,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 20,
         "name": "Spectral Great Crossbow (level 20)",
         "slot": "Weapon",
         "type": "Great Crossbows",
@@ -265810,7 +265810,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 24,
         "name": "Spectral Great Crossbow (level 24)",
         "slot": "Weapon",
         "type": "Great Crossbows",
@@ -265844,7 +265844,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 28,
         "name": "Spectral Great Crossbow (level 28)",
         "slot": "Weapon",
         "type": "Great Crossbows",
@@ -265878,7 +265878,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 32,
         "name": "Spectral Great Crossbow (level 32)",
         "slot": "Weapon",
         "type": "Great Crossbows",
@@ -265912,7 +265912,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 36,
         "name": "Spectral Great Crossbow (level 36)",
         "slot": "Weapon",
         "type": "Great Crossbows",
@@ -265941,7 +265941,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 4,
         "name": "Spectral Great Crossbow (level 4)",
         "slot": "Weapon",
         "type": "Great Crossbows",
@@ -265975,7 +265975,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 8,
         "name": "Spectral Great Crossbow (level 8)",
         "slot": "Weapon",
         "type": "Great Crossbows",
@@ -266009,7 +266009,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 12,
         "name": "Spectral Longbow (level 12)",
         "slot": "Weapon",
         "type": "Long Bows",
@@ -266043,7 +266043,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 12,
         "name": "Spectral Longbow (level 12)",
         "slot": "Weapon",
         "type": "Long Bows",
@@ -266077,7 +266077,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 16,
         "name": "Spectral Longbow (level 16)",
         "slot": "Weapon",
         "type": "Long Bows",
@@ -266111,7 +266111,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 16,
         "name": "Spectral Longbow (level 16)",
         "slot": "Weapon",
         "type": "Long Bows",
@@ -266145,7 +266145,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 20,
         "name": "Spectral Longbow (level 20)",
         "slot": "Weapon",
         "type": "Long Bows",
@@ -266179,7 +266179,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 20,
         "name": "Spectral Longbow (level 20)",
         "slot": "Weapon",
         "type": "Long Bows",
@@ -266213,7 +266213,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 24,
         "name": "Spectral Longbow (level 24)",
         "slot": "Weapon",
         "type": "Long Bows",
@@ -266247,7 +266247,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 24,
         "name": "Spectral Longbow (level 24)",
         "slot": "Weapon",
         "type": "Long Bows",
@@ -266281,7 +266281,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 28,
         "name": "Spectral Longbow (level 28)",
         "slot": "Weapon",
         "type": "Long Bows",
@@ -266315,7 +266315,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 28,
         "name": "Spectral Longbow (level 28)",
         "slot": "Weapon",
         "type": "Long Bows",
@@ -266349,7 +266349,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 32,
         "name": "Spectral Longbow (level 32)",
         "slot": "Weapon",
         "type": "Long Bows",
@@ -266383,7 +266383,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 32,
         "name": "Spectral Longbow (level 32)",
         "slot": "Weapon",
         "type": "Long Bows",
@@ -266417,7 +266417,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 36,
         "name": "Spectral Longbow (level 36)",
         "slot": "Weapon",
         "type": "Long Bows",
@@ -266451,7 +266451,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 36,
         "name": "Spectral Longbow (level 36)",
         "slot": "Weapon",
         "type": "Long Bows",
@@ -266480,7 +266480,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 4,
         "name": "Spectral Longbow (level 4)",
         "slot": "Weapon",
         "type": "Long Bows",
@@ -266509,7 +266509,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 4,
         "name": "Spectral Longbow (level 4)",
         "slot": "Weapon",
         "type": "Long Bows",
@@ -266543,7 +266543,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 8,
         "name": "Spectral Longbow (level 8)",
         "slot": "Weapon",
         "type": "Long Bows",
@@ -266577,7 +266577,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 8,
         "name": "Spectral Longbow (level 8)",
         "slot": "Weapon",
         "type": "Long Bows",
@@ -266616,7 +266616,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 12,
         "name": "Spectral Throwing Dagger (level 12)",
         "slot": "Weapon",
         "type": "Throwing Daggers",
@@ -266655,7 +266655,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 16,
         "name": "Spectral Throwing Dagger (level 16)",
         "slot": "Weapon",
         "type": "Throwing Daggers",
@@ -266694,7 +266694,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 20,
         "name": "Spectral Throwing Dagger (level 20)",
         "slot": "Weapon",
         "type": "Throwing Daggers",
@@ -266733,7 +266733,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 24,
         "name": "Spectral Throwing Dagger (level 24)",
         "slot": "Weapon",
         "type": "Throwing Daggers",
@@ -266772,7 +266772,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 28,
         "name": "Spectral Throwing Dagger (level 28)",
         "slot": "Weapon",
         "type": "Throwing Daggers",
@@ -266811,7 +266811,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 32,
         "name": "Spectral Throwing Dagger (level 32)",
         "slot": "Weapon",
         "type": "Throwing Daggers",
@@ -266850,7 +266850,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 36,
         "name": "Spectral Throwing Dagger (level 36)",
         "slot": "Weapon",
         "type": "Throwing Daggers",
@@ -266884,7 +266884,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 4,
         "name": "Spectral Throwing Dagger (level 4)",
         "slot": "Weapon",
         "type": "Throwing Daggers",
@@ -266923,7 +266923,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 8,
         "name": "Spectral Throwing Dagger (level 8)",
         "slot": "Weapon",
         "type": "Throwing Daggers",
@@ -266957,7 +266957,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 12,
         "name": "Spectral Warhammer (level 12)",
         "slot": "Weapon",
         "type": "War Hammers",
@@ -266991,7 +266991,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 16,
         "name": "Spectral Warhammer (level 16)",
         "slot": "Weapon",
         "type": "War Hammers",
@@ -267025,7 +267025,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 20,
         "name": "Spectral Warhammer (level 20)",
         "slot": "Weapon",
         "type": "War Hammers",
@@ -267059,7 +267059,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 24,
         "name": "Spectral Warhammer (level 24)",
         "slot": "Weapon",
         "type": "War Hammers",
@@ -267093,7 +267093,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 28,
         "name": "Spectral Warhammer (level 28)",
         "slot": "Weapon",
         "type": "War Hammers",
@@ -267127,7 +267127,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 32,
         "name": "Spectral Warhammer (level 32)",
         "slot": "Weapon",
         "type": "War Hammers",
@@ -267161,7 +267161,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 36,
         "name": "Spectral Warhammer (level 36)",
         "slot": "Weapon",
         "type": "War Hammers",
@@ -267190,7 +267190,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 4,
         "name": "Spectral Warhammer (level 4)",
         "slot": "Weapon",
         "type": "War Hammers",
@@ -267224,7 +267224,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 8,
         "name": "Spectral Warhammer (level 8)",
         "slot": "Weapon",
         "type": "War Hammers",
@@ -269334,7 +269334,7 @@
                 "value": "5"
             }
         ],
-        "ml": 1,
+        "ml": 12,
         "name": "Star of Endless Night (level 12)",
         "slot": "Weapon",
         "type": "Morningstars",
@@ -269368,7 +269368,7 @@
                 "value": "6"
             }
         ],
-        "ml": 1,
+        "ml": 16,
         "name": "Star of Endless Night (level 16)",
         "slot": "Weapon",
         "type": "Morningstars",
@@ -269402,7 +269402,7 @@
                 "value": "8"
             }
         ],
-        "ml": 1,
+        "ml": 20,
         "name": "Star of Endless Night (level 20)",
         "slot": "Weapon",
         "type": "Morningstars",
@@ -269436,7 +269436,7 @@
                 "value": "9"
             }
         ],
-        "ml": 1,
+        "ml": 24,
         "name": "Star of Endless Night (level 24)",
         "slot": "Weapon",
         "type": "Morningstars",
@@ -269470,7 +269470,7 @@
                 "value": "10"
             }
         ],
-        "ml": 1,
+        "ml": 28,
         "name": "Star of Endless Night (level 28)",
         "slot": "Weapon",
         "type": "Morningstars",
@@ -269504,7 +269504,7 @@
                 "value": "11"
             }
         ],
-        "ml": 1,
+        "ml": 32,
         "name": "Star of Endless Night (level 32)",
         "slot": "Weapon",
         "type": "Morningstars",
@@ -269538,7 +269538,7 @@
                 "value": "12"
             }
         ],
-        "ml": 1,
+        "ml": 36,
         "name": "Star of Endless Night (level 36)",
         "slot": "Weapon",
         "type": "Morningstars",
@@ -269572,7 +269572,7 @@
                 "value": "3"
             }
         ],
-        "ml": 1,
+        "ml": 4,
         "name": "Star of Endless Night (level 4)",
         "slot": "Weapon",
         "type": "Morningstars",
@@ -269606,7 +269606,7 @@
                 "value": "4"
             }
         ],
-        "ml": 1,
+        "ml": 8,
         "name": "Star of Endless Night (level 8)",
         "slot": "Weapon",
         "type": "Morningstars",
@@ -300682,7 +300682,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 12,
         "name": "Wraps of Endless Light (level 12)",
         "slot": "Weapon",
         "type": "Handwraps",
@@ -300711,7 +300711,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 16,
         "name": "Wraps of Endless Light (level 16)",
         "slot": "Weapon",
         "type": "Handwraps",
@@ -300745,7 +300745,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 20,
         "name": "Wraps of Endless Light (level 20)",
         "slot": "Weapon",
         "type": "Handwraps",
@@ -300779,7 +300779,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 28,
         "name": "Wraps of Endless Light (level 28)",
         "slot": "Weapon",
         "type": "Handwraps",
@@ -300803,7 +300803,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 4,
         "name": "Wraps of Endless Light (level 4)",
         "slot": "Weapon",
         "type": "Handwraps",
@@ -300827,7 +300827,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 8,
         "name": "Wraps of Endless Light (level 8)",
         "slot": "Weapon",
         "type": "Handwraps",

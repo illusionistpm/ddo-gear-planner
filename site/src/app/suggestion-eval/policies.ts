@@ -3,7 +3,9 @@ import { Craftable } from '../gear/craftable';
 import { GearDbService } from '../gear/gear-db.service';
 import { Item } from '../gear/item';
 import { EquippedService } from '../planner/equipped.service';
-import { BuildState, Contribution, fillCrafting, gainOf, legacyObjective, meanFill, Need, NeedIndex, Objective, optionChoices } from './build-model';
+import {
+  BuildState, Contribution, fillCrafting, flatTotalValue, gainOf, legacyObjective, meanFill, Need, NeedIndex, Objective, optionChoices
+} from './build-model';
 
 export interface Ctx {
   equipped: EquippedService;
@@ -218,6 +220,45 @@ function augmentCarriesBest(ctx: Ctx, need: Need): boolean {
   return result;
 }
 
+/**
+ * Scarcity by item count rather than slot count: a need is hard to find when at most 25 items carry
+ * it at 7/10 of its best value or more, or they fit at most 3 slots, and no augment reaches that.
+ * That rule matches an expert's (Lominal's) "rare" calls on 92 of 100 effects, where the planner's
+ * slot count (AffixAvailabilityService) matches 49 (tools/build-stats/expert-check.py).
+ */
+export function itemCountScarcity(boost: number) {
+  return (ctx: Ctx, need: Need) => isHardToFind(ctx, need) ? boost : 1;
+}
+
+const hardCache = new Map<string, boolean>();
+let hardCacheIndex: NeedIndex | null = null;
+function isHardToFind(ctx: Ctx, need: Need): boolean {
+  if (hardCacheIndex !== ctx.index) {
+    hardCache.clear();
+    hardCacheIndex = ctx.index;
+  }
+  const key = `${need.affix}|${need.type}`;
+  let hard = hardCache.get(key);
+  if (hard === undefined) {
+    const near = 0.7 * need.best;
+    const i = ctx.index.indexOf(need.affix, need.type) ?? -1;
+    // Rings are listed under both Ring1 and Ring2, so count each item once.
+    const strong = new Map<string, Item>();
+    for (const item of ctx.gearDB.findGearWithAffixAndType(need.affix, need.type)) {
+      if ((ctx.index.contributionOf(item.affixes).get(i) ?? 0) >= near) {
+        strong.set(item.name, item);
+      }
+    }
+    const slots = new Set(Array.from(strong.values()).map(item => item.slot.replace(/\d$/, '')));
+    const augmentable = ctx.gearDB.findAugmentsWithAffixAndType(need.affix, need.type)
+      .some(craftable => craftable.options.some(option =>
+        option.affixes.some(affix => affix.type === need.type && Number(affix.value) >= near)));
+    hard = !augmentable && (strong.size <= 25 || slots.size <= 3);
+    hardCache.set(key, hard);
+  }
+  return hard;
+}
+
 export const SCORERS: Array<[string, Scorer]> = [
   ['live getScore', liveScorer],
   ['total value, items only', marginalScorer(legacyObjective, { augmentAware: false })],
@@ -226,4 +267,7 @@ export const SCORERS: Array<[string, Scorer]> = [
   ['total value, augment-aware + discount, half crafting credit', marginalScorer(legacyObjective, { augmentAware: true, scarcity: scarcityWithDiscount(0.35), ownCraftingCredit: 0.5 })],
   ['per-need fill, augment-aware + discount', marginalScorer(meanFill, { augmentAware: true, scarcity: scarcityWithDiscount(0.35) })],
   ['total value, augment-aware, planned artifact', marginalScorer(legacyObjective, { augmentAware: true, planArtifact: true })],
+  ['flat weights, augment-aware, planned artifact', marginalScorer(flatTotalValue, { augmentAware: true, planArtifact: true })],
+  ['flat weights, augment-aware, planned artifact + item scarcity',
+    marginalScorer(flatTotalValue, { augmentAware: true, planArtifact: true, scarcity: itemCountScarcity(1.5) })],
 ];

@@ -1,0 +1,1225 @@
+{
+ "source": "Lominal's Endgame Builds, 'Gearing at cap' (Melee DPS, Ranged DPS, Healers), transcribed by hand.",
+ "notes": [
+  "colour: cyan = not hard to find, not an augment; green = not hard to find, can be augmented; orange = rare/hard to find; yellow = rare, but also an augment.",
+  "pairs: [affix, bonus type]; a null type means the effect's main type ('assume it is enhancement, the highest value of each stat').",
+  "An entry with no pairs (off-stat trance) isn't a gear affix.",
+  "Insightful Deadly/Accuracy/tactics are deliberately absent: every DPS build carries a trance, which gives more."
+ ],
+ "roles": {
+  "Melee": [
+   {
+    "tier": "critical",
+    "label": "Accuracy",
+    "colour": "green",
+    "pairs": [
+     [
+      "Accuracy",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Deadly",
+    "colour": "green",
+    "pairs": [
+     [
+      "Deadly",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Seeker",
+    "colour": "cyan",
+    "pairs": [
+     [
+      "Seeker",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Deception",
+    "colour": "cyan",
+    "pairs": [
+     [
+      "Deception",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Mainstat",
+    "colour": "green",
+    "pairs": [
+     [
+      "Strength",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Doublestrike",
+    "colour": "green",
+    "pairs": [
+     [
+      "Doublestrike",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Extra action boosts",
+    "colour": "yellow",
+    "pairs": [
+     [
+      "Action Boost Charges",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Constitution",
+    "colour": "green",
+    "pairs": [
+     [
+      "Constitution",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Fortification",
+    "colour": "cyan",
+    "pairs": [
+     [
+      "Fortification",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Insightful Mainstat",
+    "colour": "yellow",
+    "pairs": [
+     [
+      "Strength",
+      "Insight"
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Insightful Deception",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Deception",
+      "Insight"
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Sheltering",
+    "colour": "green",
+    "pairs": [
+     [
+      "Physical Sheltering",
+      null
+     ],
+     [
+      "Magical Sheltering",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Alchemical earth attunement",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Alchemical Earth Attunement",
+      "Bool"
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Elemental absorbs",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Acid Absorption",
+      null
+     ],
+     [
+      "Cold Absorption",
+      null
+     ],
+     [
+      "Electric Absorption",
+      null
+     ],
+     [
+      "Fire Absorption",
+      null
+     ],
+     [
+      "Sonic Absorption",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Fortification bypass",
+    "colour": "yellow",
+    "pairs": [
+     [
+      "Armor-Piercing",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Melee Power",
+    "colour": "yellow",
+    "pairs": [
+     [
+      "Melee Power",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Off-stat trance",
+    "colour": "cyan",
+    "pairs": []
+   },
+   {
+    "tier": "critical",
+    "label": "Attack + move speed",
+    "colour": "green",
+    "pairs": [
+     [
+      "Speed",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Insightful fortification",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Fortification",
+      "Insight"
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Quality fortification",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Fortification",
+      "Quality"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Insightful off-stat trance",
+    "colour": "yellow",
+    "pairs": []
+   },
+   {
+    "tier": "strong",
+    "label": "Quality deception",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Deception",
+      "Quality"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Quality deadly",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Deadly",
+      "Quality"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Quality doublestrike",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Doublestrike",
+      "Quality"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Quality mainstat",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Strength",
+      "Quality"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Insightful sheltering",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Physical Sheltering",
+      "Insight"
+     ],
+     [
+      "Magical Sheltering",
+      "Insight"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Insightful doublestrike",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Doublestrike",
+      "Insight"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Relevant tactics DC",
+    "colour": "yellow",
+    "pairs": [
+     [
+      "Stunning",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Insightful Constitution",
+    "colour": "yellow",
+    "pairs": [
+     [
+      "Constitution",
+      "Insight"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Insightful fortification bypass",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Armor-Piercing",
+      "Insight"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Relentless fury",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Relentless Fury",
+      "Bool"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Insightful seeker",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Seeker",
+      "Insight"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Dripping with magma",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Dripping with Magma",
+      "Bool"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Improved deception",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Improved Deception",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Stormreaver's Thunderclap",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Stormreaver's Thunderclap",
+      "Bool"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Enhanced bloodrage",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Enhanced Bloodrage",
+      "Bool"
+     ]
+    ]
+   },
+   {
+    "tier": "filler",
+    "label": "Quality sheltering",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Physical Sheltering",
+      "Quality"
+     ],
+     [
+      "Magical Sheltering",
+      "Quality"
+     ]
+    ]
+   },
+   {
+    "tier": "filler",
+    "label": "Sight beyond sight",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Sight Beyond Sight",
+      "Bool"
+     ]
+    ]
+   },
+   {
+    "tier": "filler",
+    "label": "Quality tactics",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Stunning",
+      "Quality"
+     ]
+    ]
+   },
+   {
+    "tier": "filler",
+    "label": "Quality constitution",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Constitution",
+      "Quality"
+     ]
+    ]
+   },
+   {
+    "tier": "filler",
+    "label": "Quality seeker",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Seeker",
+      "Quality"
+     ]
+    ]
+   },
+   {
+    "tier": "filler",
+    "label": "Guardbreaking",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Guardbreaking",
+      "Bool"
+     ]
+    ]
+   }
+  ],
+  "Ranged": [
+   {
+    "tier": "critical",
+    "label": "Accuracy",
+    "colour": "green",
+    "pairs": [
+     [
+      "Accuracy",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Deadly",
+    "colour": "green",
+    "pairs": [
+     [
+      "Deadly",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Seeker",
+    "colour": "cyan",
+    "pairs": [
+     [
+      "Seeker",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Deception",
+    "colour": "cyan",
+    "pairs": [
+     [
+      "Deception",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Mainstat",
+    "colour": "green",
+    "pairs": [
+     [
+      "Dexterity",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Doubleshot",
+    "colour": "green",
+    "pairs": [
+     [
+      "Doubleshot",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Extra action boosts",
+    "colour": "yellow",
+    "pairs": [
+     [
+      "Action Boost Charges",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Constitution",
+    "colour": "green",
+    "pairs": [
+     [
+      "Constitution",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Fortification",
+    "colour": "cyan",
+    "pairs": [
+     [
+      "Fortification",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Insightful Mainstat",
+    "colour": "yellow",
+    "pairs": [
+     [
+      "Dexterity",
+      "Insight"
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Insightful Deception",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Deception",
+      "Insight"
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Sheltering",
+    "colour": "green",
+    "pairs": [
+     [
+      "Physical Sheltering",
+      null
+     ],
+     [
+      "Magical Sheltering",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Alchemical earth attunement",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Alchemical Earth Attunement",
+      "Bool"
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Elemental absorbs",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Acid Absorption",
+      null
+     ],
+     [
+      "Cold Absorption",
+      null
+     ],
+     [
+      "Electric Absorption",
+      null
+     ],
+     [
+      "Fire Absorption",
+      null
+     ],
+     [
+      "Sonic Absorption",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Fortification bypass",
+    "colour": "yellow",
+    "pairs": [
+     [
+      "Armor-Piercing",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Ranged Power",
+    "colour": "yellow",
+    "pairs": [
+     [
+      "Ranged Power",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Off-stat trance",
+    "colour": "cyan",
+    "pairs": []
+   },
+   {
+    "tier": "critical",
+    "label": "Attack + move speed",
+    "colour": "green",
+    "pairs": [
+     [
+      "Speed",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Insightful fortification",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Fortification",
+      "Insight"
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Improved deception",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Improved Deception",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Insightful off-stat trance",
+    "colour": "yellow",
+    "pairs": []
+   },
+   {
+    "tier": "strong",
+    "label": "Quality deception",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Deception",
+      "Quality"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Quality deadly",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Deadly",
+      "Quality"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Quality doubleshot",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Doubleshot",
+      "Quality"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Quality mainstat",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Dexterity",
+      "Quality"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Insightful sheltering",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Physical Sheltering",
+      "Insight"
+     ],
+     [
+      "Magical Sheltering",
+      "Insight"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Insightful doubleshot",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Doubleshot",
+      "Insight"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Relevant tactics DC",
+    "colour": "yellow",
+    "pairs": [
+     [
+      "Stunning",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Insightful Constitution",
+    "colour": "yellow",
+    "pairs": [
+     [
+      "Constitution",
+      "Insight"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Insightful fortification bypass",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Armor-Piercing",
+      "Insight"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Relentless fury",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Relentless Fury",
+      "Bool"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Insightful seeker",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Seeker",
+      "Insight"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Dripping with magma",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Dripping with Magma",
+      "Bool"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Profane doubleshot",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Doubleshot",
+      "Profane"
+     ]
+    ]
+   },
+   {
+    "tier": "filler",
+    "label": "Quality sheltering",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Physical Sheltering",
+      "Quality"
+     ],
+     [
+      "Magical Sheltering",
+      "Quality"
+     ]
+    ]
+   },
+   {
+    "tier": "filler",
+    "label": "Sight beyond sight",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Sight Beyond Sight",
+      "Bool"
+     ]
+    ]
+   },
+   {
+    "tier": "filler",
+    "label": "Quality tactics",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Stunning",
+      "Quality"
+     ]
+    ]
+   },
+   {
+    "tier": "filler",
+    "label": "Quality constitution",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Constitution",
+      "Quality"
+     ]
+    ]
+   },
+   {
+    "tier": "filler",
+    "label": "Quality seeker",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Seeker",
+      "Quality"
+     ]
+    ]
+   },
+   {
+    "tier": "filler",
+    "label": "Enhanced bloodrage",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Enhanced Bloodrage",
+      "Bool"
+     ]
+    ]
+   },
+   {
+    "tier": "filler",
+    "label": "Quality fortification",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Fortification",
+      "Quality"
+     ]
+    ]
+   }
+  ],
+  "Healer": [
+   {
+    "tier": "critical",
+    "label": "Movespeed",
+    "colour": "green",
+    "pairs": [
+     [
+      "Speed",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Devotion",
+    "colour": "green",
+    "pairs": [
+     [
+      "Positive Spell Power",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Positive spell lore",
+    "colour": "cyan",
+    "pairs": [
+     [
+      "Healing Lore",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Insightful spell crit chance",
+    "colour": "yellow",
+    "pairs": [
+     [
+      "Healing Lore",
+      "Insight"
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Quality positive spell crit chance",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Healing Lore",
+      "Quality"
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Insightful devotion",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Positive Spell Power",
+      "Insight"
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Sheltering",
+    "colour": "green",
+    "pairs": [
+     [
+      "Physical Sheltering",
+      null
+     ],
+     [
+      "Magical Sheltering",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Insightful sheltering",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Physical Sheltering",
+      "Insight"
+     ],
+     [
+      "Magical Sheltering",
+      "Insight"
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Energy absorbs",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Acid Absorption",
+      null
+     ],
+     [
+      "Cold Absorption",
+      null
+     ],
+     [
+      "Electric Absorption",
+      null
+     ],
+     [
+      "Fire Absorption",
+      null
+     ],
+     [
+      "Sonic Absorption",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Constitution",
+    "colour": "green",
+    "pairs": [
+     [
+      "Constitution",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "critical",
+    "label": "Insightful constitution",
+    "colour": "green",
+    "pairs": [
+     [
+      "Constitution",
+      "Insight"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Quality devotion",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Positive Spell Power",
+      "Quality"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Quality sheltering",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Physical Sheltering",
+      "Quality"
+     ],
+     [
+      "Magical Sheltering",
+      "Quality"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Quality constitution",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Constitution",
+      "Quality"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Fortification",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Fortification",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Insightful fortification",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Fortification",
+      "Insight"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Positive spell crit damage",
+    "colour": "orange",
+    "pairs": [
+     [
+      "Healing Intensity",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Heal skill",
+    "colour": "yellow",
+    "pairs": [
+     [
+      "Heal",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Wisdom",
+    "colour": "green",
+    "pairs": [
+     [
+      "Wisdom",
+      null
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Insightful wisdom",
+    "colour": "yellow",
+    "pairs": [
+     [
+      "Wisdom",
+      "Insight"
+     ]
+    ]
+   },
+   {
+    "tier": "strong",
+    "label": "Wizardry",
+    "colour": "green",
+    "pairs": [
+     [
+      "Wizardry",
+      null
+     ]
+    ]
+   }
+  ]
+ }
+}

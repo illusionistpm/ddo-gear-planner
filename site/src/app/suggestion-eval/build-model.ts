@@ -23,6 +23,8 @@ export interface Need {
   affixBest: number;
   /** GearDbService.getAffixWeight for the affix. */
   affixWeight: number;
+  /** An expert's weight for this bonus type (critical 3, strong 2, filler 1), where a profile has one. */
+  expertWeight?: number;
 }
 
 export type Contribution = Map<number, number>; // need index -> value
@@ -140,6 +142,16 @@ export const meanFill: Objective = {
  */
 export const legacyObjective: Objective = {
   perNeed: (need, value) => Math.min(value, need.best) / need.affixBest * need.affixWeight,
+};
+
+/** Total value, every affix weighted alike (booleans still half): no ×4 for attributes or ×3 for DCs. */
+export const flatTotalValue: Objective = {
+  perNeed: (need, value) => Math.min(value, need.best) / need.affixBest * (need.affixWeight === 0.5 ? 0.5 : 1),
+};
+
+/** An expert's priorities: each listed bonus type's fraction of its best, times its tier weight. */
+export const expertObjective: Objective = {
+  perNeed: (need, value) => (need.expertWeight ?? 0) * Math.min(1, value / need.best),
 };
 
 export class BuildState {

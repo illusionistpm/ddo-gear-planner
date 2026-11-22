@@ -87,3 +87,10 @@ These two read `data/*.json` only, with no export needed:
 - `artifact-profane-strategies.py data`: for four tracked profiles, how many
   tracked Artifact and Profane needs Sun/Moon gems alone cover, against each
   set plus gems in the gem slots it leaves free.
+- `expert-check.py data`: compares an expert's priorities
+  (`lominal-priorities.json`, transcribed from Lominal's "Gearing at cap"
+  tables) with the data. For each effect he lists, it checks whether it's
+  augmentable and how hard it is to find (by slots, as the planner does today,
+  and by items), and where the data agrees with his colour code. The
+  suggestion harness reads the same JSON to score builds by his tiers
+  (critical 3, strong 2, filler 1) and to build profiles from his lists.

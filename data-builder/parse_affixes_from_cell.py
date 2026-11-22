@@ -459,6 +459,22 @@ def parse_special_affix_text(text):
     return None
 
 
+# Affixes whose label prefix can name the wrong bonus type, where the tooltip is right. Six late
+# items' "Competence Elemental Resistance - 10" are "+10 Insight bonus to your Acid, Cold, Fire, and
+# Electrical resistances", as their in-game screenshots show. Other affixes keep the label's type:
+# their tooltips are the ones that are wrong ("Insightful Diversion +4%: +4% Enhancement bonus").
+TOOLTIP_TYPE_OVER_LABEL = {'Elemental Resistance'}
+
+
+def apply_tooltip_bonus_type_over_label(affix, tooltip):
+    if affix.get('name') not in TOOLTIP_TYPE_OVER_LABEL:
+        return affix
+    search = re.search(r'\+(\d+)%? ([A-Za-z]+) bonus', tooltip or '')
+    if search and search.group(1) == str(affix.get('value')) and is_tooltip_bonus_type(search.group(2)):
+        affix['type'] = normalize_bonus_type(search.group(2))
+    return affix
+
+
 def has_balanced_parentheses(text):
     return text.count('(') == text.count(')')
 
@@ -946,6 +962,7 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
     prefixed_bonus_type_affix = parse_bonus_type_prefixed_affix_text(affixName) if not special_affix else None
     if prefixed_bonus_type_affix:
         aff.update(prefixed_bonus_type_affix)
+        aff = apply_tooltip_bonus_type_over_label(aff, source_tooltip)
 
     affixName = strip_bonus_types(affixName)
     affixName = strip_charges(affixName)

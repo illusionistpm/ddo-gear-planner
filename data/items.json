@@ -9874,7 +9874,7 @@
             },
             {
                 "name": "Elemental Resistance",
-                "type": "Competence",
+                "type": "Insight",
                 "value": "10"
             },
             {
@@ -66535,7 +66535,7 @@
             },
             {
                 "name": "Elemental Resistance",
-                "type": "Competence",
+                "type": "Insight",
                 "value": "10"
             },
             {
@@ -68591,7 +68591,7 @@
             },
             {
                 "name": "Elemental Resistance",
-                "type": "Competence",
+                "type": "Insight",
                 "value": "10"
             },
             {
@@ -121581,7 +121581,7 @@
         "affixes": [
             {
                 "name": "Elemental Resistance",
-                "type": "Competence",
+                "type": "Insight",
                 "value": "10"
             },
             {
@@ -121612,7 +121612,7 @@
         "affixes": [
             {
                 "name": "Elemental Resistance",
-                "type": "Competence",
+                "type": "Insight",
                 "value": "10"
             },
             {
@@ -121642,7 +121642,7 @@
         "affixes": [
             {
                 "name": "Elemental Resistance",
-                "type": "Competence",
+                "type": "Insight",
                 "value": "10"
             },
             {

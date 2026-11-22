@@ -405,27 +405,100 @@ starting point, but at about 20 minutes per profile it needs to be much
 faster first: evaluate swaps incrementally instead of refilling every crafting
 slot each time.
 
-## The real-build data
+## What the saved builds say
 
-`tools/build-stats/` exports the saved builds and share links (owners
-pseudonymised; no emails or ids), and `real-builds.spec.ts` turns them into an
-aggregate report. It covers:
+Exported from D1 on 2026-11-22 (`tools/build-stats/`): 653 saved builds from
+208 players, plus 63 share links whose gear no saved build has. All 716
+decode. Gear level is the median level of each build's equipped items. 519
+builds are endgame (28+), 501 of those have 9 or more slots filled, from
+168 players. Everything below is about those 501 unless it says otherwise.
 
-- **What people track.** This also tests whether the four test profiles are
-  representative.
-- **Where finished builds get each covered need**: item / augment colour / Sun /
-  Moon / other crafting / set. If most covered Speed comes from augments,
-  augment-aware scoring matches what players do.
-- **Needs people track but rarely cover.** These are the real gaps to point the
-  guide at.
-- **The Artifact/Profane strategies** players use, and the most-used items per
-  slot (artifacts included).
-- **Leave-one-out ranking.** Empty each slot of a finished build and see where
-  the player's own item ranks under each scorer (hit@1/5/20, MRR, per slot).
-  This is the closest thing to an accuracy measure. It flatters the live
-  scorer, though, since some players picked from its list.
+**Sun and Moon gems.**
 
-See `tools/build-stats/README.md` for how to run it.
+- 129 builds slot all 5 Sun and all 5 Moon gems, and 128 slot none at all,
+  probably because augments aren't filled in the planner. The rest are
+  mostly 4-5 of each.
+- Players fill Moon slots more fully than Lominal recommends ("at most
+  4"). Their most-used Lunar gems are Physical Protection (217), Melee Power
+  (138), Constitution (127), Magical Protection (120) and Weapon Damage /
+  Deadly (114). That's the same order the flat-weight total-value ranking
+  gives (Melee Power, PRR, MRR, Deadly, then attributes), except that players
+  take Constitution earlier.
+- Most-used Solar gems: Physical Resistance Rating (110), Constitution (104),
+  Doublestrike (102), Melee Power (85).
+
+**Artifact and Profane strategy.** These are approximate builds per
+strategy, from the 16 most common combinations, which cover about 430 of the
+501.
+
+| | Artifact | Profane |
+|---|---|---|
+| gems only | ~135 | ~285 (5 gems: ~165, 4: ~70, 3 or fewer: ~50) |
+| gems and a set | ~165 | ~15 |
+| set only | ~100 | ~50 |
+| neither | ~30 | ~80 |
+
+- Gems dominate Profane, as Lominal says. Profane sets in use are Forbidden
+  Knowledge (40) and Dread Isle's Curse (26).
+- Artifact is mixed. Most Artifact "sets" are small crafted set bonuses
+  (Tough Shields 45, Imbued Infusion 44, Perfect Silence 25...) that give one
+  Artifact bonus each. These sit alongside gems rather than replacing them.
+  The bigger item sets in use are Eminence of Winter (33), Devils' Infernal
+  Dance (28), Eminence of Autumn (18) and Saltmarsh Explorer (15).
+
+**Where covered needs come from.** These are shares of the build's best
+source, over finished endgame builds.
+
+| Affix | Items | Augments | Sun/Moon | Other crafting / sets / non-gear |
+|---|---|---|---|---|
+| Speed | 49% | Yellow 36%, Blue 1% | - | upgradeable item 9%, non-gear 4% |
+| Melee Power | - | Yellow 26% | Moon 30%, Sun 19% | Artifact set 16%, Profane set 7% |
+| Doublestrike | 64% | Yellow 3% | Sun 15% | Artifact set 9%, Melancholic 6% |
+| Deadly | 40% | Yellow 7% | Moon 13% | non-gear (trance) 20%, Dolorous 11% |
+| Constitution | 29% | Colorless 15% | Moon 7% | Dolorous 7%, Melancholic 7% |
+| Healing Amplification | 27% | Blue 20% | Moon 17%, Sun 9% | Artifact set 8% |
+| Fortification | 95% | - | - | Melancholic 4% |
+
+Players get Speed from items about half the time, even though a Topaz is
+always available. Speed often rides along on items people want anyway, so
+this doesn't settle whether item Speed is worth chasing. It does show the
+planner isn't steering people to the augment.
+
+**Coverage.** Enhancement-type needs are usually covered (75-92% of builds
+that track them). The second bonus types are where builds fall short:
+Insight, Quality, Artifact and Profane versions are covered by 16-68% of the
+builds that track them. That is exactly where scarcity guidance matters
+most.
+
+**Leave-one-out: does each scorer rank the player's own item highly?** For
+the first 100 finished endgame builds, each filled slot was emptied in turn,
+and the slot's candidates were ranked by each scorer. That's 1,316 slots,
+using each build's own filters.
+
+| Scorer | MRR | player's item in top 20 | mean rank |
+|---|---|---|---|
+| live | 0.29 | 61% | 117 |
+| total value, augment-aware, planned artifact | 0.28 | **68%** | **49** |
+| flat weights + item-count scarcity | 0.26 | 66% | 49 |
+
+Players' own choices land in the augment-aware scorer's top 20 more often
+than in the live scorer's (68% against 61%), and much higher on average
+(rank 49 against 117). That's despite the bias in the live scorer's favour:
+some of these players picked from its list. The two are level at the very top
+(MRR 0.29 against 0.28).
+
+By slot, the augment-aware scorer puts the player's item in the top 20 more
+often in Goggles (84% against 64%), Necklace (81% against 61%), the Rings
+(79-80% against 63-66%), Gloves, Bracers, Boots, Belt and Armor. The live
+scorer does better in Helm (64% against 46%), and has the edge on MRR in Belt
+and Bracers. Weapons rank poorly under every scorer (top 20 in about a
+quarter), as expected: they're chosen for weapon type.
+
+Agreeing with players isn't the same as being right: players aren't always
+optimal, and a scorer that copies them can't improve on them. But together
+with the simulation, the expert's tiers and the gem advice, all four kinds
+of evidence point the same way: count what augments can carry, plan for
+the artifact, and keep total value as the objective.
 
 ## Caveats on the simulation
 
@@ -441,8 +514,9 @@ See `tools/build-stats/README.md` for how to run it.
   not for affixes.
 - Augment filling is greedy and ignores cross-slot crafting rules, so finished
   builds are slightly optimistic for every policy alike.
-- Four profiles, all at level 28-34. The real-build export is what will say
-  whether they're typical.
+- Four profiles, all at level 28-34. The saved builds (above) track mostly
+  the same affixes: Constitution, Sheltering, False Life, Fortification and
+  Dodge top the list, then melee and caster stats.
 - The harness still reports "needs met" (share of bonus types at 3/4 of best)
   as a secondary number. A per-type scorer wins on that measure but loses on
   total value, which is how that idea got dropped.

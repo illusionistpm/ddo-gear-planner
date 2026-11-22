@@ -49,9 +49,20 @@ report - no names or blobs, so it's safe to share:
   lands (mean rank, MRR, hit@1/5/20), overall and per slot.
 
 Leave-one-out is the slow part (every candidate of every slot of every build,
-for each scorer). `SUGGESTION_EVAL_SAMPLE=100` limits it to the first 100
-finished builds; `SUGGESTION_EVAL_POLICIES="live,discount"` limits the
-scorers by name substring.
+for each scorer). Options, all environment variables:
+
+- `SUGGESTION_EVAL_MIN_ML=28` keeps only builds whose equipped items have a
+  median level of 28 or more (the endgame); `SUGGESTION_EVAL_MAX_ML` caps it.
+- `SUGGESTION_EVAL_SAMPLE=100` limits leave-one-out to the first 100 finished
+  builds. The other statistics still use every build.
+- `SUGGESTION_EVAL_POLICIES="live getScore|planned artifact"` limits the
+  scorers, by name substring, several separated by `|`.
+- `SUGGESTION_EVAL_LOG=<file>` appends a line per leave-one-out build, to
+  follow a long run.
+- `SUGGESTION_EVAL_SHARD=k/n` ranks only every nth build from the kth, so n
+  processes can split the work (the machine needs a core each). Merge their
+  reports with `python3 tools/build-stats/merge-loo.py shard-0.json shard-1.json ...`.
+  100 endgame builds and three scorers took about 25 minutes over 3 shards.
 
 Caveat for leave-one-out: players who followed the suggestions will have
 picked what the live scorer ranked well, which flatters it. Compare scorers

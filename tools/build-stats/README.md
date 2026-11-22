@@ -105,3 +105,10 @@ These two read `data/*.json` only, with no export needed:
   and by items), and where the data agrees with his colour code. The
   suggestion harness reads the same JSON to score builds by his tiers
   (critical 3, strong 2, filler 1) and to build profiles from his lists.
+- `bundle-usage.py builds.local.json [--coverage report.json]`: how saved
+  builds use the affix bundles. It compares each build with the bundles as
+  they were when it was created (from git history; needs a full clone, not a
+  shallow one). It reports, per bundle, what adopters drop, what they added by
+  hand before the bundle had it, and what they add that no bundle has. With a
+  real-builds report it also lists how often tracked affixes are actually
+  covered.

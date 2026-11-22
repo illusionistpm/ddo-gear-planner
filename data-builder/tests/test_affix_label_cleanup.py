@@ -120,3 +120,18 @@ def test_a_tooltip_sentence_is_not_taken_for_a_stat_name():
     })
 
     assert affix['name'] == 'Thunderbane'
+
+
+def test_elemental_resistance_takes_the_tooltips_bonus_type_over_its_labels():
+    # The label says Competence; the tooltip, and the item's screenshot, say Insight.
+    li_html = tip('Competence Elemental Resistance - 10', 'This item provides a +10 Insight bonus to your Acid, '
+                  'Cold, Fire, and Electrical resistances.')
+
+    assert item_affixes(li_html) == [{'name': 'Elemental Resistance', 'type': 'Insight', 'value': '10'}]
+
+
+def test_elemental_resistance_agreeing_with_its_tooltip_is_unchanged():
+    li_html = tip('Competence Elemental Resistance - 10', 'This item provides a +10 Competence bonus to your Acid, '
+                  'Cold, Fire, and Electrical resistances.')
+
+    assert item_affixes(li_html) == [{'name': 'Elemental Resistance', 'type': 'Competence', 'value': '10'}]

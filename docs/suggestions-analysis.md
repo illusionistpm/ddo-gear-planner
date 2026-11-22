@@ -500,6 +500,93 @@ with the simulation, the expert's tiers and the gem advice, all four kinds
 of evidence point the same way: count what augments can carry, plan for
 the artifact, and keep total value as the objective.
 
+## Bundles: what people drop, and what they add
+
+`tools/build-stats/bundle-usage.py` compares every exported build's tracked
+list with the bundles as they were when the build was created. It rebuilds
+each bundle version from git history, so builds saved before the 2 November
+expansion aren't faulted for lacking what it added. A build "adopts" a
+bundle when it tracks at least 60% of the bundle's distinctive affixes, the
+ones no other bundle has (Melee and Ranged share most of theirs). This covers
+all 716 builds, every level.
+
+**Dropped from bundles.** For the affixes added on 2 November, a build
+created afterwards that lacks *all* of them most likely copied an older list.
+A build that lacks *some* of them removed those deliberately.
+
+| Bundle | Adopters with the new version | Kept all additions | Kept none (old list) | Dropped most often, by those who kept some |
+|---|---|---|---|---|
+| Basic | 190 | 120 | 31 | the five elemental absorbs (28-32 each), Incorporeality (21), Immunity to Fear (20) |
+| Melee | 103 | 47 | 19 | Alchemical Earth Attunement (26), Dripping with Magma (24), Action Boost Charges (20), Enhanced Bloodrage (18) |
+| Ranged | 50 | 23 | 5 | Dripping with Magma (16), Alchemical Earth Attunement (13), Incorporeal Bypass (13), Improved Deception (12) |
+
+The core of each bundle is almost always kept (Basic's sheltering, Con,
+False Life, Fortification, Dodge: 98-100%). Deception, added to Melee and
+Ranged, is the clear success. 32-52% of adopters had added it by hand
+before the bundle did, and almost none drop it. The weapon-proc booleans
+(Alchemical Earth Attunement, Dripping with Magma, Enhanced Bloodrage) are
+build-specific. A quarter to a third of deliberate users remove them, so they
+might sit better in an optional "melee extras" group.
+
+**Added beyond the bundles.** These are the most common, as a share of each
+bundle's adopters, for affixes in no bundle:
+
+| Bundle (adopters) | Most added |
+|---|---|
+| Basic (508) | Charisma 42%, Dexterity 39%, Wisdom 33%, Intelligence 31%, Strength 28%, Evocation Focus 25%, Stunning 20%, Enchantment Focus 13%, True Seeing 11% |
+| Melee (280) | Strength 56%, Stunning 46%, Wisdom 44%, Dexterity 43%, Charisma 38%, Sundering 19%, Vertigo 18% |
+| Ranged (119) | Dexterity 76%, Intelligence 32%, Sneak Attack Dice 24%, Greater Marksmanship 22% |
+| Caster (294) | Evocation Focus 57%, Charisma 51%, Intelligence 50%, Enchantment Focus 38%, Necromancy Focus 30%, Spell Focus Mastery 21%, Universal Spell Lore 21%, Universal Spell Power 20%, Magical Efficiency 19% |
+| Trapping (76) | Intelligence 80%, Dexterity 53%, Sneak Attack Dice 30% |
+| Negative (97) | Intelligence 90%, Necromancy Focus 77%, Negative Amplification 58% |
+| Fire / Cold / Electric / Sonic / Light | Evocation Focus 63-78%, plus the casting stat (Charisma 54-86% or Intelligence 40-51%) |
+
+The gaps are consistent:
+
+- **Main stat.** No bundle has one, and every role adds its own: Strength for
+  melee, Dexterity for ranged (76%), the casting stat for casters,
+  Intelligence for trapping (80%). A "main stat" choice beside the bundles
+  would cover it.
+- **Spell school DCs.** Evocation Focus for elemental nukers (57-78%),
+  Necromancy Focus for Negative (77%), Enchantment Focus broadly. That could
+  be a Spell DCs bundle with a school picker, or Evocation in the elemental
+  bundles.
+- **Tactics DCs** for melee: Stunning 46%, Sundering 19%, Vertigo 18%. Lominal
+  lists "relevant tactics DC" as strong.
+- Smaller ones: **Sneak Attack Dice** (ranged, trapping), **Negative
+  Amplification** (Negative), **Spell Focus Mastery / Universal Spell Lore and
+  Power / Magical Efficiency** (casters).
+- **Two leftovers from bundle changes.** Ghostly (361 builds) and Parrying (471)
+  are the most-tracked affixes in no bundle, mostly from before they were
+  swapped for Incorporeality and Deathblock. Ghostly is a group that already
+  counts as 10 Incorporeality, so tracking both is redundant.
+
+**Tracked but rarely filled.** These are finished endgame builds that track
+an affix, and how often they cover its best-covered bonus type at 3/4 of best
+or more. Utility effects can also come from spells, feats and enhancements,
+which the planner only sees if they're entered as non-gear, so low numbers
+partly mean "covered elsewhere".
+
+| Affix (in Basic) | Builds tracking | Covered |
+|---|---|---|
+| Sonic Absorption | 79 | ~1% |
+| Immunity to Blindness | 314 | 8% |
+| Concealment | 335 | 13% |
+| Immunity to Fear | 80 | 16% |
+| Heroic Inspiration | 309 | 22% |
+| Undying | 126 | 24% |
+| Feather Falling | 321 | 34% |
+| Incorporeality | 89 | 34% |
+| Freedom of Movement | 362 | 50% |
+
+Compare 75-92% for Constitution, the Sheltering pair, False Life,
+Fortification, Deadly and Accuracy. Concealment matters most here: it's in
+almost every build's list, covered by 13% of them, and it's among the
+affixes the live scorer inflates most in suggestions (3.5-4.7× its base
+rate). Players aren't pursuing it, yet the planner pushes it on them. Low
+weights, or an optional "utility" group, for these effects would make the
+suggestions match what people actually fill.
+
 ## Caveats on the simulation
 
 - **Total value is normalised per affix by the sum of its bonus types' best

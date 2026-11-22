@@ -58,9 +58,9 @@ const ALL_PROFILES: Profile[] = [
   { name: 'Lominal ranged', packages: [], expert: 'Ranged', expertOnly: true },
   { name: 'Lominal healer', packages: [], expert: 'Healer', expertOnly: true },
 ];
-// SUGGESTION_EVAL_PROFILES picks profiles by name substring.
+// SUGGESTION_EVAL_PROFILES picks profiles by name substring, several separated by |.
 const PROFILES = ALL_PROFILES.filter(profile =>
-  !process.env['SUGGESTION_EVAL_PROFILES'] || process.env['SUGGESTION_EVAL_PROFILES'].split(',').some(p => profile.name.includes(p)));
+  !process.env['SUGGESTION_EVAL_PROFILES'] || process.env['SUGGESTION_EVAL_PROFILES'].split('|').some(p => profile.name.includes(p)));
 
 interface RunResult {
   profile: string;
@@ -229,7 +229,7 @@ describe.skipIf(!ENABLED)('suggestion evaluation', () => {
     const codec = TestBed.inject(BuildUrlCodecService);
     const fixtureOut = process.env['SUGGESTION_EVAL_FIXTURE_OUT'];
     const fixture: Array<Record<string, string>> = [];
-    const only = process.env['SUGGESTION_EVAL_POLICIES']?.split(',');
+    const only = process.env['SUGGESTION_EVAL_POLICIES']?.split('|');
     const results: RunResult[] = [];
     for (const profile of skipRuns ? [] : PROFILES) {
       const index = setUpProfile(profile);
@@ -332,7 +332,7 @@ describe.skipIf(!ENABLED)('suggestion evaluation', () => {
 
     // Over-representation: from an empty build, which affixes turn up in each slot's top 20 far more
     // often than among all of that slot's candidates? Ratio > 1 means the scorer favours carriers.
-    const overrepOnly = process.env['SUGGESTION_EVAL_POLICIES']?.split(',');
+    const overrepOnly = process.env['SUGGESTION_EVAL_POLICIES']?.split('|');
     const overrep: Array<{ profile: string; scorer: string; affix: string; topShare: number; baseShare: number; ratio: number }> = [];
     for (const profile of process.env['SUGGESTION_EVAL_SKIP_OVERREP'] ? [] : PROFILES) {
       const index = setUpProfile(profile);

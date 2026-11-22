@@ -18,7 +18,7 @@
  * The report is aggregate only - no build names or blobs - so it can be shared.
  * SUGGESTION_EVAL_SAMPLE=n limits leave-one-out to n builds (it's the slow part).
  */
-import { readFileSync, writeFileSync } from 'node:fs';
+import { appendFileSync, readFileSync, writeFileSync } from 'node:fs';
 import { TestBed } from '@angular/core/testing';
 
 import { AffixAvailabilityService } from '../affixes/affix-availability.service';
@@ -37,9 +37,23 @@ import { Ctx, liveScorer, SCORERS } from './policies';
 const BUILDS_FILE = process.env['SUGGESTION_EVAL_BUILDS'];
 const REPORT_FILE = process.env['SUGGESTION_EVAL_REPORT'];
 const SAMPLE = Number(process.env['SUGGESTION_EVAL_SAMPLE'] || 0);
-const ONLY_SCORERS = process.env['SUGGESTION_EVAL_POLICIES']?.split(',');
+const ONLY_SCORERS = process.env['SUGGESTION_EVAL_POLICIES']?.split('|');
 /** A build with at least this many of its slots filled counts as a finished build for the source and LOO stats. */
 const MIN_FILLED = 9;
+/**
+ * SUGGESTION_EVAL_SHARD=k/n runs leave-one-out on every nth finished build from the kth (0-based),
+ * so n processes can split it. Each writes the same statistics; merge their leave-one-out results.
+ */
+const [SHARD, SHARD_COUNT] = (process.env['SUGGESTION_EVAL_SHARD'] ?? '0/1').split('/').map(Number);
+/** A file to append a line to per leave-one-out build, to follow a long run. */
+const PROGRESS = process.env['SUGGESTION_EVAL_LOG'];
+/**
+ * Only builds whose equipped items' median minimum level is in this range (both default to all):
+ * SUGGESTION_EVAL_MIN_ML=28 keeps endgame builds. Heroic and epic builds use different sets and
+ * have no Sun or Moon slots, so mixing them in muddies most of the statistics.
+ */
+const MIN_ML = Number(process.env['SUGGESTION_EVAL_MIN_ML'] || 0);
+const MAX_ML = Number(process.env['SUGGESTION_EVAL_MAX_ML'] || 99);
 
 interface ExportedBuild { source: 'saved' | 'share'; owner: string | null; name?: string; blob: string; createdAt: string }
 
@@ -137,7 +151,8 @@ describe.skipIf(!BUILDS_FILE)('real builds', () => {
     const packages = TestBed.inject(AffixPackagesService);
     const slotNames = equipped.getSlotNames();
 
-    const corpus = { total: exported.builds.length, decoded: 0, failed: 0, finished: 0, owners: new Set<string>() };
+    const corpus = { total: exported.builds.length, decoded: 0, failed: 0, outsideLevelRange: 0, finished: 0, owners: new Set<string>() };
+    const medianMlHistogram = new Counter<number>();
     const filledHistogram = new Counter<number>();
     const maxLevelHistogram = new Counter<number>();
     const tracked = new Counter<string>();
@@ -149,6 +164,9 @@ describe.skipIf(!BUILDS_FILE)('real builds', () => {
     const needsCovered = new Counter<string>(); // affix|type -> builds covering it
     const needsTracked = new Counter<string>(); // affix|type -> builds tracking it (finished builds)
     const strategies = new Counter<string>();
+    const gemCounts = new Counter<string>();
+    const gems = new Counter<string>();
+    const typedSets = new Counter<string>();
     const sunSlotUse = new Counter<string>();
     const itemsBySlot = new Map<string, Counter<string>>();
     const sets = new Counter<string>();
@@ -166,15 +184,22 @@ describe.skipIf(!BUILDS_FILE)('real builds', () => {
         continue;
       }
       corpus.decoded++;
-      if (build.owner) {
-        corpus.owners.add(build.owner);
-      }
       const adapter = adapterFor(params);
       filters.updateFromParams(adapter);
       equipped.updateFromParams(adapter);
 
       const slots = equipped.getSlotsSnapshot();
       const filled = slotNames.filter(slot => slots.get(slot));
+      const levels = filled.map(slot => slots.get(slot)!.ml).sort((a, b) => a - b);
+      const medianMl = levels.length ? levels[Math.floor(levels.length / 2)] : 0;
+      medianMlHistogram.add(medianMl);
+      if (medianMl < MIN_ML || medianMl > MAX_ML) {
+        corpus.outsideLevelRange++;
+        continue;
+      }
+      if (build.owner) {
+        corpus.owners.add(build.owner);
+      }
       filledHistogram.add(filled.length);
       const maxLevel = filters.getMaxLevel();
       let levelRange: [number, number] = [1, maxLevel];
@@ -239,7 +264,9 @@ describe.skipIf(!BUILDS_FILE)('real builds', () => {
       const sunItems = filled.filter(slot => slots.get(slot)!.crafting?.some(c => c.name === 'Sun Augment Slot'));
       const moonItems = filled.filter(slot => slots.get(slot)!.crafting?.some(c => c.name === 'Moon Augment Slot'));
       const gemmed = (name: string) => filled.filter(slot => slots.get(slot)!.crafting?.some(c => c.name === name && c.selected?.affixes.length)).length;
+      // Gear sets only: filigree sets (Tough Shields...) give Artifact bonuses too, but take no gear slot.
       const activeTypes = (type: string) => Array.from(equipped.getActiveSets())
+        .filter(([set]) => (gearDB.findSlotsForSet(set) ?? []).length > 0)
         .filter(([set, pieces]) => gearDB.getSetBonus(set, pieces).some(a => a.type === type)).map(([set]) => set);
       const artifactSets = activeTypes('Artifact');
       const profaneSets = activeTypes('Profane');
@@ -247,13 +274,27 @@ describe.skipIf(!BUILDS_FILE)('real builds', () => {
         gems && setsOfType.length ? 'both' : gems ? `gems (${gems})` : setsOfType.length ? 'set' : 'neither';
       strategies.add(`Artifact: ${describe(gemmed('Sun Augment Slot'), artifactSets)} | Profane: ${describe(gemmed('Moon Augment Slot'), profaneSets)}`);
       sunItems.forEach(slot => sunSlotUse.add(`Sun item in ${slot}`));
+      gemCounts.add(`Sun gems: ${gemmed('Sun Augment Slot')}, Moon gems: ${gemmed('Moon Augment Slot')}`);
+      for (const slot of filled) {
+        for (const c of slots.get(slot)!.crafting ?? []) {
+          if ((c.name === 'Sun Augment Slot' || c.name === 'Moon Augment Slot') && c.selected?.affixes.length) {
+            gems.add(`${c.name.replace(' Augment Slot', '')}: ${c.selected.name || c.selected.describe(true, false)}`);
+          }
+        }
+      }
+      artifactSets.forEach(set => typedSets.add(`Artifact: ${set}`));
+      profaneSets.forEach(set => typedSets.add(`Profane: ${set}`));
       moonItems.forEach(slot => sunSlotUse.add(`Moon item in ${slot}`));
 
       // Leave-one-out ranking.
-      if (SAMPLE && looBuilds >= SAMPLE) {
+      const finishedIndex = corpus.finished - 1;
+      if ((SAMPLE && finishedIndex >= SAMPLE) || finishedIndex % SHARD_COUNT !== SHARD) {
         continue;
       }
       looBuilds++;
+      if (PROGRESS) {
+        appendFileSync(PROGRESS, `leave-one-out build ${looBuilds} (${filled.length} slots) at ${new Date().toISOString()}\n`);
+      }
       const index = new NeedIndex(affixSvc, gearDB, covered, trackedSnapshot(equipped));
       const baseline = index.needs.map(need => {
         const externals = equipped.getExternalAffixesForType(need.affix, need.type);
@@ -323,6 +364,7 @@ describe.skipIf(!BUILDS_FILE)('real builds', () => {
 
     const report = {
       corpus: { ...corpus, owners: corpus.owners.size, minFilledForFinished: MIN_FILLED },
+      medianItemLevel: Object.fromEntries(Array.from(medianMlHistogram.counts).sort((a, b) => a[0] - b[0])),
       filledSlots: Object.fromEntries(Array.from(filledHistogram.counts).sort((a, b) => a[0] - b[0])),
       maxLevel: Object.fromEntries(Array.from(maxLevelHistogram.counts).sort((a, b) => a[0] - b[0])),
       trackedCount: Object.fromEntries(Array.from(trackedCountHistogram.counts).sort((a, b) => a[0] - b[0])),
@@ -340,6 +382,9 @@ describe.skipIf(!BUILDS_FILE)('real builds', () => {
         .filter(row => row.tracked >= 5)
         .sort((a, b) => b.tracked - a.tracked),
       artifactProfaneStrategies: strategies.top(30),
+      sunMoonGemCounts: gemCounts.top(40),
+      sunMoonGems: gems.top(60),
+      artifactProfaneSets: typedSets.top(40),
       sunMoonSlots: sunSlotUse.top(20),
       topItemsBySlot: Object.fromEntries(Array.from(itemsBySlot).map(([slot, counter]) => [slot, counter.top(12)])),
       topSets: sets.top(40),

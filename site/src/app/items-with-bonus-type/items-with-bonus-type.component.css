@@ -322,10 +322,3 @@
         min-height: 2.75rem;
     }
 }
-
-/* The chosen slot's gear, beside its dropdown: options can't carry an icon of their own. */
-.slot-choice-icon {
-    color: var(--text-secondary);
-    flex: 0 0 auto;
-    font-size: 1.1rem;
-}

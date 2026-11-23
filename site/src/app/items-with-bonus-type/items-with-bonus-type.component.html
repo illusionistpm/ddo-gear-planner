@@ -134,7 +134,6 @@
           <div class="col-12 slot-controls">
             @let augmentPick = augmentPicks.get(elem.key);
             @if (augmentPick) {
-              <app-slot-icon class="slot-choice-icon" [slot]="augmentPick.item.slot"></app-slot-icon>
               <select class="augment-slot-select form-control border border-secondary" aria-label="Slot to put it in"
                 [ngModel]="augmentPick" (ngModelChange)="augmentPicks.set(elem.key, $event)" [title]="slotChoiceTitle(augmentPick)">
                 @for (choice of augmentChoices.get(elem.key); track $index) {
@@ -176,7 +175,6 @@
           <div class="col-12 slot-controls">
             @let craftPick = craftPicks.get(elem.key);
             @if (craftPick) {
-              <app-slot-icon class="slot-choice-icon" [slot]="craftPick.item.slot"></app-slot-icon>
               <select class="augment-slot-select form-control border border-secondary" aria-label="Slot to craft it into"
                 [ngModel]="craftPick" (ngModelChange)="craftPicks.set(elem.key, $event)" [title]="slotChoiceTitle(craftPick)">
                 @for (choice of craftChoices.get(elem.key); track $index) {

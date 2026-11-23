@@ -105,7 +105,8 @@ export function buildFamilyRows(
       className: bestRankClass(tiers.map(tier => tier.className)),
       tiers,
       searchText: [family.label, detail, ...family.tiers.map(option => option.describe())].join('\n').toLowerCase(),
-      relevant: tiers.some(tier => tier.className !== IRRELEVANT),
+      // A tier ranked irrelevant can still raise a tracked compound through one of its parts.
+      relevant: tiers.some(tier => tier.className !== IRRELEVANT || tier.gain?.direction === 'up' || tier.gain?.direction === 'mixed'),
       hideable: first.affixes.length > 0 || !!first.set || !!first.name,
       owned: tiers.some(tier => tier.owned),
       // The highest of equally good tiers, as `defaultTier` opens a family at.

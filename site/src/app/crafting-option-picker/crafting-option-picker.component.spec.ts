@@ -52,7 +52,7 @@ describe('CraftingOptionPickerComponent', () => {
       note: option === helpfulSet ? '1 of 3 set pieces' : '',
       rankTooltip: option === charisma[0] ? 'Overpowered by Hat (Head)' : '',
       // The build has +3 Charisma from elsewhere.
-      changes: charisma.includes(option)
+      changes: charisma.includes(option) && rankOf(option) !== 'Irrelevant'
         ? [{ name: 'Charisma', type: 'Enhancement', before: 3, after: Math.max(3, option.affixes[0].value) }]
         : []
     }));

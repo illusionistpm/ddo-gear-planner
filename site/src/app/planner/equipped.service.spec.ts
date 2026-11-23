@@ -7,6 +7,7 @@ import { QueryParamsService } from '../build/query-params.service';
 import { FiltersService } from './filters.service';
 import { Affix } from '../affixes/affix';
 import { AffixRank } from '../affixes/affix-rank.enum';
+import { AffixService } from '../affixes/affix.service';
 import { AffixUiService } from '../affixes/affix-ui.service';
 import { CraftableOption } from '../gear/craftable-option';
 import { Craftable } from '../gear/craftable';
@@ -873,6 +874,15 @@ describe('EquippedService', () => {
 
       expect(changes(dexterity)).toEqual([{ name: 'Dexterity', type: 'Enhancement', before: 0, after: 5 }]);
       expect(changes(new CraftableOption({ name: '' }))).toEqual([]);
+    });
+
+    it('counts a tracked compound the option would complete through its parts', () => {
+      TestBed.inject(AffixService).affixGroups.set('Radiance Lore', ['Light Lore', 'Alignment Lore']);
+      service.addImportantAffix('Radiance Lore');
+      service.set(makeItem('Belt', 'Belt', 'Belts', [{ name: 'Alignment Lore', type: 'Insight', value: 10 }]));
+      const lightLore = new CraftableOption({ name: 'Light Lore +8', affixes: [{ name: 'Light Lore', type: 'Insight', value: 8 }] });
+
+      expect(changes(lightLore)).toEqual([{ name: 'Radiance Lore', type: 'Insight', before: 0, after: 8 }]);
     });
 
     it('leaves out affixes the build doesn\'t track', () => {

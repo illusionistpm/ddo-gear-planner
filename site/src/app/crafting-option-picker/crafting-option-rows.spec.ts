@@ -133,6 +133,14 @@ describe('buildFamilyRows', () => {
       expect(capped.bestTier.option).toBe(charisma[0]);
     });
 
+    it('makes an option relevant when it raises a tracked affix its rank doesn\'t see (a compound\'s part)', () => {
+      const row = byLabel('Acid Absorption', rows([acid], () => ({
+        changes: [{ name: 'Elemental Absorption', type: 'Enhancement', before: 0, after: 10 }] })));
+
+      expect(row.relevant).toBe(true);
+      expect(byLabel('Acid Absorption', rows([acid])).relevant).toBe(false);
+    });
+
     it('is nothing on an option that touches no tracked affix', () => {
       expect(byLabel('Acid Absorption', rows([acid])).tiers[0].gain).toBeNull();
     });

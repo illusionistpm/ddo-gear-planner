@@ -4,7 +4,7 @@ import pytest
 
 import provenance_io
 import write_json
-from affix_descriptions import build_descriptions, fill_constants, restates_row, strip_enchantment_name, to_template
+from affix_descriptions import build_descriptions, fill_constants, restates_row, strip_enchantment_name, to_template, trim_restatements
 
 
 @pytest.mark.parametrize('tooltip, name, expected', [
@@ -127,3 +127,32 @@ def test_write_json_hands_tooltips_to_the_capture_only_while_it_is_on(monkeypatc
 
     assert provenance_io.captured_affix_tooltips() == {('Spot', 'Insight', '3', 'Spot +3: Keen.')}
     assert json.loads((tmp_path / 'during.json').read_text(encoding='utf8')) == [{'name': 'Spot', 'type': 'Insight', 'value': '3'}]
+
+
+@pytest.mark.parametrize('tooltip, expected', [
+    ('Spark: Deals 1d61 to 6 damage.', 'Deals 1d6 (1 to 6) damage.'),
+    ('Spark: Deals 4d44 to 16 damage.', 'Deals 4d4 (4 to 16) damage.'),
+    ('Spark: Deals 7d67 to 42 damage.', 'Deals 7d6 (7 to 42) damage.'),
+    ('Spark: Deals 2d102 to 20 damage.', 'Deals 2d10 (2 to 20) damage.'),
+])
+def test_build_descriptions_parts_dice_from_the_range_the_wiki_ran_on(tooltip, expected):
+    assert build_descriptions({('Spark', 'Bool', '1', tooltip)}, set())['Spark']['*'] == expected
+
+
+@pytest.mark.parametrize('text, name, compound, expected', [
+    # Only the note says what Doublestrike is.
+    ('Passive: {v}% {type} bonus to Doublestrike. (Doublestrike is a chance to score an additional hit.)',
+     'Doublestrike', False, 'Doublestrike is a chance to score an additional hit.'),
+    # A compound's bonuses are its parts list.
+    ('When Missed by an attack: Deals damage to your attacker. Passive: +X {type} bonus to Armor Class, +X {type} bonus to Saves.',
+     'Riposte', True, 'When Missed by an attack: Deals damage to your attacker.'),
+    ('Passive: Your Cold spells gain a bonus to their chance to critical hit.', 'Cold Lore', False,
+     'Your Cold spells gain a bonus to their chance to critical hit.'),
+    # The next sentence needs the one before it.
+    ('A +{v} {type} bonus to Armor Class. It does not stack with a shield.', 'Armor Class', False,
+     'A +{v} {type} bonus to Armor Class. It does not stack with a shield.'),
+    # Nothing restated: the text is left as it is.
+    ('+{v} {type} bonus to weapon damage.', 'Deadly', False, '+{v} {type} bonus to weapon damage.'),
+])
+def test_trim_restatements(text, name, compound, expected):
+    assert trim_restatements(text, name, compound) == expected

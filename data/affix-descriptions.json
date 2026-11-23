@@ -12,10 +12,10 @@
         "*": "+{v} {type} bonus to the DC of Abjuration spells."
     },
     "Absolute Chaos": {
-        "*": "This weapon is infused with the ultimate power of Chaos. It does an additional 2d62 to 12 damage to non-chaotic targets and can only be wielded by Chaotic-aligned characters."
+        "*": "This weapon is infused with the ultimate power of Chaos. It does an additional 2d6 (2 to 12) damage to non-chaotic targets and can only be wielded by Chaotic-aligned characters."
     },
     "Absolute Law": {
-        "*": "This weapon is infused with the ultimate power of Law. It does an additional 2d62 to 12 to non-lawful targets and can only be wielded by Lawful-aligned characters."
+        "*": "This weapon is infused with the ultimate power of Law. It does an additional 2d6 (2 to 12) to non-lawful targets and can only be wielded by Lawful-aligned characters."
     },
     "Absorb Beholder Spells clicky": {
         "*": "This effect absorbs most spells cast by beholder eyestalks. Only a few such spells can be absorbed before the item ceases to function and must have time to dissipate the absorbed energy."
@@ -36,25 +36,25 @@
         "*": "This effect absorbs magic missile spells targeted at the wearer."
     },
     "Accuracy": {
-        "*": "Passive: +{v} {type} bonus to attack rolls"
+        "*": "+{v} {type} bonus to attack rolls"
     },
     "Accursed Flame": {
         "*": "Coalesce beyond the material, join us in the Flame! Hatred burns eternal!This weapon is wrapped in cursed flames, dealing an additional 6d6 Fire damage on each hit. When striking an enemy that has been Quelled, it also deals 6d6 Evil damage on each hit. This effect makes the weapon evil aligned. Good characters wielding this weapon will suffer one negative level."
     },
     "Acid": {
-        "*": "On Hit: XdX to X Acid Damage."
+        "*": "On Hit: Xd4 (X to X) Acid Damage."
     },
     "Acid Absorption": {
-        "*": "Passive: {v}% {type} Bonus to Acid Absorption. (Absorption reduces damage from an element by a percentage, after resistance have been taken into account.)"
+        "*": "Absorption reduces damage from an element by a percentage, after resistance have been taken into account."
     },
     "Acid Arrow": {
         "*": "This bow coats your arrows in corrosive acid. A successful hit douses the target in acid causing an additional 3d4+36 to 15 damage after two seconds have passed. Each additional hit extends the duration of the acid damage by two seconds."
     },
     "Acid Blast": {
-        "*": "This weapon is covered in a strong and deadly acid, dealing XdX to X Acid damage on a successful hit, and an additional XdX to X Acid damage on a critical hit."
+        "*": "This weapon is covered in a strong and deadly acid, dealing Xd6 (X to X) Acid damage on a successful hit, and an additional Xd6 (X to X) Acid damage on a critical hit."
     },
     "Acid Burst": {
-        "*": "This weapon is sheathed in corrosive acid, and does 1d61 to 6 acid damage each hit. Critical hits deal an additional 1d101 to 10 acid damage for weapons with a x2 critical multiplier, 2d102 to 20 for a x3 multiplier and 3d103 to 30 for a x4 multiplier."
+        "*": "This weapon is sheathed in corrosive acid, and does 1d6 (1 to 6) acid damage each hit. Critical hits deal an additional 1d10 (1 to 10) acid damage for weapons with a x2 critical multiplier, 2d10 (2 to 20) for a x3 multiplier and 3d10 (3 to 30) for a x4 multiplier."
     },
     "Acid Guard": {
         "*": "Chance to deal XdX Acid damage when hit."
@@ -64,10 +64,10 @@
         "Insight": "+{v}% Insightful bonus to critical damage with Acid spells."
     },
     "Acid Lore": {
-        "*": "Passive: Your Acid spells gain a {v}% {type} bonus to their chance to critical hit."
+        "*": "Your Acid spells gain a {v}% {type} bonus to their chance to critical hit."
     },
     "Acid Torrent": {
-        "*": "This weapon is imbued with a vitriolic wrath. On an attack roll of 20 which is confirmed as a critical hit this power will be released, dealing damage to the target and all enemies near it for 15d615 to 90 acid damage. A successful Reflex save (DC 39) reduces this by half."
+        "*": "This weapon is imbued with a vitriolic wrath. On an attack roll of 20 which is confirmed as a critical hit this power will be released, dealing damage to the target and all enemies near it for 15d6 (15 to 90) acid damage. A successful Reflex save (DC 39) reduces this by half."
     },
     "Acid Touch": {
         "*": "This weapon gives off the faint smell of acid. An acid touch weapon deals an additional +1 acid damage on a successful hit."
@@ -76,7 +76,7 @@
         "*": "On Hit: Applies a stack of Vulnerable (1% more damage for 3 seconds. This effect stacks up to 20 times, and loses one stack on expiration.). This effect may only occur on-hit once every second."
     },
     "Acidic": {
-        "*": "This effect causes the edges of this weapon to drip with acid, dealing XdX to X Acid damage on each hit."
+        "*": "This effect causes the edges of this weapon to drip with acid, dealing Xd6 (X to X) Acid damage on each hit."
     },
     "Acidic Reaping": {
         "*": "While this item is equipped, any killing blows you strike against enemies grants you 40 Acid resistance for 30 seconds. Slaying weaker opponents has a reduced chance of producing this effect."
@@ -109,16 +109,16 @@
         "*": "This weapon transmutes into a form that is able to bypass any alignment based Damage Reduction. (Chaotic, Good, Evil, Lawful)"
     },
     "Alignment Absorption": {
-        "*": "Passive: {v}% {type} Bonus to Alignment Absorption. (Absorption reduces damage from an element by a percentage, after resistance have been taken into account.)"
+        "*": "Absorption reduces damage from an element by a percentage, after resistance have been taken into account."
     },
     "Anarchic": {
         "*": "On Hit: X to X Chaos damage. Chaos-aligned creatures are immune to this effect. Penalty: If equipped by a Lawful user, they receive 1 Negative Level for as long as this item is equipped."
     },
     "Anarchic Blast": {
-        "*": "This weapon is a chaotic conduit, dealing XdX to X Chaos damage on a successful hit, and an additional XdX to X Chaos damage on a critical hit. This effect makes the weapon chaotically aligned. Lawful characters wielding this weapon will suffer one negative level."
+        "*": "This weapon is a chaotic conduit, dealing Xd6 (X to X) Chaos damage on a successful hit, and an additional Xd6 (X to X) Chaos damage on a critical hit. This effect makes the weapon chaotically aligned. Lawful characters wielding this weapon will suffer one negative level."
     },
     "Anarchic Burst": {
-        "*": "This weapon is a chaotic conduit, dealing XdX to X Chaos damage on a successful hit to Lawful enemies, and XdX to X Chaos damage on a critical hit to Lawful enemies. This effect makes the weapon chaotically aligned. Lawful characters wielding this weapon will suffer one negative level."
+        "*": "This weapon is a chaotic conduit, dealing Xd6 (X to X) Chaos damage on a successful hit to Lawful enemies, and Xd6 (X to X) Chaos damage on a critical hit to Lawful enemies. This effect makes the weapon chaotically aligned. Lawful characters wielding this weapon will suffer one negative level."
     },
     "Anathema": {
         "*": "Increases all threat generated by spells by 25%."
@@ -145,7 +145,7 @@
         "*": "This item was made from powerful antimagic materials. When scoring a critical hit on an enemy with your ranged or melee weapons, the target must make a DC X Fortitude save or be unable to cast spells for a brief duration."
     },
     "Antipodal": {
-        "*": "This weapon is a carefully balanced confluence of diametrically opposed planar energies. This weapon deals an extra 1d61 to 6 points of Good damage to non-Good enemies, an extra 1d61 to 6 points of Evil damage to non-Evil enemies, an extra 1d61 to 6 points of Law damage to non-Lawful enemies, and an extra 1d61 to 6 points of Chaotic damage to non-Chaotic enemies."
+        "*": "This weapon is a carefully balanced confluence of diametrically opposed planar energies. This weapon deals an extra 1d6 (1 to 6) points of Good damage to non-Good enemies, an extra 1d6 (1 to 6) points of Evil damage to non-Evil enemies, an extra 1d6 (1 to 6) points of Law damage to non-Lawful enemies, and an extra 1d6 (1 to 6) points of Chaotic damage to non-Chaotic enemies."
     },
     "AoE Phantasmal Killer": {
         "*": "Phantasmal Killer Caster level: 10"
@@ -166,10 +166,10 @@
         "Shield": "While this item is equipped, you are partially protected by a field of magical force which can deflect enemy attacks. This item provides a +{v} {type} bonus to Armor Class. It does not stack with an equipped shield."
     },
     "Armor Mastery": {
-        "*": "Passive: +{v} {type} bonus to the Max Dex Bonus of your equipped light, medium, or heavy armor. This benefit does not apply to the Max Dex Bonus of a Tower Shield."
+        "*": "+{v} {type} bonus to the Max Dex Bonus of your equipped light, medium, or heavy armor. This benefit does not apply to the Max Dex Bonus of a Tower Shield."
     },
     "Armor-Piercing": {
-        "*": "Passive: +{v}% {type} bonus to Fortification Bypass. (Fortification Bypass makes your attacks ignore a percentage of enemy Fortification.)"
+        "*": "+{v}% {type} bonus to Fortification Bypass. (Fortification Bypass makes your attacks ignore a percentage of enemy Fortification.)"
     },
     "Arrow Spitting": {
         "*": "While this item is equipped and an enemy hits you, there is a chance that this item will produce a stack of 20 arrows of a random type. Where exactly the arrows come from remains a mystery."
@@ -187,16 +187,16 @@
         "*": "This magical item contains the destructive power of an avalanche within, and when you are damaged below 50% HP, its power is unleashed in the form of a massive explosion of Cold damage."
     },
     "Axeblock": {
-        "*": "Passive: Reduces physical damage taken by X, except from Bludgeoning or Piercing weapons. (Damage Reduction: X/Pierce, Bludgeon)"
+        "*": "Reduces physical damage taken by X, except from Bludgeoning or Piercing weapons. (Damage Reduction: X/Pierce, Bludgeon)"
     },
     "Axiomatic": {
         "*": "On Hit: X to X Law damage. Law-aligned creatures are immune to this effect. Penalty: If equipped by a Chaotic user, they receive 1 Negative Level for as long as this item is equipped."
     },
     "Axiomatic Blast": {
-        "*": "This weapon is an implement of law, dealing XdX to X Law damage on a successful hit, and an additional XdX to X Law damage on a critical hit. This effect makes the weapon lawfully aligned. Chaotic characters wielding this weapon will suffer one negative level."
+        "*": "This weapon is an implement of law, dealing Xd6 (X to X) Law damage on a successful hit, and an additional Xd6 (X to X) Law damage on a critical hit. This effect makes the weapon lawfully aligned. Chaotic characters wielding this weapon will suffer one negative level."
     },
     "Axiomatic Burst": {
-        "*": "This weapon is an implement of law, dealing XdX to X Law damage on a successful hit to Chaotic enemies, and XdX to X Law damage on a critical hit to Chaotic enemies. This effect makes the weapon lawfully aligned. Chaotic characters wielding this weapon will suffer one negative level."
+        "*": "This weapon is an implement of law, dealing Xd6 (X to X) Law damage on a successful hit to Chaotic enemies, and Xd6 (X to X) Law damage on a critical hit to Chaotic enemies. This effect makes the weapon lawfully aligned. Chaotic characters wielding this weapon will suffer one negative level."
     },
     "Balanced Ki Strike": {
         "*": "When you activate your Light:Light:Light or Dark:Dark:Dark Finishing Move, you benefit from a increased Melee Power for a short time."
@@ -208,7 +208,7 @@
         "*": "This bane weapon excels at attacking more than on type of subtype of creature. Against aberrations, monstrous humanoids, and the undead, this weapon deals an extra 2 to 12 points of damage against the foe."
     },
     "Banishing": {
-        "*": "On Hit: XdX to X Bane damage to Outsiders. On Vorpal Hit: If an outsider struck by this weapon has fewer than X Hit Points, it is instantly slain. If the outsider has above X Hit Points, it takes XdX to X damage."
+        "*": "On Hit: Xd6 (X to X) Bane damage to Outsiders. On Vorpal Hit: If an outsider struck by this weapon has fewer than X Hit Points, it is instantly slain. If the outsider has above X Hit Points, it takes Xd20 (X to X) damage."
     },
     "Banishing Fists": {
         "*": "On Vorpal Hit: If an outsider struck by your attacks has fewer than 1000 Hit Points, it is instantly slain. If the outsider has above 1000 hit points, it takes 100 damage."
@@ -220,7 +220,7 @@
         "*": "+13 Enhancement bonus to the DC to resist the character's Trip, Improved Trip, Sunder, Improved Sunder, Stunning Blow, and Stunning Fist attempts. In addition, on hit with this weapon, you deal an extra 15d6 Bludgeoning Damage to Bosses and creatures who have been knocked down."
     },
     "Bashing": {
-        "*": "This shield is exceptionally durable and dense, and does an additional XdX to X damage when used to shield bash."
+        "*": "This shield is exceptionally durable and dense, and does an additional Xd6 (X to X) damage when used to shield bash."
     },
     "Battle-Scarred": {
         "*": "This item has obviously seen use in many fights. It is chipped and scratched, but perhaps in the future there will be a way to restore it to its former glory."
@@ -238,13 +238,13 @@
         "*": "Killing enemies may cause you to fall into a ferocious rage, granting you the benefits of the Haste spell."
     },
     "Blazing": {
-        "*": "This effect causes the edges of this weapon to coruscate, dealing XdX to X Light damage on each critical hit."
+        "*": "This effect causes the edges of this weapon to coruscate, dealing Xd6 (X to X) Light damage on each critical hit."
     },
     "Bleed": {
-        "*": "This weapon is cruelly sharp and will do an additional 1d81 to 8 damage to targets that are vulnerable to bleeding."
+        "*": "This weapon is cruelly sharp and will do an additional 1d8 (1 to 8) damage to targets that are vulnerable to bleeding."
     },
     "Bleeding": {
-        "*": "This weapon is wickedly curved, with spines and hooks meant to cause damage to those with flesh. This weapon does XdX to X bleeding damage to those that are vulnerable to it."
+        "*": "This weapon is wickedly curved, with spines and hooks meant to cause damage to those with flesh. This weapon does Xd8 (X to X) bleeding damage to those that are vulnerable to it."
     },
     "Bless Ward": {
         "*": "You are warded against the Bless spell."
@@ -274,7 +274,7 @@
         "*": "Exchanges 25 hit points for 50 spell points.(This enchantment has no effect.)"
     },
     "Bloodletter": {
-        "*": "On Critical Hit: XdX to X Slashing damage from weapons with a x2 Critical Multiplier, XdX to X Slashing damage from weapons with a x3 Critical Multiplier, and XdX to X Slashing damage from weapons with a x4 or greater Critical Multiplier."
+        "*": "On Critical Hit: Xd6 (X to X) Slashing damage from weapons with a x2 Critical Multiplier, Xd8 (X to X) Slashing damage from weapons with a x3 Critical Multiplier, and Xd10 (X to X) Slashing damage from weapons with a x4 or greater Critical Multiplier."
     },
     "Bloodrage Defense": {
         "*": "When you are holding a two-handed weapon, you gain a +10 Profane bonus to Physical and Magical Resistance Rating."
@@ -301,13 +301,13 @@
         "*": "While in any Wild Shape, your weapons gain Piercing damage bypass and +1W."
     },
     "Bonesplitter": {
-        "*": "This weapon is powerful enough to shatter the bones of those it strikes. On an attack roll of 20 which is confirmed as a critical hit, the weapon breaks multiple bones in the target's body, causing significant impairment. Creatures with skeletons take 40d640 to 240 damage and will have their movement and attacks slowed by 25% and their attack damage reduced by 25% when their bones are shattered."
+        "*": "This weapon is powerful enough to shatter the bones of those it strikes. On an attack roll of 20 which is confirmed as a critical hit, the weapon breaks multiple bones in the target's body, causing significant impairment. Creatures with skeletons take 40d6 (40 to 240) damage and will have their movement and attacks slowed by 25% and their attack damage reduced by 25% when their bones are shattered."
     },
     "Boon of Undeath": {
         "*": "Undead take solace in the hate of others. Every time a character wearing a Boon of Undeath item is struck in combat, an Inflict Light Wounds spell will be cast on the character."
     },
     "Boreal": {
-        "*": "This weapon is sheathed in frigid cold. A boreal weapon deals an extra 2d62 to 12 cold damage on a successful hit."
+        "*": "This weapon is sheathed in frigid cold. A boreal weapon deals an extra 2d6 (2 to 12) cold damage on a successful hit."
     },
     "Brazen Brilliance": {
         "*": "With this item equipped, your offensive attacks and spells have a chance of creating a burst of pure light, dealing Light damage and blinding enemies."
@@ -316,7 +316,7 @@
         "*": "+{v} {type} bonus to the DC of Breath Weapon spells."
     },
     "Brilliance": {
-        "*": "This weapon glows with the light of Irian. This weapon deals an extra 1d61 to 6 light damage on a successful hit. In addition, critical hits deal an additional 1d101 to 10 light damage for weapons with a x2 critical multiplier, 2d102 to 20 for a x3 critical multiplier and 3d103 to 30 for a x4 multiplier."
+        "*": "This weapon glows with the light of Irian. This weapon deals an extra 1d6 (1 to 6) light damage on a successful hit. In addition, critical hits deal an additional 1d10 (1 to 10) light damage for weapons with a x2 critical multiplier, 2d10 (2 to 20) for a x3 critical multiplier and 3d10 (3 to 30) for a x4 multiplier."
     },
     "Brilliance of the Shattered Sun": {
         "*": "Light drips from within this small container, sparkling before your eyes. With this item equipped, your offensive attacks and spells have a chance of creating a burst of pure light, dealing Light damage and blinding enemies."
@@ -325,13 +325,13 @@
         "*": "This helmet is fashioned from brilliant silver Dragonscale, and is warded against the cold. +52 Enhancement bonus to Resist Cold."
     },
     "Burning Ammunition - 1d2": {
-        "*": "On Ranged Attack: 1d21 to 2 Fire damage."
+        "*": "On Ranged Attack: 1d2 (1 to 2) Fire damage."
     },
     "Burning Ammunition - 1d8": {
-        "*": "On Ranged Attack: 1d81 to 8 Fire damage."
+        "*": "On Ranged Attack: 1d8 (1 to 8) Fire damage."
     },
     "Burning Glory": {
-        "*": "On Harmful Spellcast: Do an additional {v}dX to X Fire damage."
+        "*": "On Harmful Spellcast: Do an additional {v}d6 ({v} to 6) Fire damage."
     },
     "Byeshk": {
         "*": "Byeshk is effective against Mind Flayers and other aberrations."
@@ -352,7 +352,7 @@
         "*": "This powerful magical implement hums in your hands and resonates with icy magic. Spells you cast have a chance of freezing your targets in a block of solid ice. DC: 35"
     },
     "Chaos Absorption": {
-        "*": "Passive: {v}% {type} Bonus to Chaos Absorption. (Absorption reduces damage from an element by a percentage, after resistance have been taken into account.)"
+        "*": "Absorption reduces damage from an element by a percentage, after resistance have been taken into account."
     },
     "Chaotic Aligned": {
         "*": "This weapon transmutes into a form that is able to bypass Chaotic alignment based Damage Reduction."
@@ -364,7 +364,7 @@
         "*": "This weapon is designed specifically to hunt the unnatural that does not belong, dealing an additional Xd10 bane damage vs. Chaotic Outsiders."
     },
     "Charisma Skills": {
-        "*": "Passive +{v} {type} bonus to the Charisma based skills of: Bluff, Diplomacy, Haggle, Intimidate, Perform and Use Magic Device (UMD)"
+        "*": "+{v} {type} bonus to the Charisma based skills of: Bluff, Diplomacy, Haggle, Intimidate, Perform and Use Magic Device (UMD)"
     },
     "Chilling": {
         "*": "This effect causes the edges of this weapon to become frozen to the touch, dealing Xd6 Ice damage on each hit."
@@ -373,10 +373,10 @@
         "*": "This item grants extra bonuses if the wearer has been bestowed with Dragonmarks. You gain +1 use of Greater Dragonmark and +5 Quality PRR per Dragonmark you have. Dragonmark of Sentinel bonus: You gain the effects of the Deific Warding feat. This does not stack with the feat itself."
     },
     "Chitinous Covering": {
-        "*": "This shield is made of the scavenged chitinous shell of a giant crab, and is magically warded against fire. +{v}% {type} bonus to Fire absorption."
+        "*": "This shield is made of the scavenged chitinous shell of a giant crab, and is magically warded against fire."
     },
     "Choked by Mother Night": {
-        "*": "Choked by Mother Night: This weapon is unholy, dealing an additional 6d66 to 36 evil damage on each hit. This effect makes the weapon evil aligned. Mother Night does not answer the prayers of her disciples without due cause. Strike those who disobey Her with this relic, and be rewarded."
+        "*": "Choked by Mother Night: This weapon is unholy, dealing an additional 6d6 (6 to 36) evil damage on each hit. This effect makes the weapon evil aligned. Mother Night does not answer the prayers of her disciples without due cause. Strike those who disobey Her with this relic, and be rewarded."
     },
     "Clever Strike": {
         "*": "This item changes its enhancement bonus if your Intelligence is high enough. The enhancement bonus will be equal to your Intelligence modifier while the item is equipped (minimum 6, maximum 10)."
@@ -388,13 +388,13 @@
         "*": "Whenever you cast a Fire or Light spell, you gain +50 Temporary Spell Points that last for 30 seconds. This can only trigger once every 45 seconds."
     },
     "Cold Absorption": {
-        "*": "Passive: {v}% {type} Bonus to Cold Absorption. (Absorption reduces damage from an element by a percentage, after resistance have been taken into account.)"
+        "*": "Absorption reduces damage from an element by a percentage, after resistance have been taken into account."
     },
     "Cold Iron": {
         "*": "This iron mined deep underground, known for its effectiveness against fey creatures, is forged at a lower temperature to preserve its delicate properties. When combined with Good damage types, Cold Iron weapons are able to overcome the damage reduction of most Demons like Fire Reavers or Flesh Renders. See Monster DR and weaknesses for specifics."
     },
     "Cold Lore": {
-        "*": "Passive: Your Cold spells gain a {v}% {type} bonus to their chance to critical hit."
+        "*": "Your Cold spells gain a {v}% {type} bonus to their chance to critical hit."
     },
     "Cold Touch": {
         "*": "The temperature around this weapon is colder than normal. A cold touch weapon deals an additional +1 cold damage on a successful hit."
@@ -403,7 +403,7 @@
         "*": "On Hit: Applies a stack of Vulnerable (1% more damage for 3 seconds. This effect stacks up to 20 times, and loses one stack on expiration.). This effect may only occur on-hit once every second."
     },
     "Command": {
-        "*": "Passive: +{v} {type} bonus on Charisma based skill checks. Command armor and command shields make their owners very noticeable, imposing a -6 penalty on Hide checks."
+        "*": "Command armor and command shields make their owners very noticeable, imposing a -6 penalty on Hide checks."
     },
     "Concealment": {
         "*": "+{v}% {type} bonus to Concealment Percentage."
@@ -412,7 +412,7 @@
         "*": "This weapon stores a caustic, insatiable power deep within. When this item is used, this power can come to the surface in the form of a noxious, corrosive salt that dissolves all material."
     },
     "Conflagrating": {
-        "*": "This weapon is sheathed in furious flame. A conflagrating weapon deals an extra 3d63 to 18 fire damage on a successful hit."
+        "*": "This weapon is sheathed in furious flame. A conflagrating weapon deals an extra 3d6 (3 to 18) fire damage on a successful hit."
     },
     "Confounding Enchantment": {
         "*": "The shifting nature of the magic that enchants this ring makes the effect hard to determine."
@@ -427,10 +427,10 @@
         "*": "The deadly poison coating this weapon deals one point of constitution damage every time it strikes an enemy. Some creatures may be immune or resistant to ability damage."
     },
     "Constitution Poison, Lesser": {
-        "*": "The deadly poison coating this weapon deals an extra 1d61 to 6 constitution damage when you score a critical hit on an enemy. Some creatures may be immune or resistant to ability damage."
+        "*": "The deadly poison coating this weapon deals an extra 1d6 (1 to 6) constitution damage when you score a critical hit on an enemy. Some creatures may be immune or resistant to ability damage."
     },
     "Constitution Poison, Virulent": {
-        "*": "The deadly poison coating this weapon deals one point of constitution damage every time it strikes an enemy, and an additional 1d61 to 6 constitution damage when it scores a critical hit. Some creatures may be immune or resistant to ability damage."
+        "*": "The deadly poison coating this weapon deals one point of constitution damage every time it strikes an enemy, and an additional 1d6 (1 to 6) constitution damage when it scores a critical hit. Some creatures may be immune or resistant to ability damage."
     },
     "Constricting Nightmare": {
         "*": "Enemies struck by this weapon are stricken with a horrible fear of death, reducing their Physical Resistance and Magical Resistance by 10."
@@ -451,10 +451,10 @@
         "*": "This item stores a caustic, insatiable power deep within. When the wearer of this item is successfully attacked in melee, this power can come to the surface in the form of a noxious, corrosive salt that dissolves all substances."
     },
     "Coruscating": {
-        "*": "This effect causes the edges of this weapon to coruscate, dealing XdX to X Light damage on each hit."
+        "*": "This effect causes the edges of this weapon to coruscate, dealing Xd6 (X to X) Light damage on each hit."
     },
     "Cosmic": {
-        "*": "This weapon is glowing with a barely-contained magical force. It deals an additional 3d63 to 18 force damage on a successful hit."
+        "*": "This weapon is glowing with a barely-contained magical force. It deals an additional 3d6 (3 to 18) force damage on a successful hit."
     },
     "Crippling": {
         "*": "A crippling weapon is infused with binding power so that when a target is critically hit their movement is slowed by half. Note: Real slowdown is only 25%"
@@ -496,25 +496,25 @@
         "*": "This effect absorbs curses targeted at the wearer."
     },
     "Curse Resistance": {
-        "*": "Passive: +{v} {type} bonus to saves versus curses."
+        "*": "+{v} {type} bonus to saves versus curses."
     },
     "Curse Vector": {
         "*": "This item is a carrier of curses. It can apply them to your foes, but also to you- when you are damaged there is a small chance that you will have a Bestow Curse cast on you."
     },
     "Curse of Clumsiness": {
-        "*": "Passive -1 Penalty to Dexterity. (The minimum level required to equip this item is lower than normal due to this curse.)"
+        "*": "-1 Penalty to Dexterity. (The minimum level required to equip this item is lower than normal due to this curse.)"
     },
     "Curse of Dullness": {
-        "*": "Passive -1 Penalty to Intelligence. (The minimum level required to equip this item is lower than normal due to this curse.)"
+        "*": "-1 Penalty to Intelligence. (The minimum level required to equip this item is lower than normal due to this curse.)"
     },
     "Curse of Foolishness": {
-        "*": "Passive -1 Penalty to Wisdom. (The minimum level required to equip this item is lower than normal due to this curse.)"
+        "*": "-1 Penalty to Wisdom. (The minimum level required to equip this item is lower than normal due to this curse.)"
     },
     "Curse of Repulsiveness": {
-        "*": "Passive -1 Penalty to Charisma. (The minimum level required to equip this item is lower than normal due to this curse.)"
+        "*": "-1 Penalty to Charisma. (The minimum level required to equip this item is lower than normal due to this curse.)"
     },
     "Curse of Weakness": {
-        "*": "Passive -1 Penalty to Strength. (The minimum level required to equip this item is lower than normal due to this curse.)"
+        "*": "-1 Penalty to Strength. (The minimum level required to equip this item is lower than normal due to this curse.)"
     },
     "Cursed Defiance": {
         "*": "5% on-being-hit chance to be unable to move and gain DR 20/- for 20 seconds"
@@ -526,7 +526,7 @@
         "*": "This weapon is wracked with a dangerous and volatile curse. Striking an enemy has a chance to place a random, debilitating, and deadly debuff on your foe."
     },
     "Cursespewing": {
-        "*": "On Vorpal Hit: Your enemy is cursed with a -4 morale penalty on attack rolls, saving throws, and skill checks. This painful curse also causes the victim to take 1d61 to 6 damage every two seconds for a duration of twelve seconds. Additional vorpal strikes while the curse is active will extend the duration by another twelve seconds."
+        "*": "On Vorpal Hit: Your enemy is cursed with a -4 morale penalty on attack rolls, saving throws, and skill checks. This painful curse also causes the victim to take 1d6 (1 to 6) damage every two seconds for a duration of twelve seconds. Additional vorpal strikes while the curse is active will extend the duration by another twelve seconds."
     },
     "DR": {
         "*": "",
@@ -553,7 +553,7 @@
         "*": "+{v} {type} bonus to weapon damage."
     },
     "Deadly Spider Venom": {
-        "*": "This item is steeped in deadly spider venom. On an attack roll of 20 which is confirmed as a critical hit it will inflict the target with a poison that deals 10d610 to 60 poison damage every 2 seconds for 6 seconds. When the poison wears off, it also deals 3d63 to 18 Constitution damage to the target. A successful Fortitude save (DC 34) negates the Constitution damage."
+        "*": "This item is steeped in deadly spider venom. On an attack roll of 20 which is confirmed as a critical hit it will inflict the target with a poison that deals 10d6 (10 to 60) poison damage every 2 seconds for 6 seconds. When the poison wears off, it also deals 3d6 (3 to 18) Constitution damage to the target. A successful Fortitude save (DC 34) negates the Constitution damage."
     },
     "Deathblock": {
         "*": "The wearer of this item is immune to all death spells and magical death effects."
@@ -589,10 +589,10 @@
         "*": "This artifact, while equipped, grants you some of the innate protections of a Horned Devil. You are warded against Curses, Poison, and Fear."
     },
     "Devil's Bones": {
-        "*": "You are strengthened by the bones of a powerful Devil. +{v}% {type} bonus to Fire and Evil Absorption."
+        "*": "You are strengthened by the bones of a powerful Devil."
     },
     "Dexterity Poison, Virulent": {
-        "*": "The deadly poison coating this weapon deals one point of dexterity damage every time it strikes an enemy, and an additional 1d61 to 6 dexterity damage when it scores a critical hit. Some creatures may be immune or resistant to ability damage."
+        "*": "The deadly poison coating this weapon deals one point of dexterity damage every time it strikes an enemy, and an additional 1d6 (1 to 6) dexterity damage when it scores a critical hit. Some creatures may be immune or resistant to ability damage."
     },
     "Diehard": {
         "*": "If you are incapacitated while this item is equipped, it will automatically stabilize you as if you had the Diehard feat."
@@ -601,7 +601,7 @@
         "*": "This item carries the Maggot Plague disease, which deals 1d6 Constitution damage and may be contracted by enemies that hit you. A successful Fortitude save (DC 20) will negate this effect."
     },
     "Disease: Unholy Tear": {
-        "*": "This weapon saps the vitality from your enemies, dealing 6d66 to 36 Evil damage on each hit. It also has a chance to spread its disease whenever you strike an enemy, which will reduce their Armor Class and Positive Healing Amplification."
+        "*": "This weapon saps the vitality from your enemies, dealing 6d6 (6 to 36) Evil damage on each hit. It also has a chance to spread its disease whenever you strike an enemy, which will reduce their Armor Class and Positive Healing Amplification."
     },
     "Disintegrate": {
         "*": "Strikes with this weapon have a small chance to call forth a strike of entropic force, dealing Xd20+X to X untyped damage."
@@ -616,7 +616,7 @@
         "*": "While wearing this item, your melee and ranged weapons gain Vorpal Effect: On an attack roll of 20 which is confirmed as a critical hit this weapon will completely destroy an undead. Powerful undead may resist the vorpal effect until sufficiently damaged."
     },
     "Disruption": {
-        "*": "On Hit: 4d64 to 24 Bane damage to Undead. On Vorpal Hit: If an undead struck by this weapon has fewer than 1000 Hit Points, it is instantly slain. If the undead has above 1000 Hit Points, it takes 100 damage."
+        "*": "On Hit: 4d6 (4 to 24) Bane damage to Undead. On Vorpal Hit: If an undead struck by this weapon has fewer than 1000 Hit Points, it is instantly slain. If the undead has above 1000 Hit Points, it takes 100 damage."
     },
     "Distant Diversion": {
         "*": "+{v}% {type} bonus to decreased threat generated from ranged damage."
@@ -635,10 +635,10 @@
         "*": "You gain a +400 Enhancement Bonus to Unconsciousness Range."
     },
     "Doubleshot": {
-        "*": "Passive: {v}% {type} bonus to Doubleshot. (Doubleshot is a chance to score an additional hit with a ranged attack.)"
+        "*": "Doubleshot is a chance to score an additional hit with a ranged attack."
     },
     "Doublestrike": {
-        "*": "Passive: {v}% {type} bonus to Doublestrike. (Doublestrike is a chance to score an additional hit with a melee attack.)"
+        "*": "Doublestrike is a chance to score an additional hit with a melee attack."
     },
     "Dragon Bane": {
         "*": "This weapon is attuned specifically to disrupt those with draconic blood, dealing an additional Xd10 bane damage vs. Dragons."
@@ -653,7 +653,7 @@
         "*": "On Vorpal Hit: Your target incurs one Negative Level, and you gain +X Temporary Spell Points. (These Temporary Spell Points last for one minute, or until used to reduce the cost of your next spell.)"
     },
     "Dream Vision": {
-        "*": "Passive: +{v} {type} bonus to Attack and Damage rolls. your melee and ranged attacks are also able to bypass the miss chance for attacking Incorporeal enemies as if they had Ghost Touch."
+        "*": "+{v} {type} bonus to Attack and Damage rolls. your melee and ranged attacks are also able to bypass the miss chance for attacking Incorporeal enemies as if they had Ghost Touch."
     },
     "Dripping with Magma": {
         "*": "Dripping with Magma: This Obsidian weapon drips with magma on every swing. Your attacks and offensive spells have a high chance to deal very strong fire damage over time."
@@ -707,28 +707,28 @@
         "*": "This bow is strung with special fibers that cause it to occasionally launch arrows with shocking force. When rolling a 19 or 20 on a ranged attack, your critical multiplier is increased by +1."
     },
     "Eldritch": {
-        "*": "On Hit: {v}dX to X Force Damage."
+        "*": "On Hit: {v}d4 ({v} to X) Force Damage."
     },
     "Electric Absorption": {
-        "*": "Passive: {v}% {type} Bonus to Electric Absorption. (Absorption reduces damage from an element by a percentage, after resistance have been taken into account.)"
+        "*": "Absorption reduces damage from an element by a percentage, after resistance have been taken into account."
     },
     "Electric Spell Power": {
-        "*": "Passive: +{v} {type} bonus to Electricity Spell Power."
+        "*": "+{v} {type} bonus to Electricity Spell Power."
     },
     "Electric Storm": {
-        "*": "This weapon is imbued with an electrifying wrath. On an attack roll of 20 which is confirmed as a critical hit this power will be released, dealing damage to the target and all enemies near it for 15d615 to 90 electric damage. A successful Reflex save (DC 39) reduces this by half."
+        "*": "This weapon is imbued with an electrifying wrath. On an attack roll of 20 which is confirmed as a critical hit this power will be released, dealing damage to the target and all enemies near it for 15d6 (15 to 90) electric damage. A successful Reflex save (DC 39) reduces this by half."
     },
     "Electric Vulnerability": {
         "*": "On Hit: Applies a stack of Vulnerable (1% more damage for 3 seconds. This effect stacks up to 20 times, and loses one stack on expiration.). This effect may only occur on-hit once every second."
     },
     "Electricity and Acid Absorption": {
-        "*": "Passive: {v}% {type} Bonus to Electricity and Acid Absorption. (Absorption reduces damage from an element by a percentage, after resistance have been taken into account.)"
+        "*": "Absorption reduces damage from an element by a percentage, after resistance have been taken into account."
     },
     "Electrifying": {
-        "*": "This effect causes the edges of this weapon to arc with electricity, dealing XdX to X Lightning damage on each hit."
+        "*": "This effect causes the edges of this weapon to arc with electricity, dealing Xd6 (X to X) Lightning damage on each hit."
     },
     "Elemental Absorption": {
-        "*": "Passive: {v}% {type} Bonus to Acid, Cold, Fire, Electrical, and Sonic Absorption. (Absorption reduces damage from an element by a percentage, after resistance have been taken into account.)"
+        "*": "Absorption reduces damage from an element by a percentage, after resistance have been taken into account."
     },
     "Elemental Bane": {
         "*": "A bane weapon excels at attacking one type or subtype of creature. Against Elementals, this weapon's effective enhancement bonus is +2 better than its normal enhancement bonus. It deals an extra 2 to 12 points of damage against the foe."
@@ -764,13 +764,13 @@
         "*": "This weapon stores a menacing, ravenous power deep within. When this weapon is used, this power occasionally comes to the surface, draining the life force of the enemy and giving negative levels."
     },
     "Enfeebling": {
-        "*": "Critical hits by this weapon deal an extra 1d61 to 6 points of Strength damage."
+        "*": "Critical hits by this weapon deal an extra 1d6 (1 to 6) points of Strength damage."
     },
     "Enhanced Bloodrage": {
         "*": "This weapon is enhanced by blood - your blood! Each time you take damage or kill an enemy, there is a small chance that you will fall into an unholy bloodrage, greatly increasing your Melee Power, Constitution, and Damage. However, this rage will leave you more vulnerable to Physical attacks, slightly reducing your Armor Class."
     },
     "Enhanced Ghostly": {
-        "*": "Equipping this item causes you to become partially incorporeal. Your melee attacks do not roll a miss chance for Incorporeal targets. Enemy attacks have a 15% chance to miss you due to incorporeality. You receive a +5 enhancement bonus to your Hide and Move Silently skills."
+        "*": "Equipping this item causes you to become partially incorporeal. Your melee attacks do not roll a miss chance for Incorporeal targets. Enemy attacks have a 15% chance to miss you due to incorporeality."
     },
     "Enhanced Jet Propulsion": {
         "*": "Use this item to activate the air elemental bound within, thus propelling you forward at great speeds. It takes five minutes to recharge between uses."
@@ -800,7 +800,7 @@
         "*": "This suit of armor looks much less restrictive than others of its type. A suit of armor that has this property has a maximum Dexterity bonus 6 higher than normal, and its armor check penalty is reduced by 4."
     },
     "Epic Noxious Venom Spike": {
-        "*": "On Damage: Do an additional 2d62 to 12 Poison damage."
+        "*": "On Damage: Do an additional 2d6 (2 to 12) Poison damage."
     },
     "Epic Paragon Evil Guard": {
         "*": "When hit or missed in combat, the attacking creature takes 8d8 Evil damage."
@@ -830,10 +830,10 @@
         "*": "An item with this quality assists only wearers who have the ability to turn undead. Eternal Faith increase the owner's effective level for the turning check by +2, his maximum Hit Dice turned by +2, and his total Hit Dice turned by +4."
     },
     "Eternal Fire": {
-        "*": "While you are wearing this item, your melee, ranged, and unarmed attacks gain the Flaming Burst ability. (This weapon is sheathed in fire. The weapon deals an additional 1d61 to 6 fire damage each hit. In addition, critical hits deal an additional 1d101 to 10 for weapons with a x2 critical multiplier, 2d202 to 40 for a x3 critical multiplier and 3d103 to 30 for a x4 multiplier.)"
+        "*": "While you are wearing this item, your melee, ranged, and unarmed attacks gain the Flaming Burst ability. (This weapon is sheathed in fire. The weapon deals an additional 1d6 (1 to 6) fire damage each hit. In addition, critical hits deal an additional 1d10 (1 to 10) for weapons with a x2 critical multiplier, 2d20 (2 to 40) for a x3 critical multiplier and 3d10 (3 to 30) for a x4 multiplier.)"
     },
     "Eternal Holy Burst": {
-        "*": "While you are wearing this item, your melee, ranged, and unarmed attacks gain the Holy Burst ability. (This weapon is holy. The weapon deals an additional 1d61 to 6 good damage each hit. Critical hits deal an additional 1d101 to 10 good damage for weapons with a x2 critical multiplier, 2d102 to 20 for a x3 multiplier and 3d103 to 30 for a x4 multiplier.)"
+        "*": "While you are wearing this item, your melee, ranged, and unarmed attacks gain the Holy Burst ability. (This weapon is holy. The weapon deals an additional 1d6 (1 to 6) good damage each hit. Critical hits deal an additional 1d10 (1 to 10) good damage for weapons with a x2 critical multiplier, 2d10 (2 to 20) for a x3 multiplier and 3d10 (3 to 30) for a x4 multiplier.)"
     },
     "Ethereal": {
         "*": "Equipping this item causes your hands and weapons to become partially incorporeal. Your melee attacks do not roll a miss chance for Incorporeal targets."
@@ -845,13 +845,13 @@
         "*": "You benefit from the spell True Seeing and are Immune to Blindness."
     },
     "Evil Absorption": {
-        "*": "Passive: {v}% {type} Bonus to Evil Absorption. (Absorption reduces damage from an element by a percentage, after resistance have been taken into account.)"
+        "*": "Absorption reduces damage from an element by a percentage, after resistance have been taken into account."
     },
     "Evil Aligned": {
         "*": "This weapon transmutes into a form that is able to bypass Evil alignment based Damage Reduction."
     },
     "Evil Blast": {
-        "*": "This weapon is a sinister implement of evil deeds, dealing XdX to X Evil damage on a successful hit, and an additional XdX to X Evil damage on a critical hit. This effect makes the weapon evil aligned. Good characters wielding this weapon will suffer one negative level."
+        "*": "This weapon is a sinister implement of evil deeds, dealing Xd6 (X to X) Evil damage on a successful hit, and an additional Xd6 (X to X) Evil damage on a critical hit. This effect makes the weapon evil aligned. Good characters wielding this weapon will suffer one negative level."
     },
     "Evil Guard": {
         "*": "Chance to deal {v}d6 Evil damage when hit."
@@ -869,13 +869,13 @@
         "*": "You have one additional Smite Evil use per rest. You must rest to gain your initial charge."
     },
     "Extra damage vs Giants": {
-        "*": "Extra damage vs Giants: This weapon deals an additional 2d82 to 16 damage against Giants."
+        "*": "Extra damage vs Giants: This weapon deals an additional 2d8 (2 to 16) damage against Giants."
     },
     "Extra damage vs Undead": {
         "*": "Extra damage vs Undead: This weapon deals an additional 1d10+45 to 14 light damage against the Undead."
     },
     "Extra damage vs non-Giants": {
-        "*": "Extra damage vs non-Giants: This weapon deals an additional 1d81 to 8 damage against non-Giants."
+        "*": "Extra damage vs non-Giants: This weapon deals an additional 1d8 (1 to 8) damage against non-Giants."
     },
     "Faeryfire Curse": {
         "*": "Empowered by the Fearylights, your Illusion spells have a chance to curse your enemies with Purple Faery Fire, dispelling stealth, invisibility, blur, and displacement for 30 seconds, and giving a -40 penalty to hide. Sightless enemies are immune to the dazzle effect."
@@ -890,7 +890,7 @@
         "Insight": "+{v} {type} bonus to hit points.",
         "Profane": "+{v} {type} bonus to Hit Points.",
         "Quality": "+{v} {type} bonus to hit points.",
-        "Vitality": "Passive: +{v} {type} bonus to Hit Points."
+        "Vitality": "+{v} {type} bonus to Hit Points."
     },
     "False Life (%)": {
         "*": "You have a +{v}% {type} bonus to Maximum Hit Points."
@@ -947,16 +947,16 @@
         "*": "This effect causes the edges of this weapon to burn with enchanted flames, dealing Xd6 Fire damage on each hit."
     },
     "Fiery Detonation": {
-        "*": "This weapon is imbued with a fiery wrath. On an attack roll of 20 which is confirmed as a critical hit this burning power will be released, dealing damage to the target and all enemies near it for 15d615 to 90 fire damage. A successful Fortitude save (DC 39) reduces this by half."
+        "*": "This weapon is imbued with a fiery wrath. On an attack roll of 20 which is confirmed as a critical hit this burning power will be released, dealing damage to the target and all enemies near it for 15d6 (15 to 90) fire damage. A successful Fortitude save (DC 39) reduces this by half."
     },
     "Final Litany of the Crimson Covenant": {
         "*": "\"One has but to listen.\"On hit: This dagger has a chance of conjuring the Mark of Death itself, snuffing the life from your foes and slaying them instantly without a save."
     },
     "Finesse": {
-        "*": "This weapon has a Small air elemental bound to it. The wielder can use a finesse weapon as if he had the Weapon Finesse feat. In addition, the weapon grants a +{v} {type} bonus to the wielder's Dexterity score."
+        "*": "This weapon has a Small air elemental bound to it. The wielder can use a finesse weapon as if he had the Weapon Finesse feat."
     },
     "Fire Absorption": {
-        "*": "Passive: {v}% {type} Bonus to Fire Absorption. (Absorption reduces damage from an element by a percentage, after resistance have been taken into account.)"
+        "*": "Absorption reduces damage from an element by a percentage, after resistance have been taken into account."
     },
     "Fire Guard": {
         "*": "When Hit in Melee: Deals X to X Fire damage to your attacker."
@@ -966,7 +966,7 @@
         "Insight": "+{v}% Insightful bonus to critical damage with Fire spells."
     },
     "Fire Lore": {
-        "*": "Passive: Your Fire spells gain a {v}% {type} bonus to their chance to critical hit."
+        "*": "Your Fire spells gain a {v}% {type} bonus to their chance to critical hit."
     },
     "Fire Shield (Cold)": {
         "*": "When you are successfully attacked, there is a 10% chance that a Fire Shield (Cold) will be cast on you. If this effect activates while you have an active Fire Shield (Hot) from another item source, they will nullify each-other."
@@ -984,7 +984,7 @@
         "*": "On Hit: Applies a stack of Vulnerable (1% more damage for 3 seconds. This effect stacks up to 20 times, and loses one stack on expiration.). This effect may only occur on-hit once every second."
     },
     "Fire and Cold Absorption": {
-        "*": "Passive: {v}% {type} Bonus to Fire and Cold Absorption. (Absorption reduces damage from an element by a percentage, after resistance have been taken into account.)"
+        "*": "Absorption reduces damage from an element by a percentage, after resistance have been taken into account."
     },
     "First Litany of the Crimson Covenant": {
         "*": "\"Look not to the skies, nor the depths below, nor even the distant past or future.\"On Hit: 6d6 Evil damage and 6d8 bleeding damage to those that are vulnerable to it."
@@ -996,37 +996,37 @@
         "*": "This blade is made of pure fire and is surprisingly light to the touch. It bypasses the Incorporeal chances of Ethereal monsters innately."
     },
     "Flamescale": {
-        "*": "Adds Adamantine material type. On hit: 15d615 to 90 fire damage."
+        "*": "Adds Adamantine material type. On hit: 15d6 (15 to 90) fire damage."
     },
     "Flametouched Iron": {
         "*": "Flametouched Iron grants +1 saves versus Evil Outsiders."
     },
     "Flaming": {
-        "*": "This effect causes the edges of this weapon to burn with enchanted flames, dealing XdX to X Fire damage on each critical hit."
+        "*": "This effect causes the edges of this weapon to burn with enchanted flames, dealing Xd6 (X to X) Fire damage on each critical hit."
     },
     "Flaming Blast": {
-        "*": "This weapon burns with deadly magical fire, dealing XdX to X Fire damage on a successful hit, and an additional XdX to X Fire damage on a critical hit."
+        "*": "This weapon burns with deadly magical fire, dealing Xd6 (X to X) Fire damage on a successful hit, and an additional Xd6 (X to X) Fire damage on a critical hit."
     },
     "Flaming Burst": {
-        "*": "This weapon is sheathed in fire, and deals 1d61 to 6 fire damage each hit. Critical hits deal an additional 1d101 to 10 fire damage for weapons with a x2 critical multiplier, 2d102 to 20 for a x3 multiplier and 3d103 to 30 for a x4 multiplier."
+        "*": "This weapon is sheathed in fire, and deals 1d6 (1 to 6) fire damage each hit. Critical hits deal an additional 1d10 (1 to 10) fire damage for weapons with a x2 critical multiplier, 2d10 (2 to 20) for a x3 multiplier and 3d10 (3 to 30) for a x4 multiplier."
     },
     "Fleshmaker": {
         "*": "Magical insight into the ways of the flesh allow the wearer of this item to receive more effect from healing spells cast on them. +20 Positive Healing Amplification."
     },
     "Force": {
-        "*": "This weapon is humming with magical force. It deals an additional 1d61 to 6 force damage on a successful hit."
+        "*": "This weapon is humming with magical force. It deals an additional 1d6 (1 to 6) force damage on a successful hit."
     },
     "Force Absorption": {
-        "*": "Passive: {v}% {type} Bonus to Force Absorption. (Absorption reduces damage from an element by a percentage, after resistance have been taken into account.)"
+        "*": "Absorption reduces damage from an element by a percentage, after resistance have been taken into account."
     },
     "Force Blast": {
-        "*": "This weapon ripples with intense force, dealing XdX to X Force damage on a successful hit, and an additional XdX to X Force damage on a critical hit."
+        "*": "This weapon ripples with intense force, dealing Xd6 (X to X) Force damage on a successful hit, and an additional Xd6 (X to X) Force damage on a critical hit."
     },
     "Force Burst": {
-        "*": "This weapon is humming with magical force, and does 1d61 to 6 force damage each hit. Critical hits deal an additional 1d101 to 10 force damage for weapons with a x2 critical multiplier, 2d102 to 20 for a x3 multiplier and 3d103 to 30 for a x4 multiplier."
+        "*": "This weapon is humming with magical force, and does 1d6 (1 to 6) force damage each hit. Critical hits deal an additional 1d10 (1 to 10) force damage for weapons with a x2 critical multiplier, 2d10 (2 to 20) for a x3 multiplier and 3d10 (3 to 30) for a x4 multiplier."
     },
     "Force Spell Power": {
-        "*": "Passive: +{v} {type} bonus to Force, Untyped, Slashing, Piercing, and Bludgeoning Spell Power."
+        "*": "+{v} {type} bonus to Force, Untyped, Slashing, Piercing, and Bludgeoning Spell Power."
     },
     "Forged Lightning": {
         "*": "On Hit: 2% Chance to do 300 to 500 damage in a blast radius."
@@ -1035,7 +1035,7 @@
         "*": "+{v}% {type} bonus to reduced chance of taking critical damage on a critical hit."
     },
     "Fracturing": {
-        "*": "This weapon is ideal for breaking bones and does XdX to X damage to targets that have skeletons or are made of bone."
+        "*": "This weapon is ideal for breaking bones and does Xd8 (X to X) damage to targets that have skeletons or are made of bone."
     },
     "Fragmented": {
         "*": "This item looks as though it is only one half of a greater item. Perhaps in the future it could be rejoined with its other half to reform the item in its original glory."
@@ -1044,10 +1044,10 @@
         "*": "This item grants its wearer the ability to move and attack normally while under the influence of magic that impedes movement, such as paralysis, solid fog, slow and web."
     },
     "Freezing": {
-        "*": "This effect causes the edges of this weapon to become frozen to the touch, dealing XdX to X cold damage on each critical hit."
+        "*": "This effect causes the edges of this weapon to become frozen to the touch, dealing Xd6 (X to X) cold damage on each critical hit."
     },
     "Freezing Gale": {
-        "*": "This weapon is imbued with a frigid wrath. On an attack roll of 20 which is confirmed as a critical hit this freezing power will be released, dealing damage to the target and all enemies near it for 15d615 to 90 cold damage. A successful Will save (DC 39) reduces this by half."
+        "*": "This weapon is imbued with a frigid wrath. On an attack roll of 20 which is confirmed as a critical hit this freezing power will be released, dealing damage to the target and all enemies near it for 15d6 (15 to 90) cold damage. A successful Will save (DC 39) reduces this by half."
     },
     "Freezing Ice": {
         "*": "On items: While you are wearing this item, your melee, ranged, and unarmed attacks gain the Freezing Ice ability. (When the weapon is used, an icy power occasionally comes to the surface, attempting to freeze an enemy solid and encase them in ice.) - (duration: 9 seconds) On weapons: This Weapon stores the pitiless immovable power of the ice deep within. When this weapon is used, this power occasionally comes to the surface, attempting to freeze an enemy solid and encase them in ice."
@@ -1056,10 +1056,10 @@
         "*": "This item stores the pitiless immovable power of the ice deep within. When the wearer of this item is successfully attacked in melee, this power occasionally comes to the surface, attempting to freeze an enemy solid and encase them in ice."
     },
     "From The Shadows": {
-        "*": "On Being Missed in Combat: Chance to do 10d610 to 60 Negative Energy Damage to the Attacker."
+        "*": "On Being Missed in Combat: Chance to do 10d6 (10 to 60) Negative Energy Damage to the Attacker."
     },
     "Frost": {
-        "*": "On Hit: XdX to X Cold Damage."
+        "*": "On Hit: XdX (X to X) Cold Damage."
     },
     "Frostbite": {
         "*": "On Hit: Applies a stack of Vulnerable (1% more damage for 3 seconds. This effect stacks up to 20 times, and loses one stack on expiration.). This effect may only occur on-hit once every two seconds. On Vorpal: Applies a stack of Lethargy (-1 to all Saving Throws. Non-bosses also move and attack 5% slower. This effect stacks up to 5 times.)"
@@ -1083,7 +1083,7 @@
         "*": "This weapon is attuned specifically to hunt the risen dead, dealing an additional Xd10 bane damage vs. Undead monsters. Passive: This weapon has Ghost Touch, and bypasses ethereal monster's 50% chance to evade bane damage."
     },
     "Ghostly": {
-        "*": "Equipping this item causes you to become partially incorporeal. Your melee attacks do not roll a miss chance for Incorporeal targets. Enemy attacks have a 10% chance to miss you due to incorporeality. You receive a +5 enhancement bonus to your Hide and Move Silently skills."
+        "*": "Equipping this item causes you to become partially incorporeal. Your melee attacks do not roll a miss chance for Incorporeal targets. Enemy attacks have a 10% chance to miss you due to incorporeality."
     },
     "Giant Bane": {
         "*": "This weapon is attuned specifically to hunt a larger foe, dealing an additional Xd10 bane damage vs. Giants."
@@ -1101,19 +1101,19 @@
         "*": "A bane weapon excels at attacking one type or subtype of creature. Against Gnolls, this weapon's effective enhancement bonus is +2 better than its normal enhancement bonus. It deals an extra 2 to 12 points of damage against the foe."
     },
     "Godly Wrath": {
-        "*": "This weapon is filled with the power of a wrathful deity. Occasionally, this holy power is unleashed, applying a lasting effect that deals 2d42 to 8 light damage every two seconds for six seconds. If the effect is reapplied before it wears off, the effect will stack and the duration will reset. The effect can be stacked up to 3 times."
+        "*": "This weapon is filled with the power of a wrathful deity. Occasionally, this holy power is unleashed, applying a lasting effect that deals 2d4 (2 to 8) light damage every two seconds for six seconds. If the effect is reapplied before it wears off, the effect will stack and the duration will reset. The effect can be stacked up to 3 times."
     },
     "Goldcurse": {
         "*": "This weapon applies a dangerous, golden curse to enemies struck! They must succeed on a DC17 Fortitude save on each Critical hit or be Paralyzed by solid gold."
     },
     "Good Absorption": {
-        "*": "Passive: {v}% {type} Bonus to Good Absorption. (Absorption reduces damage from an element by a percentage, after resistance have been taken into account.)"
+        "*": "Absorption reduces damage from an element by a percentage, after resistance have been taken into account."
     },
     "Good Aligned": {
         "*": "This weapon transmutes into a form that is able to bypass Good alignment based Damage Reduction."
     },
     "Good Blast": {
-        "*": "This weapon sings of virtue, dealing XdX to X Good damage on a successful hit, and an additional XdX to X Good damage on a critical hit. This effect makes the weapon good aligned. Evil characters wielding this weapon will suffer one negative level."
+        "*": "This weapon sings of virtue, dealing Xd6 (X to X) Good damage on a successful hit, and an additional Xd6 (X to X) Good damage on a critical hit. This effect makes the weapon good aligned. Evil characters wielding this weapon will suffer one negative level."
     },
     "Good Guard": {
         "*": "Chance to deal {v}d6 Good damage when hit."
@@ -1128,7 +1128,7 @@
         "*": "This bow coats your arrows in corrosive acid. A successful hit douses the target in acid causing an additional 6d4+612 to 30 damage after two seconds have passed. Each additional hit extends the duration of the acid damage by two seconds."
     },
     "Greater Acid Blast": {
-        "*": "An acid blast weapon is sheathed in corrosive acid. Critical hits with this weapon deal an additional 4d104 to 40 acid damage for weapons with a x2 critical multiplier, 6d106 to 60 for a x3 critical multiplier, and 8d108 to 80 for a x4 multiplier. Additionally, if you roll a 20 when attacking and confirm the critical hit, the weapon blasts your target, doing 6d66 to 36 more acid damage."
+        "*": "An acid blast weapon is sheathed in corrosive acid. Critical hits with this weapon deal an additional 4d10 (4 to 40) acid damage for weapons with a x2 critical multiplier, 6d10 (6 to 60) for a x3 critical multiplier, and 8d10 (8 to 80) for a x4 multiplier. Additionally, if you roll a 20 when attacking and confirm the critical hit, the weapon blasts your target, doing 6d6 (6 to 36) more acid damage."
     },
     "Greater Animal Bane": {
         "*": "A bane weapon excels at attacking one type or subtype of creature. Against Animals, this weapon's effective enhancement bonus is +4 better than its normal enhancement bonus. It deals an extra 3 to 18 points of damage against the foe."
@@ -1143,10 +1143,10 @@
         "*": "This bane weapon excels at attacking more than on type of subtype of creature. Against aberrations, monstrous humanoids, and the undead, this weapon deals an extra 3 to 18 points of damage against the foe."
     },
     "Greater Banishing": {
-        "*": "On Hit: 4d64 to 24 Bane damage to Outsiders. On Vorpal Hit: If an outsider struck by this weapon has fewer than 2000 Hit Points, it is instantly slain. If the outsider has above 2000 Hit Points, it takes 200 damage."
+        "*": "On Hit: 4d6 (4 to 24) Bane damage to Outsiders. On Vorpal Hit: If an outsider struck by this weapon has fewer than 2000 Hit Points, it is instantly slain. If the outsider has above 2000 Hit Points, it takes 200 damage."
     },
     "Greater Bleeding": {
-        "*": "This weapon is precisely sharp and will do an additional 5d85 to 40 damage to targets that are vulnerable to bleeding."
+        "*": "This weapon is precisely sharp and will do an additional 5d8 (5 to 40) damage to targets that are vulnerable to bleeding."
     },
     "Greater Boon of Undeath": {
         "*": "Undead take solace in the hate of others. Every time a character wearing a Boon of Undeath item is struck in combat, an Inflict Moderate Wounds spell will be cast on the character."
@@ -1167,7 +1167,7 @@
         "*": "This item is infused with a power that purges out the magical energies of those that strike the wearer. When the wearer is hit in melee it will apply a Greater Dispel Magic effect to the attacker, stripping away its protective spells."
     },
     "Greater Disruption": {
-        "*": "On Hit: 4d64 to 24 Bane damage to Undead. On Vorpal Hit: If an undead struck by this weapon has fewer than 2000 Hit Points, it is instantly slain. If the undead has above 2000 Hit Points, it takes 200 damage."
+        "*": "On Hit: 4d6 (4 to 24) Bane damage to Undead. On Vorpal Hit: If an undead struck by this weapon has fewer than 2000 Hit Points, it is instantly slain. If the undead has above 2000 Hit Points, it takes 200 damage."
     },
     "Greater Disruption Guard": {
         "*": "This Item stores a holy and righteous power deep within. When the wearer of this item is successfully attacked in melee by undead, this power occasionally comes to the surface, annihilating enemy undead."
@@ -1200,7 +1200,7 @@
         "*": "A bane weapon excels at attacking one type or subtype of creature. Against Evil Outsiders, this weapon's effective enhancement bonus is +4 better than its normal enhancement bonus. It deals an extra 3 to 18 points of damage against the foe."
     },
     "Greater Flaming Blast": {
-        "*": "A flaming blast weapon is sheathed in fire. Critical hits with this weapon deal an additional 4d104 to 40 fire damage for weapons with a x2 critical multiplier, 6d106 to 60 for a x3 critical multiplier, and 8d108 to 80 for a x4 multiplier. Additionally, if you roll a 20 when attacking and confirm the critical hit, the weapon blasts your target, doing 6d66 to 36 more fire damage."
+        "*": "A flaming blast weapon is sheathed in fire. Critical hits with this weapon deal an additional 4d10 (4 to 40) fire damage for weapons with a x2 critical multiplier, 6d10 (6 to 60) for a x3 critical multiplier, and 8d10 (8 to 80) for a x4 multiplier. Additionally, if you roll a 20 when attacking and confirm the critical hit, the weapon blasts your target, doing 6d6 (6 to 36) more fire damage."
     },
     "Greater Freeze clicky": {
         "*": "When Activated, this effect provides a +20 Alchemical bonus to your Cold Spell Power for three minutes."
@@ -1212,16 +1212,16 @@
         "*": "A bane weapon excels at attacking one type or subtype of creature. Against Goblinoids, this weapon's effective enhancement bonus is +4 better than its normal enhancement bonus. It deals an extra 3 to 18 points of damage against the foe."
     },
     "Greater Good": {
-        "*": "This weapon is infused with the ultimate power of Good. It does an additional 2d62 to 12 damage to non-good targets and can only be wielded by Good-aligned characters."
+        "*": "This weapon is infused with the ultimate power of Good. It does an additional 2d6 (2 to 12) damage to non-good targets and can only be wielded by Good-aligned characters."
     },
     "Greater Heroism": {
-        "*": "Passive: +4 morale bonus to all your attack rolls, saving throws, and skill checks. Does not grant immunity to Fear."
+        "*": "Does not grant immunity to Fear."
     },
     "Greater Human Bane": {
         "*": "A bane weapon excels at attacking one type or subtype of creature. Against Humans, this weapon's effective enhancement bonus is +4 better than its normal enhancement bonus. It deals an extra 3 to 18 points of damage against the foe."
     },
     "Greater Icy Blast": {
-        "*": "An icy blast weapon is sheathed in icy cold. Critical hits with this weapon deal an additional 4d104 to 40 cold damage for weapons with a x2 critical multiplier, 6d106 to 60 for a x3 critical multiplier, and 8d108 to 80 for a x4 multiplier. Additionally, if you roll a 20 when attacking and confirm the critical hit, the weapon blasts your target, doing 6d66 to 36 more cold damage."
+        "*": "An icy blast weapon is sheathed in icy cold. Critical hits with this weapon deal an additional 4d10 (4 to 40) cold damage for weapons with a x2 critical multiplier, 6d10 (6 to 60) for a x3 critical multiplier, and 8d10 (8 to 80) for a x4 multiplier. Additionally, if you roll a 20 when attacking and confirm the critical hit, the weapon blasts your target, doing 6d6 (6 to 36) more cold damage."
     },
     "Greater Incineration": {
         "*": "This weapon stores the power of a raging inferno deep within. Occasionally, this destructive power comes to the surface, devastating enemies with massive fire damage. This damage will be dealt more often than a standard Incineration weapon."
@@ -1254,7 +1254,7 @@
         "*": "This item carries a potent venom that may be contracted by enemies that hit you, dealing 2d6 Strength damage. A successful Fortitude Save (DC 28) will negate this effect."
     },
     "Greater Puncturing": {
-        "*": "Critical hits by this weapon deal an extra 3d43 to 12 points of Constitution damage from blood loss."
+        "*": "Critical hits by this weapon deal an extra 3d4 (3 to 12) points of Constitution damage from blood loss."
     },
     "Greater Regeneration": {
         "*": "This item is imbued with an undeniable goodness that freely flows outward in a pleasant palpable current, constantly healing the wearer over time."
@@ -1263,19 +1263,19 @@
         "*": "This item surrounds your fists with kinetic energy. Your unarmed damage is boosted by one die."
     },
     "Greater Shocking Blast": {
-        "*": "A shocking blast weapon is sheathed in crackling electricity. Critical hits with this weapon deal an additional 4d104 to 40 electric damage for weapons with a x2 critical multiplier, 6d106 to 60 for a x3 critical multiplier, and 8d108 to 80 for a x4 multiplier. Additionally, if you roll a 20 when attacking and confirm the critical hit, the weapon blasts your target, doing 6d66 to 36 more electric damage."
+        "*": "A shocking blast weapon is sheathed in crackling electricity. Critical hits with this weapon deal an additional 4d10 (4 to 40) electric damage for weapons with a x2 critical multiplier, 6d10 (6 to 60) for a x3 critical multiplier, and 8d10 (8 to 80) for a x4 multiplier. Additionally, if you roll a 20 when attacking and confirm the critical hit, the weapon blasts your target, doing 6d6 (6 to 36) more electric damage."
     },
     "Greater Shocking Blow": {
-        "*": "This item is charged with electricity. When in melee, on an attack roll of 20 which is confirmed as a critical hit it will punish the target with a powerful bolt of lightning (20d620 to 120 electric damage)."
+        "*": "This item is charged with electricity. When in melee, on an attack roll of 20 which is confirmed as a critical hit it will punish the target with a powerful bolt of lightning (20d6 (20 to 120) electric damage)."
     },
     "Greater Shrieking Bolt": {
-        "*": "This item resonates with sonic energy. On ranged attacks, on an attack roll of 20 which is confirmed as a critical hit it will punish the target with a blast of sound (20d620 to 120 sonic damage)."
+        "*": "This item resonates with sonic energy. On ranged attacks, on an attack roll of 20 which is confirmed as a critical hit it will punish the target with a blast of sound (20d6 (20 to 120) sonic damage)."
     },
     "Greater Sirocco": {
         "*": "A critical hit with this weapon causes a whirlwind of desert sand to swirl about the target, temporarily blinding it. A successful Reflex save (DC 35) prevents the effect."
     },
     "Greater Smiting": {
-        "*": "On Hit: 4d64 to 24 Bane damage to Constructs. On Vorpal Hit: If a construct struck by this weapon has fewer than 2000 Hit Points, it is instantly slain. If the construct has above 2000 Hit Points, it takes 200 damage."
+        "*": "On Hit: 4d6 (4 to 24) Bane damage to Constructs. On Vorpal Hit: If a construct struck by this weapon has fewer than 2000 Hit Points, it is instantly slain. If the construct has above 2000 Hit Points, it takes 200 damage."
     },
     "Greater Stone Prison": {
         "*": "This weapon is invested with the power of the earth. On an attack roll of 20 which is confirmed as a critical hit it will attempt to turn the target to stone, as the Flesh to Stone spell. A successful Fortitude save (DC 33) negates this effect."
@@ -1299,7 +1299,7 @@
         "*": "This item burns those Undead that attack the wearer, causing 5 to 40 Good damage on a successful melee attack."
     },
     "Greater Vorpal": {
-        "*": "Passive: +0.5[W] damage dice. On Vorpal Hit: If your target has fewer than 2000 Hit Points, they are instantly slain. If your target has above 2000 Hit Points, they take 200 damage."
+        "*": "+0.5[W] damage dice. On Vorpal Hit: If your target has fewer than 2000 Hit Points, they are instantly slain. If your target has above 2000 Hit Points, they take 200 damage."
     },
     "Greater Water Elemental Form": {
         "*": "If you are a Water Elemental (either from a Druid Form or from Sorcerer's Elemental Apotheosis), you benefit from 5 additional caster levels for your Cold spells, as well as 50 Exceptional Cold Spell Power and 5% Exceptional Cold Spell Crit damage."
@@ -1326,13 +1326,13 @@
         "*": "An item with this quality assists only wearers who have the ability to turn undead. Hallowed items provide an +{v} {type} bonus to the maximum Hit Dice of undead turned."
     },
     "Hammerblock": {
-        "*": "Passive: Reduces physical damage taken by X, except from Piercing or Slashing weapons. (Damage Reduction: X/Slash, Pierce)"
+        "*": "Reduces physical damage taken by X, except from Piercing or Slashing weapons. (Damage Reduction: X/Slash, Pierce)"
     },
     "Hardened Spikes": {
         "*": "The sharp, hardened spikes on this item deal an additional 4d6 Piercing damage when used to strike an enemy."
     },
     "Harnessed Lightning": {
-        "*": "The fearsome magical prowess of Suulomades still surrounds this weapon. It contains a near-limitless amount of deadly electricity, dealing 6d66 to 36 Electric damage on a successful hit, and an additional 6d66 to 36 Electric damage on a critical hit."
+        "*": "The fearsome magical prowess of Suulomades still surrounds this weapon. It contains a near-limitless amount of deadly electricity, dealing 6d6 (6 to 36) Electric damage on a successful hit, and an additional 6d6 (6 to 36) Electric damage on a critical hit."
     },
     "Haste Guard": {
         "*": "When you are hit by enemies, there is a chance you will be Hasted, quickening your attack and movement speed."
@@ -1348,16 +1348,16 @@
         "Insight": "+{v}% Insightful bonus to critical damage with Positive (Healing) spells."
     },
     "Healing Lore": {
-        "*": "Passive: Your Positive Energy spells gain a {v}% {type} bonus to their chance to critical hit."
+        "*": "Your Positive Energy spells gain a {v}% {type} bonus to their chance to critical hit."
     },
     "Heartseeker": {
-        "*": "On Critical Hit: XdX to X Piercing damage from weapons with a x2 Critical Multiplier, XdX to X Piercing damage from weapons with a x3 Critical Multiplier, and XdX to X Piercing damage from weapons with a x4 or greater Critical Multiplier."
+        "*": "On Critical Hit: Xd6 (X to X) Piercing damage from weapons with a x2 Critical Multiplier, Xd8 (X to X) Piercing damage from weapons with a x3 Critical Multiplier, and Xd10 (X to X) Piercing damage from weapons with a x4 or greater Critical Multiplier."
     },
     "Heightened Awareness": {
-        "*": "This item helps you to quickly read situations with sharpness and clarity, allowing you to predict actions before they occur. You gain a +{v} {type} bonus to AC."
+        "*": "This item helps you to quickly read situations with sharpness and clarity, allowing you to predict actions before they occur."
     },
     "Hemorrhaging": {
-        "*": "This weapon is viciously sharp and will do an additional 2d82 to 16 damage to targets that are vulnerable to bleeding."
+        "*": "This weapon is viciously sharp and will do an additional 2d8 (2 to 16) damage to targets that are vulnerable to bleeding."
     },
     "Heroic Inspiration": {
         "*": "This item inspires you to acts of great heroism, granting a +5% bonus to experience points granted by completing quests while it is equipped. This stacks with experience boosting effects from elixirs but does not stack with experience boosting effects from other equippable items."
@@ -1375,16 +1375,16 @@
         "*": "On Hit: X to X Good damage. Good-aligned creatures are immune to this effect. Penalty: If equipped by a Evil user, they receive 1 Negative Level for as long as this item is equipped."
     },
     "Holy Blast": {
-        "*": "This weapon sings of virtue, dealing XdX to X Good damage on a successful hit, and an additional XdX to X Good damage on a critical hit. This effect makes the weapon good aligned. Evil characters wielding this weapon will suffer one negative level."
+        "*": "This weapon sings of virtue, dealing Xd6 (X to X) Good damage on a successful hit, and an additional Xd6 (X to X) Good damage on a critical hit. This effect makes the weapon good aligned. Evil characters wielding this weapon will suffer one negative level."
     },
     "Holy Burst": {
-        "*": "This weapon sings of virtue, dealing XdX to X Good damage on a successful hit to Evil enemies, and XdX to X Good damage on a critical hit to Evil enemies. This effect makes the weapon good aligned. Evil characters wielding this weapon will suffer one negative level."
+        "*": "This weapon sings of virtue, dealing Xd6 (X to X) Good damage on a successful hit to Evil enemies, and Xd6 (X to X) Good damage on a critical hit to Evil enemies. This effect makes the weapon good aligned. Evil characters wielding this weapon will suffer one negative level."
     },
     "Hound's Blood": {
         "*": "This artifact, while equipped, grants you some of the innate protections of a Thaarak Hound. You are warded against Charms, Poison, and Petrification."
     },
     "Hound's Bones": {
-        "*": "You are strengthened by the bones of a powerful Thaarak Hound. +{v}% {type} bonus to Acid and Evil Absorption."
+        "*": "You are strengthened by the bones of a powerful Thaarak Hound."
     },
     "Human Bane": {
         "*": "This weapon is attuned specifically to hunt those with diversity and ambition, dealing an additional Xd10 bane damage vs. Humans."
@@ -1403,10 +1403,10 @@
         "Insight": "+{v}% Insightful bonus to critical damage with Cold spells."
     },
     "Icy Blast": {
-        "*": "This weapon is sheathed in icy cold, dealing XdX to X Cold damage on a successful hit, and an additional XdX to X Cold damage on a critical hit."
+        "*": "This weapon is sheathed in icy cold, dealing Xd6 (X to X) Cold damage on a successful hit, and an additional Xd6 (X to X) Cold damage on a critical hit."
     },
     "Icy Burst": {
-        "*": "This weapon is sheathed in icy cold, and deals 1d61 to 6 cold damage each hit. Critical hits deal an additional 1d101 to 10 cold damage for weapons with a x2 critical multiplier, 2d102 to 20 for a x3 multiplier and 3d103 to 30 for a x4 multiplier."
+        "*": "This weapon is sheathed in icy cold, and deals 1d6 (1 to 6) cold damage each hit. Critical hits deal an additional 1d10 (1 to 10) cold damage for weapons with a x2 critical multiplier, 2d10 (2 to 20) for a x3 multiplier and 3d10 (3 to 30) for a x4 multiplier."
     },
     "Identity Crisis": {
         "*": "Enemies hit by this weapon are plagued by visions of their past and future selves, significantly slowing their movement."
@@ -1442,13 +1442,13 @@
         "*": "This item grants the wearer the ability to move and attack freely through webs of all kinds."
     },
     "Impact": {
-        "*": "Passive: The base critical threat range of this weapon is doubled. This does not stack with Improved Critical feat. Vorpal Strikes by this weapon also bypass all Fortification."
+        "*": "The base critical threat range of this weapon is doubled. This does not stack with Improved Critical feat. Vorpal Strikes by this weapon also bypass all Fortification."
     },
     "Impactful": {
-        "*": "This effect causes the edges of this weapon to ripple with force, dealing XdX to X force on each hit."
+        "*": "This effect causes the edges of this weapon to ripple with force, dealing Xd6 (X to X) force on each hit."
     },
     "Impellent": {
-        "*": "This weapon is pulsing with magical force. It deals an additional 2d62 to 12 force damage on a successful hit."
+        "*": "This weapon is pulsing with magical force. It deals an additional 2d6 (2 to 12) force damage on a successful hit."
     },
     "Improved Acid Arrow": {
         "*": "This bow coats your arrows in corrosive acid. A successful hit douses the target in acid causing an additional 4d4+48 to 20 damage after two seconds have passed. Each additional hit extends the duration of the acid damage by two seconds."
@@ -1457,19 +1457,19 @@
         "*": "This item has a small percentage chance to cast a Repair Serious Damage spell on you when you take damage."
     },
     "Improved Banishing": {
-        "*": "On Hit: 4d64 to 24 Bane damage to Outsiders. On Vorpal Hit: If an outsider struck by this weapon has fewer than 1500 Hit Points, it is instantly slain. If the outsider has above 1500 Hit Points, it takes 150 damage."
+        "*": "On Hit: 4d6 (4 to 24) Bane damage to Outsiders. On Vorpal Hit: If an outsider struck by this weapon has fewer than 1500 Hit Points, it is instantly slain. If the outsider has above 1500 Hit Points, it takes 150 damage."
     },
     "Improved Bashing": {
-        "*": "On Shield Bash: +5d45 to 20 Bludgeoning damage. On Melee Hit: +20% Chance to automatically hit your enemy with a Shield Bash attack."
+        "*": "On Shield Bash: +5d4 (5 to 20) Bludgeoning damage. On Melee Hit: +20% Chance to automatically hit your enemy with a Shield Bash attack."
     },
     "Improved Cold Augmentation": {
         "*": "This item increases your caster level when casting nineth level or lower spells that produce cold effects by three."
     },
     "Improved Cursespewing": {
-        "*": "On Vorpal Hit: Your enemy is cursed with a -4 morale penalty on attack rolls, saving throws, and skill checks. This painful curse also causes the victim to take 2d62 to 12 damage every two seconds for a duration of twelve seconds. Additional vorpal strikes while the curse is active will extend the duration by another twelve seconds."
+        "*": "On Vorpal Hit: Your enemy is cursed with a -4 morale penalty on attack rolls, saving throws, and skill checks. This painful curse also causes the victim to take 2d6 (2 to 12) damage every two seconds for a duration of twelve seconds. Additional vorpal strikes while the curse is active will extend the duration by another twelve seconds."
     },
     "Improved Deception": {
-        "*": "This item makes your weapons hard to focus upon and thus provides a +{v} {type} bonus to Bluff checks. In addition, while using this item your weapons have a chance to envelop the target in darkness, making them vulnerable to sneak attacks for a short time."
+        "*": "In addition, while using this item your weapons have a chance to envelop the target in darkness, making them vulnerable to sneak attacks for a short time."
     },
     "Improved Demonic Shield": {
         "*": "Each time you are hit in melee combat there is a chance that a shield of demonic energy will grant you a +120 Profane bonus to temporary hit points."
@@ -1481,7 +1481,7 @@
         "*": "This item carries a virulent disease that may be contracted by enemies that hit you, dealing 2 to 8 Constitution damage. A successful Fortitude save (DC 24) will negate this effect."
     },
     "Improved Disruption": {
-        "*": "On Hit: 4d64 to 24 Bane damage to Undead. On Vorpal Hit: If an undead struck by this weapon has fewer than 1500 Hit Points, it is instantly slain. If the undead has above 1500 Hit Points, it takes 150 damage."
+        "*": "On Hit: 4d6 (4 to 24) Bane damage to Undead. On Vorpal Hit: If an undead struck by this weapon has fewer than 1500 Hit Points, it is instantly slain. If the undead has above 1500 Hit Points, it takes 150 damage."
     },
     "Improved Earthen Guard": {
         "*": "When you are successfully attacked, there is a 15% chance that a Stone Skin will be cast on you."
@@ -1505,7 +1505,7 @@
         "*": "This item is imbued with an undeniable goodness that flows outward like a gentle breeze, slowly healing the wearer over time."
     },
     "Improved Roaring": {
-        "*": "This weapon causes targets to become shaken (DC 28 Will save negates) and, on a critical hit, does 2d62 to 12 sonic damage to the target."
+        "*": "This weapon causes targets to become shaken (DC 28 Will save negates) and, on a critical hit, does 2d6 (2 to 12) sonic damage to the target."
     },
     "Improved Shattermantle": {
         "*": "Transluscent, writhing energy and blue sparks can be seen raging within this weapon. When a shattermantle weapon strikes a foe that has spell resistance, the value of that spell resistance is reduced by 6 for 9 seconds. A foe can only have its SR reduced by one Shattermantle effect at a time."
@@ -1514,13 +1514,13 @@
         "*": "This weapon has an image of a snail worked into its hilt or grip, and it feels cold to the touch. Whenever you score a critical hit with this weapon, the target is slowed for 30 seconds. A DC 28 Will save negates this effect."
     },
     "Improved Smiting": {
-        "*": "On Hit: 4d64 to 24 Bane damage to Constructs. On Vorpal Hit: If a construct struck by this weapon has fewer than 1500 Hit Points, it is instantly slain. If the construct has above 1500 Hit Points, it takes 150 damage."
+        "*": "On Hit: 4d6 (4 to 24) Bane damage to Constructs. On Vorpal Hit: If a construct struck by this weapon has fewer than 1500 Hit Points, it is instantly slain. If the construct has above 1500 Hit Points, it takes 150 damage."
     },
     "Improved Vorpal": {
-        "*": "Passive: +0.5[W] damage dice. On Vorpal Hit: If your target has fewer than 1500 Hit Points, they are instantly slain. If your target has above 1500 Hit Points, they take 150 damage."
+        "*": "+0.5[W] damage dice. On Vorpal Hit: If your target has fewer than 1500 Hit Points, they are instantly slain. If your target has above 1500 Hit Points, they take 150 damage."
     },
     "Incandescence": {
-        "*": "This weapon glows with the light of Irian. This weapon deals an extra 1d61 to 6 light damage on a successful hit."
+        "*": "This weapon glows with the light of Irian. This weapon deals an extra 1d6 (1 to 6) light damage on a successful hit."
     },
     "Incineration": {
         "*": "This weapon stores the power of a raging inferno deep within. Occasionally, this destructive power comes to the surface, devastating enemies with massive fire damage."
@@ -1572,7 +1572,7 @@
         "*": "This effect causes the edges of this weapon to arc with electricity, dealing Xd6 Lightning damage on each critical hit."
     },
     "Keen": {
-        "*": "Passive: The base critical threat range of this weapon is doubled. This does not stack with Improved Critical feat. Vorpal Strikes by this weapon also bypass all Fortification."
+        "*": "The base critical threat range of this weapon is doubled. This does not stack with Improved Critical feat. Vorpal Strikes by this weapon also bypass all Fortification."
     },
     "Kick 'Em While They're Down": {
         "*": "You have 5 more attack and deal 5 more damage to enemies that are knocked down or stunned."
@@ -1585,10 +1585,10 @@
         "*": "On Hit: 15% chance to slow 25% (No Save) for 5 sec (non-bosses only)."
     },
     "Large Scorpion Poison": {
-        "*": "On a critical hit, this weapon injects the target with Large Scorpion poison, causing 1d41 to 4 Constitution loss with an additional 1d41 to 4 Constitution loss after 1 minute if a DC 14 Fortitude save is failed."
+        "*": "On a critical hit, this weapon injects the target with Large Scorpion poison, causing 1d4 (1 to 4) Constitution loss with an additional 1d4 (1 to 4) Constitution loss after 1 minute if a DC 14 Fortitude save is failed."
     },
     "Law Absorption": {
-        "*": "Passive: {v}% {type} Bonus to Law Absorption. (Absorption reduces damage from an element by a percentage, after resistance have been taken into account.)"
+        "*": "Absorption reduces damage from an element by a percentage, after resistance have been taken into account."
     },
     "Lawful Aligned": {
         "*": "This weapon transmutes into a form that is able to bypass Lawful alignment based Damage Reduction."
@@ -1630,7 +1630,7 @@
         "*": "On Vorpal Hit: Your enemy is cursed with a -4 morale penalty on attack rolls, saving throws, and skill checks. This painful curse also causes the victim to take 6d6+612 to 42 damage every two seconds for a duration of twelve seconds. Additional vorpal strikes while the curse is active will extend the duration by another twelve seconds."
     },
     "Legendary Demon Fever": {
-        "*": "This deadly weapon saps the health from your enemies, dealing 3d33 to 9 Constitution damage on each critical hit."
+        "*": "This deadly weapon saps the health from your enemies, dealing 3d3 (3 to 9) Constitution damage on each critical hit."
     },
     "Legendary Demonic Curse": {
         "*": "Each time you are hit in melee combat there is a chance that your attacker will be Cursed."
@@ -1696,7 +1696,7 @@
         "*": "This weapon bypasses Adamantine, Byeshk, Cold Iron, Mithral, and Adamantine DR. This weapon is considerably strengthened, gaining +150 Maximum Durability."
     },
     "Legendary Negation": {
-        "*": "Attacks and offensive spells have a chance to inflict 1d31 to 3 Negative Levels. Cooldown: 30 seconds."
+        "*": "Attacks and offensive spells have a chance to inflict 1d3 (1 to 3) Negative Levels. Cooldown: 30 seconds."
     },
     "Legendary Nightmare Guard": {
         "*": "On being hit or missed, this item has a chance to attempt to fear your enemy, ripping the life from them as if they were struck with a Phantasmal Killer spell. Enemies must make a DC 100 Will save versus the Fear or a DC 100 Fortitude save versus Death or be slain. Even if they make their save versus Death, they may still be feared."
@@ -1756,7 +1756,7 @@
         "*": "Attacks and offensive spells have a small chance to deal massive evil damage."
     },
     "Legendary Virulent Poison": {
-        "*": "This item carries a potent poison that is delivered with your attacks. On any strike, the Poison has a chance to be applied, dealing 5d65 to 30 Constitution damage if your enemy fails a DC100 Fortitude saving throw."
+        "*": "This item carries a potent poison that is delivered with your attacks. On any strike, the Poison has a chance to be applied, dealing 5d6 (5 to 30) Constitution damage if your enemy fails a DC100 Fortitude saving throw."
     },
     "Legendary Virulent Poison Guard": {
         "*": "This item carries a potent venom that is delivered when enemies strike you. When an enemy strikes you, the poison has a chance to be applied, dealing 5d6 Constitution damage if your enemy fails a DC100 Fortitude saving throw."
@@ -1855,22 +1855,22 @@
         "*": "Every time you are hit while wielding a Life Shield weapon there is a 10% chance you gain 15 temporary hitpoints that last for up to 1 minute."
     },
     "Life Stealing": {
-        "*": "This weapon has a chance to drain 1d31 to 3 levels from its target on a critical hit."
+        "*": "This weapon has a chance to drain 1d3 (1 to 3) levels from its target on a critical hit."
     },
     "Life-Devouring": {
         "*": "This weapon deprives an enemy of its energy and passes it on to you. When you roll a 20 on an attack, the enemy must make a DC 28 Fortitude save or be subjected to a -6 penalty to all stats. At the same time you will feel your power return, as though Greater Restoration were cast on you. (Greater Restoration cures all temporary ability damage, restores all negative levels suffered from energy drain, and eliminates fatigue, exhaustion, confusion, and insanity suffered by you.)"
     },
     "Lifeblood of the Undead Prince": {
-        "*": "This artifact displays incredible regenerative abilities. You gain a +X Competence Bonus to Positive Healing Amplification, a +X Enhancement Bonus to Repair Healing Amplification and +X Profane Bonus to Negative Healing Amplification. Note: The in-game version of this tooltip advertises that this effect grants a Competence bonus to Repair Amplification - this is not the case."
+        "*": "This artifact displays incredible regenerative abilities."
     },
     "Lifedrinker": {
         "*": "This weapon uses the power of water to draw out the life essence of its targets. On an attack roll of 20 which is confirmed as a critical hit, this power comes to the surface, granting 25 temporary hit points to the wielder and dealing 5d5+2025 to 45 damage to the target. Creatures with the Fire trait take double this damage instead."
     },
     "Lifesealed": {
-        "*": "You are immune to magical effects that cause instant death. In addition, you have a +{v}% {type} bonus to Negative Energy Absorption."
+        "*": "You are immune to magical effects that cause instant death."
     },
     "Light Absorption": {
-        "*": "Passive: {v}% {type} Bonus to Light Absorption. (Absorption reduces damage from an element by a percentage, after resistance have been taken into account.)"
+        "*": "Absorption reduces damage from an element by a percentage, after resistance have been taken into account."
     },
     "Light Bringer": {
         "*": "On Vorpal Hit: If an undead struck by this weapon has fewer than 1000 Hit Points, it is instantly slain. If the undead has above 1000 hit points, it takes 100 damage."
@@ -1895,7 +1895,7 @@
         "*": "This item lashes electricity through your opponents. Your attacks and offensive spells have a high change to deal very strong Electric damage over time."
     },
     "Lightning Lore": {
-        "*": "Passive: Your Electricity spells gain a {v}% {type} bonus to their chance to critical hit."
+        "*": "Your Electricity spells gain a {v}% {type} bonus to their chance to critical hit."
     },
     "Lightning Storm Guard": {
         "*": "This item stores the power of a volatile thunderstorm deep within. When the wearer of this item is successfully attacked in melee, this dynamic power occasionally comes to the surface, devastating enemies with a massive lightning strike."
@@ -1919,13 +1919,13 @@
         "*": "This item reduced the cooldowns of your Social skills (Diplomacy, Bluff, Intimidate) by {v}%. This does not stack with the Negotiator ability."
     },
     "Litany of the Dead - Ability Bonus": {
-        "*": "The Litany of the Dead enhances the physical and mental abilities of its owner. Grants a +{v} Profane bonus to all Abilities."
+        "*": "The Litany of the Dead enhances the physical and mental abilities of its owner."
     },
     "Litany of the Dead - Combat Bonus": {
-        "*": "The Litany of the Dead enhances the combat abilities of its owner. Grants a +{v} {type} bonus to attack bonus and damage."
+        "*": "The Litany of the Dead enhances the combat abilities of its owner."
     },
     "Litany of the Dead II - Combat Bonus": {
-        "*": "The Litany of the Dead enhances the combat abilities of its owner. Grants a +{v} {type} bonus to attack bonus and damage."
+        "*": "The Litany of the Dead enhances the combat abilities of its owner."
     },
     "Madstone Reaction": {
         "*": "Characters wearing the Madstone Boots have a 10% chance of triggering Madstone Rage each time they are hit. This effect stacks with the Madstone Rage clicky."
@@ -2000,10 +2000,10 @@
         "*": "This powerful item is attuned to your ability to perform musical magic. If you have 15 or more bonus effective Bard levels from Feats, additional Bard songs, or enhancements, it provides 30 Exceptional Sonic Spell Power and 15% Exceptional Sonic Spell Lore."
     },
     "Meltscale": {
-        "*": "Adds Crystal and Byeshk material type. On hit: 15d615 to 90 Acid damage."
+        "*": "Adds Crystal and Byeshk material type. On hit: 15d6 (15 to 90) Acid damage."
     },
     "Memory of Animated Objects": {
-        "*": "You recall bringing life to lifeless forms, and control you had over the inanimate. +171 Equipment Bonus to Rust and Repair Spell Power, +24% Equipment Bonus to Rust and Repair Spell Crit Chance, and +25% Enhancement Bonus to Rust and Repair Spell Crit Damage."
+        "*": "You recall bringing life to lifeless forms, and control you had over the inanimate."
     },
     "Memory of Binding": {
         "*": "You recall holding your foes in a dreadful, unbreakable bond. On weapon hit, you have a chance of paralyzing your enemies. Struck enemies must made a DC 120 Fortitude save or be paralyzed."
@@ -2036,7 +2036,7 @@
         "*": "This blade is made of pure force and is surprisingly light to the touch. It bypasses the Incorporeal chances of Ethereal monsters innately."
     },
     "Minor Flaming": {
-        "*": "This weapon is sheathed in fire. A flaming weapon deals an extra 1d41 to 4 fire damage on a successful hit."
+        "*": "This weapon is sheathed in fire. A flaming weapon deals an extra 1d4 (1 to 4) fire damage on a successful hit."
     },
     "Minor Freezing Ice": {
         "*": "On items: While you are wearing this item, your melee, ranged, and unarmed attacks gain the Minor Freezing Ice ability. (When the weapon is used, an icy power occasionally comes to the surface, attempting to freeze an enemy solid and encase them in ice.) - (duration: 5 seconds) On weapons: This Weapon stores the pitiless immovable power of the ice deep within. When this weapon is used, this power occasionally comes to the surface, attempting to freeze an enemy solid and encase them in ice."
@@ -2060,7 +2060,7 @@
         "*": "On an attack roll of 20 which is confirmed as a critical hit this weapon triggers the Slay Living spell and attempts to instantly snuff out the life force of the enemy (DC 17)."
     },
     "Mother Night's Embrace": {
-        "*": "This weapon is unholy and imbued by one of the two deities of Barovia - the Mother Night. This weapon is evil, dealing an additional XdX to X evil damage on hit."
+        "*": "This weapon is unholy and imbued by one of the two deities of Barovia - the Mother Night. This weapon is evil, dealing an additional Xd6 (X to X) evil damage on hit."
     },
     "Murderous Edge": {
         "*": "On hit: 16d6 Slashing Damage. This item is considered Metalline, bypassing all kinds of material damage resistance."
@@ -2082,7 +2082,7 @@
         "Enhancement": "+{v}% bonus to increased threat generation from spell damage"
     },
     "Natural Bane": {
-        "*": "On Hit: XdX to X Bane Damage vs Animals, Vermin, Magical Beasts, Plants and Fey. (Bane damage cannot be resisted.)"
+        "*": "On Hit: Xd4 (X to X) Bane Damage vs Animals, Vermin, Magical Beasts, Plants and Fey. (Bane damage cannot be resisted.)"
     },
     "Necromancy Focus": {
         "*": "+{v} {type} bonus to the DC of Necromancy spells."
@@ -2091,7 +2091,7 @@
         "*": "This effect amplifies all incoming negative energy healing by +{v} ({type} bonus). Includes spells, potions, and other effects."
     },
     "Negative Blast": {
-        "*": "This weapon is an unholy conduit, dealing XdX to X Negative damage on a successful hit, and an additional XdX to X Negative damage on a critical hit."
+        "*": "This weapon is an unholy conduit, dealing Xd6 (X to X) Negative damage on a successful hit, and an additional Xd6 (X to X) Negative damage on a critical hit."
     },
     "Negative Energy Absorption": {
         "*": "This effect absorbs {v}% of all negative damage the character would have taken, after all other protections have been penetrated."
@@ -2100,15 +2100,15 @@
         "*": "This effect absorbs negative energy and energy drain effects."
     },
     "Negative Energy Spike": {
-        "*": "This weapon is pulsating with negative energy. It deals an extra 2d62 to 12 negative energy damage on a successful hit."
+        "*": "This weapon is pulsating with negative energy. It deals an extra 2d6 (2 to 12) negative energy damage on a successful hit."
     },
     "Negative Lore": {
-        "*": "Passive: Your Negative Energy and Poison spells gain a {v}% {type} bonus to their chance to critical hit.",
-        "Insight": "Passive: Your Negative Energy and Poison spells gain a {v}% Insightful bonus to their chance to critical hit."
+        "*": "Your Negative Energy and Poison spells gain a {v}% {type} bonus to their chance to critical hit.",
+        "Insight": "Your Negative Energy and Poison spells gain a {v}% Insightful bonus to their chance to critical hit."
     },
     "Negative Spell Power": {
-        "*": "Passive: +{v} {type} bonus to Negative (Necrotic) and Poison Spell Power.",
-        "Insight": "Passive: +{v} Insightful bonus to Negative (Necrotic) and Poison Spell Power."
+        "*": "+{v} {type} bonus to Negative (Necrotic) and Poison Spell Power.",
+        "Insight": "+{v} Insightful bonus to Negative (Necrotic) and Poison Spell Power."
     },
     "Negativity": {
         "*": "This effect causes this weapon to be shrouded in dark mists, dealing Xd6 negative energy on each hit."
@@ -2129,7 +2129,7 @@
         "*": "Once per minute, when you use Intimidate, you gain a +100% Profane bonus to threat generation with weapon strikes for 20 seconds."
     },
     "Noxious Venom Spike": {
-        "*": "On Damage: Do an additional 1d61 to 6 Poison damage."
+        "*": "On Damage: Do an additional 1d6 (1 to 6) Poison damage."
     },
     "Nullmagic Guard": {
         "*": "On being hit with a spell: There is a small chance that you explode in arcane energies. Foes hit are subject to a silencing effect, preventing their spellcasts and dampening their magical protections for 10 seconds."
@@ -2150,7 +2150,7 @@
         "*": "A bane weapon excels at attacking one type or subtype of creature. Against Orcs, this weapon's effective enhancement bonus is +2 better than its normal enhancement bonus. It deals an extra 2 to 12 points of damage against the foe."
     },
     "Orcus' Magic: Nightmares": {
-        "*": "The tremendous power of the Wand sits within this Echo. When you hit an enemy with an offensive spell, there is a small chance this power rises to the surface. When it does, if your target has fewer than 3,420 Hit Points, a burst of pure terror emanates from this weapon, snuffing out its life as if it were the subject of a Phantasmal Killer spell if it fails a DC 122 Will saving throw. If your target has above 3,420 Hit Points, they take 15d2015 to 300 Force damage."
+        "*": "The tremendous power of the Wand sits within this Echo. When you hit an enemy with an offensive spell, there is a small chance this power rises to the surface. When it does, if your target has fewer than 3,420 Hit Points, a burst of pure terror emanates from this weapon, snuffing out its life as if it were the subject of a Phantasmal Killer spell if it fails a DC 122 Will saving throw. If your target has above 3,420 Hit Points, they take 15d20 (15 to 300) Force damage."
     },
     "Orlassk's Prison": {
         "*": "This shield radiates with the power of the Lord of Stone. A shield bash will turn the target to stone. This effect can trigger once ever 90 seconds. A successful Fortitude save (DC 65) negates this effect."
@@ -2195,7 +2195,7 @@
         "*": "While wearing this item and in mountain stance, there is a chance you will be protected by a Stoneskin spell when enemies strike you."
     },
     "Peals of Thunder": {
-        "*": "This weapon is filled with the power of a storm cloud. Occasionally, this thunderous power is unleashed, applying a lasting effect that deals 2d82 to 16 sonic damage every two seconds for six seconds. If the effect is reapplied before it wears off, the effect will stack and the duration will reset. The effect can be stacked up to 3 times."
+        "*": "This weapon is filled with the power of a storm cloud. Occasionally, this thunderous power is unleashed, applying a lasting effect that deals 2d8 (2 to 16) sonic damage every two seconds for six seconds. If the effect is reapplied before it wears off, the effect will stack and the duration will reset. The effect can be stacked up to 3 times."
     },
     "Percussive Maintenance": {
         "*": "Each strike from this weapon vibrates with disruptive levels of energy, interrupting your target's concentration. This weapon's strikes deal X Wisdom damage on each hit."
@@ -2204,7 +2204,7 @@
         "*": "This item gives a +3 competency bonus to all Charisma based skills."
     },
     "Phlebotomizing": {
-        "*": "This weapon is wickedly sharp and will do an additional 3d83 to 24 damage to targets that are vulnerable to bleeding."
+        "*": "This weapon is wickedly sharp and will do an additional 3d8 (3 to 24) damage to targets that are vulnerable to bleeding."
     },
     "Physical Sheltering": {
         "*": "+{v} {type} bonus to Physical Resistance Rating"
@@ -2243,16 +2243,16 @@
         "*": "This item is keyed to plants. If it strikes such a creature, the target must make a DC 20 Fortitude save or die instantly."
     },
     "Poison": {
-        "*": "On Hit: XdX to X Poison Damage. On Critical Hit: 1d41 to 4 Strength, Dexterity, or Constitution Damage."
+        "*": "On Hit: Xd3 (X to X) Poison Damage. On Critical Hit: 1d4 (1 to 4) Strength, Dexterity, or Constitution Damage."
     },
     "Poison Absorption": {
-        "*": "Passive: {v}% {type} Bonus to Poison Absorption. (Absorption reduces damage from an element by a percentage, after resistance have been taken into account.)"
+        "*": "Absorption reduces damage from an element by a percentage, after resistance have been taken into account."
     },
     "Poison Blast": {
-        "*": "This weapon drips with vile poison, dealing XdX to X Poison damage on a successful hit, and an additional XdX to X Poison damage on a critical hit."
+        "*": "This weapon drips with vile poison, dealing Xd6 (X to X) Poison damage on a successful hit, and an additional Xd6 (X to X) Poison damage on a critical hit."
     },
     "Poison Burst": {
-        "*": "This weapon is dripping with poison, and deals 1d61 to 6 poison damage each hit. Critical hits deal an additional 1d101 to 10 poison damage for weapons with a x2 critical multiplier, 2d102 to 20 for a x3 multiplier and 3d103 to 30 for a x4 multiplier."
+        "*": "This weapon is dripping with poison, and deals 1d6 (1 to 6) poison damage each hit. Critical hits deal an additional 1d10 (1 to 10) poison damage for weapons with a x2 critical multiplier, 2d10 (2 to 20) for a x3 multiplier and 3d10 (3 to 30) for a x4 multiplier."
     },
     "Poison Guard": {
         "*": "This item carries a potent venom that may be contracted by enemies that hit you, dealing 1d6 Strength damage. A successful Fortitude Save (DC 20) will negate this effect."
@@ -2264,7 +2264,7 @@
         "*": "This weapon is enchanted with many diverse curses. On a critical hit an enemy may be hit with one of these effects at random: Blindness, Exhaustion, Bestow Curse, or Enervation."
     },
     "Positive Spell Power": {
-        "*": "Passive: +{v} {type} bonus to Positive (Healing) Spell Power."
+        "*": "+{v} {type} bonus to Positive (Healing) Spell Power."
     },
     "Power": {
         "*": "This item grants the wearer +X maximum spell points. Favored Souls and Sorcerers gain double spell points from this item."
@@ -2312,19 +2312,19 @@
         "*": "This items wards you against mind-altering effects and spells, such as Charm and Domination."
     },
     "Puncturing": {
-        "*": "Critical hits by this weapon deal an extra 1d61 to 6 points of Constitution damage from blood loss."
+        "*": "Critical hits by this weapon deal an extra 1d6 (1 to 6) points of Constitution damage from blood loss."
     },
     "Pure Good": {
-        "*": "This weapon is infused with the power of Pure Good. It does an additional 1d61 to 6 damage to non-good targets and can only be wielded by Good-aligned characters."
+        "*": "This weapon is infused with the power of Pure Good. It does an additional 1d6 (1 to 6) damage to non-good targets and can only be wielded by Good-aligned characters."
     },
     "Quenched": {
         "*": "Your Cold and Lightning spells apply the debuff portion of Quench with no save."
     },
     "Quori Mind Shield": {
-        "*": "There are some benefits to being... connected. You are immune to Confusion and Domination effects, and gain a +23% Enhancement bonus to Chaos absorption."
+        "*": "There are some benefits to being... connected."
     },
     "Radiance (enchantment)": {
-        "*": "This weapon is imbued with a brilliant, radiant power that deals an additional 4d64 to 24 light damage and blinds the target on a successful critical hit."
+        "*": "This weapon is imbued with a brilliant, radiant power that deals an additional 4d6 (4 to 24) light damage and blinds the target on a successful critical hit."
     },
     "Radiance Guard": {
         "*": "This item is imbued with a brilliant, radiant power. When the wearer of this item is successfully attacked in melee, the attacker has a chance of being hit by 4d6 points of light damage and has a chance of being blinded."
@@ -2337,7 +2337,7 @@
         "*": "This weapon stores the power of the plane of Irian deep within. Occasionally, this dynamic power comes to the surface, devastating enemies with a massive blast of radiant light."
     },
     "Radiant Glory": {
-        "*": "On Harmful Spellcast: Do an additional {v}d62 to 12 Light damage. This effect scales with Light Spell Power. Cooldown: 1 second."
+        "*": "On Harmful Spellcast: Do an additional {v}d6 ({v} to 12) Light damage. This effect scales with Light Spell Power. Cooldown: 1 second."
     },
     "Rage Charges": {
         "*": "This will increase the total number of Rages you can use by {v}. However, these additional Rages will only take effect after the wielder rests."
@@ -2364,7 +2364,7 @@
         "*": "+{v}% {type} bonus to decreased threat generated from melee damage."
     },
     "Rebellion": {
-        "*": "Passive: All threat you generate from attacks and spells is reduced by 25%."
+        "*": "All threat you generate from attacks and spells is reduced by 25%."
     },
     "Regeneration": {
         "*": "Causes the wearer to regenerate 1 hit point a minute using positive energy."
@@ -2383,7 +2383,7 @@
         "Insight": "+{v}% Insightful bonus to critical damage with Repair and Rust spells."
     },
     "Repair Lore": {
-        "*": "Passive: Your Repair and Rust spells gain a {v}% {type} bonus to their chance to critical hit."
+        "*": "Your Repair and Rust spells gain a {v}% {type} bonus to their chance to critical hit."
     },
     "Repair Systems": {
         "*": "This item gradually repairs constructs and living constructs."
@@ -2413,13 +2413,14 @@
         "*": "This effect causes the edges of this weapon to pulse with sound, dealing Xd6 sonic damage on each hit."
     },
     "Ribcracker": {
-        "*": "On Critical Hit: XdX to X Bludgeoning damage from weapons with a x2 Critical Multiplier, XdX to X Bludgeoning damage from weapons with a x3 Critical Multiplier, and XdX to X Bludgeoning damage from weapons with a x4 or greater Critical Multiplier."
+        "*": "On Critical Hit: Xd6 (X to X) Bludgeoning damage from weapons with a x2 Critical Multiplier, Xd8 (X to X) Bludgeoning damage from weapons with a x3 Critical Multiplier, and Xd10 (X to X) Bludgeoning damage from weapons with a x4 or greater Critical Multiplier."
     },
     "Righteous": {
         "*": "This weapon is imbued with holy power, giving it an additional +2 to attack bonus and damage against any evil creature. This power makes the weapon good-aligned."
     },
     "Riposte": {
-        "*": "When Missed by an attack: Deals {v}dX to X damage to your attacker. Passive: +X {type} bonus to Armor Class, +X {type} bonus to Fortitude, Reflex, and Will Saving Throws."
+        "*": "",
+        "Insight": "When Missed by an attack: Deals {v}d4 ({v} to X) damage to your attacker."
     },
     "Riposte (enchantment)": {
         "*": "When its wearer is successfully attacked in melee, this shield occasionally allows him or her to make an immediate counterattack, dealing bludgeoning damage to the offending enemy."
@@ -2431,7 +2432,7 @@
         "*": "This item emits a frightening roar when melee attackers score a critical hit on the wearer, causing them to resist or be shaken with fear."
     },
     "Roaring": {
-        "*": "This weapon causes targets to become shaken (DC 25 Will save negates) and, on a critical hit, does 2d62 to 12 sonic damage to the target."
+        "*": "This weapon causes targets to become shaken (DC 25 Will save negates) and, on a critical hit, does 2d6 (2 to 12) sonic damage to the target."
     },
     "Rock Shattering": {
         "*": "When striking stone-like creatures (such as gargoyles and earth elementals) or creatures that have been turned to stone, there is a chance this weapon will instantly shatter and destroy the target."
@@ -2505,13 +2506,13 @@
         "*": "This effect absorbs negative energy, death and energy drain effects!"
     },
     "Scorching Sun": {
-        "*": "On hit your weapons will do an additional 2d62 to 12 light damage."
+        "*": "On hit your weapons will do an additional 2d6 (2 to 12) light damage."
     },
     "Screaming": {
-        "*": "Screaming weapons emit a piercing screech whenever they are used to make a successful attack. This screech does an additional 1d61 to 6 sonic damage."
+        "*": "Screaming weapons emit a piercing screech whenever they are used to make a successful attack. This screech does an additional 1d6 (1 to 6) sonic damage."
     },
     "Screeching": {
-        "*": "This effect causes the edges of this weapon to pulse with sound, dealing XdX to X Sonic damage on each critical hit."
+        "*": "This effect causes the edges of this weapon to pulse with sound, dealing Xd6 (X to X) Sonic damage on each critical hit."
     },
     "Sea Attunement": {
         "*": "While you are a Water Elemental, you gain bonuses to the caster level, spell power, and crit chance for your Cold spells."
@@ -2533,10 +2534,10 @@
         "*": "This armor blurs the wearer whenever she tries to hide, granting a +5 competence bonus to Hide checks."
     },
     "Shadow Spike": {
-        "*": "On Damage: Do an additional 2d62 to 12 Negative Energy damage."
+        "*": "On Damage: Do an additional 2d6 (2 to 12) Negative Energy damage."
     },
     "Shadow Striker": {
-        "*": "Passive: +3% Profane bonus to Doublestrike and Doubleshot. (Doublestrike/Doubleshot is a chance to score an additional hit with a melee/ranged attack.) +15% Enhancement Bonus to Melee Attack Speed. +20% Enhancement Bonus to Ranged Attack Speed."
+        "*": "Doublestrike/Doubleshot is a chance to score an additional hit with a melee/ranged attack."
     },
     "Shadowblade": {
         "*": "This blade is made of pure force and is surprisingly light to the touch. It bypasses the Incorporeal chances of Ethereal monsters innately."
@@ -2553,7 +2554,7 @@
         "Insight": "+{v} {type} bonus to Increased chance of Secondary Shield Bash."
     },
     "Shield Spikes": {
-        "*": "This effect causes this shield to do an extra XdX to X Piercing damage when it is used to shield bash."
+        "*": "This effect causes this shield to do an extra Xd6 (X to X) Piercing damage when it is used to shield bash."
     },
     "Shield of Greater Sunburst": {
         "*": "This item blazes with the eternal fury at the heart of a sun. Occasionally, this power comes to the surface, unleashing a nova of light which will blind the struck enemy, dealing severe light damage to it and any other nearby foes."
@@ -2568,19 +2569,19 @@
         "*": "Shielded by Moonlight: Being struck in melee has a small chance to return some lost Hitpoints and Spellpoints to you. Offensive spells have a chance to grant 100 temporary spellpoints. This has a one minute cooldown."
     },
     "Shining Silver Scales": {
-        "*": "This cloak is fashioned from shining silver Dragonscale, and is warded against the cold. +{v}% {type} bonus to Cold absorption."
+        "*": "This cloak is fashioned from shining silver Dragonscale, and is warded against the cold."
     },
     "Shock": {
-        "*": "On Hit: XdX to X electric damage."
+        "*": "On Hit: Xd4 (X to X) electric damage."
     },
     "Shocking": {
-        "*": "Deals 12d612 to 72 Electric damage on hits."
+        "*": "Deals 12d6 (12 to 72) Electric damage on hits."
     },
     "Shocking Blast": {
-        "*": "This weapon arcs with deadly electricity, dealing XdX to X Electric damage on a successful hit, and an additional XdX to X Electric damage on a critical hit."
+        "*": "This weapon arcs with deadly electricity, dealing Xd6 (X to X) Electric damage on a successful hit, and an additional Xd6 (X to X) Electric damage on a critical hit."
     },
     "Shocking Blow": {
-        "*": "This item is charged with electricity. When in melee, on an attack roll of 20 which is confirmed as a critical hit it will punish the target with a large electric shock (10d610 to 60 electric damage). A successful Reflex save (DC 22) reduces this damage by half."
+        "*": "This item is charged with electricity. When in melee, on an attack roll of 20 which is confirmed as a critical hit it will punish the target with a large electric shock (10d6 (10 to 60) electric damage). A successful Reflex save (DC 22) reduces this damage by half."
     },
     "Shocking Burst": {
         "*": "Deals Burst Electric damage on critical hits, increasing with higher critical multipliers on the weapon."
@@ -2592,10 +2593,10 @@
         "*": "On Vorpal, this weapon triggers a Shockwave, striking its target with bludgeoning damage and dealing damage to surrounding enemies."
     },
     "Shrieking": {
-        "*": "On Hit: XdX to X Sonic Damage."
+        "*": "On Hit: XdX (X to X) Sonic Damage."
     },
     "Shrieking Bolt": {
-        "*": "This item resonates with sonic energy. On ranged attacks, on an attack roll of 20 which is confirmed as a critical hit it will punish the target with a blast of sound (10d610 to 60 sonic damage). A successful Fortitude save (DC 22) reduces this damage by half."
+        "*": "This item resonates with sonic energy. On ranged attacks, on an attack roll of 20 which is confirmed as a critical hit it will punish the target with a blast of sound (10d6 (10 to 60) sonic damage). A successful Fortitude save (DC 22) reduces this damage by half."
     },
     "Silent Moves": {
         "*": "This armor is well-oiled and magically constructed, so not only is it nearly silent, it also dampens surrounding sounds. It provides a competence bonus on its wearer's Move Silently checks."
@@ -2625,7 +2626,7 @@
         "*": "While you are a Fire Elemental, you gain bonuses to the caster level, spell power, and crit chance for your Fire spells."
     },
     "Skybreaker": {
-        "*": "On Hit: 3d63 to 18 Electric damage. On Critical Hit: 10d610 to 60 Sonic damage. On Vorpal Hit: 60d260 to 120 Electric damage to your target, plus a shockwave that deals an additional 45d245 to 90 Sonic damage to all nearby foes."
+        "*": "On Hit: 3d6 (3 to 18) Electric damage. On Critical Hit: 10d6 (10 to 60) Sonic damage. On Vorpal Hit: 60d2 (60 to 120) Electric damage to your target, plus a shockwave that deals an additional 45d2 (45 to 90) Sonic damage to all nearby foes."
     },
     "Slashing": {
         "*": "The edges of this weapon are sharpened, dealing an additional Xd6 slashing damage on each hit."
@@ -2637,7 +2638,7 @@
         "*": "This weapon stores a dark and sinister power deep within. When the weapon is used, this power occasionally comes to the surface, attempting to instantly snuff out the life force of the enemy."
     },
     "Slicing": {
-        "*": "This weapon is incredibly sharp and will do an additional 1d41 to 4 damage to targets that are vulnerable to bleeding."
+        "*": "This weapon is incredibly sharp and will do an additional 1d4 (1 to 4) damage to targets that are vulnerable to bleeding."
     },
     "Slicing Winds": {
         "*": "This weapon stores the cyclonic might of a windstorm within. When this weapon is used, this power can come to the surface as a series of rushing, cutting winds that deal slashing damage to the target over several seconds."
@@ -2655,22 +2656,22 @@
         "*": "+{v} Smite Evil uses per rest. Smite Evil uses regenerate X% faster."
     },
     "Smiting": {
-        "*": "On Hit: 4d64 to 24 Bane damage to Constructs. On Vorpal Hit: If a construct struck by this weapon has fewer than 1000 Hit Points, it is instantly slain. If the construct has above 1000 Hit Points, it takes 100 damage."
+        "*": "On Hit: 4d6 (4 to 24) Bane damage to Constructs. On Vorpal Hit: If a construct struck by this weapon has fewer than 1000 Hit Points, it is instantly slain. If the construct has above 1000 Hit Points, it takes 100 damage."
     },
     "Smiting Weapons": {
         "*": "While wearing this item, your melee and ranged weapons gain Vorpal Effect: On an attack roll of 20 which is confirmed as a critical hit this weapon will completely destroy a construct. Powerful constructs may resist the vorpal effect until sufficiently damaged."
     },
     "Solar": {
-        "*": "On Hit: XdX to X Light Damage."
+        "*": "On Hit: XdX (X to X) Light Damage."
     },
     "Solar Guard": {
         "*": "When Hit in Melee: Deals X to X Light damage to your attacker."
     },
     "Sonic Absorption": {
-        "*": "Passive: {v}% {type} Bonus to Sonic Absorption. (Absorption reduces damage from an element by a percentage, after resistance have been taken into account.)"
+        "*": "Absorption reduces damage from an element by a percentage, after resistance have been taken into account."
     },
     "Sonic Blast": {
-        "*": "This weapon rings with the power of sound, dealing XdX to X Sonic damage on a successful hit, and an additional XdX to X Sonic damage on a critical hit."
+        "*": "This weapon rings with the power of sound, dealing Xd6 (X to X) Sonic damage on a successful hit, and an additional Xd6 (X to X) Sonic damage on a critical hit."
     },
     "Sonic Guard": {
         "*": "Chance to deal Xd8 Sonic damage when hit."
@@ -2680,7 +2681,7 @@
         "Insight": "+{v}% Insightful bonus to critical damage with Sonic spells."
     },
     "Sonic Lore": {
-        "*": "Passive: Your Sonic spells gain a {v}% {type} bonus to their chance to critical hit."
+        "*": "Your Sonic spells gain a {v}% {type} bonus to their chance to critical hit."
     },
     "Soul Eating": {
         "*": "On a Vorpal strike, the dark energy that inhabits this weapon will tear at the soul of your foe, inflicting up to three negative levels to your target. The Soul Eating weapon will feed this stolen life back to you in the form of 35 temporary hit points that last for one minute or until depleted by incoming damage."
@@ -2689,10 +2690,10 @@
         "*": "This weapon tears at the soul of your foes, reducing their PRR and Healing Amplification."
     },
     "Sound and Silence": {
-        "*": "When true power is spoken, weaker beings cannot refute it. Your offensive spells and attacks have a small chance to cause 10d2010 to 200 Sonic Damage to nearby enemies and Silence them. Each target can negate the Silence on Will save vs DC 90."
+        "*": "When true power is spoken, weaker beings cannot refute it. Your offensive spells and attacks have a small chance to cause 10d20 (10 to 200) Sonic Damage to nearby enemies and Silence them. Each target can negate the Silence on Will save vs DC 90."
     },
     "Sounding": {
-        "*": "On Harmful Spellcast: Do an additional 4d64 to 24 Sonic Damage."
+        "*": "On Harmful Spellcast: Do an additional 4d6 (4 to 24) Sonic Damage."
     },
     "Soundproof": {
         "*": "Protects against stunning, dazing and disorientation from sound-based spells such as Soundburst and Greater Shout."
@@ -2701,10 +2702,10 @@
         "*": "This bow coats your arrows in corrosive acid. A successful hit douses the target in acid causing an additional 10d4+1020 to 50 damage after two seconds have passed. Each additional hit extends the duration of the acid damage by two seconds."
     },
     "Sovereign Banishing": {
-        "*": "On Hit: 4d64 to 24 Bane damage to Outsiders. On Vorpal Hit: If an outsider struck by this weapon has fewer than 3000 Hit Points, it is instantly slain. If the outsider has above 3000 Hit Points, it takes 300 damage."
+        "*": "On Hit: 4d6 (4 to 24) Bane damage to Outsiders. On Vorpal Hit: If an outsider struck by this weapon has fewer than 3000 Hit Points, it is instantly slain. If the outsider has above 3000 Hit Points, it takes 300 damage."
     },
     "Sovereign Disruption": {
-        "*": "On Hit: 4d64 to 24 Bane damage to Undead. On Vorpal Hit: If an undead struck by this weapon has fewer than 3000 Hit Points, it is instantly slain. If the undead has above 3000 Hit Points, it takes 300 damage."
+        "*": "On Hit: 4d6 (4 to 24) Bane damage to Undead. On Vorpal Hit: If an undead struck by this weapon has fewer than 3000 Hit Points, it is instantly slain. If the undead has above 3000 Hit Points, it takes 300 damage."
     },
     "Sovereign Lightning Strike": {
         "*": "This item crackles with power, flickers of lightning emanating from it. On a strike of a Natural 20 that is confirmed as a critical hit, this item will strike your foe with a tremendous burst of lightning. A DC 100 Reflex save will prevent half of this damage."
@@ -2713,16 +2714,16 @@
         "*": "On Vorpal Hit with any weapon: If your target has below 5,000 Hit Points, a burst of pure terror emanates from this weapon, snuffing out its life as if it were the subject of a Phantasmal Killer spell. If your target has above 5,000 Hit Points, they instead take significant Force damage."
     },
     "Sovereign Smiting": {
-        "*": "On Hit: 4d64 to 24 Bane damage to Constructs. On Vorpal Hit: If a construct struck by this weapon has fewer than 3000 Hit Points, it is instantly slain. If the construct has above 3000 Hit Points, it takes 300 damage."
+        "*": "On Hit: 4d6 (4 to 24) Bane damage to Constructs. On Vorpal Hit: If a construct struck by this weapon has fewer than 3000 Hit Points, it is instantly slain. If the construct has above 3000 Hit Points, it takes 300 damage."
     },
     "Sovereign Vorpal": {
-        "*": "Passive: +0.5[W] damage dice. On Vorpal Hit: If your target has fewer than 3000 Hit Points, they are instantly slain. If your target has above 3000 Hit Points, they take 300 damage."
+        "*": "+0.5[W] damage dice. On Vorpal Hit: If your target has fewer than 3000 Hit Points, they are instantly slain. If your target has above 3000 Hit Points, they take 300 damage."
     },
     "Sparkscale": {
-        "*": "Adds Silver material type. On hit: 15d615 to 90 Electric Damage."
+        "*": "Adds Silver material type. On hit: 15d6 (15 to 90) Electric Damage."
     },
     "Spearblock": {
-        "*": "Passive: Reduces physical damage taken by X, except from Bludgeoning or Slashing weapons. (Damage Reduction: X/Slash, Bludgeon)"
+        "*": "Reduces physical damage taken by X, except from Bludgeoning or Slashing weapons. (Damage Reduction: X/Slash, Bludgeon)"
     },
     "Speed": {
         "*": "",
@@ -2747,13 +2748,13 @@
         "*": "On Being Hit in Melee: 5% chance to do 510 to 700 Piercing Damage to the Attacker."
     },
     "Spike-Studded": {
-        "*": "This item is reinforced with metal studs that improve your unarmed strikes. Your unarmed attacks do an additional 1d41 to 4 piercing damage."
+        "*": "This item is reinforced with metal studs that improve your unarmed strikes. Your unarmed attacks do an additional 1d4 (1 to 4) piercing damage."
     },
     "Spiked": {
-        "*": "On Damage: 10% chance of dealing an additional 10d610 to 60 Piercing Damage."
+        "*": "On Damage: 10% chance of dealing an additional 10d6 (10 to 60) Piercing Damage."
     },
     "Spikes": {
-        "*": "The sharp spikes on this item deal an additional 1d61 to 6 Piercing damage when used to strike an enemy."
+        "*": "The sharp spikes on this item deal an additional 1d6 (1 to 6) Piercing damage when used to strike an enemy."
     },
     "Stabbing": {
         "*": "The edges of this weapon are serrated, dealing an additional Xd6 piercing damage on each critical hit."
@@ -2798,7 +2799,7 @@
         "*": "This item crackles with power, flickers of lightning emenating from it. On a Melee strike of a Natural 20 that is confirmed as a critical hit, this item will strike your foe with a tremendous burst of lightning. A DC 100 Reflex save will prevent half of this damage."
     },
     "Strength Poison, Virulent": {
-        "*": "The deadly poison coating this weapon deals one point of strength damage every time it strikes an enemy, and an additional 1d61 to 6 strength damage when it scores a critical hit. Some creatures may be immune or resistant to ability damage."
+        "*": "The deadly poison coating this weapon deals one point of strength damage every time it strikes an enemy, and an additional 1d6 (1 to 6) strength damage when it scores a critical hit. Some creatures may be immune or resistant to ability damage."
     },
     "Strength Sapping": {
         "*": "Every time this weapon deals damage, the target must succeed on a Fortitude save (DC 15) or become exhausted."
@@ -2810,7 +2811,7 @@
         "*": "Once per minute, when you use Diplomacy, you gain a -100% Profane bonus to threat generation with weapon strikes for 20 seconds."
     },
     "Summer's Impertenence": {
-        "*": "The heat of Summer surrounds you. +20% Enhancement bonus to critical damage with fire and light spells."
+        "*": "The heat of Summer surrounds you."
     },
     "Summon Legendary Dinosaur clicky": {
         "*": "1 (1/day)"
@@ -2819,7 +2820,7 @@
         "*": "This item can call to a Werewolf to fight for you for a brief time.(On its own, this enchantment has no effect.)"
     },
     "Sun Burst": {
-        "*": "This weapon flashes an intense burst of sunlight on any critical hit. The target is blasted for 6d66 to 36 light damage and is blinded as well. Oozes and Undead take 12d612 to 72 light damage. A successful DC 22 Reflex save reduces the damage by half and negates the blindness."
+        "*": "This weapon flashes an intense burst of sunlight on any critical hit. The target is blasted for 6d6 (6 to 36) light damage and is blinded as well. Oozes and Undead take 12d6 (12 to 72) light damage. A successful DC 22 Reflex save reduces the damage by half and negates the blindness."
     },
     "Sunburst": {
         "*": "This weapon blazes with the eternal fury at the heart of a sun. Occasionally, this power comes to the surface, unleashing a nova of light which will blind the struck enemy for 6 seconds unless it succeeds on a DC {v} Reflex saving throw."
@@ -2831,10 +2832,10 @@
         "*": "This bow coats your arrows in corrosive acid. A successful hit douses the target in acid causing an additional 8d4+816 to 40 damage after two seconds have passed. Each additional hit extends the duration of the acid damage by two seconds."
     },
     "Superior Disruption": {
-        "*": "On Hit: 4d64 to 24 Bane damage to Undead. On Vorpal Hit: If an undead struck by this weapon has fewer than 2500 Hit Points, it is instantly slain. If the undead has above 2500 Hit Points, it takes 250 damage."
+        "*": "On Hit: 4d6 (4 to 24) Bane damage to Undead. On Vorpal Hit: If an undead struck by this weapon has fewer than 2500 Hit Points, it is instantly slain. If the undead has above 2500 Hit Points, it takes 250 damage."
     },
     "Superior Force Burst": {
-        "*": "This weapon is humming with magical force. The weapon deals an extra 2d62 to 12 force damage each hit. In addition, critical hits deal an additional 2d102 to 20 force damage for weapons with a x2 critical multiplier, 4d104 to 40 for a x3 critical multiplier and 6d106 to 60 for a x4 multiplier."
+        "*": "This weapon is humming with magical force. The weapon deals an extra 2d6 (2 to 12) force damage each hit. In addition, critical hits deal an additional 2d10 (2 to 20) force damage for weapons with a x2 critical multiplier, 4d10 (4 to 40) for a x3 critical multiplier and 6d10 (6 to 60) for a x4 multiplier."
     },
     "Superior Nightmares": {
         "*": "On Vorpal Hit: If your target has below 2,500 Hit Points, a burst of pure terror emanates from this weapon, snuffing out its life as if it were the subject of a Phantasmal Killer spell. If your target has above 2,500 Hit Points, they instead take significant Force damage."
@@ -2849,7 +2850,7 @@
         "*": "This armor burns those Undead that attack the wearer, causing 7d8 Good damage on a successful melee attack."
     },
     "Superior Vorpal": {
-        "*": "Passive: +0.5[W] damage dice. On Vorpal Hit: If your target has fewer than 2500 Hit Points, they are instantly slain. If your target has above 2500 Hit Points, they take 250 damage."
+        "*": "+0.5[W] damage dice. On Vorpal Hit: If your target has fewer than 2500 Hit Points, they are instantly slain. If your target has above 2500 Hit Points, they take 250 damage."
     },
     "Suppress Madness": {
         "*": "This strange creature is enchanted with the ability to temporarily filter the maddening effects of certain Xoriat items. Wearing it will suppress the effects of the following: Curse Vector, Unwieldy, Overfocus, Mind Turbulence, Symbiotic Backlash, Metal Fatigue, Power Drain, and Single-Mindedness."
@@ -2858,10 +2859,10 @@
         "*": "This psionic item is powerful, but you sense that it has not unlocked all of its secrets to you at this time."
     },
     "Supreme Good": {
-        "*": "This weapon is infused with the supreme Power of Good. It does an additional 3d63 to 18 damage to non-good targets and can only be wielded by Good-aligned characters."
+        "*": "This weapon is infused with the supreme Power of Good. It does an additional 3d6 (3 to 18) damage to non-good targets and can only be wielded by Good-aligned characters."
     },
     "Supreme Law": {
-        "*": "This weapon is infused with the supreme Power of Law. It does an additional 3d63 to 18 to non-lawful targets and can only be wielded by Lawful-aligned characters."
+        "*": "This weapon is infused with the supreme Power of Law. It does an additional 3d6 (3 to 18) to non-lawful targets and can only be wielded by Lawful-aligned characters."
     },
     "Swim like a Fish": {
         "*": "Swim like a Fish: While this item is equipped and you are swimming, you gain the Evasion feat. Evasion causes you to take no damage on a successful Reflex saving throw against an effect which would normally allow half damage on a successful Reflex save."
@@ -2870,7 +2871,7 @@
         "*": "X (X/day)"
     },
     "Symbiotic Backlash": {
-        "*": "This item is symbiotic and grants you benefits, but it also deals 2d62 to 12 extra damage to you when enemies roll a 20 on an attack against you."
+        "*": "This item is symbiotic and grants you benefits, but it also deals 2d6 (2 to 12) extra damage to you when enemies roll a 20 on an attack against you."
     },
     "Symbiotic Flexibility": {
         "*": "Because this suit of armor has merged with your body, the flexibility it affords you is practically unparalleled. A suit of armor that has this property has a maximum Dexterity bonus 4 higher than normal, and its armor check penalty is reduced by 4."
@@ -2903,7 +2904,7 @@
         "*": "On Hit: 6% chance to slow target's movement by 50% for {v} seconds."
     },
     "Thaarak Corrosion": {
-        "*": "Like a Thaarak Hound's vitriolic breath, this weapon is corrosive and can damage enemies over time. Occasionally, it applies a lasting effect to its targets that deals 2d42 to 8 acid damage every two seconds for six seconds. If the effect is reapplied before it has a chance to wear off, the duration will reset and stack up to three times."
+        "*": "Like a Thaarak Hound's vitriolic breath, this weapon is corrosive and can damage enemies over time. Occasionally, it applies a lasting effect to its targets that deals 2d4 (2 to 8) acid damage every two seconds for six seconds. If the effect is reapplied before it has a chance to wear off, the duration will reset and stack up to three times."
     },
     "The Artblade's Gift": {
         "*": "You gain Legendary Concordant Opposition: Being struck in melee has a small chance to return some lost Hit Points and Spell Points to you. Offensive spells have a chance to grant 100 Temporary Spell Points. This has a one minute cooldown, which is shared with effects that grant Legendary Concordant Opposition."
@@ -2912,7 +2913,7 @@
         "*": "Attuned to the dark depths of the waves below, this weapon is cold to the touch and unholy. Each hit drains life from your enemies, dealing Xd6 Evil damage, and when striking Good enemies, it also deals an additional Xd6 Cold damage."
     },
     "The Falling Star": {
-        "*": "On hit, this weapon has a chance to put down a falling star upon your foes, dealing 90d690 to 540 Fire Damage and 30d630 to 180 Bludgeoning Damage to enemies caught within the blast. This blast is so powerful it has a chance to knock nearby enemies down upon impact."
+        "*": "On hit, this weapon has a chance to put down a falling star upon your foes, dealing 90d6 (90 to 540) Fire Damage and 30d6 (30 to 180) Bludgeoning Damage to enemies caught within the blast. This blast is so powerful it has a chance to knock nearby enemies down upon impact."
     },
     "The Golden Curse": {
         "*": "A strange inscription winds around this artifact. When the wearer of this item is successfully attacked, occasionally an incredible power comes to the surface, shielding its weilder in solid gold to protect from further attacks."
@@ -2942,7 +2943,7 @@
         "*": "This blade is made of acidic thorns that drip with an etheric poison. It bypasses the Incorporeal chances of Ethereal monsters innately."
     },
     "Thorny Crown of Madness": {
-        "*": "This legendary weapon resonates with cruel and delightful madness. Strikes with this weapon have a chance to confuse your target, allowing them to harm and be harmed by friend and foe alike. Furthermore, hits with this weapon against Confused targets deal an additional XdX to X Chaos damage."
+        "*": "This legendary weapon resonates with cruel and delightful madness. Strikes with this weapon have a chance to confuse your target, allowing them to harm and be harmed by friend and foe alike. Furthermore, hits with this weapon against Confused targets deal an additional Xd6 (X to X) Chaos damage."
     },
     "Thrill of the Hunt": {
         "*": "\"Lesser beings hunt for the prize, but for me, the hunt is prize enough.\"On Hit: You have a small chance to attempt to hold a monster in place. Even if the Hold is unsuccessful, their will saves will be reduced by 5."
@@ -2951,22 +2952,22 @@
         "*": "This weapon has been made from Thunder-Forged Alloys in Thunderholme. Reforging the weapon with certain ingredients could unleash more power."
     },
     "Thunderbane": {
-        "*": "This weapon was crafted in the great Thunderforge before the Dragons came. Against constructs and the undead, this weapon's effective enhancement bonus is +8 better than its normal enhancement bonus. It deals an extra 7d67 to 42 of damage against the foes."
+        "*": "This weapon was crafted in the great Thunderforge before the Dragons came. Against constructs and the undead, this weapon's effective enhancement bonus is +8 better than its normal enhancement bonus. It deals an extra 7d6 (7 to 42) of damage against the foes."
     },
     "Thunderclap": {
         "*": "This potent ability will in certain cases send forth a cacophony of sound. On an attack roll of 20, which is confirmed as a critical hit, the target may suffer the following conditions: Stunned, Knockdown, and Disorient."
     },
     "Thundering": {
-        "*": "A thundering weapon creates a cacophonous roar when striking a successful critical hit. A thundering weapon deals an extra 1d81 to 8 sonic damage upon a successful critical hit with a weapon that has a x2 critical multiplier, an extra 2d82 to 16 for a x3 multiplier, and an extra 3d83 to 24 for x4 multiplier."
+        "*": "A thundering weapon creates a cacophonous roar when striking a successful critical hit. A thundering weapon deals an extra 1d8 (1 to 8) sonic damage upon a successful critical hit with a weapon that has a x2 critical multiplier, an extra 2d8 (2 to 16) for a x3 multiplier, and an extra 3d8 (3 to 24) for x4 multiplier."
     },
     "Thunderstruck": {
         "*": "On Melee Vorpal Hit: 25d2+1035 to 60 Electric damage and 25d2+1035 to 60 Sonic damage to your target."
     },
     "Tidal": {
-        "*": "This weapon is sheathed in water. A Tidal weapon deals an extra XdX to X points of damage on a successful hit. Creatures with the Fire trait take double this damage instead."
+        "*": "This weapon is sheathed in water. A Tidal weapon deals an extra Xd6 (X to X) points of damage on a successful hit. Creatures with the Fire trait take double this damage instead."
     },
     "Tidal Burst": {
-        "*": "This weapon is sheathed in water. The weapon deals an additional 1d41 to 4 damage each hit. In addition, critical hits deal an additional 1d81 to 8 damage for weapons with a x2 critical multiplier, 2d82 to 16 for a x3 critical multiplier and 3d83 to 24 for a x4 multiplier. Creatures with the Fire trait take double this damage instead."
+        "*": "This weapon is sheathed in water. The weapon deals an additional 1d4 (1 to 4) damage each hit. In addition, critical hits deal an additional 1d8 (1 to 8) damage for weapons with a x2 critical multiplier, 2d8 (2 to 16) for a x3 critical multiplier and 3d8 (3 to 24) for a x4 multiplier. Creatures with the Fire trait take double this damage instead."
     },
     "Tira's Splendor": {
         "*": "Any weapon you wield becomes able to bypass silver damage reduction."
@@ -2984,7 +2985,7 @@
         "*": "While equipped this item grants 20 additional hitpoints. This stacks with all bonuses except for other items bearing the Toughness enchantment."
     },
     "Toxic": {
-        "*": "This effect causes the edges of this weapon to drip with a vile venom, dealing XdX to X poison damage on each critical hit."
+        "*": "This effect causes the edges of this weapon to drip with a vile venom, dealing Xd6 (X to X) poison damage on each critical hit."
     },
     "Trace of Madness": {
         "*": "You can almost hear faint, panicked voices when this item is close to you. Perhaps the latent power of this item's hint of madness could be brought out by some catalyst."
@@ -3014,16 +3015,16 @@
         "*": "This item reduces the threat generated by melee damage by 20%."
     },
     "True Chaos": {
-        "*": "This weapon is infused with the power of True Chaos. It does an additional 1d61 to 6 damage to non-chaotic targets and can only be wielded by Chaotic-aligned characters."
+        "*": "This weapon is infused with the power of True Chaos. It does an additional 1d6 (1 to 6) damage to non-chaotic targets and can only be wielded by Chaotic-aligned characters."
     },
     "True Law": {
-        "*": "This weapon is infused with the power of True Law. It does an additional 1d61 to 6 to non-lawful targets and can only be wielded by Lawful-aligned characters."
+        "*": "This weapon is infused with the power of True Law. It does an additional 1d6 (1 to 6) to non-lawful targets and can only be wielded by Lawful-aligned characters."
     },
     "True Seeing": {
-        "*": "Passive: You gain the benefit of the spell True Seeing."
+        "*": "You gain the benefit of the spell True Seeing."
     },
     "Turbulent Burst": {
-        "*": "This weapon is enchanted with wild, unpredictable energy. It will do 1d81 to 8 damage of a random energy type (fire/cold/electric/acid) on a successful hit and 3d83 to 24 damage of a random energy type on critical hits."
+        "*": "This weapon is enchanted with wild, unpredictable energy. It will do 1d8 (1 to 8) damage of a random energy type (fire/cold/electric/acid) on a successful hit and 3d8 (3 to 24) damage of a random energy type on critical hits."
     },
     "Turn Undead": {
         "*": "An item with this quality assists only wearers who have the ability to turn undead. Sacred items provide an +{v} {type} bonus to your effective level for Turning Undead."
@@ -3059,7 +3060,7 @@
         "*": "On Hit: X to X Evil damage. Evil-aligned creatures are immune to this effect. Penalty: If equipped by a Good user, they receive 1 Negative Level for as long as this item is equipped."
     },
     "Unholy Burst": {
-        "*": "This weapon is a sinister implement of evil deeds, dealing 6d66 to 36 Evil damage on a successful hit to Good enemies, and 14d614 to 84 Evil damage on a critical hit to Good enemies. This effect makes the weapon evil aligned. Good characters wielding this weapon will suffer one negative level."
+        "*": "This weapon is a sinister implement of evil deeds, dealing 6d6 (6 to 36) Evil damage on a successful hit to Good enemies, and 14d6 (14 to 84) Evil damage on a critical hit to Good enemies. This effect makes the weapon evil aligned. Good characters wielding this weapon will suffer one negative level."
     },
     "Unnatural": {
         "*": "Items so profane can have unintended consequences... This item will uncenter you and break your druidic oath."
@@ -3092,25 +3093,25 @@
         "*": "On Taking Damage: Gain a 12% Enhancement Bonus to Doublestrike and a +4 Rage Bonus to your Attack Bonus."
     },
     "Venomed Ammunition - 1d10": {
-        "*": "On Ranged Attack: 1d101 to 10 Poison Damage"
+        "*": "On Ranged Attack: 1d10 (1 to 10) Poison Damage"
     },
     "Venomed Ammunition - 1d2": {
-        "*": "On Ranged Attack: 1d21 to 2 Poison Damage"
+        "*": "On Ranged Attack: 1d2 (1 to 2) Poison Damage"
     },
     "Venomed Ammunition - 1d3": {
-        "*": "On Ranged Attack: 1d31 to 3 Poison Damage"
+        "*": "On Ranged Attack: 1d3 (1 to 3) Poison Damage"
     },
     "Venomed Ammunition - 1d4": {
-        "*": "On Ranged Attack: 1d41 to 4 Poison Damage"
+        "*": "On Ranged Attack: 1d4 (1 to 4) Poison Damage"
     },
     "Venomed Ammunition - 1d6": {
-        "*": "On Ranged Attack: 1d61 to 6 Poison Damage"
+        "*": "On Ranged Attack: 1d6 (1 to 6) Poison Damage"
     },
     "Venomed Ammunition - 1d8": {
-        "*": "On Ranged Attack: 1d81 to 8 Poison Damage"
+        "*": "On Ranged Attack: 1d8 (1 to 8) Poison Damage"
     },
     "Venomscale": {
-        "*": "Adds Cold Iron material type. On hit: 15d615 to 90 Poison Damage."
+        "*": "Adds Cold Iron material type. On hit: 15d6 (15 to 90) Poison Damage."
     },
     "Vermin Bane": {
         "*": "This weapon is ideal for cleaning out rats and other annoying beasts. It deals an additional Xd10 bane damage vs. Vermin."
@@ -3119,7 +3120,7 @@
         "*": "This effect gives a +{v} {type} bonus to the DC to resist the character's Trip and Improved Trip attempts."
     },
     "Vicious": {
-        "*": "When a vicious weapon strikes an opponent, it creates a flash of disruptive energy that resonates between the opponent and the wielder. This energy deals an extra 2d62 to 12 points of damage to the opponent and 1d31 to 3 points of damage to the wielder."
+        "*": "When a vicious weapon strikes an opponent, it creates a flash of disruptive energy that resonates between the opponent and the wielder. This energy deals an extra 2d6 (2 to 12) points of damage to the opponent and 1d3 (1 to 3) points of damage to the wielder."
     },
     "Vile Grip of the Hidden Hand": {
         "*": "Attacks and offensive spells have a small chance to deal massive evil damage."
@@ -3129,19 +3130,19 @@
         "Insight": "+{v}% Insightful bonus to critical damage with Negative and Poison spells."
     },
     "Voltaic": {
-        "*": "This weapon is sheathed in Powerful electricity. A voltaic weapon deals an extra 2d62 to 12 electricity damage on a successful hit."
+        "*": "This weapon is sheathed in Powerful electricity. A voltaic weapon deals an extra 2d6 (2 to 12) electricity damage on a successful hit."
     },
     "Vorpal": {
-        "*": "Passive: +0.5[W] damage dice. On Vorpal Hit: If your target has fewer than 1000 Hit Points, they are instantly slain. If your target has above 1000 Hit Points, they take 100 damage."
+        "*": "+0.5[W] damage dice. On Vorpal Hit: If your target has fewer than 1000 Hit Points, they are instantly slain. If your target has above 1000 Hit Points, they take 100 damage."
     },
     "Vulkoor's Bite": {
-        "*": "Vulkoor calls to you, and death answers. Attacks and offensive spells have a chance to deal 1d31 to 3 Negative levels."
+        "*": "Vulkoor calls to you, and death answers. Attacks and offensive spells have a chance to deal 1d3 (1 to 3) Negative levels."
     },
     "Vulnerability Guard": {
         "*": "This item stores powerful erosive forces. When the wearer is missed in combat, this power occasionally releases a degrading blast, adding three stacks of vulnerability to all enemies nearby."
     },
     "Wailing": {
-        "*": "Shrieking weapons emit a haunting wail whenever they are used to make a successful attack. This wail deals an additional 3d63 to 18 sonic damage."
+        "*": "Shrieking weapons emit a haunting wail whenever they are used to make a successful attack. This wail deals an additional 3d6 (3 to 18) sonic damage."
     },
     "Water Breathing": {
         "*": "This item grants the wearer the ability to breathe water as if it were air."
@@ -3180,7 +3181,7 @@
         "*": "The butterflies of this crown have a tendancy to distract your enemies. When hit or missed in melee combat, your foes have a chance to be Fascinated with no save."
     },
     "Winter's Impertenence": {
-        "*": "The chill of Winter surrounds you. +20% Enhancement bonus to critical damage with force and negative spells."
+        "*": "The chill of Winter surrounds you."
     },
     "Wizardry": {
         "*": "+{v} {type} bonus to spell points."
@@ -3195,7 +3196,7 @@
         "*": "You gain a Sacred bonus to Damage equal to half your Religious Lore feats."
     },
     "Yeenoghu's Butchery": {
-        "*": "+18% Enhancement bonus to Doublestrike chance. In addition, on hit with this weapon, you deal an extra 15d615 to 90 Piercing Damage to Bosses and creatures who have been Paralyzed."
+        "*": "In addition, on hit with this weapon, you deal an extra 15d6 (15 to 90) Piercing Damage to Bosses and creatures who have been Paralyzed."
     },
     "Zhentarim Attuned": {
         "*": "This item has been attuned by the the Zhentarim mage, Whisper. It can be upgraded with Zhentarim Black Stones."

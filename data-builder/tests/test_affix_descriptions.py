@@ -52,6 +52,13 @@ def test_fill_constants_keeps_agreed_numbers_and_marks_the_rest():
     # A compound's parts are listed under it, so a one-line bonus adds nothing.
     ('Passive: +{v} {type} bonus to Fortitude, Reflex, and Will Saving Throws.', 'Resistance', True, True),
     ('When Missed: Deals damage. Passive: +X {type} bonus to Armor Class.', 'Riposte', True, False),
+    # "the Search skill" is just Search.
+    ('Passive: +{v} {type} bonus to the Search skill.', 'Search', False, True),
+    # A penalty is restated the same way a bonus is.
+    ('Passive: -{v} penalty to the Spot skill.', 'Spot', False, True),
+    ('This item gives a -{v} penalty to your Will saves.', 'Will Save', False, True),
+    # A compound's penalty is part of what it does, which its parts don't say.
+    ('This item helps you focus, but makes you oblivious, causing a -10 penalty to Search and Spot.', 'Overfocus', True, False),
     # A clicky's spell, caster level and charges are no more than its name.
     ('Flame Strike Caster level: 9 Charges: 5 (5/day)', 'Flame Strike clicky', False, True),
 ])

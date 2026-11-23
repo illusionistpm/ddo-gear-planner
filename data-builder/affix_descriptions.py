@@ -39,7 +39,7 @@ MIN_TYPE_SUPPORT = 2
 _EFFECT_LABEL = re.compile(r'^(passive|on [a-z -]+|when\b|while\b|note|in addition)', re.IGNORECASE)
 _NAME_CONNECTORS = {'of', 'the', 'and', 'to', 'a', 'an', 'in', 'on', 'vs', 'de'}
 _NUMBER = re.compile(r'\d+(?:\.\d+)?')
-_NOISE_WORDS = {'a', 'an', 'the', 'your', 'you', 'to', 'of', 'and', 'all', 'checks', 'check', 'rolls', 'roll'}
+_NOISE_WORDS = {'a', 'an', 'the', 'your', 'you', 'to', 'of', 'and', 'all', 'checks', 'check', 'rolls', 'roll', 'skill', 'skills'}
 
 
 def strip_enchantment_name(tooltip: str, affix_name: str) -> str:
@@ -114,10 +114,15 @@ def restates_row(text: str, affix_name: str, is_compound: bool) -> bool:
     sentences = [sentence for sentence in re.split(r'(?<=\.)\s+', body) if sentence]
     if len(sentences) != 1 or '(' in body:
         return False
-    target = re.search(r'\bbonus (?:to|on) (.*)$', body, re.IGNORECASE)
+    target = re.search(r'\b(bonus|penalty) (?:to|on) (.*)$', body, re.IGNORECASE)
     if not target:
         return False
-    return is_compound or _words(target.group(1)) <= _words(affix_name)
+    if is_compound:
+        # A compound's penalty is part of what it is ("oblivious to your
+        # surroundings, causing a -10 penalty to Search and Spot"), and its
+        # parts list doesn't show one.
+        return target.group(1).lower() == 'bonus'
+    return _words(target.group(2)) <= _words(affix_name)
 
 
 def build_descriptions(tooltips: set[Tooltip], compound_names: set[str]) -> dict[str, dict[str, str]]:

@@ -41,6 +41,7 @@ export function craftingSystemEmptyLabel(craft: Craftable): string {
  * It changes the Craftable in place and emits `changed`; saving the item
  * (equipping it) is the host's call.
  */
+import { isCraftingSlotEmpty } from '../planner/crafting-slots/crafting-slot-groups';
 @Component({
   selector: 'app-crafting-slot-control',
   templateUrl: './crafting-slot-control.component.html',
@@ -63,6 +64,14 @@ export class CraftingSlotControlComponent implements OnChanges, OnDestroy {
 
   readonly craftingPickerMinOptions = CRAFTING_PICKER_MIN_OPTIONS;
   readonly emptyLabel = craftingSystemEmptyLabel;
+
+  /**
+   * Nothing chosen, so the dropdown's "Empty" is muted. Not "no affixes": an option
+   * that grants a set bonus (Legendary Delight of the Devourer) has none, and is chosen.
+   */
+  isEmpty(): boolean {
+    return isCraftingSlotEmpty(this.craft);
+  }
 
   context: CraftingOptionContext | undefined;
   /** The options offered: those within the level filter's maximum, plus the chosen one. */

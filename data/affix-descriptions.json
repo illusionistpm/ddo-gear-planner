@@ -198,9 +198,6 @@
     "Axiomatic Burst": {
         "*": "This weapon is an implement of law, dealing XdX to X Law damage on a successful hit to Chaotic enemies, and XdX to X Law damage on a critical hit to Chaotic enemies. This effect makes the weapon lawfully aligned. Chaotic characters wielding this weapon will suffer one negative level."
     },
-    "Balance": {
-        "*": "Passive: +{v} {type} bonus to the Balance skill."
-    },
     "Balanced Ki Strike": {
         "*": "When you activate your Light:Light:Light or Dark:Dark:Dark Finishing Move, you benefit from a increased Melee Power for a short time."
     },
@@ -290,9 +287,6 @@
     },
     "Bludgeoning Type Bypass": {
         "*": "This weapon transmutes into a form that is able to bypass Bludgeoning damage type based Damage Reduction."
-    },
-    "Bluff": {
-        "*": "Passive: +{v} {type} bonus to the Bluff skill."
     },
     "Blunt Trauma": {
         "*": "This weapon is incredibly dense and delivers especially powerful blows. When rolling a 19 or 20 on a melee attack, your critical multiplier is increased by +1."
@@ -416,9 +410,6 @@
     },
     "Concentrated Corrosive Salt": {
         "*": "This weapon stores a caustic, insatiable power deep within. When this item is used, this power can come to the surface in the form of a noxious, corrosive salt that dissolves all material."
-    },
-    "Concentration": {
-        "*": "Passive: +{v} {type} bonus to the Concentration skill."
     },
     "Conflagrating": {
         "*": "This weapon is sheathed in furious flame. A conflagrating weapon deals an extra 3d63 to 18 fire damage on a successful hit."
@@ -605,12 +596,6 @@
     },
     "Diehard": {
         "*": "If you are incapacitated while this item is equipped, it will automatically stabilize you as if you had the Diehard feat."
-    },
-    "Diplomacy": {
-        "*": "Passive: +{v} {type} bonus to the Diplomacy skill."
-    },
-    "Disable Device": {
-        "*": "Passive: +{v} {type} bonus to the Disable Device skill."
     },
     "Disease Guard": {
         "*": "This item carries the Maggot Plague disease, which deals 1d6 Constitution damage and may be contracted by enemies that hit you. A successful Fortitude save (DC 20) will negate this effect."
@@ -1334,9 +1319,6 @@
     "Guidance of Shar": {
         "*": "On Vorpal Melee Hit: Your target is blinded for 3 seconds.10% Chance On Being Hit: You are blinded for 1 second. Blindness immunity does not prevent this effect."
     },
-    "Haggle": {
-        "*": "Passive: +{v} {type} bonus to the Haggle skill."
-    },
     "Halcyon Mind": {
         "*": "When you are damaged by an attack: 5% chance to gain 15 Temporary Spell Points. These Temporary Spell Points last for one minute, or until consumed to cast a spell."
     },
@@ -1354,10 +1336,6 @@
     },
     "Haste Guard": {
         "*": "When you are hit by enemies, there is a chance you will be Hasted, quickening your attack and movement speed."
-    },
-    "Heal": {
-        "*": "Passive: +{v} {type} bonus to the Heal skill.",
-        "Insight": "Passive: +{v} Insightful bonus to the Heal skill."
     },
     "Healers Bounty": {
         "*": "This shield has a small percentage chance to cast a Heal spell on you when you take damage."
@@ -1386,9 +1364,6 @@
     },
     "Hidden Hand Secret Visibility": {
         "*": "Allows the wearer to see some things that the Hidden Hand has hidden handily."
-    },
-    "Hide": {
-        "*": "Passive: +{v} {type} bonus to the Hide skill."
     },
     "High Spirits": {
         "*": "You are always in good spirits, unbothered by the world around you. You are immune to Exhaustion."
@@ -1578,9 +1553,6 @@
     "Intercession Ward": {
         "*": "Protects the user's connection to a source of Divine power and wards that connection from such things as a Quell's intercession ability. This effect only protects from incoming attacks and will not restore a lost connection."
     },
-    "Intimidate": {
-        "*": "Passive: +{v} {type} bonus to the Intimidate skill."
-    },
     "Invisibility Guard": {
         "*": "This item has a chance of granting you temporary invisibility when you are hit by foes. The invisibility will not be removed when you attack or take damage, but it will wear off after 10 seconds."
     },
@@ -1598,9 +1570,6 @@
     },
     "Jolting": {
         "*": "This effect causes the edges of this weapon to arc with electricity, dealing Xd6 Lightning damage on each critical hit."
-    },
-    "Jump": {
-        "*": "Passive: +{v} {type} bonus to the Jump skill."
     },
     "Keen": {
         "*": "Passive: The base critical threat range of this weapon is doubled. This does not stack with Improved Critical feat. Vorpal Strikes by this weapon also bypass all Fortification."
@@ -1949,10 +1918,6 @@
     "Linguistics": {
         "*": "This item reduced the cooldowns of your Social skills (Diplomacy, Bluff, Intimidate) by {v}%. This does not stack with the Negotiator ability."
     },
-    "Listen": {
-        "*": "Passive: +{v} {type} bonus to the Listen skill.",
-        "Penalty": "Passive: -{v} penalty to the Listen skill."
-    },
     "Litany of the Dead - Ability Bonus": {
         "*": "The Litany of the Dead enhances the physical and mental abilities of its owner. Grants a +{v} Profane bonus to all Abilities."
     },
@@ -2097,10 +2062,6 @@
     "Mother Night's Embrace": {
         "*": "This weapon is unholy and imbued by one of the two deities of Barovia - the Mother Night. This weapon is evil, dealing an additional XdX to X evil damage on hit."
     },
-    "Move Silently": {
-        "*": "Passive: +{v} {type} bonus to the Move Silently skill.",
-        "Penalty": "Passive: -{v} penalty to the Move Silently skill."
-    },
     "Murderous Edge": {
         "*": "On hit: 16d6 Slashing Damage. This item is considered Metalline, bypassing all kinds of material damage resistance."
     },
@@ -2182,9 +2143,6 @@
     "Ooze Bane": {
         "*": "This weapon is attuned specifically to disrupt Oozes, dealing an additional Xd10 bane damage vs. Oozes."
     },
-    "Open Lock": {
-        "*": "Passive: +{v} {type} bonus to the Open Lock skill."
-    },
     "Orb Bonus": {
         "*": "+{v} {type} Bonus: While this orb is equipped and you are actively blocking, you gain a +{v} {type} bonus to all saving throws, as well as Acid, Cold, Electric, Fire, and Sonic resistances."
     },
@@ -2241,9 +2199,6 @@
     },
     "Percussive Maintenance": {
         "*": "Each strike from this weapon vibrates with disruptive levels of energy, interrupting your target's concentration. This weapon's strikes deal X Wisdom damage on each hit."
-    },
-    "Perform": {
-        "*": "Passive: +{v} {type} bonus to the Perform skill."
     },
     "Persuasion": {
         "*": "This item gives a +3 competency bonus to all Charisma based skills."
@@ -2420,9 +2375,6 @@
     "Relentless Fury": {
         "*": "While this item is equipped, any killing blows you strike against enemies may drive you into a furious rage, providing a 5% Enhancement damage bonus to your melee, ranged and unarmed attacks for 30 seconds. Slaying weaker opponents has a reduced chance of producing this effect."
     },
-    "Repair": {
-        "*": "Passive: +{v} {type} bonus to the Repair skill."
-    },
     "Repair Amplification": {
         "*": "This effect amplifies all incoming repair healing by +{v} ({type} bonus). Includes spells, potions, and other effects."
     },
@@ -2563,9 +2515,6 @@
     },
     "Sea Attunement": {
         "*": "While you are a Water Elemental, you gain bonuses to the caster level, spell power, and crit chance for your Cold spells."
-    },
-    "Search": {
-        "*": "Passive: +{v} {type} bonus to the Search skill."
     },
     "Second Litany of the Crimson Covenant": {
         "*": "\"Seek the divine within, for the blood is the life...\"On Hit: You are healed for 3d2 hit points."
@@ -2794,9 +2743,6 @@
     "Spell: Summon Raptor": {
         "*": "Rawr I'm a raptor!(This enchantment has no effect.)"
     },
-    "Spellcraft": {
-        "*": "Passive: +{v} {type} bonus to the Spellcraft skill."
-    },
     "Spike Guard": {
         "*": "On Being Hit in Melee: 5% chance to do 510 to 700 Piercing Damage to the Attacker."
     },
@@ -2808,10 +2754,6 @@
     },
     "Spikes": {
         "*": "The sharp spikes on this item deal an additional 1d61 to 6 Piercing damage when used to strike an enemy."
-    },
-    "Spot": {
-        "*": "Passive: +{v} {type} bonus to the Spot skill.",
-        "Penalty": "Passive: -{v} penalty to the Spot skill."
     },
     "Stabbing": {
         "*": "The edges of this weapon are serrated, dealing an additional Xd6 piercing damage on each critical hit."
@@ -2920,9 +2862,6 @@
     },
     "Supreme Law": {
         "*": "This weapon is infused with the supreme Power of Law. It does an additional 3d63 to 18 to non-lawful targets and can only be wielded by Lawful-aligned characters."
-    },
-    "Swim": {
-        "*": "Passive: +{v} {type} bonus to the Swim skill."
     },
     "Swim like a Fish": {
         "*": "Swim like a Fish: While this item is equipped and you are swimming, you gain the Evasion feat. Evasion causes you to take no damage on a successful Reflex saving throw against an effect which would normally allow half damage on a successful Reflex save."
@@ -3083,9 +3022,6 @@
     "True Seeing": {
         "*": "Passive: You gain the benefit of the spell True Seeing."
     },
-    "Tumble": {
-        "*": "Passive: +{v} {type} bonus to the Tumble skill."
-    },
     "Turbulent Burst": {
         "*": "This weapon is enchanted with wild, unpredictable energy. It will do 1d81 to 8 damage of a random energy type (fire/cold/electric/acid) on a successful hit and 3d83 to 24 damage of a random energy type on critical hits."
     },
@@ -3139,9 +3075,6 @@
     },
     "Unwieldy": {
         "*": "This weapon is very large and makes you clumsier as you wield it, causing a -2 Dexterity penalty."
-    },
-    "Use Magic Device": {
-        "*": "Passive: +{v} {type} bonus to the Use Magic Device skill."
     },
     "Utter Disintegration": {
         "*": "This weapon has a dark, insidious power deep within. Occasionally, this power lashes out violently at enemies and attempts to disintegrate them. This disintegrate is incredibly powerful, and will utterly destroy weaker foes."
@@ -3239,10 +3172,6 @@
     },
     "Wild Frenzy": {
         "*": "This weapon has a tendency to drive those it strikes insane. On an attack roll of 20 which is confirmed as a critical hit the target will go wild and attack its own allies for 15 seconds if it fails a DC X Will save. Enemies driven wild in this way, however, have a chance of coming to their senses if damaged."
-    },
-    "Will Save": {
-        "*": "",
-        "Penalty": "This item gives a -{v} penalty to your Will saves."
     },
     "Wind Through The Trees": {
         "*": "Wind Through The Trees: When enemies hit or miss you, they have a 5% chance to be knocked down with no save. This may only trigger once every 12 seconds, and shares a cooldown with the Wind through the Trees feat."

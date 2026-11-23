@@ -68,7 +68,46 @@ def _tidy(text: str) -> str:
     text = re.sub(r'\.(?=[A-Z])', '. ', text)
     # getText() runs a tooltip's cells together: "Flame StrikeCaster level: 9Charges: 5".
     text = re.sub(r'(?<=[a-z0-9)])(?=[A-Z][a-z])', ' ', text)
+    text = _DICE_WITH_RANGE.sub(_split_dice_range, text)
     return re.sub(r'\s+', ' ', text).strip()
+
+
+# The wiki writes dice as "1d6" with a hover span "1 to 6", which getText()
+# runs on: "1d61 to 6". The range starts at the number of dice, which says
+# where the sides end.
+_REFERS_BACK = re.compile(r'(It|This|That|These|They|Those)\b')
+_DICE_WITH_RANGE = re.compile(r'\b(\d+)d(\d+) to (\d+)\b')
+
+
+def _split_dice_range(match: re.Match) -> str:
+    count, digits, high = match.group(1), match.group(2), match.group(3)
+    for split in range(1, len(digits)):
+        sides, low = digits[:split], digits[split:]
+        if low == count and int(high) >= int(count) * int(sides):
+            return f'{count}d{sides} ({low} to {high})'
+    return match.group(0)
+
+
+def trim_restatements(text: str, affix_name: str, is_compound: bool) -> str:
+    """The text without the sentences that only restate the row, when others say more.
+
+    "Passive: 15% Enhancement bonus to Doublestrike. (Doublestrike is a chance
+    to score an additional hit ...)" keeps only what Doublestrike is; Riposte
+    loses the bonuses its parts list shows. A leading "Passive:" goes too: the
+    planner lists only what gear does while worn.
+    """
+    sentences = [sentence for sentence in re.split(r'(?<=[.)])\s+(?=[A-Z(+-])', text) if sentence]
+    # A restating sentence stays when the next one leans on it ("It does not
+    # stack with a shield"): cut, that would refer to nothing.
+    kept = [sentence for index, sentence in enumerate(sentences)
+            if not restates_row(sentence, affix_name, is_compound)
+            or index + 1 < len(sentences) and _REFERS_BACK.match(sentences[index + 1])]
+    text = ' '.join(kept or sentences)
+    text = re.sub(r'^Passive:?\s*', '', text)
+    # A note in brackets that is all that's left reads better as a sentence.
+    if text.startswith('(') and text.endswith(')') and text.count('(') == 1:
+        text = text[1:-1]
+    return text[:1].upper() + text[1:]
 
 
 def to_template(body: str, affix_type: str, value: str) -> tuple[str, list[str]]:
@@ -155,7 +194,9 @@ def build_descriptions(tooltips: set[Tooltip], compound_names: set[str]) -> dict
         def render(template: str) -> str:
             number_lists = [numbers for templates in by_type.values() for numbers in templates.get(template, [])]
             text = fill_constants(template, number_lists)
-            return '' if restates_row(text, name, name in compound_names) else text
+            if restates_row(text, name, name in compound_names):
+                return ''
+            return trim_restatements(text, name, name in compound_names)
 
         default_template = _most_common(overall)
         # "*" is what the site shows with no type to go on (the affix picker).

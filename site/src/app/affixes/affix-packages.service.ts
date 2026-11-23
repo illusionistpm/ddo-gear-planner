@@ -12,6 +12,14 @@ export interface AffixPackageExternal {
   label: string;
 }
 
+/** The build goals in brief, for the collapsed goals bar. */
+export interface BuildGoalsSummary {
+  /** Selected packages, then selected spell powers, in the editor's order. */
+  packages: string[];
+  /** Tracked goals no selected package or spell power accounts for. */
+  otherCount: number;
+}
+
 /** What a fresh build starts out tracking: survival and utility most builds want. */
 export const DEFAULT_PACKAGE = 'Basic';
 
@@ -79,6 +87,32 @@ export class AffixPackagesService {
 
   isSelected(affixes: string[] | undefined, tracked: ReadonlySet<string>): boolean {
     return !!affixes && affixes.length > 0 && affixes.every(affix => tracked.has(affix));
+  }
+
+  /**
+   * The goals as the editor's own shortcuts describe them: which packages
+   * and spell powers are on, and how many goals were added beyond those
+   * (an attribute, a tactic, a searched affix).
+   */
+  summarize(tracked: ReadonlySet<string>): BuildGoalsSummary {
+    const covered: string[] = [];
+    const packages: string[] = [];
+    for (const source of [this.packages, this.spellpowerPackages]) {
+      for (const [key, affixes] of source) {
+        if (this.isSelected(affixes, tracked)) {
+          packages.push(key);
+          covered.push(...affixes);
+        }
+      }
+    }
+    const coveredSet = this.equipped.expandTrackedAffixes(covered);
+    let otherCount = 0;
+    for (const affix of tracked) {
+      if (!coveredSet.has(affix)) {
+        otherCount++;
+      }
+    }
+    return { packages, otherCount };
   }
 
   addPackage(pkg: string) {

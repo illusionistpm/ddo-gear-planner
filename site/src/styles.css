@@ -296,7 +296,7 @@
   .affix-next-tab,
   .tracked-bonus-chip-onboarding-target,
   .recommended-start-slot .slot-select-button,
-  .tracked-affix-edit-affixes.needs-attention
+  .goals-bar.needs-attention
 ) {
   animation: onboarding-pulse 2.4s ease-in-out infinite;
   background-image: linear-gradient(135deg, var(--tutorial-accent-fill) 0%, var(--tutorial-accent-strong) 35%, var(--tutorial-accent-fill) 70%, var(--tutorial-accent-strong) 100%) !important;
@@ -309,7 +309,7 @@
     .affix-next-tab,
       .tracked-bonus-chip-onboarding-target,
     .recommended-start-slot .slot-select-button,
-    .tracked-affix-edit-affixes.needs-attention
+    .goals-bar.needs-attention
   ) {
     animation: none !important;
   }

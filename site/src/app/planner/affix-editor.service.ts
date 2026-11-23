@@ -8,7 +8,7 @@ import { EquippedService } from './equipped.service';
 import { PlannerOnboardingService } from './planner-onboarding.service';
 
 /** What asked for the affix editor, for analytics. */
-export type AffixEditorRevealSource = 'toolbar' | 'start_banner';
+export type AffixEditorRevealSource = 'goals_bar' | 'start_banner';
 
 /**
  * Whether the affix editor - the top of the Tracked Affixes panel - is open.
@@ -94,7 +94,7 @@ export class AffixEditorService implements OnDestroy {
   }
 
   /**
-   * Finished editing (Choose gear, or the toolbar button): close it, and one view at a time, go to the gear - the
+   * Finished editing and on to the gear (the intro's Choose gear): close it, and one view at a time, go to the gear - the
    * point of finishing. Side by side the gear is already on screen.
    */
   finish() {

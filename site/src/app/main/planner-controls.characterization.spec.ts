@@ -197,7 +197,7 @@ describe('Planner workspace controls', () => {
       expect(active.textContent?.trim()).toBe('Scarcity');
     });
 
-    it('opens the affix builder for editing from the Build Goals button', () => {
+    it('opens the affix builder for editing from the Build Goals bar', () => {
       const fixture = createMain();
       showAffixesView(fixture);
       const drawer = TestBed.inject(AffixEditorService);
@@ -205,7 +205,7 @@ describe('Planner workspace controls', () => {
       fixture.detectChanges();
 
       const edit: HTMLButtonElement = fixture.nativeElement
-        .querySelector('.tracked-affix-edit-affixes');
+        .querySelector('#affixesPanel .goals-bar');
       expect(edit).not.toBeNull();
       edit.click();
       fixture.detectChanges();

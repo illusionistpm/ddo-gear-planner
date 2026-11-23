@@ -294,8 +294,14 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
     };
   }
 
+  /** The intro's Choose gear: close, and one view at a time, on to the gear. */
   done() {
     this.editor.finish();
+  }
+
+  /** The close in the corner, or Done: fold back to the goals bar, staying on this view. */
+  close() {
+    this.editor.close();
   }
 
   private updateConditionalSections() {

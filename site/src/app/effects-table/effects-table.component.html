@@ -98,7 +98,29 @@
 
 <div class="tracked-affixes-workspace">
     <div class="tracked-affixes-content">
-    <app-affix-picker *ngIf="editorOpen"></app-affix-picker>
+    <!-- The editor, folded: one line saying what's tracked, in the spot the
+         editor opens into, so opening and closing happen in the same place. -->
+    @if (editorOpen) {
+        <app-affix-picker></app-affix-picker>
+    } @else {
+        <button type="button" class="goals-bar" [class.needs-attention]="needsStart"
+            aria-expanded="false" [title]="goalsSummaryTitle()" (click)="openEditor()">
+            <span class="fas fa-bullseye goals-bar-icon" aria-hidden="true"></span>
+            <span class="goals-bar-title">Build goals</span>
+            <span class="goals-bar-summary">
+                @if (goalsSummary.packages.length) {
+                    <span class="goals-bar-packages">{{goalsSummary.packages.join(' · ')}}</span>
+                }
+                @if (goalsSummary.otherCount) {
+                    <span class="goals-bar-other">{{goalsSummary.packages.length ? '+' : ''}}{{goalsSummary.otherCount}} {{goalsSummary.otherCount === 1 ? 'goal' : 'goals'}}</span>
+                }
+                @if (!goalsSummary.packages.length && !goalsSummary.otherCount) {
+                    <span class="goals-bar-empty">None yet</span>
+                }
+            </span>
+            <span class="goals-bar-edit">Edit <span class="fas fa-chevron-down" aria-hidden="true"></span></span>
+        </button>
+    }
     <!-- Only this view uses it, so it lives here rather than in the page header.
          Set once and left: it can scroll away with the list. -->
     <div class="tracked-affix-groupby segmented-toggle" role="group" aria-label="Group build goals by">
@@ -118,7 +140,7 @@
     }
     <ng-container *ngIf="groupMode === 'slots'">
         <p class="tracked-affix-slots-empty" *ngIf="!needsStart && !trackedDisplay.slotGroups.length">
-            No build goals yet. Add some with <strong><app-goals-label for="editor-button"></app-goals-label></strong> in the toolbar above.
+            No build goals yet. Add some with <strong>Edit</strong> on the Build goals bar above.
         </p>
         <div class="tracked-affix-section slot-group-section" [ngClass]="'slot-group-' + group.key" *ngFor="let group of trackedDisplay.slotGroups; trackBy: trackSlotGroup">
             <button type="button" class="tracked-affix-group-title" (click)="toggleAffixGroup(group.key)"

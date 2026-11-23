@@ -290,9 +290,19 @@ describe('AffixPickerComponent', () => {
     expect(status()).toBe('Doublestrike is already tracked');
   });
 
-  it('has no footer: no Done of its own and no Clear at the bottom', () => {
-    expect((fixture.nativeElement as HTMLElement).querySelector('.affix-editor-foot')).toBeNull();
-    expect((fixture.nativeElement as HTMLElement).querySelector('.affix-editor-done')).toBeNull();
+  it('closes from the corner or from Done at the foot, staying on this view - not on to the gear', () => {
+    const editor = TestBed.inject(AffixEditorService);
+    const close = vi.spyOn(editor, 'close');
+    const finish = vi.spyOn(editor, 'finish');
+    const root = fixture.nativeElement as HTMLElement;
+
+    const corner = root.querySelector<HTMLButtonElement>('.affix-editor-header .affix-editor-close')!;
+    expect(corner.getAttribute('aria-label')).toBe('Close build goals editor');
+    corner.click();
+    root.querySelector<HTMLButtonElement>('.affix-editor-footer .affix-editor-done')!.click();
+
+    expect(close).toHaveBeenCalledTimes(2);
+    expect(finish).not.toHaveBeenCalled();
   });
 
   it('cues a spell power once Caster joins Basic, then the gear', () => {
@@ -345,7 +355,9 @@ describe('AffixPickerComponent', () => {
 
       component.dismissIntro();
       refreshView();
-      expect(root().querySelector('.affix-editor-header')?.textContent).toContain('Clear build goals');
+      // At the foot, beside Done - never in the header's corner, where a close is looked for.
+      expect(root().querySelector('.affix-editor-footer')?.textContent).toContain('Clear build goals');
+      expect(root().querySelector('.affix-editor-header')?.textContent).not.toContain('Clear');
     });
 
     it('asks Clear all? Yes / No before clearing, in place, and No leaves the goals alone', () => {

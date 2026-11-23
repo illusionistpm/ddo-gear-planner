@@ -105,9 +105,8 @@ describe('MainComponent', () => {
     expect(el.querySelector('#affixesPanel .tracked-affixes-content > app-affix-picker .affix-editor')).not.toBeNull();
     expect(el.querySelector('#affixesPanel .affix-editor')?.textContent).toContain('What is this build for?');
     expect(packageChip('Melee').classList).toContain('affix-next-chip');
-    // The editor is already open, so the toolbar button reads as pressed, not as a call to action.
-    expect(el.querySelector('.tracked-affix-edit-affixes.open')).not.toBeNull();
-    expect(el.querySelector('.tracked-affix-edit-affixes.needs-attention')).toBeNull();
+    // The editor is open in the goals bar's place, so there's no bar calling for attention.
+    expect(el.querySelector('.goals-bar')).toBeNull();
   });
 
   it('still counts the user\'s own first edit as an unsaved change', () => {
@@ -155,7 +154,7 @@ describe('MainComponent', () => {
     expect(equipped.getImportantAffixes().has('Dodge')).toBe(true);
     expect(equipped.getImportantAffixes().has('Melee Power')).toBe(true);
     expect(el.querySelector('#affixesPanel')?.textContent).toContain('Melee Power');
-    expect(el.querySelector('.tracked-affix-edit-affixes.needs-attention')).toBeNull();
+    expect(el.querySelector('.goals-bar.needs-attention')).toBeNull();
   });
 
   it('shows the spell power step inline after Caster', () => {
@@ -166,7 +165,7 @@ describe('MainComponent', () => {
       .toContain('Pick your spell power');
   });
 
-  it('closes the editor from Choose gear, and the toolbar button brings it back on the Affixes view', () => {
+  it('closes the editor from Choose gear, and the goals bar brings it back on the Affixes view', () => {
     const el: HTMLElement = fixture.nativeElement;
     const editor = TestBed.inject(AffixEditorService);
 
@@ -174,9 +173,10 @@ describe('MainComponent', () => {
     fixture.detectChanges();
     expect(editor.isOpen).toBe(false);
     expect(el.querySelector('.affix-editor')).toBeNull();
+    expect(el.querySelector('#affixesPanel .goals-bar')?.textContent).toContain('Basic');
 
     TestBed.inject(EquippedService).setActiveMainTab('equipment');
-    (el.querySelector('.tracked-affix-edit-affixes') as HTMLButtonElement).click();
+    (el.querySelector('.goals-bar') as HTMLButtonElement).click();
     fixture.detectChanges();
 
     expect(editor.isOpen).toBe(true);

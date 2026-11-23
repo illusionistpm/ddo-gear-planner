@@ -4,8 +4,8 @@
  */
 .affix-editor {
   background: var(--surface-color);
-  /* The toolbar button's accent, all the way round: the two are one control
-     and its panel, and the open editor stands out from the page around it. */
+  /* The goals bar's accent, all the way round: the editor is that bar opened
+     out, and stands out from the page around it. */
   border: 2px solid var(--primary-color);
   border-radius: var(--border-radius);
   box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.12), var(--shadow-sm);
@@ -29,7 +29,77 @@
 }
 
 .affix-editor-clear {
-  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Top right, where a panel's close is looked for. */
+.affix-editor-close {
+  align-items: center;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  color: var(--text-primary);
+  display: inline-flex;
+  flex: 0 0 auto;
+  height: 2rem;
+  justify-content: center;
+  margin: calc(-1 * var(--space-4)) calc(-1 * var(--space-4)) calc(-1 * var(--space-4)) auto;
+  padding: 0.5rem;
+  width: 2rem;
+}
+
+.affix-editor-close:hover,
+.affix-editor-close:focus-visible {
+  background: rgba(var(--primary-color-rgb), 0.12);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.affix-editor-close:focus-visible,
+.affix-editor-done:focus-visible,
+.clear-affixes-link:focus-visible {
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 2px;
+}
+
+/* Done on the right, Clear well away from it on the left. */
+.affix-editor-footer {
+  align-items: center;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  justify-content: flex-end;
+  padding: var(--space-8) var(--space-12);
+}
+
+.affix-editor-done {
+  background: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 999px;
+  color: var(--on-accent-text-color);
+  font-size: 0.85rem;
+  font-weight: 800;
+  line-height: 1.2;
+  padding: var(--space-4) var(--space-16);
+}
+
+.affix-editor-done:hover {
+  box-shadow: 0 0 0 2px var(--focus-ring-color);
+}
+
+/* Quiet until wanted: a red text link, not a button competing with Done. */
+.clear-affixes-link {
+  background: none;
+  border: 0;
+  color: var(--danger-color);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: var(--space-2) 0;
+}
+
+.clear-affixes-link:hover {
+  text-decoration: underline;
 }
 
 .affix-editor-clear-question {
@@ -95,7 +165,10 @@
 
 @media (pointer: coarse) {
   .clear-affixes-button,
-  .clear-affixes-cancel {
+  .clear-affixes-cancel,
+  .clear-affixes-link,
+  .affix-editor-done,
+  .affix-editor-close {
     min-height: 44px;
     min-width: 44px;
   }

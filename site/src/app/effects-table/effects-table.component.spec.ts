@@ -96,6 +96,86 @@ describe('EffectsTableComponent', () => {
     expect(fixture.nativeElement.querySelector('app-affix-picker')).toBeNull();
   });
 
+  describe('the goals bar', () => {
+    const el = () => fixture.nativeElement as HTMLElement;
+    const bar = () => el().querySelector<HTMLButtonElement>('.goals-bar');
+
+    beforeEach(() => {
+      TestBed.inject(AffixEditorService).close();
+      fixture.detectChanges();
+    });
+
+    it('stands in for the closed editor, naming its packages and counting the goals beyond them', () => {
+      const equipped = TestBed.inject(EquippedService);
+      equipped.setImportantAffixes([]);
+      fixture.detectChanges();
+      expect(bar()?.querySelector('.goals-bar-empty')?.textContent).toContain('None yet');
+
+      equipped.addImportantAffixes([
+        ...component['affixPackages'].packages.get('Basic')!,
+        ...component['affixPackages'].packages.get('Melee')!,
+        'Strength', 'Stunning'
+      ]);
+      fixture.detectChanges();
+
+      expect(bar()!.querySelector('.goals-bar-packages')?.textContent).toBe('Basic · Melee');
+      expect(bar()!.querySelector('.goals-bar-other')?.textContent?.trim()).toBe('+2 goals');
+      expect(bar()!.title).toContain('Basic, Melee, 2 other goals');
+    });
+
+    it('counts goals alone when no package is on', () => {
+      TestBed.inject(EquippedService).setImportantAffixes(['Strength']);
+      fixture.detectChanges();
+
+      expect(bar()!.querySelector('.goals-bar-packages')).toBeNull();
+      expect(bar()!.querySelector('.goals-bar-other')?.textContent?.trim()).toBe('1 goal');
+    });
+
+    it('opens the editor in its place, and is gone while it is open', () => {
+      const editor = TestBed.inject(AffixEditorService);
+
+      bar()!.click();
+      fixture.detectChanges();
+
+      expect(editor.isOpen).toBe(true);
+      expect(bar()).toBeNull();
+      expect(el().querySelector('.tracked-affixes-content > app-affix-picker .affix-editor')).not.toBeNull();
+    });
+
+    it('calls for attention only while the build has no focus yet', () => {
+      const equipped = TestBed.inject(EquippedService);
+      equipped.setImportantAffixes(['Dodge']);
+      fixture.detectChanges();
+      expect(bar()!.classList).toContain('needs-attention');
+
+      equipped.addImportantAffix('Strength');
+      fixture.detectChanges();
+      expect(bar()!.classList).not.toContain('needs-attention');
+    });
+
+    for (const control of ['.affix-editor-close', '.affix-editor-done']) {
+      it(`folds back from the editor's ${control === '.affix-editor-close' ? 'corner close' : 'Done'}, on the same view, with focus on the bar`, async () => {
+        const editor = TestBed.inject(AffixEditorService);
+        const equipped = TestBed.inject(EquippedService);
+        equipped.setActiveMainTab('affixes');
+        editor.open();
+        fixture.detectChanges();
+
+        const button = el().querySelector<HTMLButtonElement>(control)!;
+        button.focus();
+        button.click();
+        fixture.detectChanges();
+        await new Promise(resolve => setTimeout(resolve));
+
+        expect(editor.isOpen).toBe(false);
+        let tab = '';
+        equipped.getActiveMainTab().subscribe(value => tab = value).unsubscribe();
+        expect(tab).toBe('affixes');
+        expect(document.activeElement).toBe(bar());
+      });
+    }
+  });
+
   it('holds the bonus-chip step back while the editor is open', () => {
     component.onboardingActive = true;
     component.needsStart = false;

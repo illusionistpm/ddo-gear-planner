@@ -9,6 +9,7 @@ import { AffixGroupDisplay, getAffixGroupCssClass, groupAffixNames, UTILITY_CHEC
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
 import { AffixPackagesService } from '../affixes/affix-packages.service';
 import { AffixEditorService } from '../planner/affix-editor.service';
+import { BuildGoalsSummary } from '../affixes/affix-packages.service';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
 import { AffixAvailabilityService, RemainingAvailability } from '../affixes/affix-availability.service';
 import { TrackedAffixDerivationService } from '../affixes/tracked-affix-derivation.service';
@@ -110,7 +111,10 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   needsStart = true;
   /** The affix editor, open at the top of this panel. */
   editorOpen = false;
+  /** What the collapsed goals bar says in place of the editor. */
+  goalsSummary: BuildGoalsSummary = { packages: [], otherCount: 0 };
   private editorSubscription?: Subscription;
+  private goalsSummarySubscription?: Subscription;
   private revealTimer: ReturnType<typeof setTimeout> | null = null;
   onboardingTargetChipKey = '';
   recentlyChangedAffixTypes = new Set<string>();
@@ -156,9 +160,15 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     });
 
     this.editorSubscription = this.editor.isOpen$.subscribe(open => {
+      const closing = this.editorOpen && !open;
       this.editorOpen = open;
       this.refreshTrackedAffixDisplay();
+      if (closing) {
+        this.returnToGoalsBar();
+      }
     });
+    this.goalsSummarySubscription = this.equipped.getImportantAffixesObservable()
+      .subscribe(tracked => this.goalsSummary = this.affixPackages.summarize(tracked));
     this.editorSubscription.add(this.editor.revealRequests$.subscribe(() => this.revealEditor()));
 
     this.chosenAffixesSubscription = this.affixPackages.needsStart$()
@@ -198,6 +208,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     this.onboardingSubscription?.unsubscribe();
     this.chosenAffixesSubscription?.unsubscribe();
     this.editorSubscription?.unsubscribe();
+    this.goalsSummarySubscription?.unsubscribe();
     if (this.revealTimer) {
       clearTimeout(this.revealTimer);
     }
@@ -882,6 +893,46 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
    * Scroll the editor into view and move focus to its heading, once it has
    * rendered - it may have only just opened, or its panel only just been shown.
    */
+  /** The goals bar: the editor, folded away. Opening it takes you there, on either layout. */
+  openEditor() {
+    this.editor.reveal('goals_bar');
+  }
+
+  /** The bar's full summary, for its title: the visible line can be cut short. */
+  goalsSummaryTitle(): string {
+    const { packages, otherCount } = this.goalsSummary;
+    const parts = [...packages];
+    if (otherCount) {
+      parts.push(otherCount + (otherCount === 1 ? ' other goal' : ' other goals'));
+    }
+    return parts.length ? 'Build goals: ' + parts.join(', ') + '. Click to edit.' : 'Choose your build goals';
+  }
+
+  /**
+   * The editor closed from inside (its close button, Done): the button that
+   * had focus is gone, so focus goes to the bar that replaced the editor -
+   * and the bar is scrolled back into view, as closing a tall editor from its
+   * footer can leave it far above.
+   */
+  private returnToGoalsBar() {
+    if (this.revealTimer) {
+      clearTimeout(this.revealTimer);
+    }
+    const hadFocus = this.host.nativeElement.contains(document.activeElement)
+      || document.activeElement === document.body || !document.activeElement;
+    this.revealTimer = setTimeout(() => {
+      this.revealTimer = null;
+      const bar = this.host.nativeElement.querySelector<HTMLElement>('.goals-bar');
+      if (!bar || !hadFocus) {
+        return;
+      }
+      if (bar.getBoundingClientRect().top < 0) {
+        bar.scrollIntoView?.({ block: 'start', behavior: 'smooth' });
+      }
+      bar.focus({ preventScroll: true });
+    });
+  }
+
   private revealEditor() {
     if (this.revealTimer) {
       clearTimeout(this.revealTimer);

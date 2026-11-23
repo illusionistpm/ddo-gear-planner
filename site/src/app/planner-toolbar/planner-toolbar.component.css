@@ -15,10 +15,6 @@
     order: 80;
 }
 
-.tracked-affix-edit-affixes {
-    order: 100;
-}
-
 .shopping-list-wrap {
     order: 101;
 }
@@ -179,88 +175,11 @@
     }
 }
 
-/* Blue, like the Build Goals editor it opens. */
-.tracked-affix-edit-affixes {
-    align-items: center;
-    background: rgba(var(--primary-color-rgb), 0.1);
-    border: 1px solid var(--primary-color);
-    border-radius: 999px;
-    color: var(--primary-color);
-    cursor: pointer;
-    display: inline-flex;
-    flex: 0 0 auto;
-    font-size: 0.82rem;
-    font-weight: 700;
-    gap: var(--space-8);
-    margin-left: auto;
-    padding: var(--space-2) var(--space-12);
-    white-space: nowrap;
-}
-
-/* The short label only exists below the breakpoint - see the media query - or
-   when the full one wouldn't fit on the workspace line (fitEditAffixesLabel). */
-.tracked-affix-edit-affixes-short {
-    display: none;
-}
-
-.tracked-affix-edit-affixes.short-label .tracked-affix-edit-affixes-label {
-    display: none;
-}
-
-.tracked-affix-edit-affixes.short-label .tracked-affix-edit-affixes-short {
-    display: inline;
-}
-
-.tracked-affix-edit-affixes:hover,
-.tracked-affix-edit-affixes:focus-visible {
-    background: rgba(var(--primary-color-rgb), 0.18);
-}
-
-/* "+ Build Goals": the plus sits tight against the label, as the old
-   "+ Affixes" did; the chevron keeps the button's full gap. */
-.affix-toggle-plus {
-    font-size: 0.75rem;
-    margin-right: calc(-1 * var(--space-4));
-}
-
-/* Points down to open, up to close. */
-.affix-toggle-chevron {
-    font-size: 0.7rem;
-    transition: transform 0.2s ease;
-}
-
-.tracked-affix-edit-affixes.open .affix-toggle-chevron {
-    transform: rotate(180deg);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .affix-toggle-chevron {
-        transition: none;
-    }
-}
-
-/* Open: a stronger tint and outline in the editor's blue - pressed, but not
-   a filled primary button that reads as "Done". */
-.tracked-affix-edit-affixes.open,
-.tracked-affix-edit-affixes.open:hover,
-.tracked-affix-edit-affixes.open:focus-visible {
-    background: rgba(var(--primary-color-rgb), 0.2);
-    box-shadow: inset 0 0 0 1px var(--primary-color);
-}
-
-/* A build with nothing tracked: this is where to start. The pulsing
-   magenta background is the shared onboarding cue (styles.css). */
-.tracked-affix-edit-affixes.needs-attention,
-.tracked-affix-edit-affixes.needs-attention:hover,
-.tracked-affix-edit-affixes.needs-attention:focus-visible {
-    border-color: var(--tutorial-accent-strong);
-    color: var(--on-accent-text-color);
-}
-
-/* The shopping list: quieter than the affix builder beside it. */
+/* The shopping list ends the workspace line, pushed to its right edge. */
 .shopping-list-wrap {
     display: inline-flex;
     flex: 0 0 auto;
+    margin-left: auto;
     position: relative;
 }
 
@@ -400,10 +319,6 @@
         display: inline;
     }
 
-    .tracked-affix-edit-affixes {
-        padding: var(--space-2) var(--space-8);
-    }
-
     /* Small enough to survive a 320px screen beside its neighbours; flex-grow
        spends whatever is actually going spare. */
     .equipment-search {
@@ -425,17 +340,12 @@
 }
 
 /*
- * The labels give way below the dual-panel threshold: "+ Goals" and a cart
- * icon carry the same meaning in a fraction of the width.
+ * The cart's label gives way below the dual-panel threshold: the icon
+ * carries the same meaning in a fraction of the width.
  */
 @media (max-width: 994.98px) {
-    .tracked-affix-edit-affixes-label,
     .shopping-list-open-label {
         display: none;
-    }
-
-    .tracked-affix-edit-affixes-short {
-        display: inline;
     }
 }
 
@@ -467,12 +377,8 @@
         order: 14;
     }
 
-    .tracked-affix-edit-affixes {
-        margin-left: 0;
-        order: 16;
-    }
-
     .shopping-list-wrap {
+        margin-left: 0;
         order: 18;
     }
 }
@@ -483,7 +389,6 @@
  */
 @media (pointer: coarse) {
     .planner-view-option,
-    .tracked-affix-edit-affixes,
     .shopping-list-open {
         min-height: 2.5rem;
     }

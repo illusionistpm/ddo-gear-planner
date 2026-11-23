@@ -1,27 +1,17 @@
-<!-- The toolbar's + Build Goals button opens and closes this (aria-controls),
-     and shares its blue accent, so the two read as one control and its panel. -->
+<!-- Opened from the Build Goals bar it replaces (EffectsTableComponent), and
+     closed from here: the x in the corner, or Done at the foot. -->
 <section id="affixEditor" class="affix-editor" aria-labelledby="affixEditorHeading">
   <header class="affix-editor-header">
-    <!-- Heading and Clear share the top row; the explanation runs full width below. -->
     <div class="affix-editor-title-row">
       <h2 id="affixEditorHeading" class="affix-editor-heading" tabindex="-1">
         <span class="fas fa-bullseye affix-editor-heading-icon" aria-hidden="true"></span>
         Edit build goals
       </h2>
-      <!-- Out of the way during the intro, and asks first: it empties the whole list. -->
-      @if (savedSet.size && !hasOnboardingStep()) {
-        <div class="affix-editor-clear">
-          @if (confirmingClear) {
-            <span class="affix-editor-clear-question" role="group" aria-label="Clear all build goals?">
-              Clear all?
-              <button type="button" class="clear-affixes-button" (click)="confirmClear()">Yes</button>
-              <button type="button" class="clear-affixes-cancel" #clearNo (click)="cancelClear()">No</button>
-            </span>
-          } @else {
-            <button type="button" class="clear-affixes-button" #clearStart (click)="startClear()">Clear build goals</button>
-          }
-        </div>
-      }
+      <!-- Where a panel's close is expected. Nothing destructive lives up here. -->
+      <button type="button" class="affix-editor-close" aria-label="Close build goals editor" title="Close"
+        aria-controls="affixEditor" (click)="close()">
+        <span class="x-glyph" aria-hidden="true"></span>
+      </button>
     </div>
     <p class="affix-editor-lede">Tell the planner what your character needs, like Melee Power or Fortification, and it ranks gear by how much of that each piece gives you.</p>
   </header>
@@ -36,7 +26,7 @@
       <ng-template #equipmentStepIntro>
       <ng-container *ngIf="shouldHighlightEquipmentStep(); else affixSetupIntro">
         <h2>Your gear targets are ready</h2>
-        <p>Choose gear when you're ready. <strong><app-goals-label for="editor-button"></app-goals-label></strong> in the toolbar brings this back any time.</p>
+        <p>Choose gear when you're ready. The <strong>Build goals</strong> bar at the top of this panel brings this back any time.</p>
       </ng-container>
       </ng-template>
       <ng-template #affixSetupIntro>
@@ -54,7 +44,7 @@
       <ng-template #savedAffixSetupIntro>
         <ng-container *ngIf="savedSet.size; else emptyAffixSetupIntro">
           <h2>Your gear targets are ready</h2>
-          <p>Choose gear when you're ready. <strong><app-goals-label for="editor-button"></app-goals-label></strong> in the toolbar brings this back any time.</p>
+          <p>Choose gear when you're ready. The <strong>Build goals</strong> bar at the top of this panel brings this back any time.</p>
         </ng-container>
       </ng-template>
       <ng-template #emptyAffixSetupIntro>
@@ -176,5 +166,25 @@
       </p>
     </section>
   </section>
+
+  <!-- The way out once you've scrolled to the bottom, and the rarely needed,
+       destructive Clear - kept small and away from the close in the corner. -->
+  <footer class="affix-editor-footer">
+    <!-- Out of the way during the intro, and asks first: it empties the whole list. -->
+    @if (savedSet.size && !hasOnboardingStep()) {
+      <div class="affix-editor-clear">
+        @if (confirmingClear) {
+          <span class="affix-editor-clear-question" role="group" aria-label="Clear all build goals?">
+            Clear all?
+            <button type="button" class="clear-affixes-button" (click)="confirmClear()">Yes</button>
+            <button type="button" class="clear-affixes-cancel" #clearNo (click)="cancelClear()">No</button>
+          </span>
+        } @else {
+          <button type="button" class="clear-affixes-link" #clearStart (click)="startClear()">Clear build goals</button>
+        }
+      </div>
+    }
+    <button type="button" class="affix-editor-done" (click)="close()">Done</button>
+  </footer>
 
 </section>

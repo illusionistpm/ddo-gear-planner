@@ -4,8 +4,6 @@ import {
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { AffixEditorService } from '../planner/affix-editor.service';
-import { AffixPackagesService } from '../affixes/affix-packages.service';
 import { groupPath, GroupSummary } from '../build/groups.service';
 import { MyListsService } from '../build/my-lists.service';
 import { GearDbService } from '../gear/gear-db.service';
@@ -17,8 +15,9 @@ import { TypeaheadResult } from '../typeahead/typeahead.component';
 import { SlotUndoService } from '../undo/slot-undo.service';
 
 /**
- * The workspace toolbar: the Equipment / Build Goals switch, the gear search,
- * the goals editor's toggle and the shopping list.
+ * The workspace toolbar: the Equipment / Build Goals switch, the gear search
+ * and the shopping list. The goals editor opens from the Build Goals panel
+ * itself (EffectsTableComponent's goals bar), not from here.
  *
  * The search lives here rather than in gear-list's own toolbar, where it
  * scrolled away with the content. It stays in the DOM on the goals view,
@@ -35,21 +34,13 @@ import { SlotUndoService } from '../undo/slot-undo.service';
 })
 export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy {
   activeTab: PlannerTab = 'equipment';
-  /** No focus chosen yet: the affix button is the place to start, and looks it (while the editor is shut). */
-  needsAffixes = false;
-  /** The affix editor is open: the button reads as pressed, and closes it. */
-  editorOpen = false;
 
   @ViewChild('viewSwitch') private viewSwitch?: ElementRef<HTMLElement>;
   @ViewChild('gearSearch') private gearSearch?: ElementRef<HTMLElement>;
-  @ViewChild('editAffixes') private editAffixes?: ElementRef<HTMLElement>;
 
   private tabSubscription?: Subscription;
   private rejoinSubscription?: Subscription;
-  private chosenAffixesSubscription?: Subscription;
-  private editorSubscription?: Subscription;
   private switchObserver?: ResizeObserver;
-  private workspaceRowObserver?: ResizeObserver;
   // GearDbService builds its unfiltered gear map once, in its constructor, so
   // the flattened list never changes. Worth caching: this component is mounted
   // for the whole session and the template reads it on every change-detection
@@ -59,8 +50,6 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
   constructor(
     public equipped: EquippedService,
     private gearList: GearDbService,
-    private affixEditor: AffixEditorService,
-    private affixPackages: AffixPackagesService,
     private analytics: AnalyticsService,
     private zone: NgZone,
     private slotUndo: SlotUndoService
@@ -76,9 +65,6 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
     this.tabSubscription = this.equipped.getActiveMainTab().subscribe(tab => {
       this.activeTab = tab;
     });
-    this.chosenAffixesSubscription = this.affixPackages.needsStart$()
-      .subscribe(needsStart => this.needsAffixes = needsStart);
-    this.editorSubscription = this.affixEditor.isOpen$.subscribe(open => this.editorOpen = open);
   }
 
   ngAfterViewInit() {
@@ -92,31 +78,13 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
       if (this.viewSwitch) {
         this.switchObserver.observe(this.viewSwitch.nativeElement);
       }
-
-      // The row's width, and Filters' - which grows with its count badge -
-      // decide whether the affix builder button's full label fits beside the rest.
-      // Not the button's parent: that is this component's host, display: contents,
-      // which has no box for a ResizeObserver to see. Filters lives in main's template.
-      const button = this.editAffixes?.nativeElement;
-      const chrome = button?.closest('.planner-chrome');
-      if (button && chrome) {
-        this.workspaceRowObserver = new ResizeObserver(() => this.fitEditAffixesLabel());
-        this.workspaceRowObserver.observe(chrome);
-        const filters = chrome.querySelector('.planner-filter-control');
-        if (filters) {
-          this.workspaceRowObserver.observe(filters);
-        }
-      }
     });
   }
 
   ngOnDestroy() {
     this.switchObserver?.disconnect();
-    this.workspaceRowObserver?.disconnect();
     this.tabSubscription?.unsubscribe();
     this.rejoinSubscription?.unsubscribe();
-    this.chosenAffixesSubscription?.unsubscribe();
-    this.editorSubscription?.unsubscribe();
   }
 
   /**
@@ -144,25 +112,6 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
     viewSwitch.classList.add('thumb-ready');
   }
 
-  /**
-   * With both panels on screen, the goals button spells out its full label
-   * only when that still fits on the workspace line with Filters and the gear
-   * search; otherwise it takes the short one rather than a line of its own.
-   * Below the dual-panel breakpoint the CSS keeps the short label.
-   */
-  fitEditAffixesLabel() {
-    const button = this.editAffixes?.nativeElement;
-    const search = this.gearSearch?.nativeElement;
-    if (!button || !search || !search.offsetWidth || window.matchMedia?.('(max-width: 994.98px)')?.matches) {
-      return;
-    }
-
-    button.classList.remove('short-label');
-    if (button.getBoundingClientRect().top >= search.getBoundingClientRect().bottom) {
-      button.classList.add('short-label');
-    }
-  }
-
   isActiveTab(tab: PlannerTab) {
     return this.activeTab === tab;
   }
@@ -171,14 +120,6 @@ export class PlannerToolbarComponent implements OnInit, AfterViewInit, OnDestroy
     // MainComponent subscribes to the same tab stream and does the housekeeping
     // (closing the filter sheet, refreshing onboarding) from there.
     this.equipped.setActiveMainTab(tab);
-  }
-
-  toggleEditor() {
-    if (this.editorOpen) {
-      this.affixEditor.finish();
-    } else {
-      this.affixEditor.reveal('toolbar');
-    }
   }
 
   private readonly shoppingListView = inject(ShoppingListViewService);

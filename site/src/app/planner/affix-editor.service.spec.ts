@@ -75,7 +75,7 @@ describe('AffixEditorService', () => {
     let reveals = 0;
     const sub = service.revealRequests$.subscribe(() => reveals++);
 
-    service.reveal('toolbar');
+    service.reveal('goals_bar');
 
     expect(tab.value).toBe('affixes');
     expect(service.isOpen).toBe(true);

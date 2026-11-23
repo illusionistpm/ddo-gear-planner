@@ -20,6 +20,111 @@
 }
 
 /*
+ * The goals editor, folded (the open editor is affix-picker's .affix-editor).
+ * Same blue edge and tinted head, in the same spot, so it reads as the
+ * editor's own header: click it and the editor opens out of it.
+ */
+.goals-bar {
+    align-items: center;
+    background: rgba(var(--primary-color-rgb), 0.06);
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    font-size: 0.85rem;
+    gap: var(--space-8);
+    margin: 0 0 var(--space-12);
+    min-height: 2.5rem;
+    padding: var(--space-4) var(--space-12);
+    scroll-margin-top: var(--space-16);
+    text-align: left;
+    width: 100%;
+}
+
+.goals-bar:hover {
+    background: rgba(var(--primary-color-rgb), 0.12);
+}
+
+.goals-bar:focus-visible {
+    outline: 3px solid var(--focus-ring-color);
+    outline-offset: 2px;
+}
+
+.goals-bar-icon,
+.goals-bar-title {
+    color: var(--primary-color);
+    flex: 0 0 auto;
+}
+
+.goals-bar-title {
+    font-weight: 700;
+}
+
+/* One line, whatever is tracked: the package names give way first, the
+   count of other goals never does. The bar's title holds the full list. */
+.goals-bar-summary {
+    align-items: baseline;
+    display: flex;
+    flex: 1 1 auto;
+    gap: var(--space-8);
+    min-width: 0;
+}
+
+.goals-bar-packages {
+    font-weight: 600;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.goals-bar-other,
+.goals-bar-empty {
+    color: var(--text-secondary);
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+.goals-bar-edit {
+    align-items: center;
+    color: var(--primary-color);
+    display: inline-flex;
+    flex: 0 0 auto;
+    font-weight: 700;
+    gap: var(--space-4);
+    margin-left: auto;
+}
+
+.goals-bar-edit .fa-chevron-down {
+    font-size: 0.7rem;
+}
+
+/* A phone has no hover for the title, so the names wrap rather than cut off. */
+@media (max-width: 575.98px) {
+    .goals-bar-summary {
+        flex-wrap: wrap;
+        gap: 0 var(--space-8);
+    }
+
+    .goals-bar-packages {
+        white-space: normal;
+    }
+}
+
+/* A build with nothing chosen yet: this is where to start. The pulsing
+   magenta fill is the shared onboarding cue (styles.css). */
+.goals-bar.needs-attention,
+.goals-bar.needs-attention .goals-bar-icon,
+.goals-bar.needs-attention .goals-bar-title,
+.goals-bar.needs-attention .goals-bar-other,
+.goals-bar.needs-attention .goals-bar-empty,
+.goals-bar.needs-attention .goals-bar-edit {
+    border-color: var(--tutorial-accent-strong);
+    color: var(--on-accent-text-color);
+}
+
+/*
  * .tracked-affix-section carries its own margin-top so consecutive sections
  * space themselves out - fine between two sections, since block siblings'
  * adjacent margins collapse to the larger one. But .tracked-affixes-content is

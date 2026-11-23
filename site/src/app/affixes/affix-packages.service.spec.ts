@@ -24,6 +24,33 @@ describe('AffixPackagesService', () => {
     equipped.setImportantAffixes([]);
   });
 
+  describe('summarize', () => {
+    it('names the selected packages and spell powers, and counts the goals beyond them', () => {
+      service.addPackage('Basic');
+      service.addPackage('Caster');
+      service.addSpellpower('Fire');
+      equipped.addImportantAffixes(['Strength', 'Stunning']);
+
+      expect(service.summarize(equipped.getImportantAffixes())).toEqual({
+        packages: ['Basic', 'Caster', 'Fire'],
+        otherCount: 2
+      });
+    });
+
+    it('does not name a package with a goal removed; what is left of it counts as goals', () => {
+      service.addPackage('Trapping');
+      equipped.removeImportantAffix('Spot');
+
+      const summary = service.summarize(equipped.getImportantAffixes());
+      expect(summary.packages).toEqual([]);
+      expect(summary.otherCount).toBe(equipped.getImportantAffixes().size);
+    });
+
+    it('is empty with nothing tracked', () => {
+      expect(service.summarize(new Set())).toEqual({ packages: [], otherCount: 0 });
+    });
+  });
+
   it('starts an empty build on the Basic package', () => {
     service.addDefaultPackage();
 

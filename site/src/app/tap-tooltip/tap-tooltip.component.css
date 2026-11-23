@@ -14,6 +14,11 @@
     padding: var(--space-4) var(--space-8);
     white-space: pre-line;
     width: 100%;
+    /* A bubble opens inside its row and would take on the row's rank styling
+       (a "Best" row is bold, green and glowing); the text it explains isn't ranked. */
+    color: var(--text-primary);
+    font-weight: 400;
+    text-shadow: none;
 }
 
 /* A hover-capable device already gets the tooltip from [title] - the tap bubble

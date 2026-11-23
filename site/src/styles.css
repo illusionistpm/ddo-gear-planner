@@ -1769,3 +1769,16 @@ code {
   color: inherit;
   opacity: 0.85;
 }
+
+/* An affix's details (affix-name.component.css styles what's inside). The
+   popover lives on <body>, so its frame is themed here. */
+.affix-details-popover.popover {
+  --bs-popover-bg: var(--surface-elevated-color);
+  --bs-popover-border-color: var(--border-color);
+  --bs-popover-body-padding-x: var(--space-12);
+  --bs-popover-body-padding-y: var(--space-8);
+  --bs-popover-box-shadow: var(--shadow-lg);
+  --bs-popover-max-width: 22rem;
+  box-shadow: var(--shadow-lg);
+  z-index: 1200;
+}

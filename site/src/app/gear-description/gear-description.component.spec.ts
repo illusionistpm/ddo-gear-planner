@@ -11,6 +11,7 @@ import { AffixDescriptionService } from '../affixes/affix-description.service';
 import { EquippedService } from '../planner/equipped.service';
 import { FiltersService } from '../planner/filters.service';
 import { TapTooltipComponent, TapTooltipPanelComponent } from '../tap-tooltip/tap-tooltip.component';
+import { AffixNameComponent } from '../affix-name/affix-name.component';
 import { CraftingOptionPickerComponent } from '../crafting-option-picker/crafting-option-picker.component';
 import { NO_PACK_KEY } from '../gear/pack-filter';
 import { UserGearService } from '../planner/user-gear.service';
@@ -25,7 +26,7 @@ describe('GearDescriptionComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ GearDescriptionComponent, CraftingSlotControlComponent, CraftingOptionPickerComponent, UserItemLocationTooltipPipe ],
-      imports: [ FormsModule, NgbModule, TapTooltipComponent, TapTooltipPanelComponent ]
+      imports: [ FormsModule, NgbModule, TapTooltipComponent, TapTooltipPanelComponent, AffixNameComponent ]
     })
     .compileComponents();
   });
@@ -160,17 +161,40 @@ describe('GearDescriptionComponent', () => {
         .find(row => row.textContent?.trim().startsWith(name))!;
     }
 
-    it('gives an affix the wiki describes an eye showing what it does, and leaves the rest without one', () => {
+    it('underlines the name of an affix the wiki describes, and opens what it does under the row', () => {
       TestBed.inject(AffixDescriptionService).use({ Deadly: { '*': '+{v} {type} bonus to weapon damage.' } });
       showAffixes([
         new Affix({ name: 'Deadly', type: 'Competence', value: 7 }),
         new Affix({ name: 'Strength', type: 'Enhancement', value: 7 }),
       ]);
 
-      const trigger = affixRow('Deadly').querySelector('.tap-tooltip-trigger') as HTMLButtonElement;
-      expect(trigger.title).toBe('+7 Competence bonus to weapon damage.');
-      expect(trigger.getAttribute('aria-label')).toBe('Show affix details');
-      expect(affixRow('Strength').querySelector('.tap-tooltip-trigger')).toBeNull();
+      expect(affixRow('Strength').querySelector('.affix-name-trigger')).toBeNull();
+      const trigger = affixRow('Deadly').querySelector<HTMLButtonElement>('.affix-name-trigger')!;
+      expect(trigger.textContent).toBe('Deadly');
+      // Not the row's rank tooltip over the details.
+      expect(trigger.getAttribute('title')).toBe('');
+
+      trigger.click();
+      fixture.detectChanges();
+      const bubble = affixRow('Deadly').querySelector<HTMLElement>('.tap-tooltip-bubble')!;
+      expect(bubble.querySelector('.affix-details-description')!.textContent).toBe('+7 Competence bonus to weapon damage.');
+      expect(bubble.querySelector<HTMLAnchorElement>('.affix-details-source')!.href)
+        .toBe('https://ddowiki.com/index.php?search=Deadly');
+      expect(trigger.getAttribute('aria-expanded')).toBe('true');
+    });
+
+    it('opens a compound affix on the parts it counts toward, with no eye beside it', () => {
+      showAffixes([new Affix({ name: 'Riposte', type: 'Insight', value: 2 })]);
+
+      const row = affixRow('Riposte');
+      expect(row.querySelector('.fa-eye')).toBeNull();
+      row.querySelector<HTMLButtonElement>('.affix-name-trigger')!.click();
+      fixture.detectChanges();
+
+      const parts = Array.from(row.querySelectorAll('.affix-details-parts li')).map(li => li.textContent);
+      expect(parts).toContain('Armor Class+1 Insight');
+      // No wiki text, so nothing to credit.
+      expect(row.querySelector('.affix-details-source')).toBeNull();
     });
   });
 

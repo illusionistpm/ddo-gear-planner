@@ -1,4 +1,15 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnDestroy, TemplateRef } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+
+/**
+ * What a TapTooltipPanelComponent shows for whichever trigger opened it: plain text, or - for
+ * richer content, like an affix's details (AffixNameComponent) - a template and its context.
+ */
+export interface TapTooltipOwner {
+  readonly text: string;
+  readonly content?: TemplateRef<unknown> | null;
+  readonly contentContext?: object;
+}
 
 /**
  * Wraps projected content (usually an icon) with a tap-to-reveal tooltip. A native
@@ -20,7 +31,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Host
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: { style: 'display: contents' }
 })
-export class TapTooltipComponent implements OnDestroy {
+export class TapTooltipComponent implements TapTooltipOwner, OnDestroy {
   @Input() text = '';
   @Input() label = 'Show details';
   @Input() panel?: TapTooltipPanelComponent;
@@ -72,18 +83,19 @@ export class TapTooltipComponent implements OnDestroy {
  */
 @Component({
     selector: 'app-tap-tooltip-panel',
-    template: `@if (owner) {<div class="tap-tooltip-bubble tap-tooltip-panel-bubble" (click)="$event.stopPropagation()">{{owner.text}}</div>}`,
+    template: `@if (owner) {<div class="tap-tooltip-bubble tap-tooltip-panel-bubble" (click)="$event.stopPropagation()">@if (owner.content) {<ng-container *ngTemplateOutlet="owner.content; context: owner.contentContext" />} @else {{{owner.text}}}</div>}`,
+    imports: [NgTemplateOutlet],
     styleUrls: ['./tap-tooltip.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: { style: 'display: contents' }
 })
 export class TapTooltipPanelComponent {
-  owner: TapTooltipComponent | null = null;
+  owner: TapTooltipOwner | null = null;
 
   constructor(private elementRef: ElementRef<HTMLElement>, private cdr: ChangeDetectorRef) {
   }
 
-  isOpenFor(tooltip: TapTooltipComponent): boolean {
+  isOpenFor(tooltip: TapTooltipOwner): boolean {
     return this.owner === tooltip;
   }
 
@@ -91,12 +103,12 @@ export class TapTooltipPanelComponent {
     return this.elementRef.nativeElement.contains(node);
   }
 
-  toggle(tooltip: TapTooltipComponent) {
+  toggle(tooltip: TapTooltipOwner) {
     this.owner = this.owner === tooltip ? null : tooltip;
     this.cdr.markForCheck();
   }
 
-  close(tooltip: TapTooltipComponent) {
+  close(tooltip: TapTooltipOwner) {
     if (this.owner === tooltip) {
       this.owner = null;
       this.cdr.markForCheck();

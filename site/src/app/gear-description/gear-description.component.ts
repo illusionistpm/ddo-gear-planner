@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit, Input, ChangeDetection
 import { EquippedService } from '../planner/equipped.service';
 import { EssenceCraftingService } from '../gear/essence-crafting.service';
 import { AffixService } from '../affixes/affix.service';
-import { AffixUiService, CraftingOptionContext } from '../affixes/affix-ui.service';
+import { AffixDetails, AffixUiService, CraftingOptionContext } from '../affixes/affix-ui.service';
 import { AffixDescriptionService } from '../affixes/affix-description.service';
 import { Affix } from '../affixes/affix';
 import { Craftable } from '../gear/craftable';
@@ -28,8 +28,8 @@ interface AffixDisplayRow {
   className: string;
   tooltip: string;
   important: boolean;
-  /** What the affix does and, for a compound, what it counts toward; '' hides the eye. */
-  detailsTooltip: string;
+  /** What the affix does and, for a compound, what it counts toward; null leaves the name plain. */
+  details: AffixDetails | null;
   valueText: string;
   /** Set when a chosen upgrade replaced the item's own affix with this one: what it was, and by what. */
   upgradeNote: string;
@@ -131,7 +131,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
       this.refreshDisplayRows();
       this.changeDetector.markForCheck();
     }));
-    // The rows are built before the descriptions' lazy chunk may have arrived; their eyes come with it.
+    // The rows are built before the descriptions' lazy chunk may have arrived; their details come with it.
     if (!this.affixDescriptions.loaded) {
       this.affixDescriptions.load().then(() => {
         if (this.destroyed) return;
@@ -187,7 +187,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
         className: this.affixUi.getClassForAffix(affix, undefined, candidate),
         tooltip: this.affixUi.getAffixTooltip(affix, undefined, this.curItem?.slot, candidate),
         important: this.equipped.isImportantAffix(affix.name),
-        detailsTooltip: this.affixUi.getAffixDetailsTooltip(affix),
+        details: this.affixUi.getAffixDetails(affix),
         valueText: affix.hasRealType() ? this.affixUi.getAffixValueText(affix) : '',
         upgradeNote: replaced && by ? this.upgradeNote(replaced, by) : ''
       };

@@ -14,18 +14,21 @@ describe('AffixUiService', () => {
     descriptions.use({ 'Paired Riposte': { '*': 'When Missed by an attack: Deals damage to your attacker.' } });
     const service = new AffixUiService({} as any, affixSvc, {} as any, descriptions);
 
-    expect(service.getAffixDetailsTooltip(new Affix({ name: 'Paired Riposte', type: 'Insight', value: 2 })))
-      .toBe('When Missed by an attack: Deals damage to your attacker.\n\nCounts toward:\n- Armor Class: +2 Insight');
+    expect(service.getAffixDetails(new Affix({ name: 'Paired Riposte', type: 'Insight', value: 2 }))).toEqual({
+      name: 'Paired Riposte',
+      description: 'When Missed by an attack: Deals damage to your attacker.',
+      parts: [{ name: 'Armor Class', value: '+2 Insight' }],
+    });
   });
 
-  it('shows an ordinary affix\'s wiki text alone, and nothing for an affix without any', () => {
+  it('gives an ordinary affix its wiki text alone, and no details to an affix without any', () => {
     const descriptions = new AffixDescriptionService();
     descriptions.use({ Deadly: { '*': '+{v} {type} bonus to weapon damage.' } });
     const service = new AffixUiService({} as any, new AffixService(), {} as any, descriptions);
 
-    expect(service.getAffixDetailsTooltip(new Affix({ name: 'Deadly', type: 'Competence', value: 6 })))
-      .toBe('+6 Competence bonus to weapon damage.');
-    expect(service.getAffixDetailsTooltip(new Affix({ name: 'Strength', type: 'Enhancement', value: 6 }))).toBe('');
+    expect(service.getAffixDetails(new Affix({ name: 'Deadly', type: 'Competence', value: 6 })))
+      .toEqual({ name: 'Deadly', description: '+6 Competence bonus to weapon damage.', parts: [] });
+    expect(service.getAffixDetails(new Affix({ name: 'Strength', type: 'Enhancement', value: 6 }))).toBeNull();
   });
 
   it('describes fixed affix group components', () => {
@@ -37,8 +40,8 @@ describe('AffixUiService', () => {
 
     const service = new AffixUiService({} as any, affixSvc, {} as any, new AffixDescriptionService());
 
-    expect(service.getAffixDetailsTooltip(new Affix({ name: 'Songblade', type: 'Bool', value: 1 })))
-      .toBe('Songblade is:\n- Perform: +2 Enhancement');
+    expect(service.getAffixDetails(new Affix({ name: 'Songblade', type: 'Bool', value: 1 }))?.parts)
+      .toEqual([{ name: 'Perform', value: '+2 Enhancement' }]);
   });
 
   it('describes fixed affix group components with inherited values', () => {
@@ -51,8 +54,10 @@ describe('AffixUiService', () => {
 
     const service = new AffixUiService({} as any, affixSvc, {} as any, new AffixDescriptionService());
 
-    expect(service.getAffixDetailsTooltip(new Affix({ name: 'Lifesealed', type: 'Enhancement', value: 28 })))
-      .toBe('Lifesealed is:\n- Negative Energy Absorption: +28 Enhancement\n- Deathblock');
+    expect(service.getAffixDetails(new Affix({ name: 'Lifesealed', type: 'Enhancement', value: 28 }))?.parts).toEqual([
+      { name: 'Negative Energy Absorption', value: '+28 Enhancement' },
+      { name: 'Deathblock', value: '' },
+    ]);
   });
 
   it('describes regular affix group components with inherited values', () => {
@@ -61,8 +66,10 @@ describe('AffixUiService', () => {
 
     const service = new AffixUiService({} as any, affixSvc, {} as any, new AffixDescriptionService());
 
-    expect(service.getAffixDetailsTooltip(new Affix({ name: 'Purifying Flame Lore', type: 'Enhancement', value: 21 })))
-      .toBe('Purifying Flame Lore is:\n- Fire Lore: +21 Enhancement\n- Radiance Lore: +21 Enhancement');
+    expect(service.getAffixDetails(new Affix({ name: 'Purifying Flame Lore', type: 'Enhancement', value: 21 }))?.parts).toEqual([
+      { name: 'Fire Lore', value: '+21 Enhancement' },
+      { name: 'Radiance Lore', value: '+21 Enhancement' },
+    ]);
   });
 
   it('shows filigree slots as a count, without the Untyped bonus type', () => {

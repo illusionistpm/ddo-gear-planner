@@ -58,6 +58,7 @@ import { ShrinkToFitDirective } from './shared/shrink-to-fit.directive';
 import { AutofocusDirective } from './shared/autofocus.directive';
 import { PanelSwipeDirective } from './main/panel-swipe.directive';
 import { TapTooltipComponent, TapTooltipPanelComponent } from './tap-tooltip/tap-tooltip.component';
+import { AffixNameComponent } from './affix-name/affix-name.component';
 import { CraftingOptionPickerComponent } from './crafting-option-picker/crafting-option-picker.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingListShareMenuComponent } from './shopping-list/shopping-list-share-menu.component';
@@ -138,6 +139,7 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         SlotIconComponent,
         TapTooltipComponent,
         TapTooltipPanelComponent,
+        AffixNameComponent,
         ListDialogComponent,
         ShortcutsDialogComponent,
         BuildChoicesComponent,

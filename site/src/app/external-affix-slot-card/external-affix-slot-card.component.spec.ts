@@ -191,15 +191,21 @@ describe('ExternalAffixSlotCardComponent', () => {
       expect(rowTitles()).toEqual(['']);
     });
 
-    it('lists what an affix-group entry is made of', () => {
+    it('underlines an affix-group entry\'s name, which opens what it counts toward', () => {
       equipped.addExternalAffixValue('Combat Mastery', 'Insight', 5, 'Trance');
       equipped.addExternalAffixValue('Strength', 'Insight', 3, 'Spell');
       fixture.detectChanges();
 
-      const groupTooltips = Array.from(el().querySelectorAll('.external-affix-row'))
-        .map(row => row.querySelector('app-tap-tooltip button')?.getAttribute('title') ?? null);
-      expect(groupTooltips[0]).toMatch(/^Combat Mastery is:\n[\s\S]*Stunning/);
-      expect(groupTooltips[1]).toBeNull();
+      const [group, plain] = Array.from(el().querySelectorAll<HTMLElement>('.external-affix-row'));
+      expect(plain.querySelector('.affix-name-trigger')).toBeNull();
+      expect(plain.querySelector('.col')!.textContent!.trim()).toBe('Strength (Spell)');
+      expect(group.querySelector('.col')!.textContent!.trim()).toBe('Combat Mastery (Trance)');
+
+      group.querySelector<HTMLButtonElement>('.affix-name-trigger')!.click();
+      fixture.detectChanges();
+      const bubble = group.querySelector<HTMLElement>('.tap-tooltip-bubble')!;
+      expect(bubble.querySelector('.affix-details-label')!.textContent).toBe('Counts toward');
+      expect(bubble.querySelector('.affix-details-parts')!.textContent).toContain('Stunning');
     });
 
     // On a phone the name column is a few words wide; a bubble inside it was a tall,
@@ -208,12 +214,12 @@ describe('ExternalAffixSlotCardComponent', () => {
       equipped.addExternalAffixValue('Combat Mastery', 'Insight', 5, 'Trance');
       fixture.detectChanges();
       const row = el().querySelector<HTMLElement>('.external-affix-row')!;
-      const trigger = row.querySelector<HTMLButtonElement>('.tap-tooltip-trigger')!;
+      const trigger = row.querySelector<HTMLButtonElement>('.affix-name-trigger')!;
 
       trigger.click();
       fixture.detectChanges();
       const bubble = row.querySelector<HTMLElement>('.tap-tooltip-bubble')!;
-      expect(bubble.textContent).toMatch(/^Combat Mastery is:/);
+      expect(bubble.textContent).toMatch(/^\s*Counts toward/);
       expect(row.querySelector('.col .tap-tooltip-bubble')).toBeNull();
       // The panel host is display: contents, so this makes the bubble a flex item of the row.
       expect(bubble.parentElement!.parentElement).toBe(row);
@@ -232,7 +238,7 @@ describe('ExternalAffixSlotCardComponent', () => {
     it('clears an open group bubble when its entry is removed', () => {
       equipped.addExternalAffixValue('Combat Mastery', 'Insight', 5, 'Trance');
       fixture.detectChanges();
-      el().querySelector<HTMLButtonElement>('.external-affix-row .tap-tooltip-trigger')!.click();
+      el().querySelector<HTMLButtonElement>('.external-affix-row .affix-name-trigger')!.click();
       fixture.detectChanges();
 
       el().querySelector<HTMLButtonElement>('.external-affix-remove')!.click();

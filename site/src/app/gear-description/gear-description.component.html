@@ -58,22 +58,17 @@
           class="show-on-hover far fa-heart heart col-1"
           (click)="equipped.toggleImportantAffix(row.affix.name)"></button>
         }
-        <div class="col ps-1">{{row.affix.name}}
+        <div class="col ps-1"><app-affix-name [name]="row.affix.name" [details]="row.details" [panel]="detailsTip" />
           @if (row.upgradeNote) {
-            <app-tap-tooltip [text]="row.upgradeNote" label="Show what the upgrade changed" [panel]="groupTip">
+            <app-tap-tooltip [text]="row.upgradeNote" label="Show what the upgrade changed" [panel]="detailsTip">
               <i class="fas fa-angles-up small ms-1 upgraded-affix-icon" aria-hidden="true"></i>
-            </app-tap-tooltip>
-          }
-          @if (row.detailsTooltip) {
-            <app-tap-tooltip [text]="row.detailsTooltip" label="Show affix details" [panel]="groupTip">
-              <i class="fas fa-eye small ms-1 option-details-icon" aria-hidden="true"></i>
             </app-tap-tooltip>
           }
         </div>
         @if (row.valueText) {
           <div class="col-5">{{row.valueText}}</div>
         }
-        <app-tap-tooltip-panel #groupTip />
+        <app-tap-tooltip-panel #detailsTip />
       </div>
       }
     <!-- Crafting -->

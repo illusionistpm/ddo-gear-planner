@@ -654,12 +654,12 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
   }
 
   /**
-   * "Weapon: Red" - which gear slot, and which crafting slot on it, without the item's
-   * name, which made each option a line of text. The icon beside the dropdown shows the
-   * chosen one's gear slot, and the title still names the item.
+   * "Weapon: Red Augment Slot" - which gear slot, and the crafting slot on it by the
+   * name the rest of the planner uses, without the item's name, which made each option
+   * a line of text. The title still names the item.
    */
   slotChoiceLabel(choice: { item: Item, craftable: Craftable }): string {
-    return `${slotLabel(choice.item.slot)}: ${choice.craftable.name.replace(/ Augment Slot$/, '')}`;
+    return `${slotLabel(choice.item.slot)}: ${choice.craftable.name}`;
   }
 
   slotChoiceTitle(choice: { item: Item, craftable: Craftable }): string {

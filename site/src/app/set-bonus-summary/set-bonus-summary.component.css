@@ -66,8 +66,8 @@
 }
 
 .set-bonus-summary-value.BetterThanBest { color: var(--rank-better-than-best-color); }
-.set-bonus-summary-value.Best { color: var(--success-color); }
-.set-bonus-summary-value.BestTied { color: var(--primary-color); }
+.set-bonus-summary-value.Best { color: var(--rank-best-color); }
+.set-bonus-summary-value.BestTied { color: var(--rank-best-tied-color); }
 .set-bonus-summary-value.Outranked { color: var(--warning-color); }
 .set-bonus-summary-value.Irrelevant { color: var(--text-primary); }
 .set-bonus-summary-value.Penalty { color: var(--danger-color); text-decoration: line-through; }

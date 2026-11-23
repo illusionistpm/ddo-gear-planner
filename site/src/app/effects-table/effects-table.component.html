@@ -24,9 +24,12 @@
         (mouseleave)="sourceHighlight.clear()"
         (blur)="sourceHighlight.clear()"
         (click)="sourceHighlight.clear(); showItemsWithBonusType(chip.sourceAffixName, chip.bonusType)">
+        <span class="fas fa-check tracked-bonus-state-icon" *ngIf="chip.valueClass === 'max-value'" aria-hidden="true"></span>
         <span class="tracked-bonus-label">{{chip.label}}<ng-container *ngIf="chip.currentValue">:</ng-container></span>
         <span class="tracked-bonus-value" *ngIf="chip.currentValue">{{chip.currentValue}}</span>
         <span class="max-available" *ngIf="chip.maxValue > 0">/{{chip.maxValue}}</span>
+        <!-- Ruled out, but what it has still counts: locked at this value, not struck through. -->
+        <span class="fas fa-lock tracked-bonus-state-icon tracked-bonus-lock" *ngIf="chip.eliminated && chip.currentValue" aria-hidden="true"></span>
         <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(chip.sourceAffixName, chip.bonusType)">Click</span>
     </button>
 </ng-template>
@@ -59,17 +62,28 @@
     </span>
 </ng-template>
 
-<ng-template #checklistRow let-affixNames>
+<!-- Folds away a row's unreachable chips: ruled out by gear with nothing in them, or out of the level range. -->
+<ng-template #unreachableToggle let-rowKey let-count="count">
+    <button type="button" class="tracked-unreachable-toggle" *ngIf="count"
+        [attr.aria-expanded]="isUnreachableShown(rowKey)"
+        [title]="isUnreachableShown(rowKey) ? 'Hide the bonus types nothing can still supply' : 'Show the bonus types nothing can still supply'"
+        (click)="toggleUnreachable(rowKey)">
+        {{isUnreachableShown(rowKey) ? 'Hide unreachable' : '+' + count + ' unreachable'}}
+    </button>
+</ng-template>
+
+<ng-template #checklistRow let-affixNames let-rowKey="rowKey">
     <div class="tracked-affix-row tracked-affix-checklist-row" *ngIf="affixNames.length">
         <div class="tracked-affix-summary">
             <span class="tracked-affix-name">Checklist Affixes</span>
         </div>
         <div class="tracked-affix-chips">
-            <ng-container *ngFor="let affixName of affixNames">
+            <ng-container *ngFor="let affixName of checklistAffixesFor(affixNames, rowKey)">
                 <ng-container *ngIf="checklistChipFor(affixName) as item">
                     <ng-container *ngTemplateOutlet="checklistChip; context: { $implicit: item }"></ng-container>
                 </ng-container>
             </ng-container>
+            <ng-container *ngTemplateOutlet="unreachableToggle; context: { $implicit: rowKey, count: unreachableChecklistCount(affixNames) }"></ng-container>
         </div>
     </div>
 </ng-template>
@@ -152,7 +166,7 @@
                 </span>
             </button>
             <div class="tracked-affix-list" *ngIf="!isAffixGroupCollapsed(group.key)">
-                <ng-container *ngTemplateOutlet="checklistRow; context: { $implicit: group.checklistAffixes }"></ng-container>
+                <ng-container *ngTemplateOutlet="checklistRow; context: { $implicit: group.checklistAffixes, rowKey: checklistRowKey(group.key) }"></ng-container>
                 <div class="tracked-affix-row slot-group-row" *ngFor="let row of group.rows; trackBy: trackSlotRow">
                     <ng-container *ngTemplateOutlet="affixSummary; context: { $implicit: row.affixName }"></ng-container>
                     <div class="tracked-affix-chips">
@@ -176,13 +190,14 @@
             </span>
         </button>
         <div class="tracked-affix-list" *ngIf="!isAffixGroupCollapsed(group.name)">
-            <ng-container *ngTemplateOutlet="checklistRow; context: { $implicit: group.checklistAffixes }"></ng-container>
+            <ng-container *ngTemplateOutlet="checklistRow; context: { $implicit: group.checklistAffixes, rowKey: checklistRowKey(group.name) }"></ng-container>
             <div class="tracked-affix-row" *ngFor="let affixName of group.affixes">
                 <ng-container *ngTemplateOutlet="affixSummary; context: { $implicit: affixName }"></ng-container>
                 <div class="tracked-affix-chips">
                     <ng-container *ngFor="let chip of chipsFor(affixName); trackBy: trackChip">
                         <ng-container *ngTemplateOutlet="bonusChip; context: { $implicit: chip }"></ng-container>
                     </ng-container>
+                    <ng-container *ngTemplateOutlet="unreachableToggle; context: { $implicit: affixName, count: unreachableCountFor(affixName) }"></ng-container>
                 </div>
             </div>
         </div>

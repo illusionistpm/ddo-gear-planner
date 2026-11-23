@@ -98,8 +98,17 @@
   --rank-better-than-best-color: #7c3aed;
   --rank-better-than-best-glow: 0 0 8px rgba(124, 58, 237, 0.3);
   --success-glow-rgb: 16, 185, 129;
-  --rank-best-glow: 0 0 8px rgba(var(--success-glow-rgb), 0.3);
-  --rank-best-tied-glow: 0 0 8px rgba(var(--primary-color-rgb), 0.3);
+  /*
+   * The gear cards' "this is the value that counts" (Best) and "tied with another
+   * piece" (BestTied). Deliberately not green: on the Build Goals rail green means
+   * a bonus type is at the best value the game has, and a row can be the best
+   * equipped source of a value that is still well short of that.
+   */
+  --rank-best-color: var(--primary-color);
+  --rank-best-tied-color: #0e7490;
+  --rank-best-tied-rgb: 14, 116, 144;
+  --rank-best-glow: 0 0 8px rgba(var(--primary-color-rgb), 0.3);
+  --rank-best-tied-glow: 0 0 8px rgba(var(--rank-best-tied-rgb), 0.3);
   --rank-mixed-gradient-end: #f97316;
   /* Outline on the row/chip an affix chip is pointing at. */
   --highlight-outline-color: rgba(var(--primary-color-rgb), 0.7);
@@ -141,6 +150,14 @@
   --value-max-rgb: 16, 185, 129;
   --value-mid-rgb: 245, 158, 11;
   --value-low-rgb: 239, 68, 68;
+  /*
+   * The bands' text, and the best band's solid fill, do shift per theme: these
+   * darker shades hold 4.5:1 on a light chip, even over the striped rows, where
+   * --success/--warning-color only reach about 3:1. White on the fill is 5:1.
+   */
+  --value-max-text-color: #15803d;
+  --value-mid-text-color: #92400e;
+  --value-max-fill: #15803d;
   /*
    * Spacing scale. Named for the pixel value at the default root font size, so
    * --space-8 is 8px is 0.5rem. Applied to padding, margin and gap up to 1rem,
@@ -216,9 +233,16 @@
   --rank-better-than-best-color: #a78bfa;
   --rank-better-than-best-glow: 0 0 8px rgba(167, 139, 250, 0.35);
   --success-glow-rgb: 16, 185, 129;
-  --rank-best-glow: 0 0 8px rgba(var(--success-glow-rgb), 0.3);
-  --rank-best-tied-glow: 0 0 8px rgba(var(--primary-color-rgb), 0.3);
+  --rank-best-color: var(--primary-color);
+  --rank-best-tied-color: #22d3ee;
+  --rank-best-tied-rgb: 34, 211, 238;
+  --rank-best-glow: 0 0 8px rgba(var(--primary-color-rgb), 0.3);
+  --rank-best-tied-glow: 0 0 8px rgba(var(--rank-best-tied-rgb), 0.3);
   --rank-mixed-gradient-end: #f97316;
+  /* Value-band text and fill: see :root. */
+  --value-max-text-color: #4ade80;
+  --value-mid-text-color: #fbbf24;
+  --value-max-fill: #15803d;
   --highlight-outline-color: rgba(147, 197, 253, 0.9);
   --selected-row-bg: rgba(var(--primary-color-rgb), 0.18);
   --danger-strong-text-color: #b91c1c;
@@ -735,13 +759,13 @@ select.form-control {
 
 :is(app-gear-list, app-gear-description, app-crafting-slots, app-external-affix-slot-card, .crafting-picker-menu, .filigree-picker-menu) .Best {
   font-weight: 700;
-  color: var(--success-color);
+  color: var(--rank-best-color);
   text-shadow: var(--rank-best-glow);
 }
 
 :is(app-gear-list, app-gear-description, app-crafting-slots, app-external-affix-slot-card, .crafting-picker-menu, .filigree-picker-menu) .BestTied {
   font-weight: 700;
-  color: var(--primary-color);
+  color: var(--rank-best-tied-color);
   text-shadow: var(--rank-best-tied-glow);
 }
 
@@ -761,6 +785,22 @@ select.form-control {
   font-weight: 600;
   text-decoration: line-through;
   text-decoration-color: rgba(var(--danger-color-rgb), 0.5);
+}
+
+/*
+ * The eye that opens an option's or an affix group's details. One quiet grey on
+ * every row, whatever the row's rank colour, so it reads as a control and not as
+ * part of the value.
+ */
+.option-details-icon {
+  color: var(--text-secondary);
+  font-style: normal;
+  font-weight: 900;
+  text-shadow: none;
+}
+
+.option-details-icon:hover {
+  color: var(--primary-color);
 }
 
 /*
@@ -1199,18 +1239,18 @@ select.form-control {
 }
 
 .max-value {
-  color: var(--success-color);
+  color: var(--value-max-text-color);
   font-weight: 700;
-  text-shadow: 0 0 6px rgba(var(--value-max-rgb), 0.3);
 }
 
 .mid-value {
-  color: var(--warning-color);
+  color: var(--value-mid-text-color);
   font-weight: 600;
 }
 
+/* Under 3/4 of the best: some, but short. Muted rather than red - red is for penalties. */
 .low-value {
-  color: var(--danger-color);
+  color: var(--text-primary);
   font-weight: 600;
 }
 
@@ -1226,35 +1266,48 @@ select.form-control {
   font-weight: 400;
 }
 
+/*
+ * The Build Goals chips' bands differ by fill as well as hue - solid, tint,
+ * outline, dashed - so they read without telling green from amber from red:
+ *   max  solid green, with a check (the template adds it)
+ *   mid  amber tint
+ *   low  plain outline, value in bold
+ *   none dashed outline: open, still worth chasing
+ */
 .tracked-affixes-workspace .tracked-bonus-chip.max-value {
-  background-color: rgba(var(--value-max-rgb), 0.08);
-  border-color: rgba(var(--value-max-rgb), 0.55);
-  color: var(--success-color);
+  background-color: var(--value-max-fill);
+  border-color: var(--value-max-fill);
+  color: var(--on-accent-text-color);
   font-weight: 700;
   --tracked-bonus-pulse-rgb: var(--value-max-rgb);
-  --tracked-bonus-rest-bg: rgba(var(--value-max-rgb), 0.08);
-  --tracked-bonus-rest-border: rgba(var(--value-max-rgb), 0.55);
-  text-shadow: 0 0 6px rgba(var(--value-max-rgb), 0.3);
+  --tracked-bonus-rest-bg: var(--value-max-fill);
+  --tracked-bonus-rest-border: var(--value-max-fill);
+}
+
+/* On the solid fill, everything inside is the fill's text colour. */
+.tracked-affixes-workspace .tracked-bonus-chip.max-value .max-available,
+.tracked-affixes-workspace .tracked-bonus-chip.max-value .max-value {
+  color: inherit;
 }
 
 .tracked-affixes-workspace .tracked-bonus-chip.mid-value {
-  background-color: rgba(var(--value-mid-rgb), 0.08);
-  border-color: rgba(var(--value-mid-rgb), 0.55);
-  color: var(--warning-color);
+  background-color: rgba(var(--value-mid-rgb), 0.14);
+  border-color: rgba(var(--value-mid-rgb), 0.7);
+  color: var(--value-mid-text-color);
   font-weight: 600;
   --tracked-bonus-pulse-rgb: var(--value-mid-rgb);
-  --tracked-bonus-rest-bg: rgba(var(--value-mid-rgb), 0.08);
-  --tracked-bonus-rest-border: rgba(var(--value-mid-rgb), 0.55);
+  --tracked-bonus-rest-bg: rgba(var(--value-mid-rgb), 0.14);
+  --tracked-bonus-rest-border: rgba(var(--value-mid-rgb), 0.7);
 }
 
 .tracked-affixes-workspace .tracked-bonus-chip.low-value {
-  background-color: rgba(var(--value-low-rgb), 0.08);
-  border-color: rgba(var(--value-low-rgb), 0.55);
-  color: var(--danger-color);
+  background-color: var(--chip-bg);
+  border-color: var(--chip-border-color);
+  color: var(--text-primary);
   font-weight: 600;
-  --tracked-bonus-pulse-rgb: var(--value-low-rgb);
-  --tracked-bonus-rest-bg: rgba(var(--value-low-rgb), 0.08);
-  --tracked-bonus-rest-border: rgba(var(--value-low-rgb), 0.55);
+  --tracked-bonus-pulse-rgb: var(--section-accent-neutral-rgb);
+  --tracked-bonus-rest-bg: var(--chip-bg);
+  --tracked-bonus-rest-border: var(--chip-border-color);
 }
 
 .tracked-affixes-workspace .tracked-bonus-chip.penalty-value {
@@ -1268,10 +1321,18 @@ select.form-control {
 
 .tracked-affixes-workspace .tracked-bonus-chip.no-value {
   background-color: transparent;
-  border-color: var(--border-color);
+  border-color: var(--chip-border-color);
+  border-style: dashed;
   color: var(--text-secondary);
-  --tracked-bonus-pulse-rgb: 100, 116, 139;
+  --tracked-bonus-pulse-rgb: var(--section-accent-neutral-rgb);
   --tracked-bonus-rest-bg: transparent;
+  --tracked-bonus-rest-border: var(--chip-border-color);
+}
+
+/* Nothing left to chase - ruled out, out of the level range, or ignored: a faint solid edge. */
+.tracked-affixes-workspace .tracked-bonus-chip.no-value:is(.bonus-eliminated, .bonus-unavailable, .bonus-ignored) {
+  border-color: var(--border-color);
+  border-style: solid;
   --tracked-bonus-rest-border: var(--border-color);
 }
 
@@ -1286,6 +1347,12 @@ select.form-control {
   color: #ffffff;
   font-weight: 700;
   position: relative;
+}
+
+/* The bands' own edges (an open chip's dashed one) are more specific than the rule above. */
+.tracked-affixes-workspace .tracked-bonus-chip.tracked-bonus-chip-onboarding-target {
+  border-color: var(--tutorial-accent-strong);
+  border-style: solid;
 }
 
 .tracked-bonus-chip-onboarding-target:hover,

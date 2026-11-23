@@ -71,10 +71,21 @@ interface SlotGroup {
   checklistAffixes: string[];
 }
 
+/**
+ * Nothing to chase and nothing counted: ruled out by gear with no value, or
+ * out of the level range. The category view folds these away behind a toggle
+ * per row; a ruled-out type that does carry a value stays, locked.
+ */
+function isUnreachableChip(chip: TrackedChip): boolean {
+  return chip.unavailable || (chip.eliminated && !chip.currentValue);
+}
+
 /** Everything both groupings render, built once per change to what they show. */
 interface TrackedDisplay {
   /** Category view: each tracked affix's visible bonus types, in display order. */
   chipsByAffix: Map<string, TrackedChip[]>;
+  /** The same, without the unreachable ones - what a folded row shows. */
+  reachableChipsByAffix: Map<string, TrackedChip[]>;
   checklistChips: Map<string, ChecklistChip>;
   slotGroups: SlotGroup[];
 }
@@ -125,7 +136,15 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
   private previousAffixTypeValues?: Map<string, number>;
   private changedAffixTypesTimeout: ReturnType<typeof setTimeout> | null = null;
   private trackedAffixDisplaySignature = '';
-  trackedDisplay: TrackedDisplay = { chipsByAffix: new Map(), checklistChips: new Map(), slotGroups: [] };
+  trackedDisplay: TrackedDisplay = {
+    chipsByAffix: new Map(), reachableChipsByAffix: new Map(), checklistChips: new Map(), slotGroups: []
+  };
+  /**
+   * Category-view rows showing their unreachable chips, by row key (the affix
+   * name, or checklistRowKey for a section's checklist row). Not saved: they
+   * start folded on every visit.
+   */
+  private unreachableShown = new Set<string>();
   private trackedDisplayDirty = true;
   private itemFiltersSubscription?: Subscription;
 
@@ -305,8 +324,43 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     return this.buildTrackedDisplay().slotGroups;
   }
 
+  /** A category-view row's chips: all of them, or only the reachable ones while the row is folded. */
   chipsFor(affixName: string): TrackedChip[] {
-    return this.trackedDisplay.chipsByAffix.get(affixName) ?? [];
+    const chips = this.isUnreachableShown(affixName)
+      ? this.trackedDisplay.chipsByAffix
+      : this.trackedDisplay.reachableChipsByAffix;
+    return chips.get(affixName) ?? [];
+  }
+
+  unreachableCountFor(affixName: string): number {
+    return (this.trackedDisplay.chipsByAffix.get(affixName)?.length ?? 0)
+      - (this.trackedDisplay.reachableChipsByAffix.get(affixName)?.length ?? 0);
+  }
+
+  /** A section's checklist row, keyed apart from any affix row in the toggle state. */
+  checklistRowKey(groupName: string): string {
+    return '\0checklist:' + groupName;
+  }
+
+  /** A checklist row's affixes, less the ruled-out ones while the row is folded. */
+  checklistAffixesFor(affixNames: string[], rowKey: string): string[] {
+    return this.isUnreachableShown(rowKey)
+      ? affixNames
+      : affixNames.filter(affixName => !this.checklistChipFor(affixName)?.eliminated);
+  }
+
+  unreachableChecklistCount(affixNames: string[]): number {
+    return affixNames.filter(affixName => this.checklistChipFor(affixName)?.eliminated).length;
+  }
+
+  isUnreachableShown(rowKey: string): boolean {
+    return this.unreachableShown.has(rowKey);
+  }
+
+  toggleUnreachable(rowKey: string) {
+    if (!this.unreachableShown.delete(rowKey)) {
+      this.unreachableShown.add(rowKey);
+    }
   }
 
   checklistChipFor(affixName: string): ChecklistChip | undefined {
@@ -366,8 +420,14 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
       });
     }
 
+    const reachableChipsByAffix = new Map<string, TrackedChip[]>();
+    for (const [affixName, chips] of chipsByAffix) {
+      reachableChipsByAffix.set(affixName, chips.filter(chip => !isUnreachableChip(chip)));
+    }
+
     return {
       chipsByAffix,
+      reachableChipsByAffix,
       checklistChips,
       slotGroups: this.groupBySlots(builds, checklistChips, remainingFor)
     };

@@ -625,18 +625,52 @@
 }
 
 /*
- * A bonus type whose every candidate slot is now filled — ruled out by gear —
- * or that no gear in the current level range has at all.
+ * A bonus type with nothing in it whose every candidate slot is now filled —
+ * ruled out by gear — or that no gear in the current level range has at all.
+ * The category view folds these away until asked (.tracked-unreachable-toggle).
+ * One ruled out with a value isn't struck through: its value still counts, and
+ * a lock says it can't go higher.
  */
-.tracked-bonus-chip.bonus-eliminated,
+.tracked-bonus-chip.bonus-eliminated.no-value,
 .tracked-bonus-chip.bonus-unavailable {
     opacity: 0.55;
     text-decoration: line-through;
     text-decoration-thickness: 1px;
 }
 
-.tracked-bonus-chip.bonus-eliminated:hover,
-.tracked-bonus-chip.bonus-eliminated:focus,
+/* The check on a chip at the best value, and the lock on one ruled out with a value. */
+.tracked-bonus-state-icon {
+    align-self: center;
+    font-size: 0.7em;
+}
+
+.tracked-bonus-lock {
+    color: var(--text-secondary);
+}
+
+/* "+N unreachable" at the end of a row: a quiet text button, not another chip. */
+.tracked-unreachable-toggle {
+    align-self: center;
+    background: none;
+    border: none;
+    border-radius: 4px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.8rem;
+    padding: var(--space-2) var(--space-4);
+    text-decoration: underline dotted;
+    text-underline-offset: 2px;
+    white-space: nowrap;
+}
+
+.tracked-unreachable-toggle:hover,
+.tracked-unreachable-toggle:focus-visible {
+    color: var(--text-primary);
+    text-decoration-style: solid;
+}
+
+.tracked-bonus-chip.bonus-eliminated.no-value:hover,
+.tracked-bonus-chip.bonus-eliminated.no-value:focus,
 .tracked-bonus-chip.bonus-unavailable:hover {
     border-color: var(--chip-border-color);
     box-shadow: none;

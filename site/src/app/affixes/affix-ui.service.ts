@@ -49,6 +49,21 @@ export interface AffixChange {
   beforeSources: string[];
 }
 
+/** A compound affix's part as its details list it: "Armor Class" and "+2 Insight" ('' for an on/off effect). */
+export interface AffixDetailsPart {
+  name: string;
+  value: string;
+}
+
+/** What an affix's details show; see AffixUiService.getAffixDetails. */
+export interface AffixDetails {
+  name: string;
+  /** DDO Wiki's account of what it does; '' when the wiki adds nothing the row doesn't say. */
+  description: string;
+  /** For a compound affix, the planner affixes it counts toward; otherwise empty. */
+  parts: AffixDetailsPart[];
+}
+
 /** CSS class for a set bonus whose piece threshold isn't met yet. Styled in each view's stylesheet. */
 export const DISABLED_SET_BONUS_CLASS = 'DisabledSetBonus';
 
@@ -337,18 +352,17 @@ export class AffixUiService {
   }
 
   /**
-   * What the eye beside an affix shows: what it does, in DDO Wiki's words, then - for a compound
-   * affix - the planner affixes it counts toward, which only the planner can say. A compound whose
-   * wiki text only restated its parts keeps the plain "X is:" list. '' when there's neither.
+   * What an affix's underlined name opens: what it does, in DDO Wiki's words, and - for a
+   * compound affix - the planner affixes it counts toward, which only the planner can say.
+   * Null when there's neither, and the name is plain text.
    */
-  getAffixDetailsTooltip(affix: Affix): string {
-    perfCount('AffixUiService.getAffixDetailsTooltip');
-    if (!affix) return '';
+  getAffixDetails(affix: Affix): AffixDetails | null {
+    perfCount('AffixUiService.getAffixDetails');
+    if (!affix) return null;
     const description = this.descriptions.describe(affix);
-    const groupAffixes = this.affixSvc.isAffixGroup(affix) ? this.affixSvc.ungroupAffix(affix) : [];
-    if (!groupAffixes.length) return description;
-    const parts = groupAffixes.map(groupAffix => '- ' + this.getAffixDescription(groupAffix)).join('\n');
-    return description ? `${description}\n\nCounts toward:\n${parts}` : `${affix.name} is:\n${parts}`;
+    const parts = (this.affixSvc.isAffixGroup(affix) ? this.affixSvc.ungroupAffix(affix) : [])
+      .map(part => ({ name: part.name, value: this.getAffixValueText(part) }));
+    return description || parts.length ? { name: affix.name, description, parts } : null;
   }
 
   getCraftingOptionTooltip(option: CraftableOption): string {

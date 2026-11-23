@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 
 import { AffixService } from '../affixes/affix.service';
 import { AffixDescriptionService } from '../affixes/affix-description.service';
-import { AffixUiService } from '../affixes/affix-ui.service';
+import { AffixDetails, AffixUiService } from '../affixes/affix-ui.service';
 import { buildAffixTypeaheadEntries } from '../affixes/affix-typeahead';
 import { isCountAffix } from '../affixes/count-affix';
 import { preserveScrollOnMouseDown } from '../shared/preserve-scroll-position';
@@ -54,7 +54,7 @@ export class ExternalAffixSlotCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // Read in the template, from a signal: the rows' eyes appear when the text arrives.
+    // Read in the template, from a signal: the names gain their details when the text arrives.
     void this.affixDescriptions.load();
     this.subscription = this.equipped.getExternalAffixesObservable().subscribe(entries => {
       // Display only - the stored order (and so the build URL) is untouched.
@@ -65,10 +65,6 @@ export class ExternalAffixSlotCardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();
-  }
-
-  getNameText(entry: ExternalAffixEntry): string {
-    return `${entry.affixName} (${entry.label})`;
   }
 
   getRowClass(entry: ExternalAffixEntry): string {
@@ -86,9 +82,9 @@ export class ExternalAffixSlotCardComponent implements OnInit, OnDestroy {
     return this.affixUi.getAffixTooltip(externalAffixAsAffix(entry), undefined, NON_GEAR_SLOT);
   }
 
-  /** What the entry's affix does and, for a compound, what it counts toward; '' hides the eye. */
-  getDetailsTooltip(entry: ExternalAffixEntry): string {
-    return this.affixUi.getAffixDetailsTooltip(externalAffixAsAffix(entry));
+  /** What the entry's affix does and, for a compound, what it counts toward; null leaves the name plain. */
+  getDetails(entry: ExternalAffixEntry): AffixDetails | null {
+    return this.affixUi.getAffixDetails(externalAffixAsAffix(entry));
   }
 
   remove(id: string) {

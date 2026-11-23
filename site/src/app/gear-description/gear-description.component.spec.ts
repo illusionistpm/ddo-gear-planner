@@ -102,6 +102,26 @@ describe('GearDescriptionComponent', () => {
     expect(Array.from(select.options).map(option => option.textContent!.trim())).toEqual(['Tier 1', 'Tier 2', 'Tier 3']);
   });
 
+  it('mutes Empty, and only Empty: an option that grants just a set bonus is a choice', () => {
+    const slot = new Craftable('Legendary Lost Purpose', [
+      new CraftableOption({ name: 'Legendary Delight of the Devourer', set: 'Legendary Devourer', affixes: [] }),
+    ]);
+    const helm = new Item({ name: 'Test Helm', slot: 'Helm', type: 'Helm', ml: 30, affixes: [], crafting: [], quests: [] });
+    helm.crafting = [slot];
+    const select = () => Array.from(fixture.nativeElement.querySelectorAll('select') as NodeListOf<HTMLSelectElement>)
+      .find(element => element.closest('.row')?.textContent?.includes('Legendary Lost Purpose'))!;
+
+    fixture.componentRef.setInput('item', helm);
+    fixture.detectChanges();
+    expect(select().classList).toContain('crafting-select-empty');
+
+    slot.selected = slot.options[1];
+    fixture.componentRef.setInput('item', new Item(helm));
+    fixture.detectChanges();
+    expect(select().selectedOptions[0].textContent!.trim()).toBe('Legendary Delight of the Devourer');
+    expect(select().classList).not.toContain('crafting-select-empty');
+  });
+
   describe('crafting options with minimum levels', () => {
     let filters: FiltersService;
 

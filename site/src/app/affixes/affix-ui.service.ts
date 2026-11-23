@@ -399,18 +399,21 @@ export class AffixUiService {
    * affix the option gives - the same comparison the rank colours make, so the current choice
    * changes nothing. What the current choice gives counts only towards the affixes the option
    * gives too: swapping one Dexterity augment for another is net of the one given up, but an
-   * option for something else entirely isn't charged with the loss. Set bonuses are recounted,
-   * so a set augment shows what its set gives with the pieces there really are.
+   * option for something else entirely isn't charged with the loss. A tracked compound the option
+   * gives a part of counts too: Light Lore can complete Radiance Lore. Values are the build's own
+   * totals with the item in its slot, so set bonuses are recounted with the pieces there really are.
    */
   getCraftingOptionChanges(option: CraftableOption, context?: CraftingOptionContext): AffixChange[] {
     if (!context || !option) {
       return [];
     }
     const current = 'craft' in context ? context.craft.selected : context.item.bonuses[context.bonusKind];
-    const chosen = 'craft' in context
-      ? this.candidateFor(context.item, context.craft, option)
-      : this.candidateFor(context.item, undefined, undefined, { kind: context.bonusKind, option });
-    const now = this.candidateFor(context.item);
+    const withOption = new Item(context.item);
+    if ('craft' in context) {
+      withOption.crafting[context.item.crafting.indexOf(context.craft)].selected = option;
+    } else {
+      withOption.bonuses = { ...withOption.bonuses, [context.bonusKind]: option };
+    }
 
     const given = (choice: CraftableOption | null | undefined) => this.affixSvc.flattenAffixGroups([
       ...(choice?.affixes ?? []),
@@ -420,20 +423,22 @@ export class AffixUiService {
     const names = new Set(offered.map(affix => affix.name));
     const touched = [...offered, ...given(current).filter(affix => names.has(affix.name))];
     const tracked = this.equipped.getImportantAffixes();
-    const changes = new Map<string, AffixChange>();
+    const compounds = [...tracked].filter(name => this.affixSvc.getCompoundParts(name)?.some(part => names.has(part)));
+
+    const keys = new Map<string, { name: string; type: string }>();
     for (const affix of touched) {
-      const key = `${affix.name}\n${affix.type}`;
-      if (changes.has(key) || !tracked.has(affix.name) || FILIGREE_ONLY_BONUS_TYPES.has(affix.type)) {
-        continue;
+      for (const name of [affix.name, ...compounds.filter(compound => this.affixSvc.getCompoundParts(compound)!.includes(affix.name))]) {
+        if (tracked.has(name) && !FILIGREE_ONLY_BONUS_TYPES.has(affix.type)) {
+          keys.set(`${name}\n${affix.type}`, { name, type: affix.type });
+        }
       }
-      changes.set(key, {
-        name: affix.name,
-        type: affix.type,
-        before: this.equipped.getValueForAffixTypeAsEquipped(affix.name, affix.type, now),
-        after: this.equipped.getValueForAffixTypeAsEquipped(affix.name, affix.type, chosen)
-      });
     }
-    return [...changes.values()];
+    if (!keys.size) {
+      return [];
+    }
+    const before = this.equipped.valueWith(context.item);
+    const after = this.equipped.valueWith(withOption);
+    return [...keys.values()].map(({ name, type }) => ({ name, type, before: before(name, type), after: after(name, type) }));
   }
 
   /**

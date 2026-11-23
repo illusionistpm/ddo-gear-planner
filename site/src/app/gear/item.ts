@@ -20,7 +20,8 @@ export class Item {
     affixes: Array<Affix> = Array<Affix>();
     url!: string;
     rare!: boolean;
-    private sets!: Array<string>;
+    // Defaulted, so an item built bare (`new Item(null)`, then filled in) still has none rather than undefined.
+    private sets: Array<string> = [];
     crafting!: Array<Craftable>;
     quests!: Array<string>;
     /** The pack filter keys of its sources (see pack-filter.ts), worked out once. */
@@ -88,7 +89,7 @@ export class Item {
 
     /** The sets the item belongs to on its own, which a set augment replaces (see getSets). */
     getOwnSets(): string[] {
-        return this.sets?.slice() ?? [];
+        return this.sets.slice();
     }
 
     hasTypeAttribute(attribute: string) {

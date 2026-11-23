@@ -37,7 +37,6 @@ import { FilterSheetService } from '../planner/filter-sheet.service';
     standalone: false
 })
 export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
-  troveUploadStatus: string = '';
   sortOwnedToTop: boolean = true;
   activeTab: PlannerTab = 'equipment';
   filtersOpen: boolean = false;
@@ -791,27 +790,8 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     this.shoppingListView.open('wrap_up');
   }
 
-  onTroveFileSelected(eventOrFile: Event | File) {
-    let file: File | null;
-    if (eventOrFile instanceof File) {
-      file = eventOrFile;
-    } else {
-      const input = eventOrFile.target as HTMLInputElement;
-      if (!input.files || input.files.length === 0) {
-        this.troveUploadStatus = 'No file selected.';
-        return;
-      }
-      file = input.files[0];
-    }
-    if (!file) {
-      this.troveUploadStatus = 'No file selected.';
-      return;
-    }
-    if (!file.name.endsWith('.csv')) {
-      this.troveUploadStatus = 'Please upload a .csv file.';
-      return;
-    }
-    this.troveUploadStatus = 'File loaded. Parsing...';
+  /** A TroveExport.csv from the Filters sheet, which has already checked it is a .csv. */
+  onTroveFileSelected(file: File) {
     const reader = new FileReader();
     reader.onload = () => {
       // readAsText always yields a string.
@@ -822,10 +802,6 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
         imported_item_count_bucket: this.getImportCountBucket(counts.items),
         imported_augment_count_bucket: this.getImportCountBucket(counts.augments)
       });
-      this.troveUploadStatus = `TroveExport.csv processed! ${counts.items} items and ${counts.augments} augments loaded.`;
-    };
-    reader.onerror = () => {
-      this.troveUploadStatus = 'Error reading file.';
     };
     reader.readAsText(file);
   }

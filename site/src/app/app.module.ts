@@ -1,7 +1,7 @@
 import { GoalsLabelComponent } from './goals-label/goals-label.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, provideAppInitializer, inject, DestroyRef, Injector, runInInjectionContext } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { provideHttpClient, withInterceptorsFromDi, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -126,7 +126,9 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
     ],
     imports: [
         AppRoutingModule,
-        NgbModule,
+        // Only the two the templates use: NgbModule brought every widget into the initial bundle.
+        NgbDropdownModule,
+        NgbTypeaheadModule,
         BrowserModule,
         FormsModule,
         CdkScrollable,

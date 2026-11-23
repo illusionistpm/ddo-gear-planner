@@ -1084,7 +1084,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
 
   /**
    * Ranks an affix as it would be once `candidate` is equipped, replacing whatever is in its slot,
-   * so green/blue/orange mean the same as they do on equipped gear. BetterThanBest is kept for an
+   * so blue/cyan/amber mean the same as they do on equipped gear. BetterThanBest is kept for an
    * upgrade: the best value after the swap and higher than the build's best today. A value that
    * would be the best after the swap but is lower than today's is a downgrade, shown Outranked.
    * Set bonuses are recounted for the swap, so replacing a set piece can lose its set's bonus.

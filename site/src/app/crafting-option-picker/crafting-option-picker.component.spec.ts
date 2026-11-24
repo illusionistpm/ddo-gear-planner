@@ -4,7 +4,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { CraftingOptionPickerComponent } from './crafting-option-picker.component';
 import { CraftableOption } from '../gear/craftable-option';
-import { AffixUiService } from '../affixes/affix-ui.service';
+import { AffixChange, AffixUiService } from '../affixes/affix-ui.service';
 import { Craftable } from '../gear/craftable';
 import { Item } from '../gear/item';
 import { UserGearService } from '../planner/user-gear.service';
@@ -16,6 +16,7 @@ describe('CraftingOptionPickerComponent', () => {
   let component: CraftingOptionPickerComponent;
   let emitted: CraftableOption[];
   let rankOf: (option: CraftableOption) => string;
+  let changesOf: (option: CraftableOption) => AffixChange[];
 
   const empty = new CraftableOption(null);
   const charisma = [1, 3, 5, 7].map((value, i) =>
@@ -45,16 +46,15 @@ describe('CraftingOptionPickerComponent', () => {
     component = fixture.componentInstance;
     emitted = [];
     rankOf = option => rankClass.get(option)!;
+    changesOf = () => [];
     // The picker ranks its list through the service each time it opens.
     vi.spyOn(TestBed.inject(AffixUiService), 'rankCraftingOption').mockImplementation(option => ({
       className: rankOf(option),
       tooltip: '',
       note: option === helpfulSet ? '1 of 3 set pieces' : '',
+      optionTooltip: '',
       rankTooltip: option === charisma[0] ? 'Overpowered by Hat (Head)' : '',
-      // The build has +3 Charisma from elsewhere.
-      changes: charisma.includes(option) && rankOf(option) !== 'Irrelevant'
-        ? [{ name: 'Charisma', type: 'Enhancement', before: 3, after: Math.max(3, option.affixes[0].value) }]
-        : []
+      changes: changesOf(option)
     }));
     component.selectedChange.subscribe(option => emitted.push(option));
     fixture.componentRef.setInput('options', options);
@@ -309,6 +309,13 @@ describe('CraftingOptionPickerComponent', () => {
   });
 
   describe('what each option adds', () => {
+    // The build has +3 Charisma from elsewhere, and +5 and +7 rank Best already.
+    beforeEach(() => {
+      changesOf = option => charisma.includes(option)
+        ? [{ name: 'Charisma', type: 'Enhancement', before: 3, after: Math.max(3, option.affixes[0].value) }]
+        : [];
+    });
+
     const gainOf = (button: Element) => button.querySelector('.crafting-picker-gain')?.textContent?.trim();
     const detail = () => Array.from(document.body.querySelectorAll('.crafting-picker-detail > div'))
       .map(line => line.textContent?.trim());
@@ -333,7 +340,9 @@ describe('CraftingOptionPickerComponent', () => {
 
       familyButton('Charisma').dispatchEvent(new Event('mouseenter'));
       fixture.detectChanges();
-      expect(detail()).toEqual(['Best tier, +7 (ML 13)', 'Charisma: +3 \u2192 +7 Enhancement']);
+      // It ranks Best, but adds to the build: purple, and said so.
+      expect(detail()).toEqual(['Best tier, +7 (ML 13)', 'Charisma: +3 \u2192 +7 Enhancement', 'Switching to it would raise the total']);
+      expect(familyButton('Charisma').querySelector('.crafting-picker-family-name')!.classList).toContain('BetterThanBest');
 
       familyButton('Charisma').click();
       fixture.detectChanges();

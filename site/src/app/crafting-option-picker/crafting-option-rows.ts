@@ -79,18 +79,22 @@ export function buildFamilyRows(
   return families.map(family => {
     const rankings = family.tiers.map(rank);
     const tiers = family.tiers.map((option, i) => {
+      const ranking = rankings[i];
       const value = singleValuedAffix(option);
+      const gain = gainChip(ranking.changes, !isOnlyAbout(option, ranking.changes));
+      const net = netRank(ranking.className, gain);
+      const why = net?.why ?? ranking.rankTooltip;
       return {
         option,
         label: value ? tierValueLabel(option, value, text) : option.describe(),
         name: value ? option.name : '',
-        className: rankings[i].className,
-        tooltip: rankings[i].tooltip,
+        className: net?.className ?? ranking.className,
+        tooltip: net ? [ranking.optionTooltip, why].filter(part => part).join('\n\n') : ranking.tooltip,
         owned: isOwned(option),
-        gain: gainChip(rankings[i].changes, !isOnlyAbout(option, rankings[i].changes)),
-        gainScore: rankings[i].changes.reduce((total, change) => total + change.after - change.before, 0),
-        changeLines: rankings[i].changes.map(describeChange),
-        why: rankings[i].rankTooltip
+        gain,
+        gainScore: ranking.changes.reduce((total, change) => total + change.after - change.before, 0),
+        changeLines: ranking.changes.map(describeChange),
+        why
       };
     });
     const first = family.tiers[0];
@@ -105,8 +109,7 @@ export function buildFamilyRows(
       className: bestRankClass(tiers.map(tier => tier.className)),
       tiers,
       searchText: [family.label, detail, ...family.tiers.map(option => option.describe())].join('\n').toLowerCase(),
-      // A tier ranked irrelevant can still raise a tracked compound through one of its parts.
-      relevant: tiers.some(tier => tier.className !== IRRELEVANT || tier.gain?.direction === 'up' || tier.gain?.direction === 'mixed'),
+      relevant: tiers.some(tier => tier.className !== IRRELEVANT),
       hideable: first.affixes.length > 0 || !!first.set || !!first.name,
       owned: tiers.some(tier => tier.owned),
       // The highest of equally good tiers, as `defaultTier` opens a family at.
@@ -170,6 +173,31 @@ export function gainChip(changes: AffixChange[], named: boolean): GainChip | nul
   const up = moved.some(([, { delta }]) => delta > 0);
   const down = moved.some(([, { delta }]) => delta < 0);
   return { text: shown.join(', '), direction: up && down ? 'mixed' : up ? 'up' : 'down' };
+}
+
+/** Ranks the net change may recolour: not a penalty or a mix with one, whose red says more than any total. */
+const NET_RECOLOURABLE: ReadonlySet<string> = new Set([
+  AffixRank.BetterThanBest, AffixRank.Best, AffixRank.BestTied, AffixRank.Outranked, AffixRank.Irrelevant
+].map(rank => AffixRank[rank]));
+
+/**
+ * The colour the net change calls for, where it disagrees with the rank's. The rank judges each
+ * bonus type alone, so swapping a +5 Insight for a +2 Festive ranks as the best Festive (purple)
+ * while the total drops by 3; and a part of a tracked compound ranks Irrelevant while it completes
+ * the compound. A loss is orange and a gain purple, as switching would make them. Null to keep the rank.
+ */
+function netRank(className: string, gain: GainChip | null): { className: string; why: string } | null {
+  if (!gain || !NET_RECOLOURABLE.has(className.split(' ')[0])) {
+    return null;
+  }
+  const target = gain.direction === 'down' ? AffixRank.Outranked : gain.direction === 'up' ? AffixRank.BetterThanBest : null;
+  if (target === null || className === AffixRank[target]) {
+    return null;
+  }
+  return {
+    className: AffixRank[target],
+    why: target === AffixRank.Outranked ? 'Switching to it would lower the total' : 'Switching to it would raise the total'
+  };
 }
 
 /** "False Life: +55 → +57 Insightful", or what stays as it is. */

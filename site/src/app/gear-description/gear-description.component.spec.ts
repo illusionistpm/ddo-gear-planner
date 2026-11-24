@@ -559,12 +559,13 @@ describe('GearDescriptionComponent', () => {
       await fixture.whenStable();
       fixture.detectChanges();
 
-      // The selected +7 matches its row; the +5 would only tie the belt.
+      // The selected +7 matches its row. The +5 would tie the belt, but in place of the +7 it would lower
+      // the build's Strength, so the picker colours it by that net loss.
       expect(fixture.nativeElement.querySelector('.crafting-picker-toggle-label').classList).toContain('BetterThanBest');
       const tierClass = (label: string) => Array.from(document.body.querySelectorAll('.crafting-picker-tier .crafting-picker-tier-value'))
         .find(element => element.textContent?.trim().startsWith(label))?.classList;
       expect(tierClass('+7')).toContain('BetterThanBest');
-      expect(tierClass('+5')).toContain('BestTied');
+      expect(tierClass('+5')).toContain('Outranked');
     });
   });
 });

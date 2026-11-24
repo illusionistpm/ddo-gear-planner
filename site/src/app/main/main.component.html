@@ -181,14 +181,47 @@
         <section id="equipmentPanel" class="planner-tab-panel" role="tabpanel" aria-labelledby="equipmentTab" [hidden]="!isActiveTab('equipment')">
             <!-- The gear cards, or every crafting slot on them grouped by type. "Items",
                  not "Gear": on a phone the Equipment tab above is already called Gear. -->
-            <div class="equipment-view-switch segmented-toggle" role="group" aria-label="Equipment view">
-                <span class="segmented-toggle-label">Show</span>
-                <span class="segmented-toggle-options">
-                    <button type="button" class="segmented-toggle-option" [class.active]="!craftingSlotsOpen"
-                        [attr.aria-pressed]="!craftingSlotsOpen" (click)="showItems()">Items</button>
-                    <button type="button" class="segmented-toggle-option" [class.active]="craftingSlotsOpen"
-                        [attr.aria-pressed]="craftingSlotsOpen" (click)="showCraftingSlots()">Crafting slots</button>
-                </span>
+            <div class="equipment-view-bar">
+                <!-- What the gear colors mean: a one-line key where there's room, "Colors" where there isn't.
+                     Either opens the full list. A dropdown rather than a popover: AppModule loads only
+                     ng-bootstrap's dropdown and typeahead, and this needs nothing more. -->
+                <div ngbDropdown class="rank-legend-dropdown" placement="bottom-start bottom-end top-start" autoClose="outside">
+                    <button type="button" class="rank-legend-toggle" title="What the colors on your gear mean" ngbDropdownToggle>
+                        <span class="fas fa-circle-info" aria-hidden="true"></span>
+                        <span class="rank-legend-short">Colors</span>
+                        <span class="rank-legend-full">
+                            <span class="rank-legend-best">Counts</span>
+                            <span class="rank-legend-tied">Tied</span>
+                            <span class="rank-legend-outranked">Outranked</span>
+                            <span class="rank-legend-penalty">Penalty</span>
+                            <span class="rank-legend-plain">Not a goal</span>
+                        </span>
+                    </button>
+                    <div ngbDropdownMenu class="rank-legend-menu">
+                        <div class="rank-legend">
+                            <p class="rank-legend-heading">Build goals vs. your other gear</p>
+                            <dl>
+                                <dt class="rank-legend-best">Blue</dt><dd>The best you have equipped: this value counts.</dd>
+                                <dt class="rank-legend-tied">Cyan</dt><dd>Tied with another piece: only one of them counts.</dd>
+                                <dt class="rank-legend-outranked">Amber</dt><dd>Outranked: another piece gives more.</dd>
+                                <dt class="rank-legend-penalty">Red</dt><dd>A penalty.</dd>
+                                <dt class="rank-legend-inactive">Gray</dt><dd>A set augment that needs more set pieces before it does anything.</dd>
+                                <dt class="rank-legend-better">Purple</dt><dd>Better than what you have now, on gear you're browsing.</dd>
+                                <dt class="rank-legend-partial">Italic</dt><dd>Only part of it counts. In amber, part of it is a penalty.</dd>
+                                <dt class="rank-legend-plain">Plain</dt><dd>Not one of your build goals.</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+                <div class="equipment-view-switch segmented-toggle" role="group" aria-label="Equipment view">
+                    <span class="segmented-toggle-label">Show</span>
+                    <span class="segmented-toggle-options">
+                        <button type="button" class="segmented-toggle-option" [class.active]="!craftingSlotsOpen"
+                            [attr.aria-pressed]="!craftingSlotsOpen" (click)="showItems()">Items</button>
+                        <button type="button" class="segmented-toggle-option" [class.active]="craftingSlotsOpen"
+                            [attr.aria-pressed]="craftingSlotsOpen" (click)="showCraftingSlots()">Crafting slots</button>
+                    </span>
+                </div>
             </div>
             <!-- Hidden rather than destroyed, so going back to the cards is instant. -->
             <app-gear-list [hidden]="craftingSlotsOpen"></app-gear-list>

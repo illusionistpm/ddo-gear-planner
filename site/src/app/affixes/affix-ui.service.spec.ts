@@ -268,6 +268,14 @@ describe('AffixUiService', () => {
       expect(service.getClassForCraftingOption(setAugment)).toBe('Mixed');
     });
 
+    it('are Inactive, not a Penalty, when they carry their own affixes and the set is short', () => {
+      const withAffixes = { name: 'Quickblade Rune', set: 'Quickblade', affixes: quickblade } as any;
+      const service = makeService({ Doublestrike: AffixRank.Best, Doubleshot: AffixRank.Best });
+
+      expect(service.getClassForCraftingOption(withAffixes)).toBe('Inactive');
+      expect(service.getAffixTooltip(quickblade[0], withAffixes)).toBe('Need 3 set items (currently have 0)');
+    });
+
     it('are irrelevant when no set bonus is tracked', () => {
       expect(makeService({}).getClassForCraftingOption(setAugment)).toBe('Irrelevant');
     });

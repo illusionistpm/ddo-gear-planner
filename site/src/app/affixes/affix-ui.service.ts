@@ -190,11 +190,11 @@ export class AffixUiService {
       return { rank: AffixRank.Irrelevant, sourceAffix: affix };
     }
 
-    // Check for set augments that don't have enough pieces equipped
+    // A set augment without enough pieces equipped does nothing yet.
     if (option?.set) {
       const setReq = this.checkSetRequirements(option.set);
       if (setReq && !setReq.meetsRequirements) {
-        return { rank: AffixRank.Penalty, sourceAffix: affix };
+        return { rank: AffixRank.Inactive, sourceAffix: affix };
       }
     }
 
@@ -274,7 +274,10 @@ export class AffixUiService {
         tooltip = 'Overpowered by';
         break;
       case AffixRank.Penalty:
-        tooltip = option?.set ? 'Not yet active - need more set items' : 'Penalty/negative effect';
+        tooltip = 'Penalty/negative effect';
+        break;
+      case AffixRank.Inactive:
+        tooltip = 'Not yet active - need more set items';
         break;
       default:
         tooltip = '';
@@ -434,7 +437,8 @@ export class AffixUiService {
     } else if (ranks.includes(AffixRank.Penalty)) {
       rank = AffixRank.Mixed;
     } else {
-      rank = HELPFUL_RANKS.find(helpful => ranks.includes(helpful))!;
+      // No helpful part means the parts are Outranked/Inactive: the first speaks for the whole.
+      rank = HELPFUL_RANKS.find(helpful => ranks.includes(helpful)) ?? ranks[0];
     }
     const partial = HELPFUL_RANKS.includes(rank) && ranks.includes(AffixRank.Outranked);
     return { rank, sourceAffix: whole, parts: leaves, partial };

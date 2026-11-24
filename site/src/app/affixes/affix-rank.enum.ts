@@ -6,7 +6,12 @@ export enum AffixRank {
     Irrelevant,
     Penalty,
     /** Parts that help alongside a part that is a penalty. */
-    Mixed
+    Mixed,
+    /**
+     * On a set augment whose set is short of pieces: it does nothing yet, but isn't harmful
+     * either, so it isn't a Penalty. Last, so the other ranks keep their numbers.
+     */
+    Inactive
 }
 
 /**
@@ -31,6 +36,7 @@ const RANK_CLASSES_BEST_FIRST = [
     AffixRank.BestTied,
     AffixRank.Mixed,
     AffixRank.Outranked,
+    AffixRank.Inactive,
     AffixRank.Penalty,
     AffixRank.Irrelevant
 ].map(rank => AffixRank[rank]);

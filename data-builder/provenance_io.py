@@ -12,13 +12,14 @@ def include_affix_provenance() -> bool:
     return os.environ.get('DDO_AFFIX_PROVENANCE', '').lower() in ('1', 'true', 'yes')
 
 
-# The affixes' wiki tooltips, as (name, type, value, tooltip), gathered from
-# everything write_json writes while capture is on. build.py turns it on so
-# affix_descriptions.py can build data/affix-descriptions.json from them; the
-# parsers write each file and read the next one back stripped, so write_json
-# is the one place every tooltip passes through. Off by default, so parser
-# unit tests see affixes without provenance keys.
-_tooltip_capture: set[tuple[str, str, str, str]] | None = None
+# The affixes' wiki tooltips, as (name, type, value, tooltip, ml) - ml being
+# the item's, where the affix is on one - gathered from everything write_json
+# writes while capture is on. build.py turns it on so affix_descriptions.py can
+# build data/affix-descriptions.json from them; the parsers write each file and
+# read the next one back stripped, so write_json is the one place every tooltip
+# passes through. Off by default, so parser unit tests see affixes without
+# provenance keys.
+_tooltip_capture: set[tuple[str, str, str, str, str]] | None = None
 
 
 def start_tooltip_capture() -> None:
@@ -40,21 +41,24 @@ def attach_affix_provenance() -> bool:
     return include_affix_provenance() or tooltip_capture_enabled()
 
 
-def record_affix_tooltips(value: Any) -> None:
+def record_affix_tooltips(value: Any, ml: str = '') -> None:
     if _tooltip_capture is None:
         return
     if isinstance(value, dict):
+        # An item's affixes take its ML: their tooltips' numbers often scale with it.
+        if 'ml' in value and 'affixes' in value:
+            ml = str(value['ml'])
         tooltip = value.get('sourceTooltip')
         if isinstance(tooltip, str) and tooltip and isinstance(value.get('name'), str):
-            _tooltip_capture.add((value['name'], str(value.get('type') or ''), str(value.get('value') or ''), tooltip))
+            _tooltip_capture.add((value['name'], str(value.get('type') or ''), str(value.get('value') or ''), tooltip, ml))
         for child in value.values():
-            record_affix_tooltips(child)
+            record_affix_tooltips(child, ml)
     elif isinstance(value, list):
         for child in value:
-            record_affix_tooltips(child)
+            record_affix_tooltips(child, ml)
 
 
-def captured_affix_tooltips() -> set[tuple[str, str, str, str]]:
+def captured_affix_tooltips() -> set[tuple[str, str, str, str, str]]:
     return set(_tooltip_capture or ())
 
 

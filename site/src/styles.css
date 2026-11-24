@@ -105,8 +105,10 @@
    * equipped source of a value that is still well short of that.
    */
   --rank-best-color: var(--primary-color);
-  --rank-best-tied-color: #0e7490;
-  --rank-best-tied-rgb: 14, 116, 144;
+  /* Teal, and darker than the blue (lighter in dark mode), so a tie differs from the best in
+     lightness as well as hue - which is what survives red-green color blindness. */
+  --rank-best-tied-color: #115e59;
+  --rank-best-tied-rgb: 17, 94, 89;
   --rank-best-glow: 0 0 8px rgba(var(--primary-color-rgb), 0.3);
   --rank-best-tied-glow: 0 0 8px rgba(var(--rank-best-tied-rgb), 0.3);
   /* Outranked and Penalty text, and Mixed's gradient: darker than --warning/--danger-color,
@@ -238,8 +240,8 @@
   --rank-better-than-best-glow: 0 0 8px rgba(167, 139, 250, 0.35);
   --success-glow-rgb: 16, 185, 129;
   --rank-best-color: var(--primary-color);
-  --rank-best-tied-color: #22d3ee;
-  --rank-best-tied-rgb: 34, 211, 238;
+  --rank-best-tied-color: #5eead4;
+  --rank-best-tied-rgb: 94, 234, 212;
   --rank-best-glow: 0 0 8px rgba(var(--primary-color-rgb), 0.3);
   --rank-best-tied-glow: 0 0 8px rgba(var(--rank-best-tied-rgb), 0.3);
   --rank-outranked-color: #f59e0b;

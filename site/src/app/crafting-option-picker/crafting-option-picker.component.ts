@@ -12,7 +12,7 @@ import { buildFamilyRows, defaultTier, FamilyRow, TierRow } from './crafting-opt
 import { craftSystemName } from '../gear/crafting-acquisition';
 import { UserGearService } from '../planner/user-gear.service';
 
-/** Lists shorter than this stay a native select; see gear-description. */
+/** Lists shorter than this get the compact picker: every option its own entry, with no search box. */
 export const CRAFTING_PICKER_MIN_OPTIONS = 16;
 
 /** One line of the popup list: a family, or one of the tiers of the family expanded under it. */

@@ -20,7 +20,9 @@ export interface CraftingOptionRanking {
   tooltip: string;
   /** A caveat to show beside the option: the set pieces a set augment would make, while short. */
   note: string;
-  /** Why it has its rank: the part of `tooltip` after what the option is. */
+  /** What the option is: the first part of `tooltip`. */
+  optionTooltip: string;
+  /** Why it has its rank: the rest of `tooltip`. */
   rankTooltip: string;
   /** What choosing it would do to each tracked affix it touches; empty when it touches none. */
   changes: AffixChange[];
@@ -384,9 +386,11 @@ export class AffixUiService {
       : this.candidateFor(context.item, undefined, undefined, { kind: context.bonusKind, option });
     const rankingTooltip = this.getCraftingOptionRankTooltip(option, slot, candidate);
     const setPieces = this.getSetPieces(option, alreadyEquipped);
+    const optionTooltip = this.getCraftingOptionTooltip(option);
     return {
       className: this.getClassForCraftingOption(option, candidate),
-      tooltip: [this.getCraftingOptionTooltip(option), rankingTooltip].filter(tooltip => tooltip).join('\n\n'),
+      tooltip: [optionTooltip, rankingTooltip].filter(tooltip => tooltip).join('\n\n'),
+      optionTooltip,
       // Only while the set is short; a complete set's colour already says what it gives.
       note: setPieces && setPieces.pieces < setPieces.required ? `${setPieces.pieces} of ${setPieces.required} set pieces` : '',
       rankTooltip: rankingTooltip,

@@ -22,13 +22,13 @@ describe('buildFamilyRows', () => {
 
   function rows(options: CraftableOption[], rank: (option: CraftableOption) => Partial<CraftingOptionRanking> = () => ({})) {
     return buildFamilyRows(groupCraftingOptions(options),
-      opt => ({ className: 'Irrelevant', tooltip: '', note: '', rankTooltip: '', changes: [], ...rank(opt) }), text);
+      opt => ({ className: 'Irrelevant', tooltip: '', note: '', optionTooltip: '', rankTooltip: '', changes: [], ...rank(opt) }), text);
   }
   const byLabel = (label: string, list: ReturnType<typeof rows>) => list.find(row => row.label === label)!;
 
   it('marks the tiers the trove has, and their family', () => {
     const list = buildFamilyRows(groupCraftingOptions([...charisma, acid]),
-      () => ({ className: 'Irrelevant', tooltip: '', note: '', rankTooltip: '', changes: [] }), text, opt => opt === charisma[1]);
+      () => ({ className: 'Irrelevant', tooltip: '', note: '', optionTooltip: '', rankTooltip: '', changes: [] }), text, opt => opt === charisma[1]);
 
     expect(byLabel('Charisma', list).owned).toBe(true);
     expect(byLabel('Charisma', list).tiers.map(tier => tier.owned)).toEqual([false, true, false]);
@@ -110,7 +110,7 @@ describe('buildFamilyRows', () => {
       ({ name: 'Charisma', type: 'Enhancement', before: 3, after: Math.max(3, opt.affixes[0].value) });
 
     it('is a bare figure on an option with one affix, and a dash when something else gives as much', () => {
-      const row = byLabel('Charisma', rows(charisma, opt => ({ changes: [charismaChange(opt)], rankTooltip: 'why' })));
+      const row = byLabel('Charisma', rows(charisma, opt => ({ className: 'BetterThanBest', changes: [charismaChange(opt)], rankTooltip: 'why' })));
 
       expect(row.tiers.map(tier => tier.gain)).toEqual([
         { text: '\u2014', direction: 'none' },
@@ -133,12 +133,32 @@ describe('buildFamilyRows', () => {
       expect(capped.bestTier.option).toBe(charisma[0]);
     });
 
-    it('makes an option relevant when it raises a tracked affix its rank doesn\'t see (a compound\'s part)', () => {
-      const row = byLabel('Acid Absorption', rows([acid], () => ({
-        changes: [{ name: 'Elemental Absorption', type: 'Enhancement', before: 0, after: 10 }] })));
+    it('recolours by the net change where the rank, judging each bonus type alone, says otherwise', () => {
+      // A +2 Festive ranks as the best Festive, but swapping out a +5 Insight loses 3.
+      const loss = byLabel('Charisma', rows(charisma, () => ({ className: 'BetterThanBest', optionTooltip: 'what', rankTooltip: 'Better',
+        changes: [{ name: 'Charisma', type: 'Festive', before: 0, after: 2 }, { name: 'Charisma', type: 'Insight', before: 5, after: 0 }] })));
+      expect(loss.tiers[0].className).toBe('Outranked');
+      expect(loss.tiers[0].why).toBe('Switching to it would lower the total');
+      expect(loss.tiers[0].tooltip).toBe('what\n\nSwitching to it would lower the total');
 
-      expect(row.relevant).toBe(true);
+      // A part of a tracked compound ranks Irrelevant, but completes the compound.
+      const gain = byLabel('Acid Absorption', rows([acid], () => ({
+        changes: [{ name: 'Elemental Absorption', type: 'Enhancement', before: 0, after: 10 }] })));
+      expect(gain.className).toBe('BetterThanBest');
+      expect(gain.relevant).toBe(true);
       expect(byLabel('Acid Absorption', rows([acid])).relevant).toBe(false);
+    });
+
+    it('keeps the rank\'s colour when the net change agrees, is nothing, or the rank is a penalty', () => {
+      const change = (after: number) => ({ changes: [{ name: 'Charisma', type: 'Enhancement', before: 3, after }] });
+      const colour = (className: string, after: number) =>
+        byLabel('Charisma', rows(charisma, () => ({ className, rankTooltip: 'rank', ...change(after) }))).tiers[0];
+
+      expect(colour('BetterThanBest', 5).className).toBe('BetterThanBest');
+      expect(colour('Best', 3).className).toBe('Best');
+      expect(colour('Best', 3).why).toBe('rank');
+      expect(colour('Penalty', 1).className).toBe('Penalty');
+      expect(colour('Mixed', 1).className).toBe('Mixed');
     });
 
     it('is nothing on an option that touches no tracked affix', () => {
@@ -201,7 +221,7 @@ describe('defaultTier', () => {
   const tiers = [1, 3, 5, 7].map(value => new CraftableOption({ name: `+${value}`, affixes: [{ name: 'Charisma', type: 'Enhancement', value }] }));
   const ranks = ['Outranked', 'Best', 'Best', 'BestTied'];
   const [family] = buildFamilyRows(groupCraftingOptions(tiers),
-    option => ({ className: ranks[tiers.indexOf(option)], tooltip: '', note: '', rankTooltip: '', changes: [] }),
+    option => ({ className: ranks[tiers.indexOf(option)], tooltip: '', note: '', optionTooltip: '', rankTooltip: '', changes: [] }),
     { getAffixValue: () => '', getAffixValueText: () => '', describeSetBonus: () => '' });
 
   it('is the best-ranked tier, the highest among equally ranked ones', () => {

@@ -46,7 +46,7 @@
 
 .undo-strip-action:hover,
 .undo-strip-action:focus-visible {
-  background: var(--primary-color);
+  background: var(--primary-fill-color);
   color: var(--on-accent-text-color);
 }
 

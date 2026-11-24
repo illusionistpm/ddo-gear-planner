@@ -105,7 +105,7 @@
    or at the top of the sheet. */
 .planner-filter-count {
   align-items: center;
-  background: var(--primary-color);
+  background: var(--primary-fill-color);
   border-radius: 999px;
   color: var(--on-accent-text-color);
   display: inline-flex;
@@ -241,7 +241,7 @@ app-admin-link {
 }
 
 .menu-theme-option.active {
-  background: var(--primary-color);
+  background: var(--primary-fill-color);
   color: var(--on-accent-text-color);
 }
 
@@ -422,7 +422,8 @@ app-admin-link {
 .planner-filter-chip.chip-active {
   background: color-mix(in srgb, var(--primary-color) 14%, var(--surface-elevated-color));
   border-color: color-mix(in srgb, var(--primary-color) 45%, var(--border-color));
-  color: var(--primary-color);
+  /* Not --primary-color, which is only about 4:1 on this tint. */
+  color: var(--info-chip-text-color);
 }
 
 .planner-filter-chip-none {
@@ -449,7 +450,6 @@ app-admin-link {
   justify-content: center;
   line-height: 1;
   margin: -0.05rem -0.15rem -0.05rem 0;
-  opacity: 0.75;
   padding: 0;
   height: 0.95rem;
   width: 0.95rem;
@@ -457,7 +457,7 @@ app-admin-link {
 
 .planner-filter-chip-remove:hover,
 .planner-filter-chip-remove:focus {
-  opacity: 1;
+  background: rgba(var(--primary-color-rgb), 0.18);
 }
 
 .planner-filter-chip-remove:focus-visible {
@@ -727,7 +727,7 @@ app-admin-link {
 }
 
 .planner-load-error-retry {
-  background: var(--primary-color);
+  background: var(--primary-fill-color);
   border: 1px solid var(--primary-color);
   border-radius: 6px;
   color: var(--on-accent-text-color);

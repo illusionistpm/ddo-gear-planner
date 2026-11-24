@@ -307,8 +307,8 @@
 
 .tracked-affix-remove:hover,
 .tracked-affix-remove:focus {
-    background: var(--danger-color);
-    border-color: var(--danger-color);
+    background: var(--danger-fill-color);
+    border-color: var(--danger-fill-color);
     color: var(--on-accent-text-color);
 }
 
@@ -633,7 +633,7 @@
  */
 .tracked-bonus-chip.bonus-eliminated.no-value,
 .tracked-bonus-chip.bonus-unavailable {
-    opacity: 0.55;
+    opacity: 0.85;
     text-decoration: line-through;
     text-decoration-thickness: 1px;
 }
@@ -678,7 +678,7 @@
 
 /* A bonus type the user has explicitly marked as ignored - not being chased. */
 .tracked-bonus-chip.bonus-ignored {
-    opacity: 0.55;
+    opacity: 0.85;
     text-decoration: line-through;
     text-decoration-thickness: 1px;
 }

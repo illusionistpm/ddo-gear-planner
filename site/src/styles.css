@@ -7,8 +7,9 @@
   --primary-dark: #1d4ed8;
   --secondary-color: #64748b;
   --accent-color: #f59e0b;
-  --success-color: #16a34a;
-  --success-color-rgb: 22, 163, 74;
+  /* Status text: the -700/-800 shades, which hold 4.5:1 on the light rows and tinted surfaces. */
+  --success-color: #15803d;
+  --success-color-rgb: 21, 128, 61;
   --success-gradient-end: #059669;
   /* The tutorial's "look here" colour - its own hue, because green already
      means selected and met. -fill/-strong carry white text in both themes. */
@@ -25,18 +26,20 @@
   --section-accent-neutral-light-rgb: 148, 163, 184;
   --section-accent-neutral-dark: #475569;
   --section-accent-neutral-dark-rgb: 71, 85, 105;
-  --warning-color: #d97706;
-  /* Marks a crafting slot with nothing chosen yet in the crafting slots view. */
-  --crafting-slot-empty-accent: var(--warning-color);
-  --danger-color: #ef4444;
-  --danger-color-rgb: 239, 68, 68;
+  --warning-color: #b45309;
+  /* Marks a crafting slot with nothing chosen yet in the crafting slots view. A shade past
+     --warning-color: its "1 empty" text sits on tinted headers. */
+  --crafting-slot-empty-accent: #92400e;
+  --danger-color: #b91c1c;
+  --danger-color-rgb: 185, 28, 28;
   --background-color: #f8fafc;
   --surface-color: #ffffff;
   --surface-elevated-color: #ffffff;
   --surface-muted-color: #eef3f8;
   --surface-subtle-color: #e8eef5;
   --text-primary: #1e293b;
-  --text-secondary: #64748b;
+  /* Slate-600: 4.5:1 and more on every light surface, tinted rows and chips included. */
+  --text-secondary: #475569;
   /* "Empty" in a crafting dropdown with nothing chosen: a placeholder, quieter than text. */
   --empty-value-text-color: var(--text-secondary);
   --link-color: var(--primary-color);
@@ -140,6 +143,28 @@
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   /* Text on a filled accent/danger/primary surface - white in both themes. */
   --on-accent-text-color: #ffffff;
+  /*
+   * Fills that carry that white text: the primary blue (and its pressed/hover shades) and the
+   * secondary slate. Separate from --primary-color/--secondary-color, which dark mode lightens
+   * for text and edges on its dark surfaces - white on those light shades is only 2.5:1.
+   * These stay deep enough for 4.5:1 in both themes.
+   */
+  --primary-fill-color: #2563eb;
+  --primary-fill-dark: #1d4ed8;
+  --primary-fill-darker: #1e40af;
+  --secondary-fill-color: #64748b;
+  /* The slot label on an equipped card's header ("Weapon - Light Crossbow"). Light mode
+     can't dim it: white is the only shade that passes on the slate header (4.8:1). */
+  --slot-label-color: #ffffff;
+  /* Inline code, and the "important" hearts on gear rows. */
+  --code-text-color: #be185d;
+  --important-heart-color: #dc2626;
+  --success-fill-color: #15803d;
+  --success-fill-dark: #166534;
+  --warning-fill-color: #b45309;
+  --warning-fill-dark: #92400e;
+  --danger-fill-color: #b91c1c;
+  --danger-fill-dark: #991b1b;
 
   /*
    * Value bands: how close a tracked bonus type is to the best available for
@@ -196,6 +221,20 @@
   --primary-color: #60a5fa;
   --primary-color-rgb: 96, 165, 250;
   --primary-dark: #3b82f6;
+  /* Fills that carry white text: see :root. */
+  --primary-fill-color: #2563eb;
+  --primary-fill-dark: #1d4ed8;
+  --primary-fill-darker: #1e40af;
+  --secondary-fill-color: #475569;
+  --slot-label-color: var(--text-secondary);
+  --code-text-color: #f9a8d4;
+  --important-heart-color: #f87171;
+  --success-fill-color: #15803d;
+  --success-fill-dark: #166534;
+  --warning-fill-color: #b45309;
+  --warning-fill-dark: #92400e;
+  --danger-fill-color: #b91c1c;
+  --danger-fill-dark: #991b1b;
   --secondary-color: #94a3b8;
   --accent-color: #fbbf24;
   --success-color: #22c55e;
@@ -396,7 +435,7 @@ a:focus {
 
 /* Modern section headers */
 .section-header {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  background: linear-gradient(135deg, var(--primary-fill-color) 0%, var(--primary-fill-dark) 100%);
   color: white;
   padding: var(--space-16) 6rem;
   margin-bottom: var(--space-8);
@@ -549,11 +588,12 @@ a:focus {
 }
 
 /*
- * The icon is what you scan for, so only the text is dimmed. On an equipped card the
- * icon is also a size up; the negative margin keeps it from growing the 1.1rem row.
+ * The icon is what you scan for, so only the text is set back - by color, not opacity,
+ * which took it to 3.5:1 on the light header. On an equipped card the icon is also a
+ * size up; the negative margin keeps it from growing the 1.1rem row.
  */
 .slot-select-button .slot-name-text {
-  opacity: 0.75;
+  color: var(--slot-label-color);
 }
 
 /*
@@ -594,7 +634,7 @@ a:focus {
 }
 
 .slot-select-button.is-empty .slot-name-text {
-  opacity: 1;
+  color: inherit;
 }
 
 .card-body {
@@ -622,32 +662,32 @@ a:focus {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  background: linear-gradient(135deg, var(--primary-fill-color) 0%, var(--primary-fill-dark) 100%);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, var(--primary-dark) 0%, #1e40af 100%);
+  background: linear-gradient(135deg, var(--primary-fill-dark) 0%, var(--primary-fill-darker) 100%);
 }
 
 .btn-secondary {
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-fill-color);
 }
 
 .btn-success {
-  background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
+  background: linear-gradient(135deg, var(--success-fill-color) 0%, var(--success-fill-dark) 100%);
 }
 
 .btn-warning {
-  background: linear-gradient(135deg, var(--warning-color) 0%, #d97706 100%);
+  background: linear-gradient(135deg, var(--warning-fill-color) 0%, var(--warning-fill-dark) 100%);
 }
 
 .btn-danger {
-  background: linear-gradient(135deg, var(--danger-color) 0%, #dc2626 100%);
+  background: linear-gradient(135deg, var(--danger-fill-color) 0%, var(--danger-fill-dark) 100%);
 }
 
 .equip-button {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
-  border: 1px solid var(--primary-dark);
+  background: linear-gradient(135deg, var(--primary-fill-color) 0%, var(--primary-fill-dark) 100%);
+  border: 1px solid var(--primary-fill-dark);
   border-radius: 6px;
   color: #ffffff;
   font-weight: 700;
@@ -655,7 +695,7 @@ a:focus {
 
 .equip-button:hover,
 .equip-button:focus {
-  background: linear-gradient(135deg, var(--primary-dark) 0%, #1e40af 100%);
+  background: linear-gradient(135deg, var(--primary-fill-dark) 0%, var(--primary-fill-darker) 100%);
   color: #ffffff;
 }
 
@@ -864,6 +904,24 @@ select.form-control {
   }
 }
 
+/* Bootstrap defaults the theme never mapped: its own red and pink, 3.2:1 in dark mode. */
+.btn-outline-danger {
+  --bs-btn-color: var(--danger-color);
+  --bs-btn-border-color: var(--danger-color);
+  --bs-btn-hover-color: var(--on-accent-text-color);
+  --bs-btn-hover-bg: var(--danger-fill-color);
+  --bs-btn-hover-border-color: var(--danger-fill-color);
+  --bs-btn-active-color: var(--on-accent-text-color);
+  --bs-btn-active-bg: var(--danger-fill-dark);
+  --bs-btn-active-border-color: var(--danger-fill-dark);
+  --bs-btn-disabled-color: var(--danger-color);
+  --bs-btn-disabled-border-color: var(--danger-color);
+}
+
+code {
+  color: var(--code-text-color);
+}
+
 .suggestion-drawer .modal-body {
   padding: var(--space-16);
 }
@@ -1032,7 +1090,7 @@ select.form-control {
  * the opposite view's compact rail, which no longer renders below 992px.
  */
 .onboarding-action-button {
-  background: var(--primary-color);
+  background: var(--primary-fill-color);
   border: 1px solid var(--primary-color);
   border-radius: 5px;
   color: var(--on-accent-text-color);
@@ -1143,8 +1201,8 @@ select.form-control {
 
 .icon-x-button:hover,
 .icon-x-button:focus {
-  background: var(--danger-color);
-  border-color: var(--danger-color);
+  background: var(--danger-fill-color);
+  border-color: var(--danger-fill-color);
   color: #ffffff;
 }
 
@@ -1639,7 +1697,7 @@ select.form-control {
 }
 
 .segmented-toggle-option.active {
-  background: var(--primary-color);
+  background: var(--primary-fill-color);
   color: var(--on-accent-text-color);
 }
 

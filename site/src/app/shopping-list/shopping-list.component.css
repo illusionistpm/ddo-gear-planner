@@ -68,8 +68,8 @@
 }
 
 .shopping-list-arrange-done {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
+    background: var(--primary-fill-color);
+    border-color: var(--primary-fill-color);
     color: var(--on-accent-text-color);
     font-weight: 700;
 }
@@ -148,8 +148,8 @@
 }
 
 .shopping-list-choice-option.active {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
+    background: var(--primary-fill-color);
+    border-color: var(--primary-fill-color);
     color: var(--on-accent-text-color);
 }
 

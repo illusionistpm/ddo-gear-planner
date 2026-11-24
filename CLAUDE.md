@@ -160,7 +160,7 @@ from ~97 places. When you need a colour:
 4. Verify with `tools/visual-diff` if the change is meant to look identical.
 
 `npm run lint` enforces this: `site/tools/check-css-colors.js` fails on a hex,
-`rgb()` or `hsl()` literal in component CSS. It allows `var(--token)`,
+`rgb()`, `hsl()` or named (`red`) literal in component CSS. It allows `var(--token)`,
 `rgba(var(--token-rgb), a)`, and the deliberate `rgba(255,255,255,...)` overlays
 on filled buttons - the only literals left in the tree.
 

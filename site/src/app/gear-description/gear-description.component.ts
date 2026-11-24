@@ -53,7 +53,8 @@ interface ItemBonusDisplayRow {
   className: string;
   tooltip: string;
   important: boolean;
-  selectedOptionTooltip: string;
+  /** What the chosen bonus grants, for its underlined text when read-only; see the picker otherwise. */
+  selectedDetails: AffixDetails | null;
 }
 
 interface SetDisplayRow {
@@ -187,7 +188,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
         className: this.affixUi.getClassForAffix(affix, undefined, candidate),
         tooltip: this.affixUi.getAffixTooltip(affix, undefined, this.curItem?.slot, candidate),
         important: this.equipped.isImportantAffix(affix.name),
-        details: this.affixUi.getAffixDetails(affix),
+        details: this.affixUi.getAffixDetails(affix, this.curItem?.ml),
         valueText: affix.hasRealType() ? this.affixUi.getAffixValueText(affix) : '',
         upgradeNote: replaced && by ? this.upgradeNote(replaced, by) : ''
       };
@@ -254,7 +255,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
         className: this.affixUi.getClassForCraftingOption(selected, candidate),
         tooltip: this.affixUi.getCraftingOptionRankTooltip(selected, item.slot, candidate),
         important: selectedAffix ? this.equipped.isImportantAffix(selectedAffix.name) : false,
-        selectedOptionTooltip: this.affixUi.getCraftingOptionTooltip(selected),
+        selectedDetails: this.affixUi.getCraftingOptionDetails(selected, item.ml),
       });
     }
     return rows;

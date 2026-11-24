@@ -9,6 +9,8 @@ import { CraftableOption } from '../../gear/craftable-option';
 import { Item } from '../../gear/item';
 import { UserItemLocationTooltipPipe } from '../../shared/user-item-location-tooltip.pipe';
 import { TapTooltipComponent, TapTooltipPanelComponent } from '../../tap-tooltip/tap-tooltip.component';
+import { AffixNameComponent } from '../../affix-name/affix-name.component';
+import { AffixDetailsComponent } from '../../affix-details/affix-details.component';
 import { SlotIconComponent } from '../../slot-icon/slot-icon.component';
 import { EquippedService } from '../equipped.service';
 import { CraftingSlotsComponent } from './crafting-slots.component';
@@ -23,7 +25,7 @@ describe('CraftingSlotsComponent', () => {
         CraftingSlotsComponent, CraftingSlotControlComponent, CraftingOptionPickerComponent,
         UserItemLocationTooltipPipe
       ],
-      imports: [FormsModule, NgbModule, SlotIconComponent, TapTooltipComponent, TapTooltipPanelComponent]
+      imports: [FormsModule, NgbModule, SlotIconComponent, TapTooltipComponent, TapTooltipPanelComponent, AffixNameComponent, AffixDetailsComponent]
     }).compileComponents();
     equipped = TestBed.inject(EquippedService);
   });

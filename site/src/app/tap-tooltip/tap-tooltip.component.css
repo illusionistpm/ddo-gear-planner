@@ -29,3 +29,24 @@
         display: none;
     }
 }
+
+/* A panel's bubble points up at the trigger that opened it, as a popover would,
+   so on a dense card it's clear which row it explains. A square turned 45deg,
+   its top half above the bubble's edge, with that edge's border on two sides. */
+.tap-tooltip-panel-bubble.tap-tooltip-has-caret {
+    margin-top: var(--space-8);
+    position: relative;
+}
+
+.tap-tooltip-panel-bubble.tap-tooltip-has-caret::before {
+    background: var(--surface-elevated-color);
+    border-left: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color);
+    content: '';
+    height: 10px;
+    left: calc(var(--tap-tooltip-caret-x) - 5px);
+    position: absolute;
+    top: -6px;
+    transform: rotate(45deg);
+    width: 10px;
+}

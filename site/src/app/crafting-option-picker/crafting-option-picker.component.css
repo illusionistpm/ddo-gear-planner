@@ -206,6 +206,15 @@
     line-height: 1.3;
 }
 
+/* Room for a wiki description under the change lines, where any option listed has one. */
+.crafting-picker-detail.crafting-picker-detail-tall {
+    height: 7.8em;
+}
+
+.crafting-picker-detail-description {
+    margin: var(--space-4) 0 0;
+}
+
 .crafting-picker-detail-heading,
 .crafting-picker-detail-why {
     color: var(--text-secondary);
@@ -313,4 +322,14 @@
     cursor: inherit;
     flex: none;
     margin-left: var(--space-4);
+}
+
+
+/* The chosen option has details to hover for: hint at it as an affix name does. */
+@media (hover: hover) {
+    .crafting-picker-toggle-explained:hover .crafting-picker-toggle-label {
+        text-decoration: underline dotted;
+        text-decoration-color: var(--text-secondary);
+        text-underline-offset: 0.2em;
+    }
 }

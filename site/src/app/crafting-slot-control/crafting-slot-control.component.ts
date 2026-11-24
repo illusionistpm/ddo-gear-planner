@@ -4,7 +4,7 @@ import {
 import { merge, Subscription } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 
-import { AffixUiService, CraftingOptionContext } from '../affixes/affix-ui.service';
+import { AffixDetails, AffixUiService, CraftingOptionContext } from '../affixes/affix-ui.service';
 import { CRAFTING_PICKER_MIN_OPTIONS } from '../crafting-option-picker/crafting-option-picker.component';
 import { AUGMENT_SLOT_1, AUGMENT_SLOT_2, canHaveSecondAugmentSlot, normalizeAugmentSlots } from '../gear/augment-slots';
 import { Craftable } from '../gear/craftable';
@@ -62,7 +62,8 @@ export class CraftingSlotControlComponent implements OnChanges, OnDestroy {
   visibleOptions: CraftableOption[] = [];
   className = '';
   tooltip = '';
-  selectedOptionTooltip = '';
+  /** What the chosen option grants, for its underlined text when read-only; see the picker otherwise. */
+  selectedDetails: AffixDetails | null = null;
 
   private maxLevel = ItemFilters.MAX_LEVEL();
   private hiddenPacks: ReadonlySet<string> = new Set<string>();
@@ -119,7 +120,7 @@ export class CraftingSlotControlComponent implements OnChanges, OnDestroy {
     this.visibleOptions = this.computeVisibleOptions(craft);
     this.className = this.affixUi.getClassForCraftable(craft, candidate);
     this.tooltip = this.affixUi.getCraftingOptionRankTooltip(craft.selected, item.slot, candidate);
-    this.selectedOptionTooltip = this.affixUi.getCraftingOptionTooltip(craft.selected);
+    this.selectedDetails = this.affixUi.getCraftingOptionDetails(craft.selected, item.ml);
     this.changeDetector.markForCheck();
     done();
   }

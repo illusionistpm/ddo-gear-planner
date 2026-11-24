@@ -1,7 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AffixDetailsComponent } from '../affix-details/affix-details.component';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { AffixDescriptionService } from '../affixes/affix-description.service';
 import { CraftingOptionPickerComponent } from './crafting-option-picker.component';
 import { CraftableOption } from '../gear/craftable-option';
 import { AffixChange, AffixUiService } from '../affixes/affix-ui.service';
@@ -39,7 +41,7 @@ describe('CraftingOptionPickerComponent', () => {
     localStorage.removeItem(HIDE_KEY);
     await TestBed.configureTestingModule({
       declarations: [CraftingOptionPickerComponent],
-      imports: [FormsModule, NgbModule]
+      imports: [FormsModule, NgbModule, AffixDetailsComponent]
     }).compileComponents();
 
     fixture = TestBed.createComponent(CraftingOptionPickerComponent);
@@ -94,6 +96,20 @@ describe('CraftingOptionPickerComponent', () => {
     searchBox().dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true }));
     fixture.detectChanges();
   }
+
+  it('adds the highlighted option\'s wiki description under what it would change', async () => {
+    TestBed.inject(AffixDescriptionService).use({ Charisma: { '*': 'Your force of personality: +{v} {type} bonus.' } });
+    await open();
+    const detail = () => document.body.querySelector('.crafting-picker-detail')!;
+    // Some option listed has a description, so the band keeps room for one throughout.
+    expect(detail().classList).toContain('crafting-picker-detail-tall');
+
+    // A collapsed family speaks for its best tier, +7.
+    familyButton('Charisma').dispatchEvent(new Event('mouseenter'));
+    fixture.detectChanges();
+    expect(detail().querySelector('.crafting-picker-detail-description')!.textContent)
+      .toBe('Your force of personality: +7 Enhancement bonus.');
+  });
 
   it('shows the selected option itself on the toggle, and nothing when there is none', () => {
     const toggleText = () => fixture.nativeElement.querySelector('.crafting-picker-toggle').textContent.trim();

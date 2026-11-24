@@ -1,7 +1,7 @@
 import { GoalsLabelComponent } from './goals-label/goals-label.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, provideAppInitializer, inject, DestroyRef, Injector, runInInjectionContext } from '@angular/core';
-import { NgbDropdownModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbPopover, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { provideHttpClient, withInterceptorsFromDi, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -59,6 +59,7 @@ import { AutofocusDirective } from './shared/autofocus.directive';
 import { PanelSwipeDirective } from './main/panel-swipe.directive';
 import { TapTooltipComponent, TapTooltipPanelComponent } from './tap-tooltip/tap-tooltip.component';
 import { AffixNameComponent } from './affix-name/affix-name.component';
+import { AffixDetailsComponent } from './affix-details/affix-details.component';
 import { CraftingOptionPickerComponent } from './crafting-option-picker/crafting-option-picker.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingListShareMenuComponent } from './shopping-list/shopping-list-share-menu.component';
@@ -128,8 +129,10 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
     ],
     imports: [
         AppRoutingModule,
-        // Only the two the templates use: NgbModule brought every widget into the initial bundle.
+        // Only the widgets the templates use: NgbModule brought every one into the initial bundle.
+        // The popover is an affix's details (AffixNameComponent, and the crafting picker's).
         NgbDropdownModule,
+        NgbPopover,
         NgbTypeaheadModule,
         BrowserModule,
         FormsModule,
@@ -140,6 +143,7 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         TapTooltipComponent,
         TapTooltipPanelComponent,
         AffixNameComponent,
+        AffixDetailsComponent,
         ListDialogComponent,
         ShortcutsDialogComponent,
         BuildChoicesComponent,

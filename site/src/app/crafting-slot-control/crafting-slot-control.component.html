@@ -15,23 +15,14 @@
 }
 @if (!readonly) {
   <div class="d-flex align-items-center" [class.col-8]="showsNameCell" [class.col]="!showsNameCell">
-    @if (visibleOptions.length >= craftingPickerMinOptions) {
+    <!-- One option (nothing but Empty) has nothing to choose between. -->
+    @if (visibleOptions.length > 1) {
       <app-crafting-option-picker class="crafting-option-picker"
         [options]="visibleOptions" [selected]="craft.selected" [className]="className"
         [slot]="item.slot" [itemIsEquipped]="itemIsEquipped" [context]="context"
+        [compact]="visibleOptions.length < craftingPickerMinOptions"
         (selectedChange)="chooseOption($event)">
       </app-crafting-option-picker>
-    } @else {
-      <select class="form-control SmallFont border border-secondary" [(ngModel)]="craft.selected" (focus)="loadAndRankOptions()" (mousedown)="loadAndRankOptions()" (change)="onSelectChange()" [ngClass]="className" [class.crafting-select-empty]="isEmpty()" [hidden]="visibleOptions.length < 2"
-        [attr.aria-label]="craft.selectedCraftingSystemName || craft.name">
-        @for (optionRow of options; track optionRow.description) {
-          <option [ngValue]="optionRow.option"
-            [ngClass]="optionRow.className"
-            [title]="optionRow.tooltip">
-            {{optionRow.description || 'Empty'}}
-          </option>
-        }
-      </select>
     }
     @if (selectedOptionTooltip) {
       <app-tap-tooltip [text]="selectedOptionTooltip" label="Show selected option details" [panel]="optionTip">

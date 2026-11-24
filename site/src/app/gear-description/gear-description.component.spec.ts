@@ -87,39 +87,36 @@ describe('GearDescriptionComponent', () => {
     expect(component.craftingRows.map(row => row.craft.name)).toEqual(['Augment Slot 1']);
   });
 
-  it('names an upgrade-tier item\'s unupgraded state Tier 1 rather than leaving it blank', () => {
+  it('names an upgrade-tier item\'s unupgraded state Tier 1 rather than leaving it blank', async () => {
     const ring = TestBed.inject(GearDbService).findGearBySlot('Ring1', 'Epic Ring of the Stalker')!;
     fixture.componentRef.setInput('item', ring);
     fixture.detectChanges();
 
     const row = Array.from(fixture.nativeElement.querySelectorAll('.row') as NodeListOf<HTMLElement>)
       .find(element => element.textContent?.includes('Upgrade Tier'))!;
-    const select = row.querySelector('select')!;
-    expect(select.selectedOptions[0].textContent!.trim()).toBe('Tier 1');
+    expect(row.querySelector('.crafting-picker-toggle-label')!.textContent!.trim()).toBe('Tier 1');
 
-    select.dispatchEvent(new Event('focus'));
-    fixture.detectChanges();
-    expect(Array.from(select.options).map(option => option.textContent!.trim())).toEqual(['Tier 1', 'Tier 2', 'Tier 3']);
+    expect(await pickerOptionNames(fixture, row)).toEqual(['Tier 1', 'Tier 2', 'Tier 3']);
   });
 
-  it('mutes Empty, and only Empty: an option that grants just a set bonus is a choice', () => {
+  it('leaves the label blank for Empty only, to show muted: an option that grants just a set bonus is a choice', () => {
     const slot = new Craftable('Legendary Lost Purpose', [
       new CraftableOption({ name: 'Legendary Delight of the Devourer', set: 'Legendary Devourer', affixes: [] }),
     ]);
     const helm = new Item({ name: 'Test Helm', slot: 'Helm', type: 'Helm', ml: 30, affixes: [], crafting: [], quests: [] });
     helm.crafting = [slot];
-    const select = () => Array.from(fixture.nativeElement.querySelectorAll('select') as NodeListOf<HTMLSelectElement>)
-      .find(element => element.closest('.row')?.textContent?.includes('Legendary Lost Purpose'))!;
+    // Blank, the toggle reads "Empty" in the placeholder colour, from its CSS.
+    const label = () => Array.from(fixture.nativeElement.querySelectorAll('.crafting-picker-toggle-label') as NodeListOf<HTMLElement>)
+      .find(element => element.closest('.row')?.textContent?.includes('Legendary Lost Purpose'))!.textContent!.trim();
 
     fixture.componentRef.setInput('item', helm);
     fixture.detectChanges();
-    expect(select().classList).toContain('crafting-select-empty');
+    expect(label()).toBe('');
 
     slot.selected = slot.options[1];
     fixture.componentRef.setInput('item', new Item(helm));
     fixture.detectChanges();
-    expect(select().selectedOptions[0].textContent!.trim()).toBe('Legendary Delight of the Devourer');
-    expect(select().classList).not.toContain('crafting-select-empty');
+    expect(label()).toBe('Legendary Delight of the Devourer');
   });
 
   describe('crafting options with minimum levels', () => {
@@ -135,29 +132,27 @@ describe('GearDescriptionComponent', () => {
       fixture.detectChanges();
     }
 
-    /** The option names the item's crafting select offers, once focused as a user would. */
-    function offeredOptions(): string[] {
-      const select = Array.from(fixture.nativeElement.querySelectorAll('select') as NodeListOf<HTMLSelectElement>)
-        .find(element => element.closest('.row')?.textContent?.includes('Colorless Augment Slot'));
-      expect(select).toBeTruthy();
-      select!.dispatchEvent(new Event('focus'));
-      fixture.detectChanges();
-      return Array.from(select!.options).map(option => option.textContent!.trim()).filter(label => label !== 'Empty');
+    /** The option names the item's crafting picker offers, once opened as a user would. */
+    async function offeredOptions(): Promise<string[]> {
+      const row = Array.from(fixture.nativeElement.querySelectorAll('.row') as NodeListOf<HTMLElement>)
+        .find(element => element.querySelector('.crafting-picker-toggle') && element.textContent?.includes('Colorless Augment Slot'));
+      expect(row).toBeTruthy();
+      return (await pickerOptionNames(fixture, row!)).filter(label => label !== 'Empty');
     }
 
-    it('offers options up to the maximum level, however far below the minimum', () => {
+    it('offers options up to the maximum level, however far below the minimum', async () => {
       showItem(makeItemWithLeveledOptions());
 
-      expect(offeredOptions()).toEqual(['Low Augment', 'Mid Augment']);
+      expect(await offeredOptions()).toEqual(['Low Augment', 'Mid Augment']);
     });
 
-    it('still offers the chosen option when it is above the maximum level', () => {
+    it('still offers the chosen option when it is above the maximum level', async () => {
       const item = makeItemWithLeveledOptions();
       const craft = item.crafting[0];
       craft.selected = craft.options.find(option => option.name === 'High Augment')!;
       showItem(item);
 
-      expect(offeredOptions()).toEqual(['Low Augment', 'Mid Augment', 'High Augment']);
+      expect(await offeredOptions()).toEqual(['Low Augment', 'Mid Augment', 'High Augment']);
     });
 
     it('lists options up to the maximum level in the picker, however far below the minimum', async () => {
@@ -180,14 +175,14 @@ describe('GearDescriptionComponent', () => {
       expect(tierLabels).toEqual(['+1 (ML 1)', '+3 (ML 5)', '+5 (ML 9)', '+7 (ML 13)', '+9 (ML 17)']);
     });
 
-    it('offers the options again when the maximum level is raised', () => {
+    it('offers the options again when the maximum level is raised', async () => {
       showItem(makeItemWithLeveledOptions());
-      expect(offeredOptions()).toEqual(['Low Augment', 'Mid Augment']);
+      expect(await offeredOptions()).toEqual(['Low Augment', 'Mid Augment']);
 
       filters.setLevelRange(15, 30);
       fixture.detectChanges();
 
-      expect(offeredOptions()).toEqual(['Low Augment', 'Mid Augment', 'High Augment']);
+      expect(await offeredOptions()).toEqual(['Low Augment', 'Mid Augment', 'High Augment']);
     });
   });
 
@@ -248,33 +243,31 @@ describe('GearDescriptionComponent', () => {
       fixture.detectChanges();
     }
 
-    function offeredOptions(): string[] {
-      const select = Array.from(fixture.nativeElement.querySelectorAll('select') as NodeListOf<HTMLSelectElement>)
-        .find(element => element.closest('.row')?.textContent?.includes('Colorless Augment Slot'));
-      expect(select).toBeTruthy();
-      select!.dispatchEvent(new Event('focus'));
-      fixture.detectChanges();
-      return Array.from(select!.options).map(option => option.textContent!.trim()).filter(label => label !== 'Empty');
+    async function offeredOptions(): Promise<string[]> {
+      const row = Array.from(fixture.nativeElement.querySelectorAll('.row') as NodeListOf<HTMLElement>)
+        .find(element => element.querySelector('.crafting-picker-toggle') && element.textContent?.includes('Colorless Augment Slot'));
+      expect(row).toBeTruthy();
+      return (await pickerOptionNames(fixture, row!)).filter(label => label !== 'Empty');
     }
 
-    it('leaves out an augment only from hidden packs, keeping sourceless and partly-shown ones', () => {
+    it('leaves out an augment only from hidden packs, keeping sourceless and partly-shown ones', async () => {
       showItem(makeItemWithSourcedOptions());
-      expect(offeredOptions()).toEqual(['Myth Drannor Augment', 'Two Pack Augment', 'Sourceless Augment']);
+      expect(await offeredOptions()).toEqual(['Myth Drannor Augment', 'Two Pack Augment', 'Sourceless Augment']);
 
       filters.setHiddenPacks(new Set(['Magic of Myth Drannor', NO_PACK_KEY]));
       fixture.detectChanges();
 
-      expect(offeredOptions()).toEqual(['Two Pack Augment', 'Sourceless Augment']);
+      expect(await offeredOptions()).toEqual(['Two Pack Augment', 'Sourceless Augment']);
     });
 
-    it('still offers the slotted augment when its packs are hidden', () => {
+    it('still offers the slotted augment when its packs are hidden', async () => {
       const item = makeItemWithSourcedOptions();
       const craft = item.crafting[0];
       craft.selected = craft.options.find(option => option.name === 'Myth Drannor Augment')!;
       filters.setHiddenPacks(new Set(['Magic of Myth Drannor']));
       showItem(item);
 
-      expect(offeredOptions()).toEqual(['Myth Drannor Augment', 'Two Pack Augment', 'Sourceless Augment']);
+      expect(await offeredOptions()).toEqual(['Myth Drannor Augment', 'Two Pack Augment', 'Sourceless Augment']);
     });
   });
 
@@ -329,7 +322,7 @@ describe('GearDescriptionComponent', () => {
 
     function craftingRows(): HTMLElement[] {
       return Array.from(fixture.nativeElement.querySelectorAll('.row') as NodeListOf<HTMLElement>)
-        .filter(row => row.querySelector('select') || row.querySelector('.readonly-crafting-option'));
+        .filter(row => row.querySelector('select, .crafting-picker-toggle, .readonly-crafting-option'));
     }
 
     async function choose(select: HTMLSelectElement, label: string) {
@@ -349,7 +342,7 @@ describe('GearDescriptionComponent', () => {
     it('equips the item with an option chosen from a short list', async () => {
       await show(makeItemWithLeveledOptions());
 
-      await choose(craftingRows()[0].querySelector('select')!, 'Low Augment');
+      await choosePickerOption(fixture, craftingRows()[0], 'Low Augment');
 
       expect(lastEquipped().getCraftingByName('Colorless Augment Slot')?.selected.name).toBe('Low Augment');
     });
@@ -381,13 +374,16 @@ describe('GearDescriptionComponent', () => {
       expect(craftingRows()).toHaveLength(1);
     });
 
-    it('uses the picker for a long list and a select for a short one', async () => {
+    it('uses the full picker for a long list and the compact one, with no search, for a short list', async () => {
       await show(makeItemWithLongCraftingList());
-      expect(fixture.nativeElement.querySelector('.crafting-picker-toggle')).toBeTruthy();
+      await openPicker(fixture, craftingRows()[0]);
+      expect(document.body.querySelector('.crafting-picker-search')).toBeTruthy();
+      await openPicker(fixture, craftingRows()[0]);
 
       await show(makeItemWithLeveledOptions());
-      expect(fixture.nativeElement.querySelector('.crafting-picker-toggle')).toBeNull();
-      expect(craftingRows()[0].querySelector('select')).toBeTruthy();
+      await openPicker(fixture, craftingRows()[0]);
+      expect(document.body.querySelector('.crafting-picker-family')).toBeTruthy();
+      expect(document.body.querySelector('.crafting-picker-search')).toBeNull();
     });
 
     it('shows the chosen option as text when read-only, and Empty when there is none', async () => {
@@ -399,7 +395,7 @@ describe('GearDescriptionComponent', () => {
       chosen.crafting[0].selectByParamDescription('Mid Augment');
       await show(chosen, true);
       expect(fixture.nativeElement.querySelector('.readonly-crafting-option').textContent.trim()).toContain('Mid Augment');
-      expect(fixture.nativeElement.querySelector('select')).toBeNull();
+      expect(fixture.nativeElement.querySelector('select, .crafting-picker-toggle')).toBeNull();
     });
   });
 
@@ -608,6 +604,41 @@ async function chooseCraftingOption(fixture: ComponentFixture<GearDescriptionCom
 }
 
 /** An item with a short list of augments, one below the level range, one inside it and one above it. */
+/** Opens the crafting picker in `row`, as a user would. Its menu goes to <body>. */
+async function openPicker(fixture: ComponentFixture<GearDescriptionComponent>, row: HTMLElement) {
+  (row.querySelector('.crafting-picker-toggle') as HTMLButtonElement).click();
+  fixture.detectChanges();
+  await fixture.whenStable();
+  fixture.detectChanges();
+}
+
+/** An open picker's entries, each by its option's name (or, where it has none to show, its label). */
+function pickerEntries(): Array<{ name: string; button: HTMLButtonElement }> {
+  return Array.from(document.body.querySelectorAll<HTMLButtonElement>('.crafting-picker-family')).map(button => ({
+    button,
+    name: (button.querySelector('.crafting-picker-entry-aside')?.textContent?.trim()
+      || button.querySelector('.crafting-picker-family-name')!.textContent!.trim())
+  }));
+}
+
+/** The names of the options the crafting picker in `row` offers, in order; closes it again. */
+async function pickerOptionNames(fixture: ComponentFixture<GearDescriptionComponent>, row: HTMLElement): Promise<string[]> {
+  await openPicker(fixture, row);
+  const names = pickerEntries().map(entry => entry.name);
+  await openPicker(fixture, row);
+  return names;
+}
+
+async function choosePickerOption(fixture: ComponentFixture<GearDescriptionComponent>, row: HTMLElement, name: string) {
+  await openPicker(fixture, row);
+  const entry = pickerEntries().find(candidate => candidate.name === name);
+  expect(entry).toBeTruthy();
+  entry!.button.click();
+  fixture.detectChanges();
+  await fixture.whenStable();
+  fixture.detectChanges();
+}
+
 function makeItemWithLeveledOptions() {
   const options = [
     new CraftableOption({ name: 'Low Augment', ml: 5, affixes: [{ name: 'Charisma', type: 'Enhancement', value: 1 }] }),

@@ -18,13 +18,6 @@ import { FiltersService } from '../planner/filters.service';
 import { UserGearService, UserItemLocation } from '../planner/user-gear.service';
 import { perfAggregateStart, perfCount } from '../shared/perf-trace';
 
-interface CraftingOptionDisplayRow {
-  option: CraftableOption;
-  className?: string;
-  tooltip?: string;
-  description: string;
-}
-
 /** What an empty "pick a system first" slot reads as, or a plain slot's own name. */
 export function craftingSystemEmptyLabel(craft: Craftable): string {
   return craft.hasCraftingSystemOptions() ? 'No augment slot' : craft.name;
@@ -32,8 +25,8 @@ export function craftingSystemEmptyLabel(craft: Craftable): string {
 
 /**
  * One crafting slot's controls: the system to pick first where the slot has a
- * choice of them (else its name), and the option in it - a picker for a long
- * list, a select for a short one, or the choice as text when read-only.
+ * choice of them (else its name), and the option in it - a picker, compact for
+ * a short list - or the choice as text when read-only.
  *
  * It renders two grid cells and no box of its own (display: contents), so it
  * sits in its host's Bootstrap `.row` beside whatever else the row carries.
@@ -41,7 +34,6 @@ export function craftingSystemEmptyLabel(craft: Craftable): string {
  * It changes the Craftable in place and emits `changed`; saving the item
  * (equipping it) is the host's call.
  */
-import { isCraftingSlotEmpty } from '../planner/crafting-slots/crafting-slot-groups';
 @Component({
   selector: 'app-crafting-slot-control',
   templateUrl: './crafting-slot-control.component.html',
@@ -65,23 +57,12 @@ export class CraftingSlotControlComponent implements OnChanges, OnDestroy {
   readonly craftingPickerMinOptions = CRAFTING_PICKER_MIN_OPTIONS;
   readonly emptyLabel = craftingSystemEmptyLabel;
 
-  /**
-   * Nothing chosen, so the dropdown's "Empty" is muted. Not "no affixes": an option
-   * that grants a set bonus (Legendary Delight of the Devourer) has none, and is chosen.
-   */
-  isEmpty(): boolean {
-    return isCraftingSlotEmpty(this.craft);
-  }
-
   context: CraftingOptionContext | undefined;
   /** The options offered: those within the level filter's maximum, plus the chosen one. */
   visibleOptions: CraftableOption[] = [];
   className = '';
   tooltip = '';
   selectedOptionTooltip = '';
-  options: CraftingOptionDisplayRow[] = [];
-  private optionsLoaded = false;
-  private optionsRanked = false;
 
   private maxLevel = ItemFilters.MAX_LEVEL();
   private hiddenPacks: ReadonlySet<string> = new Set<string>();
@@ -118,8 +99,6 @@ export class CraftingSlotControlComponent implements OnChanges, OnDestroy {
   }
 
   ngOnChanges(): void {
-    this.optionsLoaded = false;
-    this.optionsRanked = false;
     this.refresh();
   }
 
@@ -141,9 +120,8 @@ export class CraftingSlotControlComponent implements OnChanges, OnDestroy {
     this.className = this.affixUi.getClassForCraftable(craft, candidate);
     this.tooltip = this.affixUi.getCraftingOptionRankTooltip(craft.selected, item.slot, candidate);
     this.selectedOptionTooltip = this.affixUi.getCraftingOptionTooltip(craft.selected);
-    this.options = this.buildOptionRows(this.optionsRanked, this.optionsLoaded);
     this.changeDetector.markForCheck();
-    done({ optionRows: this.options.length, rankedOptionRows: this.optionsRanked ? this.options.length : 0 });
+    done();
   }
 
   describe(option: CraftableOption): string {
@@ -161,28 +139,12 @@ export class CraftingSlotControlComponent implements OnChanges, OnDestroy {
     this.emitChanged();
   }
 
-  onSelectChange(): void {
-    this.emitChanged();
-  }
-
   updateCraftingSystem(): void {
     this.craft.selectCraftingSystem(this.craft.selectedCraftingSystemName);
     if (this.craft.name === AUGMENT_SLOT_1 && !canHaveSecondAugmentSlot(this.item)) {
       this.item.getCraftingByName(AUGMENT_SLOT_2)?.selectCraftingSystem('');
     }
-    this.optionsLoaded = false;
-    this.optionsRanked = false;
     this.emitChanged();
-  }
-
-  loadAndRankOptions(): void {
-    if (this.readonly || (this.optionsLoaded && this.optionsRanked)) {
-      return;
-    }
-    this.optionsLoaded = true;
-    this.optionsRanked = true;
-    this.options = this.buildOptionRows(true, true);
-    this.changeDetector.markForCheck();
   }
 
   private emitChanged(): void {
@@ -211,28 +173,5 @@ export class CraftingSlotControlComponent implements OnChanges, OnDestroy {
     return !selected || isVisible(selected)
       ? cached.options
       : all.filter(option => option === selected || isVisible(option));
-  }
-
-  private buildOptionRows(includeRank: boolean, includeAllOptions: boolean): CraftingOptionDisplayRow[] {
-    if (this.readonly) {
-      return [];
-    }
-    const done = perfAggregateStart('CraftingSlotControlComponent.buildOptionRows');
-    const craft = this.craft;
-    const item = this.item;
-    const options = includeAllOptions ? this.visibleOptions : [craft.selected];
-    const rows = options.map(option => {
-      const ranking = includeRank
-        ? this.affixUi.rankCraftingOption(option, item.slot, false, { item, craft })
-        : null;
-      return {
-        option,
-        className: ranking?.className,
-        tooltip: (ranking ? ranking.tooltip : this.affixUi.getCraftingOptionTooltip(option)) || undefined,
-        description: option.describe()
-      };
-    });
-    done({ rows: rows.length, rankedRows: includeRank ? rows.length : 0, fullOptionLists: includeAllOptions ? 1 : 0 });
-    return rows;
   }
 }

@@ -69,11 +69,13 @@ describe('CraftingSlotsComponent', () => {
     equipped.set(item('Belt', 'Sunny Belt', 'Sun Augment Slot'));
     await render();
 
-    const select = group('Sun Augment Slot').querySelectorAll<HTMLElement>('.crafting-slot-row')[1].querySelector('select')!;
-    select.dispatchEvent(new Event('focus'));
+    const row = group('Sun Augment Slot').querySelectorAll<HTMLElement>('.crafting-slot-row')[1];
+    (row.querySelector('.crafting-picker-toggle') as HTMLButtonElement).click();
     fixture.detectChanges();
-    select.selectedIndex = Array.from(select.options).findIndex(option => option.textContent!.trim() === 'Sun Augment Slot Gem');
-    select.dispatchEvent(new Event('change'));
+    await fixture.whenStable();
+    fixture.detectChanges();
+    Array.from(document.body.querySelectorAll<HTMLButtonElement>('.crafting-picker-family'))
+      .find(entry => entry.textContent!.includes('Sun Augment Slot Gem'))!.click();
     fixture.detectChanges();
     await fixture.whenStable();
     fixture.detectChanges();
@@ -91,9 +93,9 @@ describe('CraftingSlotsComponent', () => {
     equipped.set(helm);
     await render();
 
-    const select = el().querySelector<HTMLSelectElement>('.crafting-slot-row select')!;
+    const label = el().querySelector<HTMLElement>('.crafting-slot-row .crafting-picker-toggle-label')!;
     // The colour itself is a global style, scoped in styles.css to the views that show rank colours.
-    expect(select.classList).toContain('Best');
+    expect(label.classList).toContain('Best');
   });
 
   it('shows only the empty slots when asked, leaving out groups with none', async () => {

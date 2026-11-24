@@ -7,7 +7,7 @@
     font-size: 0.8125rem;
 }
 
-/* Sized like gear-description's compact crafting selects, which it stands in for. */
+/* Sized like the crafting-system selects beside it, so a row's two dropdowns match. */
 .crafting-picker-toggle {
     border-radius: 6px;
     line-height: 1.3;

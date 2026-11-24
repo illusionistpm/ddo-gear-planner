@@ -46,7 +46,6 @@
         <app-build-actions #buildActions>
             <app-support-link barUtility #support [collapseTriggerOnPhone]="true" (opened)="credits.close()"></app-support-link>
             <app-credits barUtility #credits [hideTrigger]="true" (opened)="support.close()"></app-credits>
-            <app-admin-link barUtility></app-admin-link>
 
             <div class="menu-theme" role="group" aria-label="Theme">
                 <span class="menu-theme-label">
@@ -71,6 +70,8 @@
                 (click)="$event.stopPropagation(); buildActions.closeMenu(); support.toggle(plannerChrome)">
                 <i class="fas fa-mug-hot menu-row-icon" aria-hidden="true"></i>Buy me a coffee
             </button>
+            <!-- Local builds only; renders nothing in production. -->
+            <app-admin-link (acted)="buildActions.closeMenu()"></app-admin-link>
         </app-build-actions>
 
         <div class="planner-chrome-break" aria-hidden="true"></div>

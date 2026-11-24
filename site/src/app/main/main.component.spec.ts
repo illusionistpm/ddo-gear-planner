@@ -212,10 +212,32 @@ describe('MainComponent', () => {
     expect(onboarding.shouldShowWrapUp()).toBe(false);
   });
 
-  it('renders non-production admin access in the workspace bar', () => {
+  it('renders non-production admin access inside the account menu, not the bar', () => {
     const compiled: HTMLElement = fixture.nativeElement;
 
-    expect(compiled.querySelector('.planner-chrome app-admin-link')).not.toBeNull();
+    expect(compiled.querySelector('.planner-chrome .account-menu app-admin-link .admin-group')).not.toBeNull();
+    expect(compiled.querySelectorAll('.planner-chrome app-admin-link').length).toBe(1);
+  });
+
+  it('closes the account menu when an admin row is used', () => {
+    const compiled: HTMLElement = fixture.nativeElement;
+    (compiled.querySelector('.account-toggle') as HTMLButtonElement).click();
+    fixture.detectChanges();
+    expect(compiled.querySelector('.account-menu.open')).not.toBeNull();
+
+    const inspect = [...compiled.querySelectorAll<HTMLButtonElement>('.admin-panel-action')]
+      .find(button => button.textContent?.includes('Inspect URL data'))!;
+    inspect.click();
+    fixture.detectChanges();
+
+    expect(compiled.querySelector('.account-menu.open')).toBeNull();
+    // On <body>, so the closed (display: none) menu doesn't hide it.
+    const inspector = document.body.querySelector(':scope > .admin-inspector-layer .admin-url-inspector');
+    expect(inspector).not.toBeNull();
+
+    (inspector!.querySelector('.admin-close-button') as HTMLButtonElement).click();
+    fixture.detectChanges();
+    expect(document.body.querySelector('.admin-inspector-layer')).toBeNull();
   });
 
   it('switches views from the workspace toolbar', () => {
@@ -294,7 +316,7 @@ describe('MainComponent', () => {
       expect(menu.querySelector('.menu-theme')).not.toBeNull();
       expect([...menu.querySelectorAll('.menu-row')].map(e => e.textContent?.trim()))
         .toEqual(['About and credits', 'Buy me a coffee']);
-      expect(actions.querySelector('app-admin-link')).not.toBeNull();
+      expect(menu.querySelector('app-admin-link')).not.toBeNull();
     });
 
     it('has exactly one menu for the account and the site', () => {

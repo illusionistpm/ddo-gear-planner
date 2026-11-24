@@ -111,37 +111,39 @@ describe('AdminLinkComponent', () => {
     expect(component.urlInspectionJson).not.toContain('"nongear"');
   });
 
-  it('closes the admin menu on a click anywhere else, or Escape', () => {
-    const panel = () => fixture.nativeElement.querySelector('.admin-panel');
-    const open = () => {
-      fixture.nativeElement.querySelector('.admin-button').click();
-      fixture.detectChanges();
-      expect(panel()).not.toBeNull();
-    };
+  it('lists its tools as rows, for the account menu to hold', () => {
     fixture.detectChanges();
 
-    open();
-    fixture.nativeElement.querySelector('.menu-backdrop').click();
-    fixture.detectChanges();
-    expect(panel()).toBeNull();
-
-    open();
-    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
-    fixture.detectChanges();
-    expect(panel()).toBeNull();
+    const rows = [...fixture.nativeElement.querySelectorAll('.admin-row')].map((e: Element) => e.textContent?.trim());
+    expect(rows).toEqual(['Performance logging', 'Reset onboarding', 'Inspect URL data', 'Open admin page']);
   });
 
-  it('opens the URL inspector from the admin menu', () => {
+  it('asks its menu to close after resetting onboarding', () => {
+    const acted = vi.fn();
+    component.acted.subscribe(acted);
     fixture.detectChanges();
 
-    fixture.debugElement.query(By.css('.admin-button')).triggerEventHandler('click');
+    fixture.debugElement.queryAll(By.css('.admin-panel-action'))[0].triggerEventHandler('click');
+
+    expect(TestBed.inject(PlannerOnboardingService).resetIntro).toHaveBeenCalled();
+    expect(acted).toHaveBeenCalledTimes(1);
+  });
+
+  it('opens the URL inspector on <body>, outside the menu, and removes it on destroy', () => {
+    const acted = vi.fn();
+    component.acted.subscribe(acted);
     fixture.detectChanges();
 
     fixture.debugElement.queryAll(By.css('.admin-panel-action'))[1].triggerEventHandler('click');
     fixture.detectChanges();
 
     expect(component.inspectorOpen).toBe(true);
-    expect(fixture.debugElement.query(By.css('.admin-url-inspector'))).not.toBeNull();
+    expect(acted).toHaveBeenCalledTimes(1);
+    expect(fixture.nativeElement.querySelector('.admin-url-inspector')).toBeNull();
+    expect(document.body.querySelector(':scope > .admin-inspector-layer .admin-url-inspector')).not.toBeNull();
+
+    fixture.destroy();
+    expect(document.body.querySelector('.admin-inspector-layer')).toBeNull();
   });
 
   it('renders nothing for real site visitors in production', () => {
@@ -151,7 +153,7 @@ describe('AdminLinkComponent', () => {
       fixture = TestBed.createComponent(AdminLinkComponent);
       fixture.detectChanges();
 
-      expect(fixture.debugElement.query(By.css('.admin-menu'))).toBeNull();
+      expect(fixture.debugElement.query(By.css('.admin-group'))).toBeNull();
       expect(fixture.nativeElement.textContent.trim()).toBe('');
     }
     finally {

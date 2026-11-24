@@ -1,12 +1,9 @@
 import { ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
 import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
 import { AffixDetails } from '../affixes/affix-ui.service';
+import { AffixDetailsComponent } from '../affix-details/affix-details.component';
+import { canHover, HoverPopover } from '../affix-details/hover-popover';
 import { TapTooltipOwner, TapTooltipPanelComponent } from '../tap-tooltip/tap-tooltip.component';
-
-/** A hover only opens after this, so sweeping the pointer down a card doesn't flash every row's details. */
-const HOVER_OPEN_DELAY_MS = 200;
-/** And closes after this, so the pointer can cross the gap into the popover (to follow its wiki link). */
-const HOVER_CLOSE_DELAY_MS = 200;
 
 /** Template context for the details content: the popover shows the affix's name; the panel sits under its row. */
 interface DetailsContext {
@@ -14,8 +11,9 @@ interface DetailsContext {
 }
 
 /**
- * An affix's name, underlined when there's more to say about it (AffixUiService.getAffixDetails):
- * what it does, in DDO Wiki's words, and what a compound affix counts toward.
+ * An affix's (or a read-only crafting option's) name, underlined when there's more to say about it
+ * (AffixUiService.getAffixDetails, getCraftingOptionDetails): what it does, in DDO Wiki's words, and
+ * what a compound affix counts toward.
  *
  * Where the device can hover, the details are a popover: on hover, or pinned by a click (or Enter).
  * On touch, a tap opens them in `panel`, a full-width line under the row - a popover anchored to a
@@ -26,7 +24,7 @@ interface DetailsContext {
     selector: 'app-affix-name',
     templateUrl: './affix-name.component.html',
     styleUrls: ['./affix-name.component.css'],
-    imports: [NgbPopover],
+    imports: [NgbPopover, AffixDetailsComponent],
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: { style: 'display: contents' }
 })
@@ -38,15 +36,20 @@ export class AffixNameComponent implements TapTooltipOwner, OnDestroy {
 
   @ViewChild('detailsContent', { static: true }) content!: TemplateRef<DetailsContext>;
   @ViewChild(NgbPopover) private popover?: NgbPopover;
+  @ViewChild('trigger') private trigger?: ElementRef<HTMLElement>;
 
   readonly text = '';
   readonly contentContext: DetailsContext = { heading: false };
-  private readonly hoverCapable = typeof matchMedia === 'function' && matchMedia('(hover: hover)').matches;
+  readonly hover = new HoverPopover(() => this.popover, () => ({ heading: true } satisfies DetailsContext));
+  private readonly hoverCapable = canHover();
   /** Opened by a click: stays open until another click, Escape or a click elsewhere. */
   private pinned = false;
-  private hoverTimer?: ReturnType<typeof setTimeout>;
 
   constructor(private elementRef: ElementRef<HTMLElement>) {
+  }
+
+  get anchor(): HTMLElement | null {
+    return this.trigger?.nativeElement ?? null;
   }
 
   get usesPopover(): boolean {
@@ -57,40 +60,33 @@ export class AffixNameComponent implements TapTooltipOwner, OnDestroy {
     return !!this.panel?.isOpenFor(this);
   }
 
-  get wikiUrl(): string {
-    return 'https://ddowiki.com/index.php?search=' + encodeURIComponent(this.name);
-  }
-
   onClick(event: Event) {
     event.stopPropagation();
     if (!this.usesPopover) {
       this.panel!.toggle(this);
       return;
     }
-    this.clearHoverTimer();
+    this.hover.keepOpen();
     if (this.pinned && this.popover?.isOpen()) {
       this.popover.close();
     } else {
       this.pinned = true;
-      this.openPopover();
+      if (!this.popover?.isOpen()) {
+        this.popover?.open({ heading: true } satisfies DetailsContext);
+      }
     }
   }
 
   onPointerEnter() {
     if (this.hoverCapable && !this.pinned) {
-      this.schedule(() => this.openPopover(), HOVER_OPEN_DELAY_MS);
+      this.hover.enter();
     }
   }
 
   onPointerLeave() {
     if (this.hoverCapable && !this.pinned) {
-      this.schedule(() => this.popover?.close(), HOVER_CLOSE_DELAY_MS);
+      this.hover.leave();
     }
-  }
-
-  /** The pointer reached the popover itself: keep it open. */
-  keepOpen() {
-    this.clearHoverTimer();
   }
 
   onPopoverHidden() {
@@ -106,28 +102,7 @@ export class AffixNameComponent implements TapTooltipOwner, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.clearHoverTimer();
+    this.hover.destroy();
     this.panel?.close(this);
-  }
-
-  private openPopover() {
-    if (!this.popover?.isOpen()) {
-      this.popover?.open({ heading: true } satisfies DetailsContext);
-    }
-  }
-
-  private schedule(action: () => void, delayMs: number) {
-    this.clearHoverTimer();
-    this.hoverTimer = setTimeout(() => {
-      this.hoverTimer = undefined;
-      action();
-    }, delayMs);
-  }
-
-  private clearHoverTimer() {
-    if (this.hoverTimer !== undefined) {
-      clearTimeout(this.hoverTimer);
-      this.hoverTimer = undefined;
-    }
   }
 }

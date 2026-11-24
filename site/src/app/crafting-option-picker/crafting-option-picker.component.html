@@ -4,7 +4,11 @@
       (openChange)="onOpenChange($event)">
     <button #toggle type="button" ngbDropdownToggle
         class="form-control SmallFont border border-secondary crafting-picker-toggle"
-        [attr.aria-label]="selectedLabel ? 'Choose option: ' + selectedLabel : 'Choose option'">
+        [class.crafting-picker-toggle-explained]="!!selectedDetails"
+        [attr.aria-label]="selectedLabel ? 'Choose option: ' + selectedLabel : 'Choose option'"
+        #selectedPopover="ngbPopover" [ngbPopover]="hoverCapable && selectedDetails ? selectedDetailsContent : null"
+        triggers="manual" container="body" popoverClass="affix-details-popover" placement="bottom-start top-start bottom top"
+        (mouseenter)="onToggleEnter()" (mouseleave)="hover.leave()">
       <span class="crafting-picker-toggle-label" [ngClass]="className">{{selectedLabel}}</span>
     </button>
     <div #menu ngbDropdownMenu class="crafting-picker-menu">
@@ -92,7 +96,7 @@
           }
         </div>
         @if (activeDetail; as detail) {
-          <div class="crafting-picker-detail">
+          <div class="crafting-picker-detail" [class.crafting-picker-detail-tall]="listHasDescriptions">
             @if (detail.heading) {
               <div class="crafting-picker-detail-heading">{{detail.heading}}</div>
             }
@@ -102,9 +106,18 @@
             @if (detail.why) {
               <div class="crafting-picker-detail-why">{{detail.why}}</div>
             }
+            @if (detail.description) {
+              <p class="crafting-picker-detail-description">{{detail.description}}</p>
+            }
           </div>
         }
       }
     </div>
   </div>
 </div>
+
+<ng-template #selectedDetailsContent>
+  @if (selectedDetails; as details) {
+    <app-affix-details [details]="details" [heading]="true" (mouseenter)="hover.keepOpen()" (mouseleave)="hover.leave()" />
+  }
+</ng-template>

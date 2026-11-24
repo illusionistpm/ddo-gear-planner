@@ -1,6 +1,6 @@
 @if (details) {
   <!-- title="": the row's own [title] is its rank tooltip, which would otherwise show over the details. -->
-  <button type="button" class="affix-name-trigger" title=""
+  <button #trigger type="button" class="affix-name-trigger" title=""
       [attr.aria-expanded]="usesPopover ? null : panelOpen"
       [ngbPopover]="usesPopover ? content : null" triggers="manual" container="body"
       popoverClass="affix-details-popover" placement="bottom-start top-start bottom top"
@@ -10,24 +10,7 @@
 
 <ng-template #detailsContent let-heading="heading">
   @if (details; as details) {
-    <div class="affix-details" (mouseenter)="keepOpen()" (mouseleave)="onPointerLeave()">
-      @if (heading) {
-        <div class="affix-details-heading">{{details.name}}</div>
-      }
-      @if (details.description) {
-        <p class="affix-details-description">{{details.description}}</p>
-      }
-      @if (details.parts.length) {
-        <div class="affix-details-label">Counts toward</div>
-        <ul class="affix-details-parts">
-          @for (part of details.parts; track $index) {
-            <li><span>{{part.name}}</span><span class="affix-details-part-value">{{part.value}}</span></li>
-          }
-        </ul>
-      }
-      @if (details.description) {
-        <a class="affix-details-source" [href]="wikiUrl" target="_blank" rel="noreferrer">More on DDO Wiki</a>
-      }
-    </div>
+    <app-affix-details [details]="details" [heading]="heading"
+        (mouseenter)="hover.keepOpen()" (mouseleave)="onPointerLeave()" />
   }
 </ng-template>

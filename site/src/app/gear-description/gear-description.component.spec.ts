@@ -12,6 +12,7 @@ import { EquippedService } from '../planner/equipped.service';
 import { FiltersService } from '../planner/filters.service';
 import { TapTooltipComponent, TapTooltipPanelComponent } from '../tap-tooltip/tap-tooltip.component';
 import { AffixNameComponent } from '../affix-name/affix-name.component';
+import { AffixDetailsComponent } from '../affix-details/affix-details.component';
 import { CraftingOptionPickerComponent } from '../crafting-option-picker/crafting-option-picker.component';
 import { NO_PACK_KEY } from '../gear/pack-filter';
 import { UserGearService } from '../planner/user-gear.service';
@@ -26,7 +27,7 @@ describe('GearDescriptionComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ GearDescriptionComponent, CraftingSlotControlComponent, CraftingOptionPickerComponent, UserItemLocationTooltipPipe ],
-      imports: [ FormsModule, NgbModule, TapTooltipComponent, TapTooltipPanelComponent, AffixNameComponent ]
+      imports: [ FormsModule, NgbModule, TapTooltipComponent, TapTooltipPanelComponent, AffixNameComponent, AffixDetailsComponent ]
     })
     .compileComponents();
   });
@@ -491,6 +492,9 @@ describe('GearDescriptionComponent', () => {
       await show(chosen, true);
       expect(fixture.nativeElement.querySelector('.readonly-crafting-option').textContent.trim()).toContain('Mid Augment');
       expect(fixture.nativeElement.querySelector('select, .crafting-picker-toggle')).toBeNull();
+      // A named augment says what it grants from its underlined name, not an eye beside it.
+      expect(fixture.nativeElement.querySelector('.readonly-crafting-option .affix-name-trigger').textContent).toBe('Mid Augment');
+      expect(fixture.nativeElement.querySelector('.readonly-crafting-option .fa-eye')).toBeNull();
     });
   });
 

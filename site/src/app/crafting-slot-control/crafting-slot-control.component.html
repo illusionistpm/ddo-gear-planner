@@ -24,23 +24,14 @@
         (selectedChange)="chooseOption($event)">
       </app-crafting-option-picker>
     }
-    @if (selectedOptionTooltip) {
-      <app-tap-tooltip [text]="selectedOptionTooltip" label="Show selected option details" [panel]="optionTip">
-        <i class="fas fa-eye small ms-2 option-details-icon" aria-hidden="true"></i>
-      </app-tap-tooltip>
-    }
     @if (getCraftLocations(); as locations) {
       <span class="owned-badge crafting-owned-badge" [title]="locations | userItemLocationTooltip">Owned</span>
     }
   </div>
 } @else {
+  <!-- The choice as text, underlined when there's more to say about it. -->
   <div class="col-8 readonly-crafting-option" [ngClass]="className" [title]="tooltip">
-    {{describe(craft.selected) || 'Empty'}}
-    @if (selectedOptionTooltip) {
-      <app-tap-tooltip [text]="selectedOptionTooltip" label="Show selected option details" [panel]="optionTip">
-        <i class="fas fa-eye small ms-1 option-details-icon" aria-hidden="true"></i>
-      </app-tap-tooltip>
-    }
+    <app-affix-name [name]="describe(craft.selected) || 'Empty'" [details]="selectedDetails" [panel]="optionTip" />
     @if (getCraftLocations(); as locations) {
       <span class="owned-badge crafting-owned-badge" [title]="locations | userItemLocationTooltip">Owned</span>
     }

@@ -18,7 +18,7 @@
 }
 
 /*
- * Compact the crafting dropdowns so their rows are close to the height of the plain
+ * Compact the augment-colour dropdown so its row is close to the height of the plain
  * affix rows; the global .form-control padding is sized for full-width form inputs.
  */
 select.form-control.SmallFont {

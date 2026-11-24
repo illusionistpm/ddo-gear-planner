@@ -17,7 +17,8 @@ describe('AffixUiService', () => {
     expect(service.getAffixDetails(new Affix({ name: 'Paired Riposte', type: 'Insight', value: 2 }))).toEqual({
       name: 'Paired Riposte',
       description: 'When Missed by an attack: Deals damage to your attacker.',
-      parts: [{ name: 'Armor Class', value: '+2 Insight' }],
+      wikiName: 'Paired Riposte',
+      sections: [{ label: 'Counts toward', parts: [{ name: 'Armor Class', value: '+2 Insight' }] }],
     });
   });
 
@@ -27,8 +28,24 @@ describe('AffixUiService', () => {
     const service = new AffixUiService({} as any, new AffixService(), {} as any, descriptions);
 
     expect(service.getAffixDetails(new Affix({ name: 'Deadly', type: 'Competence', value: 6 })))
-      .toEqual({ name: 'Deadly', description: '+6 Competence bonus to weapon damage.', parts: [] });
+      .toEqual({ name: 'Deadly', description: '+6 Competence bonus to weapon damage.', wikiName: 'Deadly', sections: [] });
     expect(service.getAffixDetails(new Affix({ name: 'Strength', type: 'Enhancement', value: 6 }))).toBeNull();
+  });
+
+  it('details what a crafting option grants, and what its one affix does', () => {
+    const descriptions = new AffixDescriptionService();
+    descriptions.use({ 'Legendary Ash': { '*': 'Your fire spells leave ash.' } });
+    const service = new AffixUiService({} as any, new AffixService(), {} as any, descriptions);
+
+    expect(service.getCraftingOptionDetails(new CraftableOption({ name: 'Flamehorn', affixes: [{ name: 'Legendary Ash', type: 'Bool', value: 1 }] })))
+      .toEqual({
+        name: 'Flamehorn', description: 'Your fire spells leave ash.', wikiName: 'Legendary Ash',
+        sections: [{ label: 'Grants', parts: [{ name: 'Legendary Ash', value: '' }] }],
+      });
+    // Its label is its one affix: nothing to add.
+    expect(service.getCraftingOptionDetails(new CraftableOption({ affixes: [{ name: 'Fire Spell Power', type: 'Equipment', value: 3 }] })))
+      .toBeNull();
+    expect(service.getCraftingOptionDetails(new CraftableOption({ name: 'Empty' }))).toBeNull();
   });
 
   it('describes fixed affix group components', () => {
@@ -40,7 +57,7 @@ describe('AffixUiService', () => {
 
     const service = new AffixUiService({} as any, affixSvc, {} as any, new AffixDescriptionService());
 
-    expect(service.getAffixDetails(new Affix({ name: 'Songblade', type: 'Bool', value: 1 }))?.parts)
+    expect(service.getAffixDetails(new Affix({ name: 'Songblade', type: 'Bool', value: 1 }))?.sections[0].parts)
       .toEqual([{ name: 'Perform', value: '+2 Enhancement' }]);
   });
 
@@ -54,7 +71,7 @@ describe('AffixUiService', () => {
 
     const service = new AffixUiService({} as any, affixSvc, {} as any, new AffixDescriptionService());
 
-    expect(service.getAffixDetails(new Affix({ name: 'Lifesealed', type: 'Enhancement', value: 28 }))?.parts).toEqual([
+    expect(service.getAffixDetails(new Affix({ name: 'Lifesealed', type: 'Enhancement', value: 28 }))?.sections[0].parts).toEqual([
       { name: 'Negative Energy Absorption', value: '+28 Enhancement' },
       { name: 'Deathblock', value: '' },
     ]);
@@ -66,7 +83,7 @@ describe('AffixUiService', () => {
 
     const service = new AffixUiService({} as any, affixSvc, {} as any, new AffixDescriptionService());
 
-    expect(service.getAffixDetails(new Affix({ name: 'Purifying Flame Lore', type: 'Enhancement', value: 21 }))?.parts).toEqual([
+    expect(service.getAffixDetails(new Affix({ name: 'Purifying Flame Lore', type: 'Enhancement', value: 21 }))?.sections[0].parts).toEqual([
       { name: 'Fire Lore', value: '+21 Enhancement' },
       { name: 'Radiance Lore', value: '+21 Enhancement' },
     ]);

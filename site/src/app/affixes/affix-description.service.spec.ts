@@ -37,6 +37,19 @@ describe('AffixDescriptionService', () => {
     expect(service.describe({ name: 'DR', type: 'Evil', value: 5 })).toBe('');
   });
 
+  it('fills a text\'s other numbers by the affix\'s value, or its value and the item\'s ML', () => {
+    const service = new AffixDescriptionService();
+    service.use(
+      { Deception: { '*': '+{v} to hit and +{0} to damage.' }, Acid: { '*': 'Deals {0}d4 ({1} to {2}) acid damage.' } },
+      { Deception: { '*': { '4': '6' } }, Acid: { '*': { '1@20': '3 3 12' } } });
+
+    expect(service.describe({ name: 'Deception', type: 'Insight', value: 4 })).toBe('+4 to hit and +6 to damage.');
+    expect(service.describe({ name: 'Acid', type: 'Bool', value: 1 }, 20)).toBe('Deals 3d4 (3 to 12) acid damage.');
+    // A level, or a value, the wiki gave no single number for.
+    expect(service.describe({ name: 'Acid', type: 'Bool', value: 1 }, 25)).toBe('Deals Xd4 (X to X) acid damage.');
+    expect(service.describe({ name: 'Deception' })).toBe('+X to hit and +X to damage.');
+  });
+
   it('describes nothing before the text has loaded', () => {
     expect(new AffixDescriptionService().describe({ name: 'Deadly', type: 'Insight', value: 5 })).toBe('');
   });

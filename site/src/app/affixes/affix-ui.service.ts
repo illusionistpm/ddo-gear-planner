@@ -55,13 +55,21 @@ export interface AffixDetailsPart {
   value: string;
 }
 
-/** What an affix's details show; see AffixUiService.getAffixDetails. */
+/** A labelled list in an affix's details: "Counts toward", "Grants", "Set bonus at 3 pieces". */
+export interface AffixDetailsSection {
+  label: string;
+  parts: AffixDetailsPart[];
+}
+
+/** What an affix's, or a crafting option's, details show; see AffixUiService.getAffixDetails. */
 export interface AffixDetails {
   name: string;
   /** DDO Wiki's account of what it does; '' when the wiki adds nothing the row doesn't say. */
   description: string;
-  /** For a compound affix, the planner affixes it counts toward; otherwise empty. */
-  parts: AffixDetailsPart[];
+  /** The affix the description is about, for a "More on DDO Wiki" search; '' with no description. */
+  wikiName: string;
+  /** A compound affix's parts, a crafting option's affixes or a set augment's bonuses. */
+  sections: AffixDetailsSection[];
 }
 
 /** CSS class for a set bonus whose piece threshold isn't met yet. Styled in each view's stylesheet. */
@@ -354,15 +362,58 @@ export class AffixUiService {
   /**
    * What an affix's underlined name opens: what it does, in DDO Wiki's words, and - for a
    * compound affix - the planner affixes it counts toward, which only the planner can say.
-   * Null when there's neither, and the name is plain text.
+   * Null when there's neither, and the name is plain text. `ml`, the item's, fills in the numbers
+   * that scale with it (a proc's dice).
    */
-  getAffixDetails(affix: Affix): AffixDetails | null {
+  getAffixDetails(affix: Affix, ml?: number): AffixDetails | null {
     perfCount('AffixUiService.getAffixDetails');
     if (!affix) return null;
-    const description = this.descriptions.describe(affix);
-    const parts = (this.affixSvc.isAffixGroup(affix) ? this.affixSvc.ungroupAffix(affix) : [])
-      .map(part => ({ name: part.name, value: this.getAffixValueText(part) }));
-    return description || parts.length ? { name: affix.name, description, parts } : null;
+    const description = this.descriptions.describe(affix, ml);
+    const parts = this.affixSvc.isAffixGroup(affix) ? this.affixSvc.ungroupAffix(affix).map(part => this.detailsPart(part)) : [];
+    if (!description && !parts.length) return null;
+    return {
+      name: affix.name,
+      description,
+      wikiName: description ? affix.name : '',
+      sections: parts.length ? [{ label: 'Counts toward', parts }] : [],
+    };
+  }
+
+  /**
+   * What a crafting option's details show: what it grants and, when that's one affix, what that
+   * affix does - a set augment's bonuses by piece count instead. Null for an empty option, or one
+   * whose label already says all there is ("+3 Fire Spell Power", which the wiki doesn't explain).
+   */
+  getCraftingOptionDetails(option: CraftableOption | null | undefined, ml?: number): AffixDetails | null {
+    perfCount('AffixUiService.getCraftingOptionDetails');
+    if (!option) return null;
+    const name = option.name || option.set || option.describe(false);
+    if (!option.affixes?.length) {
+      const tiers = option.set ? this.gearDb.getSetBonusThresholdDetails(option.set, 0) : [];
+      return tiers.length ? {
+        name, description: '', wikiName: '',
+        sections: tiers.map(tier => ({
+          label: `Set bonus at ${tier.threshold} pieces`,
+          parts: tier.affixes.map(affix => this.detailsPart(affix)),
+        })),
+      } : null;
+    }
+    const granted = option.affixes.flatMap(affix => {
+      const parts = this.affixSvc.ungroupAffix(affix);
+      return parts.length ? parts : [affix];
+    });
+    // The one affix it grants (a compound one counting as one), which the wiki may explain.
+    const only = option.affixes.length === 1 ? option.affixes[0] : null;
+    const description = only ? this.descriptions.describe(only, ml) : '';
+    // A plain "+3 Fire Spell Power" is its one affix already: listing it would only say it again.
+    const saysItAll = !option.name && !option.set && granted.length === 1;
+    const sections = saysItAll ? [] : [{ label: 'Grants', parts: granted.map(affix => this.detailsPart(affix)) }];
+    if (!description && !sections.length) return null;
+    return { name, description, wikiName: description && only ? only.name : '', sections };
+  }
+
+  private detailsPart(affix: Affix): AffixDetailsPart {
+    return { name: affix.name, value: this.getAffixValueText(affix) };
   }
 
   getCraftingOptionTooltip(option: CraftableOption): string {

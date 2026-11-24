@@ -7,6 +7,8 @@ import { NgTemplateOutlet } from '@angular/common';
  */
 export interface TapTooltipOwner {
   readonly text: string;
+  /** The element that opened the panel, which its bubble's caret points up at. */
+  readonly anchor?: HTMLElement | null;
   readonly content?: TemplateRef<unknown> | null;
   readonly contentContext?: object;
 }
@@ -44,6 +46,10 @@ export class TapTooltipComponent implements TapTooltipOwner, OnDestroy {
     return this.panel ? this.panel.isOpenFor(this) : this.openInline;
   }
 
+  get anchor(): HTMLElement | null {
+    return this.elementRef.nativeElement.querySelector('.tap-tooltip-trigger');
+  }
+
   toggle(event: Event) {
     event.stopPropagation();
     if (this.panel) {
@@ -74,6 +80,10 @@ export class TapTooltipComponent implements TapTooltipOwner, OnDestroy {
   }
 }
 
+/** The caret's closest approach to the bubble's rounded corner, and how far into a long trigger it points. */
+const CARET_MIN_X = 14;
+const CARET_MAX_INSET = 16;
+
 /**
  * Where a `TapTooltipComponent` given it as `[panel]` opens its bubble. Place it as a
  * direct child of the row the tooltip describes: its host is `display: contents`, so the
@@ -83,7 +93,7 @@ export class TapTooltipComponent implements TapTooltipOwner, OnDestroy {
  */
 @Component({
     selector: 'app-tap-tooltip-panel',
-    template: `@if (owner) {<div class="tap-tooltip-bubble tap-tooltip-panel-bubble" (click)="$event.stopPropagation()">@if (owner.content) {<ng-container *ngTemplateOutlet="owner.content; context: owner.contentContext" />} @else {{{owner.text}}}</div>}`,
+    template: `@if (owner) {<div class="tap-tooltip-bubble tap-tooltip-panel-bubble" (click)="$event.stopPropagation()" [class.tap-tooltip-has-caret]="caretX !== null" [style.--tap-tooltip-caret-x.px]="caretX">@if (owner.content) {<ng-container *ngTemplateOutlet="owner.content; context: owner.contentContext" />} @else {{{owner.text}}}</div>}`,
     imports: [NgTemplateOutlet],
     styleUrls: ['./tap-tooltip.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -91,6 +101,8 @@ export class TapTooltipComponent implements TapTooltipOwner, OnDestroy {
 })
 export class TapTooltipPanelComponent {
   owner: TapTooltipOwner | null = null;
+  /** Where the caret sits along the bubble's top edge, under the trigger; null for none. */
+  caretX: number | null = null;
 
   constructor(private elementRef: ElementRef<HTMLElement>, private cdr: ChangeDetectorRef) {
   }
@@ -105,7 +117,26 @@ export class TapTooltipPanelComponent {
 
   toggle(tooltip: TapTooltipOwner) {
     this.owner = this.owner === tooltip ? null : tooltip;
+    this.caretX = this.owner ? this.caretOffset(this.owner) : null;
     this.cdr.markForCheck();
+  }
+
+  /**
+   * The bubble is a full-width line of the row (the host is display: contents), so its left edge
+   * is the row's content edge. The caret points at the start of the trigger's text - the middle of
+   * a long, wrapped affix name could be far from where its first word is.
+   */
+  private caretOffset(owner: TapTooltipOwner): number | null {
+    const anchor = owner.anchor;
+    const row = this.elementRef.nativeElement.parentElement;
+    if (!anchor || !row) {
+      return null;
+    }
+    const anchorBox = anchor.getBoundingClientRect();
+    const rowStyle = getComputedStyle(row);
+    const contentLeft = row.getBoundingClientRect().left
+      + (parseFloat(rowStyle.borderLeftWidth) || 0) + (parseFloat(rowStyle.paddingLeft) || 0);
+    return Math.max(CARET_MIN_X, anchorBox.left - contentLeft + Math.min(anchorBox.width / 2, CARET_MAX_INSET));
   }
 
   close(tooltip: TapTooltipOwner) {

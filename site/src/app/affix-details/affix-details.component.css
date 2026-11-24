@@ -1,0 +1,61 @@
+/* Set here rather than inherited: each place these show (a popover, the panel
+   under a row, the picker's footer) would otherwise pass on its own styling. */
+.affix-details {
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.45;
+    text-align: left;
+    text-shadow: none;
+    white-space: normal;
+}
+
+.affix-details-heading {
+    font-weight: 600;
+    margin-bottom: var(--space-4);
+}
+
+.affix-details-description {
+    margin: 0;
+}
+
+.affix-details-label {
+    color: var(--text-secondary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.affix-details-description + .affix-details-label,
+.affix-details-parts + .affix-details-label {
+    margin-top: var(--space-8);
+}
+
+.affix-details-parts {
+    list-style: none;
+    margin: var(--space-4) 0 0;
+    padding: 0;
+}
+
+.affix-details-parts li {
+    display: flex;
+    gap: var(--space-12);
+    justify-content: space-between;
+}
+
+.affix-details-part-value {
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.affix-details-source {
+    color: var(--text-secondary);
+    display: inline-block;
+    font-size: 0.75rem;
+    margin-top: var(--space-8);
+}
+
+.affix-details-source:hover {
+    color: var(--primary-color);
+}

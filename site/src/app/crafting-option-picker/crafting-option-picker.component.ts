@@ -1,12 +1,13 @@
 import {
   afterNextRender, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Injector, Input,
-  OnChanges, Output, ViewChild
+  OnChanges, OnDestroy, Output, ViewChild
 } from '@angular/core';
-import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdown, NgbPopover } from '@ng-bootstrap/ng-bootstrap';
 
 import { CraftableOption } from '../gear/craftable-option';
 import { CraftingOptionFamily, groupCraftingOptions, ungroupedCraftingOptions } from '../gear/crafting-option-families';
-import { AffixUiService, contextCraftable, CraftingOptionContext } from '../affixes/affix-ui.service';
+import { AffixDetails, AffixUiService, contextCraftable, CraftingOptionContext } from '../affixes/affix-ui.service';
+import { canHover, HoverPopover } from '../affix-details/hover-popover';
 import { getStoredHideIrrelevantCraftingOptions, storeHideIrrelevantCraftingOptions } from '../planner/planner-view-state-storage';
 import { buildFamilyRows, defaultTier, FamilyRow, TierRow } from './crafting-option-rows';
 import { craftSystemName } from '../gear/crafting-acquisition';
@@ -27,6 +28,8 @@ interface EntryDetail {
   heading: string;
   changeLines: string[];
   why: string;
+  /** What the option does, in DDO Wiki's words, where it grants one affix the wiki explains. */
+  description: string;
 }
 
 let nextPickerId = 0;
@@ -39,6 +42,11 @@ let nextPickerId = 0;
  *
  * The list is ranked against the build each time it opens, so it is only as
  * current as that - nothing it shows can change while it is open.
+ *
+ * Where the device can hover, the closed control opens what the chosen option
+ * grants (AffixUiService.getCraftingOptionDetails) in a popover, as an affix's
+ * underlined name does - nothing is added to the control itself, of which a
+ * gear card has many.
  */
 @Component({
   selector: 'app-crafting-option-picker',
@@ -47,7 +55,7 @@ let nextPickerId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false
 })
-export class CraftingOptionPickerComponent implements OnChanges {
+export class CraftingOptionPickerComponent implements OnChanges, OnDestroy {
   @Input() options: CraftableOption[] = [];
   @Input() selected: CraftableOption | null = null;
   /** Rank class of the selected option, kept current by the parent as the build changes. */
@@ -70,6 +78,7 @@ export class CraftingOptionPickerComponent implements OnChanges {
   @ViewChild('searchBox') searchInput?: ElementRef<HTMLInputElement>;
   @ViewChild('toggle', { static: true }) toggleButton!: ElementRef<HTMLElement>;
   @ViewChild('menu', { static: true }) menu!: ElementRef<HTMLElement>;
+  @ViewChild('selectedPopover') private selectedPopover?: NgbPopover;
 
   readonly id = `crafting-picker-${nextPickerId++}`;
   /** On touch screens the keyboard would cover half the list, so the search box waits to be tapped. */
@@ -86,6 +95,13 @@ export class CraftingOptionPickerComponent implements OnChanges {
   hiddenCount = 0;
   /** Whether any option listed changes a tracked affix, so the list heads its gain column. */
   showsGains = false;
+  /** Whether any option listed has a wiki description, so the detail band makes room for one throughout. */
+  listHasDescriptions = false;
+  /** What the chosen option grants, for the closed control's popover; null when it says no more than its label. */
+  selectedDetails: AffixDetails | null = null;
+  readonly hoverCapable = canHover();
+  readonly hover = new HoverPopover(() => this.selectedPopover);
+  private readonly descriptions = new WeakMap<CraftableOption, string>();
 
   private groupedOptions: CraftableOption[] | null = null;
   private groups: CraftingOptionFamily[] = [];
@@ -99,8 +115,19 @@ export class CraftingOptionPickerComponent implements OnChanges {
   ) { }
 
   ngOnChanges() {
+    this.selectedDetails = this.affixUi.getCraftingOptionDetails(this.selected, this.context?.item.ml);
     if (this.isOpen) {
       this.loadList();
+    }
+  }
+
+  ngOnDestroy() {
+    this.hover.destroy();
+  }
+
+  onToggleEnter() {
+    if (this.hoverCapable && this.selectedDetails && !this.isOpen) {
+      this.hover.enter();
     }
   }
 
@@ -131,8 +158,19 @@ export class CraftingOptionPickerComponent implements OnChanges {
       heading: folded && tier.changeLines.length ? `Best tier, ${tier.label}` : tier.changeCondition,
       changeLines: tier.changeLines,
       // Each change line names what it beats or loses, which is all the rank's own reason would say.
-      why: tier.changeLines.length ? '' : 'Does nothing for the tracked affixes'
+      why: tier.changeLines.length ? '' : 'Does nothing for the tracked affixes',
+      description: this.describe(tier.option)
     };
+  }
+
+  /** An option's wiki description, once per option: activeDetail is read on every check. */
+  private describe(option: CraftableOption): string {
+    let description = this.descriptions.get(option);
+    if (description === undefined) {
+      description = this.affixUi.getCraftingOptionDetails(option, this.context?.item.ml)?.description ?? '';
+      this.descriptions.set(option, description);
+    }
+    return description;
   }
 
   entryId(index: number): string {
@@ -142,6 +180,7 @@ export class CraftingOptionPickerComponent implements OnChanges {
   onOpenChange(open: boolean) {
     this.isOpen = open;
     if (open) {
+      this.hover.closeNow();
       this.fitMenuToViewport();
       this.search = '';
       this.loadList();
@@ -214,6 +253,7 @@ export class CraftingOptionPickerComponent implements OnChanges {
         const craft = contextCraftable(this.context);
         return !!craft && !!this.userGear.getCraftingOptionLocations(craftSystemName(craft), option);
       });
+    this.listHasDescriptions = this.families.some(family => family.tiers.some(tier => !!this.describe(tier.option)));
     this.selectedFamily = this.families.find(family => family.tiers.some(tier => tier.option === this.selected)) ?? null;
     this.expandedFamily = this.selectedFamily && this.selectedFamily.tiers.length > 1 ? this.selectedFamily : null;
     this.applyFilter();

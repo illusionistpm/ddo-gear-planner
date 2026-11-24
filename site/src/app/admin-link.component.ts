@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnDestroy, Output, ViewChild } from '@angular/core';
 import { environment } from '../environments/environment';
 import { BuildUrlCodecService, BuildUrlInspection } from './build/build-url-codec.service';
 import { PlannerOnboardingService } from './planner/planner-onboarding.service';
@@ -53,253 +53,195 @@ const FILTER_LABELS: Record<string, string> = {
 @Component({
   selector: 'app-admin-link',
   template: `
-    <div class="admin-menu" *ngIf="!isProduction" (click)="$event.stopPropagation()">
-      <button
-        class="admin-button"
-        type="button"
-        [attr.aria-expanded]="panelOpen"
-        aria-haspopup="menu"
-        (click)="togglePanel()"
-      >
-        Admin
-      </button>
+    <!--
+      Local builds only: a group of rows in the account menu. The URL
+      inspector is moved to <body> when it opens, since the menu it is
+      declared in is display: none once it closes.
+    -->
+    @if (!isProduction) {
+      <div class="admin-group" role="group" aria-label="Admin (local only)">
+        <span class="admin-group-label">Admin <small>local only</small></span>
 
-      <div *ngIf="panelOpen" class="admin-panel" role="menu">
-        <label class="admin-toggle">
-          <span>
-            <strong>Performance logging</strong>
-            <small>Console timing traces</small>
-          </span>
+        <label class="admin-row admin-toggle">
+          <i class="fas fa-stopwatch admin-row-icon" aria-hidden="true"></i>
+          <span class="admin-row-text">Performance logging</span>
           <input
             type="checkbox"
+            role="menuitemcheckbox"
+            [attr.aria-checked]="performanceLoggingEnabled"
             [checked]="performanceLoggingEnabled"
             (change)="setPerformanceLogging($event)"
           >
         </label>
 
-        <button type="button" class="admin-panel-action" role="menuitem" (click)="resetOnboarding()">
-          <span>
-            <strong>Reset onboarding</strong>
-            <small>Show intro cues again</small>
-          </span>
+        <button type="button" class="admin-row admin-panel-action" role="menuitem" (click)="resetOnboarding()">
+          <i class="fas fa-rotate-left admin-row-icon" aria-hidden="true"></i>
+          <span class="admin-row-text">Reset onboarding</span>
         </button>
 
-        <button type="button" class="admin-panel-action" role="menuitem" (click)="openUrlInspector()">
-          <span>
-            <strong>Inspect URL data</strong>
-            <small>Decode compact build params</small>
-          </span>
+        <button type="button" class="admin-row admin-panel-action" role="menuitem" (click)="openUrlInspector()">
+          <i class="fas fa-magnifying-glass admin-row-icon" aria-hidden="true"></i>
+          <span class="admin-row-text">Inspect URL data</span>
         </button>
 
-        <a class="admin-panel-link" [href]="adminUrl" role="menuitem">Open admin page</a>
+        <a class="admin-row admin-panel-link" [href]="adminUrl" role="menuitem">
+          <i class="fas fa-screwdriver-wrench admin-row-icon" aria-hidden="true"></i>
+          <span class="admin-row-text">Open admin page</span>
+        </a>
       </div>
-      <app-menu-backdrop *ngIf="panelOpen" label="Close admin menu" (dismiss)="closePanel()"></app-menu-backdrop>
 
-      <div *ngIf="inspectorOpen" class="admin-modal-backdrop" role="presentation" (click)="closeUrlInspector()"></div>
-      <section
-        *ngIf="inspectorOpen"
-        class="admin-url-inspector"
-        role="dialog"
-        aria-modal="true"
-        aria-label="URL data inspector"
-        (click)="$event.stopPropagation()"
-      >
-        <header class="admin-url-inspector-header">
-          <div>
-            <strong>URL Data</strong>
-            <small>{{ urlDataSummary }}</small>
-          </div>
-          <button type="button" class="admin-close-button" aria-label="Close URL data inspector" (click)="closeUrlInspector()">x</button>
-        </header>
+      @if (inspectorOpen) {
+        <div #inspectorLayer class="admin-inspector-layer">
+          <div class="admin-modal-backdrop" role="presentation" (click)="closeUrlInspector()"></div>
+          <section
+            class="admin-url-inspector"
+            role="dialog"
+            aria-modal="true"
+            aria-label="URL data inspector"
+            (click)="$event.stopPropagation()"
+          >
+            <header class="admin-url-inspector-header">
+              <div>
+                <strong>URL Data</strong>
+                <small>{{ urlDataSummary }}</small>
+              </div>
+              <button type="button" class="admin-close-button" aria-label="Close URL data inspector" (click)="closeUrlInspector()">x</button>
+            </header>
 
-        <label class="admin-url-input">
-          <span>URL or fragment</span>
-          <textarea rows="3" [(ngModel)]="inspectorInput" (input)="inspectUrl()"></textarea>
-        </label>
+            <label class="admin-url-input">
+              <span>URL or fragment</span>
+              <textarea rows="3" [(ngModel)]="inspectorInput" (input)="inspectUrl()"></textarea>
+            </label>
 
-        <dl class="admin-url-stats">
-          <div>
-            <dt>Format</dt>
-            <dd>{{ urlDataFormat }}</dd>
-          </div>
-          <div>
-            <dt>Route</dt>
-            <dd>{{ inspectedUrlData?.route || '/' }}</dd>
-          </div>
-          <div>
-            <dt>Params</dt>
-            <dd>{{ effectiveParamCount }}</dd>
-          </div>
-          <div>
-            <dt>Payload length</dt>
-            <dd>{{ payloadChars ?? '-' }}</dd>
-          </div>
-        </dl>
+            <dl class="admin-url-stats">
+              <div>
+                <dt>Format</dt>
+                <dd>{{ urlDataFormat }}</dd>
+              </div>
+              <div>
+                <dt>Route</dt>
+                <dd>{{ inspectedUrlData?.route || '/' }}</dd>
+              </div>
+              <div>
+                <dt>Params</dt>
+                <dd>{{ effectiveParamCount }}</dd>
+              </div>
+              <div>
+                <dt>Payload length</dt>
+                <dd>{{ payloadChars ?? '-' }}</dd>
+              </div>
+            </dl>
 
-        <div class="admin-url-view-tabs" role="tablist" aria-label="URL data view">
-          <button
-            type="button"
-            role="tab"
-            [class.active]="urlInspectorView === 'compact'"
-            [attr.aria-selected]="urlInspectorView === 'compact'"
-            (click)="setUrlInspectorView('compact')"
-          >Compact</button>
-          <button
-            type="button"
-            role="tab"
-            [class.active]="urlInspectorView === 'effective'"
-            [attr.aria-selected]="urlInspectorView === 'effective'"
-            (click)="setUrlInspectorView('effective')"
-          >Effective Params</button>
-          <button
-            type="button"
-            role="tab"
-            [class.active]="urlInspectorView === 'human'"
-            [attr.aria-selected]="urlInspectorView === 'human'"
-            (click)="setUrlInspectorView('human')"
-          >Human Readable</button>
+            <div class="admin-url-view-tabs" role="tablist" aria-label="URL data view">
+              <button
+                type="button"
+                role="tab"
+                [class.active]="urlInspectorView === 'compact'"
+                [attr.aria-selected]="urlInspectorView === 'compact'"
+                (click)="setUrlInspectorView('compact')"
+              >Compact</button>
+              <button
+                type="button"
+                role="tab"
+                [class.active]="urlInspectorView === 'effective'"
+                [attr.aria-selected]="urlInspectorView === 'effective'"
+                (click)="setUrlInspectorView('effective')"
+              >Effective Params</button>
+              <button
+                type="button"
+                role="tab"
+                [class.active]="urlInspectorView === 'human'"
+                [attr.aria-selected]="urlInspectorView === 'human'"
+                (click)="setUrlInspectorView('human')"
+              >Human Readable</button>
+            </div>
+
+            <pre class="admin-url-json">{{ urlInspectionJson }}</pre>
+          </section>
         </div>
-
-        <pre class="admin-url-json">{{ urlInspectionJson }}</pre>
-      </section>
-    </div>
+      }
+    }
   `,
   styles: [`
     :host {
-      align-self: stretch;
-      display: inline-flex;
-      flex: 0 0 auto;
-      margin-left: 0.4rem;
-      position: relative;
+      display: contents;
     }
 
-    .admin-menu {
-      align-self: stretch;
-      display: inline-flex;
-      font-size: 0.875rem;
-      position: relative;
-    }
-
-    .admin-button {
-      align-items: center;
-      background: var(--surface-subtle-color);
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      color: var(--text-secondary);
-      cursor: pointer;
-      display: inline-flex;
-      font: inherit;
-      font-weight: 700;
-      justify-content: center;
-      line-height: 1.2;
-      min-height: 2rem;
-      padding: 0.35rem 0.65rem;
-    }
-
-    .admin-button:hover,
-    .admin-button:focus {
-      color: var(--primary-color);
-    }
-
-    .admin-button:focus-visible {
-      outline: 3px solid var(--focus-ring-color);
-      outline-offset: 2px;
-    }
-
-    .admin-panel {
-      position: absolute;
-      right: 0;
-      top: calc(100% + 0.4rem);
-      width: 15rem;
-      padding: 0.7rem;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      background: var(--surface-elevated-color);
-      color: var(--text-primary);
-      box-shadow: var(--shadow-lg);
-      z-index: 1200;
-    }
-
-    .admin-toggle {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
-      margin: 0 0 0.65rem;
-      cursor: pointer;
-    }
-
-    .admin-toggle strong,
-    .admin-toggle small {
-      display: block;
-    }
-
-    .admin-toggle strong {
-      font-size: 0.85rem;
-      line-height: 1.2;
-    }
-
-    .admin-toggle small {
-      margin-top: 0.15rem;
-      color: var(--text-secondary);
-      font-size: 0.75rem;
-    }
-
-    .admin-toggle input {
-      width: 1rem;
-      height: 1rem;
-      flex: 0 0 auto;
-      cursor: pointer;
-    }
-
-    .admin-panel-link {
-      display: block;
-      padding-top: 0.65rem;
+    .admin-group {
       border-top: 1px solid var(--border-color);
-      color: var(--link-color);
-      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      margin-top: var(--space-2);
+      padding-top: var(--space-4);
     }
 
-    .admin-panel-action {
-      align-items: flex-start;
+    .admin-group-label {
+      color: var(--text-secondary);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: var(--space-2) var(--space-8) 0;
+      text-transform: uppercase;
+    }
+
+    .admin-group-label small {
+      font-weight: 400;
+      letter-spacing: normal;
+      text-transform: none;
+    }
+
+    .admin-row {
+      align-items: center;
       background: transparent;
       border: 0;
-      border-top: 1px solid var(--border-color);
+      border-radius: 6px;
       color: var(--text-primary);
       cursor: pointer;
       display: flex;
       font: inherit;
+      gap: var(--space-8);
       margin: 0;
-      padding: 0.65rem 0 0;
+      padding: var(--space-8);
       text-align: left;
+      text-decoration: none;
       width: 100%;
     }
 
-    .admin-panel-action strong,
-    .admin-panel-action small {
-      display: block;
-    }
-
-    .admin-panel-action strong {
-      font-size: 0.85rem;
-      line-height: 1.2;
-    }
-
-    .admin-panel-action small {
-      color: var(--text-secondary);
-      font-size: 0.75rem;
-      margin-top: 0.15rem;
-    }
-
-    .admin-panel-action:hover strong,
-    .admin-panel-action:focus strong {
+    .admin-row:hover,
+    .admin-row:focus-visible,
+    .admin-toggle:focus-within {
+      background: var(--surface-subtle-color);
       color: var(--primary-color);
     }
 
-    .admin-panel-link:hover,
-    .admin-panel-link:focus {
-      color: var(--link-hover-color);
-      text-decoration: underline;
+    .admin-row:focus-visible {
+      outline: 3px solid var(--focus-ring-color);
+      outline-offset: -1px;
+    }
+
+    .admin-row-icon {
+      color: var(--text-secondary);
+      text-align: center;
+      width: 1rem;
+    }
+
+    .admin-row-text {
+      flex: 1 1 auto;
+    }
+
+    .admin-toggle input {
+      cursor: pointer;
+      flex: 0 0 auto;
+      height: 1rem;
+      margin: 0;
+      width: 1rem;
+    }
+
+    @media (pointer: coarse) {
+      .admin-row {
+        min-height: 2.75rem;
+      }
     }
 
     .admin-modal-backdrop {
@@ -470,11 +412,6 @@ const FILTER_LABELS: Record<string, string> = {
     }
 
     @media (max-width: 767.98px) {
-      :host {
-        align-self: flex-end;
-        margin-top: 0.4rem;
-      }
-
       .admin-url-inspector {
         inset: 0;
         width: auto;
@@ -494,10 +431,12 @@ const FILTER_LABELS: Record<string, string> = {
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
-export class AdminLinkComponent {
+export class AdminLinkComponent implements OnDestroy {
+  /** A row was used: the account menu it sits in should close. */
+  @Output() acted = new EventEmitter<void>();
+
   isProduction = environment.production;
   adminUrl = environment.adminUrl;
-  panelOpen = false;
   inspectorOpen = false;
   inspectorInput = '';
   inspectedUrlData: UrlDataInspection | null = null;
@@ -514,12 +453,21 @@ export class AdminLinkComponent {
     private buildUrlCodec: BuildUrlCodecService
   ) {}
 
-  closePanel() {
-    this.panelOpen = false;
+  private inspectorLayer?: HTMLElement;
+
+  // The account menu is display: none once closed, which would take the
+  // inspector with it; on <body> it outlives the menu. Angular removes the
+  // node itself when the @if ends, wherever it now sits.
+  @ViewChild('inspectorLayer')
+  set inspectorLayerRef(ref: ElementRef<HTMLElement> | undefined) {
+    this.inspectorLayer = ref?.nativeElement;
+    if (this.inspectorLayer && this.inspectorLayer.parentNode !== document.body) {
+      document.body.appendChild(this.inspectorLayer);
+    }
   }
 
-  togglePanel() {
-    this.panelOpen = !this.panelOpen;
+  ngOnDestroy() {
+    this.inspectorLayer?.remove();
   }
 
   setPerformanceLogging(event: Event) {
@@ -539,14 +487,14 @@ export class AdminLinkComponent {
 
   resetOnboarding() {
     this.onboarding.resetIntro();
-    this.panelOpen = false;
+    this.acted.emit();
   }
 
   openUrlInspector() {
     this.inspectorInput = window.location.href;
     this.inspectUrl();
     this.inspectorOpen = true;
-    this.panelOpen = false;
+    this.acted.emit();
   }
 
   closeUrlInspector() {

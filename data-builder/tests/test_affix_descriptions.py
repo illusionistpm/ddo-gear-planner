@@ -4,7 +4,7 @@ import pytest
 
 import provenance_io
 import write_json
-from affix_descriptions import build_descriptions, fill_constants, restates_row, strip_enchantment_name, to_template, trim_restatements
+from affix_descriptions import build_descriptions, describe_affixes, fill_constants, restates_row, strip_enchantment_name, to_template, trim_restatements
 
 
 @pytest.mark.parametrize('tooltip, name, expected', [
@@ -40,7 +40,7 @@ def test_build_descriptions_separates_cells_the_wiki_ran_together():
 
 
 def test_fill_constants_keeps_agreed_numbers_and_marks_the_rest():
-    assert fill_constants('Heals #d# every # second.', [['1', '2', '1'], ['2', '2', '1']]) == 'Heals Xd2 every 1 second.'
+    assert fill_constants('Heals #d# every # second.', [['1', '2', '1'], ['2', '2', '1']]) == 'Heals {0}d2 every 1 second.'
 
 
 @pytest.mark.parametrize('text, name, compound, expected', [
@@ -125,7 +125,7 @@ def test_write_json_hands_tooltips_to_the_capture_only_while_it_is_on(monkeypatc
     provenance_io.start_tooltip_capture()
     write_json.write_json([affix], 'during')
 
-    assert provenance_io.captured_affix_tooltips() == {('Spot', 'Insight', '3', 'Spot +3: Keen.')}
+    assert provenance_io.captured_affix_tooltips() == {('Spot', 'Insight', '3', 'Spot +3: Keen.', '')}
     assert json.loads((tmp_path / 'during.json').read_text(encoding='utf8')) == [{'name': 'Spot', 'type': 'Insight', 'value': '3'}]
 
 
@@ -156,3 +156,50 @@ def test_build_descriptions_parts_dice_from_the_range_the_wiki_ran_on(tooltip, e
 ])
 def test_trim_restatements(text, name, compound, expected):
     assert trim_restatements(text, name, compound) == expected
+
+
+def test_capture_records_the_ml_of_the_item_an_affix_is_on(monkeypatch, tmp_path):
+    monkeypatch.setattr(write_json, 'get_asset_json_path', lambda name: str(tmp_path / (name + '.json')))
+    provenance_io.start_tooltip_capture()
+    write_json.write_json([{'name': 'Helm', 'ml': 20, 'affixes': [
+        {'name': 'Acid', 'type': 'Bool', 'value': 1, 'sourceTooltip': 'Acid: 1d6 acid.'}]}], 'items')
+
+    assert provenance_io.captured_affix_tooltips() == {('Acid', 'Bool', '1', 'Acid: 1d6 acid.', '20')}
+
+
+def test_describe_affixes_fills_slots_the_value_decides_by_value():
+    tooltips = {
+        ('Deception', 'Insight', '3', 'Deception +3: +3 Insight bonus to hit and +5 to damage.', '10'),
+        ('Deception', 'Insight', '4', 'Deception +4: +4 Insight bonus to hit and +6 to damage.', '20'),
+        ('Deception', 'Insight', '4', 'Deception +4: +4 Insight bonus to hit and +6 to damage.', '24'),
+    }
+    texts, numbers = describe_affixes(tooltips, set())
+    assert texts == {'Deception': {'*': '+{v} {type} bonus to hit and +{0} to damage.'}}
+    assert numbers == {'Deception': {'*': {'3': '5', '4': '6'}}}
+
+
+def test_describe_affixes_keys_slots_by_ml_where_the_value_alone_does_not_decide_them():
+    tooltips = {
+        ('Acid', 'Bool', '1', 'Acid: Deals 1d6 acid damage on hit.', '5'),
+        ('Acid', 'Bool', '1', 'Acid: Deals 2d6 acid damage on hit.', '20'),
+        # Two items of one level that disagree: neither number is the level's.
+        ('Acid', 'Bool', '1', 'Acid: Deals 3d6 acid damage on hit.', '30'),
+        ('Acid', 'Bool', '1', 'Acid: Deals 4d6 acid damage on hit.', '30'),
+    }
+    texts, numbers = describe_affixes(tooltips, set())
+    assert texts == {'Acid': {'*': 'Deals {0}d6 acid damage on hit.'}}
+    assert numbers == {'Acid': {'*': {'1@20': '2', '1@5': '1'}}}
+
+
+def test_describe_affixes_numbers_only_the_slots_left_after_trimming():
+    tooltips = {
+        ('Riposte', 'Insight', '2', 'Riposte II: When Missed: Deals 2d4 damage. Passive: +1 Insight bonus to Armor Class.', '10'),
+        ('Riposte', 'Insight', '4', 'Riposte IV: When Missed: Deals 4d4 damage. Passive: +2 Insight bonus to Armor Class.', '20'),
+    }
+    texts, numbers = describe_affixes(tooltips, {'Riposte'})
+    assert texts == {'Riposte': {'*': 'When Missed: Deals {v}d4 damage.'}}
+    assert numbers == {}
+
+
+def test_to_template_never_takes_a_die_s_sides_for_the_value():
+    assert to_template('Deals 4d4 (4 to 16) damage.', 'Insight', '4') == ('Deals {v}d# ({v} to #) damage.', ['4', '16'])

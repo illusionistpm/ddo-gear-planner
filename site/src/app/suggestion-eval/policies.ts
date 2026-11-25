@@ -126,7 +126,7 @@ export function marginalScorer(objective: Objective, opts: MarginalOptions): Sco
       const baseValues = item.artifact ? realValues : plannedValues;
       let values = base.valuesWithItem(item);
       if (opts.augmentAware) {
-        const crafted = withOwnCrafting(ctx, item, values, objective);
+        const crafted = withOwnCrafting(ctx, base, item, values, objective);
         const credit = opts.ownCraftingCredit ?? 1;
         values = credit === 1 ? crafted : values.map((value, i) => value + (crafted[i] - value) * credit);
       }
@@ -141,35 +141,60 @@ export function marginalScorer(objective: Objective, opts: MarginalOptions): Sco
   };
 }
 
-/** Values with the candidate's own empty crafting slots filled greedily, one option per slot. */
-function withOwnCrafting(ctx: Ctx, item: Item, values: number[], objective: Objective): number[] {
+/**
+ * Values with the candidate's own empty crafting slots filled greedily, one option per slot. An
+ * option that puts the item in a set (Lost Purpose, Slaver's set bonuses, set augments) counts for
+ * the set bonus the extra piece would unlock, recounted against the build's other pieces.
+ */
+function withOwnCrafting(ctx: Ctx, base: BuildState, item: Item, values: number[], objective: Objective): number[] {
   let current = values;
+  const sets = [...(item.getSets() ?? [])];
   for (const craftable of item.crafting ?? []) {
-    if (craftable.selected?.affixes.length) {
+    if (craftable.selected?.affixes.length || craftable.selected?.set) {
       continue;
     }
-    let best: Contribution | null = null;
+    let best: { contribution: Contribution; set: string } | null = null;
     let bestGain = 1e-9;
     for (const choice of cachedChoices(ctx, craftable)) {
-      const gain = gainOf(objective, ctx.index.needs, current, choice);
+      const contribution = choice.set ? withSetBonus(base, choice.contribution, [...sets, choice.set], current) : choice.contribution;
+      const gain = gainOf(objective, ctx.index.needs, current, contribution);
       if (gain > bestGain) {
         bestGain = gain;
-        best = choice;
+        best = { contribution, set: choice.set };
       }
     }
     if (best) {
       current = current.slice();
-      for (const [i, value] of best) {
+      for (const [i, value] of best.contribution) {
         current[i] = Math.max(current[i], value);
+      }
+      if (best.set) {
+        sets.push(best.set);
       }
     }
   }
   return current;
 }
 
-const choiceCache = new Map<string, Contribution[]>();
+/** An option's own contribution plus whatever the build's set bonuses become with `sets` added. */
+function withSetBonus(base: BuildState, own: Contribution, sets: string[], current: number[]): Contribution {
+  const merged: Contribution = new Map(own);
+  base.setValuesFor(base.setCounts(sets)).forEach((value, i) => {
+    if (value > current[i] && value > (merged.get(i) ?? 0)) {
+      merged.set(i, value);
+    }
+  });
+  return merged;
+}
+
+interface CraftChoice {
+  contribution: Contribution;
+  set: string;
+}
+
+const choiceCache = new Map<string, CraftChoice[]>();
 let choiceCacheIndex: NeedIndex | null = null;
-function cachedChoices(ctx: Ctx, craftable: Craftable): Contribution[] {
+function cachedChoices(ctx: Ctx, craftable: Craftable): CraftChoice[] {
   if (choiceCacheIndex !== ctx.index) {
     choiceCache.clear();
     choiceCacheIndex = ctx.index;
@@ -181,8 +206,8 @@ function cachedChoices(ctx: Ctx, craftable: Craftable): Contribution[] {
   let cached = choiceCache.get(key);
   if (!cached) {
     cached = optionChoices(craftable, ctx.maxLevel)
-      .map(choice => ctx.index.contributionOf(choice.option.affixes))
-      .filter(contribution => contribution.size > 0);
+      .map(choice => ({ contribution: ctx.index.contributionOf(choice.option.affixes), set: choice.option.set }))
+      .filter(choice => choice.contribution.size > 0 || choice.set);
     choiceCache.set(key, cached);
   }
   return cached;
@@ -259,6 +284,14 @@ function isHardToFind(ctx: Ctx, need: Need): boolean {
   return hard;
 }
 
+/**
+ * Basic-bundle utility effects that saved endgame builds track but rarely fill (under 35% cover
+ * them; Concealment 13%) and that Lominal's priority lists leave out. A single-type affix like
+ * Concealment otherwise gives a whole affix's worth of value from one item.
+ */
+export const UTILITY_AFFIXES = new Set(['Concealment', 'Immunity to Fear', 'Heroic Inspiration', 'Undying', 'Feather Falling', 'Incorporeality']);
+export const utilityWeight = (weight: number) => (_ctx: Ctx, need: Need) => UTILITY_AFFIXES.has(need.affix) ? weight : 1;
+
 export const SCORERS: Array<[string, Scorer]> = [
   ['live getScore', liveScorer],
   ['total value, items only', marginalScorer(legacyObjective, { augmentAware: false })],
@@ -268,6 +301,8 @@ export const SCORERS: Array<[string, Scorer]> = [
   ['per-need fill, augment-aware + discount', marginalScorer(meanFill, { augmentAware: true, scarcity: scarcityWithDiscount(0.35) })],
   ['total value, augment-aware, planned artifact', marginalScorer(legacyObjective, { augmentAware: true, planArtifact: true })],
   ['flat weights, augment-aware, planned artifact', marginalScorer(flatTotalValue, { augmentAware: true, planArtifact: true })],
+  ['total value, augment-aware, planned artifact, utility 0.25',
+    marginalScorer(legacyObjective, { augmentAware: true, planArtifact: true, scarcity: utilityWeight(0.25) })],
   ['flat weights, augment-aware, planned artifact + item scarcity',
     marginalScorer(flatTotalValue, { augmentAware: true, planArtifact: true, scarcity: itemCountScarcity(1.5) })],
 ];

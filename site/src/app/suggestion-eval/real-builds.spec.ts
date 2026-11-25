@@ -47,6 +47,9 @@ const MIN_FILLED = 9;
 const [SHARD, SHARD_COUNT] = (process.env['SUGGESTION_EVAL_SHARD'] ?? '0/1').split('/').map(Number);
 /** A file to append a line to per leave-one-out build, to follow a long run. */
 const PROGRESS = process.env['SUGGESTION_EVAL_LOG'];
+/** SUGGESTION_EVAL_SLOTS=Helm|Goggles ranks only those slots; SUGGESTION_EVAL_DETAIL=1 logs each ranking. */
+const ONLY_SLOTS = process.env['SUGGESTION_EVAL_SLOTS']?.split('|');
+const DETAIL = !!process.env['SUGGESTION_EVAL_DETAIL'] && !!PROGRESS;
 /**
  * Only builds whose equipped items' median minimum level is in this range (both default to all):
  * SUGGESTION_EVAL_MIN_ML=28 keeps endgame builds. Heroic and epic builds use different sets and
@@ -305,8 +308,9 @@ describe.skipIf(!BUILDS_FILE)('real builds', () => {
       });
       const ctx: Ctx = { equipped, gearDB, availability, index, maxLevel: levelRange[1] };
       const original = new Map(slots);
-      for (const slot of filled) {
+      for (const slot of filled.filter(s => !ONLY_SLOTS || ONLY_SLOTS.includes(s))) {
         const actual = original.get(slot)!;
+        const detail: string[] = [];
         const state = new BuildState(index, gearDB, baseline);
         for (const other of filled) {
           if (other !== slot) {
@@ -332,6 +336,10 @@ describe.skipIf(!BUILDS_FILE)('real builds', () => {
           const above = scores.filter(entry => entry.s > mine + 1e-9).length;
           const ties = scores.filter(entry => Math.abs(entry.s - mine) <= 1e-9).length - 1;
           const rank = 1 + above + ties / 2;
+          if (DETAIL) {
+            const top = [...scores].sort((a, b) => b.s - a.s).slice(0, 3).map(entry => entry.name);
+            detail.push(`${name}: rank ${rank} (top: ${top.join('; ')})`);
+          }
           for (const target of [loo, looAll]) {
             target.rankSum[name] = (target.rankSum[name] ?? 0) + rank;
             target.rr[name] = (target.rr[name] ?? 0) + 1 / rank;
@@ -339,6 +347,9 @@ describe.skipIf(!BUILDS_FILE)('real builds', () => {
             target.hit5[name] = (target.hit5[name] ?? 0) + (rank <= 5 ? 1 : 0);
             target.hit20[name] = (target.hit20[name] ?? 0) + (rank <= 20 ? 1 : 0);
           }
+        }
+        if (DETAIL) {
+          appendFileSync(PROGRESS!, `  ${slot}: ${actual.name}\n    ${detail.join('\n    ')}\n`);
         }
         // The live scorer reads EquippedService, which the loop above changed; put the build back.
         if (scorers.some(([, scorer]) => scorer === liveScorer)) {

@@ -243,7 +243,7 @@ export function optionChoices(craftable: Craftable, maxLevel: number): Array<{ s
       const probe = craftable.clone();
       probe.selectCraftingSystem(system);
       for (const option of probe.options) {
-        if (option.affixes.length && option.isWithinMaxLevel(maxLevel)) {
+        if ((option.affixes.length || option.set) && option.isWithinMaxLevel(maxLevel)) {
           choices.push({ system, option });
         }
       }

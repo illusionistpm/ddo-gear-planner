@@ -319,6 +319,9 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
 
         if (item.crafting) {
           for (const crafting of item.crafting) {
+            if (!item.isCraftingSlotOpen(crafting)) {
+              continue;
+            }
             if (crafting.selected.affixes.length || crafting.selected.set || crafting.selected.name || crafting.selectedCraftingSystemName) {
               params[craftKey(craftingIdx, 'slot')] = slot;
               params[craftKey(craftingIdx, 'system')] = crafting.name;

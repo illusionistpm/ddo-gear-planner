@@ -3,7 +3,8 @@
 The item tables flag a Shadowscale armor that can still be upgraded as "Flawed
 Shadowscale Armor". The Thunder-Forged page's Shadowscale Armor table lists the
 upgrades: each one's effects, the armor types it can be applied to, and what
-every upgrade adds (a Green Augment Slot).
+every upgrade adds (a Green Augment Slot, which the item lists and each option
+opens).
 """
 import copy
 import os
@@ -121,10 +122,11 @@ def add_shadowscale_upgrade_options(
 ) -> list[str] | None:
     """Offer the item the upgrades its armor type takes, as a crafting system.
 
-    Returns the crafting systems every upgrade adds (the Green Augment Slot), which
-    belong to the item itself: a crafting option can't add one. Anything else every
-    upgrade adds goes on each option. None, leaving the item flagged, when the table
-    isn't in the snapshot or offers its armor type nothing.
+    Returns the crafting systems every upgrade adds (the Green Augment Slot), for the
+    item to list: each option names them in `addsCrafting`, so the planner opens the
+    slot only once an upgrade is chosen. Anything else every upgrade adds goes on each
+    option. None, leaving the item flagged, when the table isn't in the snapshot or
+    offers its armor type nothing.
     """
     upgrades = upgrades or load_shadowscale_upgrades()
     column = ARMOR_TYPE_COLUMNS.get(item['type'])
@@ -135,7 +137,8 @@ def add_shadowscale_upgrade_options(
     added_systems = [affix['name'] for affix in shared if affix['name'] in craftingSystems]
     shared_effects = [affix for affix in shared if affix['name'] not in craftingSystems]
 
-    options = [{'name': name, 'affixes': parse_cell(copy.copy(effects)) + copy.deepcopy(shared_effects)}
+    options = [{'name': name, 'affixes': parse_cell(copy.copy(effects)) + copy.deepcopy(shared_effects),
+                **({'addsCrafting': list(added_systems)} if added_systems else {})}
                for name, effects, fits in upgrades.options if column in fits]
     if not options:
         return None

@@ -5,8 +5,10 @@ The wiki lists them as one enchantments list with "Upgradeable - Tier N"
 markers. Everything up to the second marker is the item as it drops. Each
 later marker's entries are what that upgrade changes:
 
-- "A → B" (or "A becomes B"): B replaces A
-- "Adds X": X is new, often an augment slot
+- "A → B" (or "A becomes B"): B replaces A, which the tier's option names in
+  `replaces` so the planner stops counting A
+- "Adds X": X is new, often an augment slot, which the tier's option names in
+  `addsCrafting` (the item lists the slot too, closed until a tier opens it)
 - anything else: added as it is
 
 VotA nests each tier's entries under its marker. Crystal Cove lists Tier 1
@@ -15,10 +17,24 @@ marker ("Upgradeable - Tier 2") is just labelled, with nothing to upgrade.
 """
 import copy
 import re
+from dataclasses import dataclass, field
 
 from bs4 import BeautifulSoup, NavigableString, Tag
 
 UPGRADE_TIER_SYSTEM = 'Upgrade Tier'
+
+
+@dataclass
+class UpgradeTier:
+    """What one upgrade changes on the item before it."""
+    tier: int
+    # The effects it gains.
+    gained: list[dict] = field(default_factory=list)
+    # The effects it takes away ("A" of "A -> B"), each with the gained effect that
+    # takes its place ("B"), if there's one.
+    replaced: list[tuple[dict, dict | None]] = field(default_factory=list)
+    # The crafting systems ("Adds Green Augment Slot") it adds.
+    slots: list[str] = field(default_factory=list)
 
 TIER_MARKER_PATTERN = re.compile(r'^Upgradeable - Tier (\d+)$')
 ARROW = '→'
@@ -98,13 +114,38 @@ def _entry_after(marker_string: NavigableString, marker: str) -> Tag:
     return entry
 
 
-def get_upgrade_entry(li: Tag) -> Tag:
-    """The part of an upgrade entry that is the effect the item gains."""
+def _entry_before(marker_string: NavigableString, marker: str) -> Tag:
+    """A new <li> holding what precedes `marker` in `marker_string`, and its earlier siblings."""
+    entry = BeautifulSoup('<li></li>', 'html.parser').li
+    assert entry is not None
+    for sibling in reversed(list(marker_string.previous_siblings)):
+        entry.append(copy.copy(sibling))
+    before = marker_string.split(marker, 1)[0].strip()
+    if before:
+        entry.append(before)
+    return entry
+
+
+def _find_marker(li: Tag) -> tuple[NavigableString, str] | None:
     for marker in (ARROW, BECOMES):
         # Only the entry's own text: a tooltip can say "becomes" in passing.
         found = li.find(string=lambda text: marker in text and not text.find_parent('span', class_='tooltip'))
         if found is not None:
-            return _entry_after(found, marker)
+            return found, marker
+    return None
+
+
+def get_replaced_entry(li: Tag) -> Tag | None:
+    """The effect an "A -> B" upgrade entry takes away (A), or None for any other entry."""
+    found = _find_marker(li)
+    return _entry_before(*found) if found is not None else None
+
+
+def get_upgrade_entry(li: Tag) -> Tag:
+    """The part of an upgrade entry that is the effect the item gains."""
+    found = _find_marker(li)
+    if found is not None:
+        return _entry_after(*found)
 
     first = next((child for child in li.children if not isinstance(child, NavigableString) or child.strip()), None)
     if isinstance(first, NavigableString) and first.strip().split(' ', 1)[0] == ADDS:

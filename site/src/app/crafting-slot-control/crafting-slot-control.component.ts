@@ -6,7 +6,7 @@ import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { AffixUiService, CraftingOptionContext } from '../affixes/affix-ui.service';
 import { CRAFTING_PICKER_MIN_OPTIONS } from '../crafting-option-picker/crafting-option-picker.component';
-import { AUGMENT_SLOT_1, AUGMENT_SLOT_2, canHaveSecondAugmentSlot } from '../gear/augment-slots';
+import { AUGMENT_SLOT_1, AUGMENT_SLOT_2, canHaveSecondAugmentSlot, normalizeAugmentSlots } from '../gear/augment-slots';
 import { Craftable } from '../gear/craftable';
 import { CraftableOption } from '../gear/craftable-option';
 import { craftSystemName } from '../gear/crafting-acquisition';
@@ -136,6 +136,8 @@ export class CraftingSlotControlComponent implements OnChanges, OnDestroy {
 
   chooseOption(option: CraftableOption): void {
     this.craft.selected = option;
+    // An upgrade given up takes the slot it added, and what's in it, with it.
+    normalizeAugmentSlots(this.item);
     this.emitChanged();
   }
 

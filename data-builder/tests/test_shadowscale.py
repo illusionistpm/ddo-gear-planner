@@ -62,7 +62,8 @@ def test_offers_an_item_the_upgrades_its_armor_type_takes_and_returns_the_slot_t
 
     assert added == ['Green Augment Slot']
     assert crafting[SHADOWSCALE_UPGRADE_SYSTEM]['Shadowscale Robe'] == [
-        {'name': 'Shadow Caster', 'affixes': [{'name': '+3 Profane bonus to Concentration', 'type': 'Bool', 'value': 1}]},
+        {'name': 'Shadow Caster', 'affixes': [{'name': '+3 Profane bonus to Concentration', 'type': 'Bool', 'value': 1}],
+         'addsCrafting': ['Green Augment Slot']},
     ]
 
 

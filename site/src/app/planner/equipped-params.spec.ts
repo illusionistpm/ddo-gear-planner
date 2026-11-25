@@ -95,6 +95,32 @@ describe('EquippedService building items from params', () => {
     expect(selections(slot('Weapon'))).toContain('Augment Slot 1 = Red Augment Slot (empty)');
   });
 
+  it('chooses the upgrade that opens a slot a build saved before such slots were closed has filled', () => {
+    service.updateFromParams(paramsOf({
+      Ring1: 'Epic Ring of the Stalker',
+      craft_0_slot: 'Ring1', craft_0_system: 'Green Augment Slot', craft_0_selected: 'Brightbane Emerald',
+    }));
+
+    expect(selections(slot('Ring1'))).toContain('Upgrade Tier = Tier 3');
+    expect(selections(slot('Ring1'))).toContain('Green Augment Slot = Brightbane Emerald');
+  });
+
+  it('writes no choice for a slot no chosen upgrade opens', () => {
+    service.updateFromParams(paramsOf({
+      Ring1: 'Epic Ring of the Stalker',
+      craft_0_slot: 'Ring1', craft_0_system: 'Upgrade Tier', craft_0_selected: 'Tier 3',
+      craft_1_slot: 'Ring1', craft_1_system: 'Green Augment Slot', craft_1_selected: 'Brightbane Emerald',
+    }));
+    let written: QueryParamRecord | null = null;
+    (service as any).params.subscribe((params: QueryParamRecord | null) => (written = params));
+    slot('Ring1')!.getCraftingByName('Upgrade Tier')!.selectByParamDescription('Tier 2');
+
+    service._updateRouterState();
+
+    expect(Object.values(written!)).toContain('Tier 2');
+    expect(Object.values(written!)).not.toContain('Brightbane Emerald');
+  });
+
   it('empties the offhand behind a two-hander that isn\'t a crossbow', () => {
     const twoHander = gearDb.getGearBySlot('Weapon').find(item => item.isTwoHandedWeapon() && !item.isCrossbow())!;
     const shield = gearDb.getGearBySlot('Offhand').find(item => !item.isRuneArm())!;

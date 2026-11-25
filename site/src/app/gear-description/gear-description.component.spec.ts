@@ -99,6 +99,30 @@ describe('GearDescriptionComponent', () => {
     expect(await pickerOptionNames(fixture, row)).toEqual(['Tier 1', 'Tier 2', 'Tier 3']);
   });
 
+  it('shows the values an upgrade tier changes in place, and opens the slots it adds', async () => {
+    const ring = new Item(TestBed.inject(GearDbService).findGearBySlot('Ring1', 'Epic Ring of the Stalker')!);
+    fixture.componentRef.setInput('item', ring);
+    fixture.componentRef.setInput('equipOnChange', false);
+    fixture.detectChanges();
+    const rows = () => Array.from(fixture.nativeElement.querySelectorAll('.row') as NodeListOf<HTMLElement>);
+    const affixRow = (name: string) => rows().find(element => element.querySelector('.col.ps-1')?.firstChild?.textContent?.trim() === name);
+    const slotRows = () => rows().filter(element => element.textContent?.includes('Augment Slot')).length;
+
+    expect(affixRow('Seeker')!.textContent).toContain('9');
+    expect(affixRow('Ethereal')).toBeTruthy();
+    expect(slotRows()).toBe(0);
+
+    const tierRow = rows().find(element => element.textContent?.includes('Upgrade Tier'))!;
+    await choosePickerOption(fixture, tierRow, 'Tier 3');
+
+    expect(affixRow('Seeker')!.textContent).toContain('11');
+    expect(affixRow('Seeker')!.querySelector('.upgraded-affix-icon')).toBeTruthy();
+    expect(affixRow('Ethereal')).toBeUndefined();
+    expect(affixRow('Ghostly')!.querySelector('.upgraded-affix-icon')).toBeTruthy();
+    expect(component.affixRows.find(row => row.affix.name === 'Ghostly')!.upgradeNote).toBe('Tier 3 - was Ethereal');
+    expect(slotRows()).toBe(2);
+  });
+
   it('leaves the label blank for Empty only, to show muted: an option that grants just a set bonus is a choice', () => {
     const slot = new Craftable('Legendary Lost Purpose', [
       new CraftableOption({ name: 'Legendary Delight of the Devourer', set: 'Legendary Devourer', affixes: [] }),

@@ -194,6 +194,32 @@ def audit_augment_upgrades(items: list[dict[str, Any]]) -> list[dict[str, str]]:
     ]
 
 
+def _item_options(crafting: dict[str, Any], system_name: str, item_name: str) -> list[dict[str, Any]]:
+    system = crafting.get(system_name) or {}
+    return system.get(item_name) or system.get('*') or []
+
+
+def audit_upgrade_changes(items: list[dict[str, Any]], crafting: dict[str, Any]) -> list[dict[str, str]]:
+    """An option's `addsCrafting` opens a slot the item lists, and its `replaces` retires
+    an affix the item has: the planner matches both against the item, and quietly does
+    nothing when there's nothing to match."""
+    issues = []
+    for item in items:
+        own_systems = item.get('crafting') or []
+        own_affixes = {(affix.get('name'), affix.get('type'), str(affix.get('value'))) for affix in item.get('affixes') or []}
+        for system_name in own_systems:
+            for option in _item_options(crafting, system_name, item['name']):
+                for added in option.get('addsCrafting') or []:
+                    if added not in own_systems:
+                        issues.append(_issue('upgrade-slot-not-on-item', 'error', item, {'name': added},
+                                             f"{system_name}: {option.get('name', '')} adds a slot the item doesn't list"))
+                for replaced in option.get('replaces') or []:
+                    if (replaced.get('name'), replaced.get('type'), str(replaced.get('value'))) not in own_affixes:
+                        issues.append(_issue('upgrade-replaces-missing-affix', 'error', item, replaced,
+                                             f"{system_name}: {option.get('name', '')} replaces an affix the item doesn't have"))
+    return issues
+
+
 def write_report(issues: list[dict[str, str]], report_basename: str | None = None) -> None:
     os.makedirs(REPORT_OUTPUT_PATH, exist_ok=True)
     base = report_basename or 'validation_report'
@@ -224,7 +250,9 @@ def audit_data() -> list[dict[str, str]]:
             'sourceText': '',
             'sourceTooltip': '',
         }]
-    return audit_items(items) + audit_seal_upgrades(items, _load_json('crafting') or {}) + audit_augment_upgrades(items)
+    crafting = _load_json('crafting') or {}
+    return (audit_items(items) + audit_seal_upgrades(items, crafting) + audit_augment_upgrades(items)
+            + audit_upgrade_changes(items, crafting))
 
 
 def format_issue(issue: dict[str, str]) -> str:

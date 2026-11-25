@@ -7,6 +7,7 @@ import { FiltersService } from '../planner/filters.service';
 import { AffixService } from '../affixes/affix.service';
 import { Affix } from '../affixes/affix';
 import { NO_PACK_KEY } from './pack-filter';
+import { isCraftingSlotAvailable } from './augment-slots';
 
 describe('GearDbService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
@@ -153,13 +154,15 @@ describe('GearDbService', () => {
     expect(upgrade?.options.map(option => option.describe()))
       .toEqual(['Flawed Shadowscale Armor', 'Shadow Caster', 'Shadow Disciple', 'Shadow Killer']);
     expect(armor?.getActiveAffixes().some(affix => affix.name === 'Flawed Shadowscale Armor')).toBe(false);
-    // Every upgrade adds one; a crafting option can't, so the item has it.
-    expect(armor?.getCraftingByName('Green Augment Slot')).toBeTruthy();
+    // Every upgrade adds one: the item lists it, closed until an upgrade is chosen.
+    const green = armor!.getCraftingByName('Green Augment Slot')!;
+    expect(isCraftingSlotAvailable(armor!, green)).toBe(false);
     expect(sneakAttackDice()).toEqual([]);
 
     expect(upgrade?.selectByParamDescription('Shadow Killer')).toBe(true);
 
     expect(sneakAttackDice()).toEqual([2]);
+    expect(isCraftingSlotAvailable(armor!, green)).toBe(true);
   });
 
   it('offers a Vaults of the Artificers item its upgrade tiers, each adding to what it drops with (issue #51)', () => {
@@ -177,7 +180,11 @@ describe('GearDbService', () => {
     expect(tiers?.selectByParamDescription('Tier 3')).toBe(true);
 
     expect(tiers?.getSelectedParamDescription()).toBe('Tier 3');
-    expect(Math.max(...(seeker() ?? []))).toBe(11);
+    // Each tier's Seeker replaces the one the ring drops with.
+    expect(seeker()).toEqual([11]);
+    expect(ring?.getActiveAffixes().some(affix => affix.name === 'Ethereal')).toBe(false);
+    expect(ring?.getActiveAffixes().some(affix => affix.name === 'Ghostly')).toBe(true);
+    expect(isCraftingSlotAvailable(ring!, ring!.getCraftingByName('Green Augment Slot')!)).toBe(true);
   });
 
   it('gives an augment upgrade one slot that can become any colour the item lists for it', () => {

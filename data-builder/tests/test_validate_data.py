@@ -1,4 +1,4 @@
-from validate_data import audit_augment_upgrades, audit_items, audit_seal_upgrades
+from validate_data import audit_augment_upgrades, audit_items, audit_seal_upgrades, audit_upgrade_changes
 
 
 def test_audit_items_detects_unknown_type_and_missing_numeric_value():
@@ -97,4 +97,23 @@ def test_audit_augment_upgrades_flags_upgrade_slots_without_colours():
     assert [(issue['item'], issue['affix']) for issue in issues] == [
         ('Broken Trinket', 'Upgradeable - Primary Augment'),
         ('Broken Trinket', 'Upgradeable - Secondary Augment'),
+    ]
+
+
+def test_audit_upgrade_changes_flags_a_slot_or_affix_the_item_lacks():
+    items = [{
+        'name': 'Ring',
+        'affixes': [{'name': 'Seeker', 'type': 'Enhancement', 'value': '9'}],
+        'crafting': ['Upgrade Tier', 'Green Augment Slot'],
+    }]
+    crafting = {'Upgrade Tier': {'Ring': [
+        {'name': 'Tier 2', 'replaces': [{'name': 'Seeker', 'type': 'Enhancement', 'value': '9'}], 'addsCrafting': ['Green Augment Slot']},
+        {'name': 'Tier 3', 'replaces': [{'name': 'Seeker', 'type': 'Enhancement', 'value': '8'}], 'addsCrafting': ['Blue Augment Slot']},
+    ]}}
+
+    issues = audit_upgrade_changes(items, crafting)
+
+    assert [(issue['category'], issue['affix']) for issue in issues] == [
+        ('upgrade-slot-not-on-item', 'Blue Augment Slot'),
+        ('upgrade-replaces-missing-affix', 'Seeker'),
     ]

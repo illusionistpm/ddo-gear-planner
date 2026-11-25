@@ -30,6 +30,8 @@ interface AffixDisplayRow {
   affixGroup: boolean;
   groupTooltip: string;
   valueText: string;
+  /** Set when a chosen upgrade replaced the item's own affix with this one: what it was, and by what. */
+  upgradeNote: string;
 }
 
 /** A crafting slot's row; its controls are a CraftingSlotControlComponent's. */
@@ -167,7 +169,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
 
     // Ranked as if this item were equipped in its slot - which, for the equipped item, it is.
     const candidate = this.affixUi.candidateFor(this.curItem);
-    const rows = this.curItem.affixes.map(affix => {
+    const rows = this.curItem.getUpgradedOwnAffixes().map(({ affix, replaced, by }) => {
       const affixGroup = this.affixSvc.isAffixGroup(affix);
       return {
         affix,
@@ -176,11 +178,20 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
         important: this.equipped.isImportantAffix(affix.name),
         affixGroup,
         groupTooltip: affixGroup ? this.affixUi.getAffixGroupTooltip(affix) : '',
-        valueText: affix.hasRealType() ? this.affixUi.getAffixValueText(affix) : ''
+        valueText: affix.hasRealType() ? this.affixUi.getAffixValueText(affix) : '',
+        upgradeNote: replaced && by ? this.upgradeNote(replaced, by) : ''
       };
     });
     done({ rows: rows.length });
     return rows;
+  }
+
+  /** "Tier 2 - was Sonic Lore 10 Equipment": an upgraded row's tooltip. */
+  private upgradeNote(replaced: Affix, by: CraftableOption): string {
+    const was = replaced.hasRealType()
+      ? `${replaced.name} ${this.affixUi.getAffixValueText(replaced)}`
+      : replaced.name;
+    return `${by.describe()} - was ${was}`;
   }
 
   private buildCraftingRows(): CraftingDisplayRow[] {

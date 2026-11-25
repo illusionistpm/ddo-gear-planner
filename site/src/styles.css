@@ -859,6 +859,14 @@ select.form-control {
   color: var(--primary-color);
 }
 
+/* Marks an affix a chosen upgrade tier replaced; its tooltip says what it was. */
+.upgraded-affix-icon {
+  color: var(--primary-color);
+  font-style: normal;
+  font-weight: 900;
+  text-shadow: none;
+}
+
 /*
  * A compound affix where some parts help and others are outranked: coloured by the parts that
  * help, since an outranked part takes nothing away, and italic to say not all of it counts.

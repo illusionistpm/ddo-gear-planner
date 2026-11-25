@@ -2,7 +2,7 @@ import {
   CRAFT_KEY_PREFIX, getMlSlotFromKey, isCraftKey, isMlKey, ML_KEY_PREFIX, parseCraftKey, parseItemBonusKey, ParsedItemBonusKey
 } from '../build/build-param-keys';
 import type { ParamsAdapter } from '../build/query-params.service';
-import { findAugmentUpgradeForLegacySlot } from '../gear/augment-slots';
+import { findAugmentUpgradeForLegacySlot, openFilledUpgradeSlots } from '../gear/augment-slots';
 import type { EssenceCraftingService } from '../gear/essence-crafting.service';
 import { canonicalizeCraftingSystemName, GearDbService } from '../gear/gear-db.service';
 import { Item } from '../gear/item';
@@ -82,6 +82,9 @@ export function slotsFromParams(params: ParamsAdapter, gearDb: Pick<GearDbServic
     if (craftingParam) {
       applyCraftingParam(slots, craftingParam);
     }
+  }
+  for (const item of slots.values()) {
+    openFilledUpgradeSlots(item);
   }
 
   if (itemBonuses) {

@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 
 from parse_items import add_upgrade_tier_options, keep_best_of_each_bonus
 from parse_vota_items import get_vota_enchantment_cells_from_page, is_vota_placeholder
-from upgrade_tiers import UPGRADE_TIER_SYSTEM, get_upgrade_entry, has_tier_markers, own_text, split_upgrade_tiers
+from upgrade_tiers import UPGRADE_TIER_SYSTEM, UpgradeTier, get_replaced_entry, get_upgrade_entry, has_tier_markers, own_text, split_upgrade_tiers
 
 
 def effect(name):
@@ -95,13 +95,21 @@ def test_only_cells_with_markers_have_tiers():
     assert not has_tier_markers(cell(f'<ul><li>{effect("Seeker +2")}</li></ul>'))
 
 
+def test_an_arrow_entry_names_what_it_replaces():
+    _, upgrades = split_upgrade_tiers(cell(VOTA_CELL))
+    arrow, adds = upgrades[0][1]
+
+    assert own_text(get_replaced_entry(arrow)) == 'Seeker +9'
+    assert get_replaced_entry(adds) is None
+
+
 def test_upgrade_options_accumulate_and_keep_the_best_of_each_bonus():
     crafting = {}
     item = {'name': 'Ring', 'slot': 'Ring', 'type': 'Finger items', 'ml': 20, 'affixes': []}
     seeker = lambda value: {'name': 'Seeker', 'type': 'Enhancement', 'value': value}
     deception = {'name': 'Deception', 'type': 'Enhancement', 'value': '8'}
 
-    add_upgrade_tier_options(crafting, item, [(2, [seeker('10')]), (3, [seeker('11'), deception])])
+    add_upgrade_tier_options(crafting, item, [UpgradeTier(2, [seeker('10')]), UpgradeTier(3, [seeker('11'), deception])])
 
     assert crafting[UPGRADE_TIER_SYSTEM]['Ring'] == [
         {'name': 'Tier 2', 'affixes': [seeker('10')]},
@@ -110,20 +118,52 @@ def test_upgrade_options_accumulate_and_keep_the_best_of_each_bonus():
     assert item['crafting'] == [UPGRADE_TIER_SYSTEM]
 
 
+def test_upgrade_options_replace_the_items_own_effects_from_their_tier_on():
+    crafting = {}
+    seeker = lambda value: {'name': 'Seeker', 'type': 'Enhancement', 'value': value}
+    ethereal = {'name': 'Ethereal', 'type': 'Bool', 'value': 1}
+    ghostly = {'name': 'Ghostly', 'type': 'Bool', 'value': 1}
+    item = {'name': 'Ring', 'slot': 'Ring', 'type': 'Finger items', 'ml': 20, 'affixes': [seeker('9'), ethereal]}
+
+    add_upgrade_tier_options(crafting, item, [
+        UpgradeTier(2, [seeker('10'), ghostly], [(seeker('9'), seeker('10')), (dict(ethereal), dict(ghostly))]),
+        UpgradeTier(3, [seeker('11')], [(seeker('10'), seeker('11'))]),
+    ])
+
+    tier2, tier3 = crafting[UPGRADE_TIER_SYSTEM]['Ring']
+    assert tier2['replaces'] == [seeker('9'), {**ethereal, 'by': 'Ghostly'}]
+    # Tier 3's Seeker outvalues Tier 2's; the item's own Seeker is still the one it retires.
+    assert tier3['affixes'] == [seeker('11'), ghostly]
+    assert tier3['replaces'] == tier2['replaces']
+
+
+def test_upgrade_options_open_the_slots_their_tier_adds():
+    crafting = {}
+    item = {'name': 'Boots', 'slot': 'Boots', 'type': 'Feet items', 'ml': 20, 'affixes': []}
+
+    add_upgrade_tier_options(crafting, item, [UpgradeTier(2, []), UpgradeTier(3, [], slots=['Green Augment Slot'])])
+
+    # Tier 2 changes nothing the planner sees, so it's no choice; Tier 3 opens the slot.
+    assert crafting[UPGRADE_TIER_SYSTEM]['Boots'] == [
+        {'name': 'Tier 3', 'affixes': [], 'addsCrafting': ['Green Augment Slot']},
+    ]
+    assert item['crafting'] == [UPGRADE_TIER_SYSTEM]
+
+
 def test_upgrade_options_name_an_enhancement_bonus_for_the_item():
     crafting = {}
     item = {'name': 'Sword', 'slot': 'Weapon', 'type': 'Short Swords', 'ml': 20, 'affixes': []}
 
-    add_upgrade_tier_options(crafting, item, [(2, [{'name': 'Enhancement Bonus', 'type': 'Enhancement', 'value': '+6'}])])
+    add_upgrade_tier_options(crafting, item, [UpgradeTier(2, [{'name': 'Enhancement Bonus', 'type': 'Enhancement', 'value': '+6'}])])
 
     assert crafting[UPGRADE_TIER_SYSTEM]['Sword'][0]['affixes'][0]['name'] == 'Enhancement Bonus (Weapon)'
 
 
-def test_an_item_whose_upgrades_add_only_slots_gets_no_tier_choice():
+def test_an_item_whose_upgrades_change_nothing_gets_no_tier_choice():
     crafting = {}
     item = {'name': 'Boots', 'slot': 'Boots', 'type': 'Feet items', 'ml': 20, 'affixes': []}
 
-    add_upgrade_tier_options(crafting, item, [(2, []), (3, [])])
+    add_upgrade_tier_options(crafting, item, [UpgradeTier(2), UpgradeTier(3)])
 
     assert crafting == {}
     assert 'crafting' not in item

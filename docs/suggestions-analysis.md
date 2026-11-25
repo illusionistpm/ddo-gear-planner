@@ -379,9 +379,13 @@ normal build state so the player can leave at any point:
    today.
 2. **Weapon and offhand.** These come first because they're build-defining,
    and two-handers take the offhand away.
-3. **Trance.** Which kind does the build use? Every trance adds a non-gear
-   Insight Deadly entry. Those that also give Accuracy and tactics DCs add
-   those, so the scorer stops chasing Insight Accuracy and tactics on items.
+3. **Trance.** Ask whether the build's trance is a *full* trance (Deadly,
+   Accuracy and tactics DCs) or a *partial* one (Deadly only), and for an
+   estimated value. Default to 50% more than the best Competence Deadly
+   available at the build's level range. A partial trance adds a non-gear
+   Insight Deadly entry at that value; a full trance also adds Insight
+   Accuracy and Insight tactics DC entries. The scorer then stops chasing
+   those types on items.
 4. **Extras.** Optional groups for effects only some builds use. A "melee
    extras" group would list the four Alchemical Attunements (Air, Earth, Fire,
    Water) and the other weapon-proc effects (Dripping with Magma, Enhanced

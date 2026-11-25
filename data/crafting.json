@@ -563,6 +563,1342 @@
             }
         ]
     },
+    "Alchemical Tier 1": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Shocking Burst",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Stunning",
+                        "type": "Enhancement",
+                        "value": "10"
+                    },
+                    {
+                        "name": "Heightened Awareness",
+                        "type": "Insight",
+                        "value": "4"
+                    }
+                ],
+                "ml": 16,
+                "name": "Air (Martial)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Air Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Force Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Air (Mystical, Adamantine or Crystal)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Air Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Negative Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Air (Mystical, Byeshk)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Air Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Sonic Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Air (Mystical, Cold Iron)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Air Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Positive Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Air (Mystical, Flametouched Iron)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Air Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Air (Mystical, Silver)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Burst",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Greater Stone Prison",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Earthgrab",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 16,
+                "name": "Earth (Martial)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Earthgrab Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Force Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Earth (Mystical, Adamantine or Crystal)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Earthgrab Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Negative Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Earth (Mystical, Byeshk)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Earthgrab Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Sonic Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Earth (Mystical, Cold Iron)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Earthgrab Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Positive Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Earth (Mystical, Flametouched Iron)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Earthgrab Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Earth (Mystical, Silver)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Flaming Burst",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Flaming Blast",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Seeker",
+                        "type": "Enhancement",
+                        "value": "10"
+                    }
+                ],
+                "ml": 16,
+                "name": "Fire (Martial)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Magma Surge Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Force Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Fire (Mystical, Adamantine or Crystal)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Magma Surge Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Negative Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Fire (Mystical, Byeshk)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Magma Surge Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Sonic Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Fire (Mystical, Cold Iron)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Magma Surge Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Positive Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Fire (Mystical, Flametouched Iron)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Magma Surge Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Fire (Mystical, Silver)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Icy Burst",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Freezing Ice",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Fire Shield (Cold)",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 16,
+                "name": "Water (Martial)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Freezing Ice Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Force Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Water (Mystical, Adamantine or Crystal)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Freezing Ice Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Negative Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Water (Mystical, Byeshk)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Freezing Ice Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Sonic Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Water (Mystical, Cold Iron)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Freezing Ice Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Positive Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Water (Mystical, Flametouched Iron)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Freezing Ice Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Water (Mystical, Silver)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            }
+        ]
+    },
+    "Alchemical Tier 2": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Alchemical",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Lightning Strike",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Doublestrike",
+                        "type": "Enhancement",
+                        "value": "6"
+                    }
+                ],
+                "ml": 18,
+                "name": "Air (Martial)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Spark (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Kinetic Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Air (Mystical, Adamantine or Crystal)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Spark (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Negative Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Air (Mystical, Byeshk)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Spark (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Sonic Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Air (Mystical, Cold Iron)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Spark (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Healing Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Air (Mystical, Flametouched Iron)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Spark (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Radiance Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Air (Mystical, Silver)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Alchemical",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Acid Blast",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Disintegration",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 18,
+                "name": "Earth (Martial)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Erosion (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Kinetic Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Earth (Mystical, Adamantine or Crystal)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Erosion (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Negative Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Earth (Mystical, Byeshk)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Erosion (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Sonic Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Earth (Mystical, Cold Iron)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Erosion (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Healing Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Earth (Mystical, Flametouched Iron)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Erosion (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Radiance Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Earth (Mystical, Silver)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Alchemical",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Incineration",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Righteous",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 18,
+                "name": "Fire (Martial)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Inferno (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Kinetic Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Fire (Mystical, Adamantine or Crystal)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Inferno (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Negative Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Fire (Mystical, Byeshk)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Inferno (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Sonic Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Fire (Mystical, Cold Iron)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Inferno (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Healing Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Fire (Mystical, Flametouched Iron)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Inferno (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Radiance Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Fire (Mystical, Silver)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Alchemical",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Crushing Wave",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Corrosive Salt",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 18,
+                "name": "Water (Martial)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Freeze (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Kinetic Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Water (Mystical, Adamantine or Crystal)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Freeze (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Negative Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Water (Mystical, Byeshk)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Freeze (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Sonic Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Water (Mystical, Cold Iron)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Freeze (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Healing Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Water (Mystical, Flametouched Iron)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Freeze (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Radiance Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Water (Mystical, Silver)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            }
+        ]
+    },
+    "Alchemical Tier 3": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Electric Storm",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 20,
+                "name": "Air (Martial)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Efficient Metamagic - Enlarge",
+                        "type": "Enhancement",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Enchantment Focus",
+                        "type": "Equipment",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Equipment",
+                        "value": "1"
+                    }
+                ],
+                "ml": 20,
+                "name": "Air (Mystical)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Acid Torrent",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 20,
+                "name": "Earth (Martial)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Efficient Metamagic - Empower",
+                        "type": "Enhancement",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Conjuration Focus",
+                        "type": "Equipment",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Spell Penetration",
+                        "type": "Equipment",
+                        "value": "3"
+                    }
+                ],
+                "ml": 20,
+                "name": "Earth (Mystical)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Fiery Detonation",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 20,
+                "name": "Fire (Martial)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Efficient Metamagic - Maximize",
+                        "type": "Enhancement",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Evocation Focus",
+                        "type": "Equipment",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Arcane Augmentation",
+                        "type": "Untyped",
+                        "value": 1
+                    }
+                ],
+                "ml": 20,
+                "name": "Fire (Mystical)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Freezing Gale",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 20,
+                "name": "Water (Martial)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Efficient Metamagic - Extend",
+                        "type": "Enhancement",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Transmutation Focus",
+                        "type": "Equipment",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Greater Elemental Spell Power",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 20,
+                "name": "Water (Mystical)",
+                "quests": [
+                    "Cannith Binding Station"
+                ]
+            }
+        ]
+    },
     "Almost There": {
         "Collective Sight": [
             {
@@ -10660,6 +11996,902 @@
             {
                 "name": "The Legendary Dread Isle's Curse",
                 "set": "The Legendary Dread Isle's Curse"
+            }
+        ]
+    },
+    "Legendary Alchemical Tier 1": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Heightened Awareness",
+                        "type": "Insight",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Legendary Lightning Storm Guard",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 29,
+                "name": "Air: Heightened Awareness +6, Legendary Lightning Storm Guard",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Power",
+                        "type": "Equipment",
+                        "value": "148"
+                    },
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "22"
+                    }
+                ],
+                "ml": 29,
+                "name": "Air: Magnetism +148, Lightning Lore +22%",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Spell Power",
+                        "type": "Equipment",
+                        "value": "148"
+                    },
+                    {
+                        "name": "Sonic Lore",
+                        "type": "Equipment",
+                        "value": "22"
+                    }
+                ],
+                "ml": 29,
+                "name": "Air: Resonance +148, Sonic Lore +22%",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shocking Blast",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Sovereign Lightning Strike",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 29,
+                "name": "Air: Shocking Blast 6, Sovereign Lightning Strike",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Resistance",
+                        "type": "Enhancement",
+                        "value": "40"
+                    },
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Enhancement",
+                        "value": "35"
+                    }
+                ],
+                "ml": 29,
+                "name": "Air: Spell Resistance +40, Magical Sheltering +35",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Blast",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Legendary Stone Prison",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 29,
+                "name": "Earth: Acid Blast 6, Legendary Stone Prison",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "148"
+                    },
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": "22"
+                    }
+                ],
+                "ml": 29,
+                "name": "Earth: Corrosion +148, Acid Lore +22%",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Crippling",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Legendary Earthgrab Guard",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 29,
+                "name": "Earth: Crippling, Legendary Earthgrab Guard",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortification",
+                        "type": "Enhancement",
+                        "value": "148"
+                    },
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Enhancement",
+                        "value": "35"
+                    }
+                ],
+                "ml": 29,
+                "name": "Earth: Fortification +148%, Physical Sheltering +35",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Spell Power",
+                        "type": "Equipment",
+                        "value": "148"
+                    },
+                    {
+                        "name": "Negative Lore",
+                        "type": "Equipment",
+                        "value": "22"
+                    }
+                ],
+                "ml": 29,
+                "name": "Earth: Nullification +148, Void Lore +22%",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "148"
+                    },
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "22"
+                    }
+                ],
+                "ml": 29,
+                "name": "Fire: Combustion +148, Fire Lore +22%",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Positive Spell Power",
+                        "type": "Equipment",
+                        "value": "148"
+                    },
+                    {
+                        "name": "Healing Lore",
+                        "type": "Equipment",
+                        "value": "22"
+                    }
+                ],
+                "ml": 29,
+                "name": "Fire: Devotion +148, Healing Lore +22%",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Flaming Blast",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Overwhelming Incineration",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 29,
+                "name": "Fire: Flaming Blast 6, Overwhelming Incineration",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": "148"
+                    },
+                    {
+                        "name": "Radiance Lore",
+                        "type": "Equipment",
+                        "value": "22"
+                    }
+                ],
+                "ml": 29,
+                "name": "Fire: Radiance +148, Radiance Lore +22%",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Seeker",
+                        "type": "Enhancement",
+                        "value": "13"
+                    },
+                    {
+                        "name": "Legendary Magma Surge Guard",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 29,
+                "name": "Fire: Seeker +13, Legendary Magma Surge Guard",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Shield (Cold)",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Legendary Ice Shards Guard",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 29,
+                "name": "Water: Fire Shield (Cold), Legendary Ice Shards Guard",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "148"
+                    },
+                    {
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "22"
+                    }
+                ],
+                "ml": 29,
+                "name": "Water: Glaciation +148, Ice Lore +22%",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Icy Blast",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Concentrated Corrosive Salt",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 29,
+                "name": "Water: Icy Blast 6, Concentrated Corrosive Salt",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Force Spell Power",
+                        "type": "Equipment",
+                        "value": "148"
+                    },
+                    {
+                        "name": "Kinetic Lore",
+                        "type": "Equipment",
+                        "value": "22"
+                    }
+                ],
+                "ml": 29,
+                "name": "Water: Impulse +148, Kinetic Lore +22%",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": "148"
+                    },
+                    {
+                        "name": "Repair Lore",
+                        "type": "Equipment",
+                        "value": "22"
+                    }
+                ],
+                "ml": 29,
+                "name": "Water: Reconstruction +148, Repair Lore +22%",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            }
+        ]
+    },
+    "Legendary Alchemical Tier 2": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Alchemical",
+                        "value": "2"
+                    }
+                ],
+                "ml": 29,
+                "name": "Air: Alchemical Dexterity +2",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Doubleshot",
+                        "type": "Enhancement",
+                        "value": "8"
+                    }
+                ],
+                "ml": 29,
+                "name": "Air: Doubleshot +8%",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Efficient Metamagic - Enlarge",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 29,
+                "name": "Air: Efficient Metamagic - Enlarge II",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Electric Storm",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 29,
+                "name": "Air: Legendary Electric Storm",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Vertigo",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ],
+                "ml": 29,
+                "name": "Air: Vertigo +15",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Alchemical",
+                        "value": "2"
+                    }
+                ],
+                "ml": 29,
+                "name": "Earth: Alchemical Constitution +2",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Alchemical",
+                        "value": "2"
+                    }
+                ],
+                "ml": 29,
+                "name": "Earth: Alchemical Intelligence +2",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Efficient Metamagic - Empower",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 29,
+                "name": "Earth: Efficient Metamagic - Empower II",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Acid Torrent",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 29,
+                "name": "Earth: Legendary Acid Torrent",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shatter",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ],
+                "ml": 29,
+                "name": "Earth: Shatter +15",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Alchemical",
+                        "value": "2"
+                    }
+                ],
+                "ml": 29,
+                "name": "Fire: Alchemical Strength +2",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Doublestrike",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ],
+                "ml": 29,
+                "name": "Fire: Doublestrike +15%",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Efficient Metamagic - Maximize",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 29,
+                "name": "Fire: Efficient Metamagic - Maximize II",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Fiery Detonation",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 29,
+                "name": "Fire: Legendary Fiery Detonation",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stunning",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ],
+                "ml": 29,
+                "name": "Fire: Stunning +15",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Alchemical",
+                        "value": "2"
+                    }
+                ],
+                "ml": 29,
+                "name": "Water: Alchemical Charisma +2",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Alchemical",
+                        "value": "2"
+                    }
+                ],
+                "ml": 29,
+                "name": "Water: Alchemical Wisdom +2",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Assassinate",
+                        "type": "Enhancement",
+                        "value": "6"
+                    }
+                ],
+                "ml": 29,
+                "name": "Water: Assassinate +6",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Efficient Metamagic - Extend",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "ml": 29,
+                "name": "Water: Efficient Metamagic - Extend II",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Freezing Gale",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 29,
+                "name": "Water: Legendary Freezing Gale",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            }
+        ]
+    },
+    "Legendary Alchemical Tier 3": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Alchemical Air Attunement",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 29,
+                "name": "Air: Alchemical Air Attunement",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enchantment Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "ml": 29,
+                "name": "Air: Enchantment Focus +6",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Illusion Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "ml": 29,
+                "name": "Air: Illusion Focus +6",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Improved Electric Augmentation",
+                        "type": "Untyped",
+                        "value": "3"
+                    }
+                ],
+                "ml": 29,
+                "name": "Air: Improved Electric Augmentation IX",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Alchemical Earth Attunement",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 29,
+                "name": "Earth: Alchemical Earth Attunement",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Conjuration Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "ml": 29,
+                "name": "Earth: Conjuration Focus +6",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Improved Acid Augmentation",
+                        "type": "Untyped",
+                        "value": "3"
+                    }
+                ],
+                "ml": 29,
+                "name": "Earth: Improved Acid Augmentation IX",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Transmutation Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "ml": 29,
+                "name": "Earth: Transmutation Focus +6",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Alchemical Fire Attunement",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 29,
+                "name": "Fire: Alchemical Fire Attunement",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Evocation Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "ml": 29,
+                "name": "Fire: Evocation Focus +6",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Improved Fire Augmentation",
+                        "type": "Untyped",
+                        "value": "3"
+                    }
+                ],
+                "ml": 29,
+                "name": "Fire: Improved Fire Augmentation IX",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "11"
+                    }
+                ],
+                "ml": 29,
+                "name": "Fire: Resistance +11",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Alchemical Water Attunement",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 29,
+                "name": "Water: Alchemical Water Attunement",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Improved Cold Augmentation",
+                        "type": "Untyped",
+                        "value": "3"
+                    }
+                ],
+                "ml": 29,
+                "name": "Water: Improved Cold Augmentation IX",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Necromancy Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "ml": 29,
+                "name": "Water: Necromancy Focus +6",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Penetration",
+                        "type": "Equipment",
+                        "value": "9"
+                    }
+                ],
+                "ml": 29,
+                "name": "Water: Spell Penetration +9",
+                "quests": [
+                    "Cannith Reforging Station"
+                ]
             }
         ]
     },

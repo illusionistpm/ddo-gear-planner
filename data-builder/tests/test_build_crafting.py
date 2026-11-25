@@ -33,6 +33,7 @@ def test_build_crafting_does_not_synthesize_names_for_synonymized_affixes(monkey
 
     monkeypatch.setattr(module, 'get_inverted_synonym_map', lambda: {'Devotion': 'Positive Spell Power'})
     monkeypatch.setattr(module, 'parse_nearly_complete_crafting', lambda: {})
+    monkeypatch.setattr(module, 'parse_alchemical_crafting', lambda: {})
     monkeypatch.setattr(module, 'parse_slavers_crafting', lambda: {
         "Legendary Slaver's Suffix Slot": {
             '*': [

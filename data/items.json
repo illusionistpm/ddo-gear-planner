@@ -2401,12 +2401,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Bastard Sword",
@@ -2423,12 +2423,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Battle Axe",
@@ -2445,12 +2445,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Dagger",
@@ -2469,15 +2469,15 @@
                 "value": "+5"
             },
             {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
-            },
-            {
                 "name": "Returning",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Dart",
@@ -2494,12 +2494,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Dwarven Waraxe",
@@ -2516,12 +2516,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Falchion",
@@ -2538,12 +2538,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Great Crossbow",
@@ -2560,12 +2560,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Greataxe",
@@ -2582,12 +2582,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Greatclub",
@@ -2604,12 +2604,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Greatsword",
@@ -2626,12 +2626,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Hand Axe",
@@ -2648,12 +2648,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Handwraps",
@@ -2670,12 +2670,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Heavy Crossbow",
@@ -2692,12 +2692,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Heavy Mace",
@@ -2714,12 +2714,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Heavy Pick",
@@ -2741,12 +2741,12 @@
                 "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Heavy Shield",
@@ -2763,12 +2763,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Kama",
@@ -2785,12 +2785,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Khopesh",
@@ -2807,12 +2807,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Kukri",
@@ -2829,12 +2829,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Light Crossbow",
@@ -2851,12 +2851,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Light Hammer",
@@ -2873,12 +2873,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Light Mace",
@@ -2895,12 +2895,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Light Pick",
@@ -2922,12 +2922,12 @@
                 "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Light Shield",
@@ -2944,12 +2944,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Longbow",
@@ -2966,12 +2966,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Longbow",
@@ -2988,12 +2988,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Longsword",
@@ -3010,12 +3010,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Maul",
@@ -3032,12 +3032,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Morningstar",
@@ -3054,12 +3054,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Quarterstaff",
@@ -3076,12 +3076,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Rapier",
@@ -3098,12 +3098,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Repeating Heavy Crossbow",
@@ -3120,12 +3120,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Repeating Light Crossbow",
@@ -3142,12 +3142,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Sceptre",
@@ -3164,12 +3164,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Scimitar",
@@ -3186,12 +3186,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Shortbow",
@@ -3208,12 +3208,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Shortsword",
@@ -3232,15 +3232,15 @@
                 "value": "+5"
             },
             {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
-            },
-            {
                 "name": "Returning",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Shuriken",
@@ -3257,12 +3257,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Sickle",
@@ -3308,15 +3308,15 @@
                 "value": "+5"
             },
             {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
-            },
-            {
                 "name": "Returning",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Throwing Axe",
@@ -3335,15 +3335,15 @@
                 "value": "+5"
             },
             {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
-            },
-            {
                 "name": "Returning",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Throwing Dagger",
@@ -3362,15 +3362,15 @@
                 "value": "+5"
             },
             {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
-            },
-            {
                 "name": "Returning",
                 "type": "Bool",
                 "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Throwing Hammer",
@@ -3392,12 +3392,12 @@
                 "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Tower Shield",
@@ -3414,12 +3414,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+5"
-            },
-            {
-                "name": "Alchemical (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
+        ],
+        "crafting": [
+            "Alchemical Tier 1",
+            "Alchemical Tier 2",
+            "Alchemical Tier 3"
         ],
         "ml": 12,
         "name": "Alchemical Warhammer",
@@ -126719,14 +126719,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+15"
-            },
-            {
-                "name": "Legendary Alchemical Crafting (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Legendary Alchemical Tier 1",
+            "Legendary Alchemical Tier 2",
+            "Legendary Alchemical Tier 3",
             "Red Augment Slot"
         ],
         "ml": 29,
@@ -126749,14 +126747,12 @@
                 "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
                 "value": "+15"
-            },
-            {
-                "name": "Legendary Alchemical Crafting (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Legendary Alchemical Tier 1",
+            "Legendary Alchemical Tier 2",
+            "Legendary Alchemical Tier 3",
             "Red Augment Slot"
         ],
         "ml": 29,
@@ -126774,14 +126770,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+15"
-            },
-            {
-                "name": "Legendary Alchemical Crafting (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Legendary Alchemical Tier 1",
+            "Legendary Alchemical Tier 2",
+            "Legendary Alchemical Tier 3",
             "Red Augment Slot"
         ],
         "ml": 29,
@@ -126799,14 +126793,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+15"
-            },
-            {
-                "name": "Legendary Alchemical Crafting (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Legendary Alchemical Tier 1",
+            "Legendary Alchemical Tier 2",
+            "Legendary Alchemical Tier 3",
             "Red Augment Slot"
         ],
         "ml": 29,
@@ -126824,14 +126816,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+15"
-            },
-            {
-                "name": "Legendary Alchemical Crafting (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Legendary Alchemical Tier 1",
+            "Legendary Alchemical Tier 2",
+            "Legendary Alchemical Tier 3",
             "Red Augment Slot"
         ],
         "ml": 29,
@@ -126849,14 +126839,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+15"
-            },
-            {
-                "name": "Legendary Alchemical Crafting (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Legendary Alchemical Tier 1",
+            "Legendary Alchemical Tier 2",
+            "Legendary Alchemical Tier 3",
             "Red Augment Slot"
         ],
         "ml": 29,
@@ -126874,14 +126862,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+15"
-            },
-            {
-                "name": "Legendary Alchemical Crafting (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Legendary Alchemical Tier 1",
+            "Legendary Alchemical Tier 2",
+            "Legendary Alchemical Tier 3",
             "Red Augment Slot"
         ],
         "ml": 29,
@@ -126899,14 +126885,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+15"
-            },
-            {
-                "name": "Legendary Alchemical Crafting (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Legendary Alchemical Tier 1",
+            "Legendary Alchemical Tier 2",
+            "Legendary Alchemical Tier 3",
             "Red Augment Slot"
         ],
         "ml": 29,
@@ -126924,14 +126908,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+15"
-            },
-            {
-                "name": "Legendary Alchemical Crafting (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Legendary Alchemical Tier 1",
+            "Legendary Alchemical Tier 2",
+            "Legendary Alchemical Tier 3",
             "Red Augment Slot"
         ],
         "ml": 29,
@@ -126954,14 +126936,12 @@
                 "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
                 "value": "+15"
-            },
-            {
-                "name": "Legendary Alchemical Crafting (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Legendary Alchemical Tier 1",
+            "Legendary Alchemical Tier 2",
+            "Legendary Alchemical Tier 3",
             "Red Augment Slot"
         ],
         "ml": 29,
@@ -126979,14 +126959,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+15"
-            },
-            {
-                "name": "Legendary Alchemical Crafting (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Legendary Alchemical Tier 1",
+            "Legendary Alchemical Tier 2",
+            "Legendary Alchemical Tier 3",
             "Red Augment Slot"
         ],
         "ml": 29,
@@ -127004,14 +126982,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+15"
-            },
-            {
-                "name": "Legendary Alchemical Crafting (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Legendary Alchemical Tier 1",
+            "Legendary Alchemical Tier 2",
+            "Legendary Alchemical Tier 3",
             "Red Augment Slot"
         ],
         "ml": 29,
@@ -127029,14 +127005,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+15"
-            },
-            {
-                "name": "Legendary Alchemical Crafting (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Legendary Alchemical Tier 1",
+            "Legendary Alchemical Tier 2",
+            "Legendary Alchemical Tier 3",
             "Red Augment Slot"
         ],
         "ml": 29,
@@ -127054,14 +127028,12 @@
                 "name": "Orb Bonus",
                 "type": "Orb",
                 "value": "+15"
-            },
-            {
-                "name": "Legendary Alchemical Crafting (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Legendary Alchemical Tier 1",
+            "Legendary Alchemical Tier 2",
+            "Legendary Alchemical Tier 3",
             "Red Augment Slot"
         ],
         "ml": 29,
@@ -127079,14 +127051,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+15"
-            },
-            {
-                "name": "Legendary Alchemical Crafting (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Legendary Alchemical Tier 1",
+            "Legendary Alchemical Tier 2",
+            "Legendary Alchemical Tier 3",
             "Red Augment Slot"
         ],
         "ml": 29,
@@ -127104,14 +127074,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+15"
-            },
-            {
-                "name": "Legendary Alchemical Crafting (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Legendary Alchemical Tier 1",
+            "Legendary Alchemical Tier 2",
+            "Legendary Alchemical Tier 3",
             "Red Augment Slot"
         ],
         "ml": 29,
@@ -127129,14 +127097,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+15"
-            },
-            {
-                "name": "Legendary Alchemical Crafting (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Legendary Alchemical Tier 1",
+            "Legendary Alchemical Tier 2",
+            "Legendary Alchemical Tier 3",
             "Red Augment Slot"
         ],
         "ml": 29,
@@ -127154,14 +127120,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+15"
-            },
-            {
-                "name": "Legendary Alchemical Crafting (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Legendary Alchemical Tier 1",
+            "Legendary Alchemical Tier 2",
+            "Legendary Alchemical Tier 3",
             "Red Augment Slot"
         ],
         "ml": 29,
@@ -127184,14 +127148,12 @@
                 "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
                 "value": "+15"
-            },
-            {
-                "name": "Legendary Alchemical Crafting (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Legendary Alchemical Tier 1",
+            "Legendary Alchemical Tier 2",
+            "Legendary Alchemical Tier 3",
             "Red Augment Slot"
         ],
         "ml": 29,
@@ -127214,14 +127176,12 @@
                 "name": "Enhancement Bonus (Armor)",
                 "type": "Enhancement",
                 "value": "+15"
-            },
-            {
-                "name": "Legendary Alchemical Crafting (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Legendary Alchemical Tier 1",
+            "Legendary Alchemical Tier 2",
+            "Legendary Alchemical Tier 3",
             "Red Augment Slot"
         ],
         "ml": 29,
@@ -127239,14 +127199,12 @@
                 "name": "Enhancement Bonus (Weapon)",
                 "type": "Enhancement",
                 "value": "+15"
-            },
-            {
-                "name": "Legendary Alchemical Crafting (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Legendary Alchemical Tier 1",
+            "Legendary Alchemical Tier 2",
+            "Legendary Alchemical Tier 3",
             "Red Augment Slot"
         ],
         "ml": 29,
@@ -291568,14 +291526,12 @@
                 "name": "Force Shot",
                 "type": "Bool",
                 "value": 1
-            },
-            {
-                "name": "Legendary Alchemical Crafting (Prototype)",
-                "type": "Bool",
-                "value": 1
             }
         ],
         "crafting": [
+            "Legendary Alchemical Tier 1",
+            "Legendary Alchemical Tier 2",
+            "Legendary Alchemical Tier 3",
             "Green Augment Slot"
         ],
         "ml": 29,

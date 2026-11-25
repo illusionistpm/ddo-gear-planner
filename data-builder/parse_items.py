@@ -18,6 +18,7 @@ from get_snapshot_path import get_snapshot_path
 from parse_set_page import load_set_members
 from item_sources import LOCATION_HEADERS, SourceResolver, extract_sources, find_location_column, load_source_resolver, merge_resolved_source_packs, report_multi_source_entries
 
+from parse_alchemical_crafting import get_alchemical_crafting_systems
 from typedefs import SetAugment, CatMap, AugmentNameTransformMap, CraftingSystems, Sets, Affix, Item
 
 # Joke and event items whose enchantments cell is empty. They have nothing
@@ -608,6 +609,13 @@ def get_items_from_page(
                 add_item_crafting_systems(item, [SHADOWSCALE_UPGRADE_SYSTEM, *addedSystems])
 
         add_item_crafting_systems(item, get_legendary_green_steel_crafting_systems(item))
+
+        # An Alchemical prototype's flag gives way to the tiers bound onto it.
+        for affix in [*item['affixes']]:
+            alchemicalSystems = get_alchemical_crafting_systems(affix['name'])
+            if alchemicalSystems is not None:
+                item['affixes'].remove(affix)
+                add_item_crafting_systems(item, alchemicalSystems)
 
         # Post-process craftable items
         if any(itemAffix['name'] in craftableAffixNames for itemAffix in item['affixes']):

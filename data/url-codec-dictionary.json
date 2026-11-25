@@ -144,7 +144,13 @@
         "Upgradeable - Primary Augment",
         "Upgradeable - Secondary Augment",
         "Upgrade Tier",
-        "Shadowscale Upgrade"
+        "Shadowscale Upgrade",
+        "Alchemical Tier 1",
+        "Alchemical Tier 2",
+        "Alchemical Tier 3",
+        "Legendary Alchemical Tier 1",
+        "Legendary Alchemical Tier 2",
+        "Legendary Alchemical Tier 3"
     ],
     "filigrees": [
         "Angelic Wings: Charisma",

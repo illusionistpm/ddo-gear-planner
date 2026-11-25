@@ -28,8 +28,6 @@
         <span class="tracked-bonus-label">{{chip.label}}<ng-container *ngIf="chip.currentValue">:</ng-container></span>
         <span class="tracked-bonus-value" *ngIf="chip.currentValue">{{chip.currentValue}}</span>
         <span class="max-available" *ngIf="chip.maxValue > 0">/{{chip.maxValue}}</span>
-        <!-- Ruled out, but what it has still counts: locked at this value, not struck through. -->
-        <span class="fas fa-lock tracked-bonus-state-icon tracked-bonus-lock" *ngIf="chip.eliminated && chip.currentValue" aria-hidden="true"></span>
         <span class="tracked-bonus-onboarding-badge" *ngIf="isOnboardingTargetChip(chip.sourceAffixName, chip.bonusType)">Click</span>
     </button>
 </ng-template>

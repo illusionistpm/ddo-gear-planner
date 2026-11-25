@@ -375,19 +375,20 @@ describe('Tracked affix chips', () => {
       remaining.delete(affixTypeKey('Charisma', 'Alchemical'));
     });
 
-    it('stays in its row, locked rather than struck through, in the category view', () => {
+    it('stays in its row, not struck through, in the category view', () => {
       expect(unreachableToggle('Charisma')).toBeNull();
       expect(chipText(chip('Alchemical'))).toBe('Alchemical:2/8');
       expect(modifiers(chip('Alchemical'))).toEqual(['bonus-eliminated', 'low-value']);
-      expect(chip('Alchemical').querySelector('.fa-lock')).not.toBeNull();
+      expect(chip('Alchemical').title).toContain('Ruled out by your gear');
+      expect(chip('Alchemical').querySelector('.fa-lock')).toBeNull();
     });
 
-    it('is locked in the scarcity view too', () => {
+    it('carries no extra mark in the scarcity view either', () => {
       equipped.setTrackedAffixGroupMode('slots');
       fixture.detectChanges();
 
       expect(modifiers(chip('Alchemical'))).toEqual(['bonus-eliminated', 'low-value']);
-      expect(chip('Alchemical').querySelector('.fa-lock')).not.toBeNull();
+      expect(chip('Alchemical').querySelector('.fa-lock')).toBeNull();
     });
   });
 

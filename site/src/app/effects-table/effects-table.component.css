@@ -630,8 +630,8 @@
  * A bonus type with nothing in it whose every candidate slot is now filled —
  * ruled out by gear — or that no gear in the current level range has at all.
  * The category view folds these away until asked (.tracked-unreachable-toggle).
- * One ruled out with a value isn't struck through: its value still counts, and
- * a lock says it can't go higher.
+ * One ruled out with a value looks like any other chip with that value: the
+ * value still counts, and the Scarcity view and the tooltip say it's ruled out.
  */
 .tracked-bonus-chip.bonus-eliminated.no-value,
 .tracked-bonus-chip.bonus-unavailable {
@@ -640,14 +640,10 @@
     text-decoration-thickness: 1px;
 }
 
-/* The check on a chip at the best value, and the lock on one ruled out with a value. */
+/* The check on a chip at the best value. */
 .tracked-bonus-state-icon {
     align-self: center;
     font-size: 0.7em;
-}
-
-.tracked-bonus-lock {
-    color: var(--text-secondary);
 }
 
 /* "+N unreachable" at the end of a row: a quiet text button, not another chip. */

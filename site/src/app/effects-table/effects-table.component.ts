@@ -74,7 +74,7 @@ interface SlotGroup {
 /**
  * Nothing to chase and nothing counted: ruled out by gear with no value, or
  * out of the level range. The category view folds these away behind a toggle
- * per row; a ruled-out type that does carry a value stays, locked.
+ * per row; a ruled-out type that does carry a value stays, looking like any other.
  */
 function isUnreachableChip(chip: TrackedChip): boolean {
   return chip.unavailable || (chip.eliminated && !chip.currentValue);

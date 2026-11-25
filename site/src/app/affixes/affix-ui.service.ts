@@ -620,9 +620,36 @@ export class AffixUiService {
     return { pieces: setReq.currentCount + (alreadyEquipped ? 0 : 1), required: setReq.requiredCount };
   }
 
-  getClassForCraftable(craft: Craftable, candidate?: RankCandidate): string {
+  /**
+   * The rank class of the option chosen in a crafting slot, as its row shows it. A set augment
+   * whose set is short of pieces gives nothing yet, so it is Inactive - though a list of options
+   * ranks it as if its set were complete, which is what choosing it works towards. `itemIsEquipped`
+   * says whether the item already counts as one of the set's pieces.
+   */
+  getClassForCraftable(craft: Craftable, candidate?: RankCandidate, itemIsEquipped = true): string {
     perfCount('AffixUiService.getClassForCraftable');
-    return this.getClassForCraftingOption(craft?.selected, candidate);
+    return this.shortSetOfChosen(craft?.selected, itemIsEquipped)
+      ? AffixRank[AffixRank.Inactive]
+      : this.getClassForCraftingOption(craft?.selected, candidate);
+  }
+
+  /** Why the option chosen in a crafting slot has its row's rank; see getClassForCraftable. */
+  getChosenOptionRankTooltip(option: CraftableOption | null | undefined, slot?: string, candidate?: RankCandidate,
+      itemIsEquipped = true): string {
+    const short = this.shortSetOfChosen(option, itemIsEquipped);
+    return short
+      ? `Need ${short.required} set items (currently have ${short.pieces})`
+      : this.getCraftingOptionRankTooltip(option, slot, candidate);
+  }
+
+  /** A chosen set augment's pieces, when there are too few for its set's first bonus. */
+  private shortSetOfChosen(option: CraftableOption | null | undefined, itemIsEquipped: boolean): { pieces: number; required: number } | null {
+    // One with affixes of its own ranks them, as Inactive while the set is short (getAffixRankDetails).
+    if (!option?.set || option.affixes.length) {
+      return null;
+    }
+    const pieces = this.getSetPieces(option, itemIsEquipped);
+    return pieces && pieces.pieces < pieces.required ? pieces : null;
   }
 
   getClassForCraftingOption(option: CraftableOption, candidate?: RankCandidate): string {

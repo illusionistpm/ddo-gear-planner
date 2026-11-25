@@ -14,8 +14,11 @@
         }
       </ul>
     }
-    @if (details.wikiName) {
-      <a class="affix-details-source" [href]="wikiUrl" target="_blank" rel="noreferrer">More on DDO Wiki</a>
-    }
   </div>
+  @if (details.wikiName) {
+    <!-- A footer: where the text comes from, set apart from the text itself. -->
+    <div class="affix-details-footer">
+      <a class="affix-details-source" [href]="wikiUrl" target="_blank" rel="noreferrer">More on DDO Wiki<span aria-hidden="true"> &#8599;</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+    </div>
+  }
 </div>

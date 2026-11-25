@@ -25,6 +25,26 @@ export interface CraftableOptionInit {
   name?: string;
   ml?: number;
   quests?: ReadonlyArray<string>;
+  /**
+   * Crafting systems (usually augment slots) the option opens on its item: an upgrade
+   * that adds a slot. The item lists them in its own `crafting`, so they keep their
+   * place and URL keys; they're only usable while a chosen option adds them.
+   */
+  addsCrafting?: ReadonlyArray<string>;
+  /**
+   * The item's own affixes this option supersedes ("Deception +3 -> Insightful
+   * Deception +2"): while it's chosen they no longer count, and the item shows the
+   * option's affixes in their place. Matched by name, type and value.
+   */
+  replaces?: ReadonlyArray<ReplacedAffixInit>;
+}
+
+/**
+ * An item affix an option supersedes. `by` names the option affix that takes its place
+ * when the name changes ("Ethereal -> Ghostly"); otherwise it's the one of the same name.
+ */
+export interface ReplacedAffixInit extends AffixInit {
+  by?: string;
 }
 
 /** A crafting slot passed to the Item constructor as a plain object (tests do this). */

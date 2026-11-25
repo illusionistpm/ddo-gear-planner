@@ -12,6 +12,15 @@ import itemTypesList from '@data/item-types.json';
 
 const itemTypes = itemTypesList as Record<string, { attributes: Array<string> }>;
 
+/** One of an item's own affixes as shown after its chosen upgrades (Item.getUpgradedOwnAffixes). */
+export interface UpgradedAffix {
+    affix: Affix;
+    /** The item's own affix this one replaced, or null if it's the item's own. */
+    replaced: Affix | null;
+    /** The chosen option that replaced it. */
+    by: CraftableOption | null;
+}
+
 export class Item {
     name!: string;
     slot!: string;
@@ -120,14 +129,61 @@ export class Item {
         return 'http://ddowiki.com' + this.url;
     }
 
-    getActiveAffixes() {
-        let activeAffixes = this.affixes.slice();
+    /**
+     * Whether a crafting slot can be used. A slot another slot's option adds - the augment
+     * slot an upgrade tier adds - is there only while a chosen option adds it; any other
+     * slot always is. (Augment Slot 2's own rule is isCraftingSlotAvailable's.)
+     */
+    isCraftingSlotOpen(craftable: Craftable): boolean {
+        let added = false;
+        for (const other of this.crafting ?? []) {
+            if (other === craftable) {
+                continue;
+            }
+            if (other.selected?.addsCrafting.includes(craftable.name)) {
+                return true;
+            }
+            added ||= other.canAddCraftingSystem(craftable.name);
+        }
+        return !added;
+    }
 
-        if (this.crafting) {
-            for (const craftable of this.crafting) {
-                if (craftable.selected && craftable.selected.affixes) {
-                    activeAffixes = activeAffixes.concat(craftable.selected.affixes);
-                }
+    /** The options chosen in its open crafting slots. */
+    private chosenOptions(): CraftableOption[] {
+        return (this.crafting ?? [])
+            .filter(craftable => craftable.selected && this.isCraftingSlotOpen(craftable))
+            .map(craftable => craftable.selected);
+    }
+
+    /**
+     * Its own affixes as its chosen upgrades leave them: one an option replaces shows as
+     * the option's affix that takes its place (`replaced` holding the original, `by` the
+     * option), or not at all if nothing does. The option's other affixes aren't here.
+     */
+    getUpgradedOwnAffixes(): UpgradedAffix[] {
+        const chosen = this.chosenOptions().filter(option => option.replaces.length);
+        const shown: UpgradedAffix[] = [];
+        for (const affix of this.affixes) {
+            const by = chosen.find(option => option.replacesAffix(affix));
+            if (!by) {
+                shown.push({ affix, replaced: null, by: null });
+                continue;
+            }
+            const replacement = by.replacementFor(affix);
+            if (replacement && !shown.some(row => row.affix === replacement)) {
+                shown.push({ affix: replacement, replaced: affix, by });
+            }
+        }
+        return shown;
+    }
+
+    getActiveAffixes() {
+        const chosen = this.chosenOptions();
+        let activeAffixes = this.affixes.filter(affix => !chosen.some(option => option.replacesAffix(affix)));
+
+        for (const option of chosen) {
+            if (option.affixes) {
+                activeAffixes = activeAffixes.concat(option.affixes);
             }
         }
 
@@ -194,6 +250,10 @@ export class Item {
         for (const craftable of this.crafting ?? []) {
             // We sometimes want to skip the colored augments because they're so ubiquitous.
             if (!allowColoredAugmentSystem && craftable.isColoredAugmentSystem) {
+                continue;
+            }
+            // A slot an upgrade adds isn't there to fill until the upgrade is chosen.
+            if (!this.isCraftingSlotOpen(craftable)) {
                 continue;
             }
 

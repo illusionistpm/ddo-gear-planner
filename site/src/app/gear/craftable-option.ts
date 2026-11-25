@@ -66,6 +66,12 @@ export class CraftableOption {
     readonly quests: ReadonlyArray<string>;
     /** The pack filter keys of its sources (see pack-filter.ts). */
     readonly packKeys: ReadonlyArray<string>;
+    /** Crafting systems choosing it opens on the item (see CraftableOptionInit.addsCrafting). */
+    readonly addsCrafting: ReadonlyArray<string>;
+    /** The item's own affixes it supersedes while chosen (see CraftableOptionInit.replaces). */
+    readonly replaces: ReadonlyArray<Affix>;
+    /** For each of `replaces`, the name of the affix of its own that takes its place. */
+    private readonly replacementNames: ReadonlyArray<string>;
     /**
      * What a system's "nothing selected" option shows as, when that isn't simply empty
      * (an upgrade-tier item with no upgrade is at Tier 1). Display only: the option
@@ -85,6 +91,9 @@ export class CraftableOption {
         this.affixes = (json?.affixes ?? []).map(affix => new Affix(affix));
         this.quests = json?.quests ?? [];
         this.packKeys = getPackKeys(this.quests);
+        this.addsCrafting = json?.addsCrafting ?? [];
+        this.replaces = (json?.replaces ?? []).map(affix => new Affix(affix));
+        this.replacementNames = (json?.replaces ?? []).map(affix => affix.by ?? affix.name ?? '');
 
         if (json) {
             this.set = json.set ?? '';
@@ -106,6 +115,30 @@ export class CraftableOption {
      */
     isWithinMaxLevel(maxLevel: number) {
         return !this.ml || this.ml <= maxLevel;
+    }
+
+    /** Whether choosing it retires this affix of the item's own. */
+    replacesAffix(affix: Affix): boolean {
+        return this.replacedIndex(affix) !== -1;
+    }
+
+    /**
+     * The affix of its own that takes the place of an item affix it replaces: the one
+     * the data names, of the same bonus type if there's a choice. Null when it doesn't
+     * replace that affix, or replaces it with nothing.
+     */
+    replacementFor(affix: Affix): Affix | null {
+        const index = this.replacedIndex(affix);
+        if (index === -1) {
+            return null;
+        }
+        const named = this.affixes.filter(candidate => candidate.name === this.replacementNames[index]);
+        return named.find(candidate => candidate.type === affix.type) ?? named[0] ?? null;
+    }
+
+    private replacedIndex(affix: Affix): number {
+        return this.replaces.findIndex(replaced =>
+            replaced.name === affix.name && replaced.type === affix.type && replaced.value === affix.value);
     }
 
     matchesParamDescription(desc: string) {

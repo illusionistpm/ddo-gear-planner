@@ -71,15 +71,20 @@ export function canHaveSecondAugmentSlot(item: Item | null): boolean {
   return !!slotOneSystem && slotOneSystem !== COLORLESS_AUGMENT_SYSTEM;
 }
 
-/** Every crafting slot is usable except Augment Slot 2 while slot 1 doesn't allow it. */
+/**
+ * Every crafting slot is usable except Augment Slot 2 while slot 1 doesn't allow it, and
+ * a slot an upgrade adds while no chosen upgrade adds it (Item.isCraftingSlotOpen).
+ */
 export function isCraftingSlotAvailable(item: Item | null, craftable: Craftable): boolean {
-  return craftable.name !== AUGMENT_SLOT_2 || canHaveSecondAugmentSlot(item);
+  return (craftable.name !== AUGMENT_SLOT_2 || canHaveSecondAugmentSlot(item))
+    && (!item || item.isCraftingSlotOpen(craftable));
 }
 
 /**
- * Brings an essence-crafted item's Augment Slot 2 in line with slot 1: offers
- * only the systems slot 1 allows, and empties it while slot 1 doesn't allow it
- * at all. Mutates the item; anything showing its crafting slots runs it first.
+ * Brings an item's crafting slots in line with each other: an essence-crafted item's
+ * Augment Slot 2 offers only the systems slot 1 allows, and is emptied while slot 1
+ * doesn't allow it at all; a slot an upgrade adds is emptied while no chosen upgrade
+ * adds it. Mutates the item; anything showing its crafting slots runs it first.
  */
 export function normalizeAugmentSlots(item: Item | null): void {
   const slotOne = item?.getCraftingByName(AUGMENT_SLOT_1);
@@ -92,6 +97,39 @@ export function normalizeAugmentSlots(item: Item | null): void {
 
     if (!canHaveSecondAugmentSlot(item)) {
       slotTwo.selectCraftingSystem('');
+    }
+  }
+
+  for (const craftable of item?.crafting ?? []) {
+    if (item!.isCraftingSlotOpen(craftable) || !craftable.getSelectedParamDescription()) {
+      continue;
+    }
+    if (craftable.hasCraftingSystemOptions()) {
+      craftable.selectCraftingSystem('');
+    } else {
+      craftable.selected = craftable.options[0];
+    }
+  }
+}
+
+/**
+ * A build saved before a slot an upgrade adds was gated may fill that slot without
+ * choosing the upgrade - the item used to have the slot outright. Chooses the first
+ * option that adds it (the lowest tier), so the augment isn't lost. Mutates the item.
+ */
+export function openFilledUpgradeSlots(item: Item | null): void {
+  for (const craftable of item?.crafting ?? []) {
+    if (item!.isCraftingSlotOpen(craftable) || !craftable.getSelectedParamDescription()) {
+      continue;
+    }
+    for (const upgrade of item!.crafting) {
+      const opener = upgrade !== craftable && !upgrade.getSelectedParamDescription()
+        ? upgrade.options.find(option => option.addsCrafting.includes(craftable.name))
+        : undefined;
+      if (opener) {
+        upgrade.selected = opener;
+        break;
+      }
     }
   }
 }

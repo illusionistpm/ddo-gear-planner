@@ -1,6 +1,7 @@
 from typing import Any, Literal, cast
 
 from bs4 import BeautifulSoup
+import copy
 import os
 import re
 import collections
@@ -12,7 +13,7 @@ from compound_affixes import expand_single_affix
 from parse_rare_loot import get_rare_loot_from_snapshot
 from parse_vota_items import get_vota_enchantment_cells, is_vota_placeholder
 from shadowscale import SHADOWSCALE_SYSTEM, SHADOWSCALE_UPGRADE_SYSTEM, add_shadowscale_upgrade_options
-from upgrade_tiers import UPGRADE_TIER_SYSTEM, as_cell, get_upgrade_entry, has_tier_markers, split_upgrade_tiers
+from upgrade_tiers import UPGRADE_TIER_SYSTEM, UpgradeTier, as_cell, get_replaced_entry, get_upgrade_entry, has_tier_markers, split_upgrade_tiers
 from get_snapshot_path import get_snapshot_path
 from parse_set_page import load_set_members
 from item_sources import LOCATION_HEADERS, SourceResolver, extract_sources, find_location_column, load_source_resolver, merge_resolved_source_packs, report_multi_source_entries
@@ -195,19 +196,55 @@ def keep_best_of_each_bonus(affixes: list[Affix]) -> list[Affix]:
     return kept
 
 
-def add_upgrade_tier_options(craftingSystems: CraftingSystems, item: Item|SetAugment, upgradeAffixes: list[tuple[int, list[Affix]]]) -> None:
+def _same_bonus(a: Affix, b: Affix) -> bool:
+    return a['name'] == b['name'] and a.get('type') == b.get('type')
+
+
+def add_upgrade_tier_options(craftingSystems: CraftingSystems, item: Item|SetAugment, upgrades: list[UpgradeTier]) -> None:
     """An 'Upgrade Tier' choice for an item that upgrades in place: one option per tier
-    above the first, holding everything gained up to it. A replaced effect stays in the
-    item's own affixes, since the planner takes the best value of a bonus type."""
+    above the first, holding everything gained up to it. An effect of the item's own an
+    upgrade replaces goes in the option's `replaces` (with `by`, the name of what takes
+    its place, when that differs), and a slot an upgrade adds in its `addsCrafting`: the
+    item lists the slot, and the planner opens it only once a tier adding it is chosen.
+    Run once the item's own affixes have their final names."""
     gained: list[Affix] = []
+    replaced: list[Affix] = []
+    slots: list[str] = []
     options = []
-    for tier, tierAffixes in upgradeAffixes:
-        for affix in tierAffixes:
+    for upgrade in upgrades:
+        for affix in upgrade.gained + [side for pair in upgrade.replaced for side in pair if side is not None]:
             change_lost_purpose_affix_name(affix, item)
             rename_enhancement_bonus(affix, item)
-        gained = keep_best_of_each_bonus(gained + tierAffixes)
-        if gained:
-            options.append({'name': f'Tier {tier}', 'affixes': gained})
+
+        for left, right in upgrade.replaced:
+            by = right['name'] if right is not None else None
+            own = next((affix for affix in item['affixes'] if _same_bonus(affix, left)), None)
+            if own is not None:
+                if not any(_same_bonus(own, earlier) for earlier in replaced):
+                    entry = copy.deepcopy(own)
+                    if by is not None and by != own['name']:
+                        entry['by'] = by
+                    replaced.append(entry)
+                continue
+            # It replaces an earlier tier's effect: that one goes, and whatever it replaced
+            # is now replaced by this tier's.
+            gained = [affix for affix in gained if not _same_bonus(affix, left)]
+            for earlier in replaced:
+                if earlier.get('by', earlier['name']) == left['name'] and by is not None:
+                    if by == earlier['name']:
+                        earlier.pop('by', None)
+                    else:
+                        earlier['by'] = by
+
+        gained = keep_best_of_each_bonus(gained + upgrade.gained)
+        slots += [slot for slot in upgrade.slots if slot not in slots]
+        if gained or replaced or slots:
+            option: dict[str, Any] = {'name': f'Tier {upgrade.tier}', 'affixes': copy.deepcopy(gained)}
+            if replaced:
+                option['replaces'] = copy.deepcopy(replaced)
+            if slots:
+                option['addsCrafting'] = list(slots)
+            options.append(option)
 
     if options:
         craftingSystems.setdefault(UPGRADE_TIER_SYSTEM, {})[item['name']] = options
@@ -439,8 +476,8 @@ def get_items_from_page(
         sourceResolver.resolve_item(quests)
 
         affixes = []
-        # Per upgrade tier, the effects it gains over the item as it drops.
-        upgradeAffixes: list[tuple[int, list[Affix]]] = []
+        # Per upgrade tier, what it changes on the item as it drops.
+        upgrades: list[UpgradeTier] = []
         if 'Enchantments' in cols or 'Special Abilities' in cols:
             affixesIdx = cols['Enchantments'] if 'Enchantments' in cols else cols['Special Abilities']
             cell = fields[affixesIdx]
@@ -456,15 +493,29 @@ def get_items_from_page(
                 baseEntries, tiers = split_upgrade_tiers(cell)
                 affixes = parse_cell(as_cell(baseEntries))
                 for tier, entries in tiers:
-                    tierAffixes = []
+                    upgrade = UpgradeTier(tier)
                     for affix in parse_cell(as_cell([get_upgrade_entry(entry) for entry in entries])):
-                        # An added augment slot or set belongs to the item itself:
-                        # a crafting option can't add a slot, and sets aren't affixes.
-                        if affix['name'] in craftingSystems or affix['name'] in sets:
+                        if affix['name'] in craftingSystems:
+                            # A slot belongs to the item, closed until a tier that adds it is chosen.
+                            affixes.append(affix)
+                            upgrade.slots.append(affix['name'])
+                        elif affix['name'] in sets:
+                            # Sets aren't affixes: the item has the set at any tier.
                             affixes.append(affix)
                         else:
-                            tierAffixes.append(affix)
-                    upgradeAffixes.append((tier, tierAffixes))
+                            upgrade.gained.append(affix)
+                    for entry in entries:
+                        left = get_replaced_entry(entry)
+                        if left is None:
+                            continue
+                        before = parse_cell(as_cell([left]))
+                        after = parse_cell(as_cell([get_upgrade_entry(entry)]))
+                        if before == after:
+                            # A change the planner can't see ("Sonic Guard +2 -> +3", both Bool).
+                            continue
+                        by = after[0] if len(after) == 1 else None
+                        upgrade.replaced += [(affix, by) for affix in before]
+                    upgrades.append(upgrade)
             elif cell is not None:
                 affixes = parse_cell(cell)
 
@@ -547,7 +598,7 @@ def get_items_from_page(
         for affix in remove:
             item['affixes'].remove(affix)
 
-        add_upgrade_tier_options(craftingSystems, item, upgradeAffixes)
+        add_upgrade_tier_options(craftingSystems, item, upgrades)
 
         if any(affix['name'] == SHADOWSCALE_SYSTEM for affix in item['affixes']):
             addedSystems = add_shadowscale_upgrade_options(craftingSystems, item, parse_cell)

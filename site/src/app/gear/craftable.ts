@@ -19,6 +19,8 @@ export class Craftable {
     craftingSystemOptions: string[] = [];
     selectedCraftingSystemName: string = '';
     private allOptionsByCraftingSystem: Map<string, CraftableOption[]> = new Map<string, CraftableOption[]>();
+    /** What `options` can add (see addsCraftingSystem), worked out once per options list. */
+    private addableCache: { options: CraftableOption[], systems: ReadonlySet<string> } | null = null;
 
     constructor(name: string, options: Array<CraftableOption>, addEmptyOption: boolean = true) {
         // Mark all of the traditional, "colored" augment systems. They're numerous and get filtered out sometimes.
@@ -33,6 +35,18 @@ export class Craftable {
             this.options = options;
             this.selected = this.options[0];
         }
+    }
+
+    /** Whether one of its options opens this crafting system on the item (CraftableOption.addsCrafting). */
+    canAddCraftingSystem(systemName: string): boolean {
+        if (this.addableCache?.options !== this.options) {
+            const systems = new Set<string>();
+            for (const option of this.options) {
+                option.addsCrafting.forEach(system => systems.add(system));
+            }
+            this.addableCache = { options: this.options, systems };
+        }
+        return this.addableCache.systems.has(systemName);
     }
 
     setCraftingSystemOptions(optionsByCraftingSystem: Map<string, CraftableOption[]>, selectedCraftingSystemName: string = '') {

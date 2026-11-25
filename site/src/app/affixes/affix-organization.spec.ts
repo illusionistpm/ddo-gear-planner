@@ -23,6 +23,13 @@ describe('affix organization', () => {
   it('categorizes common weapon, armor, utility, and damage affixes', () => {
     expect(getAffixCategory('Enhancement Bonus (Weapon)')).toBe('Offense');
     expect(getAffixCategory('Enhancement Bonus (Armor)')).toBe('Defense');
+    // Bypasses beat an enemy's defenses, so they are offense even when the
+    // defense they bypass (Dodge, Fortification) is itself a Defense affix.
+    expect(getAffixCategory('Dodge Bypass')).toBe('Offense');
+    expect(getAffixCategory('Fortification Bypass')).toBe('Offense');
+    expect(getAffixCategory('Incorporeal Bypass')).toBe('Offense');
+    expect(getAffixCategory('Slashing Type Bypass')).toBe('Offense');
+    expect(getAffixCategory('Dodge')).toBe('Defense');
     expect(getAffixCategory('Destruction')).toBe('Offense');
     expect(getAffixCategory('Improved Destruction')).toBe('Offense');
     expect(getAffixCategory('Maiming')).toBe('Offense');

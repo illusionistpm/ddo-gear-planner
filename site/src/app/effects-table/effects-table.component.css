@@ -53,7 +53,7 @@
 
 .goals-bar-icon,
 .goals-bar-title {
-    color: var(--primary-color);
+    color: var(--primary-on-tint-text-color);
     flex: 0 0 auto;
 }
 
@@ -88,7 +88,7 @@
 
 .goals-bar-edit {
     align-items: center;
-    color: var(--primary-color);
+    color: var(--primary-on-tint-text-color);
     display: inline-flex;
     flex: 0 0 auto;
     font-weight: 700;

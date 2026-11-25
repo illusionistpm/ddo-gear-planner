@@ -61,6 +61,9 @@
   --info-chip-border-color: #bfdbfe;
   --info-chip-hover-border-color: #93c5fd;
   --info-chip-text-color: #1d4ed8;
+  /* Primary-blue text on a primary-blue tint (the Build goals bar): a shade deeper in light
+     mode, where --primary-color is only about 4.2:1 on a 12% tint. Dark mode needs no change. */
+  --primary-on-tint-text-color: #1d4ed8;
   --info-chip-hover-text-color: #1e40af;
   --raid-loot-text-color: #92400e;
   --rare-loot-text-color: #5b21b6;
@@ -309,6 +312,7 @@
   --info-chip-border-color: rgba(147, 197, 253, 0.48);
   --info-chip-hover-border-color: rgba(147, 197, 253, 0.7);
   --info-chip-text-color: #bfdbfe;
+  --primary-on-tint-text-color: var(--primary-color);
   --info-chip-hover-text-color: #eff6ff;
   --raid-loot-text-color: #fbbf24;
   --rare-loot-text-color: #c4b5fd;

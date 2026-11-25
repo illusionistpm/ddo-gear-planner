@@ -62,6 +62,11 @@ export class CloseRequestService implements OnDestroy {
     return view?.CloseWatcher;
   }
 
+  /** How many overlays are open, so a page-level shortcut can stay out of their way. */
+  get openCount(): number {
+    return this.stack.length;
+  }
+
   /**
    * Registers an overlay that has just opened. Call the returned function
    * when it closes some other way (its close button, backdrop, navigation,

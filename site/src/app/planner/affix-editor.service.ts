@@ -8,7 +8,7 @@ import { EquippedService } from './equipped.service';
 import { PlannerOnboardingService } from './planner-onboarding.service';
 
 /** What asked for the affix editor, for analytics. */
-export type AffixEditorRevealSource = 'goals_bar' | 'start_banner';
+export type AffixEditorRevealSource = 'goals_bar' | 'start_banner' | 'hotkey';
 
 /**
  * Whether the affix editor - the top of the Tracked Affixes panel - is open.

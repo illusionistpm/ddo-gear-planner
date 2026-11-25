@@ -963,7 +963,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     if (otherCount) {
       parts.push(otherCount + (otherCount === 1 ? ' other goal' : ' other goals'));
     }
-    return parts.length ? 'Build goals: ' + parts.join(', ') + '. Click to edit.' : 'Choose your build goals';
+    return parts.length ? 'Build goals: ' + parts.join(', ') + '. Click (or press G) to edit.' : 'Choose your build goals (G)';
   }
 
   /**

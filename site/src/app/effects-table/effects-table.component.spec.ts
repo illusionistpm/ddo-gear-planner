@@ -794,9 +794,12 @@ describe('EffectsTableComponent', () => {
       expect(component.getClassForValue('Strength', { bonusType: 'Insight', value: 0 })).toBe('no-value');
     });
 
-    it('treats any value short of the best alike, below three quarters or not', () => {
+    it('treats values below three quarters of the best as short', () => {
       expect(component.getClassForValue('Strength', { bonusType: 'Insight', value: 5 })).toBe('short-value');
-      expect(component.getClassForValue('Strength', { bonusType: 'Insight', value: 6 })).toBe('short-value');
+    });
+
+    it('treats values at three quarters of the best as mostly covered', () => {
+      expect(component.getClassForValue('Strength', { bonusType: 'Insight', value: 6 })).toBe('covered-value');
     });
 
     it('treats the best available value as max', () => {

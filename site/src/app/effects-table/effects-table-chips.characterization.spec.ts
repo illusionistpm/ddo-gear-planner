@@ -169,7 +169,7 @@ describe('Tracked affix chips', () => {
       expect(modifiers(chip('Enhancement'))).toEqual(['short-value']);
 
       expect(chipText(chip('Profane'))).toBe('Profane:7/8');
-      expect(modifiers(chip('Profane'))).toEqual(['short-value']);
+      expect(modifiers(chip('Profane'))).toEqual(['covered-value']);
     });
 
     it('marks only a chip at the best value with a check', () => {
@@ -240,7 +240,7 @@ describe('Tracked affix chips', () => {
       expect(modifiers(chip('Enhancement'))).toEqual(['short-value']);
       expect(chipText(chip('Insight'))).toBe('Insight/4');
       expect(modifiers(chip('Insight'))).toEqual(['no-value']);
-      expect(modifiers(chip('Profane'))).toEqual(['short-value']);
+      expect(modifiers(chip('Profane'))).toEqual(['covered-value']);
     });
 
     it('shows the same tooltips as the category view', () => {

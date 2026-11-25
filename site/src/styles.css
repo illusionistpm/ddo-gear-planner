@@ -103,17 +103,18 @@
   --success-glow-rgb: 16, 185, 129;
   /*
    * The gear cards' "this is the value that counts" (Best) and "tied with another
-   * piece" (BestTied). Deliberately not green: on the Build Goals rail green means
-   * a bonus type is at the best value the game has, and a row can be the best
-   * equipped source of a value that is still well short of that.
+   * piece" (BestTied). Best is teal: green-leaning, as the cards always were, but not
+   * the Build Goals rail's green, which means a bonus type is at the best value the
+   * game has - and a row can be the best equipped source of a value well short of it.
+   * Not blue either, which is already the links, buttons and toggles. A tie is blue.
+   * Teal is darker than the blue here (lighter in dark mode), so the two differ in
+   * lightness as well as hue - which is what survives red-green color blindness.
    */
-  --rank-best-color: var(--primary-color);
-  /* Teal, and darker than the blue (lighter in dark mode), so a tie differs from the best in
-     lightness as well as hue - which is what survives red-green color blindness. */
-  --rank-best-tied-color: #115e59;
-  --rank-best-tied-rgb: 17, 94, 89;
-  --rank-best-glow: 0 0 8px rgba(var(--primary-color-rgb), 0.3);
-  --rank-best-tied-glow: 0 0 8px rgba(var(--rank-best-tied-rgb), 0.3);
+  --rank-best-color: #115e59;
+  --rank-best-rgb: 17, 94, 89;
+  --rank-best-tied-color: var(--primary-color);
+  --rank-best-glow: 0 0 8px rgba(var(--rank-best-rgb), 0.3);
+  --rank-best-tied-glow: 0 0 8px rgba(var(--primary-color-rgb), 0.3);
   /* Outranked and Penalty text, and Mixed's gradient: darker than --warning/--danger-color,
      which only reach about 3:1 on the light rows. */
   --rank-outranked-color: #92400e;
@@ -278,11 +279,11 @@
   --rank-better-than-best-color: #a78bfa;
   --rank-better-than-best-glow: 0 0 8px rgba(167, 139, 250, 0.35);
   --success-glow-rgb: 16, 185, 129;
-  --rank-best-color: var(--primary-color);
-  --rank-best-tied-color: #5eead4;
-  --rank-best-tied-rgb: 94, 234, 212;
-  --rank-best-glow: 0 0 8px rgba(var(--primary-color-rgb), 0.3);
-  --rank-best-tied-glow: 0 0 8px rgba(var(--rank-best-tied-rgb), 0.3);
+  --rank-best-color: #2dd4bf;
+  --rank-best-rgb: 45, 212, 191;
+  --rank-best-tied-color: var(--primary-color);
+  --rank-best-glow: 0 0 8px rgba(var(--rank-best-rgb), 0.3);
+  --rank-best-tied-glow: 0 0 8px rgba(var(--primary-color-rgb), 0.3);
   --rank-outranked-color: #f59e0b;
   --rank-penalty-color: #f87171;
   --rank-mixed-gradient-end: #f97316;

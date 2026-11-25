@@ -514,8 +514,13 @@ export class AffixUiService {
       return '';
     }
     // A set augment is ranked as if its set were complete, so it isn't described as short.
-    return (option!.affixes.length ? this.describeShortSet(option) : '')
-      || this.describeRank(details, option!.affixes.length ? option! : undefined, slot);
+    const shortSet = option!.affixes.length ? this.describeShortSet(option) : '';
+    // Several parts (Good Luck's 24) say how they rank overall in one line, as an affix row's do:
+    // the option's details list the parts.
+    if (!shortSet && details.parts) {
+      return this.describeOverallRank(details, slot);
+    }
+    return shortSet || this.describeRank(details, option!.affixes.length ? option! : undefined, slot);
   }
 
   /**

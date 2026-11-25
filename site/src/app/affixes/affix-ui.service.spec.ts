@@ -329,6 +329,17 @@ describe('AffixUiService', () => {
       expect(makeService({ Doublestrike: AffixRank.Outranked }).getClassForCraftingOption(setAugment)).toBe('Outranked');
     });
 
+    it('are Inactive as a slot\'s chosen option while the set is short, however a list ranks them', () => {
+      const service = makeService({ Doublestrike: AffixRank.BetterThanBest });
+      const craft = { selected: setAugment } as any;
+
+      expect(service.getClassForCraftable(craft)).toBe('Inactive');
+      expect(service.getChosenOptionRankTooltip(setAugment)).toBe('Need 3 set items (currently have 0)');
+      // An item not yet equipped counts as a piece of its own.
+      expect(service.getChosenOptionRankTooltip(setAugment, undefined, undefined, false)).toBe('Need 3 set items (currently have 1)');
+      expect(service.getClassForCraftingOption(setAugment)).toBe('BetterThanBest');
+    });
+
     it('rank as their most useful bonus, marked partial, when another bonus is outranked', () => {
       const service = makeService({ Doublestrike: AffixRank.BetterThanBest, Doubleshot: AffixRank.Outranked });
 

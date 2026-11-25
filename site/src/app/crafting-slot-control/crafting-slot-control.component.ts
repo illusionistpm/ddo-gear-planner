@@ -118,8 +118,8 @@ export class CraftingSlotControlComponent implements OnChanges, OnDestroy {
     const candidate = this.affixUi.candidateFor(item);
     this.context = { item, craft };
     this.visibleOptions = this.computeVisibleOptions(craft);
-    this.className = this.affixUi.getClassForCraftable(craft, candidate);
-    this.tooltip = this.affixUi.getCraftingOptionRankTooltip(craft.selected, item.slot, candidate);
+    this.className = this.affixUi.getClassForCraftable(craft, candidate, this.itemIsEquipped);
+    this.tooltip = this.affixUi.getChosenOptionRankTooltip(craft.selected, item.slot, candidate, this.itemIsEquipped);
     this.selectedDetails = this.affixUi.getCraftingOptionDetails(craft.selected, item.ml);
     this.changeDetector.markForCheck();
     done();

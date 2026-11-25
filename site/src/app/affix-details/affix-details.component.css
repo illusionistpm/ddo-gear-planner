@@ -68,11 +68,21 @@
     white-space: nowrap;
 }
 
-.affix-details-source {
-    color: var(--text-secondary);
-    display: inline-block;
+.affix-details-footer {
+    border-top: 1px solid var(--border-color);
     font-size: 0.75rem;
     margin-top: var(--space-8);
+    padding-top: var(--space-4);
+}
+
+/* In a popover the footer spans it, under the padded body. */
+.affix-details-framed .affix-details-footer {
+    margin-top: 0;
+    padding: var(--space-4) var(--space-12) var(--space-8);
+}
+
+.affix-details-source {
+    color: var(--text-secondary);
 }
 
 .affix-details-source:hover {

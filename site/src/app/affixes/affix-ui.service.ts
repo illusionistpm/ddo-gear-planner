@@ -55,6 +55,19 @@ export interface AffixDetailsPart {
   value: string;
 }
 
+/**
+ * Affix groups whose members a compound's details name as one row when it has them all at one
+ * value: the group whose members are exactly that family, and what to call them.
+ */
+const PART_FAMILIES: ReadonlyArray<{ group: string, label: string }> = [
+  { group: 'All Saves', label: 'All saves' },
+  { group: 'All Skills', label: 'All skills' },
+  { group: 'Well Rounded', label: 'All abilities' },
+  { group: 'Potency', label: 'All spell powers' },
+  { group: 'Spell Lore', label: 'All spell lores' },
+  { group: 'Spell Critical Damage', label: 'All spell critical damage' },
+];
+
 /** A labelled list in an affix's details: "Counts toward", "Grants", "Set bonus at 3 pieces". */
 export interface AffixDetailsSection {
   label: string;
@@ -391,7 +404,7 @@ export class AffixUiService {
     perfCount('AffixUiService.getAffixDetails');
     if (!affix) return null;
     const description = this.descriptions.describe(affix, ml);
-    const parts = this.affixSvc.isAffixGroup(affix) ? this.affixSvc.ungroupAffix(affix).map(part => this.detailsPart(part)) : [];
+    const parts = this.affixSvc.isAffixGroup(affix) ? this.detailsParts(this.affixSvc.ungroupAffix(affix)) : [];
     if (!description && !parts.length) return null;
     return {
       name: affix.name,
@@ -416,7 +429,7 @@ export class AffixUiService {
         name, description: '', wikiName: '',
         sections: tiers.map(tier => ({
           label: `Set bonus at ${tier.threshold} pieces`,
-          parts: tier.affixes.map(affix => this.detailsPart(affix)),
+          parts: this.detailsParts(tier.affixes),
         })),
       } : null;
     }
@@ -429,13 +442,35 @@ export class AffixUiService {
     const description = only ? this.descriptions.describe(only, ml) : '';
     // A plain "+3 Fire Spell Power" is its one affix already: listing it would only say it again.
     const saysItAll = !option.name && !option.set && granted.length === 1;
-    const sections = saysItAll ? [] : [{ label: 'Grants', parts: granted.map(affix => this.detailsPart(affix)) }];
+    const sections = saysItAll ? [] : [{ label: 'Grants', parts: this.detailsParts(granted) }];
     if (!description && !sections.length) return null;
     return { name, description, wikiName: description && only ? only.name : '', sections };
   }
 
   private detailsPart(affix: Affix): AffixDetailsPart {
     return { name: affix.name, value: this.getAffixValueText(affix) };
+  }
+
+  /**
+   * A compound's parts as its details list them. A whole family at one value - every skill, every
+   * spell power - is one row ("All skills: +2 Luck"): listed out, Good Luck alone is 24 rows.
+   */
+  private detailsParts(affixes: Affix[]): AffixDetailsPart[] {
+    let rows: Array<{ affix: Affix | null, part: AffixDetailsPart }> =
+      affixes.map(affix => ({ affix, part: this.detailsPart(affix) }));
+    for (const family of PART_FAMILIES) {
+      const members = this.affixSvc.affixGroups.get(family.group) ?? [];
+      const inFamily = rows.filter(row => row.affix && members.includes(row.affix.name));
+      const values = new Set(inFamily.map(row => row.part.value));
+      if (!members.length || inFamily.length !== members.length || values.size !== 1) {
+        continue;
+      }
+      // Where the family's first member was, so the rest keep their order around it.
+      const at = rows.indexOf(inFamily[0]);
+      const others = rows.filter(row => !inFamily.includes(row));
+      rows = [...others.slice(0, at), { affix: null, part: { name: family.label, value: inFamily[0].part.value } }, ...others.slice(at)];
+    }
+    return rows.map(row => row.part);
   }
 
   getCraftingOptionTooltip(option: CraftableOption): string {

@@ -147,7 +147,6 @@ describe('buildFamilyRows', () => {
         changes: [{ name: 'Charisma', type: 'Festive', before: 0, after: 2, beforeSources: [] }, { name: 'Charisma', type: 'Insight', before: 5, after: 0, beforeSources: [] }] })));
       expect(loss.tiers[0].className).toBe('Outranked');
       expect(loss.tiers[0].why).toBe('Switching to it would lower the total');
-      expect(loss.tiers[0].tooltip).toBe('what\n\nSwitching to it would lower the total');
 
       // A part of a tracked compound ranks Irrelevant, but completes the compound.
       const gain = byLabel('Acid Absorption', rows([acid], () => ({

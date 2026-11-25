@@ -583,13 +583,14 @@
 }
 
 /*
- * Scarcity groups are coloured by pressure: red where only one place (or a
- * set, or the artifact) can still supply a type, easing through amber to green
- * at five or more places. Fulfilled is blue; ruled out and ignored, which are
- * no longer being chased, are gray.
+ * Scarcity groups are colored by pressure: red where only one place (or a set,
+ * or the artifact) can still supply a type, easing through amber to neutral
+ * gray where there's plenty of room. Red is for urgent, not for good or bad,
+ * and green is kept for Fulfilled - as on the chips, where green is the best
+ * value. Ruled out and ignored, no longer chased, are the lighter gray.
  */
 .slot-group-section {
-    --tracked-affix-accent: var(--primary-color);
+    --tracked-affix-accent: var(--section-accent-neutral);
     --tracked-affix-accent-soft: color-mix(in srgb, var(--tracked-affix-accent) 10%, transparent);
 }
 
@@ -608,20 +609,21 @@
 }
 
 .slot-group-4 {
-    --tracked-affix-accent: color-mix(in srgb, var(--warning-color) 50%, var(--success-color));
-}
-
-.slot-group-5plus {
-    --tracked-affix-accent: var(--success-color);
+    --tracked-affix-accent: color-mix(in srgb, var(--warning-color) 50%, var(--section-accent-neutral));
 }
 
 .slot-group-ruled-out,
 .slot-group-ignored {
-    --tracked-affix-accent: var(--secondary-color);
+    --tracked-affix-accent: var(--section-accent-neutral-light);
 }
 
 .slot-group-fulfilled {
-    --tracked-affix-accent: var(--primary-color);
+    --tracked-affix-accent: var(--success-color);
+}
+
+/* The gray edges say "no pressure", not anything to read: counts and the caret in gray text. */
+.slot-group-section:is(.slot-group-5plus, .slot-group-filigree, .slot-group-item-bonuses, .slot-group-ruled-out, .slot-group-ignored) :is(.tracked-affix-count, .tracked-affix-collapse-indicator) {
+    color: var(--text-secondary);
 }
 
 /*

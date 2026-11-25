@@ -10,9 +10,20 @@
     white-space: normal;
 }
 
+/* In a popover (which has no padding of its own for these): a header band
+   in the gear cards' own header colors, so the name stands apart from what
+   follows, as a card's slot does from its rows. */
 .affix-details-heading {
+    background: var(--secondary-fill-color);
+    border-top-left-radius: var(--bs-popover-inner-border-radius);
+    border-top-right-radius: var(--bs-popover-inner-border-radius);
+    color: var(--slot-label-color);
     font-weight: 600;
-    margin-bottom: var(--space-4);
+    padding: var(--space-8) var(--space-12);
+}
+
+.affix-details-framed .affix-details-body {
+    padding: var(--space-8) var(--space-12);
 }
 
 .affix-details-description {
@@ -39,9 +50,17 @@
 }
 
 .affix-details-parts li {
+    border-radius: 4px;
     display: flex;
     gap: var(--space-12);
     justify-content: space-between;
+    padding: 1px var(--space-4);
+}
+
+/* Striped, as a gear card's rows are, so a compound's many parts read as rows.
+   Not --row-alt-bg: in dark mode that is the popover's own surface. */
+.affix-details-parts li:nth-child(odd) {
+    background: var(--surface-muted-color);
 }
 
 .affix-details-part-value {

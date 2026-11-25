@@ -61,9 +61,13 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
     return this.equipped.isSlotDisabled(this.slot);
   }
 
+  /**
+   * The whole card's title, which everything in it without one of its own shows: only for a slot a
+   * two-handed weapon has taken, whose disabled button can't show a title itself.
+   */
   @HostBinding('attr.title')
-  get hostTitle() {
-    return this.getSlotTitle();
+  get hostTitle(): string | null {
+    return this.equipped.isSlotDisabled(this.slot) ? this.getSlotTitle() : null;
   }
 
   ngOnInit() {
@@ -144,7 +148,8 @@ export class EquipmentSlotCardComponent implements OnInit, OnDestroy {
       return 'Offhand unavailable while a two-handed weapon is equipped.';
     }
 
-    if (this.slot === 'Offhand' && this.equipped.isOffhandRuneArmOnly()) {
+    // Only while there's a choice to make: with a rune arm in, it says nothing new.
+    if (this.slot === 'Offhand' && this.equipped.isOffhandRuneArmOnly() && !this.equipped.hasItem(this.slot)) {
       return 'Crossbows can use rune arms in the offhand.';
     }
 

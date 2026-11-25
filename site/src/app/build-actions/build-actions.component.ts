@@ -43,6 +43,7 @@ export interface SaveControlViewModel {
 }
 
 const NEW_BUILD_CONFIRM_MESSAGE = 'Start a new build? The gear on this one will be cleared.';
+const DISCARD_CONFIRM_MESSAGE = 'Discard your changes and go back to the saved build?';
 
 @Component({
   selector: 'app-build-actions',
@@ -89,6 +90,9 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   // control) rather than silently clearing savingInPlace with nothing
   // shown, which is what this path used to do for every failure.
   savingInPlaceError: string | null = null;
+
+  // A failed Discard changes: like saveInPlace, it has no dialog of its own.
+  discardError: string | null = null;
 
   // A brief "Saved" on the Save button once a save lands - the button
   // otherwise just goes quietly disabled, which reads as nothing happening.
@@ -192,6 +196,28 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   /** An owned, saved build with edits not yet saved: a dot by its name says so. */
   get showUnsavedDot(): boolean {
     return this.isAuthenticated && this.buildState.ownership === 'owned' && this.buildState.isDirty;
+  }
+
+  /** Edits to a build that has a saved copy to go back to - anyone's, signed in or not. */
+  get canDiscardChanges(): boolean {
+    return !!this.buildState.shortId && this.buildState.isDirty;
+  }
+
+  /** Throws the edits away, once confirmed, for the build as it was last saved. */
+  discardChanges(): void {
+    if (!this.canDiscardChanges || !window.confirm(DISCARD_CONFIRM_MESSAGE)) {
+      return;
+    }
+    this.closeBuildMenu();
+    this.discardError = null;
+    this.savingInPlaceError = null;
+    this.buildSave.discardChanges().subscribe({
+      next: () => this.cdr.markForCheck(),
+      error: (err: unknown) => {
+        this.discardError = err instanceof BuildSaveError ? err.message : 'Could not load the saved build. Please try again.';
+        this.cdr.markForCheck();
+      }
+    });
   }
 
   toggleBuildMenu(): void {

@@ -127,10 +127,22 @@ describe('AffixPickerComponent', () => {
   });
 
   it('tracks each elemental absorption in the basic bundle rather than the group', () => {
-    for (const element of ['Acid', 'Cold', 'Fire', 'Electric', 'Sonic']) {
+    for (const element of ['Acid', 'Cold', 'Fire', 'Electric']) {
       expect(component.packages.get('Basic')).toContain(`${element} Absorption`);
     }
     expect(component.packages.get('Basic')).not.toContain('Elemental Absorption');
+  });
+
+  // Saved builds that track these rarely cover them: about 1% for Sonic Absorption and 8% for
+  // Immunity to Blindness (docs/suggestions-analysis.md, "Bundles: what people drop, and what they add").
+  it('leaves Sonic Absorption and Immunity to Blindness out of the basic bundle', () => {
+    expect(component.packages.get('Basic')).not.toContain('Sonic Absorption');
+    expect(component.packages.get('Basic')).not.toContain('Immunity to Blindness');
+  });
+
+  it('tracks Sneak Attack Dice and Greater Marksmanship in the ranged bundle', () => {
+    expect(component.packages.get('Ranged')).toContain('Sneak Attack Dice');
+    expect(component.packages.get('Ranged')).toContain('Greater Marksmanship');
   });
 
   it('tracks Enhanced Bloodrage in the melee bundle, not Blood Rage', () => {
@@ -152,6 +164,7 @@ describe('AffixPickerComponent', () => {
     expect(component.packages.get('Caster')).not.toContain('Universal Spell Critical Damage');
     expect(component.packages.get('Caster')).toContain('Spellcraft');
     expect(component.packages.get('Caster')).toContain('Concentration');
+    expect(component.packages.get('Caster')).toContain('Magical Efficiency');
   });
 
   it('shows tracked companion affixes immediately when an affix is added', () => {

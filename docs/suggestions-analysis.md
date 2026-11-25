@@ -254,13 +254,19 @@ Insight 81, Quality 40, Artifact 25). So melee needs every type, and ranged
 needs only Enhancement and Insight, which matches his tiers: Quality
 Fortification is critical for melee and filler for ranged. Value past a
 target is worth nothing. Per-affix targets would be a natural refinement of
-total value.
+total value. One caution: his numbers include non-gear sources the planner
+doesn't map (enhancements, epic destinies, feats), so the gear share of a
+target like 310% is smaller than it looks. The same goes for any other value
+he quotes. A target in the planner has to count the build's non-gear entries,
+or be set lower to cover gear only.
 
-**Trance covers Insight Deadly, Accuracy and tactics.** He leaves those types
-out deliberately because every DPS build carries a trance, which gives more.
-The planner's Melee and Ranged bundles already add a Trance non-gear entry
-for Insight Deadly. Extending it to Accuracy and tactics would stop the
-scorer chasing them on items.
+**Trance covers Insight Deadly, and sometimes Accuracy and tactics.** He
+leaves those types out because every DPS build carries a trance, which gives
+more than gear. Every trance gives the damage bonus (Insight Deadly), but
+only some give Accuracy and tactics DCs. The planner's Melee and Ranged
+bundles already add a Trance non-gear entry for Insight Deadly. The rest
+depends on which trance the build uses, so build setup should ask (see
+Guide me).
 
 **Under his priorities, in the simulation:** the harness scores finished builds against
 his tiers too: each listed bonus type's share of its best value, times 3, 2
@@ -373,19 +379,27 @@ normal build state so the player can leave at any point:
    today.
 2. **Weapon and offhand.** These come first because they're build-defining,
    and two-handers take the offhand away.
-3. **Minor artifact.** The "your artifact" list: the best few across all
+3. **Trance.** Which kind does the build use? Every trance adds a non-gear
+   Insight Deadly entry. Those that also give Accuracy and tactics DCs add
+   those, so the scorer stops chasing Insight Accuracy and tactics on items.
+4. **Extras.** Optional groups for effects only some builds use. A "melee
+   extras" group would list the four Alchemical Attunements (Air, Earth, Fire,
+   Water) and the other weapon-proc effects (Dripping with Magma, Enhanced
+   Bloodrage, Relentless Fury). The saved builds show a quarter to a third of
+   deliberate users removing these from the Melee bundle.
+5. **Minor artifact.** The "your artifact" list: the best few across all
    slots, each with the slot it takes and what it brings.
-4. **Artifact and Profane bonuses.** "How will you get Artifact bonuses?" Offer *Sun
+6. **Artifact and Profane bonuses.** "How will you get Artifact bonuses?" Offer *Sun
    gems*, *one set (+ gems in the rest)*, *both*, each scored against the
    tracked list (as in the table above) with the slots it uses. Ask the same
    for Profane, then show the joint plan, because the two compete for Moon
    slots (and with the artifact's slot). Choosing a set fixes its slots, and choosing gems marks those slots
    "Sun item wanted", which narrows those slots' suggestions to items with
    that slot.
-5. **Slot-bound picks.** Walk the slots from proposal 2 in order: "Goggles
+7. **Slot-bound picks.** Walk the slots from proposal 2 in order: "Goggles
    carry your only Insight Dodge - choose one of these 3."
-6. **The rest.** Scorer v2 suggestions for the remaining slots.
-7. **Augments.** Run "Fill my augments" (proposal 4), then show what's still
+8. **The rest.** Scorer v2 suggestions for the remaining slots.
+9. **Augments.** Run "Fill my augments" (proposal 4), then show what's still
    uncovered and why (set-only, eliminated by earlier choices).
 
 ### 6. Later: a whole-build optimizer
@@ -586,6 +600,17 @@ affixes the live scorer inflates most in suggestions (3.5-4.7× its base
 rate). Players aren't pursuing it, yet the planner pushes it on them. Low
 weights, or an optional "utility" group, for these effects would make the
 suggestions match what people actually fill.
+
+### Changes made from this (2026-11-25)
+
+- **Basic** drops Sonic Absorption and Immunity to Blindness: about 1% and 8%
+  of the builds tracking them cover them.
+- **Ranged** adds Sneak Attack Dice and Greater Marksmanship.
+- **Caster** adds Magical Efficiency.
+
+Saved builds keep their tracked lists as they are. A build that had the
+Ranged or Caster bundle shows it unticked until the new affixes are added,
+as happened with the 2 November expansion.
 
 ## Caveats on the simulation
 

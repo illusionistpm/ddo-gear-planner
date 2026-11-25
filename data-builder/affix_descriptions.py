@@ -42,6 +42,12 @@ from write_json import write_json
 Tooltip = tuple[str, ...]
 MIN_TYPE_SUPPORT = 2
 
+# Affixes whose tooltips explain how their bonus types stack, which the planner
+# already shows by ranking them: a Shield bonus to Armor Class ranks against the
+# shield's own (and an Armor bonus against the armor's), and every other wording
+# is flavor ("fuses with your body and toughens your skin").
+WITHOUT_DESCRIPTION = {'Armor Class'}
+
 # What follows a colon at the start of a tooltip when the colon is the effect's,
 # not the end of the enchantment's name ("Passive: +2 Insight bonus ...").
 _EFFECT_LABEL = re.compile(r'^(passive|on [a-z -]+|when\b|while\b|note|in addition)', re.IGNORECASE)
@@ -61,7 +67,8 @@ def strip_enchantment_name(tooltip: str, affix_name: str) -> str:
             return tooltip
         start = index + 2
     head = tooltip[:start - 2]
-    if len(head) > 60 or '.' in head or _EFFECT_LABEL.match(head) or head[:1] in '+-0123456789' or not _is_title(head):
+    # A head may start with its value ("+5 Enhancement Bonus: ..."); "+2 bonus to Spot: ..." isn't title-cased.
+    if len(head) > 60 or '.' in head or _EFFECT_LABEL.match(head) or not _is_title(head):
         return tooltip
     return tooltip[start:]
 
@@ -121,7 +128,8 @@ def trim_restatements(text: str, affix_name: str, is_compound: bool) -> str:
 def to_template(body: str, affix_type: str, value: str) -> tuple[str, list[str]]:
     """The body with {v}/{type} placeholders and '#' for its other numbers, and those numbers."""
     if affix_type and affix_type not in ('Bool', '-'):
-        body = re.sub(r'\b' + re.escape(affix_type) + r'(?= bonus\b)', '{type}', body, flags=re.IGNORECASE)
+        # The wiki writes Insight as "Insightful" about as often as not.
+        body = re.sub(r'\b' + re.escape(affix_type) + r'(?:ful)?(?= bonus\b)', '{type}', body, flags=re.IGNORECASE)
     numbers: list[str] = []
     # The sign stays in the text: a "-2 penalty" has the value -2.
     magnitude = value.lstrip('+-')
@@ -218,25 +226,29 @@ def describe_affixes(tooltips: set[Tooltip], compound_names: set[str]) -> tuple[
     for name, _, _, tooltip, _ in tooltips:
         names_by_tooltip[tooltip].add(name)
 
-    # name -> type -> template -> each tooltip's (value, ml, numbers, tooltip)
-    found: dict[str, dict[str, dict[str, list[tuple[str, str, list[str], str]]]]] = collections.defaultdict(
+    # name -> type -> template, casefolded -> each tooltip's (value, ml, numbers, tooltip, template).
+    # Casefolded, as the wiki capitalizes one wording both ways ("hit points", "Hit Points").
+    found: dict[str, dict[str, dict[str, list[tuple[str, str, list[str], str, str]]]]] = collections.defaultdict(
         lambda: collections.defaultdict(lambda: collections.defaultdict(list)))
     for name, affix_type, value, tooltip, ml in sorted(tooltips):
         if len(names_by_tooltip[tooltip]) > 1:
             continue
-        body = _tidy(strip_enchantment_name(tooltip, name))
+        # Without a leading "Passive:" first, so the same wording with and without it is one.
+        body = re.sub(r'^Passive:?\s*', '', _tidy(strip_enchantment_name(tooltip, name)))
         if len(body) < 8:
             continue
         template, numbers = to_template(body, affix_type, value)
-        found[name][affix_type][template].append((value, ml, numbers, tooltip))
+        found[name][affix_type][template.casefold()].append((value, ml, numbers, tooltip, template))
 
-    def support(instances: list[tuple[str, str, list[str], str]]) -> int:
+    def support(instances: list[tuple[str, str, list[str], str, str]]) -> int:
         # How many distinct tooltips: the same one on items of several levels counts once.
-        return len({(value, tooltip) for value, _, _, tooltip in instances})
+        return len({(value, tooltip) for value, _, _, tooltip, _ in instances})
 
     texts: dict[str, dict[str, str]] = {}
     numbers: dict[str, dict[str, dict[str, str]]] = {}
     for name in sorted(found):
+        if name in WITHOUT_DESCRIPTION:
+            continue
         by_type = found[name]
         overall: collections.Counter[str] = collections.Counter()
         for templates in by_type.values():
@@ -246,12 +258,14 @@ def describe_affixes(tooltips: set[Tooltip], compound_names: set[str]) -> tuple[
         def render(template: str, affix_type: str | None) -> tuple[str, dict[str, str]]:
             """The text for a template, and its slots' numbers from this type's tooltips (any type's, for None)."""
             all_instances = [instance for templates in by_type.values() for instance in templates.get(template, [])]
-            text = fill_constants(template, [instance[2] for instance in all_instances])
+            # The way the wiki capitalizes it most.
+            written = _most_common(collections.Counter(instance[4] for instance in all_instances))
+            text = fill_constants(written, [instance[2] for instance in all_instances])
             if restates_row(text, name, name in compound_names):
                 return '', {}
             text, kept = renumber_slots(trim_restatements(text, name, name in compound_names))
             own = all_instances if affix_type is None else by_type[affix_type].get(template, [])
-            return text, number_table([(value, ml, numbers) for value, ml, numbers, _ in own], kept) if kept else {}
+            return text, number_table([(value, ml, numbers) for value, ml, numbers, _, _ in own], kept) if kept else {}
 
         default_template = _most_common(overall)
         # "*" is what the site shows with no type to go on (the affix picker).

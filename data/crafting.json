@@ -1582,6 +1582,9 @@
     "Alchemical Tier 3": {
         "*": [
             {
+                "addsCrafting": [
+                    "Red Augment Slot"
+                ],
                 "affixes": [
                     {
                         "name": "Enhancement Bonus (Weapon)",
@@ -1619,6 +1622,9 @@
                 "name": "Air (Mystical)"
             },
             {
+                "addsCrafting": [
+                    "Red Augment Slot"
+                ],
                 "affixes": [
                     {
                         "name": "Enhancement Bonus (Weapon)",
@@ -1656,6 +1662,9 @@
                 "name": "Earth (Mystical)"
             },
             {
+                "addsCrafting": [
+                    "Red Augment Slot"
+                ],
                 "affixes": [
                     {
                         "name": "Enhancement Bonus (Weapon)",
@@ -1693,6 +1702,9 @@
                 "name": "Fire (Mystical)"
             },
             {
+                "addsCrafting": [
+                    "Red Augment Slot"
+                ],
                 "affixes": [
                     {
                         "name": "Enhancement Bonus (Weapon)",
@@ -12382,6 +12394,235 @@
     "Legendary Alchemical Tier 3": {
         "*": [
             {
+                "addsCrafting": [
+                    "Orange Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Alchemical Air Attunement",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 29,
+                "name": "Air: Alchemical Air Attunement"
+            },
+            {
+                "addsCrafting": [
+                    "Green Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Enchantment Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "ml": 29,
+                "name": "Air: Enchantment Focus +6"
+            },
+            {
+                "addsCrafting": [
+                    "Green Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Illusion Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "ml": 29,
+                "name": "Air: Illusion Focus +6"
+            },
+            {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Improved Electric Augmentation",
+                        "type": "Untyped",
+                        "value": "3"
+                    }
+                ],
+                "ml": 29,
+                "name": "Air: Improved Electric Augmentation IX"
+            },
+            {
+                "addsCrafting": [
+                    "Orange Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Alchemical Earth Attunement",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 29,
+                "name": "Earth: Alchemical Earth Attunement"
+            },
+            {
+                "addsCrafting": [
+                    "Green Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Conjuration Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "ml": 29,
+                "name": "Earth: Conjuration Focus +6"
+            },
+            {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Improved Acid Augmentation",
+                        "type": "Untyped",
+                        "value": "3"
+                    }
+                ],
+                "ml": 29,
+                "name": "Earth: Improved Acid Augmentation IX"
+            },
+            {
+                "addsCrafting": [
+                    "Green Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Transmutation Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "ml": 29,
+                "name": "Earth: Transmutation Focus +6"
+            },
+            {
+                "addsCrafting": [
+                    "Orange Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Alchemical Fire Attunement",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 29,
+                "name": "Fire: Alchemical Fire Attunement"
+            },
+            {
+                "addsCrafting": [
+                    "Green Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Evocation Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "ml": 29,
+                "name": "Fire: Evocation Focus +6"
+            },
+            {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Improved Fire Augmentation",
+                        "type": "Untyped",
+                        "value": "3"
+                    }
+                ],
+                "ml": 29,
+                "name": "Fire: Improved Fire Augmentation IX"
+            },
+            {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "11"
+                    }
+                ],
+                "ml": 29,
+                "name": "Fire: Resistance +11"
+            },
+            {
+                "addsCrafting": [
+                    "Orange Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Alchemical Water Attunement",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 29,
+                "name": "Water: Alchemical Water Attunement"
+            },
+            {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Improved Cold Augmentation",
+                        "type": "Untyped",
+                        "value": "3"
+                    }
+                ],
+                "ml": 29,
+                "name": "Water: Improved Cold Augmentation IX"
+            },
+            {
+                "addsCrafting": [
+                    "Green Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Necromancy Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "ml": 29,
+                "name": "Water: Necromancy Focus +6"
+            },
+            {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Spell Penetration",
+                        "type": "Equipment",
+                        "value": "9"
+                    }
+                ],
+                "ml": 29,
+                "name": "Water: Spell Penetration +9"
+            }
+        ],
+        "Toven's Prototype": [
+            {
+                "addsCrafting": [
+                    "Orange Augment Slot"
+                ],
                 "affixes": [
                     {
                         "name": "Alchemical Air Attunement",
@@ -12415,6 +12656,9 @@
                 "name": "Air: Illusion Focus +6"
             },
             {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
                 "affixes": [
                     {
                         "name": "Improved Electric Augmentation",
@@ -12426,6 +12670,9 @@
                 "name": "Air: Improved Electric Augmentation IX"
             },
             {
+                "addsCrafting": [
+                    "Orange Augment Slot"
+                ],
                 "affixes": [
                     {
                         "name": "Alchemical Earth Attunement",
@@ -12448,6 +12695,9 @@
                 "name": "Earth: Conjuration Focus +6"
             },
             {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
                 "affixes": [
                     {
                         "name": "Improved Acid Augmentation",
@@ -12470,6 +12720,9 @@
                 "name": "Earth: Transmutation Focus +6"
             },
             {
+                "addsCrafting": [
+                    "Orange Augment Slot"
+                ],
                 "affixes": [
                     {
                         "name": "Alchemical Fire Attunement",
@@ -12492,6 +12745,9 @@
                 "name": "Fire: Evocation Focus +6"
             },
             {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
                 "affixes": [
                     {
                         "name": "Improved Fire Augmentation",
@@ -12503,6 +12759,9 @@
                 "name": "Fire: Improved Fire Augmentation IX"
             },
             {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
                 "affixes": [
                     {
                         "name": "Resistance",
@@ -12514,6 +12773,9 @@
                 "name": "Fire: Resistance +11"
             },
             {
+                "addsCrafting": [
+                    "Orange Augment Slot"
+                ],
                 "affixes": [
                     {
                         "name": "Alchemical Water Attunement",
@@ -12525,6 +12787,9 @@
                 "name": "Water: Alchemical Water Attunement"
             },
             {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
                 "affixes": [
                     {
                         "name": "Improved Cold Augmentation",
@@ -12547,6 +12812,9 @@
                 "name": "Water: Necromancy Focus +6"
             },
             {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
                 "affixes": [
                     {
                         "name": "Spell Penetration",

@@ -8,6 +8,9 @@ was refined with, so each of those is one option per material.
 
 Legendary prototypes (ML 29) take three tiers at the Cannith Reforging Station.
 Each element lists alternatives, one per line, and each line is one option.
+
+Tier 3 options can add an augment slot. An option names it in `addsCrafting`,
+and the item lists it, closed until an option adding it is chosen.
 """
 import copy
 import re
@@ -86,8 +89,8 @@ def _heroic_effects(cell: Tag) -> list[Tag | str]:
 
     effects: list[Tag | str] = []
     for span in spans:
-        # A heroic Tier 3 Martial binding adds a Red augment slot. A crafting
-        # option can't add a slot, so it is left out.
+        # An augment slot the binding adds (heroic Tier 3 Martial's Red) is
+        # read by _heroic_slots.
         if _has_class(span, 'augment'):
             continue
         effect = copy.copy(span)
@@ -106,6 +109,16 @@ def _heroic_effects(cell: Tag) -> list[Tag | str]:
         style.decompose()
     effects.extend(text.strip() for text in cell.get_text().split(',') if text.strip())
     return effects
+
+
+def _heroic_slots(cell: Tag) -> list[str]:
+    """The augment slots a heroic cell adds: "Red Augment Slot"."""
+    return [
+        # The wiki writes it with non-breaking spaces.
+        ' '.join(span.find(class_='title').get_text(' ').split())
+        for span in cell.find_all('span', class_='augment')
+        if span.find(class_='title') is not None
+    ]
 
 
 def _table_after(anchor: Tag | None, what: str) -> Tag:
@@ -159,7 +172,7 @@ def _get_materials(soup: BeautifulSoup) -> list[tuple[list[str], dict[int, Tag]]
     return list(groups.values())
 
 
-def _option(name: str, affixes: list[dict[str, Any]], ml: int) -> AffixesDict:
+def _option(name: str, affixes: list[dict[str, Any]], ml: int, slots: list[str] | None = None) -> AffixesDict:
     if not affixes:
         raise ValueError(f'Alchemical Crafting: "{name}" has no effects')
     for affix in affixes:
@@ -171,7 +184,12 @@ def _option(name: str, affixes: list[dict[str, Any]], ml: int) -> AffixesDict:
     # No 'quests': like Slaver's, this is crafting done to the item itself at a
     # Cannith device, so the shopping list shows it as a step, not as a named
     # piece to go and get.
-    return {'name': name, 'affixes': affixes, 'ml': ml}  # type: ignore[typeddict-item]
+    option: dict[str, Any] = {'name': name, 'affixes': affixes, 'ml': ml}
+    if slots:
+        # The item lists the slot, closed until an option that adds it is chosen
+        # (see parse_items' add_alchemical_crafting_systems).
+        option['addsCrafting'] = slots
+    return option  # type: ignore[return-value]
 
 
 def get_heroic_systems(soup: BeautifulSoup) -> dict[str, SystemDict]:
@@ -185,18 +203,19 @@ def get_heroic_systems(soup: BeautifulSoup) -> dict[str, SystemDict]:
 
         options: list[AffixesDict | SetDict] = []
         for element, (martial, mystical) in _element_rows(table):
-            options.append(_option(f'{element} (Martial)', _parse_effects(_heroic_effects(martial)), ml))
+            options.append(_option(f'{element} (Martial)', _parse_effects(_heroic_effects(martial)), ml, _heroic_slots(martial)))
 
             effects = _heroic_effects(mystical)
             own = [effect for effect in effects if not (isinstance(effect, str) and METAL_EFFECT in effect)]
             if len(own) == len(effects):
-                options.append(_option(f'{element} (Mystical)', _parse_effects(own), ml))
+                options.append(_option(f'{element} (Mystical)', _parse_effects(own), ml, _heroic_slots(mystical)))
                 continue
             for names, material_cells in materials:
                 options.append(_option(
                     f'{element} (Mystical, {" or ".join(names)})',
                     _parse_effects(own + _heroic_effects(material_cells[tier])),
                     ml,
+                    _heroic_slots(mystical),
                 ))
         systems[heroic_system_name(tier)] = {'*': options}
     return systems
@@ -205,15 +224,20 @@ def get_heroic_systems(soup: BeautifulSoup) -> dict[str, SystemDict]:
 # A legendary line's commentary: "(+6 Insightful AC, does not include saves)",
 # "(Warning: Does not function on melee weapons.)", "(constantly on)".
 LEGENDARY_COMMENTARY = re.compile(r'\s*\((?:[^()]*\b(?:does not|Does not|Warning|constantly)\b[^()]*)\)')
-AUGMENT_SLOT = re.compile(r'^[A-Za-z]+ slot$')
+AUGMENT_SLOT = re.compile(r'^([A-Za-z]+) slot$')
 EFFICIENT_METAMAGIC_TIER = re.compile(r'^Efficient Metamagic - .* ([IVX]+)$')
 
 
 def _legendary_effects(line: str) -> list[str]:
     effects = [effect.strip() for effect in LEGENDARY_COMMENTARY.sub('', line).split(',')]
-    # Tier 3 lines add an augment slot. A crafting option can't add a slot, so
-    # it is left out.
+    # Tier 3 lines also add an augment slot, which _legendary_slots reads.
     return [effect for effect in effects if effect and not AUGMENT_SLOT.match(effect)]
+
+
+def _legendary_slots(line: str) -> list[str]:
+    """The augment slots a legendary line adds: "Orange slot" is the Orange Augment Slot."""
+    matches = (AUGMENT_SLOT.match(effect.strip()) for effect in LEGENDARY_COMMENTARY.sub('', line).split(','))
+    return [f'{match.group(1)} Augment Slot' for match in matches if match]
 
 
 # Types the page states in a line's commentary, which _legendary_effects drops:
@@ -264,9 +288,19 @@ def get_legendary_systems(soup: BeautifulSoup) -> dict[str, SystemDict]:
                 effects = _legendary_effects(li.get_text())
                 affixes = _parse_effects(list(effects))
                 _type_legendary_affixes(effects, affixes, bonus_types)
-                options.append(_option(f'{element}: {", ".join(effects)}', affixes, LEGENDARY_ML))
+                options.append(_option(f'{element}: {", ".join(effects)}', affixes, LEGENDARY_ML, _legendary_slots(li.get_text())))
         systems[legendary_system_name(tier)] = {'*': options}
     return systems
+
+
+def get_slots_added(system: SystemDict) -> list[str]:
+    """Every slot a system's options can add, in order of first appearance."""
+    slots: list[str] = []
+    for option in system['*']:
+        for slot in option.get('addsCrafting', []):  # type: ignore[union-attr]
+            if slot not in slots:
+                slots.append(slot)
+    return slots
 
 
 def get_alchemical_crafting_from_page(soup: BeautifulSoup) -> dict[str, SystemDict]:

@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 
 import parse_alchemical_crafting as module
 from parse_alchemical_crafting import get_alchemical_crafting_from_page, get_alchemical_crafting_systems
+from parse_items import add_alchemical_crafting_systems
 
 
 def tip(label, tooltip):
@@ -51,7 +52,7 @@ PAGE = f'''
     'Fire': [STR, tip('Combustion +90', 'Passive: +90 Equipment bonus to Fire Spell Power.')],
 })}
 {heroic_tier(2, {element: [STR, tip('Fire Lore VI', 'Passive: Your Fire spells gain a 16% Equipment bonus to their chance to critical hit.')] for element in ['Air', 'Earth', 'Water', 'Fire']})}
-{heroic_tier(3, {element: [STR + ', <span class="popup has_tooltip with-icon augment red"><span class="title"><a>Red Augment Slot</a></span></span>', tip('Evocation Focus +2', '+2 Equipment bonus to the DC of Evocation spells.')] for element in ['Air', 'Earth', 'Water', 'Fire']})}
+{heroic_tier(3, {element: [STR + ', <span class="popup has_tooltip with-icon augment red"><span class="title"><a>Red&#160;Augment&#160;Slot</a></span></span>', tip('Evocation Focus +2', '+2 Equipment bonus to the DC of Evocation spells.')] for element in ['Air', 'Earth', 'Water', 'Fire']})}
 <h1><span class="mw-headline" id="Legendary">Legendary</span></h1>
 {legendary_tier(1, {
     'Air': ['Heightened Awareness +6 (+6 Insightful AC, does not include saves), Legendary Lightning Storm Guard', 'Magnetism +148, Lightning Lore +22%'],
@@ -118,11 +119,17 @@ def test_heroic_effect_nested_in_another_is_kept(monkeypatch):
     assert {name for name, _, _ in affixes(tier1['Earth (Martial)'])} == {'Icy Burst', 'Freezing Ice'}
 
 
-def test_augment_slots_are_left_out(monkeypatch):
+def test_augment_slots_a_tier_adds_are_named_in_adds_crafting(monkeypatch):
     systems = parse(monkeypatch)
-    assert affixes(options(systems, 'Alchemical Tier 3')['Air (Martial)']) == {('Strength', 'Alchemical', '2')}
-    assert affixes(options(systems, 'Legendary Alchemical Tier 3')['Air: Alchemical Air Attunement']) == {
-        ('Alchemical Air Attunement', 'Bool', '1')}
+    heroic = options(systems, 'Alchemical Tier 3')['Air (Martial)']
+    assert affixes(heroic) == {('Strength', 'Alchemical', '2')}
+    assert heroic['addsCrafting'] == ['Red Augment Slot']
+    assert 'addsCrafting' not in options(systems, 'Alchemical Tier 3')['Air (Mystical)']
+
+    legendary = options(systems, 'Legendary Alchemical Tier 3')['Air: Alchemical Air Attunement']
+    assert affixes(legendary) == {('Alchemical Air Attunement', 'Bool', '1')}
+    assert legendary['addsCrafting'] == ['Orange Augment Slot']
+    assert 'addsCrafting' not in options(systems, 'Legendary Alchemical Tier 2')['Air: Alchemical Dexterity +2']
 
 
 def test_legendary_lines_are_separate_options(monkeypatch):
@@ -156,3 +163,35 @@ def test_legendary_improved_augmentation_is_worth_three_caster_levels(monkeypatc
     monkeypatch.setattr(module, 'get_most_common_bonus_type', lambda: BONUS_TYPES)
     tier3 = options(get_alchemical_crafting_from_page(BeautifulSoup(page, 'html.parser')), 'Legendary Alchemical Tier 3')
     assert affixes(tier3['Fire: Improved Fire Augmentation IX']) == {('Improved Fire Augmentation', 'Untyped', '3')}
+
+
+def item_with(crafting):
+    return {'name': 'Proto', 'slot': 'Weapon', 'type': 'Rune Arms', 'ml': 29, 'affixes': [], 'crafting': list(crafting)}
+
+
+def tier3_with_slots():
+    return {'Legendary Alchemical Tier 3': {'*': [
+        {'name': 'Air: Alchemical Air Attunement', 'affixes': [], 'addsCrafting': ['Orange Augment Slot']},
+        {'name': 'Air: Enchantment Focus +6', 'affixes': [], 'addsCrafting': ['Green Augment Slot']},
+    ]}}
+
+
+def test_an_alchemical_item_lists_the_slots_its_tiers_can_add():
+    crafting = tier3_with_slots()
+    item = item_with(['Red Augment Slot'])
+    add_alchemical_crafting_systems(crafting, item, ['Legendary Alchemical Tier 3'])
+    assert set(item['crafting']) == {'Red Augment Slot', 'Legendary Alchemical Tier 3', 'Orange Augment Slot', 'Green Augment Slot'}
+    assert list(crafting['Legendary Alchemical Tier 3']) == ['*']
+
+
+def test_a_slot_the_item_already_has_stays_open_and_isnt_added_again():
+    crafting = tier3_with_slots()
+    item = item_with(['Green Augment Slot'])
+    add_alchemical_crafting_systems(crafting, item, ['Legendary Alchemical Tier 3'])
+    assert item['crafting'].count('Green Augment Slot') == 1
+    assert 'Orange Augment Slot' in item['crafting']
+    own = {option['name']: option for option in crafting['Legendary Alchemical Tier 3']['Proto']}
+    assert own['Air: Alchemical Air Attunement']['addsCrafting'] == ['Orange Augment Slot']
+    assert 'addsCrafting' not in own['Air: Enchantment Focus +6']
+    # The shared options are untouched.
+    assert crafting['Legendary Alchemical Tier 3']['*'][1]['addsCrafting'] == ['Green Augment Slot']

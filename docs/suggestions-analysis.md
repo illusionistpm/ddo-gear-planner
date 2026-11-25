@@ -187,9 +187,17 @@ The ranking without utility weighting was 0.28 / 69% / 49. With it,
 simulated total value drops a little (it counts Concealment fully), but
 players' own choices favour it.
 
-**Next:** a separate artifact list in the drawer. Minor artifacts still rank
-among ordinary items, and three of today's top five melee Trinkets are
-artifacts.
+**Artifacts listed apart (built 2026-11-25).** The drawer now shows the best
+three minor artifacts for the slot in their own section, with a line saying
+a build wears one, in whichever slot suits it. The main list ranks only
+ordinary items. The section is hidden while another slot holds an artifact
+(the drawer already leaves those out) and while searching. For a melee
+build's Trinket slot the main list now starts with Legendary Heartshard, the
+Trinket most saved endgame builds wear.
+
+**Not built yet:** a build-wide "your artifact" view across slots. Scoring
+every slot costs about 90 ms each, so it would need to run in the background
+rather than when a drawer opens.
 
 ## The minor artifact
 

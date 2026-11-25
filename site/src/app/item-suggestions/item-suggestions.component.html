@@ -45,25 +45,31 @@
 
     <hr>
 
+      @if (artifacts.length && !searchQuery.trim()) {
+        <div class="suggested-artifacts">
+          <div class="row">
+            <span>Minor artifacts: </span>
+          </div>
+          <p class="suggestion-note">A build wears one minor artifact, in whichever slot suits it. These are the best for this slot.</p>
+          @for (item of artifacts; track item.name) {
+            <ng-container *ngTemplateOutlet="suggestion; context: { $implicit: item }"></ng-container>
+          }
+          @if (hiddenArtifactCount > 0) {
+            <button type="button" class="slot-suggestions-more show-all-artifacts" (click)="showAllArtifacts()">
+              Show {{hiddenArtifactCount}} more {{hiddenArtifactCount === 1 ? 'artifact' : 'artifacts'}}
+            </button>
+          }
+          <hr>
+        </div>
+      }
+
+      <div class="suggested-items">
       <div class="row">
         <span>{{searchQuery.trim() ? 'Matching items:' : 'Suggested items:'}} </span>
       </div>
 
       @for (item of gear; track item.name) {
-        <div class="container" data-drawer-row>
-          <div class="row">
-            <span class="col">{{item.name}}</span>
-            @if (isCurrent(item)) {
-              <button class="equip-button suggestion-equip-button" disabled>Equipped</button>
-            } @else {
-              <button class="equip-button suggestion-equip-button" data-drawer-nav (click)="equipItem(item)">Equip</button>
-            }
-          </div>
-          <div class="row">
-            <app-gear-description class="col" [item]=item [readonly]=true></app-gear-description>
-          </div>
-          <hr>
-          </div>
+        <ng-container *ngTemplateOutlet="suggestion; context: { $implicit: item }"></ng-container>
         } @empty {
           <!-- Said, rather than a blank panel: and when the filters are why, that too. -->
           <p class="slot-suggestions-empty" role="status">
@@ -103,20 +109,7 @@
               <button type="button" class="slot-suggestions-filters" (click)="openFilters()">Open filters</button>
             </p>
             @for (item of hiddenGear; track item.name) {
-              <div class="container" data-drawer-row>
-                <div class="row">
-                  <span class="col">{{item.name}}</span>
-                  @if (isCurrent(item)) {
-                    <button class="equip-button suggestion-equip-button" disabled>Equipped</button>
-                  } @else {
-                    <button class="equip-button suggestion-equip-button" data-drawer-nav (click)="equipItem(item)">Equip</button>
-                  }
-                </div>
-                <div class="row">
-                  <app-gear-description class="col" [item]=item [readonly]=true></app-gear-description>
-                </div>
-                <hr>
-              </div>
+              <ng-container *ngTemplateOutlet="suggestion; context: { $implicit: item }"></ng-container>
             }
             @if (hiddenRemaining) {
               <button type="button" class="slot-suggestions-more" (click)="showMoreHidden()">
@@ -126,3 +119,21 @@
           </div>
         }
       </div>
+      </div>
+
+<ng-template #suggestion let-item>
+  <div class="container" data-drawer-row>
+    <div class="row">
+      <span class="col">{{item.name}}</span>
+      @if (isCurrent(item)) {
+        <button class="equip-button suggestion-equip-button" disabled>Equipped</button>
+      } @else {
+        <button class="equip-button suggestion-equip-button" data-drawer-nav (click)="equipItem(item)">Equip</button>
+      }
+    </div>
+    <div class="row">
+      <app-gear-description class="col" [item]=item [readonly]=true></app-gear-description>
+    </div>
+    <hr>
+  </div>
+</ng-template>

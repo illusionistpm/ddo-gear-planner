@@ -16,6 +16,9 @@ import { FilterSheetService } from '../planner/filter-sheet.service';
 /** How many items the list shows at first, and adds with each "Show more". */
 const PAGE_SIZE = 20;
 
+/** How many minor artifacts the drawer suggests at first, apart from the rest. */
+const ARTIFACT_SUGGESTIONS = 3;
+
 @Component({
     selector: 'app-item-suggestions',
     templateUrl: './item-suggestions.component.html',
@@ -45,6 +48,10 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
   private hiddenMatches: Array<Item> = [];
   private hiddenSorted = false;
   private hiddenVisibleCount = PAGE_SIZE;
+  /** The minor artifacts shown, apart from the rest: a build wears one, in whichever slot suits it. */
+  artifacts: Array<Item> = [];
+  private rankedArtifacts: Array<Item> = [];
+  private scorer: ((item: Item) => number) | null = null;
   private suggestedGear: Array<Item> = [];
   private matches: Array<Item> = [];
   private visibleCount = PAGE_SIZE;
@@ -88,6 +95,15 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
     this.filterSheet.open();
   }
 
+  /** How many more artifacts "Show more" would add. */
+  get hiddenArtifactCount(): number {
+    return this.rankedArtifacts.length - this.artifacts.length;
+  }
+
+  showAllArtifacts() {
+    this.artifacts = this.rankedArtifacts;
+  }
+
   showMore() {
     this.visibleCount += PAGE_SIZE;
     this.showMatches();
@@ -129,8 +145,9 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
       shortlist.push(gear);
     }
 
+    const score = this.equipped.getSuggestionScorer(this.slot);
+    this.scorer = score;
     const scores = perfMeasure('ItemSuggestionsComponent.scoreItems', () => {
-      const score = this.equipped.getSuggestionScorer(this.slot);
       const scoreMap = new Map<Item, number>();
       for (const item of shortlist) {
         scoreMap.set(item, score(item));
@@ -142,7 +159,9 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
       shortlist.sort((a, b) => (scores.get(b) || 0) - (scores.get(a) || 0));
     });
 
-    this.suggestedGear = shortlist;
+    this.rankedArtifacts = shortlist.filter(item => item.artifact);
+    this.artifacts = this.rankedArtifacts.slice(0, ARTIFACT_SUGGESTIONS);
+    this.suggestedGear = shortlist.filter(item => !item.artifact);
     this.updateDisplayedGear();
 
     this.essenceCrafting = this.filteredGear.filter(item => item.isGeneratedEssenceCraftingBlank());
@@ -150,6 +169,7 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
       slot: this.slot,
       filtered: this.filteredGear.length,
       suggested: this.gear.length,
+      artifacts: this.artifacts.length,
       essenceCrafting: this.essenceCrafting.length
     });
     perfAfterFrames('paint after item suggestions init');
@@ -214,7 +234,8 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
       if (query) {
         this.hiddenMatches.sort(this.sortSearchResults(query));
       } else {
-        const scores = new Map(this.hiddenMatches.map(item => [item, this.equipped.getScore(item)]));
+        const scorer = this.scorer ?? this.equipped.getSuggestionScorer(this.slot);
+        const scores = new Map(this.hiddenMatches.map(item => [item, scorer(item)]));
         this.hiddenMatches.sort((a, b) => (scores.get(b) || 0) - (scores.get(a) || 0));
       }
       this.hiddenSorted = true;

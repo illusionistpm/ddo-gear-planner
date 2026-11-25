@@ -13,7 +13,7 @@ out = sys.argv[sys.argv.index('--json') + 1] if '--json' in sys.argv else None
 if out:
     args.remove(out)
 reports = [json.load(open(p)) for p in args]
-METRICS = ['meanRank', 'mrr', 'hit1', 'hit5', 'hit20']
+METRICS = ['meanRank', 'mrr', 'hit1', 'hit5', 'hit20', 'msPerSlot']
 
 
 def merge(parts):
@@ -23,6 +23,7 @@ def merge(parts):
     for scorer in scorers:
         merged[scorer] = {m: round(sum((p[scorer] or {}).get(m, 0) * p['n'] for p in parts if p['n']) / n, 3) if n else None
                           for m in METRICS}
+        merged[scorer]['msMax'] = max((p[scorer] or {}).get('msMax', 0) for p in parts)
     return merged
 
 
@@ -39,7 +40,7 @@ print()
 print('| Slot | n | ' + ' | '.join(scorers) + ' |')
 print('|---|---|' + '---|' * len(scorers))
 for name, row in [('all', result['all'])] + list(result['bySlot'].items()):
-    cells = [f"MRR {row[s]['mrr']:.2f}, hit@20 {row[s]['hit20']:.0%}, rank {row[s]['meanRank']:.0f}" if row.get(s) and row[s]['mrr'] is not None else '' for s in scorers]
+    cells = [f"MRR {row[s]['mrr']:.2f}, hit@20 {row[s]['hit20']:.0%}, rank {row[s]['meanRank']:.0f}, {row[s]['msPerSlot']:.0f} ms (max {row[s]['msMax']:.0f})" if row.get(s) and row[s]['mrr'] is not None else '' for s in scorers]
     print(f"| {name} | {row['n']} | " + ' | '.join(cells) + ' |')
 if out:
     json.dump(result, open(out, 'w'), indent=1)

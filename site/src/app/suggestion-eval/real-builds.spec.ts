@@ -173,9 +173,9 @@ describe.skipIf(!BUILDS_FILE)('real builds', () => {
     const sunSlotUse = new Counter<string>();
     const itemsBySlot = new Map<string, Counter<string>>();
     const sets = new Counter<string>();
-    type Loo = { rankSum: Record<string, number>; rr: Record<string, number>; hit1: Record<string, number>; hit5: Record<string, number>; hit20: Record<string, number>; n: number; missing: number };
+    type Loo = { msSum: Record<string, number>; msMax: Record<string, number>; rankSum: Record<string, number>; rr: Record<string, number>; hit1: Record<string, number>; hit5: Record<string, number>; hit20: Record<string, number>; n: number; missing: number };
     const looBySlot = new Map<string, Loo>();
-    const looAll: Loo = { rankSum: {}, rr: {}, hit1: {}, hit5: {}, hit20: {}, n: 0, missing: 0 };
+    const looAll: Loo = { msSum: {}, msMax: {}, rankSum: {}, rr: {}, hit1: {}, hit5: {}, hit20: {}, n: 0, missing: 0 };
     let looBuilds = 0;
 
     const scorers = SCORERS.filter(([name]) => !ONLY_SCORERS || ONLY_SCORERS.some(o => name.includes(o)));
@@ -320,7 +320,7 @@ describe.skipIf(!BUILDS_FILE)('real builds', () => {
         state.recompute();
         const pool = equipped.getCompatibleGearForSlot(slot, gearDB.getFilteredGearBySlot(slot) ?? [])
           .filter(item => !item.isGeneratedEssenceCraftingBlank());
-        const loo = looBySlot.get(slot) ?? { rankSum: {}, rr: {}, hit1: {}, hit5: {}, hit20: {}, n: 0, missing: 0 };
+        const loo = looBySlot.get(slot) ?? { msSum: {}, msMax: {}, rankSum: {}, rr: {}, hit1: {}, hit5: {}, hit20: {}, n: 0, missing: 0 };
         looBySlot.set(slot, loo);
         if (!pool.some(item => item.name === actual.name)) {
           loo.missing++;
@@ -330,8 +330,13 @@ describe.skipIf(!BUILDS_FILE)('real builds', () => {
         loo.n++;
         looAll.n++;
         for (const [name, scorer] of scorers) {
+          const started = performance.now();
           const score = scorer(ctx, state, [slot]);
           const scores = pool.map(item => ({ name: item.name, s: score(item, slot) }));
+          for (const target of [loo, looAll]) {
+            target.msSum[name] = (target.msSum[name] ?? 0) + performance.now() - started;
+            target.msMax[name] = Math.max(target.msMax[name] ?? 0, performance.now() - started);
+          }
           const mine = scores.find(entry => entry.name === actual.name)!.s;
           const above = scores.filter(entry => entry.s > mine + 1e-9).length;
           const ties = scores.filter(entry => Math.abs(entry.s - mine) <= 1e-9).length - 1;
@@ -371,6 +376,9 @@ describe.skipIf(!BUILDS_FILE)('real builds', () => {
       hit1: +(loo.hit1[name] / loo.n).toFixed(3),
       hit5: +(loo.hit5[name] / loo.n).toFixed(3),
       hit20: +(loo.hit20[name] / loo.n).toFixed(3),
+      /** Building the scorer and scoring the slot's whole candidate list, as the drawer does. */
+      msPerSlot: Math.round(loo.msSum[name] / loo.n),
+      msMax: Math.round(loo.msMax[name]),
     } : null]));
 
     const report = {

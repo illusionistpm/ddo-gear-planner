@@ -3,6 +3,7 @@ import { Craftable } from '../gear/craftable';
 import { GearDbService } from '../gear/gear-db.service';
 import { Item } from '../gear/item';
 import { EquippedService } from '../planner/equipped.service';
+import { UTILITY_AFFIXES } from '../planner/suggestion-scorer';
 import {
   BuildState, Contribution, fillCrafting, flatTotalValue, gainOf, legacyObjective, meanFill, Need, NeedIndex, Objective, optionChoices
 } from './build-model';
@@ -62,6 +63,27 @@ export const liveScorer: Scorer = (ctx, state, open) => {
   }
   return item => ctx.equipped.getScore(item);
 };
+
+/**
+ * The app's own scorer v2 (EquippedService.getSuggestionScorer), with the state equipped like the
+ * live scorer. It should reproduce the harness's "total value, augment-aware, planned artifact".
+ */
+export function appScorerWith(options: { weightFactor?: (affixName: string) => number } = {}): Scorer {
+  return (ctx, state, open) => {
+    liveScorer(ctx, state, open);
+    const perSlot = new Map<string, (item: Item) => number>();
+    return (item, slot) => {
+      let score = perSlot.get(slot);
+      if (!score) {
+        score = ctx.equipped.getSuggestionScorer(slot, options);
+        perSlot.set(slot, score);
+      }
+      return score(item);
+    };
+  };
+}
+
+export const appScorer: Scorer = appScorerWith();
 
 export interface MarginalOptions {
   /**
@@ -284,16 +306,12 @@ function isHardToFind(ctx: Ctx, need: Need): boolean {
   return hard;
 }
 
-/**
- * Basic-bundle utility effects that saved endgame builds track but rarely fill (under 35% cover
- * them; Concealment 13%) and that Lominal's priority lists leave out. A single-type affix like
- * Concealment otherwise gives a whole affix's worth of value from one item.
- */
-export const UTILITY_AFFIXES = new Set(['Concealment', 'Immunity to Fear', 'Heroic Inspiration', 'Undying', 'Feather Falling', 'Incorporeality']);
 export const utilityWeight = (weight: number) => (_ctx: Ctx, need: Need) => UTILITY_AFFIXES.has(need.affix) ? weight : 1;
 
 export const SCORERS: Array<[string, Scorer]> = [
   ['live getScore', liveScorer],
+  ['app v2', appScorer],
+  ['app v2, no utility weighting', appScorerWith({ weightFactor: () => 1 })],
   ['total value, items only', marginalScorer(legacyObjective, { augmentAware: false })],
   ['total value, augment-aware', marginalScorer(legacyObjective, { augmentAware: true })],
   ['total value, augment-aware + discount', marginalScorer(legacyObjective, { augmentAware: true, scarcity: scarcityWithDiscount(0.35) })],

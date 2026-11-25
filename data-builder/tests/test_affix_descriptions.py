@@ -11,6 +11,10 @@ from affix_descriptions import build_descriptions, describe_affixes, fill_consta
     ('Strength +3: This item gives a +3 bonus.', 'Strength', 'This item gives a +3 bonus.'),
     ('Riposte IV: When Missed by an attack: Deals damage.', 'Riposte', 'When Missed by an attack: Deals damage.'),
     ('Weapon Focus: Falchion: While equipped you gain the feat.', 'Weapon Focus: Falchion', 'While equipped you gain the feat.'),
+    # A name can start with its value...
+    ('+5 Enhancement Bonus: +5 Enhancement bonus to Armor Class.', 'Enhancement Bonus (Armor)', '+5 Enhancement bonus to Armor Class.'),
+    # ...but a bonus written as a sentence isn't a name.
+    ('+2 bonus to Spot: when searching.', 'Spot', '+2 bonus to Spot: when searching.'),
     # No enchantment name in front: the colon is the effect's own.
     ('Passive: +2 Insight bonus to Spot.', 'Spot', 'Passive: +2 Insight bonus to Spot.'),
     ('+20 Artifact bonus to Universal Spell Power', 'Universal Spell Power', '+20 Artifact bonus to Universal Spell Power'),
@@ -86,17 +90,17 @@ def test_build_descriptions_skips_restating_text_and_split_lines():
 
 def test_build_descriptions_gives_a_type_its_own_wording_when_it_has_one():
     tooltips = {
-        ('Armor Class', 'Deflection', '3', 'Protection +3: Passive: +3 Deflection bonus to Armor Class.'),
-        ('Armor Class', 'Deflection', '5', 'Protection +5: Passive: +5 Deflection bonus to Armor Class.'),
-        ('Armor Class', 'Deflection', '7', 'Protection +7: Passive: +7 Deflection bonus to Armor Class.'),
-        ('Armor Class', 'Shield', '4', 'Shield +4: A +4 Shield bonus to Armor Class. It does not stack with a shield.'),
-        ('Armor Class', 'Shield', '8', 'Shield +8: A +8 Shield bonus to Armor Class. It does not stack with a shield.'),
+        ('Warding', 'Deflection', '3', 'Protection +3: Passive: +3 Deflection bonus to Warding.'),
+        ('Warding', 'Deflection', '5', 'Protection +5: Passive: +5 Deflection bonus to Warding.'),
+        ('Warding', 'Deflection', '7', 'Protection +7: Passive: +7 Deflection bonus to Warding.'),
+        ('Warding', 'Shield', '4', 'Shield +4: A +4 Shield bonus to Warding. It does not stack with a shield.'),
+        ('Warding', 'Shield', '8', 'Shield +8: A +8 Shield bonus to Warding. It does not stack with a shield.'),
         # A lone oddly worded tooltip isn't the type's wording.
-        ('Armor Class', 'Insight', '2', 'Odd +2: Something unusual about armor.'),
+        ('Warding', 'Insight', '2', 'Odd +2: Something unusual about armor.'),
     }
-    assert build_descriptions(tooltips, set()) == {'Armor Class': {
+    assert build_descriptions(tooltips, set()) == {'Warding': {
         '*': '',
-        'Shield': 'A +{v} {type} bonus to Armor Class. It does not stack with a shield.',
+        'Shield': 'A +{v} {type} bonus to Warding. It does not stack with a shield.',
     }}
 
 
@@ -203,3 +207,24 @@ def test_describe_affixes_numbers_only_the_slots_left_after_trimming():
 
 def test_to_template_never_takes_a_die_s_sides_for_the_value():
     assert to_template('Deals 4d4 (4 to 16) damage.', 'Insight', '4') == ('Deals {v}d# ({v} to #) damage.', ['4', '16'])
+
+
+def test_to_template_reads_insightful_as_the_insight_type():
+    assert to_template('+5 Insightful bonus to Fire spells.', 'Insight', '5')[0] == '+{v} {type} bonus to Fire spells.'
+
+
+def test_build_descriptions_counts_wordings_that_differ_only_in_capitals_as_one():
+    tooltips = {
+        ('False Life', 'Insight', '10', 'False Life +10: +10 Insight bonus to hit points.'),
+        ('False Life', 'Vitality', '20', 'False Life +20: Passive: +20 Vitality bonus to Hit Points.'),
+        ('False Life', 'Profane', '15', 'False Life +15: +15 Profane bonus to Hit Points.'),
+    }
+    assert build_descriptions(tooltips, set()) == {'False Life': {'*': '+{v} {type} bonus to Hit Points.'}}
+
+
+def test_build_descriptions_leaves_out_armor_class():
+    tooltips = {
+        ('Armor Class', 'Shield', '4', 'Shield +4: A +4 Shield bonus to Armor Class. It does not stack with a shield.'),
+        ('Armor Class', 'Shield', '8', 'Shield +8: A +8 Shield bonus to Armor Class. It does not stack with a shield.'),
+    }
+    assert build_descriptions(tooltips, set()) == {}

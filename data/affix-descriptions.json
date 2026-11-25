@@ -1134,6 +1134,12 @@
                 "6": "12"
             }
         },
+        "Rune Arm Imbue: Bludgeon": {
+            "*": {
+                "4": "6",
+                "6": "10"
+            }
+        },
         "Rune Arm Imbue: Cold": {
             "*": {
                 "3": "6",
@@ -1143,7 +1149,7 @@
             }
         },
         "Rune Arm Imbue: Electrical": {
-            "Untyped": {
+            "*": {
                 "3": "6",
                 "4": "8",
                 "5": "10",
@@ -1151,7 +1157,7 @@
             }
         },
         "Rune Arm Imbue: Fire": {
-            "Untyped": {
+            "*": {
                 "3": "6",
                 "4": "8",
                 "5": "10",
@@ -1169,6 +1175,7 @@
         "Rune Arm Imbue: Light": {
             "*": {
                 "2": "1 4",
+                "3": "2 4",
                 "4": "2 6",
                 "6": "2 10"
             }
@@ -1386,13 +1393,14 @@
         },
         "Tidal": {
             "*": {
-                "1@20": "4 4 24",
-                "1@27": "6 6 36",
-                "1@3": "2 2 12",
-                "1@30": "6 6 36",
-                "1@31": "6 6 36",
-                "1@6": "2 2 12",
-                "1@7": "2 2 12"
+                "1@20": "4 6 4 24",
+                "1@27": "6 6 6 36",
+                "1@3": "2 6 2 12",
+                "1@30": "6 6 6 36",
+                "1@31": "6 6 6 36",
+                "1@4": "1 4 1 4",
+                "1@7": "2 6 2 12",
+                "1@8": "1 4 1 4"
             }
         },
         "Toxic": {
@@ -1512,10 +1520,10 @@
     },
     "texts": {
         "+2 vs Evil": {
-            "*": "+2 vs Evil: Grants an additional +2 enhancement bonus to attack chance against evil creatures."
+            "*": "Grants an additional +2 enhancement bonus to attack chance against evil creatures."
         },
         "3rd Degree Burns": {
-            "*": "3rd Degree Burns: On Vorpal: 85 to 195 Fire Damage every 2 seconds for 10 seconds, and adds 1-5 stacks of Vulnerability."
+            "*": "On Vorpal: 85 to 195 Fire Damage every 2 seconds for 10 seconds, and adds 1-5 stacks of Vulnerability."
         },
         "Aberration Bane": {
             "*": "This weapon is attuned specifically to disrupt the unnatural, dealing an additional 6d10 bane damage vs. Aberrations."
@@ -1572,8 +1580,7 @@
             "*": "Chance to deal {0}d{1} Acid damage when hit."
         },
         "Acid Intensity": {
-            "*": "+{v}% {type} bonus to critical damage with Acid spells.",
-            "Insight": "+{v}% Insightful bonus to critical damage with Acid spells."
+            "*": "+{v}% {type} bonus to critical damage with Acid spells."
         },
         "Acid Lore": {
             "*": "Your Acid spells gain a {v}% {type} bonus to their chance to critical hit."
@@ -1667,15 +1674,6 @@
         },
         "Archmagi": {
             "*": "This item grants the wearer +200 maximum spell points. Sorcerers and Favored Souls gain up to double spell points from items."
-        },
-        "Armor Class": {
-            "*": "",
-            "Armor": "This item surrounds the wearer with an invisible but tangible field of force, granting +{v} {type} bonus to AC, just as though he were wearing armor.",
-            "Insight": "This item surrounds the wearer with an invisible but tangible field of force, granting +{v} armor bonus to AC, just as though he were wearing armor.",
-            "Insight Natural": "This item increases the wearer's natural ability to resist physical damage giving a +{v} natural armor bonus to AC.",
-            "Primal Natural": "This item fuses with your body and toughens your skin, providing a +{v} Primal bonus to your natural armor.",
-            "Profane Natural": "+{v} profane bonus to Natural Armor.",
-            "Shield": "While this item is equipped, you are partially protected by a field of magical force which can deflect enemy attacks. This item provides a +{v} {type} bonus to Armor Class. It does not stack with an equipped shield."
         },
         "Armor Mastery": {
             "*": "+{v} {type} bonus to the Max Dex Bonus of your equipped light, medium, or heavy armor. This benefit does not apply to the Max Dex Bonus of a Tower Shield."
@@ -2291,10 +2289,10 @@
             "*": "Increases the rate at which the user gains ki with each successful attack."
         },
         "Enhancement Bonus (Armor)": {
-            "*": "+{v} {type} Bonus: +{v} {type} bonus to Armor Class."
+            "*": "+{v} {type} bonus to Armor Class."
         },
         "Enhancement Bonus (Weapon)": {
-            "*": "+{v} {type} Bonus: +{v} {type} bonus to attack and damage rolls."
+            "*": "+{v} {type} bonus to attack and damage rolls."
         },
         "Entangling Yarn": {
             "*": "Enemies struck by this weapon have a small chance to be tangled up in its enchanted yarn, becoming Entangled and preventing all movement for 9 seconds. A DC 35 Reflex Save negates this effect."
@@ -2396,13 +2394,7 @@
             "*": "An item with this quality assists only wearers who have the ability to turn undead. Insightful Faith items provide Insight Bonuses to the owner's effective level for the turning check by +2, their maximum Hit Dice turned by +2, and their total Hit Dice turned by +4."
         },
         "False Life": {
-            "*": "",
-            "Artifact": "+{v} {type} bonus to hit points.",
-            "Enhancement": "+{v} {type} bonus to hit points.",
-            "Insight": "+{v} {type} bonus to hit points.",
-            "Profane": "+{v} {type} bonus to Hit Points.",
-            "Quality": "+{v} {type} bonus to hit points.",
-            "Vitality": "+{v} {type} bonus to Hit Points."
+            "*": "+{v} {type} bonus to Hit Points."
         },
         "False Life (%)": {
             "*": "You have a +{v}% {type} bonus to Maximum Hit Points."
@@ -2474,8 +2466,7 @@
             "*": "When Hit in Melee: Deals {0} to {1} Fire damage to your attacker."
         },
         "Fire Intensity": {
-            "*": "+{v}% {type} bonus to critical damage with Fire spells.",
-            "Insight": "+{v}% Insightful bonus to critical damage with Fire spells."
+            "*": "+{v}% {type} bonus to critical damage with Fire spells."
         },
         "Fire Lore": {
             "*": "Your Fire spells gain a {v}% {type} bonus to their chance to critical hit."
@@ -2856,8 +2847,7 @@
             "*": "This effect amplifies all incoming positive energy healing by +{v} ({type} bonus). Includes spells, potions, and other effects."
         },
         "Healing Intensity": {
-            "*": "+{v}% {type} bonus to critical damage with Positive (Healing) spells.",
-            "Insight": "+{v}% Insightful bonus to critical damage with Positive (Healing) spells."
+            "*": "+{v}% {type} bonus to critical damage with Positive (Healing) spells."
         },
         "Healing Lore": {
             "*": "Your Positive Energy spells gain a {v}% {type} bonus to their chance to critical hit."
@@ -2911,8 +2901,7 @@
             "*": "Chance to deal {v}d6 Ice damage when hit."
         },
         "Ice Intensity": {
-            "*": "+{v}% {type} bonus to critical damage with Cold spells.",
-            "Insight": "+{v}% Insightful bonus to critical damage with Cold spells."
+            "*": "+{v}% {type} bonus to critical damage with Cold spells."
         },
         "Icy Blast": {
             "*": "This weapon is sheathed in icy cold, dealing {0}d6 ({1} to {2}) Cold damage on a successful hit, and an additional {3}d6 ({4} to {5}) Cold damage on a critical hit."
@@ -3090,8 +3079,7 @@
             "*": "You have 5 more attack and deal 5 more damage to enemies that are knocked down or stunned."
         },
         "Kinetic Intensity": {
-            "*": "+{v}% {type} bonus to critical damage with Force and Physical spells.",
-            "Insight": "+{v}% Insightful bonus to critical damage with Force and Physical spells."
+            "*": "+{v}% {type} bonus to critical damage with Force and Physical spells."
         },
         "Knee Cracker": {
             "*": "On Hit: 15% chance to slow 25% (No Save) for 5 sec (non-bosses only)."
@@ -3400,8 +3388,7 @@
             "*": "Chance to deal {v}d6 Lightning damage when hit."
         },
         "Lightning Intensity": {
-            "*": "+{v}% {type} bonus to critical damage with Electric spells.",
-            "Insight": "+{v}% Insightful bonus to critical damage with Electric spells."
+            "*": "+{v}% {type} bonus to critical damage with Electric spells."
         },
         "Lightning Lash": {
             "*": "This item lashes electricity through your opponents. Your attacks and offensive spells have a high change to deal very strong Electric damage over time."
@@ -3615,12 +3602,10 @@
             "*": "This weapon is pulsating with negative energy. It deals an extra 2d6 (2 to 12) negative energy damage on a successful hit."
         },
         "Negative Lore": {
-            "*": "Your Negative Energy and Poison spells gain a {v}% {type} bonus to their chance to critical hit.",
-            "Insight": "Your Negative Energy and Poison spells gain a {v}% Insightful bonus to their chance to critical hit."
+            "*": "Your Negative Energy and Poison spells gain a {v}% {type} bonus to their chance to critical hit."
         },
         "Negative Spell Power": {
-            "*": "+{v} {type} bonus to Negative (Necrotic) and Poison Spell Power.",
-            "Insight": "+{v} Insightful bonus to Negative (Necrotic) and Poison Spell Power."
+            "*": "+{v} {type} bonus to Negative (Necrotic) and Poison Spell Power."
         },
         "Negativity": {
             "*": "This effect causes this weapon to be shrouded in dark mists, dealing {0}d6 negative energy on each hit."
@@ -3656,7 +3641,7 @@
             "*": "This weapon is attuned specifically to disrupt Oozes, dealing an additional {0}d10 bane damage vs. Oozes."
         },
         "Orb Bonus": {
-            "*": "+{v} {type} Bonus: While this orb is equipped and you are actively blocking, you gain a +{v} {type} bonus to all saving throws, as well as Acid, Cold, Electric, Fire, and Sonic resistances."
+            "*": "While this orb is equipped and you are actively blocking, you gain a +{v} {type} bonus to all saving throws, as well as Acid, Cold, Electric, Fire, and Sonic resistances."
         },
         "Orc Bane": {
             "*": "A bane weapon excels at attacking one type or subtype of creature. Against Orcs, this weapon's effective enhancement bonus is +2 better than its normal enhancement bonus. It deals an extra 2 to 12 points of damage against the foe."
@@ -3842,8 +3827,7 @@
             "*": "This item is imbued with a brilliant, radiant power. When the wearer of this item is successfully attacked in melee, the attacker has a chance of being hit by 4d6 points of light damage and has a chance of being blinded."
         },
         "Radiance Intensity": {
-            "*": "+{v}% {type} bonus to critical damage with Light and Alignment spells.",
-            "Insight": "+{v}% Insightful bonus to critical damage with Light and Alignment spells."
+            "*": "+{v}% {type} bonus to critical damage with Light and Alignment spells."
         },
         "Radiant Blast": {
             "*": "This weapon stores the power of the plane of Irian deep within. Occasionally, this dynamic power comes to the surface, devastating enemies with a massive blast of radiant light."
@@ -3891,8 +3875,7 @@
             "*": "This effect amplifies all incoming repair healing by +{v} ({type} bonus). Includes spells, potions, and other effects."
         },
         "Repair Intensity": {
-            "*": "+{v}% {type} bonus to critical damage with Repair and Rust spells.",
-            "Insight": "+{v}% Insightful bonus to critical damage with Repair and Rust spells."
+            "*": "+{v}% {type} bonus to critical damage with Repair and Rust spells."
         },
         "Repair Lore": {
             "*": "Your Repair and Rust spells gain a {v}% {type} bonus to their chance to critical hit."
@@ -3964,7 +3947,7 @@
             "*": "Wearing this Rune Arm will imbue any weapon you wield, dealing 2d{0} points of acid damage per hit."
         },
         "Rune Arm Imbue: Bludgeon": {
-            "*": "Wearing this Rune Arm will imbue any weapon you wield, dealing 2d10 points of Bludgeon damage per hit."
+            "*": "Wearing this Rune Arm will imbue any weapon you wield, dealing 2d{0} points of Bludgeon damage per hit."
         },
         "Rune Arm Imbue: Bludgeon IV, Fire": {
             "*": "Wearing this Rune Arm will imbue any weapon you wield, dealing 2d6+2d8 points of bludgeon/fire damage per hit."
@@ -3976,12 +3959,13 @@
             "*": "Wearing this Rune Arm will imbue any weapon you wield, dealing 2d{0} points of cold damage per hit."
         },
         "Rune Arm Imbue: Electrical": {
-            "*": "",
-            "Untyped": "Wearing this Rune Arm will imbue any weapon you wield, dealing 2d{0} points of electrical damage per hit."
+            "*": "Wearing this Rune Arm will imbue any weapon you wield, dealing 2d{0} points of electrical damage per hit."
+        },
+        "Rune Arm Imbue: Evil Shot": {
+            "*": "Wearing this Rune Arm will imbue any weapon you wield, dealing 2d10 points of Evil damage per hit."
         },
         "Rune Arm Imbue: Fire": {
-            "*": "",
-            "Untyped": "Wearing this Rune Arm will imbue any weapon you wield, dealing 2d{0} points of Fire damage per hit."
+            "*": "Wearing this Rune Arm will imbue any weapon you wield, dealing 2d{0} points of Fire damage per hit."
         },
         "Rune Arm Imbue: Fire V, Bludgeon": {
             "*": "Wearing this Rune Arm will imbue any weapon you wield, dealing 2d10+2d8 points of fire/bludgeon damage per hit."
@@ -4188,8 +4172,7 @@
             "*": "Chance to deal {0}d8 Sonic damage when hit."
         },
         "Sonic Intensity": {
-            "*": "+{v}% {type} bonus to critical damage with Sonic spells.",
-            "Insight": "+{v}% Insightful bonus to critical damage with Sonic spells."
+            "*": "+{v}% {type} bonus to critical damage with Sonic spells."
         },
         "Sonic Lore": {
             "*": "Your Sonic spells gain a {v}% {type} bonus to their chance to critical hit."
@@ -4475,7 +4458,7 @@
             "*": "On Melee Vorpal Hit: 25d2+1035 to 60 Electric damage and 25d2+1035 to 60 Sonic damage to your target."
         },
         "Tidal": {
-            "*": "This weapon is sheathed in water. A Tidal weapon deals an extra {0}d6 ({1} to {2}) points of damage on a successful hit. Creatures with the Fire trait take double this damage instead."
+            "*": "This weapon is sheathed in water. A Tidal weapon deals an extra {0}d{1} ({2} to {3}) points of damage on a successful hit. Creatures with the Fire trait take double this damage instead."
         },
         "Tidal Burst": {
             "*": "This weapon is sheathed in water. The weapon deals an additional 1d4 (1 to 4) damage each hit. In addition, critical hits deal an additional 1d8 (1 to 8) damage for weapons with a x2 critical multiplier, 2d8 (2 to 16) for a x3 critical multiplier and 3d8 (3 to 24) for a x4 multiplier. Creatures with the Fire trait take double this damage instead."
@@ -4637,8 +4620,7 @@
             "*": "Attacks and offensive spells have a small chance to deal massive evil damage."
         },
         "Void Intensity": {
-            "*": "+{v}% {type} bonus to critical damage with Negative and Poison spells.",
-            "Insight": "+{v}% Insightful bonus to critical damage with Negative and Poison spells."
+            "*": "+{v}% {type} bonus to critical damage with Negative and Poison spells."
         },
         "Voltaic": {
             "*": "This weapon is sheathed in Powerful electricity. A voltaic weapon deals an extra 2d6 (2 to 12) electricity damage on a successful hit."

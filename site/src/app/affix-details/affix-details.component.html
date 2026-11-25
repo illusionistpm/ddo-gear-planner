@@ -1,19 +1,21 @@
-<div class="affix-details">
+<div class="affix-details" [class.affix-details-framed]="heading">
   @if (heading) {
     <div class="affix-details-heading">{{details.name}}</div>
   }
-  @if (details.description) {
-    <p class="affix-details-description">{{details.description}}</p>
-  }
-  @for (section of details.sections; track section.label) {
-    <div class="affix-details-label">{{section.label}}</div>
-    <ul class="affix-details-parts">
-      @for (part of section.parts; track $index) {
-        <li><span>{{part.name}}</span><span class="affix-details-part-value">{{part.value}}</span></li>
-      }
-    </ul>
-  }
-  @if (details.wikiName) {
-    <a class="affix-details-source" [href]="wikiUrl" target="_blank" rel="noreferrer">More on DDO Wiki</a>
-  }
+  <div class="affix-details-body">
+    @if (details.description) {
+      <p class="affix-details-description">{{details.description}}</p>
+    }
+    @for (section of details.sections; track section.label) {
+      <div class="affix-details-label">{{section.label}}</div>
+      <ul class="affix-details-parts">
+        @for (part of section.parts; track $index) {
+          <li><span>{{part.name}}</span><span class="affix-details-part-value">{{part.value}}</span></li>
+        }
+      </ul>
+    }
+    @if (details.wikiName) {
+      <a class="affix-details-source" [href]="wikiUrl" target="_blank" rel="noreferrer">More on DDO Wiki</a>
+    }
+  </div>
 </div>

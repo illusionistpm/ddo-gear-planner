@@ -275,8 +275,32 @@ export class AffixUiService {
     perfCount('AffixUiService.getAffixTooltip');
     if (!affix) return '';
 
-    return this.describeShortSet(option)
-      || this.describeRank(this.getAffixRankDetails(affix, option, candidate), option, currentSlot);
+    const details = this.getAffixRankDetails(affix, option, candidate);
+    // An affix row's compound says only how it ranks overall, as a plain affix does: its
+    // underlined name opens what its parts are. An option's tooltip still goes part by part.
+    if (!option && details.parts) {
+      return this.describeOverallRank(details, currentSlot);
+    }
+    return this.describeShortSet(option) || this.describeRank(details, option, currentSlot);
+  }
+
+  /** A compound's rank in one line, naming what the parts that set it are tied with or overpowered by. */
+  private describeOverallRank(details: RankDetails, currentSlot?: string): string {
+    const { rank } = details;
+    if (rank === AffixRank.Mixed) {
+      return 'Some of its parts help; some are penalties';
+    }
+    let tooltip = this.rankSentence(rank);
+    if (rank === AffixRank.BestTied || rank === AffixRank.Outranked) {
+      const competing = new Set((details.parts ?? [])
+        .filter(part => part.rank === rank)
+        .map(part => this.describeCompetingSources(part.sourceAffix, currentSlot))
+        .filter(sources => sources));
+      if (competing.size) {
+        tooltip += ` ${[...competing].join(', ')}`;
+      }
+    }
+    return tooltip && details.partial ? `${tooltip} for some of its parts` : tooltip;
   }
 
   /** For an option from a set augment whose set is short of pieces: why it does nothing yet. */
@@ -311,29 +335,7 @@ export class AffixUiService {
       return `Lower than current ${downgradeFrom > 0 ? '+' : ''}${downgradeFrom}` + (current ? ` from ${current}` : '');
     }
 
-    let tooltip: string;
-    switch (affixRank) {
-      case AffixRank.BetterThanBest:
-        tooltip = 'Better than best equipped value';
-        break;
-      case AffixRank.Best:
-        tooltip = 'Best equipped value';
-        break;
-      case AffixRank.BestTied:
-        tooltip = 'Tied with';
-        break;
-      case AffixRank.Outranked:
-        tooltip = 'Overpowered by';
-        break;
-      case AffixRank.Penalty:
-        tooltip = 'Penalty/negative effect';
-        break;
-      case AffixRank.Inactive:
-        tooltip = 'Not yet active - need more set items';
-        break;
-      default:
-        tooltip = '';
-    }
+    let tooltip = this.rankSentence(affixRank);
 
     if (affixRank === AffixRank.BestTied || affixRank === AffixRank.Outranked) {
       const competing = this.describeCompetingSources(sourceAffix, currentSlot);
@@ -343,6 +345,26 @@ export class AffixUiService {
     }
 
     return tooltip;
+  }
+
+  /** What a rank means, for a tooltip; Tied and Overpowered go on to name what with or by. */
+  private rankSentence(rank: AffixRank): string {
+    switch (rank) {
+      case AffixRank.BetterThanBest:
+        return 'Better than best equipped value';
+      case AffixRank.Best:
+        return 'Best equipped value';
+      case AffixRank.BestTied:
+        return 'Tied with';
+      case AffixRank.Outranked:
+        return 'Overpowered by';
+      case AffixRank.Penalty:
+        return 'Penalty/negative effect';
+      case AffixRank.Inactive:
+        return 'Not yet active - need more set items';
+      default:
+        return '';
+    }
   }
 
   private describeCompetingSources(affix: Affix, currentSlot?: string): string {

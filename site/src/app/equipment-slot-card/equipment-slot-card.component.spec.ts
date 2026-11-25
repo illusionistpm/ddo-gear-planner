@@ -57,6 +57,23 @@ describe('EquipmentSlotCardComponent', () => {
     expect(render('Offhand').querySelector('.slot-name-text')!.textContent).toBe('Offhand – Occupied');
   });
 
+  it('says a crossbow can take a rune arm only on the empty offhand\'s button, not over the card', () => {
+    const equipped = TestBed.inject(EquippedService);
+    const gearDb = TestBed.inject(GearDbService);
+    const crossbow = gearDb.getGearBySlot('Weapon').find(item => item.isTwoHandedWeapon() && item.isCrossbow())!;
+    equipped.set(crossbow);
+    expect(equipped.isOffhandRuneArmOnly()).toBe(true);
+
+    const card = render('Offhand');
+    expect(card.querySelector('.slot-select-button')!.getAttribute('title')).toBe('Crossbows can use rune arms in the offhand.');
+    expect(fixture.nativeElement.getAttribute('title')).toBeNull();
+
+    equipped.set(gearDb.getGearBySlot('Offhand').find(item => item.isRuneArm())!);
+    fixture.detectChanges();
+    expect(card.querySelector('.slot-select-button')!.getAttribute('title')).toBe('');
+    expect(fixture.nativeElement.getAttribute('title')).toBeNull();
+  });
+
   describe('Mythic, Reaper and Curse bonuses', () => {
     let equipped: EquippedService;
     let settings: ItemBonusSettingsService;

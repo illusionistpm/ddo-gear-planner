@@ -130,9 +130,10 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
     }
 
     const scores = perfMeasure('ItemSuggestionsComponent.scoreItems', () => {
+      const score = this.equipped.getSuggestionScorer(this.slot);
       const scoreMap = new Map<Item, number>();
       for (const item of shortlist) {
-        scoreMap.set(item, this.equipped.getScore(item));
+        scoreMap.set(item, score(item));
       }
       return scoreMap;
     });

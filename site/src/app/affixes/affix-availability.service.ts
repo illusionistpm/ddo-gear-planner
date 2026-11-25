@@ -54,10 +54,11 @@ export interface RemainingAvailability extends AffixAvailability {
  * currently filtered gear: how many equipment slots carry an item source, how
  * many items / augments / sets grant it, and a derived scarcity tier + weight.
  *
- * The suggestion score (EquippedService.getScore) multiplies each tracked-affix
- * contribution by this weight so scarce needs beat abundant ones on a tie, and
- * the Tracked Affixes tab's "Scarcity" grouping buckets bonus types by the same
- * measure so the player fits the hardest-to-place ones first.
+ * The Tracked Affixes tab's "Scarcity" grouping buckets bonus types by this
+ * measure so the player fits the hardest-to-place ones first. The earlier
+ * suggestion score (EquippedService.getScore) multiplied each tracked-affix
+ * contribution by its weight; the drawer's scorer v2 (suggestion-scorer.ts)
+ * doesn't.
  *
  * Results are memoised and cleared whenever the item filters change, since the
  * level range moves the slot counts.

@@ -34,7 +34,8 @@ function log(line: string) {
 }
 
 const ENABLED = !!process.env['SUGGESTION_EVAL'];
-const LEVEL_RANGE: [number, number] = [28, 34];
+// SUGGESTION_EVAL_LEVELS=15,20 runs at another level range.
+const LEVEL_RANGE = (process.env['SUGGESTION_EVAL_LEVELS'] ?? '28,34').split(',').map(Number) as [number, number];
 const SLOTS = ['Armor', 'Belt', 'Boots', 'Bracers', 'Cloak', 'Gloves', 'Goggles', 'Helm', 'Necklace', 'Ring1', 'Ring2', 'Trinket'];
 
 /**
@@ -339,7 +340,7 @@ describe.skipIf(!ENABLED)('suggestion evaluation', () => {
       const ctx: Ctx = { equipped, gearDB, availability, index, maxLevel: LEVEL_RANGE[1] };
       const empty = new BuildState(index, gearDB);
       for (const [name, scorer] of SCORERS.filter(([n]) => !overrepOnly || overrepOnly.some(o => n.includes(o)))
-        .filter(([n]) => n === 'live getScore' || n.startsWith('total value, augment-aware'))) {
+        .filter(([n]) => n === 'live getScore' || n.startsWith('app v2') || n.startsWith('total value, augment-aware'))) {
         const score = scorer(ctx, empty, SLOTS);
         const top = new Map<string, number>();
         const all = new Map<string, number>();

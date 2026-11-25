@@ -136,6 +136,61 @@ Where augment slots exist on endgame items (count of items, by slot):
 - Sun: Armor 83, Cloak 36, Helm 33, Goggles 19, Trinket 17 - nowhere else.
 - Moon: Bracers 17, Necklace 16, Boots 15, Belt 14, Gloves 14 - nowhere else.
 
+## Scorer v2 in the app (built 2026-11-25)
+
+The suggestion drawer now scores candidates with
+`EquippedService.getSuggestionScorer(slot)`
+(`site/src/app/planner/suggestion-scorer.ts`):
+
+- **Total value per affix, as before.** It works from the planner's own
+  values (`valuesForAffixType`), so filigree, non-gear entries, compound
+  affixes and ignored bonus types count as they do everywhere else.
+- **Augment-aware.** The build's empty crafting slots are filled first, and a
+  candidate's own empty crafting slots count for what they could add.
+- **Set-granting crafting counts.** Lost Purpose, Slaver's set bonuses and set
+  augments count for the set bonus the extra piece would unlock.
+- **Planned artifact.** Until a minor artifact is equipped, one with Blue,
+  Green and Yellow slots is assumed.
+- **Utility effects count for a quarter.** Concealment, Immunity to Fear,
+  Heroic Inspiration, Undying, Feather Falling and Incorporeality: builds
+  seldom fill them, and Lominal leaves them out.
+- The scarcity multiplier and set nudge of the old `getScore` are gone.
+  `getScore` stays only as the harness's baseline.
+
+Two things the prework found before this was trusted:
+
+- **Set-granting crafting was being ignored.** The first harness version gave
+  nothing for it, so Lost Purpose items like the Legendary University helms
+  looked worthless. That was most of why the new scorer ranked players' own
+  helms worse than the live one.
+- **Set options crowded out real gains.** Colorless set augments are merged
+  into the Yellow and other coloured lists. Ranking them ahead of real gains
+  hid the Topaz of Striding. The scorer shortlists ordinary options by real
+  gain and keeps set options apart.
+
+**Results, on the real code path:**
+
+| Check | Live | v2 |
+|---|---|---|
+| Saved builds, 1,316 slots: MRR / player's item in top 20 / average rank | 0.29 / 61% / 117 | **0.31 / 72% / 47** |
+| Time per drawer (build scorer + score every candidate), average / worst | 129 ms / 1,928 ms | **92 ms / 932 ms** |
+| Simulation, level 28-34, total value (4 profiles, average) | 51.9% | **57.7%** |
+| Simulation, level 28-34, Lominal's tiers (Melee / Ranged / Healer) | 60 / 57 / 53% | **66 / 68 / 69%** |
+| Simulation, level 15-20, total value | 45.3% | **47.8%** |
+| Speed in the top 20 (share, against its base rate) | 16-17%, ~3.8× | **6-7%, 1.3-1.4×** |
+
+By slot, it puts the player's item in the top 20 more often everywhere except
+Helm (57% against 64%), where its average rank is still better (30 against
+40). Weapons stay poor under both (24%), since they're chosen by type.
+
+The ranking without utility weighting was 0.28 / 69% / 49. With it,
+simulated total value drops a little (it counts Concealment fully), but
+players' own choices favour it.
+
+**Next:** a separate artifact list in the drawer. Minor artifacts still rank
+among ordinary items, and three of today's top five melee Trinkets are
+artifacts.
+
 ## The minor artifact
 
 There are 91 minor artifacts at level 28-34, in every slot but Weapon,

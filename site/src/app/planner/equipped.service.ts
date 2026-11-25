@@ -39,6 +39,7 @@ import {
   valuesForAffixType
 } from '../affixes/build-totals';
 import { expandTrackedAffixNames } from '../affixes/tracked-affix-family';
+import { makeSuggestionScorer, utilityWeightFactor } from './suggestion-scorer';
 import { combineBonusTypeValues, isSummedBonusType } from '../affixes/summed-bonus-types';
 
 /** Minimal shape of the browser's IdleDeadline, used without a lib.dom dependency. */
@@ -673,6 +674,10 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     return unlockedSlots;
   }
 
+  /**
+   * The earlier suggestion score, which the drawer used before scorer v2 (getSuggestionScorer). Kept as
+   * the baseline the suggestion harness (src/app/suggestion-eval) compares against.
+   */
   getScore(item: Item) {
     let score = 0;
     // Slots still open to gear, plus the one this candidate would take. Scarcity
@@ -709,6 +714,27 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
     score += this._getSetCoverageNudge(item);
 
     return score;
+  }
+
+  /**
+   * A scorer for the suggestion drawer of `slot`: what each candidate would add to the build's tracked
+   * affixes, counting augments and assuming a minor artifact (see suggestion-scorer.ts). Built once per
+   * drawer, since filling the build's own augment slots is the costly part. `options` overrides the
+   * weighting, for the suggestion harness's comparisons.
+   */
+  getSuggestionScorer(slot: string, options: { weightFactor?: (affixName: string) => number } = {}): (item: Item) => number {
+    return makeSuggestionScorer({
+      weightFactor: utilityWeightFactor,
+      ...options,
+      view: this.view,
+      affixSvc: this.affixSvc,
+      gearDB: this.gearList,
+      slots: this.slotValues,
+      tracked: this.importantAffixes,
+      isIgnored: (affixName, bonusType) => this.isAffixTypeIgnored(affixName, bonusType),
+      maxLevel: this.gearList.getMaxLevelFilter(),
+      hiddenPacks: this.gearList.getHiddenPacks(),
+    }, slot);
   }
 
   /**

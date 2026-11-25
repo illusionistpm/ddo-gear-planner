@@ -116,7 +116,7 @@
         <app-affix-picker></app-affix-picker>
     } @else {
         <button type="button" class="goals-bar" [class.needs-attention]="needsStart"
-            aria-expanded="false" [title]="goalsSummaryTitle()" (click)="openEditor()">
+            aria-expanded="false" aria-keyshortcuts="G" [title]="goalsSummaryTitle()" (click)="openEditor()">
             <span class="fas fa-bullseye goals-bar-icon" aria-hidden="true"></span>
             <span class="goals-bar-title">Build goals</span>
             <span class="goals-bar-summary">

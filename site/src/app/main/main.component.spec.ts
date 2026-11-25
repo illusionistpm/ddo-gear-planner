@@ -19,6 +19,7 @@ import { FiltersService } from '../planner/filters.service';
 import { AffixEditorService } from '../planner/affix-editor.service';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
 import { ItemBonusSettingsService } from '../planner/item-bonus-settings.service';
+import { CloseRequestService } from '../shared/close-request.service';
 
 describe('MainComponent', () => {
   let component: MainComponent;
@@ -281,6 +282,67 @@ describe('MainComponent', () => {
     component.closeFilters();
 
     expect(component.filtersOpen).toBe(false);
+  });
+
+  describe('keyboard shortcuts', () => {
+    const press = (key: string, target: EventTarget = document, init: KeyboardEventInit = {}) => {
+      const event = new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true, ...init });
+      target.dispatchEvent(event);
+      fixture.detectChanges();
+      return event;
+    };
+
+    it('F opens and closes the filter sheet', () => {
+      expect(press('f').defaultPrevented).toBe(true);
+      expect(component.filtersOpen).toBe(true);
+
+      press('F');
+      expect(component.filtersOpen).toBe(false);
+    });
+
+    it('G closes the goals editor, then reopens it and takes you to it from the gear view', () => {
+      const editor = TestBed.inject(AffixEditorService);
+      expect(editor.isOpen).toBe(true);
+
+      press('g');
+      expect(editor.isOpen).toBe(false);
+
+      TestBed.inject(EquippedService).setActiveMainTab('equipment');
+      press('g');
+      expect(editor.isOpen).toBe(true);
+      expect(activeTab()).toBe('affixes');
+    });
+
+    it('G from the filter sheet closes it on the way to the goals', () => {
+      const editor = TestBed.inject(AffixEditorService);
+      editor.close();
+      press('f');
+
+      press('g');
+
+      expect(component.filtersOpen).toBe(false);
+      expect(editor.isOpen).toBe(true);
+    });
+
+    it('leaves the keys alone while typing, with a modifier, or under another overlay', () => {
+      const input = document.createElement('input');
+      document.body.appendChild(input);
+      try {
+        expect(press('f', input).defaultPrevented).toBe(false);
+      } finally {
+        input.remove();
+      }
+      press('f', document, { ctrlKey: true });
+      expect(component.filtersOpen).toBe(false);
+
+      const release = TestBed.inject(CloseRequestService).listen(() => { });
+      try {
+        expect(press('f').defaultPrevented).toBe(false);
+        expect(component.filtersOpen).toBe(false);
+      } finally {
+        release();
+      }
+    });
   });
 
   it('switches tabs without forcing a scroll position', () => {

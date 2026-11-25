@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, combineLatest, distinctUntilChanged, take } from 'rxjs';
@@ -598,6 +598,41 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
 
   isActiveTab(tab: PlannerTab) {
     return this.activeTab === tab;
+  }
+
+  /**
+   * G opens the build goals editor and takes you to it (or closes it); F
+   * opens or closes the filter sheet. Single keys, as "/" is for the gear
+   * search, so never while typing, and never over another overlay - a
+   * dialog, drawer or menu - except the filter sheet itself, which G closes
+   * on its way to the goals.
+   */
+  @HostListener('document:keydown', ['$event'])
+  onDocumentKeydown(event: KeyboardEvent) {
+    const key = event.key?.toLowerCase();
+    if ((key !== 'g' && key !== 'f') || event.ctrlKey || event.metaKey || event.altKey
+      || event.defaultPrevented || event.repeat) {
+      return;
+    }
+    const target = event.target as HTMLElement | null;
+    if (target && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))) {
+      return;
+    }
+    if (!this.contentReady || this.loadError || this.shoppingListOpen || this.craftingSlotsOpen) {
+      return;
+    }
+    if (this.closeRequests.openCount > (this.filtersOpen ? 1 : 0)) {
+      return;
+    }
+    event.preventDefault();
+    if (key === 'f') {
+      this.toggleFilters();
+    } else if (this.affixEditor.isOpen && !this.filtersOpen) {
+      this.affixEditor.close();
+    } else {
+      this.closeFilters();
+      this.affixEditor.reveal('hotkey');
+    }
   }
 
   toggleFilters() {

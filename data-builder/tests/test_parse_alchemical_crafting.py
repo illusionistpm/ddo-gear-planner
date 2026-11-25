@@ -98,7 +98,7 @@ def test_heroic_martial_grants_its_alchemical_stat(monkeypatch):
     tier2 = options(parse(monkeypatch), 'Alchemical Tier 2')
     assert ('Strength', 'Alchemical', '2') in affixes(tier2['Fire (Martial)'])
     assert tier2['Fire (Martial)']['ml'] == 18
-    assert tier2['Fire (Martial)']['quests'] == ['Cannith Binding Station']
+    assert 'quests' not in tier2['Fire (Martial)']
 
 
 def test_heroic_mystical_is_one_option_per_material_effect(monkeypatch):
@@ -130,7 +130,7 @@ def test_legendary_lines_are_separate_options(monkeypatch):
     assert affixes(tier2['Earth: Alchemical Constitution +2']) == {('Constitution', 'Alchemical', '2')}
     assert affixes(tier2['Earth: Alchemical Intelligence +2']) == {('Intelligence', 'Alchemical', '2')}
     assert tier2['Earth: Alchemical Intelligence +2']['ml'] == 29
-    assert tier2['Earth: Alchemical Intelligence +2']['quests'] == ['Cannith Reforging Station']
+    assert 'quests' not in tier2['Earth: Alchemical Intelligence +2']
 
 
 def test_legendary_commentary_is_dropped_and_types_filled_in(monkeypatch):

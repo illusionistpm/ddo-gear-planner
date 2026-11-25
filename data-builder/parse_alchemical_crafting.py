@@ -32,8 +32,6 @@ LEGENDARY_PROTOTYPE = 'Legendary Alchemical Crafting (Prototype)'
 # already at their minimum level.
 HEROIC_TIER_ML = {1: 16, 2: 18, 3: 20}
 LEGENDARY_ML = 29
-HEROIC_DEVICE = 'Cannith Binding Station'
-LEGENDARY_DEVICE = 'Cannith Reforging Station'
 
 ELEMENTS = ['Air', 'Earth', 'Water', 'Fire']
 METAL_EFFECT = '<Metal Type Effect>'
@@ -161,7 +159,7 @@ def _get_materials(soup: BeautifulSoup) -> list[tuple[list[str], dict[int, Tag]]
     return list(groups.values())
 
 
-def _option(name: str, affixes: list[dict[str, Any]], ml: int, device: str) -> AffixesDict:
+def _option(name: str, affixes: list[dict[str, Any]], ml: int) -> AffixesDict:
     if not affixes:
         raise ValueError(f'Alchemical Crafting: "{name}" has no effects')
     for affix in affixes:
@@ -170,7 +168,10 @@ def _option(name: str, affixes: list[dict[str, Any]], ml: int, device: str) -> A
         # shields included, so it can't follow the item as parse_items does.
         if affix['name'] == 'Enhancement Bonus':
             affix['name'] = 'Enhancement Bonus (Weapon)'
-    return {'name': name, 'affixes': affixes, 'ml': ml, 'quests': [device]}  # type: ignore[typeddict-item]
+    # No 'quests': like Slaver's, this is crafting done to the item itself at a
+    # Cannith device, so the shopping list shows it as a step, not as a named
+    # piece to go and get.
+    return {'name': name, 'affixes': affixes, 'ml': ml}  # type: ignore[typeddict-item]
 
 
 def get_heroic_systems(soup: BeautifulSoup) -> dict[str, SystemDict]:
@@ -184,19 +185,18 @@ def get_heroic_systems(soup: BeautifulSoup) -> dict[str, SystemDict]:
 
         options: list[AffixesDict | SetDict] = []
         for element, (martial, mystical) in _element_rows(table):
-            options.append(_option(f'{element} (Martial)', _parse_effects(_heroic_effects(martial)), ml, HEROIC_DEVICE))
+            options.append(_option(f'{element} (Martial)', _parse_effects(_heroic_effects(martial)), ml))
 
             effects = _heroic_effects(mystical)
             own = [effect for effect in effects if not (isinstance(effect, str) and METAL_EFFECT in effect)]
             if len(own) == len(effects):
-                options.append(_option(f'{element} (Mystical)', _parse_effects(own), ml, HEROIC_DEVICE))
+                options.append(_option(f'{element} (Mystical)', _parse_effects(own), ml))
                 continue
             for names, material_cells in materials:
                 options.append(_option(
                     f'{element} (Mystical, {" or ".join(names)})',
                     _parse_effects(own + _heroic_effects(material_cells[tier])),
                     ml,
-                    HEROIC_DEVICE,
                 ))
         systems[heroic_system_name(tier)] = {'*': options}
     return systems
@@ -264,7 +264,7 @@ def get_legendary_systems(soup: BeautifulSoup) -> dict[str, SystemDict]:
                 effects = _legendary_effects(li.get_text())
                 affixes = _parse_effects(list(effects))
                 _type_legendary_affixes(effects, affixes, bonus_types)
-                options.append(_option(f'{element}: {", ".join(effects)}', affixes, LEGENDARY_ML, LEGENDARY_DEVICE))
+                options.append(_option(f'{element}: {", ".join(effects)}', affixes, LEGENDARY_ML))
         systems[legendary_system_name(tier)] = {'*': options}
     return systems
 

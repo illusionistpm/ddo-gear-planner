@@ -584,10 +584,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Air (Martial)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Air (Martial)"
             },
             {
                 "affixes": [
@@ -608,10 +605,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Air (Mystical, Adamantine or Crystal)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Air (Mystical, Adamantine or Crystal)"
             },
             {
                 "affixes": [
@@ -632,10 +626,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Air (Mystical, Byeshk)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Air (Mystical, Byeshk)"
             },
             {
                 "affixes": [
@@ -656,10 +647,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Air (Mystical, Cold Iron)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Air (Mystical, Cold Iron)"
             },
             {
                 "affixes": [
@@ -680,10 +668,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Air (Mystical, Flametouched Iron)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Air (Mystical, Flametouched Iron)"
             },
             {
                 "affixes": [
@@ -704,10 +689,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Air (Mystical, Silver)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Air (Mystical, Silver)"
             },
             {
                 "affixes": [
@@ -728,10 +710,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Earth (Martial)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Earth (Martial)"
             },
             {
                 "affixes": [
@@ -752,10 +731,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Earth (Mystical, Adamantine or Crystal)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Earth (Mystical, Adamantine or Crystal)"
             },
             {
                 "affixes": [
@@ -776,10 +752,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Earth (Mystical, Byeshk)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Earth (Mystical, Byeshk)"
             },
             {
                 "affixes": [
@@ -800,10 +773,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Earth (Mystical, Cold Iron)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Earth (Mystical, Cold Iron)"
             },
             {
                 "affixes": [
@@ -824,10 +794,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Earth (Mystical, Flametouched Iron)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Earth (Mystical, Flametouched Iron)"
             },
             {
                 "affixes": [
@@ -848,10 +815,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Earth (Mystical, Silver)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Earth (Mystical, Silver)"
             },
             {
                 "affixes": [
@@ -872,10 +836,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Fire (Martial)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Fire (Martial)"
             },
             {
                 "affixes": [
@@ -896,10 +857,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Fire (Mystical, Adamantine or Crystal)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Fire (Mystical, Adamantine or Crystal)"
             },
             {
                 "affixes": [
@@ -920,10 +878,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Fire (Mystical, Byeshk)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Fire (Mystical, Byeshk)"
             },
             {
                 "affixes": [
@@ -944,10 +899,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Fire (Mystical, Cold Iron)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Fire (Mystical, Cold Iron)"
             },
             {
                 "affixes": [
@@ -968,10 +920,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Fire (Mystical, Flametouched Iron)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Fire (Mystical, Flametouched Iron)"
             },
             {
                 "affixes": [
@@ -992,10 +941,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Fire (Mystical, Silver)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Fire (Mystical, Silver)"
             },
             {
                 "affixes": [
@@ -1016,10 +962,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Water (Martial)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Water (Martial)"
             },
             {
                 "affixes": [
@@ -1040,10 +983,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Water (Mystical, Adamantine or Crystal)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Water (Mystical, Adamantine or Crystal)"
             },
             {
                 "affixes": [
@@ -1064,10 +1004,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Water (Mystical, Byeshk)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Water (Mystical, Byeshk)"
             },
             {
                 "affixes": [
@@ -1088,10 +1025,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Water (Mystical, Cold Iron)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Water (Mystical, Cold Iron)"
             },
             {
                 "affixes": [
@@ -1112,10 +1046,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Water (Mystical, Flametouched Iron)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Water (Mystical, Flametouched Iron)"
             },
             {
                 "affixes": [
@@ -1136,10 +1067,7 @@
                     }
                 ],
                 "ml": 16,
-                "name": "Water (Mystical, Silver)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Water (Mystical, Silver)"
             }
         ]
     },
@@ -1164,10 +1092,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Air (Martial)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Air (Martial)"
             },
             {
                 "affixes": [
@@ -1188,10 +1113,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Air (Mystical, Adamantine or Crystal)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Air (Mystical, Adamantine or Crystal)"
             },
             {
                 "affixes": [
@@ -1212,10 +1134,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Air (Mystical, Byeshk)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Air (Mystical, Byeshk)"
             },
             {
                 "affixes": [
@@ -1236,10 +1155,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Air (Mystical, Cold Iron)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Air (Mystical, Cold Iron)"
             },
             {
                 "affixes": [
@@ -1260,10 +1176,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Air (Mystical, Flametouched Iron)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Air (Mystical, Flametouched Iron)"
             },
             {
                 "affixes": [
@@ -1284,10 +1197,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Air (Mystical, Silver)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Air (Mystical, Silver)"
             },
             {
                 "affixes": [
@@ -1308,10 +1218,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Earth (Martial)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Earth (Martial)"
             },
             {
                 "affixes": [
@@ -1332,10 +1239,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Earth (Mystical, Adamantine or Crystal)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Earth (Mystical, Adamantine or Crystal)"
             },
             {
                 "affixes": [
@@ -1356,10 +1260,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Earth (Mystical, Byeshk)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Earth (Mystical, Byeshk)"
             },
             {
                 "affixes": [
@@ -1380,10 +1281,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Earth (Mystical, Cold Iron)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Earth (Mystical, Cold Iron)"
             },
             {
                 "affixes": [
@@ -1404,10 +1302,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Earth (Mystical, Flametouched Iron)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Earth (Mystical, Flametouched Iron)"
             },
             {
                 "affixes": [
@@ -1428,10 +1323,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Earth (Mystical, Silver)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Earth (Mystical, Silver)"
             },
             {
                 "affixes": [
@@ -1452,10 +1344,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Fire (Martial)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Fire (Martial)"
             },
             {
                 "affixes": [
@@ -1476,10 +1365,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Fire (Mystical, Adamantine or Crystal)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Fire (Mystical, Adamantine or Crystal)"
             },
             {
                 "affixes": [
@@ -1500,10 +1386,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Fire (Mystical, Byeshk)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Fire (Mystical, Byeshk)"
             },
             {
                 "affixes": [
@@ -1524,10 +1407,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Fire (Mystical, Cold Iron)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Fire (Mystical, Cold Iron)"
             },
             {
                 "affixes": [
@@ -1548,10 +1428,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Fire (Mystical, Flametouched Iron)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Fire (Mystical, Flametouched Iron)"
             },
             {
                 "affixes": [
@@ -1572,10 +1449,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Fire (Mystical, Silver)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Fire (Mystical, Silver)"
             },
             {
                 "affixes": [
@@ -1596,10 +1470,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Water (Martial)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Water (Martial)"
             },
             {
                 "affixes": [
@@ -1620,10 +1491,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Water (Mystical, Adamantine or Crystal)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Water (Mystical, Adamantine or Crystal)"
             },
             {
                 "affixes": [
@@ -1644,10 +1512,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Water (Mystical, Byeshk)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Water (Mystical, Byeshk)"
             },
             {
                 "affixes": [
@@ -1668,10 +1533,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Water (Mystical, Cold Iron)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Water (Mystical, Cold Iron)"
             },
             {
                 "affixes": [
@@ -1692,10 +1554,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Water (Mystical, Flametouched Iron)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Water (Mystical, Flametouched Iron)"
             },
             {
                 "affixes": [
@@ -1716,10 +1575,7 @@
                     }
                 ],
                 "ml": 18,
-                "name": "Water (Mystical, Silver)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Water (Mystical, Silver)"
             }
         ]
     },
@@ -1739,10 +1595,7 @@
                     }
                 ],
                 "ml": 20,
-                "name": "Air (Martial)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Air (Martial)"
             },
             {
                 "affixes": [
@@ -1763,10 +1616,7 @@
                     }
                 ],
                 "ml": 20,
-                "name": "Air (Mystical)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Air (Mystical)"
             },
             {
                 "affixes": [
@@ -1782,10 +1632,7 @@
                     }
                 ],
                 "ml": 20,
-                "name": "Earth (Martial)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Earth (Martial)"
             },
             {
                 "affixes": [
@@ -1806,10 +1653,7 @@
                     }
                 ],
                 "ml": 20,
-                "name": "Earth (Mystical)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Earth (Mystical)"
             },
             {
                 "affixes": [
@@ -1825,10 +1669,7 @@
                     }
                 ],
                 "ml": 20,
-                "name": "Fire (Martial)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Fire (Martial)"
             },
             {
                 "affixes": [
@@ -1849,10 +1690,7 @@
                     }
                 ],
                 "ml": 20,
-                "name": "Fire (Mystical)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Fire (Mystical)"
             },
             {
                 "affixes": [
@@ -1868,10 +1706,7 @@
                     }
                 ],
                 "ml": 20,
-                "name": "Water (Martial)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Water (Martial)"
             },
             {
                 "affixes": [
@@ -1892,10 +1727,7 @@
                     }
                 ],
                 "ml": 20,
-                "name": "Water (Mystical)",
-                "quests": [
-                    "Cannith Binding Station"
-                ]
+                "name": "Water (Mystical)"
             }
         ]
     },
@@ -12015,10 +11847,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Air: Heightened Awareness +6, Legendary Lightning Storm Guard",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Air: Heightened Awareness +6, Legendary Lightning Storm Guard"
             },
             {
                 "affixes": [
@@ -12034,10 +11863,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Air: Magnetism +148, Lightning Lore +22%",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Air: Magnetism +148, Lightning Lore +22%"
             },
             {
                 "affixes": [
@@ -12053,10 +11879,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Air: Resonance +148, Sonic Lore +22%",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Air: Resonance +148, Sonic Lore +22%"
             },
             {
                 "affixes": [
@@ -12072,10 +11895,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Air: Shocking Blast 6, Sovereign Lightning Strike",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Air: Shocking Blast 6, Sovereign Lightning Strike"
             },
             {
                 "affixes": [
@@ -12091,10 +11911,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Air: Spell Resistance +40, Magical Sheltering +35",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Air: Spell Resistance +40, Magical Sheltering +35"
             },
             {
                 "affixes": [
@@ -12110,10 +11927,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Earth: Acid Blast 6, Legendary Stone Prison",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Earth: Acid Blast 6, Legendary Stone Prison"
             },
             {
                 "affixes": [
@@ -12129,10 +11943,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Earth: Corrosion +148, Acid Lore +22%",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Earth: Corrosion +148, Acid Lore +22%"
             },
             {
                 "affixes": [
@@ -12148,10 +11959,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Earth: Crippling, Legendary Earthgrab Guard",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Earth: Crippling, Legendary Earthgrab Guard"
             },
             {
                 "affixes": [
@@ -12167,10 +11975,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Earth: Fortification +148%, Physical Sheltering +35",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Earth: Fortification +148%, Physical Sheltering +35"
             },
             {
                 "affixes": [
@@ -12186,10 +11991,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Earth: Nullification +148, Void Lore +22%",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Earth: Nullification +148, Void Lore +22%"
             },
             {
                 "affixes": [
@@ -12205,10 +12007,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Fire: Combustion +148, Fire Lore +22%",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Fire: Combustion +148, Fire Lore +22%"
             },
             {
                 "affixes": [
@@ -12224,10 +12023,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Fire: Devotion +148, Healing Lore +22%",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Fire: Devotion +148, Healing Lore +22%"
             },
             {
                 "affixes": [
@@ -12243,10 +12039,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Fire: Flaming Blast 6, Overwhelming Incineration",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Fire: Flaming Blast 6, Overwhelming Incineration"
             },
             {
                 "affixes": [
@@ -12262,10 +12055,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Fire: Radiance +148, Radiance Lore +22%",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Fire: Radiance +148, Radiance Lore +22%"
             },
             {
                 "affixes": [
@@ -12281,10 +12071,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Fire: Seeker +13, Legendary Magma Surge Guard",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Fire: Seeker +13, Legendary Magma Surge Guard"
             },
             {
                 "affixes": [
@@ -12300,10 +12087,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Water: Fire Shield (Cold), Legendary Ice Shards Guard",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Water: Fire Shield (Cold), Legendary Ice Shards Guard"
             },
             {
                 "affixes": [
@@ -12319,10 +12103,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Water: Glaciation +148, Ice Lore +22%",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Water: Glaciation +148, Ice Lore +22%"
             },
             {
                 "affixes": [
@@ -12338,10 +12119,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Water: Icy Blast 6, Concentrated Corrosive Salt",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Water: Icy Blast 6, Concentrated Corrosive Salt"
             },
             {
                 "affixes": [
@@ -12357,10 +12135,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Water: Impulse +148, Kinetic Lore +22%",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Water: Impulse +148, Kinetic Lore +22%"
             },
             {
                 "affixes": [
@@ -12376,10 +12151,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Water: Reconstruction +148, Repair Lore +22%",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Water: Reconstruction +148, Repair Lore +22%"
             }
         ]
     },
@@ -12394,10 +12166,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Air: Alchemical Dexterity +2",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Air: Alchemical Dexterity +2"
             },
             {
                 "affixes": [
@@ -12408,10 +12177,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Air: Doubleshot +8%",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Air: Doubleshot +8%"
             },
             {
                 "affixes": [
@@ -12422,10 +12188,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Air: Efficient Metamagic - Enlarge II",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Air: Efficient Metamagic - Enlarge II"
             },
             {
                 "affixes": [
@@ -12436,10 +12199,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Air: Legendary Electric Storm",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Air: Legendary Electric Storm"
             },
             {
                 "affixes": [
@@ -12450,10 +12210,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Air: Vertigo +15",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Air: Vertigo +15"
             },
             {
                 "affixes": [
@@ -12464,10 +12221,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Earth: Alchemical Constitution +2",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Earth: Alchemical Constitution +2"
             },
             {
                 "affixes": [
@@ -12478,10 +12232,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Earth: Alchemical Intelligence +2",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Earth: Alchemical Intelligence +2"
             },
             {
                 "affixes": [
@@ -12492,10 +12243,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Earth: Efficient Metamagic - Empower II",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Earth: Efficient Metamagic - Empower II"
             },
             {
                 "affixes": [
@@ -12506,10 +12254,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Earth: Legendary Acid Torrent",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Earth: Legendary Acid Torrent"
             },
             {
                 "affixes": [
@@ -12520,10 +12265,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Earth: Shatter +15",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Earth: Shatter +15"
             },
             {
                 "affixes": [
@@ -12534,10 +12276,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Fire: Alchemical Strength +2",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Fire: Alchemical Strength +2"
             },
             {
                 "affixes": [
@@ -12548,10 +12287,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Fire: Doublestrike +15%",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Fire: Doublestrike +15%"
             },
             {
                 "affixes": [
@@ -12562,10 +12298,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Fire: Efficient Metamagic - Maximize II",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Fire: Efficient Metamagic - Maximize II"
             },
             {
                 "affixes": [
@@ -12576,10 +12309,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Fire: Legendary Fiery Detonation",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Fire: Legendary Fiery Detonation"
             },
             {
                 "affixes": [
@@ -12590,10 +12320,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Fire: Stunning +15",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Fire: Stunning +15"
             },
             {
                 "affixes": [
@@ -12604,10 +12331,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Water: Alchemical Charisma +2",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Water: Alchemical Charisma +2"
             },
             {
                 "affixes": [
@@ -12618,10 +12342,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Water: Alchemical Wisdom +2",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Water: Alchemical Wisdom +2"
             },
             {
                 "affixes": [
@@ -12632,10 +12353,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Water: Assassinate +6",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Water: Assassinate +6"
             },
             {
                 "affixes": [
@@ -12646,10 +12364,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Water: Efficient Metamagic - Extend II",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Water: Efficient Metamagic - Extend II"
             },
             {
                 "affixes": [
@@ -12660,10 +12375,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Water: Legendary Freezing Gale",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Water: Legendary Freezing Gale"
             }
         ]
     },
@@ -12678,10 +12390,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Air: Alchemical Air Attunement",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Air: Alchemical Air Attunement"
             },
             {
                 "affixes": [
@@ -12692,10 +12401,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Air: Enchantment Focus +6",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Air: Enchantment Focus +6"
             },
             {
                 "affixes": [
@@ -12706,10 +12412,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Air: Illusion Focus +6",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Air: Illusion Focus +6"
             },
             {
                 "affixes": [
@@ -12720,10 +12423,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Air: Improved Electric Augmentation IX",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Air: Improved Electric Augmentation IX"
             },
             {
                 "affixes": [
@@ -12734,10 +12434,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Earth: Alchemical Earth Attunement",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Earth: Alchemical Earth Attunement"
             },
             {
                 "affixes": [
@@ -12748,10 +12445,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Earth: Conjuration Focus +6",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Earth: Conjuration Focus +6"
             },
             {
                 "affixes": [
@@ -12762,10 +12456,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Earth: Improved Acid Augmentation IX",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Earth: Improved Acid Augmentation IX"
             },
             {
                 "affixes": [
@@ -12776,10 +12467,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Earth: Transmutation Focus +6",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Earth: Transmutation Focus +6"
             },
             {
                 "affixes": [
@@ -12790,10 +12478,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Fire: Alchemical Fire Attunement",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Fire: Alchemical Fire Attunement"
             },
             {
                 "affixes": [
@@ -12804,10 +12489,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Fire: Evocation Focus +6",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Fire: Evocation Focus +6"
             },
             {
                 "affixes": [
@@ -12818,10 +12500,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Fire: Improved Fire Augmentation IX",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Fire: Improved Fire Augmentation IX"
             },
             {
                 "affixes": [
@@ -12832,10 +12511,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Fire: Resistance +11",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Fire: Resistance +11"
             },
             {
                 "affixes": [
@@ -12846,10 +12522,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Water: Alchemical Water Attunement",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Water: Alchemical Water Attunement"
             },
             {
                 "affixes": [
@@ -12860,10 +12533,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Water: Improved Cold Augmentation IX",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Water: Improved Cold Augmentation IX"
             },
             {
                 "affixes": [
@@ -12874,10 +12544,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Water: Necromancy Focus +6",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Water: Necromancy Focus +6"
             },
             {
                 "affixes": [
@@ -12888,10 +12555,7 @@
                     }
                 ],
                 "ml": 29,
-                "name": "Water: Spell Penetration +9",
-                "quests": [
-                    "Cannith Reforging Station"
-                ]
+                "name": "Water: Spell Penetration +9"
             }
         ]
     },

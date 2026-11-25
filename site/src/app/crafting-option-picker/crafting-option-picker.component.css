@@ -79,7 +79,7 @@
     align-items: baseline;
     background: transparent;
     border: none;
-    border-radius: 4px;
+    border-radius: 0;
     color: var(--text-primary);
     display: flex;
     gap: var(--space-8);
@@ -87,6 +87,11 @@
     padding: var(--space-4) var(--space-8);
     text-align: left;
     width: 100%;
+}
+
+/* A rule between entries, so a row that wraps can't be read as two, or two as one. */
+.crafting-picker-entry + .crafting-picker-entry {
+    border-top: 1px solid var(--border-color);
 }
 
 .crafting-picker-entry.active {
@@ -116,15 +121,38 @@
     text-align: right;
 }
 
-/* Muted beside the rank-coloured name: the bonus type and value. */
+/*
+ * Muted beside the rank-coloured name: the bonus type and value, or a family's types and range.
+ * Each part is kept whole when the row wraps ("Dexterity: +3 Artifact", not "+3" then "Artifact").
+ */
 .crafting-picker-entry-detail {
     color: var(--text-secondary);
+    display: inline-block;
     margin-left: var(--space-4);
+    max-width: 100%;
+}
+
+.crafting-picker-entry-detail + .crafting-picker-entry-detail::before {
+    content: "\00B7\00A0";
+}
+
+/* Heads the gain column, staying in view as the list scrolls. */
+.crafting-picker-columns {
+    background: var(--bs-dropdown-bg);
+    color: var(--text-secondary);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 0 var(--space-8) var(--space-2);
+    position: sticky;
+    text-align: right;
+    text-transform: uppercase;
+    top: 0;
+    z-index: 1;
 }
 
 /* What the option adds to the build. Never wraps away from its row: it is the figure to compare. */
 .crafting-picker-gain {
-    color: var(--text-secondary);
     flex: none;
     /* A column of its own, so the asides before it line up whatever the figure's width. */
     min-width: 3.5rem;
@@ -134,8 +162,13 @@
     text-align: right;
 }
 
-.crafting-picker-gain[data-direction="up"] {
-    color: var(--success-color);
+/*
+ * A gain or loss takes its row's rank colour (the global rank classes), so the figure and the name
+ * beside it say the same thing in the same colours. Only "no change" has a colour of its own.
+ */
+.crafting-picker-gain[data-direction="none"] {
+    color: var(--text-secondary);
+    font-weight: 400;
 }
 
 .crafting-picker-gain[data-direction="up"]::before {
@@ -143,8 +176,14 @@
     font-size: 0.75em;
 }
 
-.crafting-picker-gain[data-direction="down"] {
-    color: var(--danger-color);
+/* "at 3 pcs": what a short set's figure assumes. */
+.crafting-picker-gain-condition {
+    color: var(--text-secondary);
+    font-size: 0.75em;
+    font-style: italic;
+    font-weight: 400;
+    margin-left: var(--space-4);
+    text-shadow: none;
 }
 
 .crafting-picker-gain[data-direction="down"]::before {
@@ -184,7 +223,9 @@
     font-style: italic;
 }
 
+/* An open family's tiers, tinted as one block under it. */
 .crafting-picker-tier {
+    background: rgba(var(--primary-color-rgb), 0.05);
     padding-left: 1.75rem;
 }
 
@@ -231,37 +272,39 @@
     }
 
     .crafting-picker-entry {
-        min-height: 40px;
         align-items: center;
-    }
-
-    /*
-     * Too narrow for three columns: the range, augment name or set pieces would be cut off,
-     * so they drop to a line of their own under the name.
-     */
-    .crafting-picker-family {
         flex-wrap: wrap;
+        min-height: 40px;
+        padding-bottom: var(--space-8);
+        padding-top: var(--space-8);
         row-gap: 0;
     }
 
-    /* The gain stays at the end of the first line; the aside drops below both. */
-    .crafting-picker-family .crafting-picker-entry-label {
+    /*
+     * Too narrow for three columns, so every row has the same two lines: the name and its gain,
+     * then the augment's name or the set's pieces under them.
+     */
+    .crafting-picker-entry-label,
+    .crafting-picker-tier .crafting-picker-entry-label {
         flex: 1 1 0;
     }
 
-    .crafting-picker-family .crafting-picker-gain {
+    .crafting-picker-gain {
         order: 1;
     }
 
-    .crafting-picker-family .crafting-picker-entry-aside {
+    .crafting-picker-entry-aside,
+    .crafting-picker-tier .crafting-picker-entry-aside {
+        flex: 1 1 100%;
+        margin-left: 0;
+        max-width: none;
         order: 2;
+        text-align: left;
     }
 
+    /* Under the name, past the family's expander. */
     .crafting-picker-family .crafting-picker-entry-aside {
-        flex: 1 1 100%;
-        max-width: none;
         padding-left: 0.75rem;
-        text-align: left;
     }
 }
 

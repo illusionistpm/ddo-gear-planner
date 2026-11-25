@@ -84,6 +84,8 @@ export class CraftingOptionPickerComponent implements OnChanges {
   entries: ListEntry[] = [];
   activeIndex = 0;
   hiddenCount = 0;
+  /** Whether any option listed changes a tracked affix, so the list heads its gain column. */
+  showsGains = false;
 
   private groupedOptions: CraftableOption[] | null = null;
   private groups: CraftingOptionFamily[] = [];
@@ -126,7 +128,7 @@ export class CraftingOptionPickerComponent implements OnChanges {
     const tier = entry.tier ?? entry.family.bestTier;
     const folded = !entry.tier && entry.family.tiers.length > 1;
     return {
-      heading: folded && tier.changeLines.length ? `Best tier, ${tier.label}` : '',
+      heading: folded && tier.changeLines.length ? `Best tier, ${tier.label}` : tier.changeCondition,
       changeLines: tier.changeLines,
       why: tier.changeLines.length ? tier.why : 'Does nothing for the tracked affixes'
     };
@@ -223,6 +225,7 @@ export class CraftingOptionPickerComponent implements OnChanges {
     const hide = !this.compact && this.hideIrrelevant && this.families.some(family => family.hideable && family.relevant);
     this.visibleFamilies = matching.filter(family => !hide || !family.hideable || family.relevant || family === this.selectedFamily);
     this.hiddenCount = matching.length - this.visibleFamilies.length;
+    this.showsGains = this.visibleFamilies.some(family => family.tiers.some(tier => tier.gain));
     this.buildEntries();
 
     const selectedEntry = this.entries.findIndex(entry => entry.tier

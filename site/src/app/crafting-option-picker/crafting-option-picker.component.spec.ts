@@ -53,6 +53,7 @@ describe('CraftingOptionPickerComponent', () => {
       tooltip: '',
       note: option === helpfulSet ? '1 of 3 set pieces' : '',
       optionTooltip: '',
+      completeSetPieces: null,
       rankTooltip: option === charisma[0] ? 'Overpowered by Hat (Head)' : '',
       changes: changesOf(option)
     }));
@@ -132,7 +133,8 @@ describe('CraftingOptionPickerComponent', () => {
 
     expect(familyLabels()).toEqual(['Empty', 'Charisma', 'Helpful set']);
     expect(familyButton('Charisma').querySelector('.crafting-picker-family-name')!.classList).toContain('Best');
-    expect(familyButton('Charisma').querySelector('.crafting-picker-entry-aside')!.textContent!.trim()).toBe('+1 to +7');
+    expect(Array.from(familyButton('Charisma').querySelectorAll('.crafting-picker-entry-detail')).map(part => part.textContent!.trim()))
+      .toEqual(['Enhancement', '+1 to +7']);
     expect(tierButtons()).toEqual([]);
     expect(hideCheckbox().checked).toBe(true);
     expect(document.body.querySelector('.crafting-picker-hide')!.textContent).toContain('(3)');
@@ -155,15 +157,16 @@ describe('CraftingOptionPickerComponent', () => {
     userGear.clear();
   });
 
-  it('names every entry for its affix, with the bonus type beside it and the augment on the right', async () => {
+  it('names every entry for its affix, with the bonus type and range beside it and the augment on the right', async () => {
     await open();
     hideCheckbox().click();
     fixture.detectChanges();
 
-    const detail = (label: string) => familyButton(label).querySelector('.crafting-picker-entry-detail')?.textContent?.trim();
+    const detail = (label: string) => Array.from(familyButton(label).querySelectorAll('.crafting-picker-entry-detail'))
+      .map(part => part.textContent!.trim()).join(' / ');
     const hint = (label: string) => familyButton(label).querySelector('.crafting-picker-entry-aside')?.textContent?.trim();
-    expect(detail('Charisma')).toBe('Enhancement');
-    expect(hint('Charisma')).toBe('+1 to +7');
+    expect(detail('Charisma')).toBe('Enhancement / +1 to +7');
+    expect(hint('Charisma')).toBeUndefined();
     expect(detail('Acid Absorption')).toBe('+10 Enhancement');
     expect(hint('Acid Absorption')).toBe('Topaz of Acid Absorption');
   });

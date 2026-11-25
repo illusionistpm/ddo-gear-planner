@@ -29,8 +29,8 @@ describe('ItemSuggestionsComponent (characterization)', () => {
     fixture.detectChanges();
   }
 
-  function suggestedNames(): string[] {
-    const rows = (fixture.nativeElement as HTMLElement).querySelectorAll('.suggestion-equip-button');
+  function suggestedNames(section = '.suggested-items'): string[] {
+    const rows = (fixture.nativeElement as HTMLElement).querySelectorAll(`${section} .suggestion-equip-button`);
     return Array.from(rows).map(button => button.closest('.row')?.querySelector('span.col')?.textContent?.trim() ?? '');
   }
 
@@ -67,16 +67,35 @@ describe('ItemSuggestionsComponent (characterization)', () => {
     open('Trinket', meleeTracked());
     expect(suggestedNames().slice(0, 5)).toEqual(TODAYS_TOP_TRINKETS);
   });
+
+  it('lists minor artifacts apart from the other suggestions', () => {
+    open('Trinket', meleeTracked());
+    const gearDB = TestBed.inject(GearDbService);
+    const isArtifact = (name: string) => gearDB.getFilteredGearBySlot('Trinket')!.find(item => item.name === name)!.artifact;
+
+    const artifacts = suggestedNames('.suggested-artifacts');
+    expect(artifacts.length).toBeGreaterThan(0);
+    expect(artifacts.length).toBeLessThanOrEqual(3);
+    expect(artifacts.every(isArtifact)).toBe(true);
+    expect(suggestedNames().some(isArtifact)).toBe(false);
+  });
+
+  it('offers no artifact list once another slot holds an artifact', () => {
+    const gearDB = TestBed.inject(GearDbService);
+    TestBed.inject(EquippedService).set(gearDB.getFilteredGearBySlot('Ring1')!.find(item => item.artifact)!);
+    open('Trinket', meleeTracked());
+
+    expect(suggestedNames('.suggested-artifacts')).toEqual([]);
+  });
 });
 
-// From scorer v2. The earlier scorer led with Doctor Lifestone's Hunting Horn, Legendary Bottle of
-// Smoke, Legendary Pearl of Uncanny Prediction, Echo of the Icon and Legendary Periapt of Strength.
-// Legendary Heartshard is the Trinket most saved endgame builds wear; The Hydra's Heart and Perfected
-// Bloodstone are minor artifacts, ranked with the rest while the drawer has no artifact list of its own.
+// From scorer v2, minor artifacts listed apart. The earlier scorer led with Doctor Lifestone's
+// Hunting Horn, Legendary Bottle of Smoke, Legendary Pearl of Uncanny Prediction, Echo of the Icon
+// and Legendary Periapt of Strength; Legendary Heartshard is the Trinket most saved endgame builds wear.
 const TODAYS_TOP_TRINKETS: string[] = [
-  "The Hydra's Heart",
   'Legendary Heartshard',
   'The Bloodstained Letter',
-  'Perfected Bloodstone',
   'Legendary Tiny Brain in a Tiny Jar',
+  'Legendary Golden Souvenir Coin',
+  'Legendary Mark of the Dark Powers',
 ];

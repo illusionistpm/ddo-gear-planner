@@ -81,7 +81,8 @@ describe('ItemSuggestionsComponent', () => {
 
   describe('as rendered', () => {
     const element = () => fixture.nativeElement as HTMLElement;
-    const equipButtons = () => Array.from(element().querySelectorAll<HTMLButtonElement>('.suggestion-equip-button'));
+    // The main list's: minor artifacts are listed apart, above it.
+    const equipButtons = () => Array.from(element().querySelectorAll<HTMLButtonElement>('.suggested-items .suggestion-equip-button'));
 
     function search(text: string) {
       const input = element().querySelector<HTMLInputElement>('#slotItemSearch')!;
@@ -144,7 +145,7 @@ describe('ItemSuggestionsComponent', () => {
 
     it('shows the first items and adds more on request', () => {
       const first = equipButtons().length;
-      const more = element().querySelector<HTMLButtonElement>('.slot-suggestions-more');
+      const more = element().querySelector<HTMLButtonElement>('.suggested-items .slot-suggestions-more');
       expect(first).toBe(20);
       expect(more?.textContent).toContain('Show 20 more');
 

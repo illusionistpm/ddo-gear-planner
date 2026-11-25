@@ -274,7 +274,8 @@ describe('AffixUiService', () => {
       ] });
 
       expect(service.getClassForCraftingOption(option)).toBe('Best PartialRank');
-      expect(service.getCraftingOptionRankTooltip(option)).toContain('Fire Lore: +5 Exceptional: Overpowered by Flame Ring (Ring1)');
+      // One line for the chosen option's row, as for an affix row: its details list the parts.
+      expect(service.getCraftingOptionRankTooltip(option)).toBe('Best equipped value for some of its parts');
     });
   });
 

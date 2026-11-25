@@ -40,7 +40,7 @@
  */
 .planner-view-thumb {
     --planner-view-progress: var(--planner-swipe-progress, var(--planner-view-index));
-    background: var(--primary-color);
+    background: var(--primary-fill-color);
     border-radius: 999px;
     bottom: var(--space-2);
     display: none;
@@ -99,7 +99,7 @@
 
 /* Until the thumb has been measured (or where it never is), the button carries it. */
 .planner-view-switch:not(.thumb-ready) .planner-view-option.active {
-    background: var(--primary-color);
+    background: var(--primary-fill-color);
 }
 
 .planner-view-option.active:hover,

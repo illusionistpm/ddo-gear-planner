@@ -26,7 +26,7 @@
 }
 
 .set-bonus-summary-row.disabled-set-tier {
-    opacity: 0.5;
+    opacity: 0.85;
 }
 
 .set-bonus-summary-heart {
@@ -66,9 +66,11 @@
 }
 
 .set-bonus-summary-value.BetterThanBest { color: var(--rank-better-than-best-color); }
-.set-bonus-summary-value.Best { color: var(--success-color); }
-.set-bonus-summary-value.BestTied { color: var(--primary-color); }
-.set-bonus-summary-value.Outranked { color: var(--warning-color); }
+.set-bonus-summary-value.Best { color: var(--rank-best-color); }
+.set-bonus-summary-value.BestTied { color: var(--rank-best-tied-color); }
+.set-bonus-summary-value.Outranked { color: var(--rank-outranked-color); }
+.set-bonus-summary-value.Mixed { color: var(--rank-outranked-color); font-style: italic; }
 .set-bonus-summary-value.Irrelevant { color: var(--text-primary); }
-.set-bonus-summary-value.Penalty { color: var(--danger-color); text-decoration: line-through; }
+.set-bonus-summary-value.Penalty { color: var(--rank-penalty-color); }
+.set-bonus-summary-value.Inactive { color: var(--text-secondary); font-weight: 400; text-decoration: line-through; }
 .set-bonus-summary-value.DisabledSetBonus { color: var(--text-secondary); font-weight: 400; }

@@ -117,7 +117,7 @@
 }
 
 .save-dialog-confirm {
-  background: var(--primary-color);
+  background: var(--primary-fill-color);
   border: 1px solid var(--primary-color);
   color: var(--on-accent-text-color);
 }

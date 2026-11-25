@@ -105,7 +105,7 @@
    or at the top of the sheet. */
 .planner-filter-count {
   align-items: center;
-  background: var(--primary-color);
+  background: var(--primary-fill-color);
   border-radius: 999px;
   color: var(--on-accent-text-color);
   display: inline-flex;
@@ -241,7 +241,7 @@ app-admin-link {
 }
 
 .menu-theme-option.active {
-  background: var(--primary-color);
+  background: var(--primary-fill-color);
   color: var(--on-accent-text-color);
 }
 
@@ -422,7 +422,8 @@ app-admin-link {
 .planner-filter-chip.chip-active {
   background: color-mix(in srgb, var(--primary-color) 14%, var(--surface-elevated-color));
   border-color: color-mix(in srgb, var(--primary-color) 45%, var(--border-color));
-  color: var(--primary-color);
+  /* Not --primary-color, which is only about 4:1 on this tint. */
+  color: var(--info-chip-text-color);
 }
 
 .planner-filter-chip-none {
@@ -449,7 +450,6 @@ app-admin-link {
   justify-content: center;
   line-height: 1;
   margin: -0.05rem -0.15rem -0.05rem 0;
-  opacity: 0.75;
   padding: 0;
   height: 0.95rem;
   width: 0.95rem;
@@ -457,7 +457,7 @@ app-admin-link {
 
 .planner-filter-chip-remove:hover,
 .planner-filter-chip-remove:focus {
-  opacity: 1;
+  background: rgba(var(--primary-color-rgb), 0.18);
 }
 
 .planner-filter-chip-remove:focus-visible {
@@ -727,7 +727,7 @@ app-admin-link {
 }
 
 .planner-load-error-retry {
-  background: var(--primary-color);
+  background: var(--primary-fill-color);
   border: 1px solid var(--primary-color);
   border-radius: 6px;
   color: var(--on-accent-text-color);
@@ -902,7 +902,123 @@ app-admin-link {
 /* Show: Items | Crafting slots, at the top of the Equipment panel, placed and
    styled as Build Goals' Group by is at the top of its panel (the global
    .segmented-toggle in styles.css). */
-.equipment-view-switch {
-  justify-content: flex-end;
+.equipment-view-bar {
+  align-items: center;
+  container-type: inline-size;
+  display: flex;
+  gap: var(--space-8);
   margin-bottom: var(--space-4);
+}
+
+.equipment-view-switch {
+  margin-left: auto;
+}
+
+/*
+ * The color key, at the left of the Show row: space the row already has, so it
+ * costs no height. Narrower than the key and the switch side by side, it shrinks
+ * to "Colors". A container query, as the panel's width isn't the viewport's.
+ */
+.rank-legend-toggle {
+  align-items: baseline;
+  background: none;
+  border: none;
+  border-radius: 4px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.8rem;
+  gap: var(--space-8);
+  padding: var(--space-2) var(--space-4);
+  white-space: nowrap;
+}
+
+.rank-legend-toggle:hover .rank-legend-short,
+.rank-legend-toggle:focus-visible .rank-legend-short {
+  color: var(--text-primary);
+  text-decoration: underline;
+}
+
+.rank-legend-full {
+  display: inline-flex;
+  gap: var(--space-12);
+}
+
+.rank-legend-short {
+  display: none;
+}
+
+@container (max-width: 40rem) {
+  .rank-legend-full {
+    display: none;
+  }
+
+  .rank-legend-short {
+    display: inline;
+  }
+}
+
+/* Each sample is drawn as the gear cards draw that rank. */
+.rank-legend-best,
+.rank-legend-tied,
+.rank-legend-outranked,
+.rank-legend-penalty,
+.rank-legend-better {
+  font-weight: 700;
+}
+
+.rank-legend-best { color: var(--rank-best-color); }
+.rank-legend-tied { color: var(--rank-best-tied-color); }
+.rank-legend-outranked { color: var(--rank-outranked-color); }
+.rank-legend-penalty { color: var(--rank-penalty-color); }
+.rank-legend-better { color: var(--rank-better-than-best-color); }
+.rank-legend-plain { color: var(--text-primary); }
+
+.rank-legend-inactive {
+  color: var(--text-secondary);
+  text-decoration: line-through;
+}
+
+.rank-legend-partial {
+  color: var(--text-primary);
+  font-style: italic;
+}
+
+/* ngbDropdownToggle adds Bootstrap's caret; the key doesn't want one. */
+.rank-legend-toggle::after {
+  display: none;
+}
+
+/* The full list: a dropdown menu (themed globally as .dropdown-menu), not a picker. */
+.rank-legend-menu {
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-12);
+  width: min(22rem, calc(100vw - 32px));
+}
+
+/* The list: two columns, the color's name drawn in that color. */
+.rank-legend {
+  color: var(--text-primary);
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.rank-legend-heading {
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  margin: 0 0 var(--space-8);
+  text-transform: uppercase;
+}
+
+.rank-legend dl {
+  display: grid;
+  gap: var(--space-4) var(--space-12);
+  grid-template-columns: auto 1fr;
+  margin: 0;
+}
+
+.rank-legend dd {
+  margin: 0;
 }

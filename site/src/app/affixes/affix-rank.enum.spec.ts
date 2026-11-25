@@ -2,10 +2,10 @@ import { bestRankClass, compareRankClasses } from './affix-rank.enum';
 
 describe('rank class ordering', () => {
   it('orders ranks from most to least useful to the build', () => {
-    const shuffled = ['Irrelevant', 'Outranked', 'Best', 'Penalty', 'Mixed', 'BetterThanBest', 'BestTied'];
+    const shuffled = ['Irrelevant', 'Outranked', 'Best', 'Penalty', 'Inactive', 'Mixed', 'BetterThanBest', 'BestTied'];
 
     expect([...shuffled].sort(compareRankClasses))
-      .toEqual(['BetterThanBest', 'Best', 'BestTied', 'Mixed', 'Outranked', 'Penalty', 'Irrelevant']);
+      .toEqual(['BetterThanBest', 'Best', 'BestTied', 'Mixed', 'Outranked', 'Inactive', 'Penalty', 'Irrelevant']);
   });
 
   it('sorts a partial rank just after the full one', () => {

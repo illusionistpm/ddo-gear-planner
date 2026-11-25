@@ -53,7 +53,7 @@ describe('TrackedAffixSummaryService', () => {
       expect(strength).toBeTruthy();
       const byType = new Map(strength!.badges.map(badge => [badge.label, badge.qualityClass]));
       expect(byType.get('Equipment')).toBe('max-value');
-      expect(byType.get('Insight')).toBe('mid-value');
+      expect(byType.get('Insight')).toBe('covered-value');
       expect(byType.get('Quality')).toBe('no-value');
       const codes = new Map(strength!.badges.map(badge => [badge.label, badge.code]));
       expect(codes.get('Equipment')).toBe('Eq');

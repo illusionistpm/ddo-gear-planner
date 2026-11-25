@@ -49,8 +49,8 @@
 }
 
 .crafting-only-empty.active {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
+    background: var(--primary-fill-color);
+    border-color: var(--primary-fill-color);
     color: var(--on-accent-text-color);
 }
 
@@ -204,8 +204,8 @@
 }
 
 .crafting-swap-button[aria-pressed="true"] {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
+    background: var(--primary-fill-color);
+    border-color: var(--primary-fill-color);
     color: var(--on-accent-text-color);
 }
 
@@ -220,7 +220,7 @@
 
 .crafting-swap-here:hover,
 .crafting-swap-here:focus-visible {
-    background: var(--primary-color);
+    background: var(--primary-fill-color);
     color: var(--on-accent-text-color);
 }
 

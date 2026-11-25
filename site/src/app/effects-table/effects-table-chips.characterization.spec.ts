@@ -129,6 +129,18 @@ describe('Tracked affix chips', () => {
     return matches[0];
   }
 
+  /** The "+N unreachable" toggle of the category-view row for `affixName`. */
+  function unreachableToggle(affixName: string): HTMLButtonElement | null {
+    const rows = Array.from(fixture.nativeElement.querySelectorAll('.tracked-affix-row')) as HTMLElement[];
+    const row = rows.find(element => text(element.querySelector('.tracked-affix-name')) === affixName);
+    return (row?.querySelector('.tracked-unreachable-toggle') ?? null) as HTMLButtonElement | null;
+  }
+
+  function hasChip(label: string): boolean {
+    return (Array.from(fixture.nativeElement.querySelectorAll('.tracked-bonus-label')) as HTMLElement[])
+      .some(element => text(element).replace(/:$/, '') === label);
+  }
+
   /** The chip's modifier classes, minus the base class and the onboarding/pulse ones. */
   function modifiers(element: HTMLElement): string[] {
     return Array.from(element.classList)
@@ -139,9 +151,9 @@ describe('Tracked affix chips', () => {
   // Both groupings show the same tooltip for the same bonus type: the value
   // summary, then how many places can still supply it while it is worth chasing.
   const tooltips: Record<string, string> = {
-    Enhancement: 'Low value (3 below max)\nOnly 1 place can still supply this — fit it early.',
+    Enhancement: '3 below the best (8)\nOnly 1 place can still supply this — fit it early.',
     Insight: 'Not covered yet (best available: 4)\n7 places can still supply this.',
-    Profane: 'Moderate value (1 below max)',
+    Profane: '1 below the best (8) — mostly covered',
     Quality: 'Marked as ignored',
     Sacred: 'Marked as ignored',
     Exceptional: 'Marked as ignored',
@@ -154,10 +166,16 @@ describe('Tracked affix chips', () => {
   describe('in the category view', () => {
     it('shows value chips with their value class and max', () => {
       expect(chipText(chip('Enhancement'))).toBe('Enhancement:5/8');
-      expect(modifiers(chip('Enhancement'))).toEqual(['low-value']);
+      expect(modifiers(chip('Enhancement'))).toEqual(['short-value']);
 
       expect(chipText(chip('Profane'))).toBe('Profane:7/8');
-      expect(modifiers(chip('Profane'))).toEqual(['mid-value']);
+      expect(modifiers(chip('Profane'))).toEqual(['covered-value']);
+    });
+
+    it('marks only a chip at the best value with a check', () => {
+      expect(chip('Exceptional').querySelector('.fa-check')).not.toBeNull();
+      expect(chip('Profane').querySelector('.fa-check')).toBeNull();
+      expect(chip('Enhancement').querySelector('.fa-check')).toBeNull();
     });
 
     it('shows uncovered chips as no-value', () => {
@@ -165,17 +183,38 @@ describe('Tracked affix chips', () => {
       expect(modifiers(chip('Insight'))).toEqual(['no-value']);
     });
 
-    it('strikes through ruled-out types, as the scarcity view does', () => {
+    it('folds a ruled-out type with nothing in it behind its row\'s toggle', () => {
+      expect(hasChip('Competence')).toBe(false);
+      expect(text(unreachableToggle('Wisdom'))).toBe('+1 unreachable');
+      expect(unreachableToggle('Wisdom')!.getAttribute('aria-expanded')).toBe('false');
+      expect(unreachableToggle('Strength')).toBeNull();
+    });
+
+    it('shows a folded type, struck through as the scarcity view shows it, once its row is opened', () => {
+      unreachableToggle('Wisdom')!.click();
+      fixture.detectChanges();
+
       expect(modifiers(chip('Competence'))).toEqual(['bonus-eliminated', 'no-value']);
+      expect(chip('Competence').title).toBe(tooltips['Competence']);
+      expect(text(unreachableToggle('Wisdom'))).toBe('Hide unreachable');
+      expect(unreachableToggle('Wisdom')!.getAttribute('aria-expanded')).toBe('true');
+
+      unreachableToggle('Wisdom')!.click();
+      fixture.detectChanges();
+
+      expect(hasChip('Competence')).toBe(false);
     });
 
     it('strikes through ignored chips, keeping their value class', () => {
       expect(modifiers(chip('Quality'))).toEqual(['bonus-ignored', 'no-value']);
-      expect(modifiers(chip('Sacred'))).toEqual(['bonus-ignored', 'low-value']);
+      expect(modifiers(chip('Sacred'))).toEqual(['bonus-ignored', 'short-value']);
       expect(modifiers(chip('Exceptional'))).toEqual(['bonus-ignored', 'max-value']);
     });
 
     it('shows each chip\'s value and scarcity in its tooltip', () => {
+      unreachableToggle('Wisdom')!.click();
+      fixture.detectChanges();
+
       for (const [label, tooltip] of Object.entries(tooltips)) {
         expect(chip(label).title, label).toBe(tooltip);
       }
@@ -198,10 +237,10 @@ describe('Tracked affix chips', () => {
 
     it('shows the same chips as the category view', () => {
       expect(chipText(chip('Enhancement'))).toBe('Enhancement:5/8');
-      expect(modifiers(chip('Enhancement'))).toEqual(['low-value']);
+      expect(modifiers(chip('Enhancement'))).toEqual(['short-value']);
       expect(chipText(chip('Insight'))).toBe('Insight/4');
       expect(modifiers(chip('Insight'))).toEqual(['no-value']);
-      expect(modifiers(chip('Profane'))).toEqual(['mid-value']);
+      expect(modifiers(chip('Profane'))).toEqual(['covered-value']);
     });
 
     it('shows the same tooltips as the category view', () => {
@@ -216,14 +255,14 @@ describe('Tracked affix chips', () => {
 
     it('strikes through ignored chips, keeping their value class', () => {
       expect(modifiers(chip('Quality'))).toEqual(['bonus-ignored', 'no-value']);
-      expect(modifiers(chip('Sacred'))).toEqual(['bonus-ignored', 'low-value']);
+      expect(modifiers(chip('Sacred'))).toEqual(['bonus-ignored', 'short-value']);
     });
 
-    it('files an ignored type that is already sufficient as fulfilled, still marked ignored', () => {
+    it('files an ignored type that is already sufficient as mostly covered, still marked ignored', () => {
       expect(modifiers(chip('Exceptional'))).toEqual(['bonus-ignored', 'max-value']);
     });
 
-    it('shows checked checklist affixes in the fulfilled row and unchecked ones as chips', () => {
+    it('shows checked checklist affixes in the mostly-covered row and unchecked ones as chips', () => {
       expect(checklistChip('Deathblock').title).toBe(checkedTooltip);
 
       expect(chipText(chip('Checklist'))).toBe('Checklist');
@@ -241,7 +280,15 @@ describe('Tracked affix chips', () => {
       fixture.detectChanges();
     });
 
-    it('is a disabled, struck-through chip', () => {
+    it('is folded away with the row\'s other unreachable types', () => {
+      expect(hasChip('Equipment')).toBe(false);
+      expect(text(unreachableToggle('Strength'))).toBe('+1 unreachable');
+    });
+
+    it('is a disabled, struck-through chip once its row is opened', () => {
+      unreachableToggle('Strength')!.click();
+      fixture.detectChanges();
+
       expect(chipText(chip('Equipment'))).toBe('Equipment');
       expect(modifiers(chip('Equipment'))).toEqual(['bonus-unavailable', 'no-value']);
       expect((chip('Equipment') as HTMLButtonElement).disabled).toBe(true);
@@ -250,6 +297,9 @@ describe('Tracked affix chips', () => {
     });
 
     it('sits in the affix row in normal bonus-type order, not after the rest', () => {
+      unreachableToggle('Strength')!.click();
+      fixture.detectChanges();
+
       const row = chip('Equipment').closest('.tracked-affix-chips') as HTMLElement;
       const labels = (Array.from(row.querySelectorAll('.tracked-bonus-label')) as HTMLElement[])
         .map(element => text(element).replace(/:$/, ''));
@@ -258,6 +308,8 @@ describe('Tracked affix chips', () => {
 
     it('does not open suggestions when clicked', () => {
       const open = vi.spyOn(TestBed.inject(SuggestionDrawerService), 'openBonusType').mockReturnValue(undefined);
+      unreachableToggle('Strength')!.click();
+      fixture.detectChanges();
 
       chip('Equipment').click();
 
@@ -287,7 +339,15 @@ describe('Tracked affix chips', () => {
       best.delete(affixTypeKey('Water Breathing', 'Bool'));
     });
 
-    it('is struck through in the category view', () => {
+    it('is folded behind the checklist row\'s toggle in the category view', () => {
+      expect(fixture.nativeElement.querySelector('.checklist-chip-button')).toBeNull();
+      expect(text(unreachableToggle('Checklist Affixes'))).toBe('+1 unreachable');
+    });
+
+    it('is struck through in the category view once its row is opened', () => {
+      unreachableToggle('Checklist Affixes')!.click();
+      fixture.detectChanges();
+
       const wrap = checklistChip('Water Breathing').closest('.checklist-chip-wrap') as HTMLElement;
       expect(modifiers(wrap)).toEqual(['bonus-eliminated', 'checklist-chip-wrap', 'no-value']);
       expect(checklistChip('Water Breathing').title).toBe(ruledOutTooltip);
@@ -302,13 +362,43 @@ describe('Tracked affix chips', () => {
     });
   });
 
+  describe('a ruled-out type that has a value', () => {
+    beforeEach(() => {
+      best.set(affixTypeKey('Charisma', 'Alchemical'), 8);
+      remaining.set(affixTypeKey('Charisma', 'Alchemical'), { tier: 'unavailable', slotCount: 0, eliminated: true });
+      coveredAffixes.next(new Map([['Charisma', [{ bonusType: 'Alchemical', value: 2 }]]]));
+      fixture.detectChanges();
+    });
+
+    afterEach(() => {
+      best.delete(affixTypeKey('Charisma', 'Alchemical'));
+      remaining.delete(affixTypeKey('Charisma', 'Alchemical'));
+    });
+
+    it('stays in its row, not struck through, in the category view', () => {
+      expect(unreachableToggle('Charisma')).toBeNull();
+      expect(chipText(chip('Alchemical'))).toBe('Alchemical:2/8');
+      expect(modifiers(chip('Alchemical'))).toEqual(['bonus-eliminated', 'short-value']);
+      expect(chip('Alchemical').title).toContain('Ruled out by your gear');
+      expect(chip('Alchemical').querySelector('.fa-lock')).toBeNull();
+    });
+
+    it('carries no extra mark in the scarcity view either', () => {
+      equipped.setTrackedAffixGroupMode('slots');
+      fixture.detectChanges();
+
+      expect(modifiers(chip('Alchemical'))).toEqual(['bonus-eliminated', 'short-value']);
+      expect(chip('Alchemical').querySelector('.fa-lock')).toBeNull();
+    });
+  });
+
   it('tags each scarcity group with its bucket, which colours its stripe by pressure', () => {
     equipped.setTrackedAffixGroupMode('slots');
     fixture.detectChanges();
 
     const sections = Array.from(fixture.nativeElement.querySelectorAll('.slot-group-section')) as HTMLElement[];
     expect(sections.map(section => Array.from(section.classList).find(name => name.startsWith('slot-group-') && name !== 'slot-group-section')))
-      .toEqual(['slot-group-set-only', 'slot-group-1', 'slot-group-3', 'slot-group-5plus', 'slot-group-ignored', 'slot-group-ruled-out', 'slot-group-fulfilled']);
+      .toEqual(['slot-group-set-only', 'slot-group-1', 'slot-group-3', 'slot-group-5plus', 'slot-group-ignored', 'slot-group-ruled-out', 'slot-group-covered']);
   });
 
   describe('staying current', () => {

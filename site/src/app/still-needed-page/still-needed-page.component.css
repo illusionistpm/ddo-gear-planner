@@ -48,7 +48,7 @@ p.still-needed-message {
 }
 
 .still-needed-retry {
-  background: var(--primary-color);
+  background: var(--primary-fill-color);
   border: 1px solid var(--primary-color);
   border-radius: 6px;
   color: var(--on-accent-text-color);

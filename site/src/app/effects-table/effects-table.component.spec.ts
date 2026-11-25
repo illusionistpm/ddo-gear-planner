@@ -684,7 +684,7 @@ describe('EffectsTableComponent', () => {
       .toEqual(new Set(['Insight', 'Resistance']));
   });
 
-  it('puts sufficiently-covered types in the fulfilled bucket instead of the slot buckets', () => {
+  it('puts sufficiently-covered types in the mostly-covered bucket instead of the slot buckets', () => {
     component.affixNames = ['Strength'];
     component.affixMap.set('Strength', [
       { bonusType: 'Enhancement', value: 6 },
@@ -698,9 +698,9 @@ describe('EffectsTableComponent', () => {
 
     const groups = component.getSlotGroups();
 
-    // Enhancement is sufficient (6 >= 3/4 of 8) and lands in "fulfilled" without
+    // Enhancement is sufficient (6 >= 3/4 of 8) and lands in "covered" without
     // querying availability; Insight is still grouped by remaining supply.
-    expect(groups.map(group => group.key)).toEqual(['5plus', 'fulfilled']);
+    expect(groups.map(group => group.key)).toEqual(['5plus', 'covered']);
     expect(groups[0].rows[0].chips[0].bonusType).toBe('Insight');
     expect(groups[1].rows[0].chips[0].bonusType).toBe('Enhancement');
     expect(remaining).toHaveBeenCalledTimes(1);
@@ -723,7 +723,7 @@ describe('EffectsTableComponent', () => {
     expect(groups[1].rows[0].chips[0].eliminated).toBe(true);
   });
 
-  it('puts the fulfilled bucket after the ruled-out bucket', () => {
+  it('puts the mostly-covered bucket after the ruled-out bucket', () => {
     component.affixNames = ['Strength', 'Dexterity', 'Wisdom'];
     component.affixMap.set('Strength', [{ bonusType: 'Profane', value: 0 }]);
     component.affixMap.set('Dexterity', [{ bonusType: 'Insight', value: 0 }]);
@@ -737,17 +737,17 @@ describe('EffectsTableComponent', () => {
 
     const groups = component.getSlotGroups();
 
-    expect(groups.map(group => group.key)).toEqual(['2', 'ruled-out', 'fulfilled']);
+    expect(groups.map(group => group.key)).toEqual(['2', 'ruled-out', 'covered']);
     expect(groups[2].rows[0].affixName).toBe('Wisdom');
   });
 
-  it('collects checked checklist affixes into the fulfilled bucket\'s checklist row', () => {
+  it('collects checked checklist affixes into the mostly-covered bucket\'s checklist row', () => {
     component.boolAffixNames = ['Deathblock'];
     component.boolAffixMap.set('Deathblock', [{ bonusType: 'Bool', value: 1 }]);
 
     const groups = component.getSlotGroups();
 
-    expect(groups.map(group => group.key)).toEqual(['fulfilled']);
+    expect(groups.map(group => group.key)).toEqual(['covered']);
     expect(groups[0].rows).toEqual([]);
     expect(groups[0].checklistAffixes).toEqual(['Deathblock']);
   });
@@ -777,7 +777,7 @@ describe('EffectsTableComponent', () => {
 
     const groups = component.getSlotGroups();
 
-    expect(groups.map(group => group.key)).toEqual(['fulfilled']);
+    expect(groups.map(group => group.key)).toEqual(['covered']);
     expect(remaining).not.toHaveBeenCalled();
   });
 
@@ -794,12 +794,12 @@ describe('EffectsTableComponent', () => {
       expect(component.getClassForValue('Strength', { bonusType: 'Insight', value: 0 })).toBe('no-value');
     });
 
-    it('treats values below three quarters of the best as low', () => {
-      expect(component.getClassForValue('Strength', { bonusType: 'Insight', value: 5 })).toBe('low-value');
+    it('treats values below three quarters of the best as short', () => {
+      expect(component.getClassForValue('Strength', { bonusType: 'Insight', value: 5 })).toBe('short-value');
     });
 
-    it('treats values at three quarters of the best as moderate', () => {
-      expect(component.getClassForValue('Strength', { bonusType: 'Insight', value: 6 })).toBe('mid-value');
+    it('treats values at three quarters of the best as mostly covered', () => {
+      expect(component.getClassForValue('Strength', { bonusType: 'Insight', value: 6 })).toBe('covered-value');
     });
 
     it('treats the best available value as max', () => {

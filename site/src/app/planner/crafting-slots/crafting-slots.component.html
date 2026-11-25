@@ -3,7 +3,7 @@
 } @else {
   <div class="crafting-slots-bar">
     @if (overview.summary.length) {
-      <div class="crafting-summary" role="group" aria-label="Augment slots by colour">
+      <div class="crafting-summary" role="group" aria-label="Augment slots by color">
         @for (chip of overview.summary; track chip.groupName) {
           <button type="button" class="crafting-summary-chip" [class.has-empty]="chip.empty > 0"
             [attr.aria-label]="chip.label + (chip.empty ? ': ' + chip.empty + ' empty' : '')"

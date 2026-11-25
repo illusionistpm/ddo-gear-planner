@@ -155,8 +155,10 @@
     background-color: var(--surface-muted-color);
 }
 
+/* A tier the set hasn't reached: gray text (.DisabledSetBonus) says so. It was also faded
+   to 48%, which took it to 1.8:1 - it isn't disabled, it says what more pieces give. */
 .disabled-set-tier {
-    opacity: 0.48;
+    opacity: 0.85;
 }
 
 .DisabledSetBonus {
@@ -202,7 +204,7 @@
 /* Sized and placed exactly as app-gear-description's hearts, so the two cards' rows line up. */
 .heart {
     background: transparent;
-    color: red;
+    color: var(--important-heart-color);
     border: none;
     flex: 0 0 1.1rem;
     padding-left: var(--space-4);

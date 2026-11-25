@@ -74,8 +74,8 @@
 }
 
 .affix-editor-done {
-  background: var(--primary-color);
-  border: 1px solid var(--primary-color);
+  background: var(--primary-fill-color);
+  border: 1px solid var(--primary-fill-color);
   border-radius: 999px;
   color: var(--on-accent-text-color);
   font-size: 0.85rem;

@@ -53,7 +53,7 @@
 
 .goals-bar-icon,
 .goals-bar-title {
-    color: var(--primary-color);
+    color: var(--primary-on-tint-text-color);
     flex: 0 0 auto;
 }
 
@@ -88,7 +88,7 @@
 
 .goals-bar-edit {
     align-items: center;
-    color: var(--primary-color);
+    color: var(--primary-on-tint-text-color);
     display: inline-flex;
     flex: 0 0 auto;
     font-weight: 700;
@@ -307,8 +307,8 @@
 
 .tracked-affix-remove:hover,
 .tracked-affix-remove:focus {
-    background: var(--danger-color);
-    border-color: var(--danger-color);
+    background: var(--danger-fill-color);
+    border-color: var(--danger-fill-color);
     color: var(--on-accent-text-color);
 }
 
@@ -583,13 +583,14 @@
 }
 
 /*
- * Scarcity groups are coloured by pressure: red where only one place (or a
- * set, or the artifact) can still supply a type, easing through amber to green
- * at five or more places. Fulfilled is blue; ruled out and ignored, which are
- * no longer being chased, are gray.
+ * Scarcity groups are colored by pressure: red where only one place (or a set,
+ * or the artifact) can still supply a type, easing through amber to neutral
+ * gray where there's plenty of room. Red is for urgent, not for good or bad,
+ * and green is kept for Mostly covered (3/4 of the best or more), the end of
+ * the chase. Ruled out and ignored, no longer chased, are the lighter gray.
  */
 .slot-group-section {
-    --tracked-affix-accent: var(--primary-color);
+    --tracked-affix-accent: var(--section-accent-neutral);
     --tracked-affix-accent-soft: color-mix(in srgb, var(--tracked-affix-accent) 10%, transparent);
 }
 
@@ -608,35 +609,66 @@
 }
 
 .slot-group-4 {
-    --tracked-affix-accent: color-mix(in srgb, var(--warning-color) 50%, var(--success-color));
-}
-
-.slot-group-5plus {
-    --tracked-affix-accent: var(--success-color);
+    --tracked-affix-accent: color-mix(in srgb, var(--warning-color) 50%, var(--section-accent-neutral));
 }
 
 .slot-group-ruled-out,
 .slot-group-ignored {
-    --tracked-affix-accent: var(--secondary-color);
+    --tracked-affix-accent: var(--section-accent-neutral-light);
 }
 
-.slot-group-fulfilled {
-    --tracked-affix-accent: var(--primary-color);
+.slot-group-covered {
+    --tracked-affix-accent: var(--success-color);
+}
+
+/* The gray edges say "no pressure", not anything to read: counts and the caret in gray text. */
+.slot-group-section:is(.slot-group-5plus, .slot-group-filigree, .slot-group-item-bonuses, .slot-group-ruled-out, .slot-group-ignored) :is(.tracked-affix-count, .tracked-affix-collapse-indicator) {
+    color: var(--text-secondary);
 }
 
 /*
- * A bonus type whose every candidate slot is now filled — ruled out by gear —
- * or that no gear in the current level range has at all.
+ * A bonus type with nothing in it whose every candidate slot is now filled —
+ * ruled out by gear — or that no gear in the current level range has at all.
+ * The category view folds these away until asked (.tracked-unreachable-toggle).
+ * One ruled out with a value looks like any other chip with that value: the
+ * value still counts, and the Scarcity view and the tooltip say it's ruled out.
  */
-.tracked-bonus-chip.bonus-eliminated,
+.tracked-bonus-chip.bonus-eliminated.no-value,
 .tracked-bonus-chip.bonus-unavailable {
-    opacity: 0.55;
+    opacity: 0.85;
     text-decoration: line-through;
     text-decoration-thickness: 1px;
 }
 
-.tracked-bonus-chip.bonus-eliminated:hover,
-.tracked-bonus-chip.bonus-eliminated:focus,
+/* The check on a chip at the best value. */
+.tracked-bonus-state-icon {
+    align-self: center;
+    font-size: 0.7em;
+}
+
+/* "+N unreachable" at the end of a row: a quiet text button, not another chip. */
+.tracked-unreachable-toggle {
+    align-self: center;
+    background: none;
+    border: none;
+    border-radius: 4px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.8rem;
+    padding: var(--space-2) var(--space-4);
+    text-decoration: underline dotted;
+    text-underline-offset: 2px;
+    white-space: nowrap;
+}
+
+.tracked-unreachable-toggle:hover,
+.tracked-unreachable-toggle:focus-visible {
+    color: var(--text-primary);
+    text-decoration-style: solid;
+}
+
+.tracked-bonus-chip.bonus-eliminated.no-value:hover,
+.tracked-bonus-chip.bonus-eliminated.no-value:focus,
 .tracked-bonus-chip.bonus-unavailable:hover {
     border-color: var(--chip-border-color);
     box-shadow: none;
@@ -644,7 +676,7 @@
 
 /* A bonus type the user has explicitly marked as ignored - not being chased. */
 .tracked-bonus-chip.bonus-ignored {
-    opacity: 0.55;
+    opacity: 0.85;
     text-decoration: line-through;
     text-decoration-thickness: 1px;
 }

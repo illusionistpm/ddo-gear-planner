@@ -236,8 +236,8 @@
 }
 
 .build-action-primary {
-  background: var(--primary-color);
-  border-color: var(--primary-color);
+  background: var(--primary-fill-color);
+  border-color: var(--primary-fill-color);
   color: var(--on-accent-text-color);
 }
 
@@ -257,8 +257,8 @@
 /* The moment after a save: green, and not greyed out for being disabled. */
 .build-save.just-saved,
 .build-save.just-saved:disabled {
-  background: var(--success-color);
-  border-color: var(--success-color);
+  background: var(--success-fill-color);
+  border-color: var(--success-fill-color);
   cursor: default;
   opacity: 1;
 }

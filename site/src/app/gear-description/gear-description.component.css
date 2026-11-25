@@ -57,7 +57,7 @@ select.form-control.SmallFont {
  */
 .heart {
     background: transparent;
-    color: red;
+    color: var(--important-heart-color);
     border: none;
     flex: 0 0 1.1rem;
     padding-left: var(--space-4);

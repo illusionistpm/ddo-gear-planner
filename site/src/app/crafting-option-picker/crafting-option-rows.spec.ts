@@ -82,7 +82,7 @@ describe('buildFamilyRows', () => {
 
   it('says what a short set\'s figure assumes: the pieces its bonus needs', () => {
     const [row] = rows([quickblade], () => ({ className: 'BetterThanBest', note: '1 of 3 set pieces', completeSetPieces: 3,
-      changes: [{ name: 'Doublestrike', type: 'Artifact', before: 0, after: 15 }] }));
+      changes: [{ name: 'Doublestrike', type: 'Artifact', before: 0, after: 15, beforeSources: [] }] }));
 
     expect(row.tiers[0].gain).toEqual({ text: '+15 Doublestrike', direction: 'up', condition: 'at 3 pcs' });
     expect(row.tiers[0].changeCondition).toBe('With 3 set pieces');
@@ -115,7 +115,7 @@ describe('buildFamilyRows', () => {
   describe('what an option adds', () => {
     // The build has +3 Enhancement Charisma from elsewhere, so only the +5 adds anything.
     const charismaChange = (opt: CraftableOption) =>
-      ({ name: 'Charisma', type: 'Enhancement', before: 3, after: Math.max(3, opt.affixes[0].value) });
+      ({ name: 'Charisma', type: 'Enhancement', before: 3, after: Math.max(3, opt.affixes[0].value), beforeSources: [] });
 
     it('is a bare figure on an option with one affix, and a dash when something else gives as much', () => {
       const row = byLabel('Charisma', rows(charisma, opt => ({ className: 'BetterThanBest', changes: [charismaChange(opt)], rankTooltip: 'why' })));
@@ -137,28 +137,28 @@ describe('buildFamilyRows', () => {
 
       expect(byLabel('Charisma', rows(charisma)).bestTier.option).toBe(charisma[2]);
       const capped = byLabel('Charisma', rows(charisma,
-        opt => ({ changes: [{ name: 'Charisma', type: 'Enhancement', before: 0, after: opt === charisma[0] ? 1 : 0 }] })));
+        opt => ({ changes: [{ name: 'Charisma', type: 'Enhancement', before: 0, after: opt === charisma[0] ? 1 : 0, beforeSources: [] }] })));
       expect(capped.bestTier.option).toBe(charisma[0]);
     });
 
     it('recolours by the net change where the rank, judging each bonus type alone, says otherwise', () => {
       // A +2 Festive ranks as the best Festive, but swapping out a +5 Insight loses 3.
       const loss = byLabel('Charisma', rows(charisma, () => ({ className: 'BetterThanBest', optionTooltip: 'what', rankTooltip: 'Better',
-        changes: [{ name: 'Charisma', type: 'Festive', before: 0, after: 2 }, { name: 'Charisma', type: 'Insight', before: 5, after: 0 }] })));
+        changes: [{ name: 'Charisma', type: 'Festive', before: 0, after: 2, beforeSources: [] }, { name: 'Charisma', type: 'Insight', before: 5, after: 0, beforeSources: [] }] })));
       expect(loss.tiers[0].className).toBe('Outranked');
       expect(loss.tiers[0].why).toBe('Switching to it would lower the total');
       expect(loss.tiers[0].tooltip).toBe('what\n\nSwitching to it would lower the total');
 
       // A part of a tracked compound ranks Irrelevant, but completes the compound.
       const gain = byLabel('Acid Absorption', rows([acid], () => ({
-        changes: [{ name: 'Elemental Absorption', type: 'Enhancement', before: 0, after: 10 }] })));
+        changes: [{ name: 'Elemental Absorption', type: 'Enhancement', before: 0, after: 10, beforeSources: [] }] })));
       expect(gain.className).toBe('BetterThanBest');
       expect(gain.relevant).toBe(true);
       expect(byLabel('Acid Absorption', rows([acid])).relevant).toBe(false);
     });
 
     it('keeps the rank\'s colour when the net change agrees, is nothing, or the rank is a penalty', () => {
-      const change = (after: number) => ({ changes: [{ name: 'Charisma', type: 'Enhancement', before: 3, after }] });
+      const change = (after: number) => ({ changes: [{ name: 'Charisma', type: 'Enhancement', before: 3, after, beforeSources: [] }] });
       const colour = (className: string, after: number) =>
         byLabel('Charisma', rows(charisma, () => ({ className, rankTooltip: 'rank', ...change(after) }))).tiers[0];
 
@@ -174,7 +174,7 @@ describe('buildFamilyRows', () => {
     });
 
     it('names its affixes when the option has several, counting those past the second', () => {
-      const change = (name: string, before: number, after: number) => ({ name, type: 'Artifact', before, after });
+      const change = (name: string, before: number, after: number) => ({ name, type: 'Artifact', before, after, beforeSources: [] });
 
       expect(gainChip([change('Doublestrike', 0, 15), change('Doubleshot', 15, 15)], true))
         .toEqual({ text: '+15 Doublestrike', direction: 'up', condition: '' });
@@ -185,8 +185,8 @@ describe('buildFamilyRows', () => {
     it('names the affix when the change is to another affix than the option\'s own', () => {
       // Switching to Charisma from a Strength augment.
       const row = byLabel('Charisma', rows(charisma, opt => ({ changes: [
-        { name: 'Charisma', type: 'Enhancement', before: 3, after: Math.max(3, opt.affixes[0].value) },
-        { name: 'Strength', type: 'Enhancement', before: 6, after: 0 }] })));
+        { name: 'Charisma', type: 'Enhancement', before: 3, after: Math.max(3, opt.affixes[0].value), beforeSources: [] },
+        { name: 'Strength', type: 'Enhancement', before: 6, after: 0, beforeSources: [] }] })));
 
       expect(row.tiers[2].gain).toEqual({ text: '+2 Charisma, \u22126 Strength', direction: 'mixed', condition: '' });
     });
@@ -194,12 +194,24 @@ describe('buildFamilyRows', () => {
     it('nets the bonus types of one affix, since they add up', () => {
       // Swapping a +5 Insight Dexterity for a +2 Festive one.
       expect(gainChip([
-        { name: 'Dexterity', type: 'Festive', before: 0, after: 2 },
-        { name: 'Dexterity', type: 'Insight', before: 5, after: 0 }], false)).toEqual({ text: '\u22123', direction: 'down', condition: '' });
+        { name: 'Dexterity', type: 'Festive', before: 0, after: 2, beforeSources: [] },
+        { name: 'Dexterity', type: 'Insight', before: 5, after: 0, beforeSources: [] }], false)).toEqual({ text: '\u22123', direction: 'down', condition: '' });
+    });
+
+    it('names what each change beats, loses, adds to or leaves be', () => {
+      const line = (type: string, before: number, after: number, beforeSources: string[]) =>
+        rows([acid], () => ({ changes: [{ name: 'Acid Absorption', type, before, after, beforeSources }] }))[0].tiers[0].changeLines[0];
+
+      expect(line('Enhancement', 8, 10, ['Ring (Ring 1)'])).toBe('Acid Absorption: +8 \u2192 +10 Enhancement \u00B7 beats Ring (Ring 1)');
+      expect(line('Enhancement', 10, 0, ['Topaz (this item)'])).toBe('Acid Absorption: +10 \u2192 0 Enhancement \u00B7 loses Topaz (this item)');
+      expect(line('Enhancement', 12, 12, ['Ring (Ring 1)', 'Belt (Belt)', 'Cloak (Cloak)']))
+        .toBe('Acid Absorption: stays +12 Enhancement \u00B7 from Ring (Ring 1), Belt (Belt), 1 more');
+      expect(line('Mythic', 3, 6, ['Ring (Ring 1)'])).toBe('Acid Absorption: +3 \u2192 +6 Mythic \u00B7 adds to Ring (Ring 1)');
+      expect(line('Enhancement', 0, 10, [])).toBe('Acid Absorption: 0 \u2192 +10 Enhancement');
     });
 
     it('shows a loss, and a gain with a loss as mixed', () => {
-      const change = (name: string, before: number, after: number) => ({ name, type: 'Artifact', before, after });
+      const change = (name: string, before: number, after: number) => ({ name, type: 'Artifact', before, after, beforeSources: [] });
 
       expect(gainChip([change('Strength', 3, 0)], true)).toEqual({ text: '\u22123 Strength', direction: 'down', condition: '' });
       expect(gainChip([change('Strength', 3, 0), change('Wisdom', 0, 2)], true))
@@ -207,7 +219,7 @@ describe('buildFamilyRows', () => {
     });
 
     it('calls an on/off effect new rather than +1', () => {
-      const rowsFor = (before: number) => rows([ghostly], () => ({ changes: [{ name: 'Ghostly', type: 'Bool', before, after: 1 }] }));
+      const rowsFor = (before: number) => rows([ghostly], () => ({ changes: [{ name: 'Ghostly', type: 'Bool', before, after: 1, beforeSources: [] }] }));
 
       expect(rowsFor(0)[0].tiers[0].gain).toEqual({ text: 'new', direction: 'up', condition: '' });
       expect(rowsFor(0)[0].tiers[0].changeLines).toEqual(['Ghostly: new']);

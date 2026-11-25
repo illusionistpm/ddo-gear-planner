@@ -130,7 +130,8 @@ export class CraftingOptionPickerComponent implements OnChanges {
     return {
       heading: folded && tier.changeLines.length ? `Best tier, ${tier.label}` : tier.changeCondition,
       changeLines: tier.changeLines,
-      why: tier.changeLines.length ? tier.why : 'Does nothing for the tracked affixes'
+      // Each change line names what it beats or loses, which is all the rank's own reason would say.
+      why: tier.changeLines.length ? '' : 'Does nothing for the tracked affixes'
     };
   }
 

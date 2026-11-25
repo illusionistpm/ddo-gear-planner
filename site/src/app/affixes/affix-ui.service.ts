@@ -3,6 +3,7 @@ import { Affix } from './affix';
 import { ITEM_BONUS_KINDS, ItemBonusKind } from '../gear/item-bonus';
 import { AffixRank, HELPFUL_RANKS, rankClassName } from './affix-rank.enum';
 import { EquippedService, RankCandidate } from '../planner/equipped.service';
+import type { AffixSource } from './build-totals';
 import { AffixService } from './affix.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { Craftable } from '../gear/craftable';
@@ -43,6 +44,8 @@ export interface AffixChange {
   type: string;
   before: number;
   after: number;
+  /** What gives the build its value now ("Ring of Prowess (Ring 1)"), when it has one. */
+  beforeSources: string[];
 }
 
 /** CSS class for a set bonus whose piece threshold isn't met yet. Styled in each view's stylesheet. */
@@ -455,9 +458,14 @@ export class AffixUiService {
     if (!keys.size) {
       return [];
     }
-    const before = this.equipped.valueWith(context.item);
-    const after = this.equipped.valueWith(withOption);
-    return [...keys.values()].map(({ name, type }) => ({ name, type, before: before(name, type), after: after(name, type) }));
+    const before = this.equipped.measureWith(context.item);
+    const after = this.equipped.measureWith(withOption).value;
+    return [...keys.values()].map(({ name, type }) => ({
+      name, type,
+      before: before.value(name, type),
+      after: after(name, type),
+      beforeSources: before.sources(name, type).map(source => describeSource(source, context.item.slot))
+    }));
   }
 
   /**
@@ -554,5 +562,27 @@ export class AffixUiService {
       currentCount,
       requiredCount: minRequirement
     };
+  }
+}
+
+/**
+ * Where a value comes from, for a line of text: "Ring of Prowess (Ring 1)", an augment with the item
+ * it's in, a set's bonus. The item the options are for, in `ownSlot`, is "this item".
+ */
+function describeSource(source: AffixSource, ownSlot: string): string {
+  switch (source.kind) {
+    case 'item': {
+      const item = source.slot === ownSlot ? 'this item' : `${source.itemName}, ${source.slot}`;
+      if (source.augmentName) {
+        return `${source.augmentName} (${item})`;
+      }
+      return source.slot === ownSlot ? 'this item' : `${source.itemName} (${source.slot})`;
+    }
+    case 'set':
+      return `${source.itemName} set bonus`;
+    case 'filigree':
+      return `${source.itemName} (filigree)`;
+    case 'external':
+      return `${source.itemName} (non-gear)`;
   }
 }

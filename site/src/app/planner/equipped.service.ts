@@ -1134,16 +1134,22 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
   }
 
   /**
-   * The build's value for one bonus type of an affix - its best, or the sum for a summed type - with
-   * `item` in its slot in place of whatever is there. Measured as the build's own totals are, so sets
-   * are recounted and a compound counts through its parts. Returns a function: the set bonuses are
-   * worked out once, for any number of affixes.
+   * The build with `item` in its slot in place of whatever is there, measured as the build's own
+   * totals are, so sets are recounted and a compound counts through its parts: for one bonus type of
+   * an affix, its value (the best, or the sum for a summed type) and what supplies it. The set
+   * bonuses are worked out once, for any number of affixes.
    */
-  valueWith(item: Item): (affixName: string, bonusType: string) => number {
+  measureWith(item: Item): {
+    value: (affixName: string, bonusType: string) => number;
+    sources: (affixName: string, bonusType: string) => AffixSource[];
+  } {
     const items = new Map(this.slotValues).set(item.slot, item);
     const { setBonuses } = setBonusesOf(countSets(items), this.filigree.getSetPieces(), this.gearList, this.filigreeDb);
     const view: BuildView = { ...this.view, items: () => items, setBonuses: () => setBonuses };
-    return (affixName, bonusType) => bestValueFor(view, this.affixSvc, affixName, bonusType);
+    return {
+      value: (affixName, bonusType) => bestValueFor(view, this.affixSvc, affixName, bonusType),
+      sources: (affixName, bonusType) => sourcesFor(view, this.affixSvc, affixName, bonusType)
+    };
   }
 
   private _updateCoveredAffixes(updateRouterState = true) {

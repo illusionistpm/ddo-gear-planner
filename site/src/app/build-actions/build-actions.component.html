@@ -38,6 +38,12 @@
           <span class="build-name-error build-menu-error" role="alert">{{ renameError }}</span>
         }
 
+        @if (canDiscardChanges) {
+          <button type="button" class="build-menu-item build-menu-discard" (click)="discardChanges()">
+            <i class="fas fa-rotate-left build-menu-icon" aria-hidden="true"></i>Discard changes
+          </button>
+        }
+
         @if (isAuthenticated) {
           @if (saveControl.hasMenu) {
             <button #buildMenuItem type="button" class="build-menu-item" (click)="onSaveAsMenuItemClick()">
@@ -68,6 +74,10 @@
 
   @if (savingInPlaceError) {
     <span class="build-name-error" role="alert">{{ savingInPlaceError }}</span>
+  }
+
+  @if (discardError) {
+    <span class="build-name-error" role="alert">{{ discardError }}</span>
   }
 
   @if (isAuthenticated) {

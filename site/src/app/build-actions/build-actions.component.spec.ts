@@ -8,6 +8,7 @@ import { BehaviorSubject, of, Subject, throwError } from 'rxjs';
 import { AppModule } from '../app.module';
 import { AuthService } from '../shared/auth.service';
 import { BuildsService } from '../build/builds.service';
+import { BuildUrlCodecService } from '../build/build-url-codec.service';
 import { CurrentBuildService, CurrentBuildState } from '../build/current-build.service';
 import { QueryParamsService } from '../build/query-params.service';
 import { EquippedService } from '../planner/equipped.service';
@@ -59,12 +60,14 @@ describe('BuildActionsComponent', () => {
     buildsService = {
       create: vi.fn().mockName('BuildsService.create'),
       update: vi.fn().mockName('BuildsService.update'),
+      getByShortId: vi.fn().mockName('BuildsService.getByShortId'),
       listMine: vi.fn().mockName('BuildsService.listMine')
     } as unknown as MockedObject<BuildsService>;
     buildsService.listMine.mockReturnValue(of([]));
     queryParams = {
       getCombinedParams: vi.fn().mockName('QueryParamsService.getCombinedParams'),
-      encodeCurrentBuild: vi.fn().mockName('QueryParamsService.encodeCurrentBuild')
+      encodeCurrentBuild: vi.fn().mockName('QueryParamsService.encodeCurrentBuild'),
+      applyDecodedBuildParams: vi.fn().mockName('QueryParamsService.applyDecodedBuildParams')
     } as unknown as MockedObject<QueryParamsService>;
     queryParams.getCombinedParams.mockReturnValue({ Weapon: 'Sword' });
     queryParams.encodeCurrentBuild.mockReturnValue('z1.encoded');
@@ -757,6 +760,101 @@ describe('BuildActionsComponent', () => {
     expect(component.renameError).toContain('Could not rename');
   });
 
+  describe('Discard changes', () => {
+    const saved = { Weapon: 'Axe' };
+
+    function editing(overrides: Partial<CurrentBuildState> = {}) {
+      const state = makeState({ shortId: 'abc123', savedBuildId: 'build-1', name: 'My Build', isDirty: true, ownership: 'owned', ...overrides });
+      currentBuild.value = state;
+      currentBuild.state$.next(state);
+    }
+
+    it('is offered only for edits to a build that has a saved copy', () => {
+      expect(component.canDiscardChanges).toBe(false);
+      editing({ isDirty: false });
+      expect(component.canDiscardChanges).toBe(false);
+      editing({ shortId: null, savedBuildId: null });
+      expect(component.canDiscardChanges).toBe(false);
+      editing();
+      expect(component.canDiscardChanges).toBe(true);
+      // Someone else's build, or signed out: their saved copy is still there to go back to.
+      editing({ savedBuildId: null, ownership: 'other' });
+      expect(component.canDiscardChanges).toBe(true);
+    });
+
+    it('keeps the edits when the answer is no', () => {
+      editing();
+      vi.spyOn(window, 'confirm').mockReturnValue(false);
+
+      component.discardChanges();
+
+      expect(queryParams.applyDecodedBuildParams).not.toHaveBeenCalled();
+      expect(router.navigateByUrl).not.toHaveBeenCalled();
+    });
+
+    it('puts back the saved build from the local copy, without a fetch, and returns to its URL', () => {
+      editing();
+      vi.spyOn(window, 'confirm').mockReturnValue(true);
+      currentBuild.getCanonicalParamsCache.mockReturnValue(saved);
+      (router as { url: string }).url = '/?b=z1.edited#shopping-list';
+
+      component.discardChanges();
+
+      expect(currentBuild.getCanonicalParamsCache).toHaveBeenCalledWith('abc123');
+      expect(buildsService.getByShortId).not.toHaveBeenCalled();
+      expect(queryParams.applyDecodedBuildParams).toHaveBeenCalledWith(saved);
+      expect(currentBuild.markLoaded).toHaveBeenCalledWith({
+        shortId: 'abc123', name: 'My Build', savedBuildId: 'build-1', canonicalParams: saved
+      });
+      expect(currentBuild.confirmOwnership).toHaveBeenCalledWith('abc123', 'build-1');
+      // A new history entry: back still reaches the discarded edits.
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/build/abc123/my-build#shopping-list');
+    });
+
+    it('fetches the saved build when there is no local copy', () => {
+      editing({ savedBuildId: null, ownership: 'other' });
+      vi.spyOn(window, 'confirm').mockReturnValue(true);
+      currentBuild.getCanonicalParamsCache.mockReturnValue(null);
+      buildsService.getByShortId.mockReturnValue(of({ name: 'Their Build', blob: 'z1.saved' }));
+      vi.spyOn(TestBed.inject(BuildUrlCodecService), 'decode').mockReturnValue(saved);
+
+      component.discardChanges();
+
+      expect(buildsService.getByShortId).toHaveBeenCalledWith('abc123');
+      expect(queryParams.applyDecodedBuildParams).toHaveBeenCalledWith(saved);
+      expect(currentBuild.markLoaded).toHaveBeenCalledWith({
+        shortId: 'abc123', name: 'Their Build', savedBuildId: null, canonicalParams: saved
+      });
+      expect(currentBuild.confirmOwnership).toHaveBeenCalledWith('abc123', null);
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/build/abc123/their-build');
+    });
+
+    it('leaves ownership to be checked when it was not known yet', () => {
+      editing({ ownership: 'unknown', savedBuildId: null });
+      vi.spyOn(window, 'confirm').mockReturnValue(true);
+      currentBuild.getCanonicalParamsCache.mockReturnValue(saved);
+
+      component.discardChanges();
+
+      expect(currentBuild.markLoaded).toHaveBeenCalled();
+      expect(currentBuild.confirmOwnership).not.toHaveBeenCalled();
+    });
+
+    it('keeps the edits, and says so, when the saved build cannot be fetched', () => {
+      editing();
+      vi.spyOn(window, 'confirm').mockReturnValue(true);
+      currentBuild.getCanonicalParamsCache.mockReturnValue(null);
+      buildsService.getByShortId.mockReturnValue(throwError(() => new HttpErrorResponse({ status: 500 })));
+
+      component.discardChanges();
+
+      expect(queryParams.applyDecodedBuildParams).not.toHaveBeenCalled();
+      expect(currentBuild.markLoaded).not.toHaveBeenCalled();
+      expect(router.navigateByUrl).not.toHaveBeenCalled();
+      expect(component.discardError).toBe('Could not load the saved build. Please try again.');
+    });
+  });
+
   it('toggles the share menu open and closed, closing the other menus', () => {
     component.openMenu = 'build';
 
@@ -812,6 +910,22 @@ describe('BuildActionsComponent markup', () => {
     const menu = el().querySelector('.build-menu');
     expect(menu?.querySelector('input[aria-label="Build name"]')).not.toBeNull();
     expect(menu?.querySelector('app-my-builds')).not.toBeNull();
+  });
+
+  it('offers Discard changes in the build menu only while there are edits to a saved build', () => {
+    const currentBuild = TestBed.inject(CurrentBuildService);
+    const discard = () => el().querySelector('.build-menu .build-menu-discard');
+    click('.build-name-trigger');
+    expect(discard()).toBeNull();
+    click('.build-name-trigger');
+
+    currentBuild.markLoaded({ shortId: 'abc123', name: 'My Build', canonicalParams: {} });
+    (currentBuild as unknown as { setDirty(dirty: boolean): void }).setDirty(true);
+    fixture.detectChanges();
+    click('.build-name-trigger');
+
+    expect(discard()?.textContent?.trim()).toBe('Discard changes');
+    currentBuild.reset();
   });
 
   it('offers sign-in, not My builds, in the build menu when signed out', () => {

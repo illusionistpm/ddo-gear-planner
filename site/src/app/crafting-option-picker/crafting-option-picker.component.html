@@ -33,7 +33,7 @@
             @if (entry.tier; as tier) {
               <button type="button" role="option" class="crafting-picker-entry crafting-picker-tier" [id]="entryId(i)"
                   [class.active]="i === activeIndex" [class.selected]="tier.option === selected"
-                  [attr.aria-selected]="tier.option === selected" [title]="tier.tooltip"
+                  [attr.aria-selected]="tier.option === selected"
                   (click)="pickTier(tier)" (mouseenter)="activeIndex = i">
                 <span class="crafting-picker-entry-label">
                   <span class="crafting-picker-tier-value" [ngClass]="tier.className">{{tier.label}}</span>
@@ -58,7 +58,6 @@
                   [class.selected]="single && family === selectedFamily"
                   [attr.aria-selected]="single && family === selectedFamily"
                   [attr.aria-expanded]="single ? null : family === expandedFamily"
-                  [title]="single ? family.tiers[0].tooltip : ''"
                   (click)="activateFamily(family)" (mouseenter)="activeIndex = i">
                 <span class="crafting-picker-entry-label">
                   @if (!single) {

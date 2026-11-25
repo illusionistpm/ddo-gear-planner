@@ -48,6 +48,31 @@ describe('AffixUiService', () => {
     expect(service.getCraftingOptionDetails(new CraftableOption({ name: 'Empty' }))).toBeNull();
   });
 
+  it('names a whole family of parts at one value as one row', () => {
+    const service = new AffixUiService({} as any, new AffixService(), {} as any, new AffixDescriptionService());
+
+    expect(service.getAffixDetails(new Affix({ name: 'Good Luck', type: 'Luck', value: 2 }))?.sections[0].parts).toEqual([
+      { name: 'All saves', value: '+2 Luck' },
+      { name: 'All skills', value: '+2 Luck' },
+    ]);
+    expect(service.getAffixDetails(new Affix({ name: 'Riposte', type: 'Insight', value: 2 }))?.sections[0].parts.map(part => part.name))
+      .toEqual(['Armor Class', 'All saves']);
+  });
+
+  it('lists a family\'s members when they differ in value', () => {
+    const affixSvc = new AffixService();
+    affixSvc.affixGroups.set('Uneven Saves', ['Fortitude Save', 'Reflex Save', 'Will Save']);
+    affixSvc.affixGroupComponents.set('Uneven Saves', [
+      new Affix({ name: 'Fortitude Save', type: 'Luck', value: 2 }),
+      new Affix({ name: 'Reflex Save', type: 'Luck', value: 2 }),
+      new Affix({ name: 'Will Save', type: 'Luck', value: 1 }),
+    ]);
+    const service = new AffixUiService({} as any, affixSvc, {} as any, new AffixDescriptionService());
+
+    expect(service.getAffixDetails(new Affix({ name: 'Uneven Saves', type: 'Bool', value: 1 }))?.sections[0].parts.map(part => part.name))
+      .toEqual(['Fortitude Save', 'Reflex Save', 'Will Save']);
+  });
+
   it('describes fixed affix group components', () => {
     const affixSvc = new AffixService();
     affixSvc.affixGroups.set('Songblade', ['Perform']);

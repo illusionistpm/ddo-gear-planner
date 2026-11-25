@@ -23,7 +23,6 @@ export interface TierRow {
   /** The option's name beside the value; empty when the label already is the option. */
   name: string;
   className: string;
-  tooltip: string;
   /** Whether the trove has this option. */
   owned: boolean;
   /** What switching to it would do to the tracked affixes; null when it touches none of them. */
@@ -98,7 +97,6 @@ export function buildFamilyRows(
         label: value ? tierValueLabel(option, value, text) : option.describe(),
         name: value ? option.name : '',
         className: net?.className ?? ranking.className,
-        tooltip: net ? [ranking.optionTooltip, why].filter(part => part).join('\n\n') : ranking.tooltip,
         owned: isOwned(option),
         gain,
         gainScore: ranking.changes.reduce((total, change) => total + change.after - change.before, 0),

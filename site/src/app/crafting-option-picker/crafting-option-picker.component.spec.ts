@@ -312,10 +312,10 @@ describe('CraftingOptionPickerComponent', () => {
   });
 
   describe('what each option adds', () => {
-    // The build has +3 Charisma from elsewhere, and +5 and +7 rank Best already.
+    // The build has +3 Charisma from a hat, and +5 and +7 rank Best already.
     beforeEach(() => {
       changesOf = option => charisma.includes(option)
-        ? [{ name: 'Charisma', type: 'Enhancement', before: 3, after: Math.max(3, option.affixes[0].value) }]
+        ? [{ name: 'Charisma', type: 'Enhancement', before: 3, after: Math.max(3, option.affixes[0].value), beforeSources: ['Hat (Head)'] }]
         : [];
     });
 
@@ -344,14 +344,14 @@ describe('CraftingOptionPickerComponent', () => {
       familyButton('Charisma').dispatchEvent(new Event('mouseenter'));
       fixture.detectChanges();
       // It ranks Best, but adds to the build: purple, and said so.
-      expect(detail()).toEqual(['Best tier, +7 (ML 13)', 'Charisma: +3 \u2192 +7 Enhancement', 'Switching to it would raise the total']);
+      expect(detail()).toEqual(['Best tier, +7 (ML 13)', 'Charisma: +3 \u2192 +7 Enhancement \u00B7 beats Hat (Head)']);
       expect(familyButton('Charisma').querySelector('.crafting-picker-family-name')!.classList).toContain('BetterThanBest');
 
       familyButton('Charisma').click();
       fixture.detectChanges();
       tierButtons()[0].dispatchEvent(new Event('mouseenter'));
       fixture.detectChanges();
-      expect(detail()).toEqual(['Charisma: stays +3 Enhancement', 'Overpowered by Hat (Head)']);
+      expect(detail()).toEqual(['Charisma: stays +3 Enhancement \u00B7 from Hat (Head)']);
 
       familyButton('Bluff').dispatchEvent(new Event('mouseenter'));
       fixture.detectChanges();

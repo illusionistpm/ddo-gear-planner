@@ -854,8 +854,8 @@ describe('EquippedService', () => {
     });
 
     it('is only what it adds over the build\'s other sources', () => {
-      expect(changes(strengthOption(12))).toEqual([{ name: 'Strength', type: 'Enhancement', before: 10, after: 12 }]);
-      expect(changes(strengthOption(4))).toEqual([{ name: 'Strength', type: 'Enhancement', before: 10, after: 10 }]);
+      expect(changes(strengthOption(12))).toEqual([{ name: 'Strength', type: 'Enhancement', before: 10, after: 12, beforeSources: ['Belt (Belt)'] }]);
+      expect(changes(strengthOption(4))).toEqual([{ name: 'Strength', type: 'Enhancement', before: 10, after: 10, beforeSources: ['Belt (Belt)'] }]);
     });
 
     it('is measured against the current choice: nothing for it, and what switching away would lose', () => {
@@ -863,8 +863,8 @@ describe('EquippedService', () => {
       craft.selected = chosen;
       service.set(item);
 
-      expect(changes(chosen)).toEqual([{ name: 'Strength', type: 'Enhancement', before: 12, after: 12 }]);
-      expect(changes(strengthOption(4))).toEqual([{ name: 'Strength', type: 'Enhancement', before: 12, after: 10 }]);
+      expect(changes(chosen)).toEqual([{ name: 'Strength', type: 'Enhancement', before: 12, after: 12, beforeSources: ['Strength +12 (this item)'] }]);
+      expect(changes(strengthOption(4))).toEqual([{ name: 'Strength', type: 'Enhancement', before: 12, after: 10, beforeSources: ['Strength +12 (this item)'] }]);
     });
 
     it('leaves out what the current choice gives when the option is for something else', () => {
@@ -872,7 +872,7 @@ describe('EquippedService', () => {
       craft.selected = strengthOption(12);
       service.set(item);
 
-      expect(changes(dexterity)).toEqual([{ name: 'Dexterity', type: 'Enhancement', before: 0, after: 5 }]);
+      expect(changes(dexterity)).toEqual([{ name: 'Dexterity', type: 'Enhancement', before: 0, after: 5, beforeSources: [] }]);
       expect(changes(new CraftableOption({ name: '' }))).toEqual([]);
     });
 
@@ -882,7 +882,7 @@ describe('EquippedService', () => {
       service.set(makeItem('Belt', 'Belt', 'Belts', [{ name: 'Alignment Lore', type: 'Insight', value: 10 }]));
       const lightLore = new CraftableOption({ name: 'Light Lore +8', affixes: [{ name: 'Light Lore', type: 'Insight', value: 8 }] });
 
-      expect(changes(lightLore)).toEqual([{ name: 'Radiance Lore', type: 'Insight', before: 0, after: 8 }]);
+      expect(changes(lightLore)).toEqual([{ name: 'Radiance Lore', type: 'Insight', before: 0, after: 8, beforeSources: [] }]);
     });
 
     it('leaves out affixes the build doesn\'t track', () => {
@@ -931,7 +931,7 @@ describe('EquippedService', () => {
       const ranking = affixUi.rankCraftingOption(brutalBlows, item.slot, false, { item, craft });
 
       expect(ranking.completeSetPieces).toBe(3);
-      expect(ranking.changes).toEqual([{ name: 'Strength', type: 'Artifact', before: 0, after: 3 }]);
+      expect(ranking.changes).toEqual([{ name: 'Strength', type: 'Artifact', before: 0, after: 3, beforeSources: [] }]);
     });
 
     it('adds what the set really gives once it would have its pieces', () => {
@@ -942,7 +942,7 @@ describe('EquippedService', () => {
       const ranking = affixUi.rankCraftingOption(brutalBlows, item.slot, false, { item, craft });
 
       expect(ranking.completeSetPieces).toBeNull();
-      expect(ranking.changes).toEqual([{ name: 'Strength', type: 'Artifact', before: 0, after: 3 }]);
+      expect(ranking.changes).toEqual([{ name: 'Strength', type: 'Artifact', before: 0, after: 3, beforeSources: [] }]);
     });
 
     it('is tied when the set is already complete without it', () => {

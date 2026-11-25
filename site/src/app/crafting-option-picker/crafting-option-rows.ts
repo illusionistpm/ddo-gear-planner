@@ -1,4 +1,5 @@
 import { Affix } from '../affixes/affix';
+import { isSummedBonusType } from '../affixes/summed-bonus-types';
 import { AffixRank, bestRankClass, compareRankClasses } from '../affixes/affix-rank.enum';
 import { AffixChange, CraftingOptionRanking } from '../affixes/affix-ui.service';
 import { CraftableOption } from '../gear/craftable-option';
@@ -29,9 +30,9 @@ export interface TierRow {
   gain: GainChip | null;
   /** How much switching is worth when tiers are compared: the changes added up. */
   gainScore: number;
-  /** The detail under the list while the row is highlighted: one "False Life: +55 → +57 Insightful" per tracked affix. */
+  /** The detail under the list while the row is highlighted: one "False Life: +55 → +57 Vitality · beats ..." per tracked affix. */
   changeLines: string[];
-  /** Why it ranks as it does ("Overpowered by ..."), under the change lines. */
+  /** Why it ranks as it does ("Overpowered by ..."), for its tooltip; the change lines name the sources themselves. */
   why: string;
   /** What the change lines assume, above them: "With 3 set pieces", for a short set. */
   changeCondition: string;
@@ -209,9 +210,18 @@ function netRank(className: string, gain: GainChip | null): { className: string;
   };
 }
 
-/** "False Life: +55 → +57 Insightful", or what stays as it is. */
+/** At most this many sources are named on a change line; the rest are counted. */
+const MAX_SOURCES = 2;
+
+/**
+ * "False Life: +55 → +57 Vitality · beats Ring of Prowess (Ring 1)": the value before and after, and
+ * what gives the build the value it has now - what the option would beat, lose, add to, or leave be.
+ */
 function describeChange(change: AffixChange): string {
-  const { name, type, before, after } = change;
+  return describeValues(change) + describeSources(change);
+}
+
+function describeValues({ name, type, before, after }: AffixChange): string {
   if (!Affix.isRealType(type)) {
     return `${name}: ${after === before ? (after ? 'already have it' : 'no change') : after > before ? 'new' : 'lost'}`;
   }
@@ -222,6 +232,19 @@ function describeChange(change: AffixChange): string {
   return after === before
     ? `${name}: stays ${value(before)} ${type}`
     : `${name}: ${value(before)} \u2192 ${value(after)} ${type}`;
+}
+
+function describeSources({ type, before, after, beforeSources }: AffixChange): string {
+  if (!before || !beforeSources.length) {
+    return '';
+  }
+  // A summed type's sources all count, so a gain adds to them rather than beating them.
+  const verb = after > before ? (isSummedBonusType(type) ? 'adds to' : 'beats') : after < before ? 'loses' : 'from';
+  const named = beforeSources.slice(0, MAX_SOURCES);
+  if (beforeSources.length > named.length) {
+    named.push(`${beforeSources.length - named.length} more`);
+  }
+  return ` \u00B7 ${verb} ${named.join(', ')}`;
 }
 
 /** Whether every change is to the option's one affix, so a bare figure can't be misread. */

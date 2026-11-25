@@ -151,9 +151,9 @@ describe('Tracked affix chips', () => {
   // Both groupings show the same tooltip for the same bonus type: the value
   // summary, then how many places can still supply it while it is worth chasing.
   const tooltips: Record<string, string> = {
-    Enhancement: 'Low value (3 below max)\nOnly 1 place can still supply this — fit it early.',
+    Enhancement: '3 below the best (8)\nOnly 1 place can still supply this — fit it early.',
     Insight: 'Not covered yet (best available: 4)\n7 places can still supply this.',
-    Profane: 'Moderate value (1 below max)',
+    Profane: '1 below the best (8) — mostly covered',
     Quality: 'Marked as ignored',
     Sacred: 'Marked as ignored',
     Exceptional: 'Marked as ignored',
@@ -166,10 +166,10 @@ describe('Tracked affix chips', () => {
   describe('in the category view', () => {
     it('shows value chips with their value class and max', () => {
       expect(chipText(chip('Enhancement'))).toBe('Enhancement:5/8');
-      expect(modifiers(chip('Enhancement'))).toEqual(['low-value']);
+      expect(modifiers(chip('Enhancement'))).toEqual(['short-value']);
 
       expect(chipText(chip('Profane'))).toBe('Profane:7/8');
-      expect(modifiers(chip('Profane'))).toEqual(['mid-value']);
+      expect(modifiers(chip('Profane'))).toEqual(['short-value']);
     });
 
     it('marks only a chip at the best value with a check', () => {
@@ -207,7 +207,7 @@ describe('Tracked affix chips', () => {
 
     it('strikes through ignored chips, keeping their value class', () => {
       expect(modifiers(chip('Quality'))).toEqual(['bonus-ignored', 'no-value']);
-      expect(modifiers(chip('Sacred'))).toEqual(['bonus-ignored', 'low-value']);
+      expect(modifiers(chip('Sacred'))).toEqual(['bonus-ignored', 'short-value']);
       expect(modifiers(chip('Exceptional'))).toEqual(['bonus-ignored', 'max-value']);
     });
 
@@ -237,10 +237,10 @@ describe('Tracked affix chips', () => {
 
     it('shows the same chips as the category view', () => {
       expect(chipText(chip('Enhancement'))).toBe('Enhancement:5/8');
-      expect(modifiers(chip('Enhancement'))).toEqual(['low-value']);
+      expect(modifiers(chip('Enhancement'))).toEqual(['short-value']);
       expect(chipText(chip('Insight'))).toBe('Insight/4');
       expect(modifiers(chip('Insight'))).toEqual(['no-value']);
-      expect(modifiers(chip('Profane'))).toEqual(['mid-value']);
+      expect(modifiers(chip('Profane'))).toEqual(['short-value']);
     });
 
     it('shows the same tooltips as the category view', () => {
@@ -255,14 +255,14 @@ describe('Tracked affix chips', () => {
 
     it('strikes through ignored chips, keeping their value class', () => {
       expect(modifiers(chip('Quality'))).toEqual(['bonus-ignored', 'no-value']);
-      expect(modifiers(chip('Sacred'))).toEqual(['bonus-ignored', 'low-value']);
+      expect(modifiers(chip('Sacred'))).toEqual(['bonus-ignored', 'short-value']);
     });
 
-    it('files an ignored type that is already sufficient as fulfilled, still marked ignored', () => {
+    it('files an ignored type that is already sufficient as mostly covered, still marked ignored', () => {
       expect(modifiers(chip('Exceptional'))).toEqual(['bonus-ignored', 'max-value']);
     });
 
-    it('shows checked checklist affixes in the fulfilled row and unchecked ones as chips', () => {
+    it('shows checked checklist affixes in the mostly-covered row and unchecked ones as chips', () => {
       expect(checklistChip('Deathblock').title).toBe(checkedTooltip);
 
       expect(chipText(chip('Checklist'))).toBe('Checklist');
@@ -378,7 +378,7 @@ describe('Tracked affix chips', () => {
     it('stays in its row, not struck through, in the category view', () => {
       expect(unreachableToggle('Charisma')).toBeNull();
       expect(chipText(chip('Alchemical'))).toBe('Alchemical:2/8');
-      expect(modifiers(chip('Alchemical'))).toEqual(['bonus-eliminated', 'low-value']);
+      expect(modifiers(chip('Alchemical'))).toEqual(['bonus-eliminated', 'short-value']);
       expect(chip('Alchemical').title).toContain('Ruled out by your gear');
       expect(chip('Alchemical').querySelector('.fa-lock')).toBeNull();
     });
@@ -387,7 +387,7 @@ describe('Tracked affix chips', () => {
       equipped.setTrackedAffixGroupMode('slots');
       fixture.detectChanges();
 
-      expect(modifiers(chip('Alchemical'))).toEqual(['bonus-eliminated', 'low-value']);
+      expect(modifiers(chip('Alchemical'))).toEqual(['bonus-eliminated', 'short-value']);
       expect(chip('Alchemical').querySelector('.fa-lock')).toBeNull();
     });
   });
@@ -398,7 +398,7 @@ describe('Tracked affix chips', () => {
 
     const sections = Array.from(fixture.nativeElement.querySelectorAll('.slot-group-section')) as HTMLElement[];
     expect(sections.map(section => Array.from(section.classList).find(name => name.startsWith('slot-group-') && name !== 'slot-group-section')))
-      .toEqual(['slot-group-set-only', 'slot-group-1', 'slot-group-3', 'slot-group-5plus', 'slot-group-ignored', 'slot-group-ruled-out', 'slot-group-fulfilled']);
+      .toEqual(['slot-group-set-only', 'slot-group-1', 'slot-group-3', 'slot-group-5plus', 'slot-group-ignored', 'slot-group-ruled-out', 'slot-group-covered']);
   });
 
   describe('staying current', () => {

@@ -547,7 +547,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
         seen.add(key);
 
         if (sufficient) {
-          rowFor(bucket('fulfilled', 'Fulfilled', 100), affixName).chips.push(chip);
+          rowFor(bucket('covered', 'Mostly covered', 100), affixName).chips.push(chip);
         } else if (chip.ignored) {
           rowFor(bucket('ignored', 'Ignored', 90), affixName).chips.push(chip);
         } else if (availability) {
@@ -567,7 +567,7 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
       seen.add(key);
 
       if (checklist.checked) {
-        bucket('fulfilled', 'Fulfilled', 100).checklistAffixes.push(affixName);
+        bucket('covered', 'Mostly covered', 100).checklistAffixes.push(affixName);
         continue;
       }
 
@@ -839,11 +839,9 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
 
     if (type.value >= maxValue) {
       return 'Best possible value';
-    } else if (type.value >= moderateValueThreshold(maxValue)) {
-      return `Moderate value (${shortBy} below max)`;
-    } else {
-      return `Low value (${shortBy} below max)`;
     }
+    const mostlyCovered = type.value >= moderateValueThreshold(maxValue);
+    return `${shortBy} below the best (${maxValue})` + (mostlyCovered ? ' — mostly covered' : '');
   }
 
   getBonusTypeLabel(type: TrackedBonusTypeRef): string {

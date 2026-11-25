@@ -56,14 +56,17 @@ const BONUS_TYPE_SORT_ORDER: Array<string | undefined> = [
 ];
 
 /**
- * The "moderate value" threshold: 3/4 of the best available value. At or past
- * it, a bonus type is considered adequately covered.
+ * The "mostly covered" threshold: 3/4 of the best available value. At or past
+ * it a bonus type stops being chased - the Scarcity view files it under
+ * Mostly covered and gear suggestions stop weighting it. It doesn't change how
+ * a chip looks: a ratio can't say whether a gap matters (2 of 4 Constitution,
+ * 25 of 50 Armor Class), so a chip only says best, short of it, or empty.
  */
 export function moderateValueThreshold(maxValue: number): number {
   return maxValue * 3 / 4;
 }
 
-/** CSS quality class for a bonus type's current value against the best available. */
+/** CSS class for a bonus type's value: the best available, short of it, none, or a penalty. */
 export function classForBonusValue(bonusType: string, value: number, maxValue: number): string {
   if (bonusType === 'Penalty') {
     return 'penalty-value';
@@ -75,10 +78,7 @@ export function classForBonusValue(bonusType: string, value: number, maxValue: n
   if (value >= maxValue) {
     return 'max-value';
   }
-  if (value >= moderateValueThreshold(maxValue)) {
-    return 'mid-value';
-  }
-  return 'low-value';
+  return 'short-value';
 }
 
 /** A checklist affix: its only covered "type" is the Bool pseudo-type. */

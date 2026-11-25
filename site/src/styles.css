@@ -168,10 +168,9 @@
   --danger-fill-dark: #991b1b;
 
   /*
-   * Value bands: how close a tracked bonus type is to the best available for
-   * it. classForBonusValue() picks the band, and both places that show one use
-   * these - the chips on the Tracked Affixes view and the coverage codes on
-   * its summary rail - at whatever alpha suits the surface.
+   * Value bands: whether a tracked bonus type is at the best available for it,
+   * short of it, or empty. classForBonusValue() picks the band; the Build Goals
+   * chips show it, at whatever alpha suits the surface.
    *
    * Not --success/--warning/--danger, on purpose. Those are for the *text* in
    * the same rules, and they shift per theme; the band tint is its own thing
@@ -180,15 +179,15 @@
    * one place to say so.
    */
   --value-max-rgb: 16, 185, 129;
-  --value-mid-rgb: 245, 158, 11;
-  --value-low-rgb: 239, 68, 68;
+  --value-short-rgb: 245, 158, 11;
+  --value-penalty-rgb: 239, 68, 68;
   /*
    * The bands' text, and the best band's solid fill, do shift per theme: these
    * darker shades hold 4.5:1 on a light chip, even over the striped rows, where
    * --success/--warning-color only reach about 3:1. White on the fill is 5:1.
    */
   --value-max-text-color: #15803d;
-  --value-mid-text-color: #92400e;
+  --value-short-text-color: #92400e;
   --value-max-fill: #15803d;
   /*
    * Spacing scale. Named for the pixel value at the default root font size, so
@@ -289,7 +288,7 @@
   --rank-mixed-gradient-end: #f97316;
   /* Value-band text and fill: see :root. */
   --value-max-text-color: #4ade80;
-  --value-mid-text-color: #fbbf24;
+  --value-short-text-color: #fbbf24;
   --value-max-fill: #15803d;
   --highlight-outline-color: rgba(147, 197, 253, 0.9);
   --selected-row-bg: rgba(var(--primary-color-rgb), 0.18);
@@ -1314,14 +1313,9 @@ code {
   font-weight: 700;
 }
 
-.mid-value {
-  color: var(--value-mid-text-color);
-  font-weight: 600;
-}
-
-/* Under 3/4 of the best: some, but short. Muted rather than red - red is for penalties. */
-.low-value {
-  color: var(--text-primary);
+/* Some, but short of the best. However short: the numbers say by how much. */
+.short-value {
+  color: var(--value-short-text-color);
   font-weight: 600;
 }
 
@@ -1337,11 +1331,10 @@ code {
 
 /*
  * The Build Goals chips' bands differ by fill as well as hue - solid, tint,
- * outline, dashed - so they read without telling green from amber from red:
- *   max  solid green, with a check (the template adds it)
- *   mid  amber tint
- *   low  plain outline, value in bold
- *   none dashed outline: open, still worth chasing
+ * dashed - so they read without telling green from amber:
+ *   max   solid green, with a check (the template adds it)
+ *   short amber tint: some value, below the best (the numbers say how far)
+ *   none  dashed outline: open, still worth chasing
  */
 .tracked-affixes-workspace .tracked-bonus-chip.max-value {
   background-color: var(--value-max-fill);
@@ -1359,29 +1352,19 @@ code {
   color: inherit;
 }
 
-.tracked-affixes-workspace .tracked-bonus-chip.mid-value {
-  background-color: rgba(var(--value-mid-rgb), 0.14);
-  border-color: rgba(var(--value-mid-rgb), 0.7);
-  color: var(--value-mid-text-color);
+.tracked-affixes-workspace .tracked-bonus-chip.short-value {
+  background-color: rgba(var(--value-short-rgb), 0.14);
+  border-color: rgba(var(--value-short-rgb), 0.7);
+  color: var(--value-short-text-color);
   font-weight: 600;
-  --tracked-bonus-pulse-rgb: var(--value-mid-rgb);
-  --tracked-bonus-rest-bg: rgba(var(--value-mid-rgb), 0.14);
-  --tracked-bonus-rest-border: rgba(var(--value-mid-rgb), 0.7);
-}
-
-.tracked-affixes-workspace .tracked-bonus-chip.low-value {
-  background-color: var(--chip-bg);
-  border-color: var(--chip-border-color);
-  color: var(--text-primary);
-  font-weight: 600;
-  --tracked-bonus-pulse-rgb: var(--section-accent-neutral-rgb);
-  --tracked-bonus-rest-bg: var(--chip-bg);
-  --tracked-bonus-rest-border: var(--chip-border-color);
+  --tracked-bonus-pulse-rgb: var(--value-short-rgb);
+  --tracked-bonus-rest-bg: rgba(var(--value-short-rgb), 0.14);
+  --tracked-bonus-rest-border: rgba(var(--value-short-rgb), 0.7);
 }
 
 .tracked-affixes-workspace .tracked-bonus-chip.penalty-value {
-  background-color: rgba(var(--value-low-rgb), 0.08);
-  border-color: rgba(var(--value-low-rgb), 0.7);
+  background-color: rgba(var(--value-penalty-rgb), 0.08);
+  border-color: rgba(var(--value-penalty-rgb), 0.7);
   color: var(--rank-penalty-color);
   font-weight: 700;
 }
@@ -1406,8 +1389,7 @@ code {
 .tracked-bonus-chip-onboarding-target,
 .tracked-bonus-chip-onboarding-target.no-value,
 .tracked-bonus-chip-onboarding-target.max-value,
-.tracked-bonus-chip-onboarding-target.mid-value,
-.tracked-bonus-chip-onboarding-target.low-value {
+.tracked-bonus-chip-onboarding-target.short-value {
   background: linear-gradient(135deg, var(--tutorial-accent-fill) 0%, var(--tutorial-accent-strong) 100%);
   border-color: var(--tutorial-accent-strong);
   box-shadow: none;
@@ -1433,8 +1415,7 @@ code {
 .tracked-bonus-chip-onboarding-target .tracked-bonus-value,
 .tracked-bonus-chip-onboarding-target .max-available,
 .tracked-bonus-chip-onboarding-target .max-value,
-.tracked-bonus-chip-onboarding-target .mid-value,
-.tracked-bonus-chip-onboarding-target .low-value,
+.tracked-bonus-chip-onboarding-target .short-value,
 .tracked-bonus-chip-onboarding-target .no-value {
   color: #ffffff;
   text-shadow: none;

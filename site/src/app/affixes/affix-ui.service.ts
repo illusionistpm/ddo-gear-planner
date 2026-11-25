@@ -24,6 +24,11 @@ export interface CraftingOptionRanking {
   optionTooltip: string;
   /** Why it has its rank: the rest of `tooltip`. */
   rankTooltip: string;
+  /**
+   * For a set augment whose set is short of pieces: the pieces its first bonus needs, which
+   * `changes` assume it has. Null when `changes` are what choosing it would do now.
+   */
+  completeSetPieces: number | null;
   /** What choosing it would do to each tracked affix it touches; empty when it touches none. */
   changes: AffixChange[];
 }
@@ -356,9 +361,9 @@ export class AffixUiService {
     return bonus ? `${affix.name}: ${bonus}` : affix.name;
   }
 
-  /** A set's bonuses in brief: "Doublestrike: +15 Artifact, Doubleshot: +15 Artifact". */
-  describeSetBonus(set: string): string {
-    return this.getSetBonusAffixes(set).map(affix => this.getAffixDescription(affix)).join(', ');
+  /** A set's bonuses in brief, one per part: "Doublestrike: +15 Artifact", "Doubleshot: +15 Artifact". */
+  describeSetBonusParts(set: string): string[] {
+    return this.getSetBonusAffixes(set).map(affix => this.getAffixDescription(affix));
   }
 
   /**
@@ -387,14 +392,18 @@ export class AffixUiService {
     const rankingTooltip = this.getCraftingOptionRankTooltip(option, slot, candidate);
     const setPieces = this.getSetPieces(option, alreadyEquipped);
     const optionTooltip = this.getCraftingOptionTooltip(option);
+    const short = !!setPieces && setPieces.pieces < setPieces.required;
     return {
       className: this.getClassForCraftingOption(option, candidate),
       tooltip: [optionTooltip, rankingTooltip].filter(tooltip => tooltip).join('\n\n'),
       optionTooltip,
       // Only while the set is short; a complete set's colour already says what it gives.
-      note: setPieces && setPieces.pieces < setPieces.required ? `${setPieces.pieces} of ${setPieces.required} set pieces` : '',
+      note: short ? `${setPieces!.pieces} of ${setPieces!.required} set pieces` : '',
       rankTooltip: rankingTooltip,
-      changes: this.getCraftingOptionChanges(option, context)
+      // A short set gives nothing yet, which says nothing of why you'd choose it: what it gives
+      // once it has its pieces is the figure, as its rank colour already assumes.
+      changes: this.getCraftingOptionChanges(option, context, short ? setPieces!.required : undefined),
+      completeSetPieces: short ? setPieces!.required : null
     };
   }
 
@@ -405,9 +414,10 @@ export class AffixUiService {
    * gives too: swapping one Dexterity augment for another is net of the one given up, but an
    * option for something else entirely isn't charged with the loss. A tracked compound the option
    * gives a part of counts too: Light Lore can complete Radiance Lore. Values are the build's own
-   * totals with the item in its slot, so set bonuses are recounted with the pieces there really are.
+   * totals with the item in its slot, so set bonuses are recounted with the pieces there really are -
+   * or, with `setPieces`, for a set augment, as if its set had that many.
    */
-  getCraftingOptionChanges(option: CraftableOption, context?: CraftingOptionContext): AffixChange[] {
+  getCraftingOptionChanges(option: CraftableOption, context?: CraftingOptionContext, setPieces?: number): AffixChange[] {
     if (!context || !option) {
       return [];
     }
@@ -417,6 +427,11 @@ export class AffixUiService {
       withOption.crafting[context.item.crafting.indexOf(context.craft)].selected = option;
     } else {
       withOption.bonuses = { ...withOption.bonuses, [context.bonusKind]: option };
+    }
+    if (option.set && setPieces) {
+      // The bonus the set would give at that count, as if the item gave it. (Best per bonus type,
+      // so whatever of the set's bonus the build already has isn't counted twice.)
+      withOption.affixes.push(...this.gearDb.getSetBonus(option.set, setPieces));
     }
 
     const given = (choice: CraftableOption | null | undefined) => this.affixSvc.flattenAffixGroups([

@@ -926,6 +926,25 @@ describe('EquippedService', () => {
       expect(tooltip(item, craft)).toContain('Tied with Belt (Belt)');
     });
 
+    it('adds, for a set short of pieces, what the set would give with them', () => {
+      const { item, craft } = withAugment('Gloves', 'Gloves', null);
+      const ranking = affixUi.rankCraftingOption(brutalBlows, item.slot, false, { item, craft });
+
+      expect(ranking.completeSetPieces).toBe(3);
+      expect(ranking.changes).toEqual([{ name: 'Strength', type: 'Artifact', before: 0, after: 3 }]);
+    });
+
+    it('adds what the set really gives once it would have its pieces', () => {
+      for (const slot of ['Belt', 'Boots']) {
+        service.set(makeItem(slot, slot, slot, [], ['Brutal Blows']));
+      }
+      const { item, craft } = withAugment('Gloves', 'Gloves', null);
+      const ranking = affixUi.rankCraftingOption(brutalBlows, item.slot, false, { item, craft });
+
+      expect(ranking.completeSetPieces).toBeNull();
+      expect(ranking.changes).toEqual([{ name: 'Strength', type: 'Artifact', before: 0, after: 3 }]);
+    });
+
     it('is tied when the set is already complete without it', () => {
       for (const slot of ['Belt', 'Boots', 'Cloak']) {
         service.set(makeItem(slot, slot, slot, [], ['Brutal Blows']));

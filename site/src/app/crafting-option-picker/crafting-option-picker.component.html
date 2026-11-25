@@ -22,6 +22,9 @@
         }
         <div #list class="crafting-picker-list" role="listbox" aria-label="Options" [id]="id + '-list'"
             (keydown)="compact && onSearchKeydown($event)">
+          @if (showsGains) {
+            <div class="crafting-picker-columns" aria-hidden="true" [title]="gainTitle">Adds</div>
+          }
           @for (entry of entries; track entry.tier ? entry.tier.option : entry.family.key; let i = $index) {
             @if (entry.tier; as tier) {
               <button type="button" role="option" class="crafting-picker-entry crafting-picker-tier" [id]="entryId(i)"
@@ -39,7 +42,8 @@
                 }
                 @if (tier.gain; as gain) {
                   <span class="crafting-picker-gain" [attr.data-direction]="gain.direction"
-                      [title]="gainTitle">{{gain.text}}</span>
+                      [ngClass]="gain.direction === 'none' ? '' : tier.className"
+                      [title]="gainTitle">{{gain.text}}@if (gain.condition) {<span class="crafting-picker-gain-condition">{{gain.condition}}</span>}</span>
                 }
               </button>
             } @else {
@@ -57,10 +61,11 @@
                     <span class="crafting-picker-expander" [class.expanded]="family === expandedFamily" aria-hidden="true">&#8250;</span>
                   }
                   <span class="crafting-picker-family-name" [ngClass]="family.className">{{family.label || 'Empty'}}</span>
-                  @if (family.detail) {
-                    <span class="crafting-picker-entry-detail">{{family.detail}}</span>
+                  @for (part of family.detailParts; track $index) {
+                    <span class="crafting-picker-entry-detail">{{part}}</span>
                   }
-                  @if (family.owned) {
+                  <!-- An open family's tiers say which of them are owned. -->
+                  @if (family.owned && family !== expandedFamily) {
                     <span class="owned-badge crafting-picker-owned">Owned</span>
                   }
                 </span>
@@ -69,7 +74,8 @@
                 }
                 @if (family.bestTier.gain; as gain) {
                   <span class="crafting-picker-gain" [attr.data-direction]="gain.direction"
-                      [title]="single ? gainTitle : 'Its best tier: ' + gainTitle">{{gain.text}}</span>
+                      [ngClass]="gain.direction === 'none' ? '' : family.bestTier.className"
+                      [title]="single ? gainTitle : 'Its best tier: ' + gainTitle">{{gain.text}}@if (gain.condition) {<span class="crafting-picker-gain-condition">{{gain.condition}}</span>}</span>
                 }
               </button>
             }

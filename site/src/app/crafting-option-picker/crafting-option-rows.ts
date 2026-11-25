@@ -8,6 +8,8 @@ import { CraftingOptionFamily } from '../gear/crafting-option-families';
 export interface GainChip {
   /** "+2", or "+2 Strength, +2 Dexterity" when the option touches several tracked affixes. */
   text: string;
+  /** What the figure assumes, beside it: "at 3 pcs" for a set augment whose set is short. */
+  condition: string;
   /** Whether the build ends up better or worse off, neither ('none'), or some of each ('mixed'). */
   direction: 'up' | 'down' | 'none' | 'mixed';
 }
@@ -31,6 +33,8 @@ export interface TierRow {
   changeLines: string[];
   /** Why it ranks as it does ("Overpowered by ..."), under the change lines. */
   why: string;
+  /** What the change lines assume, above them: "With 3 set pieces", for a short set. */
+  changeCondition: string;
 }
 
 /** One family, as the picker lists it. */
@@ -38,9 +42,12 @@ export interface FamilyRow {
   key: string;
   /** What it grants: "Dexterity", "Quickblade set", or '' for the empty option. */
   label: string;
-  /** Beside the label: the bonus type, the value too when there is one tier, or a set's bonus. */
-  detail: string;
-  /** On the right: the tier range, the single option's name, or its note. */
+  /**
+   * Beside the label, each part kept whole when the row wraps: the bonus types and the tiers'
+   * value range, the value too when there is one tier, or a set's bonuses.
+   */
+  detailParts: string[];
+  /** On the right: the single option's name, or its note. */
   aside: string;
   /** Whether `aside` is a caveat (the set pieces) rather than plain information. */
   asideIsNote: boolean;
@@ -65,7 +72,7 @@ export interface FamilyRow {
 export interface CraftingOptionText {
   getAffixValue(affix: Affix): string;
   getAffixValueText(affix: Affix): string;
-  describeSetBonus(set: string): string;
+  describeSetBonusParts(set: string): string[];
 }
 
 const IRRELEVANT = AffixRank[AffixRank.Irrelevant];
@@ -81,7 +88,8 @@ export function buildFamilyRows(
     const tiers = family.tiers.map((option, i) => {
       const ranking = rankings[i];
       const value = singleValuedAffix(option);
-      const gain = gainChip(ranking.changes, !isOnlyAbout(option, ranking.changes));
+      const pieces = ranking.completeSetPieces;
+      const gain = gainChip(ranking.changes, !isOnlyAbout(option, ranking.changes), pieces ? `at ${pieces} pcs` : '');
       const net = netRank(ranking.className, gain);
       const why = net?.why ?? ranking.rankTooltip;
       return {
@@ -94,21 +102,22 @@ export function buildFamilyRows(
         gain,
         gainScore: ranking.changes.reduce((total, change) => total + change.after - change.before, 0),
         changeLines: ranking.changes.map(describeChange),
-        why
+        why,
+        changeCondition: pieces && ranking.changes.length ? `With ${pieces} set pieces` : ''
       };
     });
     const first = family.tiers[0];
     const note = tiers.length === 1 ? rankings[0].note : '';
-    const detail = familyDetail(family, text);
+    const detailParts = familyDetailParts(family, text);
     return {
       key: family.key,
       label: family.label,
-      detail,
-      aside: note || familyAside(family, text),
+      detailParts,
+      aside: note || familyAside(family),
       asideIsNote: !!note,
       className: bestRankClass(tiers.map(tier => tier.className)),
       tiers,
-      searchText: [family.label, detail, ...family.tiers.map(option => option.describe())].join('\n').toLowerCase(),
+      searchText: [family.label, ...detailParts, ...family.tiers.map(option => option.describe())].join('\n').toLowerCase(),
       relevant: tiers.some(tier => tier.className !== IRRELEVANT),
       hideable: first.affixes.length > 0 || !!first.set || !!first.name,
       owned: tiers.some(tier => tier.owned),
@@ -143,7 +152,7 @@ const MAX_GAIN_PARTS = 2;
  * The gain an option's row ends with. `named` says the figures need their affix beside them: an
  * option with one affix is its own label, but "+2" on a set augment or a dual prefix could be anything.
  */
-export function gainChip(changes: AffixChange[], named: boolean): GainChip | null {
+export function gainChip(changes: AffixChange[], named: boolean, condition = ''): GainChip | null {
   if (!changes.length) {
     return null;
   }
@@ -157,7 +166,7 @@ export function gainChip(changes: AffixChange[], named: boolean): GainChip | nul
   }
   const moved = [...byAffix].filter(([, { delta }]) => Math.round(delta * 100) !== 0);
   if (!moved.length) {
-    return { text: '\u2014', direction: 'none' };
+    return { text: '\u2014', direction: 'none', condition: '' };
   }
   const parts = moved.map(([name, { delta, type }]) => {
     if (!Affix.isRealType(type)) {
@@ -172,7 +181,7 @@ export function gainChip(changes: AffixChange[], named: boolean): GainChip | nul
   }
   const up = moved.some(([, { delta }]) => delta > 0);
   const down = moved.some(([, { delta }]) => delta < 0);
-  return { text: shown.join(', '), direction: up && down ? 'mixed' : up ? 'up' : 'down' };
+  return { text: shown.join(', '), direction: up && down ? 'mixed' : up ? 'up' : 'down', condition };
 }
 
 /** Ranks the net change may recolour: not a penalty or a mix with one, whose red says more than any total. */
@@ -236,29 +245,31 @@ function tierValueLabel(option: CraftableOption, affix: Affix, text: CraftingOpt
   return option.ml ? `${value} (ML ${option.ml})` : value;
 }
 
-function familyDetail(family: CraftingOptionFamily, text: CraftingOptionText): string {
+function familyDetailParts(family: CraftingOptionFamily, text: CraftingOptionText): string[] {
   const first = family.tiers[0];
   if (!first.affixes.length) {
-    return first.set ? text.describeSetBonus(first.set) : '';
+    return first.set ? text.describeSetBonusParts(first.set) : [];
   }
   const typed = first.affixes.filter(affix => affix.hasRealType());
-  // Tiers differ in value, so a family shows just the types; the range goes on the right.
   // Each only once: a Mythic Boost's +3 to PRR and MRR reads "+3 Mythic", not "+3 Mythic, +3 Mythic".
-  const parts = family.tiers.length > 1
-    ? typed.map(affix => affix.type)
-    : typed.map(affix => text.getAffixValueText(affix));
-  return [...new Set(parts)].join(', ');
+  if (family.tiers.length === 1) {
+    return [...new Set(typed.map(affix => text.getAffixValueText(affix)))];
+  }
+  // Tiers differ in value, so a family shows its types and the range of values, keeping the
+  // right-hand edge for what choosing it adds.
+  return [...new Set(typed.map(affix => affix.type)), familyRange(family, text)];
 }
 
-function familyAside(family: CraftingOptionFamily, text: CraftingOptionText): string {
-  const first = family.tiers[0];
-  if (family.tiers.length === 1) {
-    // A set augment's name only repeats the set, and an option with no affixes is labelled by its name already.
-    return first.set || !first.affixes.length ? '' : first.name;
-  }
-  const affix = singleValuedAffix(first);
+function familyRange(family: CraftingOptionFamily, text: CraftingOptionText): string {
+  const affix = singleValuedAffix(family.tiers[0]);
   const last = family.tiers[family.tiers.length - 1];
   return affix
     ? `${text.getAffixValue(affix)} to ${text.getAffixValue(last.affixes[0])}`
     : `${family.tiers.length} options`;
+}
+
+/** A single option's name; a set augment's only repeats the set, and an option with no affixes is labelled by its name. */
+function familyAside(family: CraftingOptionFamily): string {
+  const first = family.tiers[0];
+  return family.tiers.length > 1 || first.set || !first.affixes.length ? '' : first.name;
 }

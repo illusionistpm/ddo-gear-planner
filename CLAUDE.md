@@ -151,6 +151,13 @@ in a narrower column - that was the equipment grid's "cards get tiny before a
 column drops" bug. The grid is intrinsic now (`--gear-card-min`); don't
 reintroduce `col-sm-*`/`col-md-*`/`col-lg-*` for layout.
 
+**Overlays attached to `<body>` that can open from inside a drawer** - the
+crafting pickers (`.crafting-picker-container`) and an affix's details popover
+(`.affix-details-popover`) - sit at `z-index: 1300`: above the suggestion drawer
+(1210), the item preview (1220), the undo strip (1250) and the dialogs (1290).
+Lower, they open behind the drawer and look like nothing happened; the details
+popover shipped at 1200 and did.
+
 **Colours live in `site/src/styles.css` as tokens**, defined per theme. Never put
 a colour literal in component CSS: a hardcoded value is a light-mode colour that
 silently leaks into dark mode, which is exactly the bug the token sweep removed

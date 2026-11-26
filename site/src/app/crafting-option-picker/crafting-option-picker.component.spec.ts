@@ -52,9 +52,7 @@ describe('CraftingOptionPickerComponent', () => {
     // The picker ranks its list through the service each time it opens.
     vi.spyOn(TestBed.inject(AffixUiService), 'rankCraftingOption').mockImplementation(option => ({
       className: rankOf(option),
-      tooltip: '',
       note: option === helpfulSet ? '1 of 3 set pieces' : '',
-      optionTooltip: '',
       completeSetPieces: null,
       rankTooltip: option === charisma[0] ? 'Overpowered by Hat (Head)' : '',
       changes: changesOf(option)

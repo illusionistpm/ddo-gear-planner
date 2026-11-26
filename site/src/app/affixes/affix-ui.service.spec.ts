@@ -132,33 +132,24 @@ describe('AffixUiService', () => {
     const filigree = new Affix({ name: 'Max Filigree Slots', type: 'Untyped', value: '3' });
 
     expect(service.getAffixValueText(filigree)).toBe('3 slots');
-    expect(service.getCraftingOptionTooltip({ name: 'Artifact', affixes: [filigree] } as any))
-      .toBe('Artifact is:\n- Max Filigree Slots: 3 slots');
+    expect(service.getCraftingOptionDetails(new CraftableOption({ name: 'Artifact', affixes: [{ name: 'Max Filigree Slots', type: 'Untyped', value: 3 }] }))?.sections)
+      .toEqual([{ label: 'Grants', parts: [{ name: 'Max Filigree Slots', value: '3 slots' }] }]);
     expect(service.getAffixValueText(new Affix({ name: 'Dexterity', type: 'Enhancement', value: 14 })))
       .toBe('+14 Enhancement');
     // An on/off effect is just its name.
     expect(service.getAffixValueText(new Affix({ name: 'True Seeing', type: 'Bool', value: 1 }))).toBe('');
   });
 
-  it('describes crafting option affixes', () => {
-    const service = new AffixUiService({} as any, new AffixService(), {} as any, new AffixDescriptionService());
-    const option = { name: 'Flamehorn', affixes: [new Affix({ name: 'Legendary Ash', type: 'Bool', value: 1 })] } as any;
-
-    expect(service.getCraftingOptionTooltip(option))
-      .toBe('Flamehorn is:\n- Legendary Ash');
-  });
-
-  it('expands crafting option affix groups', () => {
+  it('lists a crafting option\'s affix groups by their parts', () => {
     const affixSvc = new AffixService();
-    affixSvc.affixGroups.set('All Skills', ['Balance', 'Spot']);
+    affixSvc.affixGroups.set('Keen Senses', ['Spot', 'Search']);
     const service = new AffixUiService({} as any, affixSvc, {} as any, new AffixDescriptionService());
-    const option = {
-      name: 'Skill Gem',
-      affixes: [new Affix({ name: 'All Skills', type: 'Competence', value: 5 })]
-    } as any;
+    const option = new CraftableOption({ name: 'Skill Gem', affixes: [{ name: 'Keen Senses', type: 'Competence', value: 5 }] });
 
-    expect(service.getCraftingOptionTooltip(option))
-      .toBe('Skill Gem is:\n- Balance: +5 Competence\n- Spot: +5 Competence');
+    expect(service.getCraftingOptionDetails(option)?.sections[0].parts).toEqual([
+      { name: 'Spot', value: '+5 Competence' },
+      { name: 'Search', value: '+5 Competence' },
+    ]);
   });
 
   it('ranks crafting options using all affixes', () => {
@@ -382,12 +373,13 @@ describe('AffixUiService', () => {
 
       expect(ranking.className).toBe('Best');
       expect(ranking.note).toBe('1 of 3 set pieces');
-      expect(ranking.tooltip).toContain('Quickblade set bonus at 3 pieces');
     });
 
-    it('describe their set bonus and the pieces it takes', () => {
-      expect(makeService({}).getCraftingOptionTooltip(setAugment))
-        .toBe('Quickblade set bonus at 3 pieces:\n- Doublestrike: +15 Artifact\n- Doubleshot: +15 Artifact');
+    it('detail their set bonus and the pieces it takes', () => {
+      expect(makeService({}).getCraftingOptionDetails(setAugment)?.sections).toEqual([{
+        label: 'Set bonus at 3 pieces',
+        parts: [{ name: 'Doublestrike', value: '+15 Artifact' }, { name: 'Doubleshot', value: '+15 Artifact' }],
+      }]);
     });
   });
 

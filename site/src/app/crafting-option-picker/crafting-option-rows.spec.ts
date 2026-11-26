@@ -22,13 +22,13 @@ describe('buildFamilyRows', () => {
 
   function rows(options: CraftableOption[], rank: (option: CraftableOption) => Partial<CraftingOptionRanking> = () => ({})) {
     return buildFamilyRows(groupCraftingOptions(options),
-      opt => ({ className: 'Irrelevant', tooltip: '', note: '', optionTooltip: '', rankTooltip: '', completeSetPieces: null, changes: [], ...rank(opt) }), text);
+      opt => ({ className: 'Irrelevant', note: '', rankTooltip: '', completeSetPieces: null, changes: [], ...rank(opt) }), text);
   }
   const byLabel = (label: string, list: ReturnType<typeof rows>) => list.find(row => row.label === label)!;
 
   it('marks the tiers the trove has, and their family', () => {
     const list = buildFamilyRows(groupCraftingOptions([...charisma, acid]),
-      () => ({ className: 'Irrelevant', tooltip: '', note: '', optionTooltip: '', rankTooltip: '', completeSetPieces: null, changes: [] }), text, opt => opt === charisma[1]);
+      () => ({ className: 'Irrelevant', note: '', rankTooltip: '', completeSetPieces: null, changes: [] }), text, opt => opt === charisma[1]);
 
     expect(byLabel('Charisma', list).owned).toBe(true);
     expect(byLabel('Charisma', list).tiers.map(tier => tier.owned)).toEqual([false, true, false]);
@@ -143,7 +143,7 @@ describe('buildFamilyRows', () => {
 
     it('recolours by the net change where the rank, judging each bonus type alone, says otherwise', () => {
       // A +2 Festive ranks as the best Festive, but swapping out a +5 Insight loses 3.
-      const loss = byLabel('Charisma', rows(charisma, () => ({ className: 'BetterThanBest', optionTooltip: 'what', rankTooltip: 'Better',
+      const loss = byLabel('Charisma', rows(charisma, () => ({ className: 'BetterThanBest', rankTooltip: 'Better',
         changes: [{ name: 'Charisma', type: 'Festive', before: 0, after: 2, beforeSources: [] }, { name: 'Charisma', type: 'Insight', before: 5, after: 0, beforeSources: [] }] })));
       expect(loss.tiers[0].className).toBe('Outranked');
       expect(loss.tiers[0].why).toBe('Switching to it would lower the total');
@@ -240,7 +240,7 @@ describe('defaultTier', () => {
   const tiers = [1, 3, 5, 7].map(value => new CraftableOption({ name: `+${value}`, affixes: [{ name: 'Charisma', type: 'Enhancement', value }] }));
   const ranks = ['Outranked', 'Best', 'Best', 'BestTied'];
   const [family] = buildFamilyRows(groupCraftingOptions(tiers),
-    option => ({ className: ranks[tiers.indexOf(option)], tooltip: '', note: '', optionTooltip: '', rankTooltip: '', completeSetPieces: null, changes: [] }),
+    option => ({ className: ranks[tiers.indexOf(option)], note: '', rankTooltip: '', completeSetPieces: null, changes: [] }),
     { getAffixValue: () => '', getAffixValueText: () => '', describeSetBonusParts: () => [] });
 
   it('is the best-ranked tier, the highest among equally ranked ones', () => {

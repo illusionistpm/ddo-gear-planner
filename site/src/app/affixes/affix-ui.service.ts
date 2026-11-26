@@ -19,12 +19,9 @@ import { AffixDescriptionService } from './affix-description.service';
 export interface CraftingOptionRanking {
   /** Rank class, e.g. 'Best'. */
   className: string;
-  tooltip: string;
   /** A caveat to show beside the option: the set pieces a set augment would make, while short. */
   note: string;
-  /** What the option is: the first part of `tooltip`. */
-  optionTooltip: string;
-  /** Why it has its rank: the rest of `tooltip`. */
+  /** Why it has its rank. */
   rankTooltip: string;
   /**
    * For a set augment whose set is short of pieces: the pieces its first bonus needs, which
@@ -499,23 +496,6 @@ export class AffixUiService {
     return rows.map(row => row.part);
   }
 
-  getCraftingOptionTooltip(option: CraftableOption): string {
-    perfCount('AffixUiService.getCraftingOptionTooltip');
-    if (!option?.affixes?.length && option?.set) {
-      return this.gearDb.getSetBonusThresholdDetails(option.set, 0)
-        .map(tier => `${option.set} set bonus at ${tier.threshold} pieces:\n`
-          + tier.affixes.map(affix => '- ' + this.getAffixDescription(affix)).join('\n'))
-        .join('\n');
-    }
-    if (!option?.affixes?.length) return '';
-    const optionName = option.name || option.set || option.describe(false);
-    const optionAffixes = option.affixes.flatMap(affix => {
-      const expandedAffixes = this.affixSvc.ungroupAffix(affix);
-      return expandedAffixes.length ? expandedAffixes : [affix];
-    });
-    return optionName + ' is:\n' + optionAffixes.map(affix => '- ' + this.getAffixDescription(affix)).join('\n');
-  }
-
   private getAffixDescription(affix: Affix): string {
     if (affix.type === 'Bool' && affix.value === 1) {
       return affix.name;
@@ -560,12 +540,9 @@ export class AffixUiService {
       : this.candidateFor(context.item, undefined, undefined, { kind: context.bonusKind, option });
     const rankingTooltip = this.getCraftingOptionRankTooltip(option, slot, candidate);
     const setPieces = this.getSetPieces(option, alreadyEquipped);
-    const optionTooltip = this.getCraftingOptionTooltip(option);
     const short = !!setPieces && setPieces.pieces < setPieces.required;
     return {
       className: this.getClassForCraftingOption(option, candidate),
-      tooltip: [optionTooltip, rankingTooltip].filter(tooltip => tooltip).join('\n\n'),
-      optionTooltip,
       // Only while the set is short; a complete set's colour already says what it gives.
       note: short ? `${setPieces!.pieces} of ${setPieces!.required} set pieces` : '',
       rankTooltip: rankingTooltip,

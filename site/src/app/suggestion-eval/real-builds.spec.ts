@@ -50,6 +50,8 @@ const PROGRESS = process.env['SUGGESTION_EVAL_LOG'];
 /** SUGGESTION_EVAL_SLOTS=Helm|Goggles ranks only those slots; SUGGESTION_EVAL_DETAIL=1 logs each ranking. */
 const ONLY_SLOTS = process.env['SUGGESTION_EVAL_SLOTS']?.split('|');
 const DETAIL = !!process.env['SUGGESTION_EVAL_DETAIL'] && !!PROGRESS;
+/** SUGGESTION_EVAL_SPLIT=1 (with DETAIL) also logs app v2's top 25, each with its score without crafting. */
+const SPLIT = !!process.env['SUGGESTION_EVAL_SPLIT'];
 /**
  * Only builds whose equipped items' median minimum level is in this range (both default to all):
  * SUGGESTION_EVAL_MIN_ML=28 keeps endgame builds. Heroic and epic builds use different sets and
@@ -344,6 +346,16 @@ describe.skipIf(!BUILDS_FILE)('real builds', () => {
           if (DETAIL) {
             const top = [...scores].sort((a, b) => b.s - a.s).slice(0, 3).map(entry => entry.name);
             detail.push(`${name}: rank ${rank} (top: ${top.join('; ')})`);
+            if (SPLIT && name === 'app v2') {
+              // Each candidate's score without its crafting slots, to see how much crafting carries.
+              const bare = (item: Item) => { const copy = new Item(item); copy.crafting = []; return copy; };
+              const ranked = pool.map((item, i) => ({ name: item.name, s: scores[i].s, native: score(bare(item), slot), crafts: item.crafting?.length ?? 0 }))
+                .sort((a, b) => b.s - a.s);
+              const fmt = (e: typeof ranked[number], r: number) => `#${r} ${e.name} ${e.s.toFixed(3)} native ${e.native.toFixed(3)} crafts ${e.crafts}`;
+              ranked.slice(0, 25).forEach((e, r) => detail.push(`  ${fmt(e, r + 1)}`));
+              const me = ranked.findIndex(e => e.name === actual.name);
+              detail.push(`  MINE ${fmt(ranked[me], me + 1)}`);
+            }
           }
           for (const target of [loo, looAll]) {
             target.rankSum[name] = (target.rankSum[name] ?? 0) + rank;

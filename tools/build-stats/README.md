@@ -59,6 +59,10 @@ for each scorer). Options, all environment variables:
   scorers, by name substring, several separated by `|`.
 - `SUGGESTION_EVAL_LOG=<file>` appends a line per leave-one-out build, to
   follow a long run.
+- `SUGGESTION_EVAL_SLOTS=Helm|Cloak` ranks only those slots, and
+  `SUGGESTION_EVAL_DETAIL=1` (with a log) logs where each player's item
+  ranked and each scorer's top 3. `SUGGESTION_EVAL_SPLIT=1` adds the app
+  scorer's top 25, each with its score without crafting slots.
 - `SUGGESTION_EVAL_SHARD=k/n` ranks only every nth build from the kth, so n
   processes can split the work (the machine needs a core each). Merge their
   reports with `python3 tools/build-stats/merge-loo.py shard-0.json shard-1.json ...`.

@@ -26,6 +26,7 @@ import { isOptionHiddenByPacks } from '../gear/pack-filter';
  *    without that stand-in, since it would replace it.
  *
  *  - Basic's seldom-filled utility effects count for a quarter (UTILITY_AFFIXES).
+ *  - What a candidate's own crafting slots add counts for three quarters (OWN_CRAFTING_CREDIT).
  *
  * In a simulation, against an expert's priorities and against 1,316 slots of players' saved builds,
  * this beat the earlier scorer (docs/suggestions-analysis.md), and it is quicker. Crafting rules that span slots
@@ -42,6 +43,17 @@ export const UTILITY_AFFIXES: ReadonlySet<string> = new Set([
   'Concealment', 'Immunity to Fear', 'Heroic Inspiration', 'Undying', 'Feather Falling', 'Incorporeality',
 ]);
 export const UTILITY_WEIGHT = 0.25;
+
+/**
+ * What a candidate's own empty crafting slots count for, against its built-in affixes. At full
+ * credit, items that are mostly crafting slots - the Lamordian, Downcast and Gravekeeper helms and
+ * cloaks (five slots each, near-identical), The Anguished Mind (seven, no affixes) - filled the top
+ * 20 and pushed out the items players actually wear: Helm, top 20 61% against the old scorer's 66%.
+ * At 0.75 it's 68%, and every slot, the simulation and the expert check gain or hold
+ * (docs/suggestions-analysis.md, "Why Helm did worse"). The greedy fill is optimistic anyway: it
+ * ignores crafting rules that span slots, and what the crafting costs.
+ */
+export const OWN_CRAFTING_CREDIT = 0.75;
 
 export function utilityWeightFactor(affixName: string): number {
   return UTILITY_AFFIXES.has(affixName) ? UTILITY_WEIGHT : 1;
@@ -62,6 +74,8 @@ export interface SuggestionScorerInputs {
   hiddenPacks: ReadonlySet<string>;
   /** A factor on an affix's weight, for affixes to count for less than the usual (default: none). */
   weightFactor?: (affixName: string) => number;
+  /** A factor on what a candidate's own empty crafting slots add (default OWN_CRAFTING_CREDIT). */
+  ownCraftingCredit?: number;
 }
 
 interface Need {
@@ -263,7 +277,7 @@ export function makeSuggestionScorer(inputs: SuggestionScorerInputs, slot: strin
   };
 
   /** The candidate's values with its own crafting filled, and what was put where. */
-  const evaluate = (item: Item): { base: number[]; values: number[]; crafts: SuggestedCraft[] } => {
+  const evaluate = (item: Item): { base: number[]; uncrafted: number[]; values: number[]; crafts: SuggestedCraft[] } => {
     const base = item.artifact ? filledBase : plannedBase;
     const values = base.slice();
     const crafts: SuggestedCraft[] = [];
@@ -272,6 +286,7 @@ export function makeSuggestionScorer(inputs: SuggestionScorerInputs, slot: strin
     if (sets.length) {
       apply(values, setGain(sets));
     }
+    const uncrafted = values.slice();
     (item.crafting ?? []).forEach((craftable, index) => {
       if (craftable.selected?.affixes.length || craftable.selected?.set) {
         return;
@@ -292,15 +307,17 @@ export function makeSuggestionScorer(inputs: SuggestionScorerInputs, slot: strin
         crafts.push({ index, option: best.choice.option, system: best.choice.system });
       }
     });
-    return { base, values, crafts };
+    return { base, uncrafted, values, crafts };
   };
 
+  const craftingCredit = inputs.ownCraftingCredit ?? OWN_CRAFTING_CREDIT;
   const score = (item: Item) => {
-    const { base, values } = evaluate(item);
+    const { base, uncrafted, values } = evaluate(item);
     let total = 0;
     for (let i = 0; i < needs.length; i++) {
       if (values[i] !== base[i]) {
-        total += perNeed(i, values[i]) - perNeed(i, base[i]);
+        total += perNeed(i, uncrafted[i]) - perNeed(i, base[i])
+          + craftingCredit * (perNeed(i, values[i]) - perNeed(i, uncrafted[i]));
       }
     }
     return total;

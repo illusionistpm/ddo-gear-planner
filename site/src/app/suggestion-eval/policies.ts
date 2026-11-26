@@ -3,7 +3,7 @@ import { Craftable } from '../gear/craftable';
 import { GearDbService } from '../gear/gear-db.service';
 import { Item } from '../gear/item';
 import { EquippedService } from '../planner/equipped.service';
-import { UTILITY_AFFIXES } from '../planner/suggestion-scorer';
+import { SuggestionScorerInputs, UTILITY_AFFIXES } from '../planner/suggestion-scorer';
 import {
   BuildState, Contribution, fillCrafting, flatTotalValue, gainOf, legacyObjective, meanFill, Need, NeedIndex, Objective, optionChoices
 } from './build-model';
@@ -68,7 +68,7 @@ export const liveScorer: Scorer = (ctx, state, open) => {
  * The app's own scorer v2 (EquippedService.getSuggestionScorer), with the state equipped like the
  * live scorer. It should reproduce the harness's "total value, augment-aware, planned artifact".
  */
-export function appScorerWith(options: { weightFactor?: (affixName: string) => number } = {}): Scorer {
+export function appScorerWith(options: Pick<SuggestionScorerInputs, 'weightFactor' | 'ownCraftingCredit'> = {}): Scorer {
   return (ctx, state, open) => {
     liveScorer(ctx, state, open);
     const perSlot = new Map<string, (item: Item) => number>();
@@ -312,6 +312,8 @@ export const SCORERS: Array<[string, Scorer]> = [
   ['live getScore', liveScorer],
   ['app v2', appScorer],
   ['app v2, no utility weighting', appScorerWith({ weightFactor: () => 1 })],
+  ['app v2, own crafting x1', appScorerWith({ ownCraftingCredit: 1 })],
+  ['app v2, own crafting x0.5', appScorerWith({ ownCraftingCredit: 0.5 })],
   ['total value, items only', marginalScorer(legacyObjective, { augmentAware: false })],
   ['total value, augment-aware', marginalScorer(legacyObjective, { augmentAware: true })],
   ['total value, augment-aware + discount', marginalScorer(legacyObjective, { augmentAware: true, scarcity: scarcityWithDiscount(0.35) })],

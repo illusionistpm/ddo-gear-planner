@@ -39,7 +39,7 @@ import {
   valuesForAffixType
 } from '../affixes/build-totals';
 import { expandTrackedAffixNames } from '../affixes/tracked-affix-family';
-import { makeSuggestionScorer, SuggestionScorer, utilityWeightFactor } from './suggestion-scorer';
+import { makeSuggestionScorer, SuggestionScorer, SuggestionScorerInputs, utilityWeightFactor } from './suggestion-scorer';
 import { combineBonusTypeValues, isSummedBonusType } from '../affixes/summed-bonus-types';
 
 /** Minimal shape of the browser's IdleDeadline, used without a lib.dom dependency. */
@@ -722,7 +722,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
    * drawer, since filling the build's own augment slots is the costly part. `options` overrides the
    * weighting, for the suggestion harness's comparisons.
    */
-  getSuggestionScorer(slot: string, options: { weightFactor?: (affixName: string) => number } = {}): SuggestionScorer {
+  getSuggestionScorer(slot: string, options: Pick<SuggestionScorerInputs, 'weightFactor' | 'ownCraftingCredit'> = {}): SuggestionScorer {
     return makeSuggestionScorer({
       weightFactor: utilityWeightFactor,
       ...options,

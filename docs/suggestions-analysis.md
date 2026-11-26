@@ -181,7 +181,9 @@ Two things the prework found before this was trusted:
 
 By slot, it puts the player's item in the top 20 more often everywhere except
 Helm (57% against 64%), where its average rank is still better (30 against
-40). Weapons stay poor under both (24%), since they're chosen by type.
+40). Weapons stay poor under both (24%), since they're chosen by type. The
+Helm gap came from over-crediting candidates' own crafting slots, now fixed;
+see "Why Helm did worse".
 
 The ranking without utility weighting was 0.28 / 69% / 49. With it,
 simulated total value drops a little (it counts Concealment fully), but
@@ -224,6 +226,52 @@ every slot costs about 90 ms each, so it would need to run in the background
 rather than when a drawer opens. The tracked Max Filigree Slots row already
 lists every artifact, so this probably fits best as a step in the build-goals
 setup ("pick your artifact").
+
+## Why Helm did worse (2026-11-26)
+
+A Helm-only leave-one-out over every finished endgame build (fresh export:
+685 saved builds, 66 share links; 501 helms), with each v2 score split into
+what the item's own affixes give and what its empty crafting slots give
+(`SUGGESTION_EVAL_SPLIT=1`):
+
+- **Crafting carries v2's top 20.** On average 79% of a top-20 helm's score
+  comes from its crafting slots, against 65% for the helm the player wore.
+- **A family of near-twins fills it.** The Lamordian, Downcast and
+  Gravekeeper helms (Cap, Top Hat, Cowl, Helm, Bowler: 15 items) all have
+  Dolorous + Melancholic + Sun + Green + Colorless slots and one small
+  affix besides Insight Physical Sheltering. They score within a few percent
+  of each other, and on average 9.7 of them sit in v2's top 20 (all 15 in 193
+  builds). The helms players wear (Helm of the Crownblade, of Eternal Day,
+  University Sentry's Helm, Crown of Evening's Rise...) land just below,
+  at 21-30. Counting the family as one entry would have put v2 at about 73%,
+  ahead of live's 66%.
+- **The Anguished Mind** (Relentless end chest, ML 34) has no affixes at all,
+  just seven crafting slots, four of them Lamordian. It's in v2's top 20 for
+  362 of 501 builds, and 4 players wear it. That isn't players avoiding raid
+  loot: raid items are 13% of worn helms against 11% of candidates, and the
+  most-worn helm, The Skull of the Horned King (35), is raid loot. It's the
+  crafting credit at its most extreme.
+- **Cloak has the same family** (16 items, plus The Deathly Shroud), about 10
+  of them in its top 20. There v2 still beat live (65% against 56%), because
+  live does badly on cloaks. Helm was where live happened to do well.
+
+The greedy fill is optimistic: it ignores crafting rules that span slots and
+what crafting costs. So a candidate's own crafting slots now count for
+three quarters of what they'd add (`OWN_CRAFTING_CREDIT`). What the build's
+other items' crafting does is unchanged.
+
+| | Players' item in top 20: all slots / Helm | MRR, all slots | Simulation, total value (4 profiles) | Lominal's tiers (Melee / Ranged / Healer) |
+|---|---|---|---|---|
+| live (Helm only) | - / 66% | - | - | - |
+| v2, own crafting ×1 | 71% / 61% | 0.31 | 56.8% | 66.2 / 66.7 / 69.1% |
+| **v2, ×0.75 (now)** | **72% / 68%** | **0.33** | **57.2%** | **67.2 / 69.2 / 71.5%** |
+| v2, ×0.5 | 73% / 69% | 0.34 | 56.3% | 68.3 / 69.4 / 69.9% |
+
+The all-slots columns are 389 builds (5,065 slots); one of the four shards
+ran out of heap and is missing. ×0.75 gains or holds in every slot. ×0.5
+agrees with players a little more but loses total value (Healer −1.8), so
+three quarters it is. Helm MRR goes from 0.27 to 0.31 and mean rank from 28
+to 26.
 
 ## The minor artifact
 

@@ -101,10 +101,12 @@ describe('ItemSuggestionsComponent (characterization)', () => {
 // From scorer v2, minor artifacts listed apart. The earlier scorer led with Doctor Lifestone's
 // Hunting Horn, Legendary Bottle of Smoke, Legendary Pearl of Uncanny Prediction, Echo of the Icon
 // and Legendary Periapt of Strength; Legendary Heartshard is the Trinket most saved endgame builds wear.
+// Own crafting at three quarters (OWN_CRAFTING_CREDIT) put Bauble of Draconic Resistance ahead of
+// Legendary Mark of the Dark Powers.
 const TODAYS_TOP_TRINKETS: string[] = [
   'Legendary Heartshard',
   'The Bloodstained Letter',
   'Legendary Tiny Brain in a Tiny Jar',
+  'Bauble of Draconic Resistance',
   'Legendary Golden Souvenir Coin',
-  'Legendary Mark of the Dark Powers',
 ];

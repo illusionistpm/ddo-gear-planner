@@ -39,7 +39,7 @@ import {
   valuesForAffixType
 } from '../affixes/build-totals';
 import { expandTrackedAffixNames } from '../affixes/tracked-affix-family';
-import { makeSuggestionScorer, utilityWeightFactor } from './suggestion-scorer';
+import { makeSuggestionScorer, SuggestionScorer, utilityWeightFactor } from './suggestion-scorer';
 import { combineBonusTypeValues, isSummedBonusType } from '../affixes/summed-bonus-types';
 
 /** Minimal shape of the browser's IdleDeadline, used without a lib.dom dependency. */
@@ -722,7 +722,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
    * drawer, since filling the build's own augment slots is the costly part. `options` overrides the
    * weighting, for the suggestion harness's comparisons.
    */
-  getSuggestionScorer(slot: string, options: { weightFactor?: (affixName: string) => number } = {}): (item: Item) => number {
+  getSuggestionScorer(slot: string, options: { weightFactor?: (affixName: string) => number } = {}): SuggestionScorer {
     return makeSuggestionScorer({
       weightFactor: utilityWeightFactor,
       ...options,
@@ -730,7 +730,9 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
       affixSvc: this.affixSvc,
       gearDB: this.gearList,
       slots: this.slotValues,
-      tracked: this.importantAffixes,
+      // Max Filigree Slots too while the planner tracks it itself (Minor Artifact levels): it ranks
+      // artifacts, and a one-slot artifact falls far behind a five-slot one at cap.
+      tracked: this.isFiligreeTrackingActive() ? new Set([...this.importantAffixes, MAX_FILIGREE_SLOTS_AFFIX]) : this.importantAffixes,
       isIgnored: (affixName, bonusType) => this.isAffixTypeIgnored(affixName, bonusType),
       maxLevel: this.gearList.getMaxLevelFilter(),
       hiddenPacks: this.gearList.getHiddenPacks(),

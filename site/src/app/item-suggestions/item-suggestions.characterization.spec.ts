@@ -80,6 +80,15 @@ describe('ItemSuggestionsComponent (characterization)', () => {
     expect(suggestedNames().some(isArtifact)).toBe(false);
   });
 
+  it('shows copies, so crafting changed in the drawer never touches the gear database', () => {
+    open('Belt', meleeTracked());
+    const component = fixture.componentInstance;
+    const database = new Set(TestBed.inject(GearDbService).getFilteredGearBySlot('Belt'));
+
+    expect(component.gear.length).toBeGreaterThan(0);
+    expect([...component.gear, ...component.artifacts].some(item => database.has(item))).toBe(false);
+  });
+
   it('offers no artifact list once another slot holds an artifact', () => {
     const gearDB = TestBed.inject(GearDbService);
     TestBed.inject(EquippedService).set(gearDB.getFilteredGearBySlot('Ring1')!.find(item => item.artifact)!);

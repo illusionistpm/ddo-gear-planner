@@ -67,6 +67,7 @@
       <div class="row">
         <span>{{searchQuery.trim() ? 'Matching items:' : 'Suggested items:'}} </span>
       </div>
+      <p class="suggestion-note">Empty crafting slots are filled with what the planner would put in them for your goals. Change them here before you equip.</p>
 
       @for (item of gear; track item.name) {
         <ng-container *ngTemplateOutlet="suggestion; context: { $implicit: item }"></ng-container>
@@ -132,7 +133,8 @@
       }
     </div>
     <div class="row">
-      <app-gear-description class="col" [item]=item [readonly]=true></app-gear-description>
+      <!-- Editable but not equipped on change: the player can try other crafting options, then Equip. -->
+      <app-gear-description class="col" [item]=item [readonly]=false [equipOnChange]=false></app-gear-description>
     </div>
     <hr>
   </div>

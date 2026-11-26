@@ -195,9 +195,35 @@ ordinary items. The section is hidden while another slot holds an artifact
 build's Trinket slot the main list now starts with Legendary Heartshard, the
 Trinket most saved endgame builds wear.
 
-**Not built yet:** a build-wide "your artifact" view across slots. Scoring
+**Follow-ups (built 2026-11-25):**
+
+- **Max Filigree Slots now counts** in the score whenever the planner tracks
+  it (Minor Artifact levels). Without it, Epic Voice of the Master (one
+  filigree slot, Heroic Inspiration, Good Luck, Speed) ranked second among
+  Trinket artifacts. It's a fine level-20 item that no capped build wears.
+  The Trinket artifacts are now The Hydra's Heart, Demogorgon's Reign and
+  Perfected Bloodstone.
+- **Suggestions show their crafting filled in.** The scorer reports the
+  options it counted for each empty crafting slot, and the drawer shows and
+  equips the item with those selected. A Dinosaur Bone Belt shows Claw: MRR,
+  Fang: Deception, Scale: Constitution and so on, not seven "Empty" rows. A
+  note above the list says these are suggestions.
+- **"Show N more artifacts"** after the first three. The main list pages 20
+  at a time with master's "Show 20 more", and artifacts are kept out of it.
+
+**Not built yet:**
+
+- (Since built.) **Crafting pickers in the drawer.** Each suggestion's crafting
+  slots use the planner's crafting option picker, with the suggested pick
+  selected. The picker builds its list only when opened, and the drawer opens
+  as fast as the read-only version did (about 350-460 ms against 310-430 ms in
+  development mode). Changes edit the drawer's copy of the item, which Equip
+  then equips. They never touch the gear database's shared item.
+- **A build-wide "your artifact" view** across slots. Scoring
 every slot costs about 90 ms each, so it would need to run in the background
-rather than when a drawer opens.
+rather than when a drawer opens. The tracked Max Filigree Slots row already
+lists every artifact, so this probably fits best as a step in the build-goals
+setup ("pick your artifact").
 
 ## The minor artifact
 

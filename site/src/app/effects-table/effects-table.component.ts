@@ -1,3 +1,4 @@
+import { AffixUiService } from '../affixes/affix-ui.service';
 import { Component, DoCheck, ElementRef, OnDestroy, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
@@ -162,7 +163,8 @@ export class EffectsTableComponent implements OnInit, DoCheck, OnDestroy {
     private availability: AffixAvailabilityService,
     private derivation: TrackedAffixDerivationService,
     public sourceHighlight: AffixSourceHighlightService,
-    private goalUndo: GoalUndoService
+    private goalUndo: GoalUndoService,
+    public affixUi: AffixUiService
   ) {
     this.affixNames = [];
     this.boolAffixNames = [];

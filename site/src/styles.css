@@ -1781,7 +1781,9 @@ code {
   --bs-popover-box-shadow: var(--shadow-lg);
   --bs-popover-max-width: 22rem;
   box-shadow: var(--shadow-lg);
-  z-index: 1200;
+  /* The crafting pickers' layer (.crafting-picker-container): above the drawers, the item
+     preview and the dialogs an affix name can sit in. At 1200 it opened behind the drawer. */
+  z-index: 1300;
 }
 
 /* Opened below its name, the arrow meets the header band: it takes the band's color. */

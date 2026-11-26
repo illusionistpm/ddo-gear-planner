@@ -157,8 +157,9 @@
                     (click)="equipped.toggleImportantAffix(affix.name)"></button>
                   }
                   <div class="col-auto ps-1 pe-0 set-threshold">{{tier.threshold}} pc</div>
-                  <div class="col">{{affix.name}}</div>
+                  <div class="col"><app-affix-name [name]="affix.name" [details]="affixUi.detailsFor(affix.name, affix.type, affix.value)" [panel]="setBonusTip" /></div>
                   <div class="col-4 ps-1 pe-2">{{affix.hasRealType() ? affixUi.getAffixValue(affix) + ' ' + affix.type : ''}}</div>
+                  <app-tap-tooltip-panel #setBonusTip />
                 </div>
               }
             }

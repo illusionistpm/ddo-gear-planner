@@ -55,6 +55,11 @@ export class AffixDescriptionService {
     return this.descriptions() !== null;
   }
 
+  /** Changes whenever the text does (it loads, or a spec gives its own): for caches of what's built from it. */
+  get revision(): object | null {
+    return this.descriptions();
+  }
+
   /**
    * What the affix does, worded for its type and value where it has them: "+5 Insight bonus to
    * weapon damage." With no value (the affix picker) its number is "X", as is any other number the

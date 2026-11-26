@@ -472,6 +472,9 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     let startedFresh = false;
     if (!this.equipped.getImportantAffixes().size) {
+      // The URL stays bare until the player changes something: Basic is the
+      // app's choice, not a reason to rewrite the address bar.
+      this.queryParams.holdUntilFirstEdit();
       this.queryParams.replacingUrl(() => this.affixPackages.addDefaultPackage());
       startedFresh = true;
       // The app picked Basic, not the user - it isn't an unsaved change. Only

@@ -81,7 +81,7 @@
               </div>
               <div class="text-end">{{match.value}}</div>
               <div>
-                <button type="button" class="equip-button" (click)="setItemBonus(match)">Set</button>
+                <button type="button" class="equip-button" data-drawer-nav (click)="setItemBonus(match)">Set</button>
               </div>
             </div>
           }
@@ -142,7 +142,7 @@
                   </option>
                 }
               </select>
-              <button type="button" class="equip-button slot-equip" (click)="equipAugment(elem.key)">Equip</button>
+              <button type="button" class="equip-button slot-equip" data-drawer-nav (click)="equipAugment(elem.key)">Equip</button>
             } @else {
               <!-- Why there is nothing to equip into, in place of a dead button. -->
               <span class="slot-empty">No free slot for it on your equipped gear</span>
@@ -181,7 +181,7 @@
                   <option [ngValue]="choice" [title]="slotChoiceTitle(choice)">{{slotChoiceLabel(choice)}}</option>
                 }
               </select>
-              <button type="button" class="equip-button slot-equip" (click)="equipCraftIntoEquipped(elem.key)">Equip</button>
+              <button type="button" class="equip-button slot-equip" data-drawer-nav (click)="equipCraftIntoEquipped(elem.key)">Equip</button>
             }
           </div>
         </div>
@@ -211,7 +211,7 @@
           <div class="col-6">{{set[0]}}</div>
           <div class="col-2 text-end">{{set[2]}}</div>
           <div class="col-2">
-            <button type="button" class="equip-button set-view-button" (click)="showItemsInSet(set[0])">View</button>
+            <button type="button" class="equip-button set-view-button" data-drawer-nav (click)="showItemsInSet(set[0])">View</button>
           </div>
         </div>
       }
@@ -228,7 +228,7 @@
               <div class="col-6">{{set[0]}}</div>
               <div class="col-2 text-end">{{set[2]}}</div>
               <div class="col-2">
-                <button type="button" class="equip-button set-view-button" (click)="showItemsInSet(set[0])">View</button>
+                <button type="button" class="equip-button set-view-button" data-drawer-nav (click)="showItemsInSet(set[0])">View</button>
               </div>
             </div>
           }
@@ -256,7 +256,7 @@
             <div class="row item-result-row filigree-match-row filigree-match-grid"
               [class.selected-preview-row]="isPreviewedFiligree(match.name)">
               <div class="filigree-match-name">
-                <button type="button" class="item-preview-link" [title]="'Show the ' + match.sets.join(' and ') + ' set'"
+                <button type="button" class="item-preview-link" data-drawer-nav [title]="'Show the ' + match.sets.join(' and ') + ' set'"
                   (click)="showFiligreeSetOf(match.name)">{{match.name}}</button>
               </div>
               <div class="text-end" [title]="match.rareValue !== match.value ? 'Rare copy: ' + match.rareValue : ''">
@@ -283,7 +283,7 @@
           <div class="row item-result-row filigree-set-match-row" [class.selected-preview-row]="isPreviewedFiligreeSet(match.set)">
             <div class="col-2">{{match.threshold}}+</div>
             <div class="col-8">
-              <button type="button" class="item-preview-link" (click)="showFiligreeSet($index)">{{match.set}}</button>
+              <button type="button" class="item-preview-link" data-drawer-nav (click)="showFiligreeSet($index)">{{match.set}}</button>
             </div>
             <div class="col-2 text-end">{{match.value}}</div>
           </div>
@@ -311,7 +311,7 @@
           <div class="col-1">{{item.ml}}</div>
           <div class="col-2">{{item.slot}}</div>
           <div class="col-7">
-            <button type="button" class="item-preview-link" (click)="showItemPreview(item, matches.slice(0, maxRenderedItems), $index)">
+            <button type="button" class="item-preview-link" data-drawer-nav (click)="showItemPreview(item, matches.slice(0, maxRenderedItems), $index)">
               {{item.name}}
             </button>
             @if (userOwnsItem(item)) {
@@ -348,7 +348,7 @@
               <div class="col-1">{{item.ml}}</div>
               <div class="col-2">{{item.slot}}</div>
               <div class="col-7">
-                <button type="button" class="item-preview-link" (click)="showItemPreview(item, lockedMatches.slice(0, maxRenderedItems), $index)">
+                <button type="button" class="item-preview-link" data-drawer-nav (click)="showItemPreview(item, lockedMatches.slice(0, maxRenderedItems), $index)">
                   {{item.name}}
                 </button>
                 @if (userOwnsItem(item)) {

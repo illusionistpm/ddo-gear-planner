@@ -41,3 +41,19 @@
     width: 100%;
   }
 }
+
+/* Held at the drawer's foot while its list scrolls. */
+.drawer-kbd-hint {
+  background: var(--surface-elevated-color);
+  border-top: 1px solid var(--border-color);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: var(--space-4) var(--space-12);
+  position: sticky;
+}
+
+.drawer-kbd-sep {
+  margin: 0 var(--space-4);
+}

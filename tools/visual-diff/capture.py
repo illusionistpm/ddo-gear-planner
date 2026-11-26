@@ -190,6 +190,8 @@ SEED_SCRIPT = """
   localStorage.setItem('ddo-gear-planner-active-tab', tab);
   localStorage.setItem('ddo-planner-onboarding-state-v1',
     JSON.stringify({ completed: onboardingDone, dismissed: onboardingDone }));
+  // The scenes are the planner's: a bare '/' would otherwise open the start page.
+  localStorage.setItem('ddo-gear-planner-open-planner-directly', '1');
   const kill = document.createElement('style');
   kill.textContent = '*, *::before, *::after { animation: none !important; transition: none !important;'
     + ' caret-color: transparent !important; }';

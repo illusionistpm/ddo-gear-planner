@@ -67,6 +67,7 @@ import { StillNeededPageComponent } from './still-needed-page/still-needed-page.
 import { GroupRunPageComponent } from './group-run-page/group-run-page.component';
 import { ComparePageComponent } from './compare-page/compare-page.component';
 import { StartPageComponent } from './start/start-page.component';
+import { PackChecklistComponent } from './filters/pack-checklist.component';
 import { MenuBackdropComponent } from './menu-backdrop/menu-backdrop.component';
 import { UndoStripComponent } from './undo/undo-strip.component';
 import { BuildChoicesComponent } from './shopping-list/build-choices.component';
@@ -138,6 +139,7 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         NgbTypeaheadModule,
         BrowserModule,
         FormsModule,
+        PackChecklistComponent,
         CdkScrollable,
         MenuBackdropComponent,
         UndoStripComponent,

@@ -859,7 +859,10 @@ select.form-control {
   color: var(--primary-color);
 }
 
-/* Marks an affix a chosen upgrade tier replaced; its tooltip says what it was. */
+/*
+ * Marks an affix a chosen upgrade tier replaced; its tooltip says what it was. A single chevron
+ * (.masterworks-affix-icon) marks a value a Masterworks curse might raise, which the planner can't apply.
+ */
 .upgraded-affix-icon {
   color: var(--primary-color);
   font-style: normal;

@@ -105,11 +105,17 @@ describe('buildFamilyRows', () => {
   });
 
   it('lets a named option with no affixes be hidden, and names it once', () => {
-    const masterworks = option({ name: 'Curse of Minor Masterworks' });
-    const row = byLabel('Curse of Minor Masterworks', rows([masterworks]));
+    const pact = option({ name: 'Curse of the Pact' });
+    const row = byLabel('Curse of the Pact', rows([pact]));
 
     expect(row.hideable).toBe(true);
     expect(row.aside).toBe('');
+  });
+
+  it('never hides a Masterworks curse, which boosts some of nearly any item\'s values', () => {
+    const masterworks = option({ name: 'Curse of Minor Masterworks' });
+
+    expect(byLabel('Curse of Minor Masterworks', rows([masterworks])).hideable).toBe(false);
   });
 
   describe('what an option adds', () => {

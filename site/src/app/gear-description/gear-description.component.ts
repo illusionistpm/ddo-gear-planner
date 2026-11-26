@@ -19,7 +19,7 @@ import { UserGearService, UserItemLocation } from '../planner/user-gear.service'
 import { isCraftingSlotAvailable, normalizeAugmentSlots } from '../gear/augment-slots';
 import { CRAFTING_PICKER_MIN_OPTIONS } from '../crafting-option-picker/crafting-option-picker.component';
 import { CraftingSlotControlComponent } from '../crafting-slot-control/crafting-slot-control.component';
-import { ITEM_BONUS_KINDS, ItemBonusKind } from '../gear/item-bonus';
+import { ITEM_BONUS_KINDS, ItemBonusKind, masterworksHigher, masterworksLevels } from '../gear/item-bonus';
 import { ItemBonusService } from '../gear/item-bonus.service';
 import { ITEM_BONUS_KIND_LABELS, ItemBonusSettingsService } from '../planner/item-bonus-settings.service';
 
@@ -33,6 +33,8 @@ interface AffixDisplayRow {
   valueText: string;
   /** Set when a chosen upgrade replaced the item's own affix with this one: what it was, and by what. */
   upgradeNote: string;
+  /** Set when the item's Masterworks curse might raise this value, which the planner can't apply. */
+  masterworksNote: string;
 }
 
 /** A crafting slot's row; its controls are a CraftingSlotControlComponent's. */
@@ -182,6 +184,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
 
     // Ranked as if this item were equipped in its slot - which, for the equipped item, it is.
     const candidate = this.affixUi.candidateFor(this.curItem);
+    const masterworksNote = this.masterworksNote(this.curItem);
     const rows = this.curItem.getUpgradedOwnAffixes().map(({ affix, replaced, by }) => {
       return {
         affix,
@@ -190,7 +193,9 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
         important: this.equipped.isImportantAffix(affix.name),
         details: this.affixUi.getAffixDetails(affix, this.curItem?.ml),
         valueText: affix.hasRealType() ? this.affixUi.getAffixValueText(affix) : '',
-        upgradeNote: replaced && by ? this.upgradeNote(replaced, by) : ''
+        upgradeNote: replaced && by ? this.upgradeNote(replaced, by) : '',
+        // A Bool effect has no power to raise.
+        masterworksNote: affix.hasRealType() ? masterworksNote : ''
       };
     });
     done({ rows: rows.length });
@@ -203,6 +208,20 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
       ? `${replaced.name} ${this.affixUi.getAffixValueText(replaced)}`
       : replaced.name;
     return `${by.describe()} - was ${was}`;
+  }
+
+  /**
+   * The tooltip for values a Masterworks curse might raise, or '' without one. The wiki says only that "some
+   * effects" scale as if the item were higher level, not which, so the values stay the item's own.
+   */
+  private masterworksNote(item: Item): string {
+    const curse = item.bonuses.curse;
+    const levels = masterworksLevels(curse);
+    if (!curse || !levels) {
+      return '';
+    }
+    return `${curse.name} may boost this value: it powers some of the item's effects as if it were ${masterworksHigher(levels)} higher`
+      + ` (ML ${item.ml + levels}). Which ones isn't known, so the value shown is the item's own.`;
   }
 
   private buildCraftingRows(): CraftingDisplayRow[] {

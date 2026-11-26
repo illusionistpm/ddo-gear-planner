@@ -4,6 +4,7 @@ import { AffixRank, bestRankClass, compareRankClasses } from '../affixes/affix-r
 import { AffixChange, CraftingOptionRanking } from '../affixes/affix-ui.service';
 import { CraftableOption } from '../gear/craftable-option';
 import { CraftingOptionFamily } from '../gear/crafting-option-families';
+import { masterworksLevels } from '../gear/item-bonus';
 
 /** What an option would add to the build, as the figure at the end of its row. */
 export interface GainChip {
@@ -57,7 +58,8 @@ export interface FamilyRow {
   relevant: boolean;
   /**
    * Whether "hide options that don't help" may hide it: the empty option has nothing to judge. A named
-   * option the planner can't express (a curse like Masterworks) can be, so it hides like any irrelevant one.
+   * option the planner can't express can be, so it hides like any irrelevant one - except a Masterworks
+   * curse, which boosts some of nearly any item's values, so it always shows.
    */
   hideable: boolean;
   /** Whether the trove has any of its tiers. */
@@ -113,7 +115,7 @@ export function buildFamilyRows(
       tiers,
       searchText: [family.label, ...detailParts, ...family.tiers.map(option => option.describe())].join('\n').toLowerCase(),
       relevant: tiers.some(tier => tier.className !== IRRELEVANT),
-      hideable: first.affixes.length > 0 || !!first.set || !!first.name,
+      hideable: (first.affixes.length > 0 || !!first.set || !!first.name) && !masterworksLevels(first),
       owned: tiers.some(tier => tier.owned),
       // The highest of equally good tiers, as `defaultTier` opens a family at.
       bestTier: tiers.reduce((best, tier) => tier.gainScore >= best.gainScore ? tier : best)

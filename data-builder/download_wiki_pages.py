@@ -385,6 +385,12 @@ def download_crafting_pages(session=None):
     download_page('Thunder-Forged', pageDir, session=session)
     for tier in [1, 2, 3]:
         download_page(f'Legendary_Green_Steel_items/Tier_{tier}', pageDir, session=session)
+    # The Temple of Elemental Evil upgrades: the items each tier applies to and
+    # what it adds. Tier 2 of the Epic armors and weapons grants the Epic
+    # Elemental Evil Set, which no item row names.
+    download_page('ToEE_Crafting', pageDir, session=session)
+    download_page('Temple_of_Elemental_Evil_Upgradeable_Armors', pageDir, session=session)
+    download_page('Temple_of_Elemental_Evil_Upgradeable_Weapons', pageDir, session=session)
 
 
 # Bonuses an item can carry on top of its fixed affixes: Mythic Boosts and

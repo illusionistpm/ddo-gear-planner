@@ -25,8 +25,9 @@ function jsonModuleValue<T>(module: { default?: T }): T {
 }
 
 /**
- * What affixes do, in DDO Wiki's words. The text (~55KB gzipped) is its own lazy chunk, fetched the
- * first time a view that shows it calls load(), so it costs the initial bundle nothing.
+ * What affixes do, in DDO Wiki's words. The text (~52KB gzipped) is its own lazy chunk, fetched the
+ * first time something asks for it - AffixUiService.detailsFor does - so it costs the initial bundle
+ * nothing.
  */
 @Injectable({
   providedIn: 'root'

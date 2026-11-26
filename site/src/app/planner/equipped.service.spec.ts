@@ -909,7 +909,7 @@ describe('EquippedService', () => {
     }
 
     function tooltip(item: Item, craft: Craftable) {
-      return affixUi.rankCraftingOption(brutalBlows, item.slot, false, { item, craft }).tooltip;
+      return affixUi.rankCraftingOption(brutalBlows, item.slot, false, { item, craft }).rankTooltip;
     }
 
     beforeEach(() => {

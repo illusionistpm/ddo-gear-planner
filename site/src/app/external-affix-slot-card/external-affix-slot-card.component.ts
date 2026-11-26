@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, ChangeDetectorRe
 import { Subscription } from 'rxjs';
 
 import { AffixService } from '../affixes/affix.service';
-import { AffixDescriptionService } from '../affixes/affix-description.service';
 import { AffixDetails, AffixUiService } from '../affixes/affix-ui.service';
 import { buildAffixTypeaheadEntries } from '../affixes/affix-typeahead';
 import { isCountAffix } from '../affixes/count-affix';
@@ -47,15 +46,12 @@ export class ExternalAffixSlotCardComponent implements OnInit, OnDestroy {
     private affixUi: AffixUiService,
     private gearDB: GearDbService,
     affixSvc: AffixService,
-    private changeDetector: ChangeDetectorRef,
-    private affixDescriptions: AffixDescriptionService
+    private changeDetector: ChangeDetectorRef
   ) {
     this.affixSource = buildAffixTypeaheadEntries(gearDB.getAllAffixes().filter(name => !isCountAffix(name)), affixSvc);
   }
 
   ngOnInit() {
-    // Read in the template, from a signal: the names gain their details when the text arrives.
-    void this.affixDescriptions.load();
     this.subscription = this.equipped.getExternalAffixesObservable().subscribe(entries => {
       // Display only - the stored order (and so the build URL) is untouched.
       this.entries = [...entries].sort(compareForDisplay);
@@ -84,7 +80,8 @@ export class ExternalAffixSlotCardComponent implements OnInit, OnDestroy {
 
   /** What the entry's affix does and, for a compound, what it counts toward; null leaves the name plain. */
   getDetails(entry: ExternalAffixEntry): AffixDetails | null {
-    return this.affixUi.getAffixDetails(externalAffixAsAffix(entry));
+    // Read on every check, so the cached details: the names gain them when the text arrives.
+    return this.affixUi.detailsFor(entry.affixName, entry.bonusType, entry.value);
   }
 
   remove(id: string) {

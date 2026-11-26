@@ -23,7 +23,7 @@
       <div class="col-1">{{item.ml}}</div>
       <div class="col-2">{{item.slot}}</div>
       <div class="col-9">
-        <a class="item-preview-link" [href]="item.getURL()" (click)="preview.show(item, matches, $index); $event.preventDefault()">
+        <a class="item-preview-link" data-drawer-nav [href]="item.getURL()" (click)="preview.show(item, matches, $index); $event.preventDefault()">
           {{item.name}}
         </a>
       </div>
@@ -40,7 +40,7 @@
             <div class="col-1">{{item.ml}}</div>
             <div class="col-2">{{item.slot}}</div>
             <div class="col-9">
-              <a class="item-preview-link" [href]="item.getURL()" (click)="preview.show(item, lockedMatches, $index); $event.preventDefault()">
+              <a class="item-preview-link" data-drawer-nav [href]="item.getURL()" (click)="preview.show(item, lockedMatches, $index); $event.preventDefault()">
                 {{item.name}}
               </a>
               @if (artifactLimited.has(item)) {

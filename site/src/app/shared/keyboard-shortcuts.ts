@@ -34,7 +34,7 @@ export const KEYBOARD_SHORTCUTS: ReadonlyArray<KeyboardShortcutGroup> = [
     shortcuts: [
       { combos: [['↓'], ['J']], action: 'Next item' },
       { combos: [['↑'], ['K']], action: 'Previous item' },
-      { combos: [['Enter']], action: 'Equip the selected item' },
+      { combos: [['Enter']], action: 'Equip the selected item, or preview it (Enter again equips it)' },
       { combos: [['Esc']], action: 'Close' }
     ]
   }
@@ -42,6 +42,11 @@ export const KEYBOARD_SHORTCUTS: ReadonlyArray<KeyboardShortcutGroup> = [
 
 export function isMacPlatform(): boolean {
   return typeof navigator !== 'undefined' && /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent || '');
+}
+
+/** Ctrl, or ⌘ on a Mac: what to call the key undo and save are held with. */
+export function modKeyLabel(): string {
+  return isMacPlatform() ? '⌘' : 'Ctrl';
 }
 
 /** Whether a key went to something being typed in, where a bare-letter shortcut must stand aside. */

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 
 import { GearDbService } from '../gear/gear-db.service';
@@ -12,7 +12,6 @@ import { DrawerEquipService } from '../suggestion-drawer/drawer-equip.service';
 import { slotLabel } from '../gear/slot-display';
 import { SlotUndoService } from '../undo/slot-undo.service';
 import { FilterSheetService } from '../planner/filter-sheet.service';
-import { isTypingTarget } from '../shared/keyboard-shortcuts';
 
 /** How many items the list shows at first, and adds with each "Show more". */
 const PAGE_SIZE = 20;
@@ -53,8 +52,7 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
     private drawerEquip: DrawerEquipService,
     private slotUndo: SlotUndoService,
     private filterSheet: FilterSheetService,
-    private changeDetector: ChangeDetectorRef,
-    private host: ElementRef<HTMLElement>
+    private changeDetector: ChangeDetectorRef
   ) { }
 
   ngOnDestroy() {
@@ -147,41 +145,6 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
 
   equipItem(item: Item) {
     this.drawerEquip.equip(item, 'slot_suggestions');
-  }
-
-  /**
-   * The keyboard's way through the choices: Down and Up (or J and K, when not
-   * typing in the search) move focus between the Equip buttons, from the
-   * search box into the list and back out of its top; Enter, on a focused
-   * button, equips that item as a click would.
-   */
-  @HostListener('keydown', ['$event'])
-  onKeydown(event: KeyboardEvent) {
-    if (event.defaultPrevented || event.ctrlKey || event.metaKey || event.altKey) {
-      return;
-    }
-    const typing = isTypingTarget(event.target);
-    const key = event.key;
-    const step = key === 'ArrowDown' || (!typing && key === 'j') ? 1
-      : key === 'ArrowUp' || (!typing && key === 'k') ? -1
-      : 0;
-    if (!step) {
-      return;
-    }
-    const buttons = Array.from(this.host.nativeElement.querySelectorAll<HTMLElement>(
-      '.crafted-item-button, .suggestion-equip-button:not(:disabled)'));
-    if (!buttons.length) {
-      return;
-    }
-    event.preventDefault();
-    const index = buttons.indexOf(event.target as HTMLElement);
-    if (index === -1) {
-      (step > 0 ? buttons[0] : buttons[buttons.length - 1]).focus();
-    } else if (index + step < 0) {
-      this.host.nativeElement.querySelector<HTMLElement>('#slotItemSearch')?.focus();
-    } else {
-      buttons[Math.min(index + step, buttons.length - 1)].focus();
-    }
   }
 
   onChange(slot: string) {

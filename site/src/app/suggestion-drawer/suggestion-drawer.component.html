@@ -19,6 +19,13 @@
 
     @if (state.kind === 'filigreeSet') {
       <app-filigree-set-drawer [setName]="state.setName"></app-filigree-set-drawer>
+    } @else {
+      <!-- The keyboard's way through the list (see onKeydown), where there's a keyboard. -->
+      <p class="kbd-hint drawer-kbd-hint" aria-hidden="true">
+        <kbd>↑</kbd><kbd>↓</kbd> move <span class="drawer-kbd-sep">·</span>
+        <kbd>Enter</kbd> {{state.kind === 'slot' ? 'equip' : 'choose'}} <span class="drawer-kbd-sep">·</span>
+        <kbd>Esc</kbd> close
+      </p>
     }
   </aside>
 }

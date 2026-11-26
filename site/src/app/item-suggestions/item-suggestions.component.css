@@ -129,3 +129,9 @@
   padding: 0;
   text-decoration: underline;
 }
+
+/* The item whose Equip button the keyboard has reached (Down/Up, J/K). */
+.container:has(> .row > .suggestion-equip-button:focus-visible) {
+  background: var(--selected-row-bg);
+  border-radius: var(--border-radius);
+}

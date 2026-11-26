@@ -6,6 +6,7 @@
     [attr.aria-selected]="isActiveTab('equipment')"
     [attr.tabindex]="isActiveTab('equipment') ? 0 : -1"
     aria-controls="equipmentPanel"
+    aria-keyshortcuts="1"
     (click)="selectTab('equipment')"><span class="planner-view-option-full">Equipment</span><span
       class="planner-view-option-short">Gear</span></button>
   <button type="button" id="affixesTab" class="planner-view-option" role="tab"
@@ -13,7 +14,7 @@
     [attr.aria-selected]="isActiveTab('affixes')"
     [attr.tabindex]="isActiveTab('affixes') ? 0 : -1"
     aria-controls="affixesPanel"
-    aria-keyshortcuts="G"
+    aria-keyshortcuts="2"
     (click)="selectTab('affixes')"><span class="planner-view-option-full">Build Goals</span><span class="planner-view-option-short">Goals</span></button>
 </div>
 

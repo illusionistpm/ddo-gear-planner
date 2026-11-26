@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import { BuildUrlCodecService } from './build-url-codec.service';
+import { EditHistoryService } from './edit-history.service';
 import { isBuildParamKey } from './build-param-keys';
 import { isBuildShortIdRoute, routePathOf, routeSegmentsOf, urlFragmentOf } from './build-route';
 import { perfMark, perfStart } from '../shared/perf-trace';
@@ -135,6 +136,11 @@ export class QueryParamsService {
   private readonly buildIdentitySubject = new ReplaySubject<BuildUrlIdentity | null>(1);
   readonly buildIdentityFromUrl$: Observable<BuildUrlIdentity | null> = this.buildIdentitySubject.asObservable();
 
+  // Stamps each edit's history entry, for undo and redo (see EditHistoryService).
+  private readonly editHistory = inject(EditHistoryService);
+  /** Inside replacingUrl(): edits replace the history entry instead of pushing one. */
+  private replacingWrites = 0;
+
   constructor(
     private readonly router: Router,
     private readonly buildUrlCodec: BuildUrlCodecService
@@ -200,6 +206,22 @@ export class QueryParamsService {
     this.ownedSlots = slots;
   }
 
+  /**
+   * Runs a change the app makes on arriving at a URL - the Basic package a
+   * bare "/" starts with - with its URL write replacing the entry rather than
+   * pushing one. Pushed, Back would land on the bare URL, which makes the
+   * same change again and pushes again: Back could never leave, and an undo
+   * there would wipe out the redo history.
+   */
+  replacingUrl(change: () => void): void {
+    this.replacingWrites++;
+    try {
+      change();
+    } finally {
+      this.replacingWrites--;
+    }
+  }
+
   _makeNavigateFn(pair: [unknown, ParamsSource]) {
     return (val: QueryParamRecord | null) => {
         const done = perfStart('QueryParamsService.navigateFromObservable');
@@ -217,7 +239,7 @@ export class QueryParamsService {
           return;
         }
 
-        this.navigateWithParams(this.withBuildIdentityForUrl(combinedParams), false);
+        this.navigateWithParams(this.withBuildIdentityForUrl(combinedParams), this.replacingWrites > 0);
         done({ keys: Object.keys(combinedParams).length });
       };
     }
@@ -530,7 +552,8 @@ export class QueryParamsService {
       queryParams,
       // The fragment is the view (the shopping list, say), not build state.
       preserveFragment: true,
-      replaceUrl
+      replaceUrl,
+      state: this.editHistory.stateForNavigation(replaceUrl)
     }).finally(() => {
       navigateDone({ route: routeSegments.join('/'), keys: Object.keys(queryParams).length, replaceUrl });
     });
@@ -548,7 +571,12 @@ export class QueryParamsService {
       return false;
     }
     // [] with no relativeTo stays on the current route (see navigateWithParams).
-    this.navigateAsAppWrite([], { queryParamsHandling: 'preserve', fragment: fragment ?? undefined, replaceUrl });
+    // Opening a view is no edit, so its push isn't stamped as one; a replace
+    // keeps the stamp of the entry it replaces.
+    this.navigateAsAppWrite([], {
+      queryParamsHandling: 'preserve', fragment: fragment ?? undefined, replaceUrl,
+      state: replaceUrl ? this.editHistory.stateForNavigation(true) : undefined
+    });
     return true;
   }
 

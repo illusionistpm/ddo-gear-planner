@@ -122,6 +122,14 @@ one must too. And never read the route path with `router.url.split('?')` - a
 fragment with no query string lands in the last segment. Use `routePathOf` /
 `routeSegmentsOf` (`build/build-route.ts`).
 
+**Undo and redo are steps through browser history.** Every edit pushes an
+entry, stamped by `EditHistoryService` with its place in a run of edits; a
+change the app makes *on arriving* at a URL (the Basic package a bare `/`
+starts with) must go through `QueryParamsService.replacingUrl`, or Back and
+undo land on the bare URL, which re-applies the change and pushes again -
+a Back trap that also wipes out redo. A `replaceUrl` navigation made outside
+`QueryParamsService` drops the stamp, which only switches undo off there.
+
 **`Craftable`'s selection strings travel in those URLs**: `"System: Option"`, or
 `"System (empty)"` for a system chosen with nothing in it yet. `craftable.spec.ts`
 pins every shape. Item copies use `Craftable.clone()` - don't route copies back

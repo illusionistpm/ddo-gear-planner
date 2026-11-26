@@ -28,6 +28,9 @@ import { SupportLinkComponent } from '../support-link/support-link.component';
 import { PageChromeBack } from '../page-chrome/page-chrome.component';
 import { CloseRequestRelease, CloseRequestService } from '../shared/close-request.service';
 import { FilterSheetService } from '../planner/filter-sheet.service';
+import { EditHistoryService } from '../build/edit-history.service';
+import { UndoService } from '../undo/undo.service';
+import { isTypingTarget } from '../shared/keyboard-shortcuts';
 
 @Component({
     selector: 'app-main',
@@ -49,6 +52,8 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   trackedAffixesHint = false;
   private readonly closeRequests = inject(CloseRequestService);
   private readonly filterSheet = inject(FilterSheetService);
+  private readonly editHistory = inject(EditHistoryService);
+  private readonly undo = inject(UndoService);
   private filterSheetSubscription?: Subscription;
   private releaseFilterCloseRequest?: CloseRequestRelease;
   filterPeekSuppressed = false;
@@ -467,7 +472,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     let startedFresh = false;
     if (!this.equipped.getImportantAffixes().size) {
-      this.affixPackages.addDefaultPackage();
+      this.queryParams.replacingUrl(() => this.affixPackages.addDefaultPackage());
       startedFresh = true;
       // The app picked Basic, not the user - it isn't an unsaved change. Only
       // for a fresh build: browser back to an edited build's URL can land here
@@ -600,39 +605,78 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     return this.activeTab === tab;
   }
 
+  /** The keyboard shortcuts sheet ("?", or the account menu's row). */
+  shortcutsOpen = false;
+
   /**
-   * G opens the build goals editor and takes you to it (or closes it); F
-   * opens or closes the filter sheet. Single keys, as "/" is for the gear
-   * search, so never while typing, and never over another overlay - a
-   * dialog, drawer or menu - except the filter sheet itself, which G closes
-   * on its way to the goals.
+   * The planner's keyboard shortcuts (the sheet "?" opens lists them all):
+   *
+   * - G opens the build goals editor and takes you to it, or closes it.
+   * - F opens or closes the filter sheet.
+   * - 1 and 2 show the gear or the goals, one view at a time.
+   * - Ctrl/Cmd+Z undoes the last edit; Ctrl/Cmd+Y or Ctrl/Cmd+Shift+Z redoes it.
+   * - ? opens the shortcuts sheet.
+   *
+   * Never while typing (a field's own undo stays its own), and never over
+   * another overlay - a dialog, drawer or menu - except the filter sheet,
+   * which G and 1/2 close on their way and F toggles.
    */
   @HostListener('document:keydown', ['$event'])
   onDocumentKeydown(event: KeyboardEvent) {
-    const key = event.key?.toLowerCase();
-    if ((key !== 'g' && key !== 'f') || event.ctrlKey || event.metaKey || event.altKey
-      || event.defaultPrevented || event.repeat) {
-      return;
-    }
-    const target = event.target as HTMLElement | null;
-    if (target && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))) {
+    if (event.defaultPrevented || event.altKey || isTypingTarget(event.target)) {
       return;
     }
     if (!this.contentReady || this.loadError || this.shoppingListOpen || this.craftingSlotsOpen) {
       return;
     }
-    if (this.closeRequests.openCount > (this.filtersOpen ? 1 : 0)) {
+    const overlays = this.closeRequests.openCount;
+    const onlyFilters = overlays === (this.filtersOpen ? 1 : 0);
+    const key = event.key?.toLowerCase();
+
+    if (event.ctrlKey || event.metaKey) {
+      if (overlays > 0) {
+        return;
+      }
+      const redo = key === 'y' || (key === 'z' && event.shiftKey);
+      if (key !== 'z' && key !== 'y') {
+        return;
+      }
+      if (redo ? this.editHistory.redo() : this.editHistory.undo()) {
+        // The strip's Undo would now take back a change already taken back.
+        this.undo.dismiss();
+        event.preventDefault();
+      }
       return;
     }
-    event.preventDefault();
-    if (key === 'f') {
-      this.toggleFilters();
-    } else if (this.affixEditor.isOpen && !this.filtersOpen) {
-      this.affixEditor.close();
-    } else {
-      this.closeFilters();
-      this.affixEditor.reveal('hotkey');
+
+    if (event.repeat || !onlyFilters) {
+      return;
     }
+    switch (key) {
+      case 'f':
+        this.toggleFilters();
+        break;
+      case 'g':
+        if (this.affixEditor.isOpen && !this.filtersOpen) {
+          this.affixEditor.close();
+        } else {
+          this.closeFilters();
+          this.affixEditor.reveal('hotkey');
+        }
+        break;
+      case '1':
+      case '2':
+        this.closeFilters();
+        this.equipped.setActiveMainTab(key === '1' ? 'equipment' : 'affixes');
+        break;
+      case '?':
+        this.closeFilters();
+        this.shortcutsOpen = true;
+        break;
+      default:
+        return;
+    }
+    event.preventDefault();
   }
 
   toggleFilters() {

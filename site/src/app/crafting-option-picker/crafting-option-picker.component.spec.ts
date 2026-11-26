@@ -54,7 +54,6 @@ describe('CraftingOptionPickerComponent', () => {
       className: rankOf(option),
       note: option === helpfulSet ? '1 of 3 set pieces' : '',
       completeSetPieces: null,
-      rankTooltip: option === charisma[0] ? 'Overpowered by Hat (Head)' : '',
       changes: changesOf(option)
     }));
     component.selectedChange.subscribe(option => emitted.push(option));

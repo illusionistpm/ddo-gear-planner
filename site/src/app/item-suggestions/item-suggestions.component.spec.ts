@@ -79,6 +79,28 @@ describe('ItemSuggestionsComponent', () => {
     expect(component.gear).toEqual(suggestedItems);
   });
 
+  it('moves through the choices from the keyboard: Down/Up from the search, J/K among the buttons', () => {
+    const el: HTMLElement = fixture.nativeElement;
+    const search = el.querySelector<HTMLInputElement>('#slotItemSearch')!;
+    const buttons = Array.from(el.querySelectorAll<HTMLElement>('.crafted-item-button, .suggestion-equip-button:not(:disabled)'));
+    expect(buttons.length).toBeGreaterThan(2);
+    const press = (key: string) => {
+      const event = new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true });
+      (document.activeElement ?? el).dispatchEvent(event);
+      return event;
+    };
+
+    search.focus();
+    expect(press('j').defaultPrevented).toBe(false); // typed into the search
+    expect(press('ArrowDown').defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(buttons[0]);
+    press('j');
+    expect(document.activeElement).toBe(buttons[1]);
+    press('k');
+    press('ArrowUp');
+    expect(document.activeElement).toBe(search);
+  });
+
   describe('as rendered', () => {
     const element = () => fixture.nativeElement as HTMLElement;
     const equipButtons = () => Array.from(element().querySelectorAll<HTMLButtonElement>('.suggestion-equip-button'));

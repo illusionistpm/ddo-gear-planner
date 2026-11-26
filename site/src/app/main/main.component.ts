@@ -5,6 +5,7 @@ import { Subscription, combineLatest, distinctUntilChanged, take } from 'rxjs';
 
 import { AffixEditorService } from '../planner/affix-editor.service';
 import { AffixPackagesService } from '../affixes/affix-packages.service';
+import { NewBuildService } from '../start/new-build.service';
 import { troveNameKey, UserGearService } from '../planner/user-gear.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { AnalyticsService } from '../shared/analytics.service';
@@ -150,6 +151,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     public theme: ThemeService,
     private affixEditor: AffixEditorService,
     private affixPackages: AffixPackagesService,
+    private newBuild: NewBuildService,
     private route: ActivatedRoute,
     private router: Router,
     private buildsService: BuildsService,
@@ -467,6 +469,12 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
    * so the editor never jumps open over someone already looking at the gear.
    */
   private applyFreshBuildDefaults(firstLoad: boolean) {
+    if (this.newBuild.consumeHandOff()) {
+      // From the start page's guided setup: the goals are set, so on to the gear.
+      this.affixEditor.close();
+      this.equipped.setActiveMainTab('equipment');
+      return;
+    }
     if (this.latestRouteShortId || !this.equipped.isBuildEmpty()) {
       return;
     }

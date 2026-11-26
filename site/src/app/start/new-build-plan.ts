@@ -32,6 +32,8 @@ export interface NewBuildAnswers {
   /** A Legendary Green Steel effect, by its element ("Dust"), or null for none. */
   greenSteel: string | null;
   weaponExtras: string[];
+  /** The minor artifact chosen, to equip again after a reload; null to decide in the planner. */
+  artifact: { name: string; slot: string } | null;
 }
 
 export const ATTRIBUTES = ['Strength', 'Dexterity', 'Intelligence', 'Wisdom', 'Charisma'];
@@ -68,7 +70,8 @@ export function emptyAnswers(): NewBuildAnswers {
     trance: 'none',
     tranceDeadly: null,
     greenSteel: null,
-    weaponExtras: []
+    weaponExtras: [],
+    artifact: null
   };
 }
 

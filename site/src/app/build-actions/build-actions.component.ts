@@ -8,6 +8,7 @@ import { AuthService } from '../shared/auth.service';
 import { EquippedService } from '../planner/equipped.service';
 import { CurrentBuildService, CurrentBuildState } from '../build/current-build.service';
 import { comparePath } from '../build/build-route';
+import { NEW_BUILD_URL } from '../build/start-redirect.guard';
 import { MAX_BUILD_NAME_LENGTH, validateBuildName } from '../save-build-dialog/save-build-dialog.component';
 import { BuildSaveError, BuildSaveService } from './build-save.service';
 
@@ -168,7 +169,7 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
     }
     this.closeBuildMenu();
     this.currentBuild.reset();
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl(NEW_BUILD_URL);
   }
 
   signOut(): void {

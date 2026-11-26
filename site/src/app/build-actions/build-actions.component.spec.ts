@@ -143,7 +143,7 @@ describe('BuildActionsComponent', () => {
 
       expect(confirm).not.toHaveBeenCalled();
       expect(currentBuild.reset).toHaveBeenCalledTimes(1);
-      expect(router.navigateByUrl).toHaveBeenCalledWith('/');
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/start#role');
     });
 
     it('asks before clearing gear, and keeps the build when the answer is no', () => {
@@ -163,7 +163,7 @@ describe('BuildActionsComponent', () => {
       component.newBuild();
 
       expect(currentBuild.reset).toHaveBeenCalledTimes(1);
-      expect(router.navigateByUrl).toHaveBeenCalledWith('/');
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/start#role');
     });
   });
 

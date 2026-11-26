@@ -7,9 +7,14 @@ import { ComparePageComponent } from './compare-page/compare-page.component';
 import { MainRouteReuseStrategy } from './build/main-route-reuse-strategy';
 import { redirectLegacyRouteToRootGuard } from './build/redirect-legacy-route.guard';
 import { unsavedChangesGuard } from './build/unsaved-changes.guard';
+import { startRedirectGuard } from './build/start-redirect.guard';
+import { StartPageComponent } from './start/start-page.component';
 
 const routes: Routes = [
-  { path: '', component: MainComponent, canDeactivate: [unsavedChangesGuard] },
+  { path: '', component: MainComponent, canActivate: [startRedirectGuard], canDeactivate: [unsavedChangesGuard] },
+  // Where a visit to the bare site starts: your builds, or a guided new one.
+  // The setup's step rides in the fragment.
+  { path: 'start', component: StartPageComponent },
   // Legacy deep links: 'main' and 'affixes' (the affix builder used to be
   // its own page) were canonical routes while hash-routed (#/main,
   // #/affixes) - now that they're visible path segments, redirect to the

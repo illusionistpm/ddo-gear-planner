@@ -76,6 +76,11 @@ export function isCompareRoute(routePath: string): boolean {
   return COMPARE_ROUTE.test(routePath);
 }
 
+/** Whether a route path is the start page (/start): your builds, or setting up a new one. */
+export function isStartRoute(routePath: string): boolean {
+  return routePath === '/start';
+}
+
 /** The compare page for two saved builds or short links, by shortId; either can be left to pick. */
 export function comparePath(a?: string | null, b?: string | null): string {
   if (!a) {

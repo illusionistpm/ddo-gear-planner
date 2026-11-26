@@ -172,7 +172,7 @@ describe('MyBuildsComponent', () => {
     expect(router.navigateByUrl).toHaveBeenCalledWith('/build/abc123/fire-wizard-build');
   });
 
-  it('resets the current build and navigates home for a clean build, closing the panel', () => {
+  it('resets the current build and opens the new build setup, closing the panel', () => {
     const component = create();
     const closedSpy = vi.fn().mockName('closed');
     component.closed.subscribe(closedSpy);
@@ -180,7 +180,7 @@ describe('MyBuildsComponent', () => {
     component.newBuild();
 
     expect(currentBuild.reset).toHaveBeenCalled();
-    expect(router.navigateByUrl).toHaveBeenCalledWith('/');
+    expect(router.navigateByUrl).toHaveBeenCalledWith('/start#role');
     expect(closedSpy).toHaveBeenCalled();
   });
 
@@ -208,7 +208,7 @@ describe('MyBuildsComponent', () => {
     component.newBuild();
 
     expect(currentBuild.reset).toHaveBeenCalled();
-    expect(router.navigateByUrl).toHaveBeenCalledWith('/');
+    expect(router.navigateByUrl).toHaveBeenCalledWith('/start#role');
   });
 
   it('does not confirm leaving a dirty build that has no gear equipped', () => {
@@ -222,7 +222,7 @@ describe('MyBuildsComponent', () => {
     component.newBuild();
 
     expect(window.confirm).not.toHaveBeenCalled();
-    expect(router.navigateByUrl).toHaveBeenCalledWith('/');
+    expect(router.navigateByUrl).toHaveBeenCalledWith('/start#role');
   });
 
   it('identifies the currently loaded build', () => {

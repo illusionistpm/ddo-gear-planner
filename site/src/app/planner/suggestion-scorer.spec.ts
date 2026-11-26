@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { GearDbService } from '../gear/gear-db.service';
 import { Item } from '../gear/item';
+import { AffixPackagesService } from '../affixes/affix-packages.service';
 import { EquippedService } from './equipped.service';
 import { withSuggestedCrafting } from './suggestion-scorer';
 
@@ -118,6 +119,65 @@ describe('EquippedService.getSuggestionScorer', () => {
     const score = equipped.getSuggestionScorer('Trinket');
 
     expect(score(hydra!)).toBeGreaterThan(score(voice!));
+  });
+
+  /** Whether the crafting `crafts` put on `item` is crafting the planner itself allows. */
+  function expectLegalCrafting(item: Item, crafts: ReturnType<ReturnType<EquippedService['getSuggestionScorer']>['suggestedCrafting']>) {
+    const crafted = withSuggestedCrafting(item, crafts);
+    for (const { index } of crafts) {
+      const craftable = crafted.crafting![index];
+      expect(crafted.isCraftingSlotOpen(craftable), `${item.name}: ${craftable.name} is open`).toBe(true);
+      expect(crafted.isOptionAllowed(craftable.selected), `${item.name}: ${craftable.selected.name} is allowed`).toBe(true);
+    }
+  }
+
+  it('fills only the augment slot a Legendary Alchemical Tier 3 opens, of Tier 1\'s or Tier 2\'s element', () => {
+    const packages = TestBed.inject(AffixPackagesService);
+    const alchemical = (gearDB.getFilteredGearBySlot('Weapon') ?? []).filter(item => item.name.startsWith('Legendary Alchemical'));
+    expect(alchemical.length).toBeGreaterThan(0);
+    for (const profile of [['Basic', 'Melee'], ['Basic', 'Caster']]) {
+      const tracked = new Set<string>(['Strength', 'Intelligence']);
+      profile.forEach(name => packages.packages.get(name)?.forEach(affix => tracked.add(affix)));
+      packages.spellpowerPackages.get('Fire')?.forEach(affix => tracked.add(affix));
+      equipped.setImportantAffixes([...tracked]);
+      const scorer = equipped.getSuggestionScorer('Weapon');
+      for (const item of alchemical) {
+        const crafts = scorer.suggestedCrafting(item);
+        expectLegalCrafting(item, crafts);
+        const slotsFilled = crafts.filter(craft => /^(Green|Orange|Purple) Augment Slot$/.test(item.crafting![craft.index].name));
+        expect(slotsFilled.length).toBeLessThanOrEqual(1);
+      }
+    }
+  });
+
+  it('keeps Tier 1 or Tier 2 free for the element of a Tier 3 it chose first', () => {
+    const TIERS = ['Legendary Alchemical Tier 1', 'Legendary Alchemical Tier 2'];
+    const option = (element: string, affix: string, value: number, extra: object = {}) => ({
+      name: `${element}: ${affix}`, element, affixes: [{ name: affix, type: 'Alchemical', value }], ...extra,
+    });
+    // Tier 3's Air option, with the Orange slot it opens, is the prize; Tiers 1 and 2 have no Air.
+    const item = new Item({
+      name: 'Test Alchemical Sword', slot: 'Weapon', type: 'Long Swords', ml: 29, url: '/page/Test',
+      crafting: [
+        { name: TIERS[0], options: [option('Fire', 'Strength', 3), option('Earth', 'Strength', 2)] },
+        { name: TIERS[1], options: [option('Fire', 'Constitution', 3), option('Earth', 'Constitution', 2)] },
+        { name: 'Legendary Alchemical Tier 3', options: [
+          option('Air', 'Dexterity', 3, { elementFrom: TIERS, addsCrafting: ['Orange Augment Slot'] }),
+          option('Fire', 'Wisdom', 1, { elementFrom: TIERS }),
+        ] },
+        { name: 'Orange Augment Slot', options: [{ name: 'Orange Gem', affixes: [{ name: 'Charisma', type: 'Insight', value: 10 }] }] },
+      ],
+    });
+    equipped.setImportantAffixes(['Strength', 'Constitution', 'Dexterity', 'Wisdom', 'Charisma']);
+    equipped.set(plainArtifact());
+    const crafts = equipped.getSuggestionScorer('Weapon').suggestedCrafting(item);
+
+    expectLegalCrafting(item, crafts);
+    const chosen = crafts.map(craft => craft.option.name);
+    expect(chosen).toContain('Air: Dexterity');
+    expect(chosen).toContain('Orange Gem');
+    // One tier stays empty, to be crafted Air.
+    expect(chosen.filter(name => name.includes('Strength') || name.includes('Constitution')).length).toBe(1);
   });
 
   it('scores nothing when no affix is tracked', () => {

@@ -84,6 +84,69 @@ interface Choice {
   system: string;
 }
 
+/** An empty crafting slot of one item, with the options to try in it. */
+interface Pending {
+  craftable: Craftable;
+  /** Its index in the item's crafting. */
+  index: number;
+  rules: CraftingRules;
+  choices: Choice[];
+}
+
+/**
+ * The crafting rules that span one item's slots, as the planner's UI applies them (Item.isCraftingSlotOpen,
+ * Item.isOptionAllowed), tracked through a fill:
+ *
+ *  - A slot another slot's option can add (the Green, Orange or Purple slot a Legendary Alchemical Tier 3
+ *    opens) is usable only once an option that adds it is chosen.
+ *  - An option bound to other slots' element (Tier 3 takes Tier 1's or Tier 2's) needs one of them still
+ *    empty or matching. Once chosen against empty ones, one of those must stay free for that element.
+ */
+export class CraftingRules {
+  private readonly elements = new Map<string, string>();
+  private readonly opened = new Set<string>();
+  private readonly addable = new Set<string>();
+  private readonly required: Array<{ systems: ReadonlyArray<string>; element: string }> = [];
+
+  constructor(craftables: ReadonlyArray<Craftable>) {
+    for (const craftable of craftables) {
+      if (craftables.some(other => other !== craftable && other.canAddCraftingSystem(craftable.name))) {
+        this.addable.add(craftable.name);
+      }
+    }
+    for (const craftable of craftables) {
+      const selected = craftable.selected;
+      if (selected?.affixes.length || selected?.set) {
+        this.choose(craftable, selected);
+      }
+    }
+  }
+
+  isOpen(craftable: Craftable): boolean {
+    return !this.addable.has(craftable.name) || this.opened.has(craftable.name);
+  }
+
+  allows(craftable: Craftable, option: CraftableOption): boolean {
+    if (option.elementFrom.length
+      && !option.elementFrom.some(system => (this.elements.get(system) ?? option.element) === option.element)) {
+      return false;
+    }
+    // Don't take the last slot a chosen element-bound option was counting on with another element.
+    return this.required.every(({ systems, element }) => !systems.includes(craftable.name) || option.element === element
+      || systems.some(system => system !== craftable.name && (this.elements.get(system) ?? element) === element));
+  }
+
+  choose(craftable: Craftable, option: CraftableOption) {
+    if (option.element) {
+      this.elements.set(craftable.name, option.element);
+    }
+    option.addsCrafting.forEach(name => this.opened.add(name));
+    if (option.elementFrom.length && !option.elementFrom.some(system => this.elements.get(system) === option.element)) {
+      this.required.push({ systems: option.elementFrom, element: option.element });
+    }
+  }
+}
+
 /** A crafting option the scorer would put in one of an item's empty crafting slots. */
 export interface SuggestedCraft {
   /** The slot's index in the item's `crafting`. */
@@ -182,7 +245,13 @@ export function makeSuggestionScorer(inputs: SuggestionScorerInputs, slot: strin
 
   const otherSetNames = others.flatMap(([, item]) => item.getSets() ?? []);
   /** What a set choice adds: the bonuses every set reaches with `sets` counted too. */
+  const setGainCache = new Map<string, Contribution>();
   const setGain = (sets: string[]): Contribution => {
+    const key = sets.slice().sort().join('|');
+    const cached = setGainCache.get(key);
+    if (cached) {
+      return cached;
+    }
     const merged: Contribution = new Map();
     const counts = new Map<string, number>();
     [...otherSetNames, ...sets].forEach(set => counts.set(set, (counts.get(set) ?? 0) + 1));
@@ -191,45 +260,91 @@ export function makeSuggestionScorer(inputs: SuggestionScorerInputs, slot: strin
         merged.set(i, Math.max(merged.get(i) ?? 0, value));
       }
     }
+    setGainCache.set(key, merged);
     return merged;
   };
 
   /**
    * Fills empty crafting slots greedily: repeatedly the (slot, option) that gains most, until none
-   * does. Returns the values reached; `sets` gains the sets chosen.
+   * does, within each item's crafting rules (CraftingRules). `values` and `sets` gain what is chosen;
+   * `picked` hears of each choice.
    */
-  const fill = (start: number[], craftables: Craftable[], sets: string[]): number[] => {
-    const values = start.slice();
-    const pending = craftables.filter(c => !c.selected?.affixes.length && !c.selected?.set).map(c => choicesFor(c));
+  const fillGreedily = (values: number[], pending: Pending[], sets: string[],
+                        picked?: (entry: Pending, choice: Choice) => void) => {
+    pending = pending.slice();
     while (pending.length) {
-      let best: { p: number; contribution: Contribution; set: string; gain: number } | null = null;
+      let best: { p: number; choice: Choice; contribution: Contribution; gain: number } | null = null;
       for (let p = 0; p < pending.length; p++) {
-        for (const choice of pending[p]) {
+        const entry = pending[p];
+        if (!entry.rules.isOpen(entry.craftable)) {
+          continue;
+        }
+        for (const choice of entry.choices) {
+          if (!entry.rules.allows(entry.craftable, choice.option)) {
+            continue;
+          }
           const contribution = choice.set ? merge(choice.contribution, setGain([...sets, choice.set])) : choice.contribution;
-          const gain = gainOf(values, contribution);
+          // An option that opens a slot is worth what that slot could then add, too.
+          const gain = gainOf(values, contribution) + openedGain(values, contribution, entry, choice.option, pending);
           if (gain > 1e-9 && (!best || gain > best.gain)) {
-            best = { p, contribution, set: choice.set, gain };
+            best = { p, choice, contribution, gain };
           }
         }
       }
       if (!best) {
         break;
       }
-      const { p, contribution, set } = best;
-      apply(values, contribution);
-      if (set) {
-        sets.push(set);
+      const entry = pending[best.p];
+      apply(values, best.contribution);
+      if (best.choice.set) {
+        sets.push(best.choice.set);
       }
-      pending.splice(p, 1);
+      entry.rules.choose(entry.craftable, best.choice.option);
+      picked?.(entry, best.choice);
+      pending.splice(best.p, 1);
     }
+  };
+  /** The most a slot `option` opens on the item could add on top of `contribution`. */
+  const openedGain = (values: number[], contribution: Contribution, entry: Pending, option: CraftableOption,
+                      pending: Pending[]): number => {
+    if (!option.addsCrafting.length) {
+      return 0;
+    }
+    const after = values.slice();
+    apply(after, contribution);
+    let total = 0;
+    for (const name of option.addsCrafting) {
+      const opened = pending.find(other => other.rules === entry.rules && other.craftable.name === name
+        && !entry.rules.isOpen(other.craftable));
+      let bestGain = 0;
+      for (const choice of opened?.choices ?? []) {
+        if (!choice.set) {
+          bestGain = Math.max(bestGain, gainOf(after, choice.contribution));
+        }
+      }
+      total += bestGain;
+    }
+    return total;
+  };
+  /** An item's empty crafting slots, each with the options to try in it. */
+  const pendingOf = (craftables: ReadonlyArray<Craftable>, choicesOf: (craftable: Craftable) => Choice[]): Pending[] => {
+    const rules = new CraftingRules(craftables);
+    return craftables
+      .map((craftable, index) => ({ craftable, index, rules, choices: [] as Choice[] }))
+      .filter(entry => !entry.craftable.selected?.affixes.length && !entry.craftable.selected?.set)
+      .map(entry => ({ ...entry, choices: choicesOf(entry.craftable) }));
+  };
+  /** Fills the empty crafting slots of `items` (their craftables), returning the values reached. */
+  const fill = (start: number[], items: ReadonlyArray<ReadonlyArray<Craftable>>): number[] => {
+    const values = start.slice();
+    fillGreedily(values, items.flatMap(craftables => pendingOf(craftables, choicesFor)), []);
     return values;
   };
 
-  const otherCraftables = others.flatMap(([, item]) => item.crafting ?? []);
-  const filledBase = fill(baseValues, otherCraftables, []);
+  const filledBase = fill(baseValues, others.map(([, item]) => item.crafting ?? []));
   const hasArtifact = others.some(([, item]) => item.artifact);
   const stand = hasArtifact ? null : plannedArtifactCraftables(gearDB);
-  const plannedBase = stand ? fill(filledBase, stand, []) : filledBase;
+  const plannedBase = stand ? fill(filledBase, [stand]) : filledBase;
 
   // Only the options worth anything against the filled build can be worth anything to a candidate
   // (a candidate only raises values), and only the best few are tried per list. Set-granting options
@@ -272,26 +387,9 @@ export function makeSuggestionScorer(inputs: SuggestionScorerInputs, slot: strin
     if (sets.length) {
       apply(values, setGain(sets));
     }
-    (item.crafting ?? []).forEach((craftable, index) => {
-      if (craftable.selected?.affixes.length || craftable.selected?.set) {
-        return;
-      }
-      let best: { choice: Choice; contribution: Contribution; gain: number } | null = null;
-      for (const choice of shortlistFor(craftable, base)) {
-        const contribution = choice.set ? merge(choice.contribution, setGain([...sets, choice.set])) : choice.contribution;
-        const gain = gainOf(values, contribution);
-        if (gain > 1e-9 && (!best || gain > best.gain)) {
-          best = { choice, contribution, gain };
-        }
-      }
-      if (best) {
-        apply(values, best.contribution);
-        if (best.choice.set) {
-          sets.push(best.choice.set);
-        }
-        crafts.push({ index, option: best.choice.option, system: best.choice.system });
-      }
-    });
+    fillGreedily(values, pendingOf(item.crafting ?? [], craftable => shortlistFor(craftable, base)), sets,
+      (entry, choice) => crafts.push({ index: entry.index, option: choice.option, system: choice.system }));
+    crafts.sort((a, b) => a.index - b.index);
     return { base, values, crafts };
   };
 

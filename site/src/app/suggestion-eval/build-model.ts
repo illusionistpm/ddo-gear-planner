@@ -6,6 +6,7 @@ import { Craftable } from '../gear/craftable';
 import { CraftableOption } from '../gear/craftable-option';
 import { GearDbService } from '../gear/gear-db.service';
 import { Item } from '../gear/item';
+import { CraftingRules } from '../planner/suggestion-scorer';
 
 /**
  * A self-contained model of how well a set of equipped items covers a list of tracked needs, for the
@@ -273,15 +274,17 @@ export function selectChoice(craftable: Craftable, choice: { system: string; opt
 /**
  * Fills every empty crafting slot of the build's items greedily: repeatedly takes the single
  * (slot, option) with the biggest gain under `objective`, until nothing helps. Items are cloned first,
- * so the gear database's copies are never touched. Crafting rules that span slots (one of each
- * Slaver's affix, say) aren't modelled, so this is an optimistic fill.
+ * so the gear database's copies are never touched. An item's own slot rules are kept (CraftingRules: the
+ * slot a Legendary Alchemical Tier 3 opens, its element), but rules that span items (one of each Slaver's
+ * affix, say) aren't modelled, so this is an optimistic fill.
  */
 export function fillCrafting(state: BuildState, index: NeedIndex, objective: Objective, maxLevel: number): BuildState {
   const filled = state.clone();
-  const pending: Array<{ slot: string; craftable: Craftable; choices: Array<{ system: string; option: CraftableOption; contribution: Contribution }> }> = [];
+  const pending: Array<{ slot: string; craftable: Craftable; rules: CraftingRules; choices: Array<{ system: string; option: CraftableOption; contribution: Contribution }> }> = [];
   for (const [slot, item] of state.items) {
     const copy = new Item(item);
     filled.items.set(slot, copy);
+    const rules = new CraftingRules(copy.crafting ?? []);
     for (const craftable of copy.crafting ?? []) {
       if (craftable.selected?.affixes.length || craftable.selected?.set) {
         continue;
@@ -290,7 +293,7 @@ export function fillCrafting(state: BuildState, index: NeedIndex, objective: Obj
         .map(choice => ({ ...choice, contribution: index.contributionOf(choice.option.affixes) }))
         .filter(choice => choice.contribution.size || choice.option.set);
       if (choices.length) {
-        pending.push({ slot, craftable, choices });
+        pending.push({ slot, craftable, rules, choices });
       }
     }
   }
@@ -301,9 +304,15 @@ export function fillCrafting(state: BuildState, index: NeedIndex, objective: Obj
   while (pending.length) {
     let best: { p: number; c: number; gain: number } | null = null;
     for (let p = 0; p < pending.length; p++) {
-      const { choices } = pending[p];
+      const { choices, craftable, rules } = pending[p];
+      if (!rules.isOpen(craftable)) {
+        continue;
+      }
       for (let c = 0; c < choices.length; c++) {
         const choice = choices[c];
+        if (!rules.allows(craftable, choice.option)) {
+          continue;
+        }
         let gain: number;
         if (choice.option.set) {
           const trial = filled.clone();
@@ -320,6 +329,17 @@ export function fillCrafting(state: BuildState, index: NeedIndex, objective: Obj
         } else {
           gain = gainOf(objective, index.needs, values, choice.contribution) / (objective.mean ? index.needs.length || 1 : 1);
         }
+        // An option that opens a slot is worth roughly what that slot could then add, too.
+        for (const name of choice.option.addsCrafting) {
+          const opened = pending.find(other => other.rules === rules && other.craftable.name === name && !rules.isOpen(other.craftable));
+          let best = 0;
+          for (const other of opened?.choices ?? []) {
+            if (!other.option.set) {
+              best = Math.max(best, gainOf(objective, index.needs, values, other.contribution) / (objective.mean ? index.needs.length || 1 : 1));
+            }
+          }
+          gain += best;
+        }
         if (gain > 1e-9 && (!best || gain > best.gain)) {
           best = { p, c, gain };
         }
@@ -328,8 +348,9 @@ export function fillCrafting(state: BuildState, index: NeedIndex, objective: Obj
     if (!best) {
       break;
     }
-    const { craftable, choices } = pending[best.p];
+    const { craftable, choices, rules } = pending[best.p];
     selectChoice(craftable, choices[best.c]);
+    rules.choose(craftable, choices[best.c].option);
     pending.splice(best.p, 1);
     filled.recompute();
     values = filled.values;

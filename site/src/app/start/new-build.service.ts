@@ -11,6 +11,7 @@ import { NewBuildAnswers, TRANCE_LABEL, emptyAnswers, levelRangeOf, planFromAnsw
 
 const ANSWERS_KEY = 'ddo-gear-planner-new-build-answers';
 const PREFERS_PLANNER_KEY = 'ddo-gear-planner-open-planner-directly';
+const PACKS_KEY = 'ddo-gear-planner-new-build-packs';
 
 /**
  * The start page's link to the planner: it sets a new build up from the
@@ -56,6 +57,31 @@ export class NewBuildService {
     }
   }
 
+  /**
+   * The packs this browser's last setup hid, for the next one to start from:
+   * players own the same packs whatever they build. Null when it showed every pack.
+   */
+  rememberedPacks(): string[] | null {
+    try {
+      const parsed = JSON.parse(localStorage.getItem(PACKS_KEY) ?? 'null');
+      return Array.isArray(parsed) && parsed.length && parsed.every(pack => typeof pack === 'string') ? parsed : null;
+    } catch {
+      return null;
+    }
+  }
+
+  rememberPacks(hidden: ReadonlyArray<string>): void {
+    try {
+      if (hidden.length) {
+        localStorage.setItem(PACKS_KEY, JSON.stringify(hidden));
+      } else {
+        localStorage.removeItem(PACKS_KEY);
+      }
+    } catch {
+      // The next setup starts on every pack.
+    }
+  }
+
   loadAnswers(): NewBuildAnswers | null {
     try {
       const raw = sessionStorage.getItem(ANSWERS_KEY);
@@ -93,8 +119,11 @@ export class NewBuildService {
     this.queryParams.holdingUrl(() => {
       const maxLevel = this.filters.getMaxLevel();
       const [min, max] = levelRangeOf(answers, maxLevel);
-      // First, so the trance default reads the best Deadly at these levels.
+      // First, so the trance default reads the best Deadly from the gear these allow.
       this.filters.setLevelRange(min, max);
+      this.filters.setShowRaidItems(answers.showRaid);
+      this.filters.setShowRareItems(answers.showRare);
+      this.filters.setHiddenPacks(new Set(answers.hiddenPacks));
       const plan = planFromAnswers(answers, {
         packages: this.affixPackages.packages,
         spellpowerPackages: this.affixPackages.spellpowerPackages,

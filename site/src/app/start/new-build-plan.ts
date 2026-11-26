@@ -15,6 +15,11 @@ export interface NewBuildAnswers {
   trapping: boolean;
   /** 'endgame' is the last levels before the cap; a range is the player's own. */
   level: 'endgame' | [number, number];
+  /** Whether gear from raids, and rare gear, is shown. */
+  showRaid: boolean;
+  showRare: boolean;
+  /** Packs whose gear is hidden, as the item filter keys them; [] shows every pack. */
+  hiddenPacks: string[];
   /** Weapon types allowed; null keeps the role's default (every melee, or every ranged and thrown, type). */
   weaponTypes: string[] | null;
   /** Offhand types allowed; null allows them all, [] none (two-handers, or nothing in the off hand). */
@@ -59,6 +64,9 @@ export function emptyAnswers(): NewBuildAnswers {
     role: null,
     trapping: false,
     level: 'endgame',
+    showRaid: true,
+    showRare: true,
+    hiddenPacks: [],
     weaponTypes: null,
     offhandTypes: null,
     armorTypes: null,
@@ -77,7 +85,7 @@ export function emptyAnswers(): NewBuildAnswers {
 
 /**
  * Answers for a newly chosen role: what depends on the role starts over at
- * its defaults, and the rest (level, armor, trapping) stays.
+ * its defaults, and the rest (level, gear sources, armor, trapping) stays.
  */
 export function withRole(answers: NewBuildAnswers, role: BuildRole, healer = false): NewBuildAnswers {
   const martial = role !== 'caster';
@@ -116,6 +124,9 @@ export interface PlannedExternal {
 export interface NewBuildPlan {
   tracked: string[];
   levelRange: [number, number];
+  showRaid: boolean;
+  showRare: boolean;
+  hiddenPacks: Set<string>;
   hiddenTypes: Set<string>;
   /** Non-gear entries, all labelled TRANCE_LABEL. */
   externals: PlannedExternal[];
@@ -176,6 +187,9 @@ export function planFromAnswers(answers: NewBuildAnswers, context: PlanContext):
   return {
     tracked,
     levelRange: levelRangeOf(answers, context.maxLevel),
+    showRaid: answers.showRaid,
+    showRare: answers.showRare,
+    hiddenPacks: new Set(answers.hiddenPacks),
     hiddenTypes: hiddenTypesOf(answers),
     externals: tranceExternals(answers, context)
   };

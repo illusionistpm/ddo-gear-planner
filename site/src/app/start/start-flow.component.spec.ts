@@ -42,6 +42,7 @@ describe('StartFlowComponent', () => {
   beforeEach(async () => {
     sessionStorage.clear();
     localStorage.removeItem('ddo-gear-planner-open-planner-directly');
+    localStorage.removeItem('ddo-gear-planner-new-build-packs');
     signedIn = new BehaviorSubject(false);
     builds = [];
     signIn.mockReset();
@@ -64,6 +65,7 @@ describe('StartFlowComponent', () => {
   afterEach(() => {
     sessionStorage.clear();
     localStorage.removeItem('ddo-gear-planner-open-planner-directly');
+    localStorage.removeItem('ddo-gear-planner-new-build-packs');
   });
 
   it('asks a signed-out visitor to sign in, next to the ways to start', async () => {
@@ -102,6 +104,8 @@ describe('StartFlowComponent', () => {
     expect(router.url).toBe('/start#role');
 
     await click('.start-role-melee');
+    await click('.start-next');
+    expect(router.url).toBe('/start#sources');
     await click('.start-next');
     expect(router.url).toBe('/start#weapons');
     await click('.start-link', 'only two-handed');
@@ -147,7 +151,7 @@ describe('StartFlowComponent', () => {
   it('skips a step without answering it, and offers a trance only to melee and ranged builds', async () => {
     await click('.start-guided');
     await click('.start-role-caster');
-    await click('.start-next');
+    await click('.start-progress-step', 'Offhand');
     expect(el().textContent).toContain('What goes in your off hand?');
     expect(el().textContent).not.toContain('Which weapons?');
 
@@ -167,5 +171,93 @@ describe('StartFlowComponent', () => {
 
     expect(el().querySelector('.start-role-ranged')?.getAttribute('aria-checked')).toBe('true');
     expect(TestBed.inject(EquippedService).getImportantAffixes().has('Ranged Power')).toBe(true);
+  });
+
+  describe('gear sources', () => {
+    const packCheckbox = (name: string) => Array.from(el().querySelectorAll<HTMLLabelElement>('.pack-filter-option label'))
+      .find(label => label.textContent?.trim().startsWith(name))!.previousElementSibling as HTMLInputElement;
+    const tickedPacks = () => Array.from(el().querySelectorAll<HTMLInputElement>('.pack-filter-option input')).filter(box => box.checked).length;
+
+    async function ownTwoPacks(): Promise<void> {
+      await click('.start-packs-owned');
+      // Untick everything, then tick two.
+      for (const group of Array.from(el().querySelectorAll<HTMLInputElement>('.pack-group-title input'))) {
+        if (group.checked || group.indeterminate) {
+          group.click();
+          await settle();
+          if (group.checked) {
+            group.click();
+            await settle();
+          }
+        }
+      }
+      packCheckbox('Free Quests').click();
+      await settle();
+      packCheckbox('The Lost Gatekeepers').click();
+      await settle();
+    }
+
+    it('hides raid items and the packs not owned in the build it hands over', async () => {
+      await click('.start-guided');
+      await click('.start-role-melee');
+      await click('.start-next');
+      expect(TestBed.inject(Router).url).toBe('/start#sources');
+
+      await click('.start-show-raid');
+      await ownTwoPacks();
+      expect(tickedPacks()).toBe(2);
+      await click('.start-plan');
+
+      const params = decodedUrl();
+      expect(params['raids']).toBe('false');
+      expect(params['rare']).toBe('true');
+      const hidden = String(params['hiddenpacks']).split(',');
+      expect(hidden).toContain('Demon Sands');
+      expect(hidden).not.toContain('The Lost Gatekeepers');
+      expect(hidden).not.toContain('__NO_PACK__');
+    });
+
+    it('starts the next new build on the packs picked last time', async () => {
+      await click('.start-guided');
+      await click('.start-progress-step', 'Gear sources');
+      await ownTwoPacks();
+
+      // A new tab's setup: no answers, the remembered packs.
+      sessionStorage.clear();
+      await harness.navigateByUrl('/');
+      await harness.navigateByUrl('/start#sources');
+      await settle();
+
+      expect(el().querySelector('.start-packs-owned')?.getAttribute('aria-checked')).toBe('true');
+      expect(el().querySelector('.start-packs-remembered')).not.toBeNull();
+      expect(tickedPacks()).toBe(2);
+
+      await click('.start-packs-all');
+      expect(TestBed.inject(NewBuildService).rememberedPacks()).toBeNull();
+    });
+
+    it('shows every pack, raids and rares again when the step is skipped', async () => {
+      await click('.start-guided');
+      await click('.start-progress-step', 'Gear sources');
+      await click('.start-show-rare');
+      await click('.start-packs-owned');
+
+      await click('.start-skip');
+      await click('.start-plan');
+
+      const params = decodedUrl();
+      expect(params['rare']).toBe('true');
+      expect(params['hiddenpacks']).toBeUndefined();
+    });
+
+    it('warns on the Green Steel step that raid weapons are hidden', async () => {
+      await click('.start-guided');
+      await click('.start-role-melee');
+      await click('.start-progress-step', 'Gear sources');
+      await click('.start-show-raid');
+      await click('.start-progress-step', 'Extras');
+
+      expect(el().querySelector('.start-raids-hidden')).not.toBeNull();
+    });
   });
 });

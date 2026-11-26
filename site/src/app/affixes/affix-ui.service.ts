@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Affix } from './affix';
-import { ITEM_BONUS_KINDS, ItemBonusKind } from '../gear/item-bonus';
+import { ITEM_BONUS_KINDS, ItemBonusKind, masterworksDescription, masterworksNote } from '../gear/item-bonus';
 import { AffixRank, HELPFUL_RANKS, rankClassName } from './affix-rank.enum';
 import { EquippedService, RankCandidate } from '../planner/equipped.service';
 import type { AffixSource } from './build-totals';
@@ -445,6 +445,11 @@ export class AffixUiService {
     if (!option) return null;
     const name = option.name || option.set || option.describe(false);
     if (!option.affixes?.length) {
+      // A Masterworks curse has no affixes the planner can count, only what it does to the item.
+      const masterworks = masterworksDescription(option);
+      if (masterworks) {
+        return { name, description: masterworks, wikiName: '', sections: [] };
+      }
       const tiers = option.set ? this.gearDb.getSetBonusThresholdDetails(option.set, 0) : [];
       return tiers.length ? {
         name, description: '', wikiName: '',
@@ -541,7 +546,7 @@ export class AffixUiService {
     return {
       className: this.getClassForCraftingOption(option, candidate),
       // Only while the set is short; a complete set's colour already says what it gives.
-      note: short ? `${setPieces!.pieces} of ${setPieces!.required} set pieces` : '',
+      note: short ? `${setPieces!.pieces} of ${setPieces!.required} set pieces` : masterworksNote(option),
       // A short set gives nothing yet, which says nothing of why you'd choose it: what it gives
       // once it has its pieces is the figure, as its rank colour already assumes.
       changes: this.getCraftingOptionChanges(option, context, short ? setPieces!.required : undefined),

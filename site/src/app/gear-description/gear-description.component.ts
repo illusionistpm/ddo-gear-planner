@@ -19,7 +19,7 @@ import { UserGearService, UserItemLocation } from '../planner/user-gear.service'
 import { isCraftingSlotAvailable, normalizeAugmentSlots } from '../gear/augment-slots';
 import { CRAFTING_PICKER_MIN_OPTIONS } from '../crafting-option-picker/crafting-option-picker.component';
 import { CraftingSlotControlComponent } from '../crafting-slot-control/crafting-slot-control.component';
-import { ITEM_BONUS_KINDS, ItemBonusKind, masterworksLevels } from '../gear/item-bonus';
+import { ITEM_BONUS_KINDS, ItemBonusKind, masterworksHigher, masterworksLevels } from '../gear/item-bonus';
 import { ItemBonusService } from '../gear/item-bonus.service';
 import { ITEM_BONUS_KIND_LABELS, ItemBonusSettingsService } from '../planner/item-bonus-settings.service';
 
@@ -220,8 +220,7 @@ export class GearDescriptionComponent implements OnInit, OnDestroy, OnChanges {
     if (!curse || !levels) {
       return '';
     }
-    const higher = levels === 1 ? 'one level' : `${levels} levels`;
-    return `${curse.name} may boost this value: it powers some of the item's effects as if it were ${higher} higher`
+    return `${curse.name} may boost this value: it powers some of the item's effects as if it were ${masterworksHigher(levels)} higher`
       + ` (ML ${item.ml + levels}). Which ones isn't known, so the value shown is the item's own.`;
   }
 

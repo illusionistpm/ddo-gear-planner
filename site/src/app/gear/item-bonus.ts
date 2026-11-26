@@ -30,3 +30,24 @@ const MASTERWORKS_LEVELS: Readonly<Record<string, number>> = {
 export function masterworksLevels(curse: CraftableOption | undefined): number {
   return (curse && MASTERWORKS_LEVELS[curse.name]) || 0;
 }
+
+/** "one level" / "2 levels": how much higher a Masterworks curse treats its item. */
+export function masterworksHigher(levels: number): string {
+  return levels === 1 ? 'one level' : `${levels} levels`;
+}
+
+/** The picker's note beside a Masterworks curse, or '' for any other option. */
+export function masterworksNote(option: CraftableOption | undefined): string {
+  const levels = masterworksLevels(option);
+  return levels ? `Boosts some values (+${levels} ML)` : '';
+}
+
+/** What a Masterworks curse does and why the planner doesn't apply it, or '' for any other option. */
+export function masterworksDescription(option: CraftableOption | undefined): string {
+  const levels = masterworksLevels(option);
+  if (!option || !levels) {
+    return '';
+  }
+  return `${option.name} powers some of the item's effects as if it were ${masterworksHigher(levels)} higher.`
+    + ` The wiki doesn't say which, so the planner doesn't apply it; the item's values it might boost are marked.`;
+}

@@ -19,6 +19,8 @@ import { UserGearService } from '../planner/user-gear.service';
 import { UserItemLocationTooltipPipe } from '../shared/user-item-location-tooltip.pipe';
 import { GearDbService } from '../gear/gear-db.service';
 import { ItemBonusService } from '../gear/item-bonus.service';
+import { AffixUiService } from '../affixes/affix-ui.service';
+import { ItemBonusSettingsService } from '../planner/item-bonus-settings.service';
 import { CraftingSlotControlComponent, craftingSystemEmptyLabel } from '../crafting-slot-control/crafting-slot-control.component';
 
 describe('GearDescriptionComponent', () => {
@@ -153,6 +155,42 @@ describe('GearDescriptionComponent', () => {
     fixture.detectChanges();
 
     expect(fixture.nativeElement.querySelector('.masterworks-affix-icon')).toBeNull();
+  });
+
+  it('always offers the Masterworks curses in the curse picker, with a note saying what they do', async () => {
+    localStorage.removeItem('ddo-gear-planner-hide-irrelevant-crafting-options');
+    TestBed.inject(ItemBonusSettingsService).setEnabled('curse', true);
+    // Strength is tracked, so "hide options that don't help" hides the curses that don't touch it.
+    TestBed.inject(EquippedService).setImportantAffixes(['Strength']);
+    const ring = new Item(TestBed.inject(GearDbService).findGearBySlot('Ring1', 'Epic Ring of the Stalker')!);
+    vi.spyOn(TestBed.inject(EquippedService), 'set').mockReturnValue(undefined);
+    fixture.componentRef.setInput('item', ring);
+    fixture.detectChanges();
+    const curseRow = Array.from(fixture.nativeElement.querySelectorAll('.item-bonus-row') as NodeListOf<HTMLElement>)
+      .find(element => element.textContent?.includes('Curse'))!;
+
+    await openPicker(fixture, curseRow);
+    const entry = (label: string) => Array.from(document.body.querySelectorAll<HTMLButtonElement>('.crafting-picker-family'))
+      .find(button => button.querySelector('.crafting-picker-family-name')!.textContent!.trim() === label);
+    expect(document.body.querySelector<HTMLInputElement>('.crafting-picker-hide input')!.checked).toBe(true);
+    expect(entry('Curse of the Pact')).toBeUndefined();
+    expect(entry('Strength')).toBeTruthy();
+    const major = entry('Curse of Major Masterworks')!;
+    expect(major.querySelector('.crafting-picker-entry-note')!.textContent!.trim()).toBe('Boosts some values (+2 ML)');
+    major.dispatchEvent(new Event('mouseenter'));
+    fixture.detectChanges();
+    const detail = document.body.querySelector('.crafting-picker-detail')!;
+    expect(detail.querySelector('.crafting-picker-detail-description')!.textContent).toContain('as if it were 2 levels higher');
+    expect(detail.textContent).not.toContain('Does nothing for the tracked affixes');
+    expect(entry('Curse of Minor Masterworks')!.querySelector('.crafting-picker-entry-note')!.textContent!.trim())
+      .toBe('Boosts some values (+1 ML)');
+    major.click();
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(ring.bonuses.curse?.name).toBe('Curse of Major Masterworks');
+    expect(curseRow.querySelector('.crafting-picker-toggle')!.classList).toContain('crafting-picker-toggle-explained');
+    expect(TestBed.inject(AffixUiService).getCraftingOptionDetails(ring.bonuses.curse)!.description).toContain('as if it were 2 levels higher');
   });
 
   it('leaves the label blank for Empty only, to show muted: an option that grants just a set bonus is a choice', () => {

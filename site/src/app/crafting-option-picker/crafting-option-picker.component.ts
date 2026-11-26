@@ -12,6 +12,7 @@ import { getStoredHideIrrelevantCraftingOptions, storeHideIrrelevantCraftingOpti
 import { buildFamilyRows, defaultTier, FamilyRow, TierRow } from './crafting-option-rows';
 import { craftSystemName } from '../gear/crafting-acquisition';
 import { UserGearService } from '../planner/user-gear.service';
+import { masterworksLevels } from '../gear/item-bonus';
 
 /** Lists shorter than this get the compact picker: every option its own entry, with no search box. */
 export const CRAFTING_PICKER_MIN_OPTIONS = 16;
@@ -158,7 +159,8 @@ export class CraftingOptionPickerComponent implements OnChanges, OnDestroy {
       heading: folded && tier.changeLines.length ? `Best tier, ${tier.label}` : tier.changeCondition,
       changeLines: tier.changeLines,
       // Each change line names what it beats or loses, which is all the rank's own reason would say.
-      why: tier.changeLines.length ? '' : 'Does nothing for the tracked affixes',
+      // A Masterworks curse may well help; its description says why the planner can't count it.
+      why: tier.changeLines.length || masterworksLevels(tier.option) ? '' : 'Does nothing for the tracked affixes',
       description: this.describe(tier.option)
     };
   }

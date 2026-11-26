@@ -2,7 +2,7 @@ import { Affix } from '../affixes/affix';
 import { AffixService } from '../affixes/affix.service';
 import { Craftable, CraftableOptionFilter } from './craftable';
 import { CraftableOption } from './craftable-option';
-import { CraftableInit, RawItem } from './game-data-types';
+import { CraftableInit, RawItem, WeaponDamage } from './game-data-types';
 import { ITEM_BONUS_KINDS, ItemBonuses } from './item-bonus';
 import { getPackKeys } from './pack-filter';
 
@@ -10,7 +10,7 @@ import { getPackKeys } from './pack-filter';
 export type ItemInit = Omit<RawItem, 'crafting'> & { crafting?: Array<string | CraftableInit | Craftable> };
 import itemTypesList from '@data/item-types.json';
 
-const itemTypes = itemTypesList as Record<string, { attributes: Array<string> }>;
+const itemTypes = itemTypesList as Record<string, { attributes: Array<string>; critical?: string }>;
 
 /** One of an item's own affixes as shown after its chosen upgrades (Item.getUpgradedOwnAffixes). */
 export interface UpgradedAffix {
@@ -36,6 +36,10 @@ export class Item {
     /** The pack filter keys of its sources (see pack-filter.ts), worked out once. */
     packKeys!: ReadonlyArray<string>;
     artifact!: boolean;
+    /** A weapon's [W] multiplier and dice, or null (not a weapon, or the wiki lists none). */
+    damage: WeaponDamage | null = null;
+    /** Its own critical profile where it differs from its type's; see getCriticalProfile. */
+    private critical = '';
     /** The Mythic Boost, Reaper bonus and Curse this copy carries. Game data's items carry none. */
     bonuses: ItemBonuses = {};
 
@@ -64,6 +68,8 @@ export class Item {
         this.quests = json.quests || [];
         this.packKeys = json instanceof Item ? json.packKeys : getPackKeys(this.quests);
         this.artifact = !!json.artifact;
+        this.damage = json.damage ?? null;
+        this.critical = (json instanceof Item ? json.critical : json.critical) ?? '';
         this.crafting = Array<Craftable>();
 
         if (json instanceof Item) {
@@ -103,6 +109,16 @@ export class Item {
 
     hasTypeAttribute(attribute: string) {
         return !!this.type && (itemTypes[this.type]?.attributes || []).includes(attribute);
+    }
+
+    /** A weapon's critical profile ("19-20/x2"): its own, else its type's; '' for anything else. */
+    getCriticalProfile(): string {
+        return this.critical || (this.damage ? itemTypes[this.type]?.critical ?? '' : '');
+    }
+
+    /** A weapon's damage as the wiki writes it, "5.8[1d8+2]"; '' without one. */
+    getDamageDescription(): string {
+        return this.damage ? `${+this.damage.w.toFixed(2)}[${this.damage.dice}]` : '';
     }
 
     isTwoHandedWeapon() {

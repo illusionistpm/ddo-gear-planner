@@ -30,6 +30,17 @@
         </div>
         <app-tap-tooltip-panel #sourcesTip />
       </div>
+      @if (curItem.damage) {
+        <div class="row ps-2 small weapon-stats">
+          <div class="col">
+            <span title="Base damage: the [W] multiplier and the weapon's dice">Damage: {{curItem.getDamageDescription()}}</span>
+            @if (curItem.getCriticalProfile(); as critical) {
+              <span class="weapon-stat-separator" aria-hidden="true">·</span>
+              <span title="Critical threat range and multiplier">Critical: {{critical}}</span>
+            }
+          </div>
+        </div>
+      }
     } @else {
       <div class="row">
         <span class="show-never fas fa-heart heart col-1"></span>

@@ -75,6 +75,15 @@ export interface RawItem {
   url?: string;
   rare?: boolean;
   artifact?: boolean;
+  /** A weapon's [W] multiplier and dice: "5.80[1d8+2]" is { w: 5.8, dice: '1d8+2' }. */
+  damage?: WeaponDamage;
+  /** A weapon's critical profile ("17-20/x2"), only where it differs from its type's (item-types.json). */
+  critical?: string;
+}
+
+export interface WeaponDamage {
+  w: number;
+  dice: string;
 }
 
 /** crafting.json: crafting system -> item name (or "*") -> options. */

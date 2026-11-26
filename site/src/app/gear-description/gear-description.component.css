@@ -156,3 +156,11 @@ a {
 .set-link:focus-visible {
   color: var(--link-hover-color);
 }
+
+.weapon-stats {
+    color: var(--text-secondary);
+}
+
+.weapon-stat-separator {
+    margin: 0 var(--space-4);
+}

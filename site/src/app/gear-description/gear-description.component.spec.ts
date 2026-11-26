@@ -45,6 +45,28 @@ describe('GearDescriptionComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('shows a weapon\'s damage and its critical profile, its own over its type\'s', () => {
+    const weapon = (critical?: string) => new Item({
+      name: 'Test Longsword', slot: 'Weapon', type: 'Long Swords', ml: 34, url: '/page/Test',
+      damage: { w: 5.8, dice: '1d8+2' }, ...(critical ? { critical } : {}),
+    });
+    const statsText = () => (fixture.nativeElement.querySelector('.weapon-stats')?.textContent ?? '').replace(/\s+/g, ' ').trim();
+
+    fixture.componentRef.setInput('item', weapon());
+    fixture.detectChanges();
+    expect(statsText()).toBe('Damage: 5.8[1d8+2]·Critical: 19-20/x2');
+
+    fixture.componentRef.setInput('item', weapon('17-20/x2'));
+    fixture.detectChanges();
+    expect(statsText()).toBe('Damage: 5.8[1d8+2]·Critical: 17-20/x2');
+  });
+
+  it('shows no weapon stats for an item without damage', () => {
+    fixture.componentRef.setInput('item', new Item({ name: 'Test Ring', slot: 'Ring', type: 'Finger items', ml: 34, url: '/page/Ring' }));
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.weapon-stats')).toBeNull();
+  });
+
   it('hides and clears augment slot 2 when augment slot 1 is empty', () => {
     const item = makeItemWithAugmentSlots();
     item.getCraftingByName('Augment Slot 2')?.selectCraftingSystem('Colorless Augment Slot');

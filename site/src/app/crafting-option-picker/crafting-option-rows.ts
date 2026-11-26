@@ -31,8 +31,6 @@ export interface TierRow {
   gainScore: number;
   /** The detail under the list while the row is highlighted: one "False Life: +55 → +57 Vitality · beats ..." per tracked affix. */
   changeLines: string[];
-  /** Why it ranks as it does ("Overpowered by ..."), for its tooltip; the change lines name the sources themselves. */
-  why: string;
   /** What the change lines assume, above them: "With 3 set pieces", for a short set. */
   changeCondition: string;
 }
@@ -90,18 +88,15 @@ export function buildFamilyRows(
       const value = singleValuedAffix(option);
       const pieces = ranking.completeSetPieces;
       const gain = gainChip(ranking.changes, !isOnlyAbout(option, ranking.changes), pieces ? `at ${pieces} pcs` : '');
-      const net = netRank(ranking.className, gain);
-      const why = net?.why ?? ranking.rankTooltip;
       return {
         option,
         label: value ? tierValueLabel(option, value, text) : option.describe(),
         name: value ? option.name : '',
-        className: net?.className ?? ranking.className,
+        className: netRank(ranking.className, gain) ?? ranking.className,
         owned: isOwned(option),
         gain,
         gainScore: ranking.changes.reduce((total, change) => total + change.after - change.before, 0),
         changeLines: ranking.changes.map(describeChange),
-        why,
         changeCondition: pieces && ranking.changes.length ? `With ${pieces} set pieces` : ''
       };
     });
@@ -194,7 +189,7 @@ const NET_RECOLOURABLE: ReadonlySet<string> = new Set([
  * while the total drops by 3; and a part of a tracked compound ranks Irrelevant while it completes
  * the compound. A loss is orange and a gain purple, as switching would make them. Null to keep the rank.
  */
-function netRank(className: string, gain: GainChip | null): { className: string; why: string } | null {
+function netRank(className: string, gain: GainChip | null): string | null {
   if (!gain || !NET_RECOLOURABLE.has(className.split(' ')[0])) {
     return null;
   }
@@ -202,10 +197,7 @@ function netRank(className: string, gain: GainChip | null): { className: string;
   if (target === null || className === AffixRank[target]) {
     return null;
   }
-  return {
-    className: AffixRank[target],
-    why: target === AffixRank.Outranked ? 'Switching to it would lower the total' : 'Switching to it would raise the total'
-  };
+  return AffixRank[target];
 }
 
 /** At most this many sources are named on a change line; the rest are counted. */

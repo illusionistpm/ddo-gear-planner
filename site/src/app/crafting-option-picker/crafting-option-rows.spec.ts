@@ -22,13 +22,13 @@ describe('buildFamilyRows', () => {
 
   function rows(options: CraftableOption[], rank: (option: CraftableOption) => Partial<CraftingOptionRanking> = () => ({})) {
     return buildFamilyRows(groupCraftingOptions(options),
-      opt => ({ className: 'Irrelevant', note: '', rankTooltip: '', completeSetPieces: null, changes: [], ...rank(opt) }), text);
+      opt => ({ className: 'Irrelevant', note: '', completeSetPieces: null, changes: [], ...rank(opt) }), text);
   }
   const byLabel = (label: string, list: ReturnType<typeof rows>) => list.find(row => row.label === label)!;
 
   it('marks the tiers the trove has, and their family', () => {
     const list = buildFamilyRows(groupCraftingOptions([...charisma, acid]),
-      () => ({ className: 'Irrelevant', note: '', rankTooltip: '', completeSetPieces: null, changes: [] }), text, opt => opt === charisma[1]);
+      () => ({ className: 'Irrelevant', note: '', completeSetPieces: null, changes: [] }), text, opt => opt === charisma[1]);
 
     expect(byLabel('Charisma', list).owned).toBe(true);
     expect(byLabel('Charisma', list).tiers.map(tier => tier.owned)).toEqual([false, true, false]);
@@ -118,7 +118,7 @@ describe('buildFamilyRows', () => {
       ({ name: 'Charisma', type: 'Enhancement', before: 3, after: Math.max(3, opt.affixes[0].value), beforeSources: [] });
 
     it('is a bare figure on an option with one affix, and a dash when something else gives as much', () => {
-      const row = byLabel('Charisma', rows(charisma, opt => ({ className: 'BetterThanBest', changes: [charismaChange(opt)], rankTooltip: 'why' })));
+      const row = byLabel('Charisma', rows(charisma, opt => ({ className: 'BetterThanBest', changes: [charismaChange(opt)] })));
 
       expect(row.tiers.map(tier => tier.gain)).toEqual([
         { text: '\u2014', direction: 'none', condition: '' },
@@ -128,7 +128,6 @@ describe('buildFamilyRows', () => {
       expect(row.tiers.map(tier => tier.changeLines)).toEqual([
         ['Charisma: stays +3 Enhancement'], ['Charisma: stays +3 Enhancement'], ['Charisma: +3 \u2192 +5 Enhancement'],
       ]);
-      expect(row.tiers[2].why).toBe('why');
     });
 
     it('is the best tier\'s on the family, the highest of equally good tiers', () => {
@@ -143,10 +142,9 @@ describe('buildFamilyRows', () => {
 
     it('recolours by the net change where the rank, judging each bonus type alone, says otherwise', () => {
       // A +2 Festive ranks as the best Festive, but swapping out a +5 Insight loses 3.
-      const loss = byLabel('Charisma', rows(charisma, () => ({ className: 'BetterThanBest', rankTooltip: 'Better',
+      const loss = byLabel('Charisma', rows(charisma, () => ({ className: 'BetterThanBest',
         changes: [{ name: 'Charisma', type: 'Festive', before: 0, after: 2, beforeSources: [] }, { name: 'Charisma', type: 'Insight', before: 5, after: 0, beforeSources: [] }] })));
       expect(loss.tiers[0].className).toBe('Outranked');
-      expect(loss.tiers[0].why).toBe('Switching to it would lower the total');
 
       // A part of a tracked compound ranks Irrelevant, but completes the compound.
       const gain = byLabel('Acid Absorption', rows([acid], () => ({
@@ -159,11 +157,10 @@ describe('buildFamilyRows', () => {
     it('keeps the rank\'s colour when the net change agrees, is nothing, or the rank is a penalty', () => {
       const change = (after: number) => ({ changes: [{ name: 'Charisma', type: 'Enhancement', before: 3, after, beforeSources: [] }] });
       const colour = (className: string, after: number) =>
-        byLabel('Charisma', rows(charisma, () => ({ className, rankTooltip: 'rank', ...change(after) }))).tiers[0];
+        byLabel('Charisma', rows(charisma, () => ({ className, ...change(after) }))).tiers[0];
 
       expect(colour('BetterThanBest', 5).className).toBe('BetterThanBest');
       expect(colour('Best', 3).className).toBe('Best');
-      expect(colour('Best', 3).why).toBe('rank');
       expect(colour('Penalty', 1).className).toBe('Penalty');
       expect(colour('Mixed', 1).className).toBe('Mixed');
     });
@@ -240,7 +237,7 @@ describe('defaultTier', () => {
   const tiers = [1, 3, 5, 7].map(value => new CraftableOption({ name: `+${value}`, affixes: [{ name: 'Charisma', type: 'Enhancement', value }] }));
   const ranks = ['Outranked', 'Best', 'Best', 'BestTied'];
   const [family] = buildFamilyRows(groupCraftingOptions(tiers),
-    option => ({ className: ranks[tiers.indexOf(option)], note: '', rankTooltip: '', completeSetPieces: null, changes: [] }),
+    option => ({ className: ranks[tiers.indexOf(option)], note: '', completeSetPieces: null, changes: [] }),
     { getAffixValue: () => '', getAffixValueText: () => '', describeSetBonusParts: () => [] });
 
   it('is the best-ranked tier, the highest among equally ranked ones', () => {

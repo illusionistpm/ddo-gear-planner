@@ -21,8 +21,6 @@ export interface CraftingOptionRanking {
   className: string;
   /** A caveat to show beside the option: the set pieces a set augment would make, while short. */
   note: string;
-  /** Why it has its rank. */
-  rankTooltip: string;
   /**
    * For a set augment whose set is short of pieces: the pieces its first bonus needs, which
    * `changes` assume it has. Null when `changes` are what choosing it would do now.
@@ -538,14 +536,12 @@ export class AffixUiService {
     const candidate = !context ? undefined
       : 'craft' in context ? this.candidateFor(context.item, context.craft, option)
       : this.candidateFor(context.item, undefined, undefined, { kind: context.bonusKind, option });
-    const rankingTooltip = this.getCraftingOptionRankTooltip(option, slot, candidate);
     const setPieces = this.getSetPieces(option, alreadyEquipped);
     const short = !!setPieces && setPieces.pieces < setPieces.required;
     return {
       className: this.getClassForCraftingOption(option, candidate),
       // Only while the set is short; a complete set's colour already says what it gives.
       note: short ? `${setPieces!.pieces} of ${setPieces!.required} set pieces` : '',
-      rankTooltip: rankingTooltip,
       // A short set gives nothing yet, which says nothing of why you'd choose it: what it gives
       // once it has its pieces is the figure, as its rank colour already assumes.
       changes: this.getCraftingOptionChanges(option, context, short ? setPieces!.required : undefined),

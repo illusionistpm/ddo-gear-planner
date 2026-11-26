@@ -909,7 +909,8 @@ describe('EquippedService', () => {
     }
 
     function tooltip(item: Item, craft: Craftable) {
-      return affixUi.rankCraftingOption(brutalBlows, item.slot, false, { item, craft }).rankTooltip;
+      // Why the option ranks as it does, as if chosen in the slot: the chosen option's row tooltip.
+      return affixUi.getCraftingOptionRankTooltip(brutalBlows, item.slot, affixUi.candidateFor(item, craft, brutalBlows));
     }
 
     beforeEach(() => {

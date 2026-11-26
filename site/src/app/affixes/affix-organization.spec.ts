@@ -33,6 +33,8 @@ describe('affix organization', () => {
     expect(getAffixCategory('Destruction')).toBe('Offense');
     expect(getAffixCategory('Improved Destruction')).toBe('Offense');
     expect(getAffixCategory('Maiming')).toBe('Offense');
+    expect(getAffixCategory('Shatter')).toBe('Offense');
+    expect(getAffixCategory('Sundering')).toBe('Offense');
     expect(getAffixCategory('Healing Amplification')).toBe('Defense');
     expect(getAffixCategory('Negative Amplification')).toBe('Defense');
     expect(getAffixCategory('Repair Amplification')).toBe('Defense');

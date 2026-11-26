@@ -339,6 +339,34 @@ h3 {
   gap: var(--space-8);
 }
 
+.start-switches {
+  display: grid;
+  gap: var(--space-12);
+  margin-bottom: var(--space-8);
+}
+
+.start-switches .start-check {
+  align-items: flex-start;
+}
+
+.start-switches input {
+  margin-top: var(--space-4);
+}
+
+.start-hint-inline {
+  color: var(--text-secondary);
+  display: block;
+  font-size: 0.85rem;
+}
+
+.start-pack-checklist {
+  background: var(--surface-elevated-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  margin-top: var(--space-12);
+  padding: var(--space-12);
+}
+
 .start-levels {
   align-items: center;
   display: flex;

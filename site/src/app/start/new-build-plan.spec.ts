@@ -27,6 +27,16 @@ describe('planFromAnswers', () => {
     expect(plan.externals).toEqual([]);
   });
 
+  it('carries the gear sources: raid and rare items, and the packs hidden', () => {
+    const plan = planFromAnswers(answers({ showRaid: false, showRare: false, hiddenPacks: ['Tomb of Annihilation'] }), context);
+
+    expect(plan.showRaid).toBe(false);
+    expect(plan.showRare).toBe(false);
+    expect(Array.from(plan.hiddenPacks)).toEqual(['Tomb of Annihilation']);
+    expect(planFromAnswers(answers(), context).showRaid).toBe(true);
+    expect(planFromAnswers(answers(), context).hiddenPacks.size).toBe(0);
+  });
+
   it('starts endgame six levels below the cap', () => {
     expect(planFromAnswers(answers(), context).levelRange).toEqual([28, 34]);
     expect(planFromAnswers(answers({ level: [12, 20] }), context).levelRange).toEqual([12, 20]);
@@ -142,12 +152,17 @@ describe('new build choices', () => {
   });
 
   it('keeps the level, armor and trapping on a change of role, and resets the rest', () => {
-    const before = { ...withRole(answers({ trapping: true, armorTypes: ['Light armor'], level: [10, 20] }), 'melee'), greenSteel: 'Dust' };
+    const before = {
+      ...withRole(answers({ trapping: true, armorTypes: ['Light armor'], level: [10, 20], showRaid: false, hiddenPacks: ['Tomb of Annihilation'] }), 'melee'),
+      greenSteel: 'Dust'
+    };
     const after = withRole(before, 'ranged');
 
     expect(after.trapping).toBe(true);
     expect(after.armorTypes).toEqual(['Light armor']);
     expect(after.level).toEqual([10, 20]);
+    expect(after.showRaid).toBe(false);
+    expect(after.hiddenPacks).toEqual(['Tomb of Annihilation']);
     expect(after.greenSteel).toBeNull();
     expect(after.mainStat).toBe('Dexterity');
   });

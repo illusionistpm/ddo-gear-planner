@@ -10,6 +10,9 @@ import { gearSummaryLabel } from '../build/build-gear-summary';
 import { buildPath } from '../build/build-route';
 import { BuildsService } from '../build/builds.service';
 import { QueryParamsService } from '../build/query-params.service';
+import { PackChecklistComponent } from '../filters/pack-checklist.component';
+import { PackChecklistModel } from '../filters/pack-checklist-model';
+import { GameDataService } from '../gear/game-data.service';
 import { GearDbService } from '../gear/gear-db.service';
 import { Item } from '../gear/item';
 import {
@@ -26,10 +29,11 @@ import {
 } from './new-build-plan';
 import { NewBuildService } from './new-build.service';
 
-export type StartStep = 'role' | 'weapons' | 'armor' | 'stats' | 'trance' | 'extras' | 'artifact' | 'summary';
+export type StartStep = 'role' | 'sources' | 'weapons' | 'armor' | 'stats' | 'trance' | 'extras' | 'artifact' | 'summary';
 
 const STEP_LABELS: Record<StartStep, string> = {
   role: 'Role',
+  sources: 'Gear sources',
   weapons: 'Weapons',
   armor: 'Armor',
   stats: 'Stats',
@@ -62,7 +66,7 @@ interface ArtifactRow {
   styleUrls: ['./start-flow.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [LowerCasePipe]
+  imports: [LowerCasePipe, PackChecklistComponent]
 })
 export class StartFlowComponent implements OnInit, OnDestroy {
   readonly labels = STEP_LABELS;
@@ -87,10 +91,16 @@ export class StartFlowComponent implements OnInit, OnDestroy {
   showAllBuilds = false;
   prefersPlanner: boolean;
 
+  /** "Only packs I own" is chosen: the checklist shows, though every pack may be ticked. */
+  ownsPacks = false;
+  /** The packs came from this browser's last setup. */
+  packsRemembered = false;
+
   artifacts: ArtifactRow[] | null = null;
   showAllArtifacts = false;
 
   private setupStarted = false;
+  private packModel?: PackChecklistModel;
   private rankingRun = 0;
   private readonly subscriptions = new Subscription();
 
@@ -104,6 +114,7 @@ export class StartFlowComponent implements OnInit, OnDestroy {
     private readonly queryParams: QueryParamsService,
     private readonly equipped: EquippedService,
     private readonly gearDB: GearDbService,
+    private readonly gameData: GameDataService,
     filters: FiltersService,
     affixPackages: AffixPackagesService
   ) {
@@ -227,6 +238,11 @@ export class StartFlowComponent implements OnInit, OnDestroy {
       case 'weapons':
         this.update({ weaponTypes: null, offhandTypes: null });
         break;
+      case 'sources':
+        // Every pack for this build; what's remembered stays for the next.
+        this.ownsPacks = false;
+        this.update({ showRaid: true, showRare: true, hiddenPacks: [] });
+        break;
       case 'armor':
         this.update({ armorTypes: null });
         break;
@@ -259,7 +275,8 @@ export class StartFlowComponent implements OnInit, OnDestroy {
     const step = ALL_STEPS.includes(fragment as StartStep) ? fragment as StartStep : null;
     if (step && !this.setupStarted) {
       this.setupStarted = true;
-      this.answers = this.newBuild.loadAnswers() ?? emptyAnswers();
+      this.answers = this.newBuild.loadAnswers() ?? this.freshAnswers();
+      this.ownsPacks = this.answers.hiddenPacks.length > 0;
       this.newBuild.startFresh();
       this.newBuild.apply(this.answers);
       this.restoreArtifact();
@@ -269,6 +286,9 @@ export class StartFlowComponent implements OnInit, OnDestroy {
     this.step = step && this.steps.includes(step) ? step : step ? 'summary' : null;
     if (this.step === 'artifact') {
       this.rankArtifacts();
+    }
+    if (this.step === 'sources') {
+      this.packs.syncFromHidden(new Set(this.answers.hiddenPacks));
     }
     this.cdr.markForCheck();
   }
@@ -325,6 +345,65 @@ export class StartFlowComponent implements OnInit, OnDestroy {
       range[which === 0 ? 1 : 0] = range[which];
     }
     this.update({ level: range });
+  }
+
+  // Gear sources
+
+  /** The pack checklist's state, made when first needed: it reads every item's packs. */
+  get packs(): PackChecklistModel {
+    this.packModel ??= new PackChecklistModel(this.gameData);
+    return this.packModel;
+  }
+
+  setShowRaid(show: boolean): void {
+    this.update({ showRaid: show });
+  }
+
+  setShowRare(show: boolean): void {
+    this.update({ showRare: show });
+  }
+
+  /**
+   * "Only packs I own" starts from the packs this browser last chose, else from
+   * what everyone has for free (as the filter sheet does). "Every pack" also
+   * forgets the remembered packs: this player doesn't want them.
+   */
+  setOwnsPacks(owns: boolean): void {
+    if (owns === this.ownsPacks) {
+      return;
+    }
+    this.ownsPacks = owns;
+    if (!owns) {
+      this.packsRemembered = false;
+      this.newBuild.rememberPacks([]);
+      this.update({ hiddenPacks: [] });
+      return;
+    }
+    const remembered = this.newBuild.rememberedPacks();
+    if (remembered) {
+      this.packs.syncFromHidden(new Set(remembered));
+      this.packsRemembered = true;
+    } else {
+      this.packs.tickFreeStart();
+    }
+    this.onPacksChanged();
+  }
+
+  onPacksChanged(): void {
+    const hidden = Array.from(this.packs.hiddenPacks());
+    this.newBuild.rememberPacks(hidden);
+    this.update({ hiddenPacks: hidden });
+  }
+
+  get shownPackCount(): number {
+    return this.packs.options.length - this.answers.hiddenPacks.length;
+  }
+
+  /** A new setup: every default, with the packs this browser chose last time. */
+  private freshAnswers(): NewBuildAnswers {
+    const remembered = this.newBuild.rememberedPacks();
+    this.packsRemembered = !!remembered;
+    return { ...emptyAnswers(), hiddenPacks: remembered ?? [] };
   }
 
   // Weapons and offhand
@@ -511,6 +590,12 @@ export class StartFlowComponent implements OnInit, OnDestroy {
       : a.role === 'caster' ? (this.isHealer ? 'Healer' : 'Caster') : a.role === 'melee' ? 'Melee' : 'Ranged';
     rows.push({ step: 'role', label: 'Role', value: `${role}${a.trapping ? ', with trapping' : ''}` });
     rows.push({ step: 'role', label: 'Levels', value: `${this.levelRange[0]}-${this.levelRange[1]}` });
+    rows.push({ step: 'sources', label: 'Raid items', value: a.showRaid ? 'Shown' : 'Hidden' });
+    rows.push({ step: 'sources', label: 'Rare items', value: a.showRare ? 'Shown' : 'Hidden' });
+    rows.push({
+      step: 'sources', label: 'Packs',
+      value: a.hiddenPacks.length ? `${this.shownPackCount} of ${this.packs.options.length} packs` : 'Every pack'
+    });
     if (this.isMartial) {
       rows.push({ step: 'weapons', label: 'Weapons', value: a.weaponTypes === null ? `Any ${a.role}` : listOrNone(a.weaponTypes) });
     }

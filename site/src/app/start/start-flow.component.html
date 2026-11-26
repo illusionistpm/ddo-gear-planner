@@ -118,6 +118,35 @@
           }
         }
 
+        @case ('sources') {
+          <h2>Where does your gear come from?</h2>
+          <p class="start-hint">Suggestions only offer gear you can get.</p>
+          <div class="start-switches">
+            <label class="start-check">
+              <input type="checkbox" class="start-show-raid" [checked]="answers.showRaid" (change)="setShowRaid($any($event.target).checked)">
+              <span><strong>Raid items</strong><span class="start-hint-inline">Much of endgame's best gear, and the Green Steel weapons</span></span>
+            </label>
+            <label class="start-check">
+              <input type="checkbox" class="start-show-rare" [checked]="answers.showRare" (change)="setShowRare($any($event.target).checked)">
+              <span><strong>Rare items</strong><span class="start-hint-inline">Rare drops from chests</span></span>
+            </label>
+          </div>
+
+          <h3>Packs</h3>
+          <div class="start-chips" role="radiogroup" aria-label="Packs">
+            <button type="button" class="start-chip start-packs-all" role="radio" [attr.aria-checked]="!ownsPacks" (click)="setOwnsPacks(false)">Every pack</button>
+            <button type="button" class="start-chip start-packs-owned" role="radio" [attr.aria-checked]="ownsPacks" (click)="setOwnsPacks(true)">Only packs I own</button>
+          </div>
+          @if (ownsPacks) {
+            @if (packsRemembered) {
+              <p class="start-hint start-packs-remembered">Ticked as you left them last time.</p>
+            }
+            <div class="start-pack-checklist">
+              <app-pack-checklist [model]="packs" heading="Packs you own" (changed)="onPacksChanged()"></app-pack-checklist>
+            </div>
+          }
+        }
+
         @case ('weapons') {
           @if (isMartial) {
             <h2>Which weapons?</h2>
@@ -242,6 +271,9 @@
         @case ('extras') {
           <h2>Legendary Green Steel effect</h2>
           <p class="start-hint">Most endgame builds want one. It comes on Horn, Woeful and Sealed weapons, so mostly raid weapons.</p>
+          @if (!answers.showRaid) {
+            <p class="start-hint start-raids-hidden">You've hidden raid items, so few weapons with these will be offered.</p>
+          }
           <div class="start-chips" role="radiogroup" aria-label="Legendary Green Steel effect">
             @for (element of greenSteelChoices; track element) {
               <button type="button" class="start-chip start-green-steel" role="radio" [attr.aria-checked]="answers.greenSteel === element"

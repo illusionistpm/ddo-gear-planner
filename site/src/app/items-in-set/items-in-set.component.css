@@ -57,3 +57,16 @@
     font-size: 0.75rem;
     margin-left: var(--space-4);
 }
+
+.filtered-note {
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-4);
+}
+
+.filters-link {
+    background: none;
+    border: 0;
+    color: var(--link-color);
+    padding: 0;
+    text-decoration: underline;
+}

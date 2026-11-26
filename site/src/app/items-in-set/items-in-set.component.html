@@ -52,4 +52,28 @@
       </i>
     </div>
   }
+
+  @if (filteredMatches.length > 0) {
+    <div>
+      <div class="row">&nbsp;</div>
+      <h3>Hidden by your filters</h3>
+      <p class="filtered-note">
+        Your item filters leave these out of suggestions.
+        <button type="button" class="filters-link" (click)="openFilters()">Open filters</button>
+      </p>
+      <i>
+        @for (item of filteredMatches; track item.name + '|' + item.slot + '|' + $index) {
+          <div class="row item-result-row" [class.selected-preview-row]="preview.isPreviewing(item)">
+            <div class="col-1">{{item.ml}}</div>
+            <div class="col-2">{{item.slot}}</div>
+            <div class="col-9">
+              <a class="item-preview-link" data-drawer-nav [href]="item.getURL()" (click)="preview.show(item, filteredMatches, $index); $event.preventDefault()">
+                {{item.name}}
+              </a>
+            </div>
+          </div>
+        }
+      </i>
+    </div>
+  }
 </div>

@@ -1049,15 +1049,21 @@ export class GearDbService {
     this._getAugmentHostSlotsIndex();
   }
 
-  findGearInSet(setName: string): Item[] {
+  /**
+   * The items in the named set, or craftable into it (copied with that set chosen).
+   * `ignoreFilters` searches every item rather than those the item filters let through,
+   * and takes crafting options of any ML; it can't see Essence Crafting items, which
+   * only exist in the filtered gear.
+   */
+  findGearInSet(setName: string, { ignoreFilters = false } = {}): Item[] {
     const results: Item[] = [];
-    const maxLevel = this.currentItemFilters.levelRange[1];
+    const maxLevel = ignoreFilters ? Infinity : this.currentItemFilters.levelRange[1];
 
     if (!setName) {
       return results;
     }
 
-    for (const items of this.gear.values()) {
+    for (const items of (ignoreFilters ? this.allGear : this.gear).values()) {
       for (const item of items) {
         if (item.getSets() && item.getSets().includes(setName)) {
           results.push(item);

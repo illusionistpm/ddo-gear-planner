@@ -5,6 +5,8 @@ import { ItemsInSetComponent } from './items-in-set.component';
 import { Affix } from '../affixes/affix';
 import { Item } from '../gear/item';
 import { SuggestionDrawerService } from '../suggestion-drawer/suggestion-drawer.service';
+import { FiltersService } from '../planner/filters.service';
+import { FilterSheetService } from '../planner/filter-sheet.service';
 
 describe('ItemsInSetComponent', () => {
   let component: ItemsInSetComponent;
@@ -80,6 +82,33 @@ describe('ItemsInSetComponent', () => {
     expect(rows.map(row => row.title)).toEqual(['Active — 1 of Some Set equipped', 'Needs 3 set items (currently have 1)']);
     expect(rows.map(row => row.classList.contains('disabled-set-tier'))).toEqual([false, true]);
     expect(rows[1].querySelector('.set-bonus-summary-value')!.classList).toContain('DisabledSetBonus');
+  });
+
+  // An ML 8 set, joined through the Slaver's Set Bonus craftable, with an endgame level range: every
+  // piece is filtered out, and the drawer used to open empty from an equipped piece's set link.
+  it('lists the set items the item filters hide, crafted members included, in their own section', () => {
+    TestBed.inject(FiltersService).setLevelRange(20, 36);
+    component.setName = "Slave Lord's Sorcery";
+    fixture.detectChanges();
+
+    const el: HTMLElement = fixture.nativeElement;
+    expect(component.matches).toEqual([]);
+    expect(component.filteredMatches.map(item => item.name)).toContain("Slave Master's Cloak");
+    expect(el.textContent).toContain('Hidden by your filters');
+    expect([...el.querySelectorAll('.item-preview-link')].map(link => link.textContent!.trim())).toContain("Slave Master's Cloak");
+
+    const open = vi.spyOn(TestBed.inject(FilterSheetService), 'open').mockReturnValue(undefined);
+    el.querySelector<HTMLButtonElement>('.filters-link')!.click();
+    expect(open).toHaveBeenCalled();
+  });
+
+  it('shows no filtered section when the filters hide nothing in the set', () => {
+    component.setName = "Slave Lord's Sorcery";
+    fixture.detectChanges();
+
+    expect(component.matches.map(item => item.name)).toContain("Slave Master's Cloak");
+    expect(component.filteredMatches).toEqual([]);
+    expect(fixture.nativeElement.textContent).not.toContain('Hidden by your filters');
   });
 });
 

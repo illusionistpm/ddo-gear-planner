@@ -701,6 +701,11 @@ suggestions match what people actually fill.
 - **Ranged** adds Sneak Attack Dice and Greater Marksmanship.
 - **Caster** adds Magical Efficiency.
 
+Later, the weapon procs moved out of Melee and Ranged into an opt-in
+**Weapon extras** row in the goals editor, shown while either is on: the four
+Alchemical Attunements, Dripping with Magma, Enhanced Bloodrage and Relentless
+Fury. Action Boost Charges stays in both bundles.
+
 Saved builds keep their tracked lists as they are. A build that had the
 Ranged or Caster bundle shows it unticked until the new affixes are added,
 as happened with the 2 November expansion.

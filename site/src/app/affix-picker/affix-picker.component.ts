@@ -8,7 +8,7 @@ import { buildAffixTypeaheadEntries } from '../affixes/affix-typeahead';
 import { AffixDescriptionService } from '../affixes/affix-description.service';
 import { AnalyticsService } from '../shared/analytics.service';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
-import { AffixPackagesService } from '../affixes/affix-packages.service';
+import { AffixPackagesService, WEAPON_EXTRAS } from '../affixes/affix-packages.service';
 import { AffixEditorService } from '../planner/affix-editor.service';
 
 import { TypeaheadEntry, TypeaheadResult } from '../typeahead/typeahead.component';
@@ -25,7 +25,10 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
   spellSchools: Array<string>;
   tactics: Array<string>;
 
+  weaponExtras = WEAPON_EXTRAS;
+
   showTactics: boolean = false;
+  showWeaponExtras = false;
   showSpellpowers: boolean = false;
   showSpellSchools: boolean = false;
 
@@ -103,6 +106,15 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
     }
 
     this.add(attr, 'attribute_button');
+  }
+
+  toggleWeaponExtra(extra: string) {
+    if (this.isAttributeSelected(extra)) {
+      this.remove(extra);
+      return;
+    }
+
+    this.add(extra, 'weapon_extra_button');
   }
 
   isAttributeSelected(attr: string) {
@@ -314,6 +326,8 @@ export class AffixPickerComponent implements OnInit, OnDestroy {
 
   private updateConditionalSections() {
     this.showTactics = this.isPackageSelected('Melee');
+    this.showWeaponExtras = this.isPackageSelected('Melee') || this.isPackageSelected('Ranged')
+      || this.weaponExtras.some(affix => this.savedSet.has(affix));
     this.showSpellpowers = this.isPackageSelected('Caster') || this.spellpowerPackageKeys.some(key => this.isSpellpowerSelected(key));
     this.showSpellSchools = this.isPackageSelected('Caster');
   }

@@ -92,6 +92,22 @@
       </section>
     }
 
+    @if (showWeaponExtras) {
+      <section class="affix-panel">
+        <div class="affix-panel-header">
+          <h3>Weapon extras</h3>
+        </div>
+        <div class="chip-grid">
+          @for (extra of weaponExtras; track extra) {
+            <button type="button" class="affix-chip affix-selectable-chip affix-weapon-extra-chip"
+              [class.selected]="isAttributeSelected(extra)"
+              [attr.aria-pressed]="isAttributeSelected(extra)"
+              (click)="toggleWeaponExtra(extra)">{{extra}}</button>
+          }
+        </div>
+      </section>
+    }
+
     @if (showSpellpowers) {
       <section class="affix-panel">
         <div class="affix-panel-header">

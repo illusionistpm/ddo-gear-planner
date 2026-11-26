@@ -23,6 +23,14 @@ export interface BuildGoalsSummary {
 /** What a fresh build starts out tracking: survival and utility most builds want. */
 export const DEFAULT_PACKAGE = 'Basic';
 
+/**
+ * Weapon procs only some builds use, offered one by one alongside Melee and Ranged: a quarter to a
+ * third of the players who got them with those packages removed them (docs/suggestions-analysis.md).
+ * Not the weaker 'Blood Rage', which is a different effect.
+ */
+export const WEAPON_EXTRAS = ['Alchemical Air Attunement', 'Alchemical Earth Attunement', 'Alchemical Fire Attunement',
+  'Alchemical Water Attunement', 'Dripping with Magma', 'Enhanced Bloodrage', 'Relentless Fury'];
+
 const TRANCE_INSIGHTFUL_DEADLY: AffixPackageExternal = {
   affixName: 'Deadly',
   bonusType: 'Insight',
@@ -54,13 +62,11 @@ export class AffixPackagesService {
       'Fortification', 'False Life', 'Speed', 'Freedom of Movement', 'Feather Falling',
       'Immunity to Fear', 'Deathblock', 'Heroic Inspiration', 'Undying', 'Acid Absorption', 'Cold Absorption', 'Fire Absorption',
       'Electric Absorption']);
-    // Not the weaker 'Blood Rage', which is a different effect.
     this.packages.set('Melee', ['Melee Alacrity', 'Melee Power', 'Doublestrike', 'Deadly', 'Seeker', 'Accuracy', 'Armor-Piercing',
-      'Incorporeal Bypass', 'Armor Class', 'Deception', 'Improved Deception', 'Action Boost Charges', 'Alchemical Earth Attunement',
-      'Relentless Fury', 'Enhanced Bloodrage', 'Dripping with Magma']);
+      'Incorporeal Bypass', 'Armor Class', 'Deception', 'Improved Deception', 'Action Boost Charges']);
     this.packages.set('Ranged', ['Ranged Alacrity', 'Ranged Power', 'Doubleshot', 'Deadly', 'Seeker', 'Accuracy', 'Armor-Piercing',
-      'Incorporeal Bypass', 'Deception', 'Improved Deception', 'Action Boost Charges', 'Alchemical Earth Attunement', 'Relentless Fury',
-      'Dripping with Magma', 'Sneak Attack Dice', 'Greater Marksmanship']);
+      'Incorporeal Bypass', 'Deception', 'Improved Deception', 'Action Boost Charges', 'Sneak Attack Dice', 'Greater Marksmanship']);
+
     this.packages.set('Caster', ['Spellcraft', 'Wizardry', 'Spell Penetration', 'Concentration', 'Magical Efficiency']);
     this.packages.set('Trapping', ['Open Lock', 'Disable Device', 'Spot', 'Search']);
     this.packageKeys = Array.from(this.packages.keys());

@@ -68,6 +68,7 @@ import { MenuBackdropComponent } from './menu-backdrop/menu-backdrop.component';
 import { UndoStripComponent } from './undo/undo-strip.component';
 import { BuildChoicesComponent } from './shopping-list/build-choices.component';
 import { ListDialogComponent } from './shopping-list/list-dialog.component';
+import { ShortcutsDialogComponent } from './shortcuts-dialog/shortcuts-dialog.component';
 import { ServerShoppingProgressStore } from './planner/shopping-list/server-shopping-progress-store';
 import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress-store';
 
@@ -138,6 +139,7 @@ import { ShoppingProgressStore } from './planner/shopping-list/shopping-progress
         TapTooltipComponent,
         TapTooltipPanelComponent,
         ListDialogComponent,
+        ShortcutsDialogComponent,
         BuildChoicesComponent,
         AuthModule.forRoot({
             domain: environment.auth0Domain,

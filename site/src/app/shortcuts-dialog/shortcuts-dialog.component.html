@@ -1,0 +1,20 @@
+<app-list-dialog heading="Keyboard shortcuts" (closed)="closed.emit()">
+  @for (group of groups; track group.heading) {
+    <h3 class="shortcuts-heading">{{group.heading}}</h3>
+    <dl class="shortcuts-list">
+      @for (shortcut of group.shortcuts; track shortcut.action) {
+        <dt class="shortcuts-keys">
+          @for (combo of shortcut.combos; track $index; let lastCombo = $last) {
+            <span class="shortcuts-combo">
+              @for (key of combo; track $index; let lastKey = $last) {
+                <kbd>{{keyLabel(key)}}</kbd>@if (!lastKey) {<span class="shortcuts-plus" aria-hidden="true">+</span>}
+              }
+            </span>
+            @if (!lastCombo) {<span class="shortcuts-or">or</span>}
+          }
+        </dt>
+        <dd class="shortcuts-action">{{shortcut.action}}</dd>
+      }
+    </dl>
+  }
+</app-list-dialog>

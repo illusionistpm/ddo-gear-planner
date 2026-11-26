@@ -20,6 +20,7 @@ import { AffixEditorService } from '../planner/affix-editor.service';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
 import { ItemBonusSettingsService } from '../planner/item-bonus-settings.service';
 import { CloseRequestService } from '../shared/close-request.service';
+import { EditHistoryService } from '../build/edit-history.service';
 
 describe('MainComponent', () => {
   let component: MainComponent;
@@ -324,6 +325,59 @@ describe('MainComponent', () => {
       expect(editor.isOpen).toBe(true);
     });
 
+    it('1 and 2 switch between the gear and the goals', () => {
+      press('1');
+      expect(activeTab()).toBe('equipment');
+      press('2');
+      expect(activeTab()).toBe('affixes');
+    });
+
+    it('? opens the shortcuts sheet, as the account menu row does, and its close button shuts it', () => {
+      const el: HTMLElement = fixture.nativeElement;
+      press('?', document, { shiftKey: true });
+      expect(el.querySelector('app-shortcuts-dialog')?.textContent).toContain('Open or close build goals');
+
+      (el.querySelector('app-shortcuts-dialog .list-dialog-close') as HTMLButtonElement).click();
+      fixture.detectChanges();
+      expect(el.querySelector('app-shortcuts-dialog')).toBeNull();
+
+      const row = Array.from(el.querySelectorAll<HTMLButtonElement>('.menu-row'))
+        .find(button => button.textContent?.includes('Keyboard shortcuts'))!;
+      row.click();
+      fixture.detectChanges();
+      expect(el.querySelector('app-shortcuts-dialog')).not.toBeNull();
+    });
+
+    it('Ctrl/Cmd+Z undoes, and Ctrl/Cmd+Y or Ctrl/Cmd+Shift+Z redoes, through edit history', () => {
+      const editHistory = TestBed.inject(EditHistoryService);
+      const undo = vi.spyOn(editHistory, 'undo').mockReturnValue(true);
+      const redo = vi.spyOn(editHistory, 'redo').mockReturnValue(true);
+
+      expect(press('z', document, { ctrlKey: true }).defaultPrevented).toBe(true);
+      press('z', document, { metaKey: true });
+      expect(undo).toHaveBeenCalledTimes(2);
+
+      press('y', document, { ctrlKey: true });
+      press('Z', document, { metaKey: true, shiftKey: true });
+      expect(redo).toHaveBeenCalledTimes(2);
+
+      // A field's own undo is its own.
+      const input = document.createElement('input');
+      document.body.appendChild(input);
+      try {
+        expect(press('z', input, { ctrlKey: true }).defaultPrevented).toBe(false);
+      } finally {
+        input.remove();
+      }
+      expect(undo).toHaveBeenCalledTimes(2);
+    });
+
+    it('lets Ctrl/Cmd+Z through to the browser when there is nothing to undo', () => {
+      vi.spyOn(TestBed.inject(EditHistoryService), 'undo').mockReturnValue(false);
+
+      expect(press('z', document, { ctrlKey: true }).defaultPrevented).toBe(false);
+    });
+
     it('leaves the keys alone while typing, with a modifier, or under another overlay', () => {
       const input = document.createElement('input');
       document.body.appendChild(input);
@@ -377,7 +431,7 @@ describe('MainComponent', () => {
       expect(actions.querySelector('app-support-link')).not.toBeNull();
       expect(menu.querySelector('.menu-theme')).not.toBeNull();
       expect([...menu.querySelectorAll('.menu-row')].map(e => e.textContent?.trim()))
-        .toEqual(['About and credits', 'Buy me a coffee']);
+        .toEqual(['About and credits', 'Keyboard shortcuts', 'Buy me a coffee']);
       expect(menu.querySelector('app-admin-link')).not.toBeNull();
     });
 

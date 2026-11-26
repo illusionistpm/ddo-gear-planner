@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 
 import { BuildUrlCodecService } from './build-url-codec.service';
 import { QueryParamsService } from './query-params.service';
+import { EditHistoryService } from './edit-history.service';
 
 describe('QueryParamsService', () => {
   beforeEach(() => {
@@ -16,7 +17,9 @@ describe('QueryParamsService', () => {
             url: '',
             navigate: vi.fn().mockName('navigate').mockResolvedValue(true)
           }
-        }
+        },
+        // Its stamps want a real router's history; edit-history.service.spec.ts covers them.
+        { provide: EditHistoryService, useValue: { stateForNavigation: () => undefined } }
       ]
     });
   });

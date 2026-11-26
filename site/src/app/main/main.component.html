@@ -65,6 +65,10 @@
                 (click)="$event.stopPropagation(); buildActions.closeMenu(); credits.toggle(plannerChrome)">
                 <i class="fas fa-circle-info menu-row-icon" aria-hidden="true"></i>About and credits
             </button>
+            <button type="button" class="menu-row" role="menuitem" aria-keyshortcuts="?"
+                (click)="buildActions.closeMenu(); shortcutsOpen = true">
+                <i class="fas fa-keyboard menu-row-icon" aria-hidden="true"></i>Keyboard shortcuts
+            </button>
             <!-- A phone has no room for Ko-fi in the bar; it lives here instead. -->
             <button type="button" class="menu-row menu-row-support" role="menuitem"
                 (click)="$event.stopPropagation(); buildActions.closeMenu(); support.toggle(plannerChrome)">
@@ -238,6 +242,9 @@
 
     <app-suggestion-drawer></app-suggestion-drawer>
     <app-undo-strip></app-undo-strip>
+    @if (shortcutsOpen) {
+        <app-shortcuts-dialog (closed)="shortcutsOpen = false"></app-shortcuts-dialog>
+    }
 </div>
 } @else {
     <!-- Same markup/classes as index.html's pre-bootstrap app-boot-splash,

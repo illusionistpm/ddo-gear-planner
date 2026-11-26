@@ -1669,6 +1669,9 @@
         "AoE Phantasmal Killer": {
             "*": "Phantasmal Killer Caster level: 10"
         },
+        "Arcane Augmentation": {
+            "*": "This item increases your caster level when casting first through ninth level sorcerer or wizard spells by two."
+        },
         "Arcane Casting Dexterity": {
             "*": "This ability reduces the arcane spell failure chance by -{v}%."
         },
@@ -2139,7 +2142,7 @@
             "*": "+{v}% {type} bonus to decreased threat generated from melee damage."
         },
         "Divine Augmentation": {
-            "*": "This item increases your caster level when casting first through nineth level Divine spells by two."
+            "*": "This item increases your caster level when casting first through ninth level Divine spells by two."
         },
         "Don't Count Me Out!": {
             "*": "You gain a +400 Enhancement Bonus to Unconsciousness Range."
@@ -2964,7 +2967,7 @@
             "*": "On Shield Bash: +5d4 (5 to 20) Bludgeoning damage. On Melee Hit: +20% Chance to automatically hit your enemy with a Shield Bash attack."
         },
         "Improved Cold Augmentation": {
-            "*": "This item increases your caster level when casting nineth level or lower spells that produce cold effects by three."
+            "*": "This item increases your caster level when casting ninth level or lower spells that produce cold effects by three."
         },
         "Improved Cursespewing": {
             "*": "On Vorpal Hit: Your enemy is cursed with a -4 morale penalty on attack rolls, saving throws, and skill checks. This painful curse also causes the victim to take 2d6 (2 to 12) damage every two seconds for a duration of twelve seconds. Additional vorpal strikes while the curse is active will extend the duration by another twelve seconds."
@@ -2988,7 +2991,7 @@
             "*": "When you are successfully attacked, there is a 15% chance that a Stone Skin will be cast on you."
         },
         "Improved Fire Augmentation": {
-            "*": "This item increases your caster level when casting nineth level or lower spells that produce fire effects by three."
+            "*": "This item increases your caster level when casting ninth level or lower spells that produce fire effects by three."
         },
         "Improved Metamagic: Heighten": {
             "*": "Your Heighten Metamagic costs 1 less Spell Point to use per spellcast."
@@ -3286,7 +3289,7 @@
             "*": "A bane weapon excels at attacking one type or subtype of creature. Against Constructs, this weapon's effective enhancement bonus is +1 better than its normal enhancement bonus. It deals an extra 1 to 6 points of damage against the foe."
         },
         "Lesser Divine Augmentation": {
-            "*": "This item increases your caster level when casting first through nineth level Divine spells by one."
+            "*": "This item increases your caster level when casting first through ninth level Divine spells by one."
         },
         "Lesser Dragonmark Charges": {
             "*": "This will increase the total number of Lesser Dragonmarks you can use by {v}. However, these additional Lesser Dragonmarks will only take effect after the wielder rests."
@@ -3301,7 +3304,7 @@
             "*": "A bane weapon excels at attacking one type or subtype of creature. Against Evil Outsiders, this weapon's effective enhancement bonus is +1 better than its normal enhancement bonus. It deals an extra 1 to 6 points of damage against the foe."
         },
         "Lesser Evocation Augmentation": {
-            "*": "This item increases your caster level when casting nineth level or lower evocation spells by one."
+            "*": "This item increases your caster level when casting ninth level or lower evocation spells by one."
         },
         "Lesser Freezing Ice": {
             "*": "On items: While you are wearing this item, your melee, ranged, and unarmed attacks gain the Lesser Freezing Ice ability. (When the weapon is used, an icy power occasionally comes to the surface, attempting to freeze an enemy solid and encase them in ice.) - (duration: 7 seconds) On weapons: This Weapon stores the pitiless immovable power of the ice deep within. When this weapon is used, this power occasionally comes to the surface, attempting to freeze an enemy solid and encase them in ice."
@@ -3764,7 +3767,7 @@
             "*": "+{v} {type} bonus to Positive (Healing) Spell Power."
         },
         "Power": {
-            "*": "This item grants the wearer +{0} maximum spell points. Favored Souls and Sorcerers gain double spell points from this item."
+            "*": "+{0} {type} Bonus to Spell Points. (If you have Sorcerer or Favored Soul levels, you gain additional spell points proportionate to the ratio of those levels to other classes)"
         },
         "Power Drain": {
             "*": "This item reserves some of your power in order to function. You lose 30 maximum spell points (or up to 60 if you are a Sorcerer or Favored Soul)."

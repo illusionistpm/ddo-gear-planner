@@ -32086,7 +32086,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 12,
         "name": "Cloak of Night (level 12)",
         "slot": "Cloak",
         "type": "Back items",
@@ -32120,7 +32120,7 @@
                 "value": "2"
             }
         ],
-        "ml": 1,
+        "ml": 16,
         "name": "Cloak of Night (level 16)",
         "slot": "Cloak",
         "type": "Back items",
@@ -32134,7 +32134,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 4,
         "name": "Cloak of Night (level 4)",
         "slot": "Cloak",
         "type": "Back items",
@@ -32153,7 +32153,7 @@
                 "value": "10"
             }
         ],
-        "ml": 1,
+        "ml": 8,
         "name": "Cloak of Night (level 8)",
         "slot": "Cloak",
         "type": "Back items",
@@ -43726,7 +43726,7 @@
                 "value": 1
             }
         ],
-        "ml": 1,
+        "ml": 12,
         "name": "Death's Locket (level 12)",
         "quests": [
             "The Prison of the Planes"
@@ -67044,7 +67044,7 @@
                 "value": "5"
             }
         ],
-        "ml": 1,
+        "ml": 20,
         "name": "Epic Cloak of Night (level 20)",
         "slot": "Cloak",
         "type": "Back items",
@@ -67083,7 +67083,7 @@
                 "value": "10"
             }
         ],
-        "ml": 1,
+        "ml": 24,
         "name": "Epic Cloak of Night (level 24)",
         "slot": "Cloak",
         "type": "Back items",
@@ -67122,7 +67122,7 @@
                 "value": "15"
             }
         ],
-        "ml": 1,
+        "ml": 28,
         "name": "Epic Cloak of Night (level 28)",
         "slot": "Cloak",
         "type": "Back items",
@@ -120361,7 +120361,7 @@
         "crafting": [
             "Colorless Augment Slot"
         ],
-        "ml": 1,
+        "ml": 12,
         "name": "Iron Beads (level 12)",
         "quests": [
             "Madstone Crater"
@@ -122295,7 +122295,7 @@
                 "value": "2"
             }
         ],
-        "ml": 1,
+        "ml": 12,
         "name": "Kardin's Eye (level 12)",
         "quests": [
             "The Prison of the Planes"
@@ -132830,7 +132830,7 @@
             "Green Augment Slot",
             "Colorless Augment Slot"
         ],
-        "ml": 1,
+        "ml": 35,
         "name": "Legendary Bracers of the Spider Queen",
         "quests": [
             "Raiding the Raiders"
@@ -138209,7 +138209,7 @@
                 "value": "15"
             }
         ],
-        "ml": 1,
+        "ml": 32,
         "name": "Legendary Cloak of Night (level 32)",
         "slot": "Cloak",
         "type": "Back items",
@@ -138248,7 +138248,7 @@
                 "value": "15"
             }
         ],
-        "ml": 1,
+        "ml": 36,
         "name": "Legendary Cloak of Night (level 36)",
         "slot": "Cloak",
         "type": "Back items",
@@ -242511,7 +242511,7 @@
                 "value": "10"
             }
         ],
-        "ml": 1,
+        "ml": 12,
         "name": "Ring of Shadows (level 12)",
         "quests": [
             "The Prison of the Planes"
@@ -254375,7 +254375,7 @@
                 "value": "66"
             }
         ],
-        "ml": 1,
+        "ml": 12,
         "name": "Shamanic Fetish (level 12)",
         "quests": [
             "A Cabal for One"

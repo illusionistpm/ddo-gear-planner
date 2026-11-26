@@ -129,6 +129,9 @@ export class GearDbService {
   // "needs rebuild", reset to null in applyItemFilters whenever this.gear
   // changes.
   private itemAffixTypeIndex: ItemAffixTypeIndex | null = null;
+  // The same index over every item, ignoring the filters, for the drawers' "hidden by
+  // your filters" rows. Built on first use; allGear never changes once loaded.
+  private allGearAffixTypeIndex: ItemAffixTypeIndex | null = null;
   // Craftable name -> hosting slots over the currently filtered gear, lazily
   // built the same way and for the same reason as itemAffixTypeIndex, backing
   // findSlotsForAugmentAffixAndType.
@@ -422,6 +425,20 @@ export class GearDbService {
     }
 
     return Array.from(levels).some(level => this._isLevelInRange(level, minLevel, maxLevel));
+  }
+
+  /**
+   * Whether the item filters let every item and crafting option through, so an
+   * `ignoreFilters` search would find nothing more: lets the drawers skip one.
+   */
+  itemFiltersHideNothing(): boolean {
+    const filters = this.currentItemFilters;
+    return filters.levelRange[0] <= ItemFilters.MIN_LEVEL()
+      && filters.levelRange[1] >= this.allGearMaxLevel
+      && filters.showRaidItems
+      && filters.showRareItems
+      && filters.hiddenItemTypes.size === 0
+      && filters.hiddenPacks.size === 0;
   }
 
   /** The top of the current level filter range. */
@@ -753,20 +770,30 @@ export class GearDbService {
    */
   private _getItemAffixTypeIndex(): ItemAffixTypeIndex {
     if (!this.itemAffixTypeIndex) {
-      this.itemAffixTypeIndex = perfMeasure('GearDbService.buildItemAffixTypeIndex', () => {
-        const index: ItemAffixTypeIndex = new Map();
-        const craftingOptionListPairsCache = new Map<Array<CraftableOption>, Array<[string, string]>>();
-        const maxLevel = this.getMaxLevelFilter();
-        for (const items of this.gear.values()) {
-          for (const item of items) {
-            this._recordItemAffixSources(index, item, item.affixes);
-            this._recordItemCraftingSources(index, item, item.crafting, maxLevel, craftingOptionListPairsCache);
-          }
-        }
-        return index;
-      });
+      this.itemAffixTypeIndex = perfMeasure('GearDbService.buildItemAffixTypeIndex', () =>
+        this._buildItemAffixTypeIndex(this.gear, this.getMaxLevelFilter()));
     }
     return this.itemAffixTypeIndex;
+  }
+
+  private _getAllGearAffixTypeIndex(): ItemAffixTypeIndex {
+    if (!this.allGearAffixTypeIndex) {
+      this.allGearAffixTypeIndex = perfMeasure('GearDbService.buildAllGearAffixTypeIndex', () =>
+        this._buildItemAffixTypeIndex(this.allGear, Infinity));
+    }
+    return this.allGearAffixTypeIndex;
+  }
+
+  private _buildItemAffixTypeIndex(gear: Map<string, Array<Item>>, maxLevel: number): ItemAffixTypeIndex {
+    const index: ItemAffixTypeIndex = new Map();
+    const craftingOptionListPairsCache = new Map<Array<CraftableOption>, Array<[string, string]>>();
+    for (const items of gear.values()) {
+      for (const item of items) {
+        this._recordItemAffixSources(index, item, item.affixes);
+        this._recordItemCraftingSources(index, item, item.crafting, maxLevel, craftingOptionListPairsCache);
+      }
+    }
+    return index;
   }
 
   private _recordItemAffixSources(index: ItemAffixTypeIndex, item: Item, affixes: Array<Affix>) {
@@ -1029,8 +1056,13 @@ export class GearDbService {
     return filteredItem ? new Item(filteredItem) : undefined;
   }
 
-  findGearWithAffixAndType(affixName: string, bonusType: string) {
-    const entry = this._getItemAffixTypeIndex().get(affixTypeKey(affixName, bonusType));
+  /**
+   * `ignoreFilters` searches every item, and crafting options of any ML, rather than what
+   * the item filters let through; like findGearInSet's, it can't see Essence Crafting items.
+   */
+  findGearWithAffixAndType(affixName: string, bonusType: string, { ignoreFilters = false } = {}) {
+    const index = ignoreFilters ? this._getAllGearAffixTypeIndex() : this._getItemAffixTypeIndex();
+    const entry = index.get(affixTypeKey(affixName, bonusType));
     return entry ? Array.from(entry) : [];
   }
 

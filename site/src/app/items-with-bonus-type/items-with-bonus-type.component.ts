@@ -33,6 +33,7 @@ import { ItemBonusService } from '../gear/item-bonus.service';
 import { ITEM_BONUS_TYPE_BY_KIND } from '../affixes/item-bonus-types';
 import { ITEM_BONUS_KIND_LABELS } from '../planner/item-bonus-settings.service';
 import { slotLabel } from '../gear/slot-display';
+import { FilterSheetService } from '../planner/filter-sheet.service';
 
 /** An equipped item and the Mythic Boost, Reaper bonus or Curse its slot offers that gives most of this affix and type. */
 interface ItemBonusMatch {
@@ -59,6 +60,9 @@ interface CraftSlotChoice {
   craftable: Craftable;
   optionString: string;
 }
+
+/** Hidden matches are told apart by name and slot: the preview and Equip work on copies. */
+const hiddenMatchKey = (item: Item) => item.name + '|' + item.slot;
 
 /** How many item rows a list shows before "Show all": a long list is slow to render and rarely read to the end. */
 const ITEM_ROW_LIMIT = 50;
@@ -111,7 +115,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
   private itemValue(item: Item): number {
     let value = this.valueCache.get(item);
     if (value === undefined) {
-      value = Number(item.getValue(this.affixName, this.bonusType, this.affixSvc, this.craftingOptionFilter()));
+      value = Number(item.getValue(this.affixName, this.bonusType, this.affixSvc, this.craftingOptionFilter(item)));
       this.valueCache.set(item, value);
     }
     return value;
@@ -120,6 +124,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
   private updateSorting() {
     this.matches = this._sortItems(this.matches);
     this.lockedMatches = this._sortItems(this.lockedMatches);
+    this.hiddenMatches = this._sortItems(this.hiddenMatches);
   }
 
   @Input() affixName!: string;
@@ -127,6 +132,10 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
 
   matches: Array<Item> = [];
   lockedMatches: Array<Item> = [];
+  /** Items the item filters hide (an item, or the crafting option that gives it this), behind a button. */
+  hiddenMatches: Array<Item> = [];
+  showHiddenMatches = false;
+  private hiddenMatchKeys = new Set<string>();
   /** Locked items whose slot is free: only the one-Minor-Artifact limit rules them out. */
   artifactLimited = new Set<Item>();
 
@@ -188,7 +197,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
   }
   readonly preview = new ItemPreviewController(item => {
     if (this.findMatchingValue(item)[0]) {
-      item.selectMatchingBonusType(this.affixName, this.bonusType, this.affixSvc, this.craftingOptionFilter());
+      item.selectMatchingBonusType(this.affixName, this.bonusType, this.affixSvc, this.craftingOptionFilter(item));
     }
   });
   /**
@@ -213,8 +222,13 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     private changeDetector: ChangeDetectorRef,
     private filigreeDb: FiligreeDbService,
     public filigree: FiligreeLoadoutService,
-    private itemBonuses: ItemBonusService
+    private itemBonuses: ItemBonusService,
+    private filterSheet: FilterSheetService
   ) {
+  }
+
+  openFilters() {
+    this.filterSheet.open();
   }
 
   ngOnDestroy() {
@@ -257,6 +271,9 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     this.matchCache = new Map();
     this.matches = [];
     this.lockedMatches = [];
+    this.hiddenMatches = [];
+    this.hiddenMatchKeys = new Set<string>();
+    this.showHiddenMatches = false;
     this.craftIntoEquippedGear = new Map<string, Map<Item, Array<Craftable>>>();
     this.craftIntoEquippedOptions = new Map<string, CraftableOption>();
     this.preview.close();
@@ -283,6 +300,15 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     // Sort both lists by value and ownership
     this.matches = this._sortItems(unlocked);
     this.lockedMatches = this._sortItems(locked);
+
+    if (!this.gearDB.itemFiltersHideNothing()) {
+      const shown = new Set(matchingGear.map(hiddenMatchKey));
+      const hidden = this.equipped.getCompatibleGear(
+        this.gearDB.findGearWithAffixAndType(this.affixName, this.bonusType, { ignoreFilters: true })
+      ).filter(item => !shown.has(hiddenMatchKey(item)));
+      this.hiddenMatchKeys = new Set(hidden.map(hiddenMatchKey));
+      this.hiddenMatches = this._sortItems(hidden);
+    }
 
     // This is a map of, e.g., Diamond of Str 14 -> Boots Of Innocence -> [Blue Augment, Colorless Augment]
     // This allows me to build a list that looks something like
@@ -408,6 +434,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
 
     this.matches = this._sortByValue(this.matches);
     this.lockedMatches = this._sortByValue(this.lockedMatches);
+    this.hiddenMatches = this._sortByValue(this.hiddenMatches);
 
     this.externalEntries = this.equipped.getExternalAffixesForType(this.affixName, this.bonusType);
 
@@ -560,9 +587,14 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
 
   /**
    * The crafting options the list may suggest: those the level and pack filters let
-   * through, the same ones findGearWithAffixAndType counted when it listed the item.
+   * through, the same ones findGearWithAffixAndType counted when it listed the item -
+   * or, for an item listed as hidden by the filters, any.
    */
-  private craftingOptionFilter(): CraftableOptionFilter {
+  private craftingOptionFilter(item: Item): CraftableOptionFilter {
+    if (this.hiddenMatchKeys.has(hiddenMatchKey(item))) {
+      // Listed because the filters hide it, often for this very option: take it at any ML or pack.
+      return () => true;
+    }
     const maxLevel = this.gearDB.getMaxLevelFilter();
     const hiddenPacks = this.gearDB.getHiddenPacks();
     return option => option.isWithinMaxLevel(maxLevel) && !isOptionHiddenByPacks(option, hiddenPacks);
@@ -573,7 +605,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     if (cached) {
       return cached;
     }
-    const ret = item.getMatchingBonusType(this.affixName, this.bonusType, this.affixSvc, false, this.craftingOptionFilter());
+    const ret = item.getMatchingBonusType(this.affixName, this.bonusType, this.affixSvc, false, this.craftingOptionFilter(item));
     let crafting = (ret && ret[0]) || '';
     if (crafting) {
       crafting = ' (' + crafting + ')';
@@ -609,7 +641,7 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
     const itemToEquip = new Item(item);
     // Apply the relevant crafting option, if any
     if (this.findMatchingValue(itemToEquip)[0]) {
-      itemToEquip.selectMatchingBonusType(this.affixName, this.bonusType, this.affixSvc, this.craftingOptionFilter());
+      itemToEquip.selectMatchingBonusType(this.affixName, this.bonusType, this.affixSvc, this.craftingOptionFilter(itemToEquip));
     }
 
     this.drawerEquip.equip(itemToEquip, 'bonus_type_modal');

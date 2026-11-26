@@ -322,3 +322,16 @@
         min-height: 2.75rem;
     }
 }
+
+.hidden-by-filters-note {
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-4);
+}
+
+.filters-link {
+    background: none;
+    border: 0;
+    color: var(--link-color);
+    padding: 0;
+    text-decoration: underline;
+}

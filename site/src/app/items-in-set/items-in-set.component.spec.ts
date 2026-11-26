@@ -86,14 +86,21 @@ describe('ItemsInSetComponent', () => {
 
   // An ML 8 set, joined through the Slaver's Set Bonus craftable, with an endgame level range: every
   // piece is filtered out, and the drawer used to open empty from an equipped piece's set link.
-  it('lists the set items the item filters hide, crafted members included, in their own section', () => {
+  it('offers the set items the item filters hide, crafted members included, behind a button', () => {
     TestBed.inject(FiltersService).setLevelRange(20, 36);
     component.setName = "Slave Lord's Sorcery";
     fixture.detectChanges();
 
     const el: HTMLElement = fixture.nativeElement;
     expect(component.matches).toEqual([]);
-    expect(component.filteredMatches.map(item => item.name)).toContain("Slave Master's Cloak");
+    expect(el.querySelectorAll('.item-preview-link').length).toBe(0);
+    const reveal = el.querySelector<HTMLButtonElement>('.show-hidden-by-filters')!;
+    expect(reveal.textContent).toContain(`Show ${component.filteredMatches.length} items hidden by your filters`);
+
+    reveal.click();
+    fixture.detectChanges();
+
+    expect(el.querySelector('.show-hidden-by-filters')).toBeNull();
     expect(el.textContent).toContain('Hidden by your filters');
     expect([...el.querySelectorAll('.item-preview-link')].map(link => link.textContent!.trim())).toContain("Slave Master's Cloak");
 
@@ -108,7 +115,7 @@ describe('ItemsInSetComponent', () => {
 
     expect(component.matches.map(item => item.name)).toContain("Slave Master's Cloak");
     expect(component.filteredMatches).toEqual([]);
-    expect(fixture.nativeElement.textContent).not.toContain('Hidden by your filters');
+    expect(fixture.nativeElement.querySelector('.show-hidden-by-filters')).toBeNull();
   });
 });
 

@@ -293,7 +293,7 @@
   </div>
 }
 
-@if (matches.length || lockedMatches.length) {
+@if (matches.length || lockedMatches.length || hiddenMatches.length) {
   <div class="drawer-section">
     <button type="button" class="drawer-section-title" [attr.aria-expanded]="!isSectionCollapsed('items')" (click)="toggleSection('items')">
       <span>Items</span>
@@ -376,6 +376,54 @@
         @if (rowsNotShown(lockedMatches); as more) {
           <button type="button" class="item-rows-more" (click)="showAllItems()">
             Showing {{maxRenderedItems}} of {{lockedMatches.length}} - show all {{more}} more
+          </button>
+        }
+      }
+
+      @if (hiddenMatches.length > 0 && !showHiddenMatches) {
+        <button type="button" class="item-rows-more show-hidden-by-filters" (click)="showHiddenMatches = true">
+          Show {{hiddenMatches.length}} {{hiddenMatches.length === 1 ? 'item' : 'items'}} hidden by your filters
+        </button>
+      }
+
+      @if (hiddenMatches.length > 0 && showHiddenMatches) {
+        <div class="row">&nbsp;</div>
+        <div class="drawer-subsection-title">Hidden by your filters</div>
+        <p class="hidden-by-filters-note">
+          Your item filters leave these out, or the crafting option that gives them this.
+          <button type="button" class="filters-link" (click)="openFilters()">Open filters</button>
+        </p>
+        <i>
+          @for (item of hiddenMatches.slice(0, maxRenderedItems); track item.name + '|' + item.slot + '|' + $index) {
+            <div class="row item-result-row" [class.selected-preview-row]="preview.isPreviewing(item)">
+              <div class="col-1">{{item.ml}}</div>
+              <div class="col-2">{{item.slot}}</div>
+              <div class="col-7">
+                <button type="button" class="item-preview-link" data-drawer-nav (click)="showItemPreview(item, hiddenMatches.slice(0, maxRenderedItems), $index)">
+                  {{item.name}}
+                </button>
+                @if (userOwnsItem(item)) {
+                  <span class="owned-badge"
+                    [title]="getUserItemLocations(item) | userItemLocationTooltip">Owned</span>
+                }
+                @if (isRaidLoot(item)) {
+                  <span class="loot-badge raid-loot-badge" title="Raid loot">Raid</span>
+                }
+                @if (item.rare) {
+                  <span class="loot-badge rare-loot-badge" title="Rare loot">Rare</span>
+                }
+                @if (item.artifact) {
+                  <span class="loot-badge artifact-loot-badge" title="Minor artifact">Artifact</span>
+                }
+                {{findMatchingValue(item)[0]}}
+              </div>
+              <div class="col-2 text-end">{{findMatchingValue(item)[1]}}</div>
+            </div>
+          }
+        </i>
+        @if (rowsNotShown(hiddenMatches); as more) {
+          <button type="button" class="item-rows-more" (click)="showAllItems()">
+            Showing {{maxRenderedItems}} of {{hiddenMatches.length}} - show all {{more}} more
           </button>
         }
       }

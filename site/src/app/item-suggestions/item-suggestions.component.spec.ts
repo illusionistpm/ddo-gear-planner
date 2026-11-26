@@ -110,6 +110,38 @@ describe('ItemSuggestionsComponent', () => {
       expect(element().querySelector('.slot-suggestions-hidden')?.textContent).toContain('hidden by your filters');
     });
 
+    it('lists the items the filters hide only on request, and equips one from there', () => {
+      const gearDB = TestBed.inject(GearDbService);
+      const hammers = gearDB.getGearBySlot('Weapon').filter(item => item.type === 'War Hammers');
+      TestBed.inject(FiltersService).setHiddenTypes(new Set(['War Hammers']));
+      component.slot = 'Weapon';
+      component.ngOnInit();
+      fixture.detectChanges();
+
+      const reveal = element().querySelector<HTMLButtonElement>('.slot-suggestions-show-hidden')!;
+      expect(reveal.textContent).toContain(`Show ${hammers.length} items hidden by your filters`);
+      expect(element().querySelector('.slot-suggestions-hidden-section')).toBeNull();
+
+      reveal.click();
+      fixture.detectChanges();
+
+      const section = element().querySelector<HTMLElement>('.slot-suggestions-hidden-section')!;
+      expect(element().querySelector('.slot-suggestions-show-hidden')).toBeNull();
+      const rows = Array.from(section.querySelectorAll<HTMLElement>('[data-drawer-row]'));
+      expect(rows.length).toBe(Math.min(20, hammers.length));
+      const names = rows.map(row => row.querySelector('.col')!.textContent!.trim());
+      expect(names.every(name => hammers.some(hammer => hammer.name === name))).toBe(true);
+
+      rows[0].querySelector<HTMLButtonElement>('.suggestion-equip-button')!.click();
+      let equipped: string | undefined;
+      TestBed.inject(EquippedService).getSlot('Weapon')!.subscribe(item => equipped = item?.name);
+      expect(equipped).toBe(names[0]);
+    });
+
+    it('offers no hidden items when the filters hide nothing', () => {
+      expect(element().querySelector('.slot-suggestions-show-hidden')).toBeNull();
+    });
+
     it('shows the first items and adds more on request', () => {
       const first = equipButtons().length;
       const more = element().querySelector<HTMLButtonElement>('.slot-suggestions-more');

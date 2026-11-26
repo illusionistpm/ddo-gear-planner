@@ -22,10 +22,12 @@ export class ItemsInSetComponent implements OnInit {
   matches!: Array<Item>;
   lockedMatches!: Array<Item>;
   /**
-   * Set items the item filters hide - a level range above an ML 8 set, say. Listed rather than
-   * dropped, so the drawer for a set an equipped item belongs to is never inexplicably empty.
+   * Set items the item filters hide - a level range above an ML 8 set, say. Offered behind a
+   * button rather than dropped, so the drawer for a set an equipped item belongs to is never
+   * inexplicably empty.
    */
   filteredMatches: Array<Item> = [];
+  showFilteredMatches = false;
   /** Locked items whose slot is free: only the one-Minor-Artifact limit rules them out. */
   artifactLimited = new Set<Item>();
   setBonusTiers: Array<SetBonusThreshold> = [];
@@ -64,10 +66,13 @@ export class ItemsInSetComponent implements OnInit {
     this.matches = this._sortBySlot(this.matches);
     this.lockedMatches = this._sortBySlot(this.lockedMatches);
 
-    const shown = new Set(matchingGear.map(itemKey));
-    this.filteredMatches = this._sortBySlot(
-      this.equipped.getCompatibleGear(this.gearDB.findGearInSet(this.setName, { ignoreFilters: true }))
-        .filter(item => !shown.has(itemKey(item))));
+    this.filteredMatches = [];
+    if (!this.gearDB.itemFiltersHideNothing()) {
+      const shown = new Set(matchingGear.map(itemKey));
+      this.filteredMatches = this._sortBySlot(
+        this.equipped.getCompatibleGear(this.gearDB.findGearInSet(this.setName, { ignoreFilters: true }))
+          .filter(item => !shown.has(itemKey(item))));
+    }
   }
 
   openFilters() {

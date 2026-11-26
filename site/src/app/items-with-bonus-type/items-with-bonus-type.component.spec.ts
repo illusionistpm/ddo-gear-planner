@@ -17,6 +17,7 @@ import { SlotIconComponent } from '../slot-icon/slot-icon.component';
 import { SetBonusSummaryComponent } from '../set-bonus-summary/set-bonus-summary.component';
 import { TapTooltipComponent, TapTooltipPanelComponent } from '../tap-tooltip/tap-tooltip.component';
 import { ItemBonusService } from '../gear/item-bonus.service';
+import { FiltersService } from '../planner/filters.service';
 
 describe('ItemsWithBonusTypeComponent', () => {
   let component: ItemsWithBonusTypeComponent;
@@ -452,6 +453,40 @@ describe('ItemsWithBonusTypeComponent', () => {
         expect(buttonNamed(el, 'Ignore').disabled).toBe(true);
       });
     });
+  });
+
+  it('offers the items the level filter hides behind a button, valued at any crafting ML', () => {
+    TestBed.inject(FiltersService).setLevelRange(1, 10);
+    fixture.componentRef.setInput('affixName', 'Strength');
+    fixture.componentRef.setInput('bonusType', 'Enhancement');
+    fixture.detectChanges();
+    const element = fixture.nativeElement as HTMLElement;
+    const shownBefore = element.querySelectorAll('.item-result-row').length;
+
+    expect(component.hiddenMatches.length).toBeGreaterThan(0);
+    const unfiltered = component.gearDB.findGearWithAffixAndType('Strength', 'Enhancement', { ignoreFilters: true });
+    const listed = new Set([...component.matches, ...component.lockedMatches, ...component.hiddenMatches]
+      .map(item => item.name + '|' + item.slot));
+    expect(component.equipped.getCompatibleGear(unfiltered).filter(item => !listed.has(item.name + '|' + item.slot))).toEqual([]);
+    const reveal = element.querySelector<HTMLButtonElement>('.show-hidden-by-filters')!;
+    expect(reveal.textContent).toContain(`Show ${component.hiddenMatches.length} items hidden by your filters`);
+
+    reveal.click();
+    fixture.detectChanges();
+
+    expect(element.textContent).toContain('Hidden by your filters');
+    expect(element.querySelectorAll('.item-result-row').length).toBeGreaterThan(shownBefore);
+    // Each one has the value it'd have with the filters off - none come up empty.
+    expect(component.hiddenMatches.every(item => component.findMatchingValue(item)[1] !== '')).toBe(true);
+  });
+
+  it('offers no hidden items when the filters hide nothing', () => {
+    fixture.componentRef.setInput('affixName', 'Strength');
+    fixture.componentRef.setInput('bonusType', 'Enhancement');
+    fixture.detectChanges();
+
+    expect(component.hiddenMatches).toEqual([]);
+    expect(fixture.nativeElement.querySelector('.show-hidden-by-filters')).toBeNull();
   });
 
   it('reports how many pieces of a set are already equipped', () => {

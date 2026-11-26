@@ -86,4 +86,43 @@
             Show {{nextPageSize}} more <span class="slot-suggestions-more-count">({{remaining}} left)</span>
           </button>
         }
+
+        @if (hiddenByFilters && !showingHidden) {
+          <button type="button" class="slot-suggestions-more slot-suggestions-show-hidden" (click)="showHidden()">
+            Show {{hiddenByFilters}} {{hiddenByFilters === 1 ? 'item' : 'items'}} hidden by your filters
+          </button>
+        }
+
+        @if (hiddenByFilters && showingHidden) {
+          <div class="slot-suggestions-hidden-section">
+            <div class="row">
+              <span>Hidden by your filters:</span>
+            </div>
+            <p class="slot-suggestions-hidden-note">
+              Your item filters leave these out of the suggestions.
+              <button type="button" class="slot-suggestions-filters" (click)="openFilters()">Open filters</button>
+            </p>
+            @for (item of hiddenGear; track item.name) {
+              <div class="container" data-drawer-row>
+                <div class="row">
+                  <span class="col">{{item.name}}</span>
+                  @if (isCurrent(item)) {
+                    <button class="equip-button suggestion-equip-button" disabled>Equipped</button>
+                  } @else {
+                    <button class="equip-button suggestion-equip-button" data-drawer-nav (click)="equipItem(item)">Equip</button>
+                  }
+                </div>
+                <div class="row">
+                  <app-gear-description class="col" [item]=item [readonly]=true></app-gear-description>
+                </div>
+                <hr>
+              </div>
+            }
+            @if (hiddenRemaining) {
+              <button type="button" class="slot-suggestions-more" (click)="showMoreHidden()">
+                Show {{nextHiddenPageSize}} more <span class="slot-suggestions-more-count">({{hiddenRemaining}} left)</span>
+              </button>
+            }
+          </div>
+        }
       </div>

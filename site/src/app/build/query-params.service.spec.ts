@@ -564,4 +564,73 @@ describe('QueryParamsService', () => {
     expect(params.getAll('tracked')).toEqual(['Strength']);
     expect(params.get('b')).toBeNull();
   });
+
+  describe('holding the URL', () => {
+    const empty = { keys: [], get: () => null, getAll: () => [] };
+    let router: MockedObject<Router>;
+    let service: QueryParamsService;
+    let source: BehaviorSubject<any>;
+
+    beforeEach(() => {
+      router = TestBed.inject(Router) as MockedObject<Router>;
+      (router as any).url = '/';
+      service = TestBed.inject(QueryParamsService);
+      source = new BehaviorSubject<any>(null);
+      service.register('source', source);
+      service.updateFromParams(empty);
+      vi.mocked(router.navigate).mockClear();
+    });
+
+    it('keeps a bare URL through app-made writes until the first edit, which writes them all in one push', () => {
+      service.holdUntilFirstEdit();
+      service.replacingUrl(() => source.next({ tracked: ['Dodge'] }));
+
+      expect(router.navigate).not.toHaveBeenCalled();
+      expect(service.getCombinedParams()).toEqual({ tracked: ['Dodge'] });
+      expect(service.isHoldingUrl()).toBe(true);
+
+      source.next({ tracked: ['Dodge', 'Strength'] });
+
+      expect(router.navigate).toHaveBeenCalledTimes(1);
+      const call = vi.mocked(router.navigate).mock.lastCall!;
+      expect(call[1]?.replaceUrl).toBe(false);
+      const codec = TestBed.inject(BuildUrlCodecService);
+      expect(codec.decode((call[1]?.queryParams as any).b)).toEqual({ tracked: ['Dodge', 'Strength'] });
+      expect(service.isHoldingUrl()).toBe(false);
+    });
+
+    it('still reports held changes to dirty tracking', () => {
+      const emissions: any[] = [];
+      service.combinedParamsChanges.subscribe(params => emissions.push(params));
+      service.holdUntilFirstEdit();
+
+      service.replacingUrl(() => source.next({ tracked: ['Dodge'] }));
+
+      expect(emissions.at(-1)).toEqual({ tracked: ['Dodge'] });
+    });
+
+    it('ends the hold when params arrive from a URL', () => {
+      service.holdUntilFirstEdit();
+      service.updateFromParams(empty);
+
+      service.replacingUrl(() => source.next({ tracked: ['Dodge'] }));
+
+      expect(router.navigate).toHaveBeenCalledTimes(1);
+    });
+
+    it('writes nothing inside holdingUrl, then navigateToBuild pushes the build to the root', async () => {
+      service.holdingUrl(() => source.next({ tracked: ['Dodge'] }));
+      service.holdingUrl(() => source.next({ tracked: ['Dodge', 'Strength'] }));
+
+      expect(router.navigate).not.toHaveBeenCalled();
+
+      await service.navigateToBuild();
+
+      const call = vi.mocked(router.navigate).mock.lastCall!;
+      expect(call[0]).toEqual(['/']);
+      expect(call[1]?.replaceUrl).toBeUndefined();
+      const codec = TestBed.inject(BuildUrlCodecService);
+      expect(codec.decode((call[1]?.queryParams as any).b)).toEqual({ tracked: ['Dodge', 'Strength'] });
+    });
+  });
 });

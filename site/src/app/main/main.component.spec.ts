@@ -111,6 +111,22 @@ describe('MainComponent', () => {
     expect(el.querySelector('.goals-bar')).toBeNull();
   });
 
+  it('leaves a bare URL bare while on Basic, and writes Basic with the first edit as one entry', () => {
+    const navigate = vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
+    const queryParams = TestBed.inject(QueryParamsService);
+
+    expect(queryParams.isHoldingUrl()).toBe(true);
+    expect(navigate).not.toHaveBeenCalled();
+
+    TestBed.inject(EquippedService).addImportantAffix('Strength');
+
+    expect(navigate).toHaveBeenCalledTimes(1);
+    const extras = navigate.mock.lastCall![1]!;
+    expect(extras.replaceUrl).toBe(false);
+    const decoded = TestBed.inject(BuildUrlCodecService).decode((extras.queryParams as any).b)!;
+    expect(decoded['tracked']).toEqual(expect.arrayContaining(['Dodge', 'Strength']));
+  });
+
   it('still counts the user\'s own first edit as an unsaved change', () => {
     TestBed.inject(EquippedService).setImportantAffixes(['Strength']);
 

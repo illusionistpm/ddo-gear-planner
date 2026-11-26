@@ -140,6 +140,10 @@ export class QueryParamsService {
   private readonly editHistory = inject(EditHistoryService);
   /** Inside replacingUrl(): edits replace the history entry instead of pushing one. */
   private replacingWrites = 0;
+  /** Inside holdingUrl(): edits change the build but leave the URL alone. */
+  private holdingWrites = 0;
+  /** Set by holdUntilFirstEdit(): the URL stays as it is until an edit outside replacingUrl(). */
+  private holdingUntilFirstEdit = false;
 
   constructor(
     private readonly router: Router,
@@ -195,6 +199,7 @@ export class QueryParamsService {
   // since a name edit shouldn't spam browser history the way a real gear
   // edit does.
   refreshLiveEditUrl(): void {
+    this.holdingUntilFirstEdit = false;
     this.navigateWithParams(this.withBuildIdentityForUrl(this.getCombinedParams()), true);
   }
 
@@ -222,6 +227,52 @@ export class QueryParamsService {
     }
   }
 
+  /**
+   * Keeps the URL as it is - a bare "/" - while the app sets up a fresh
+   * build: the Basic package it starts on is no reason to rewrite the
+   * address bar. Writes inside replacingUrl() stay held; the first one
+   * outside it (the player's own first edit) writes the whole build,
+   * Basic included, as one pushed entry. Applying params from a URL ends
+   * the hold.
+   */
+  holdUntilFirstEdit(): void {
+    this.holdingUntilFirstEdit = true;
+  }
+
+  /** True while the URL is being held back from the build (see holdUntilFirstEdit and holdingUrl). */
+  isHoldingUrl(): boolean {
+    return this.holdingUntilFirstEdit || this.holdingWrites > 0;
+  }
+
+  /**
+   * Runs a change to the build without writing it to the URL: the start
+   * page sets a build up while its own address stays /start. The build
+   * reaches the URL when that page hands it to the planner
+   * (navigateToBuild).
+   */
+  holdingUrl(change: () => void): void {
+    this.holdingWrites++;
+    try {
+      change();
+    } finally {
+      this.holdingWrites--;
+    }
+  }
+
+  /**
+   * Opens the current build in the planner at `/`, its params in the URL -
+   * a pushed entry, so Back returns to the page that called this. Ends any
+   * hold.
+   */
+  navigateToBuild(extras: Pick<NavigationExtras, 'state'> = {}): Promise<boolean> {
+    this.holdingUntilFirstEdit = false;
+    const compactParam = this.buildUrlCodec.encode(this.withBuildIdentityForUrl(this.getCombinedParams()));
+    return this.navigateAsAppWrite(['/'], {
+      queryParams: { b: compactParam },
+      state: { ...this.editHistory.stateForNavigation(false), ...extras.state }
+    });
+  }
+
   _makeNavigateFn(pair: [unknown, ParamsSource]) {
     return (val: QueryParamRecord | null) => {
         const done = perfStart('QueryParamsService.navigateFromObservable');
@@ -238,6 +289,12 @@ export class QueryParamsService {
           done({ skipped: 'applyingParamsFromUrl' });
           return;
         }
+
+        if (this.holdingWrites > 0 || (this.holdingUntilFirstEdit && this.replacingWrites > 0)) {
+          done({ skipped: 'holdingUrl' });
+          return;
+        }
+        this.holdingUntilFirstEdit = false;
 
         this.navigateWithParams(this.withBuildIdentityForUrl(combinedParams), this.replacingWrites > 0);
         done({ keys: Object.keys(combinedParams).length });
@@ -258,6 +315,7 @@ export class QueryParamsService {
     // for the whole callback window to avoid a "start page" flash - see its
     // comment for the full timing story.
     const params = this.withoutAuthCallbackParams(rawParams);
+    this.holdingUntilFirstEdit = false;
     const paramsToApply = this.decodeCompactParams(params);
     // Split the build's identity (if any) out before anything else sees this
     // set: getPassthroughParams below feeds getCombinedParams(), which is

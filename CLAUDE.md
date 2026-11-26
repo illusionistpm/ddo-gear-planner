@@ -135,6 +135,13 @@ a Back trap that also wipes out redo. A `replaceUrl` navigation made outside
 pins every shape. Item copies use `Craftable.clone()` - don't route copies back
 through the string form.
 
+**The suggestion scorer fills crafting slots itself**, outside `Item`, so
+a rule `Item` applies only in the UI (`isCraftingSlotOpen`, `isOptionAllowed`)
+doesn't reach it. That put every Legendary Alchemical weapon at the top of
+endgame suggestions: three augment slots counted where one opens. Such rules
+live in `CraftingRules` (`planner/suggestion-scorer.ts`), which the harness's
+`fillCrafting` shares; a new one goes there too.
+
 **An empty equipment slot is `null`.** It used to be a truthy `Item` with no
 name, distinguished by `isValid()`, which caused four separate bugs. The
 placeholder and `isValid()` are gone; `EquippedService` stores `Item | null` and

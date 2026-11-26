@@ -211,6 +211,43 @@ Trinket most saved endgame builds wear.
 - **"Show N more artifacts"** after the first three. The main list pages 20
   at a time with master's "Show 20 more", and artifacts are kept out of it.
 
+**Weapons (built 2026-11-26).** On an empty build with levels 1-34, the
+Weapon and Offhand suggestions were all Legendary Alchemical (ML29), every
+weapon type tied at 3.10 for a melee profile. The best ML34 weapon
+(Legendary Calamitous) scored 2.06, and the first weapon of ML32 or more ranked
+22nd. Two causes:
+
+- **The scorer broke the item's crafting rules.** A Legendary Alchemical item
+  lists Green, Orange and Purple augment slots, but each is opened by one Tier
+  3 option, and Tier 3 must take Tier 1's or Tier 2's element. The UI applied
+  both rules and the scorer applied neither, so every Alchemical item scored
+  for three augment slots it can't have, and casters got a Fire / Earth /
+  Water spread no one can craft. `CraftingRules` now applies both, in the
+  scorer and in the harness's `fillCrafting`. Alchemical drops to 2.06. The
+  harness's other slots score the same before and after (melee / ranged /
+  fire / healer: 56.8 / 55.2 / 57.1 / 58.2%; the drift from the 57.7% above
+  is the game data's).
+- **No affix carries a weapon's [W].** It's most of what separates an
+  endgame weapon from an older one (Long Swords: 4.8 at ML29, 5.8-6.3 at
+  ML34), so a weapon scored only as a stat stick. `items.json` now has each
+  weapon's `damage` (W and dice) and, where it isn't its type's, its
+  `critical` profile. Item descriptions show both. For a build that tracks
+  Melee or Ranged Power, Doublestrike or Doubleshot, the scorer adds
+  `weaponDiceCredit`. It takes one [W] at a 1d8+2's 6.5 average, that damage
+  as 2 attribute points per point of damage, at Strength's weight: about 0.8
+  per [W]. The die is fixed, not the weapon's own, so a falchion doesn't
+  always beat a rapier. Weapon type is the build's choice.
+
+With both, a melee build's weapon list starts Legendary Thirteen (ML31, seven
+augment slots), Legendary Mirage (ML30, Seeker, Deception, a set), then The
+Bloody End and Legendary Calamitous (ML34). Alchemical is about 10th. Casters'
+weapons are unchanged by the [W] credit, and the ML29 Cauldron staves (142
+Fire Spell Power plus 71 Insight) still rank near the top on their stats.
+
+The [W] weight is derived, not fitted. The harness skips weapons, and the
+saved builds (the leave-one-out check) haven't been re-run for this. Their
+weapon ranks (top 20 in 24%) are the measure to check it against.
+
 **Not built yet:**
 
 - (Since built.) **Crafting pickers in the drawer.** Each suggestion's crafting

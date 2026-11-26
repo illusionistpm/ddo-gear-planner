@@ -180,6 +180,22 @@ describe('EquippedService.getSuggestionScorer', () => {
     expect(chosen.filter(name => name.includes('Strength') || name.includes('Constitution')).length).toBe(1);
   });
 
+  it('credits a weapon\'s [W] for a build that fights with weapons, and only for one', () => {
+    const sword = (w: number) => new Item({
+      name: `Sword ${w}`, slot: 'Weapon', type: 'Long Swords', ml: 34, url: '/page/Sword',
+      affixes: [{ name: 'Doublestrike', type: 'Enhancement', value: 10 }], damage: { w, dice: '1d8+2' },
+    });
+
+    equipped.setImportantAffixes(['Doublestrike']);
+    let score = equipped.getSuggestionScorer('Weapon');
+    // One [W] is worth about as much as a full affix (Doublestrike 10 of ~46 is about 0.2).
+    expect(score(sword(6.3)) - score(sword(4.8))).toBeGreaterThan(1);
+
+    equipped.setImportantAffixes(['Combustion', 'Fire Lore']);
+    score = equipped.getSuggestionScorer('Weapon');
+    expect(score(sword(6.3))).toBe(score(sword(4.8)));
+  });
+
   it('scores nothing when no affix is tracked', () => {
     equipped.setImportantAffixes([]);
     expect(equipped.getSuggestionScorer('Boots')(fastBoots())).toBe(0);

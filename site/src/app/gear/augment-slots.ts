@@ -83,8 +83,10 @@ export function isCraftingSlotAvailable(item: Item | null, craftable: Craftable)
 /**
  * Brings an item's crafting slots in line with each other: an essence-crafted item's
  * Augment Slot 2 offers only the systems slot 1 allows, and is emptied while slot 1
- * doesn't allow it at all; a slot an upgrade adds is emptied while no chosen upgrade
- * adds it. Mutates the item; anything showing its crafting slots runs it first.
+ * doesn't allow it at all; an option the item's other choices no longer allow (a
+ * Legendary Alchemical Tier 3 whose element Tier 1 and 2 have moved off) is cleared;
+ * and a slot an upgrade adds is emptied while no chosen upgrade adds it. Mutates the
+ * item; anything showing its crafting slots runs it first.
  */
 export function normalizeAugmentSlots(item: Item | null): void {
   const slotOne = item?.getCraftingByName(AUGMENT_SLOT_1);
@@ -100,15 +102,26 @@ export function normalizeAugmentSlots(item: Item | null): void {
     }
   }
 
+  // Before the slots below: a cleared option may have been what opened one.
+  for (const craftable of item?.crafting ?? []) {
+    if (craftable.selected && !item!.isOptionAllowed(craftable.selected)) {
+      clearCraftable(craftable);
+    }
+  }
+
   for (const craftable of item?.crafting ?? []) {
     if (item!.isCraftingSlotOpen(craftable) || !craftable.getSelectedParamDescription()) {
       continue;
     }
-    if (craftable.hasCraftingSystemOptions()) {
-      craftable.selectCraftingSystem('');
-    } else {
-      craftable.selected = craftable.options[0];
-    }
+    clearCraftable(craftable);
+  }
+}
+
+function clearCraftable(craftable: Craftable): void {
+  if (craftable.hasCraftingSystemOptions()) {
+    craftable.selectCraftingSystem('');
+  } else {
+    craftable.selected = craftable.options[0];
   }
 }
 
@@ -124,7 +137,7 @@ export function openFilledUpgradeSlots(item: Item | null): void {
     }
     for (const upgrade of item!.crafting) {
       const opener = upgrade !== craftable && !upgrade.getSelectedParamDescription()
-        ? upgrade.options.find(option => option.addsCrafting.includes(craftable.name))
+        ? upgrade.options.find(option => option.addsCrafting.includes(craftable.name) && item!.isOptionAllowed(option))
         : undefined;
       if (opener) {
         upgrade.selected = opener;

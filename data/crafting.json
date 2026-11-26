@@ -563,6 +563,1186 @@
             }
         ]
     },
+    "Alchemical Tier 1": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Shocking Burst",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Stunning",
+                        "type": "Enhancement",
+                        "value": "10"
+                    },
+                    {
+                        "name": "Heightened Awareness",
+                        "type": "Insight",
+                        "value": "4"
+                    }
+                ],
+                "ml": 16,
+                "name": "Air (Martial)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Air Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Force Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Air (Mystical, Adamantine or Crystal)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Air Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Negative Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Air (Mystical, Byeshk)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Air Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Sonic Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Air (Mystical, Cold Iron)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Air Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Positive Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Air (Mystical, Flametouched Iron)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Air Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Air (Mystical, Silver)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Burst",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Greater Stone Prison",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Earthgrab",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 16,
+                "name": "Earth (Martial)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Earthgrab Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Force Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Earth (Mystical, Adamantine or Crystal)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Earthgrab Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Negative Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Earth (Mystical, Byeshk)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Earthgrab Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Sonic Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Earth (Mystical, Cold Iron)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Earthgrab Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Positive Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Earth (Mystical, Flametouched Iron)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Earthgrab Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Earth (Mystical, Silver)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Flaming Burst",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Flaming Blast",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Seeker",
+                        "type": "Enhancement",
+                        "value": "10"
+                    }
+                ],
+                "ml": 16,
+                "name": "Fire (Martial)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Magma Surge Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Force Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Fire (Mystical, Adamantine or Crystal)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Magma Surge Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Negative Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Fire (Mystical, Byeshk)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Magma Surge Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Sonic Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Fire (Mystical, Cold Iron)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Magma Surge Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Positive Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Fire (Mystical, Flametouched Iron)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Magma Surge Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Fire (Mystical, Silver)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Icy Burst",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Freezing Ice",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Fire Shield (Cold)",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 16,
+                "name": "Water (Martial)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Freezing Ice Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Force Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Water (Mystical, Adamantine or Crystal)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Freezing Ice Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Negative Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Water (Mystical, Byeshk)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Freezing Ice Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Sonic Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Water (Mystical, Cold Iron)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Freezing Ice Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Positive Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Water (Mystical, Flametouched Iron)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "90"
+                    },
+                    {
+                        "name": "Freezing Ice Guard",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": "90"
+                    }
+                ],
+                "ml": 16,
+                "name": "Water (Mystical, Silver)"
+            }
+        ]
+    },
+    "Alchemical Tier 2": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Alchemical",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Lightning Strike",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Doublestrike",
+                        "type": "Enhancement",
+                        "value": "6"
+                    }
+                ],
+                "ml": 18,
+                "name": "Air (Martial)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Spark (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Kinetic Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Air (Mystical, Adamantine or Crystal)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Spark (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Negative Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Air (Mystical, Byeshk)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Spark (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Sonic Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Air (Mystical, Cold Iron)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Spark (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Healing Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Air (Mystical, Flametouched Iron)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Spark (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Radiance Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Air (Mystical, Silver)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Alchemical",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Acid Blast",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Disintegration",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 18,
+                "name": "Earth (Martial)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Erosion (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Kinetic Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Earth (Mystical, Adamantine or Crystal)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Erosion (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Negative Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Earth (Mystical, Byeshk)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Erosion (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Sonic Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Earth (Mystical, Cold Iron)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Erosion (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Healing Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Earth (Mystical, Flametouched Iron)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Erosion (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Radiance Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Earth (Mystical, Silver)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Alchemical",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Incineration",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Righteous",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 18,
+                "name": "Fire (Martial)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Inferno (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Kinetic Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Fire (Mystical, Adamantine or Crystal)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Inferno (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Negative Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Fire (Mystical, Byeshk)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Inferno (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Sonic Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Fire (Mystical, Cold Iron)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Inferno (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Healing Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Fire (Mystical, Flametouched Iron)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Inferno (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Radiance Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Fire (Mystical, Silver)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Alchemical",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Crushing Wave",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Corrosive Salt",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 18,
+                "name": "Water (Martial)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Freeze (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Kinetic Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Water (Mystical, Adamantine or Crystal)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Freeze (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Negative Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Water (Mystical, Byeshk)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Freeze (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Sonic Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Water (Mystical, Cold Iron)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Freeze (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Healing Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Water (Mystical, Flametouched Iron)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    },
+                    {
+                        "name": "Greater Freeze (+20) 3x charges",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Radiance Lore",
+                        "type": "Equipment",
+                        "value": "16"
+                    }
+                ],
+                "ml": 18,
+                "name": "Water (Mystical, Silver)"
+            }
+        ]
+    },
+    "Alchemical Tier 3": {
+        "*": [
+            {
+                "addsCrafting": [
+                    "Red Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Electric Storm",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 20,
+                "name": "Air (Martial)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Efficient Metamagic - Enlarge",
+                        "type": "Enhancement",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Enchantment Focus",
+                        "type": "Equipment",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Spell Focus Mastery",
+                        "type": "Equipment",
+                        "value": "1"
+                    }
+                ],
+                "ml": 20,
+                "name": "Air (Mystical)"
+            },
+            {
+                "addsCrafting": [
+                    "Red Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Acid Torrent",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 20,
+                "name": "Earth (Martial)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Efficient Metamagic - Empower",
+                        "type": "Enhancement",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Conjuration Focus",
+                        "type": "Equipment",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Spell Penetration",
+                        "type": "Equipment",
+                        "value": "3"
+                    }
+                ],
+                "ml": 20,
+                "name": "Earth (Mystical)"
+            },
+            {
+                "addsCrafting": [
+                    "Red Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Fiery Detonation",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 20,
+                "name": "Fire (Martial)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Efficient Metamagic - Maximize",
+                        "type": "Enhancement",
+                        "value": "4"
+                    },
+                    {
+                        "name": "Evocation Focus",
+                        "type": "Equipment",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Arcane Augmentation",
+                        "type": "Untyped",
+                        "value": 1
+                    }
+                ],
+                "ml": 20,
+                "name": "Fire (Mystical)"
+            },
+            {
+                "addsCrafting": [
+                    "Red Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Enhancement Bonus (Weapon)",
+                        "type": "Enhancement",
+                        "value": "+6"
+                    },
+                    {
+                        "name": "Freezing Gale",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 20,
+                "name": "Water (Martial)"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Efficient Metamagic - Extend",
+                        "type": "Enhancement",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Transmutation Focus",
+                        "type": "Equipment",
+                        "value": "2"
+                    },
+                    {
+                        "name": "Greater Elemental Spell Power",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "ml": 20,
+                "name": "Water (Mystical)"
+            }
+        ]
+    },
     "Almost There": {
         "Collective Sight": [
             {
@@ -10660,6 +11840,1190 @@
             {
                 "name": "The Legendary Dread Isle's Curse",
                 "set": "The Legendary Dread Isle's Curse"
+            }
+        ]
+    },
+    "Legendary Alchemical Tier 1": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Heightened Awareness",
+                        "type": "Insight",
+                        "value": "6"
+                    },
+                    {
+                        "name": "Legendary Lightning Storm Guard",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "element": "Air",
+                "ml": 29,
+                "name": "Air: Heightened Awareness +6, Legendary Lightning Storm Guard"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Electric Spell Power",
+                        "type": "Equipment",
+                        "value": "148"
+                    },
+                    {
+                        "name": "Lightning Lore",
+                        "type": "Equipment",
+                        "value": "22"
+                    }
+                ],
+                "element": "Air",
+                "ml": 29,
+                "name": "Air: Magnetism +148, Lightning Lore +22%"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Sonic Spell Power",
+                        "type": "Equipment",
+                        "value": "148"
+                    },
+                    {
+                        "name": "Sonic Lore",
+                        "type": "Equipment",
+                        "value": "22"
+                    }
+                ],
+                "element": "Air",
+                "ml": 29,
+                "name": "Air: Resonance +148, Sonic Lore +22%"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shocking Blast",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Sovereign Lightning Strike",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "element": "Air",
+                "ml": 29,
+                "name": "Air: Shocking Blast 6, Sovereign Lightning Strike"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Spell Resistance",
+                        "type": "Enhancement",
+                        "value": "40"
+                    },
+                    {
+                        "name": "Magical Sheltering",
+                        "type": "Enhancement",
+                        "value": "35"
+                    }
+                ],
+                "element": "Air",
+                "ml": 29,
+                "name": "Air: Spell Resistance +40, Magical Sheltering +35"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Blast",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Legendary Stone Prison",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "element": "Earth",
+                "ml": 29,
+                "name": "Earth: Acid Blast 6, Legendary Stone Prison"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Acid Spell Power",
+                        "type": "Equipment",
+                        "value": "148"
+                    },
+                    {
+                        "name": "Acid Lore",
+                        "type": "Equipment",
+                        "value": "22"
+                    }
+                ],
+                "element": "Earth",
+                "ml": 29,
+                "name": "Earth: Corrosion +148, Acid Lore +22%"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Crippling",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Legendary Earthgrab Guard",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "element": "Earth",
+                "ml": 29,
+                "name": "Earth: Crippling, Legendary Earthgrab Guard"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fortification",
+                        "type": "Enhancement",
+                        "value": "148"
+                    },
+                    {
+                        "name": "Physical Sheltering",
+                        "type": "Enhancement",
+                        "value": "35"
+                    }
+                ],
+                "element": "Earth",
+                "ml": 29,
+                "name": "Earth: Fortification +148%, Physical Sheltering +35"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Negative Spell Power",
+                        "type": "Equipment",
+                        "value": "148"
+                    },
+                    {
+                        "name": "Negative Lore",
+                        "type": "Equipment",
+                        "value": "22"
+                    }
+                ],
+                "element": "Earth",
+                "ml": 29,
+                "name": "Earth: Nullification +148, Void Lore +22%"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Spell Power",
+                        "type": "Equipment",
+                        "value": "148"
+                    },
+                    {
+                        "name": "Fire Lore",
+                        "type": "Equipment",
+                        "value": "22"
+                    }
+                ],
+                "element": "Fire",
+                "ml": 29,
+                "name": "Fire: Combustion +148, Fire Lore +22%"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Positive Spell Power",
+                        "type": "Equipment",
+                        "value": "148"
+                    },
+                    {
+                        "name": "Healing Lore",
+                        "type": "Equipment",
+                        "value": "22"
+                    }
+                ],
+                "element": "Fire",
+                "ml": 29,
+                "name": "Fire: Devotion +148, Healing Lore +22%"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Flaming Blast",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Overwhelming Incineration",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "element": "Fire",
+                "ml": 29,
+                "name": "Fire: Flaming Blast 6, Overwhelming Incineration"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Radiance",
+                        "type": "Equipment",
+                        "value": "148"
+                    },
+                    {
+                        "name": "Radiance Lore",
+                        "type": "Equipment",
+                        "value": "22"
+                    }
+                ],
+                "element": "Fire",
+                "ml": 29,
+                "name": "Fire: Radiance +148, Radiance Lore +22%"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Seeker",
+                        "type": "Enhancement",
+                        "value": "13"
+                    },
+                    {
+                        "name": "Legendary Magma Surge Guard",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "element": "Fire",
+                "ml": 29,
+                "name": "Fire: Seeker +13, Legendary Magma Surge Guard"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Fire Shield (Cold)",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Legendary Ice Shards Guard",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "element": "Water",
+                "ml": 29,
+                "name": "Water: Fire Shield (Cold), Legendary Ice Shards Guard"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Cold Spell Power",
+                        "type": "Equipment",
+                        "value": "148"
+                    },
+                    {
+                        "name": "Cold Lore",
+                        "type": "Equipment",
+                        "value": "22"
+                    }
+                ],
+                "element": "Water",
+                "ml": 29,
+                "name": "Water: Glaciation +148, Ice Lore +22%"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Icy Blast",
+                        "type": "Bool",
+                        "value": 1
+                    },
+                    {
+                        "name": "Concentrated Corrosive Salt",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "element": "Water",
+                "ml": 29,
+                "name": "Water: Icy Blast 6, Concentrated Corrosive Salt"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Force Spell Power",
+                        "type": "Equipment",
+                        "value": "148"
+                    },
+                    {
+                        "name": "Kinetic Lore",
+                        "type": "Equipment",
+                        "value": "22"
+                    }
+                ],
+                "element": "Water",
+                "ml": 29,
+                "name": "Water: Impulse +148, Kinetic Lore +22%"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Reconstruction",
+                        "type": "Equipment",
+                        "value": "148"
+                    },
+                    {
+                        "name": "Repair Lore",
+                        "type": "Equipment",
+                        "value": "22"
+                    }
+                ],
+                "element": "Water",
+                "ml": 29,
+                "name": "Water: Reconstruction +148, Repair Lore +22%"
+            }
+        ]
+    },
+    "Legendary Alchemical Tier 2": {
+        "*": [
+            {
+                "affixes": [
+                    {
+                        "name": "Dexterity",
+                        "type": "Alchemical",
+                        "value": "2"
+                    }
+                ],
+                "element": "Air",
+                "ml": 29,
+                "name": "Air: Alchemical Dexterity +2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Doubleshot",
+                        "type": "Enhancement",
+                        "value": "8"
+                    }
+                ],
+                "element": "Air",
+                "ml": 29,
+                "name": "Air: Doubleshot +8%"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Efficient Metamagic - Enlarge",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "element": "Air",
+                "ml": 29,
+                "name": "Air: Efficient Metamagic - Enlarge II"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Electric Storm",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "element": "Air",
+                "ml": 29,
+                "name": "Air: Legendary Electric Storm"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Vertigo",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ],
+                "element": "Air",
+                "ml": 29,
+                "name": "Air: Vertigo +15"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Constitution",
+                        "type": "Alchemical",
+                        "value": "2"
+                    }
+                ],
+                "element": "Earth",
+                "ml": 29,
+                "name": "Earth: Alchemical Constitution +2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Intelligence",
+                        "type": "Alchemical",
+                        "value": "2"
+                    }
+                ],
+                "element": "Earth",
+                "ml": 29,
+                "name": "Earth: Alchemical Intelligence +2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Efficient Metamagic - Empower",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "element": "Earth",
+                "ml": 29,
+                "name": "Earth: Efficient Metamagic - Empower II"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Acid Torrent",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "element": "Earth",
+                "ml": 29,
+                "name": "Earth: Legendary Acid Torrent"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Shatter",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ],
+                "element": "Earth",
+                "ml": 29,
+                "name": "Earth: Shatter +15"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Strength",
+                        "type": "Alchemical",
+                        "value": "2"
+                    }
+                ],
+                "element": "Fire",
+                "ml": 29,
+                "name": "Fire: Alchemical Strength +2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Doublestrike",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ],
+                "element": "Fire",
+                "ml": 29,
+                "name": "Fire: Doublestrike +15%"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Efficient Metamagic - Maximize",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "element": "Fire",
+                "ml": 29,
+                "name": "Fire: Efficient Metamagic - Maximize II"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Fiery Detonation",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "element": "Fire",
+                "ml": 29,
+                "name": "Fire: Legendary Fiery Detonation"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Stunning",
+                        "type": "Enhancement",
+                        "value": "15"
+                    }
+                ],
+                "element": "Fire",
+                "ml": 29,
+                "name": "Fire: Stunning +15"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Charisma",
+                        "type": "Alchemical",
+                        "value": "2"
+                    }
+                ],
+                "element": "Water",
+                "ml": 29,
+                "name": "Water: Alchemical Charisma +2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Wisdom",
+                        "type": "Alchemical",
+                        "value": "2"
+                    }
+                ],
+                "element": "Water",
+                "ml": 29,
+                "name": "Water: Alchemical Wisdom +2"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Assassinate",
+                        "type": "Enhancement",
+                        "value": "6"
+                    }
+                ],
+                "element": "Water",
+                "ml": 29,
+                "name": "Water: Assassinate +6"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Efficient Metamagic - Extend",
+                        "type": "Enhancement",
+                        "value": 2
+                    }
+                ],
+                "element": "Water",
+                "ml": 29,
+                "name": "Water: Efficient Metamagic - Extend II"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Legendary Freezing Gale",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "element": "Water",
+                "ml": 29,
+                "name": "Water: Legendary Freezing Gale"
+            }
+        ]
+    },
+    "Legendary Alchemical Tier 3": {
+        "*": [
+            {
+                "addsCrafting": [
+                    "Orange Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Alchemical Air Attunement",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "element": "Air",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Air: Alchemical Air Attunement"
+            },
+            {
+                "addsCrafting": [
+                    "Green Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Enchantment Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "element": "Air",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Air: Enchantment Focus +6"
+            },
+            {
+                "addsCrafting": [
+                    "Green Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Illusion Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "element": "Air",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Air: Illusion Focus +6"
+            },
+            {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Improved Electric Augmentation",
+                        "type": "Untyped",
+                        "value": "3"
+                    }
+                ],
+                "element": "Air",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Air: Improved Electric Augmentation IX"
+            },
+            {
+                "addsCrafting": [
+                    "Orange Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Alchemical Earth Attunement",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "element": "Earth",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Earth: Alchemical Earth Attunement"
+            },
+            {
+                "addsCrafting": [
+                    "Green Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Conjuration Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "element": "Earth",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Earth: Conjuration Focus +6"
+            },
+            {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Improved Acid Augmentation",
+                        "type": "Untyped",
+                        "value": "3"
+                    }
+                ],
+                "element": "Earth",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Earth: Improved Acid Augmentation IX"
+            },
+            {
+                "addsCrafting": [
+                    "Green Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Transmutation Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "element": "Earth",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Earth: Transmutation Focus +6"
+            },
+            {
+                "addsCrafting": [
+                    "Orange Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Alchemical Fire Attunement",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "element": "Fire",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Fire: Alchemical Fire Attunement"
+            },
+            {
+                "addsCrafting": [
+                    "Green Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Evocation Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "element": "Fire",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Fire: Evocation Focus +6"
+            },
+            {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Improved Fire Augmentation",
+                        "type": "Untyped",
+                        "value": "3"
+                    }
+                ],
+                "element": "Fire",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Fire: Improved Fire Augmentation IX"
+            },
+            {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "11"
+                    }
+                ],
+                "element": "Fire",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Fire: Resistance +11"
+            },
+            {
+                "addsCrafting": [
+                    "Orange Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Alchemical Water Attunement",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "element": "Water",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Water: Alchemical Water Attunement"
+            },
+            {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Improved Cold Augmentation",
+                        "type": "Untyped",
+                        "value": "3"
+                    }
+                ],
+                "element": "Water",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Water: Improved Cold Augmentation IX"
+            },
+            {
+                "addsCrafting": [
+                    "Green Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Necromancy Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "element": "Water",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Water: Necromancy Focus +6"
+            },
+            {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Spell Penetration",
+                        "type": "Equipment",
+                        "value": "9"
+                    }
+                ],
+                "element": "Water",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Water: Spell Penetration +9"
+            }
+        ],
+        "Toven's Prototype": [
+            {
+                "addsCrafting": [
+                    "Orange Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Alchemical Air Attunement",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "element": "Air",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Air: Alchemical Air Attunement"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Enchantment Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "element": "Air",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Air: Enchantment Focus +6"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Illusion Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "element": "Air",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Air: Illusion Focus +6"
+            },
+            {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Improved Electric Augmentation",
+                        "type": "Untyped",
+                        "value": "3"
+                    }
+                ],
+                "element": "Air",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Air: Improved Electric Augmentation IX"
+            },
+            {
+                "addsCrafting": [
+                    "Orange Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Alchemical Earth Attunement",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "element": "Earth",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Earth: Alchemical Earth Attunement"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Conjuration Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "element": "Earth",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Earth: Conjuration Focus +6"
+            },
+            {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Improved Acid Augmentation",
+                        "type": "Untyped",
+                        "value": "3"
+                    }
+                ],
+                "element": "Earth",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Earth: Improved Acid Augmentation IX"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Transmutation Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "element": "Earth",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Earth: Transmutation Focus +6"
+            },
+            {
+                "addsCrafting": [
+                    "Orange Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Alchemical Fire Attunement",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "element": "Fire",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Fire: Alchemical Fire Attunement"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Evocation Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "element": "Fire",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Fire: Evocation Focus +6"
+            },
+            {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Improved Fire Augmentation",
+                        "type": "Untyped",
+                        "value": "3"
+                    }
+                ],
+                "element": "Fire",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Fire: Improved Fire Augmentation IX"
+            },
+            {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Resistance",
+                        "type": "Resistance",
+                        "value": "11"
+                    }
+                ],
+                "element": "Fire",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Fire: Resistance +11"
+            },
+            {
+                "addsCrafting": [
+                    "Orange Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Alchemical Water Attunement",
+                        "type": "Bool",
+                        "value": 1
+                    }
+                ],
+                "element": "Water",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Water: Alchemical Water Attunement"
+            },
+            {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Improved Cold Augmentation",
+                        "type": "Untyped",
+                        "value": "3"
+                    }
+                ],
+                "element": "Water",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Water: Improved Cold Augmentation IX"
+            },
+            {
+                "affixes": [
+                    {
+                        "name": "Necromancy Focus",
+                        "type": "Equipment",
+                        "value": "6"
+                    }
+                ],
+                "element": "Water",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Water: Necromancy Focus +6"
+            },
+            {
+                "addsCrafting": [
+                    "Purple Augment Slot"
+                ],
+                "affixes": [
+                    {
+                        "name": "Spell Penetration",
+                        "type": "Equipment",
+                        "value": "9"
+                    }
+                ],
+                "element": "Water",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
+                "ml": 29,
+                "name": "Water: Spell Penetration +9"
             }
         ]
     },

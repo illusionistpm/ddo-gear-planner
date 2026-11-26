@@ -7,6 +7,7 @@ from parse_slavers import parse_slavers_crafting
 from write_json import write_json
 from get_item_crafting import get_item_crafting
 from parse_nearly_complete import parse_nearly_complete_crafting
+from parse_alchemical_crafting import parse_alchemical_crafting
 
 from typedefs import AffixesDict, SetDict
 
@@ -37,6 +38,7 @@ def build_crafting() -> None:
     sealUpgrades: dict[str, SystemDict] = json.load(open(f"{os.path.dirname(__file__)}/seal-upgrades.json", "r", encoding='utf-8'))
     nearly_complete: dict[str, SystemDict] = parse_nearly_complete_crafting()
     slavers: dict[str, SystemDict] = parse_slavers_crafting()
+    alchemical: dict[str, SystemDict] = parse_alchemical_crafting()
     item_crafting: dict[str, SystemDict] = get_item_crafting()
     add_sealed_in_fire_crafting(item_crafting)
 
@@ -45,6 +47,7 @@ def build_crafting() -> None:
     combined.update(sealUpgrades)
     combined.update(nearly_complete)
     combined.update(slavers)
+    combined.update(alchemical)
     combined.update(item_crafting)
     add_augment_upgrade_systems(combined)
 

@@ -37,6 +37,13 @@ export interface CraftableOptionInit {
    * option's affixes in their place. Matched by name, type and value.
    */
   replaces?: ReadonlyArray<ReplacedAffixInit>;
+  /** The element the option binds (Legendary Alchemical Crafting: Air, Earth, Water, Fire). */
+  element?: string;
+  /**
+   * Crafting systems on the same item whose element this option must share: Legendary
+   * Alchemical Tier 3 must be Tier 1's or Tier 2's element. See Item.isOptionAllowed.
+   */
+  elementFrom?: ReadonlyArray<string>;
 }
 
 /**

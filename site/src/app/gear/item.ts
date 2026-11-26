@@ -148,6 +148,21 @@ export class Item {
         return !added;
     }
 
+    /**
+     * Whether the item's other choices allow this option. One that must share an element
+     * with other tiers (Legendary Alchemical Tier 3 takes Tier 1's or Tier 2's) is allowed
+     * while one of them is still empty - it can yet be crafted to match - or matches.
+     */
+    isOptionAllowed(option: CraftableOption): boolean {
+        if (!option.elementFrom.length) {
+            return true;
+        }
+        return option.elementFrom.some(systemName => {
+            const chosen = this.getCraftingByName(systemName)?.selected?.element;
+            return !chosen || chosen === option.element;
+        });
+    }
+
     /** The options chosen in its open crafting slots. */
     private chosenOptions(): CraftableOption[] {
         return (this.crafting ?? [])
@@ -257,7 +272,8 @@ export class Item {
                 continue;
             }
 
-            const match = craftable.getBestMatchingOption(affixName, bonusType, affixSvc, isAllowed);
+            const match = craftable.getBestMatchingOption(affixName, bonusType, affixSvc,
+                option => this.isOptionAllowed(option) && (!isAllowed || isAllowed(option)));
             if (match && (!best || Number(match.value) > Number(best.value))) {
                 best = { craftable, option: match.option, value: match.value };
             }

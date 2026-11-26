@@ -60,6 +60,8 @@ describe('classifyCraftSelection', () => {
         'Nearly Complete: Insightful Ability Score', 'Nearly Complete: Quality Ability Score',
         'Nearly Complete: Skill', 'Nearly Complete: Spell Focus',
         'Nearly Finished',
+        'Alchemical Tier 1', 'Alchemical Tier 2', 'Alchemical Tier 3',
+        'Legendary Alchemical Tier 1', 'Legendary Alchemical Tier 2', 'Legendary Alchemical Tier 3',
         'Sealed in Fire', 'Sealed in Gloom', 'Sealed in Mist', 'Sealed in Undeath',
         'Shadowscale Upgrade',
         'T1 (Equipment)', 'T1 (Weapon)', 'T2 (Equipment)', 'T2 (Weapon)', 'T3 (Equipment)', 'T3 (Weapon)',

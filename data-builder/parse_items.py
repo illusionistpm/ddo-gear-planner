@@ -18,6 +18,7 @@ from get_snapshot_path import get_snapshot_path
 from parse_set_page import load_set_members
 from item_sources import LOCATION_HEADERS, SourceResolver, extract_sources, find_location_column, load_source_resolver, merge_resolved_source_packs, report_multi_source_entries
 
+from parse_alchemical_crafting import get_alchemical_crafting_systems, get_slots_added
 from typedefs import SetAugment, CatMap, AugmentNameTransformMap, CraftingSystems, Sets, Affix, Item
 
 # Joke and event items whose enchantments cell is empty. They have nothing
@@ -123,6 +124,32 @@ def get_legendary_green_steel_crafting_systems(item: Item|SetAugment) -> list[st
         f'T2 ({item_type})',
         f'T3 ({item_type})',
     ]
+
+
+def add_alchemical_crafting_systems(craftingSystems: CraftingSystems, item: Item|SetAugment, systemNames: list[str]) -> None:
+    """Give an Alchemical prototype its tiers, and list the augment slots their options add.
+
+    A slot the item already has (Toven's Prototype's own Green Augment Slot) stays
+    open, so the item gets its own copy of the tier without that slot to add: it
+    can't list a second slot of one colour.
+    """
+    ownSlots = set(item.get('crafting', []))
+    addedSlots: list[str] = []
+    for systemName in systemNames:
+        system = craftingSystems.get(systemName)
+        if not isinstance(system, dict) or '*' not in system:
+            continue
+        slots = get_slots_added(cast(Any, system))
+        if any(slot in ownSlots for slot in slots):
+            itemOptions = copy.deepcopy(system['*'])
+            for option in itemOptions:
+                if 'addsCrafting' in option:
+                    option['addsCrafting'] = [slot for slot in option['addsCrafting'] if slot not in ownSlots]
+                    if not option['addsCrafting']:
+                        del option['addsCrafting']
+            system[item['name']] = itemOptions
+        addedSlots += [slot for slot in slots if slot not in ownSlots and slot not in addedSlots]
+    add_item_crafting_systems(item, systemNames + addedSlots)
 
 
 def add_item_crafting_systems(item: Item|SetAugment, crafting_system_names: list[str]) -> None:
@@ -608,6 +635,13 @@ def get_items_from_page(
                 add_item_crafting_systems(item, [SHADOWSCALE_UPGRADE_SYSTEM, *addedSystems])
 
         add_item_crafting_systems(item, get_legendary_green_steel_crafting_systems(item))
+
+        # An Alchemical prototype's flag gives way to the tiers bound onto it.
+        for affix in [*item['affixes']]:
+            alchemicalSystems = get_alchemical_crafting_systems(affix['name'])
+            if alchemicalSystems is not None:
+                item['affixes'].remove(affix)
+                add_alchemical_crafting_systems(craftingSystems, item, alchemicalSystems)
 
         # Post-process craftable items
         if any(itemAffix['name'] in craftableAffixNames for itemAffix in item['affixes']):

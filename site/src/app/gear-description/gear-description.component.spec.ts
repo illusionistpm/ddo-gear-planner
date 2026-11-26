@@ -398,6 +398,22 @@ describe('GearDescriptionComponent', () => {
       expect(craftingRows()).toHaveLength(1);
     });
 
+    it('offers a Legendary Alchemical Tier 3 only of Tier 1\'s or Tier 2\'s element, and clears one they move off', async () => {
+      const item = makeLegendaryAlchemicalItem();
+      item.getCraftingByName('Legendary Alchemical Tier 1')!.selectByParamDescription('Air: One');
+      item.getCraftingByName('Legendary Alchemical Tier 2')!.selectByParamDescription('Earth: Two');
+      item.getCraftingByName('Legendary Alchemical Tier 3')!.selectByParamDescription('Air: Three');
+      await show(item);
+      const row = (system: string) => craftingRows().find(candidate => candidate.textContent!.includes(system))!;
+
+      expect(await pickerOptionNames(fixture, row('Legendary Alchemical Tier 3'))).toEqual(['Empty', 'Air: Three', 'Earth: Three']);
+
+      await choosePickerOption(fixture, row('Legendary Alchemical Tier 1'), 'Fire: One');
+
+      expect(lastEquipped().getCraftingByName('Legendary Alchemical Tier 3')!.selected.name).toBe('');
+      expect(await pickerOptionNames(fixture, row('Legendary Alchemical Tier 3'))).toEqual(['Empty', 'Earth: Three', 'Fire: Three']);
+    });
+
     it('uses the full picker for a long list and the compact one, with no search, for a short list', async () => {
       await show(makeItemWithLongCraftingList());
       await openPicker(fixture, craftingRows()[0]);
@@ -709,6 +725,20 @@ function makeItemWithLongCraftingList() {
   item.ml = 30;
   item.crafting = [new Craftable('Colorless Augment Slot', options)];
   return item;
+}
+
+function makeLegendaryAlchemicalItem() {
+  const tier = (n: number, elementFrom?: string[]) => ({
+    name: `Legendary Alchemical Tier ${n}`,
+    options: ['Air', 'Earth', 'Fire'].map(element => ({
+      name: `${element}: ${['One', 'Two', 'Three'][n - 1]}`, element, elementFrom,
+      affixes: [{ name: `${element} Effect ${n}`, type: 'Bool', value: 1 }],
+    })),
+  });
+  return new Item({
+    name: 'Legendary Alchemical Longsword', slot: 'Weapon', ml: 29,
+    crafting: [tier(1), tier(2), tier(3, ['Legendary Alchemical Tier 1', 'Legendary Alchemical Tier 2'])],
+  });
 }
 
 function makeItemWithAugmentSlots() {

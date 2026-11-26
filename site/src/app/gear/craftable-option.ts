@@ -70,6 +70,10 @@ export class CraftableOption {
     readonly addsCrafting: ReadonlyArray<string>;
     /** The item's own affixes it supersedes while chosen (see CraftableOptionInit.replaces). */
     readonly replaces: ReadonlyArray<Affix>;
+    /** The element it binds, or '' (see CraftableOptionInit.element). */
+    readonly element: string;
+    /** Systems on the item whose element it must share (see CraftableOptionInit.elementFrom). */
+    readonly elementFrom: ReadonlyArray<string>;
     /** For each of `replaces`, the name of the affix of its own that takes its place. */
     private readonly replacementNames: ReadonlyArray<string>;
     /**
@@ -92,6 +96,8 @@ export class CraftableOption {
         this.quests = json?.quests ?? [];
         this.packKeys = getPackKeys(this.quests);
         this.addsCrafting = json?.addsCrafting ?? [];
+        this.element = json?.element ?? '';
+        this.elementFrom = json?.elementFrom ?? [];
         this.replaces = (json?.replaces ?? []).map(affix => new Affix(affix));
         this.replacementNames = (json?.replaces ?? []).map(affix => affix.by ?? affix.name ?? '');
 

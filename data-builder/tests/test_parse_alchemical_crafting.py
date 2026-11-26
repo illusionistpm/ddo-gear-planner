@@ -195,3 +195,15 @@ def test_a_slot_the_item_already_has_stays_open_and_isnt_added_again():
     assert 'addsCrafting' not in own['Air: Enchantment Focus +6']
     # The shared options are untouched.
     assert crafting['Legendary Alchemical Tier 3']['*'][1]['addsCrafting'] == ['Green Augment Slot']
+
+
+def test_legendary_options_name_their_element_and_tier_3_the_tiers_it_must_match(monkeypatch):
+    systems = parse(monkeypatch)
+    tier2 = options(systems, 'Legendary Alchemical Tier 2')['Earth: Alchemical Constitution +2']
+    assert tier2['element'] == 'Earth'
+    assert 'elementFrom' not in tier2
+    tier3 = options(systems, 'Legendary Alchemical Tier 3')['Air: Alchemical Air Attunement']
+    assert tier3['element'] == 'Air'
+    assert tier3['elementFrom'] == ['Legendary Alchemical Tier 1', 'Legendary Alchemical Tier 2']
+    # Heroic tiers have no such rule.
+    assert 'element' not in options(systems, 'Alchemical Tier 3')['Air (Martial)']

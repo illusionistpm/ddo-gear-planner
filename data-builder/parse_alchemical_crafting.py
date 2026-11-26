@@ -9,6 +9,10 @@ was refined with, so each of those is one option per material.
 Legendary prototypes (ML 29) take three tiers at the Cannith Reforging Station.
 Each element lists alternatives, one per line, and each line is one option.
 
+Legendary Tier 3's element must be Tier 1's or Tier 2's, so its options name
+the tiers they must agree with in `elementFrom`, and every legendary option its
+`element`.
+
 Tier 3 options can add an augment slot. An option names it in `addsCrafting`,
 and the item lists it, closed until an option adding it is chosen.
 """
@@ -288,7 +292,12 @@ def get_legendary_systems(soup: BeautifulSoup) -> dict[str, SystemDict]:
                 effects = _legendary_effects(li.get_text())
                 affixes = _parse_effects(list(effects))
                 _type_legendary_affixes(effects, affixes, bonus_types)
-                options.append(_option(f'{element}: {", ".join(effects)}', affixes, LEGENDARY_ML, _legendary_slots(li.get_text())))
+                option = _option(f'{element}: {", ".join(effects)}', affixes, LEGENDARY_ML, _legendary_slots(li.get_text()))
+                option['element'] = element  # type: ignore[typeddict-unknown-key]
+                if tier == 3:
+                    # "Your Tier 3 element must be equal to either your Tier 1 or Tier 2 element."
+                    option['elementFrom'] = [legendary_system_name(1), legendary_system_name(2)]  # type: ignore[typeddict-unknown-key]
+                options.append(option)
         systems[legendary_system_name(tier)] = {'*': options}
     return systems
 

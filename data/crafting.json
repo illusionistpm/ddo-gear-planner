@@ -11858,6 +11858,7 @@
                         "value": 1
                     }
                 ],
+                "element": "Air",
                 "ml": 29,
                 "name": "Air: Heightened Awareness +6, Legendary Lightning Storm Guard"
             },
@@ -11874,6 +11875,7 @@
                         "value": "22"
                     }
                 ],
+                "element": "Air",
                 "ml": 29,
                 "name": "Air: Magnetism +148, Lightning Lore +22%"
             },
@@ -11890,6 +11892,7 @@
                         "value": "22"
                     }
                 ],
+                "element": "Air",
                 "ml": 29,
                 "name": "Air: Resonance +148, Sonic Lore +22%"
             },
@@ -11906,6 +11909,7 @@
                         "value": 1
                     }
                 ],
+                "element": "Air",
                 "ml": 29,
                 "name": "Air: Shocking Blast 6, Sovereign Lightning Strike"
             },
@@ -11922,6 +11926,7 @@
                         "value": "35"
                     }
                 ],
+                "element": "Air",
                 "ml": 29,
                 "name": "Air: Spell Resistance +40, Magical Sheltering +35"
             },
@@ -11938,6 +11943,7 @@
                         "value": 1
                     }
                 ],
+                "element": "Earth",
                 "ml": 29,
                 "name": "Earth: Acid Blast 6, Legendary Stone Prison"
             },
@@ -11954,6 +11960,7 @@
                         "value": "22"
                     }
                 ],
+                "element": "Earth",
                 "ml": 29,
                 "name": "Earth: Corrosion +148, Acid Lore +22%"
             },
@@ -11970,6 +11977,7 @@
                         "value": 1
                     }
                 ],
+                "element": "Earth",
                 "ml": 29,
                 "name": "Earth: Crippling, Legendary Earthgrab Guard"
             },
@@ -11986,6 +11994,7 @@
                         "value": "35"
                     }
                 ],
+                "element": "Earth",
                 "ml": 29,
                 "name": "Earth: Fortification +148%, Physical Sheltering +35"
             },
@@ -12002,6 +12011,7 @@
                         "value": "22"
                     }
                 ],
+                "element": "Earth",
                 "ml": 29,
                 "name": "Earth: Nullification +148, Void Lore +22%"
             },
@@ -12018,6 +12028,7 @@
                         "value": "22"
                     }
                 ],
+                "element": "Fire",
                 "ml": 29,
                 "name": "Fire: Combustion +148, Fire Lore +22%"
             },
@@ -12034,6 +12045,7 @@
                         "value": "22"
                     }
                 ],
+                "element": "Fire",
                 "ml": 29,
                 "name": "Fire: Devotion +148, Healing Lore +22%"
             },
@@ -12050,6 +12062,7 @@
                         "value": 1
                     }
                 ],
+                "element": "Fire",
                 "ml": 29,
                 "name": "Fire: Flaming Blast 6, Overwhelming Incineration"
             },
@@ -12066,6 +12079,7 @@
                         "value": "22"
                     }
                 ],
+                "element": "Fire",
                 "ml": 29,
                 "name": "Fire: Radiance +148, Radiance Lore +22%"
             },
@@ -12082,6 +12096,7 @@
                         "value": 1
                     }
                 ],
+                "element": "Fire",
                 "ml": 29,
                 "name": "Fire: Seeker +13, Legendary Magma Surge Guard"
             },
@@ -12098,6 +12113,7 @@
                         "value": 1
                     }
                 ],
+                "element": "Water",
                 "ml": 29,
                 "name": "Water: Fire Shield (Cold), Legendary Ice Shards Guard"
             },
@@ -12114,6 +12130,7 @@
                         "value": "22"
                     }
                 ],
+                "element": "Water",
                 "ml": 29,
                 "name": "Water: Glaciation +148, Ice Lore +22%"
             },
@@ -12130,6 +12147,7 @@
                         "value": 1
                     }
                 ],
+                "element": "Water",
                 "ml": 29,
                 "name": "Water: Icy Blast 6, Concentrated Corrosive Salt"
             },
@@ -12146,6 +12164,7 @@
                         "value": "22"
                     }
                 ],
+                "element": "Water",
                 "ml": 29,
                 "name": "Water: Impulse +148, Kinetic Lore +22%"
             },
@@ -12162,6 +12181,7 @@
                         "value": "22"
                     }
                 ],
+                "element": "Water",
                 "ml": 29,
                 "name": "Water: Reconstruction +148, Repair Lore +22%"
             }
@@ -12177,6 +12197,7 @@
                         "value": "2"
                     }
                 ],
+                "element": "Air",
                 "ml": 29,
                 "name": "Air: Alchemical Dexterity +2"
             },
@@ -12188,6 +12209,7 @@
                         "value": "8"
                     }
                 ],
+                "element": "Air",
                 "ml": 29,
                 "name": "Air: Doubleshot +8%"
             },
@@ -12199,6 +12221,7 @@
                         "value": 2
                     }
                 ],
+                "element": "Air",
                 "ml": 29,
                 "name": "Air: Efficient Metamagic - Enlarge II"
             },
@@ -12210,6 +12233,7 @@
                         "value": 1
                     }
                 ],
+                "element": "Air",
                 "ml": 29,
                 "name": "Air: Legendary Electric Storm"
             },
@@ -12221,6 +12245,7 @@
                         "value": "15"
                     }
                 ],
+                "element": "Air",
                 "ml": 29,
                 "name": "Air: Vertigo +15"
             },
@@ -12232,6 +12257,7 @@
                         "value": "2"
                     }
                 ],
+                "element": "Earth",
                 "ml": 29,
                 "name": "Earth: Alchemical Constitution +2"
             },
@@ -12243,6 +12269,7 @@
                         "value": "2"
                     }
                 ],
+                "element": "Earth",
                 "ml": 29,
                 "name": "Earth: Alchemical Intelligence +2"
             },
@@ -12254,6 +12281,7 @@
                         "value": 2
                     }
                 ],
+                "element": "Earth",
                 "ml": 29,
                 "name": "Earth: Efficient Metamagic - Empower II"
             },
@@ -12265,6 +12293,7 @@
                         "value": 1
                     }
                 ],
+                "element": "Earth",
                 "ml": 29,
                 "name": "Earth: Legendary Acid Torrent"
             },
@@ -12276,6 +12305,7 @@
                         "value": "15"
                     }
                 ],
+                "element": "Earth",
                 "ml": 29,
                 "name": "Earth: Shatter +15"
             },
@@ -12287,6 +12317,7 @@
                         "value": "2"
                     }
                 ],
+                "element": "Fire",
                 "ml": 29,
                 "name": "Fire: Alchemical Strength +2"
             },
@@ -12298,6 +12329,7 @@
                         "value": "15"
                     }
                 ],
+                "element": "Fire",
                 "ml": 29,
                 "name": "Fire: Doublestrike +15%"
             },
@@ -12309,6 +12341,7 @@
                         "value": 2
                     }
                 ],
+                "element": "Fire",
                 "ml": 29,
                 "name": "Fire: Efficient Metamagic - Maximize II"
             },
@@ -12320,6 +12353,7 @@
                         "value": 1
                     }
                 ],
+                "element": "Fire",
                 "ml": 29,
                 "name": "Fire: Legendary Fiery Detonation"
             },
@@ -12331,6 +12365,7 @@
                         "value": "15"
                     }
                 ],
+                "element": "Fire",
                 "ml": 29,
                 "name": "Fire: Stunning +15"
             },
@@ -12342,6 +12377,7 @@
                         "value": "2"
                     }
                 ],
+                "element": "Water",
                 "ml": 29,
                 "name": "Water: Alchemical Charisma +2"
             },
@@ -12353,6 +12389,7 @@
                         "value": "2"
                     }
                 ],
+                "element": "Water",
                 "ml": 29,
                 "name": "Water: Alchemical Wisdom +2"
             },
@@ -12364,6 +12401,7 @@
                         "value": "6"
                     }
                 ],
+                "element": "Water",
                 "ml": 29,
                 "name": "Water: Assassinate +6"
             },
@@ -12375,6 +12413,7 @@
                         "value": 2
                     }
                 ],
+                "element": "Water",
                 "ml": 29,
                 "name": "Water: Efficient Metamagic - Extend II"
             },
@@ -12386,6 +12425,7 @@
                         "value": 1
                     }
                 ],
+                "element": "Water",
                 "ml": 29,
                 "name": "Water: Legendary Freezing Gale"
             }
@@ -12404,6 +12444,11 @@
                         "value": 1
                     }
                 ],
+                "element": "Air",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
                 "ml": 29,
                 "name": "Air: Alchemical Air Attunement"
             },
@@ -12417,6 +12462,11 @@
                         "type": "Equipment",
                         "value": "6"
                     }
+                ],
+                "element": "Air",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
                 ],
                 "ml": 29,
                 "name": "Air: Enchantment Focus +6"
@@ -12432,6 +12482,11 @@
                         "value": "6"
                     }
                 ],
+                "element": "Air",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
                 "ml": 29,
                 "name": "Air: Illusion Focus +6"
             },
@@ -12445,6 +12500,11 @@
                         "type": "Untyped",
                         "value": "3"
                     }
+                ],
+                "element": "Air",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
                 ],
                 "ml": 29,
                 "name": "Air: Improved Electric Augmentation IX"
@@ -12460,6 +12520,11 @@
                         "value": 1
                     }
                 ],
+                "element": "Earth",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
                 "ml": 29,
                 "name": "Earth: Alchemical Earth Attunement"
             },
@@ -12473,6 +12538,11 @@
                         "type": "Equipment",
                         "value": "6"
                     }
+                ],
+                "element": "Earth",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
                 ],
                 "ml": 29,
                 "name": "Earth: Conjuration Focus +6"
@@ -12488,6 +12558,11 @@
                         "value": "3"
                     }
                 ],
+                "element": "Earth",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
                 "ml": 29,
                 "name": "Earth: Improved Acid Augmentation IX"
             },
@@ -12501,6 +12576,11 @@
                         "type": "Equipment",
                         "value": "6"
                     }
+                ],
+                "element": "Earth",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
                 ],
                 "ml": 29,
                 "name": "Earth: Transmutation Focus +6"
@@ -12516,6 +12596,11 @@
                         "value": 1
                     }
                 ],
+                "element": "Fire",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
                 "ml": 29,
                 "name": "Fire: Alchemical Fire Attunement"
             },
@@ -12529,6 +12614,11 @@
                         "type": "Equipment",
                         "value": "6"
                     }
+                ],
+                "element": "Fire",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
                 ],
                 "ml": 29,
                 "name": "Fire: Evocation Focus +6"
@@ -12544,6 +12634,11 @@
                         "value": "3"
                     }
                 ],
+                "element": "Fire",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
                 "ml": 29,
                 "name": "Fire: Improved Fire Augmentation IX"
             },
@@ -12557,6 +12652,11 @@
                         "type": "Resistance",
                         "value": "11"
                     }
+                ],
+                "element": "Fire",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
                 ],
                 "ml": 29,
                 "name": "Fire: Resistance +11"
@@ -12572,6 +12672,11 @@
                         "value": 1
                     }
                 ],
+                "element": "Water",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
                 "ml": 29,
                 "name": "Water: Alchemical Water Attunement"
             },
@@ -12585,6 +12690,11 @@
                         "type": "Untyped",
                         "value": "3"
                     }
+                ],
+                "element": "Water",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
                 ],
                 "ml": 29,
                 "name": "Water: Improved Cold Augmentation IX"
@@ -12600,6 +12710,11 @@
                         "value": "6"
                     }
                 ],
+                "element": "Water",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
                 "ml": 29,
                 "name": "Water: Necromancy Focus +6"
             },
@@ -12613,6 +12728,11 @@
                         "type": "Equipment",
                         "value": "9"
                     }
+                ],
+                "element": "Water",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
                 ],
                 "ml": 29,
                 "name": "Water: Spell Penetration +9"
@@ -12630,6 +12750,11 @@
                         "value": 1
                     }
                 ],
+                "element": "Air",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
                 "ml": 29,
                 "name": "Air: Alchemical Air Attunement"
             },
@@ -12641,6 +12766,11 @@
                         "value": "6"
                     }
                 ],
+                "element": "Air",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
                 "ml": 29,
                 "name": "Air: Enchantment Focus +6"
             },
@@ -12651,6 +12781,11 @@
                         "type": "Equipment",
                         "value": "6"
                     }
+                ],
+                "element": "Air",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
                 ],
                 "ml": 29,
                 "name": "Air: Illusion Focus +6"
@@ -12666,6 +12801,11 @@
                         "value": "3"
                     }
                 ],
+                "element": "Air",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
                 "ml": 29,
                 "name": "Air: Improved Electric Augmentation IX"
             },
@@ -12680,6 +12820,11 @@
                         "value": 1
                     }
                 ],
+                "element": "Earth",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
                 "ml": 29,
                 "name": "Earth: Alchemical Earth Attunement"
             },
@@ -12690,6 +12835,11 @@
                         "type": "Equipment",
                         "value": "6"
                     }
+                ],
+                "element": "Earth",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
                 ],
                 "ml": 29,
                 "name": "Earth: Conjuration Focus +6"
@@ -12705,6 +12855,11 @@
                         "value": "3"
                     }
                 ],
+                "element": "Earth",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
                 "ml": 29,
                 "name": "Earth: Improved Acid Augmentation IX"
             },
@@ -12715,6 +12870,11 @@
                         "type": "Equipment",
                         "value": "6"
                     }
+                ],
+                "element": "Earth",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
                 ],
                 "ml": 29,
                 "name": "Earth: Transmutation Focus +6"
@@ -12730,6 +12890,11 @@
                         "value": 1
                     }
                 ],
+                "element": "Fire",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
                 "ml": 29,
                 "name": "Fire: Alchemical Fire Attunement"
             },
@@ -12740,6 +12905,11 @@
                         "type": "Equipment",
                         "value": "6"
                     }
+                ],
+                "element": "Fire",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
                 ],
                 "ml": 29,
                 "name": "Fire: Evocation Focus +6"
@@ -12755,6 +12925,11 @@
                         "value": "3"
                     }
                 ],
+                "element": "Fire",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
                 "ml": 29,
                 "name": "Fire: Improved Fire Augmentation IX"
             },
@@ -12768,6 +12943,11 @@
                         "type": "Resistance",
                         "value": "11"
                     }
+                ],
+                "element": "Fire",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
                 ],
                 "ml": 29,
                 "name": "Fire: Resistance +11"
@@ -12783,6 +12963,11 @@
                         "value": 1
                     }
                 ],
+                "element": "Water",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
                 "ml": 29,
                 "name": "Water: Alchemical Water Attunement"
             },
@@ -12797,6 +12982,11 @@
                         "value": "3"
                     }
                 ],
+                "element": "Water",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
+                ],
                 "ml": 29,
                 "name": "Water: Improved Cold Augmentation IX"
             },
@@ -12807,6 +12997,11 @@
                         "type": "Equipment",
                         "value": "6"
                     }
+                ],
+                "element": "Water",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
                 ],
                 "ml": 29,
                 "name": "Water: Necromancy Focus +6"
@@ -12821,6 +13016,11 @@
                         "type": "Equipment",
                         "value": "9"
                     }
+                ],
+                "element": "Water",
+                "elementFrom": [
+                    "Legendary Alchemical Tier 1",
+                    "Legendary Alchemical Tier 2"
                 ],
                 "ml": 29,
                 "name": "Water: Spell Penetration +9"

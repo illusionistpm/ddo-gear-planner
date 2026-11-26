@@ -362,7 +362,8 @@ export class ItemsWithBonusTypeComponent implements OnInit, OnDestroy, OnChanges
         }
 
         for (const option of craftable.options) {
-          if (!option.isWithinMaxLevel(maxLevel) || isOptionHiddenByPacks(option, hiddenPacks)) {
+          if (!option.isWithinMaxLevel(maxLevel) || isOptionHiddenByPacks(option, hiddenPacks)
+            || !item.isOptionAllowed(option)) {
             continue;
           }
           if (option.getMatchingBonusType(this.affixName, this.bonusType, this.affixSvc) == null) {

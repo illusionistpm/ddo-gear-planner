@@ -172,8 +172,14 @@ export class CraftingSlotControlComponent implements OnChanges, OnDestroy {
       this.optionsWithinMaxLevel.set(all, cached);
     }
     const selected = craft.selected;
-    return !selected || isVisible(selected)
+    const visible = !selected || isVisible(selected)
       ? cached.options
       : all.filter(option => option === selected || isVisible(option));
+    // An option the item's other choices rule out (a Legendary Alchemical Tier 3 of an
+    // element neither Tier 1 nor 2 has) isn't offered. Few systems have such options,
+    // so the rest keep the cached array.
+    return visible.some(option => option.elementFrom.length)
+      ? visible.filter(option => option === selected || this.item.isOptionAllowed(option))
+      : visible;
   }
 }

@@ -25,8 +25,14 @@
     background: var(--row-bg);
 }
 
-.set-bonus-summary-row.disabled-set-tier {
-    opacity: 0.85;
+.set-bonus-summary-row.disabled-set-tier,
+.set-bonus-summary-row.disabled-set-tier .set-bonus-summary-threshold,
+.set-bonus-summary-row.disabled-set-tier .set-bonus-summary-name {
+    color: var(--set-tier-unreached-color);
+}
+
+.set-bonus-summary-row.disabled-set-tier .set-bonus-summary-threshold {
+    font-weight: 400;
 }
 
 .set-bonus-summary-heart {
@@ -73,4 +79,4 @@
 .set-bonus-summary-value.Irrelevant { color: var(--text-primary); }
 .set-bonus-summary-value.Penalty { color: var(--rank-penalty-color); }
 .set-bonus-summary-value.Inactive { color: var(--text-secondary); font-weight: 400; text-decoration: line-through; }
-.set-bonus-summary-value.DisabledSetBonus { color: var(--text-secondary); font-weight: 400; }
+.set-bonus-summary-value.DisabledSetBonus { color: var(--set-tier-unreached-color); font-weight: 400; }

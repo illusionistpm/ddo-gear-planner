@@ -42,6 +42,9 @@
   --text-secondary: #475569;
   /* "Empty" in a crafting dropdown with nothing chosen: a placeholder, quieter than text. */
   --empty-value-text-color: var(--text-secondary);
+  /* A set bonus tier with too few pieces equipped: readable, but clearly dimmer than active
+     rows. Its own token because dark mode's --text-secondary is too close to its text colour. */
+  --set-tier-unreached-color: #636e80;
   --link-color: var(--primary-color);
   --link-hover-color: var(--primary-dark);
   --border-color: #e2e8f0;
@@ -265,6 +268,7 @@
   --text-primary: #f8fafc;
   --text-secondary: #cbd5e1;
   --empty-value-text-color: #94a3b8;
+  --set-tier-unreached-color: #8e9cb1;
   --link-color: #93c5fd;
   --link-hover-color: #bfdbfe;
   --bs-link-color-rgb: 147, 197, 253;

@@ -73,6 +73,18 @@ picked what the live scorer ranked well, which flatters it. Compare scorers
 per slot, and weigh builds whose tracked list and gear disagree with the
 suggestions (the hand-picked ones) as the more telling.
 
+## Gear lists
+
+Builds posted as text (forum guides) can be ranked the same way:
+`src/app/suggestion-eval/gear-lists.spec.ts` reads lists of `{ name, items:
+{ slot: item name }, packages, spellpower, extra }`, equips each at level
+28-34 with those bundles tracked, and writes them in the export format above.
+
+```sh
+SUGGESTION_EVAL_GEAR_LISTS=lists.json SUGGESTION_EVAL_GEAR_LISTS_OUT=builds.json \
+  npx ng test --watch=false --include src/app/suggestion-eval/gear-lists.spec.ts
+```
+
 ## The synthetic harness
 
 `src/app/suggestion-eval/suggestion-eval.spec.ts` needs no export. It

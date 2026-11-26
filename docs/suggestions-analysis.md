@@ -273,6 +273,47 @@ agrees with players a little more but loses total value (Healer −1.8), so
 three quarters it is. Helm MRR goes from 0.27 to 0.31 and mean rank from 28
 to 26.
 
+## Forum builds (2026-11-26)
+
+Builds posted on the official forums, as a check against players who write
+up their gear. I crawled the 18 class and build forums and Player Guides
+(1,033 threads active since 2025, 10,618 posts on their first pages) and
+matched endgame item names (ML 28-34) in each post. I kept one list per
+author per thread, from posts in 2025 or later naming 7 or more slots, and
+dropped posts naming more than twice as many items as slots (guides listing
+alternatives). That left 96 lists. Titles split them into 63 "here's my
+build" posts and 33 "help me" posts. Build goals are guessed: Basic plus
+Melee, Ranged or Caster from the subforum, title and keywords, the most
+mentioned element's spell power bundle for casters, and the most mentioned
+ability score other than Constitution. The lists were encoded as builds
+with no crafting (`src/app/suggestion-eval/gear-lists.spec.ts`) and ranked
+by leave-one-out like the saved builds.
+
+| Posts | Builds (slots) | Scorer | MRR | top 1 | top 5 | top 20 | mean rank |
+|---|---|---|---|---|---|---|---|
+| "My build" | 52 (593) | live | 0.10 | 3% | 14% | 39% | 40 |
+| | | **v2** | **0.22** | **13%** | **28%** | **56%** | **26** |
+| "Help me" | 27 (302) | live | 0.14 | 6% | 18% | 44% | 36 |
+| | | **v2** | **0.17** | **9%** | **21%** | **49%** | **31** |
+| Forum posts linking the planner | 10 (128) | live | 0.29 | 19% | 38% | 63% | 103 |
+| | | **v2** | **0.38** | **27%** | **49%** | **77%** | **37** |
+
+v2 leads by more on the builds people show off than on the ones they ask
+about. The crafting factor barely matters here (0.22 at ×1, ×0.75 and
+×0.5). Absolute numbers are lower than for saved builds, since the goals
+are guessed and the crafting is missing.
+
+By slot, on the "my build" posts, v2 is ahead everywhere except Helm (18%
+in the top 20, against live's 33%). Cloak is low under both (24% against 20%), and so
+is Armor (36% against 0%). The builders' picks v2 ranks past 20 are
+mostly items whose value comes from set crafting: Dinosaur Bone (helm,
+cloak, outfit) and the University Lost Purpose pieces. A text list loses
+that crafting, so those items are judged without the set picks on their
+other pieces. v2's top 3 often holds items no forum build wears: Legendary
+Neglected Wedding Ring (58 times, worn 0), The Time Taken (42, worn 2; like
+The Anguished Mind, it's all Lamordian crafting slots), and Legendary
+Downcast Cap and Malicia's Crown (worn 0).
+
 ## The minor artifact
 
 There are 91 minor artifacts at level 28-34, in every slot but Weapon,

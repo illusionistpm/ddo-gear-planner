@@ -722,7 +722,7 @@ export class EquippedService implements QueryParamsListener, OnDestroy {
    * drawer, since filling the build's own augment slots is the costly part. `options` overrides the
    * weighting, for the suggestion harness's comparisons.
    */
-  getSuggestionScorer(slot: string, options: { weightFactor?: (affixName: string) => number } = {}): SuggestionScorer {
+  getSuggestionScorer(slot: string, options: { weightFactor?: (affixName: string) => number; weaponDiceFactor?: number } = {}): SuggestionScorer {
     return makeSuggestionScorer({
       weightFactor: utilityWeightFactor,
       ...options,

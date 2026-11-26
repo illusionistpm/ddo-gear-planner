@@ -196,6 +196,18 @@ describe('EquippedService.getSuggestionScorer', () => {
     expect(score(sword(6.3))).toBe(score(sword(4.8)));
   });
 
+  it('never lifts a weapon over a shield in the Offhand for its [W]', () => {
+    const doublestrike = [{ name: 'Doublestrike', type: 'Enhancement', value: 10 }];
+    const shield = new Item({ name: 'Shield', slot: 'Offhand', type: 'Large shields', ml: 34, url: '/page/Shield', affixes: doublestrike });
+    const weapon = new Item({
+      name: 'Sword', slot: 'Weapon', type: 'Long Swords', ml: 34, url: '/page/Sword', affixes: doublestrike, damage: { w: 6.3, dice: '1d8+2' },
+    });
+    equipped.setImportantAffixes(['Doublestrike']);
+    const score = equipped.getSuggestionScorer('Offhand');
+
+    expect(score(weapon)).toBeLessThanOrEqual(score(shield));
+  });
+
   it('scores nothing when no affix is tracked', () => {
     equipped.setImportantAffixes([]);
     expect(equipped.getSuggestionScorer('Boots')(fastBoots())).toBe(0);

@@ -27,7 +27,8 @@ import { isOptionHiddenByPacks } from '../gear/pack-filter';
  *
  *  - Basic's seldom-filled utility effects count for a quarter (UTILITY_AFFIXES).
  *  - For a build that fights with weapons, a weapon's [W] counts too (weaponDiceCredit): it is most of
- *    what separates an endgame weapon from an older one, and no affix carries it.
+ *    what separates an endgame weapon from an older one, and no affix carries it. It's a penalty for
+ *    [W] below the best available, so it never lifts a weapon over a shield.
  *
  * In a simulation, against an expert's priorities and against 1,316 slots of players' saved builds,
  * this beat the earlier scorer (docs/suggestions-analysis.md), and it is quicker. Crafting rules that span slots
@@ -63,14 +64,22 @@ const ATTRIBUTE_POINTS_PER_DAMAGE = 2;
 /**
  * What a weapon's [W] is worth to the score of a build that fights with weapons, in the score's own
  * units: its damage, at REFERENCE_DICE_AVERAGE per [W], as the attribute points that would add as
- * much, at Strength's weight. One [W] comes to about 0.9 at cap, so the ML34 weapons' 5.8-6.3[W]
- * stand about a full point over the ML29 ones' 4.8. Constant across a slot's candidates but for the
- * [W], so only differences in it move the ranking.
+ * much, at Strength's weight. One [W] is 13 points of the attribute, about 0.8 at cap.
+ *
+ * It's measured against the best [W] within the filters, so it's 0 for the best weapons and a
+ * penalty below them, never a bonus: an Offhand's shields, orbs and rune arms have no [W], and a
+ * bonus every weapon got would bury them (in players' saved builds it took the Offhand they chose
+ * from rank 147 to 732 on average).
  */
 export function weaponDiceCredit(gearDB: GearDbService): (item: Item) => number {
   const best = gearDB.getBestValueForAffix('Strength');
   const perPoint = best > 0 ? gearDB.getAffixWeight('Strength', best) / best : 0;
-  return item => item.damage ? item.damage.w * REFERENCE_DICE_AVERAGE * ATTRIBUTE_POINTS_PER_DAMAGE * perPoint : 0;
+  const perW = REFERENCE_DICE_AVERAGE * ATTRIBUTE_POINTS_PER_DAMAGE * perPoint;
+  let bestW = 0;
+  for (const item of gearDB.getFilteredGearBySlot('Weapon') ?? []) {
+    bestW = Math.max(bestW, item.damage?.w ?? 0);
+  }
+  return item => item.damage ? (item.damage.w - bestW) * perW : 0;
 }
 
 /** What the scorer reads from the planner. */
@@ -88,6 +97,8 @@ export interface SuggestionScorerInputs {
   hiddenPacks: ReadonlySet<string>;
   /** A factor on an affix's weight, for affixes to count for less than the usual (default: none). */
   weightFactor?: (affixName: string) => number;
+  /** A factor on weaponDiceCredit (default 1), for the suggestion harness to tune it. */
+  weaponDiceFactor?: number;
 }
 
 interface Need {
@@ -198,7 +209,10 @@ export function makeSuggestionScorer(inputs: SuggestionScorerInputs, slot: strin
   const { affixSvc, gearDB } = inputs;
   const needs = trackedNeeds(inputs);
   const tracked = new Set(inputs.tracked);
-  const weaponCredit = [...WEAPON_BUILD_AFFIXES].some(affix => tracked.has(affix)) ? weaponDiceCredit(gearDB) : () => 0;
+  const weaponFactor = inputs.weaponDiceFactor ?? 1;
+  const diceCredit = weaponDiceCredit(gearDB);
+  const weaponCredit = weaponFactor && [...WEAPON_BUILD_AFFIXES].some(affix => tracked.has(affix))
+    ? (item: Item) => diceCredit(item) * weaponFactor : () => 0;
   if (!needs.length) {
     return Object.assign((item: Item) => weaponCredit(item), { suggestedCrafting: () => [] });
   }

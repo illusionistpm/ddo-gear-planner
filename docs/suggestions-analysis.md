@@ -234,19 +234,39 @@ weapon type tied at 3.10 for a melee profile. The best ML34 weapon
   `critical` profile. Item descriptions show both. For a build that tracks
   Melee or Ranged Power, Doublestrike or Doubleshot, the scorer adds
   `weaponDiceCredit`. It takes one [W] at a 1d8+2's 6.5 average, that damage
-  as 2 attribute points per point of damage, at Strength's weight: about 0.8
-  per [W]. The die is fixed, not the weapon's own, so a falchion doesn't
-  always beat a rapier. Weapon type is the build's choice.
+  as 2 attribute points per point of damage (13 points per [W]), at
+  Strength's weight: about 0.8 of score per [W]. The die is fixed, not the
+  weapon's own, so a falchion doesn't always beat a rapier. Weapon type is the
+  build's choice. It's measured against the best [W] within the filters: 0
+  for the best weapons, a penalty below them. A first version gave every
+  weapon its whole [W] as a bonus, which buried shields, orbs and rune arms
+  in the Offhand (the player's own Offhand fell from rank 147 to 732).
 
-With both, a melee build's weapon list starts Legendary Thirteen (ML31, seven
-augment slots), Legendary Mirage (ML30, Seeker, Deception, a set), then The
-Bloody End and Legendary Calamitous (ML34). Alchemical is about 10th. Casters'
-weapons are unchanged by the [W] credit, and the ML29 Cauldron staves (142
-Fire Spell Power plus 71 Insight) still rank near the top on their stats.
+With both, a melee build's weapon list on an empty build starts Legendary
+Thirteen (ML31, seven augment slots), Legendary Mirage (ML30, Seeker,
+Deception, a set), then The Bloody End and Legendary Calamitous (ML34).
+Alchemical is about 10th. Casters' weapons are unchanged by the [W] credit, and
+the ML29 Cauldron staves (142 Fire Spell Power plus 71 Insight) still rank
+near the top on their stats.
 
-The [W] weight is derived, not fitted. The harness skips weapons, and the
-saved builds (the leave-one-out check) haven't been re-run for this. Their
-weapon ranks (top 20 in 24%) are the measure to check it against.
+**Checked against saved builds** (2026-11-26 export: 690 saved builds, 66
+share links; 521 endgame builds, median item level 28+; leave-one-out on
+Weapon and Offhand). "Own type" ranks a weapon only among weapons of its type
+(`SUGGESTION_EVAL_SAME_TYPE=1`), since the type is the build's choice:
+
+| Slot | Measure | Before | After |
+|---|---|---|---|
+| Weapon (447), all types | MRR / mean rank | 0.131 / 305 | 0.145 / 237 |
+| Weapon, own type | MRR / top 1 / mean rank | 0.316 / 14% / 13.4 | **0.356 / 19% / 11.0** |
+| Offhand (309), all types | MRR / top 20 / mean rank | 0.114 / 33% / 229 | **0.144 / 39% / 202** |
+
+The [W] weight, tried at ×0, ×0.5, ×1, ×2 and ×4 (`app v2, [W] x...` in the
+harness): own-type Weapon MRR 0.324 / 0.360 / 0.356 / 0.336 / 0.321. The
+derived ×1 sits at the top with ×0.5, inside the noise, so it stays.
+
+Across all types the player's weapon is in the top 20 only a quarter of the
+time, as before: the list mixes types, and the type is chosen for feats, not
+stats. Within its type, it's in the top 20 85% of the time.
 
 **Not built yet:**
 

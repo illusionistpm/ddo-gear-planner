@@ -49,6 +49,11 @@ const [SHARD, SHARD_COUNT] = (process.env['SUGGESTION_EVAL_SHARD'] ?? '0/1').spl
 const PROGRESS = process.env['SUGGESTION_EVAL_LOG'];
 /** SUGGESTION_EVAL_SLOTS=Helm|Goggles ranks only those slots; SUGGESTION_EVAL_DETAIL=1 logs each ranking. */
 const ONLY_SLOTS = process.env['SUGGESTION_EVAL_SLOTS']?.split('|');
+/**
+ * SUGGESTION_EVAL_SAME_TYPE=1 ranks a weapon (Weapon, or a weapon in Offhand) only among weapons of its
+ * own type: the type is the build's choice, made for its feats, and the drawer can be filtered to it.
+ */
+const SAME_TYPE = !!process.env['SUGGESTION_EVAL_SAME_TYPE'];
 const DETAIL = !!process.env['SUGGESTION_EVAL_DETAIL'] && !!PROGRESS;
 /**
  * Only builds whose equipped items' median minimum level is in this range (both default to all):
@@ -319,7 +324,8 @@ describe.skipIf(!BUILDS_FILE)('real builds', () => {
         }
         state.recompute();
         const pool = equipped.getCompatibleGearForSlot(slot, gearDB.getFilteredGearBySlot(slot) ?? [])
-          .filter(item => !item.isGeneratedEssenceCraftingBlank());
+          .filter(item => !item.isGeneratedEssenceCraftingBlank())
+          .filter(item => !SAME_TYPE || !actual.damage || item.type === actual.type);
         const loo = looBySlot.get(slot) ?? { msSum: {}, msMax: {}, rankSum: {}, rr: {}, hit1: {}, hit5: {}, hit20: {}, n: 0, missing: 0 };
         looBySlot.set(slot, loo);
         if (!pool.some(item => item.name === actual.name)) {

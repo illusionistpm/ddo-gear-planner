@@ -16,3 +16,17 @@ export type ItemBonuses = Partial<Record<ItemBonusKind, CraftableOption>>;
 export function isItemBonusKind(value: string): value is ItemBonusKind {
   return (ITEM_BONUS_KINDS as readonly string[]).includes(value);
 }
+
+/**
+ * The Masterworks curses, by how many levels higher they power "some effects" on the item. The wiki doesn't
+ * say which effects, so the planner can't apply them; it marks the item's values that might be higher.
+ */
+const MASTERWORKS_LEVELS: Readonly<Record<string, number>> = {
+  'Curse of Minor Masterworks': 1,
+  'Curse of Major Masterworks': 2,
+};
+
+/** How many levels a Masterworks curse raises its item's effects by; 0 for any other bonus, or none. */
+export function masterworksLevels(curse: CraftableOption | undefined): number {
+  return (curse && MASTERWORKS_LEVELS[curse.name]) || 0;
+}

@@ -64,6 +64,11 @@
               <i class="fas fa-angles-up small ms-1 upgraded-affix-icon" aria-hidden="true"></i>
             </app-tap-tooltip>
           }
+          @if (row.masterworksNote) {
+            <app-tap-tooltip [text]="row.masterworksNote" label="Show what the Masterworks curse might change" [panel]="detailsTip">
+              <i class="fas fa-angle-up small ms-1 upgraded-affix-icon masterworks-affix-icon" aria-hidden="true"></i>
+            </app-tap-tooltip>
+          }
         </div>
         @if (row.valueText) {
           <div class="col-5">{{row.valueText}}</div>

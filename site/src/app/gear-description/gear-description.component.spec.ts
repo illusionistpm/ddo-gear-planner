@@ -18,6 +18,7 @@ import { NO_PACK_KEY } from '../gear/pack-filter';
 import { UserGearService } from '../planner/user-gear.service';
 import { UserItemLocationTooltipPipe } from '../shared/user-item-location-tooltip.pipe';
 import { GearDbService } from '../gear/gear-db.service';
+import { ItemBonusService } from '../gear/item-bonus.service';
 import { CraftingSlotControlComponent, craftingSystemEmptyLabel } from '../crafting-slot-control/crafting-slot-control.component';
 
 describe('GearDescriptionComponent', () => {
@@ -124,6 +125,34 @@ describe('GearDescriptionComponent', () => {
     expect(affixRow('Ghostly')!.querySelector('.upgraded-affix-icon')).toBeTruthy();
     expect(component.affixRows.find(row => row.affix.name === 'Ghostly')!.upgradeNote).toBe('Tier 3 - was Ethereal');
     expect(slotRows()).toBe(2);
+  });
+
+  it('marks the values a Masterworks curse might raise, but not Bool effects, and leaves the values alone', () => {
+    const curses = TestBed.inject(ItemBonusService).getOptions('curse', 'Ring');
+    const ring = new Item(TestBed.inject(GearDbService).findGearBySlot('Ring1', 'Epic Ring of the Stalker')!);
+    fixture.componentRef.setInput('item', ring);
+    fixture.componentRef.setInput('equipOnChange', false);
+    fixture.detectChanges();
+    const affixRow = (name: string) => Array.from(fixture.nativeElement.querySelectorAll('.row') as NodeListOf<HTMLElement>)
+      .find(element => element.querySelector('.col.ps-1')?.firstChild?.textContent?.trim() === name);
+
+    expect(fixture.nativeElement.querySelector('.masterworks-affix-icon')).toBeNull();
+
+    ring.bonuses.curse = curses.find(curse => curse.name === 'Curse of Major Masterworks');
+    component.updateItem();
+    fixture.detectChanges();
+
+    expect(affixRow('Seeker')!.querySelector('.masterworks-affix-icon')).toBeTruthy();
+    expect(affixRow('Seeker')!.textContent).toContain('9');
+    expect(affixRow('Ethereal')!.querySelector('.masterworks-affix-icon')).toBeNull();
+    expect(component.affixRows.find(row => row.affix.name === 'Seeker')!.masterworksNote).toContain(
+      `as if it were 2 levels higher (ML ${ring.ml + 2})`);
+
+    ring.bonuses.curse = curses.find(curse => curse.name === 'Curse of Minor Strength');
+    component.updateItem();
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('.masterworks-affix-icon')).toBeNull();
   });
 
   it('leaves the label blank for Empty only, to show muted: an option that grants just a set bonus is a choice', () => {

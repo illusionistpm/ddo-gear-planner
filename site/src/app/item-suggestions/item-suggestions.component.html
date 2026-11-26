@@ -50,7 +50,6 @@
           <div class="row">
             <span>Minor artifacts: </span>
           </div>
-          <p class="suggestion-note">A build wears one minor artifact, in whichever slot suits it. These are the best for this slot.</p>
           @for (item of artifacts; track item.name) {
             <ng-container *ngTemplateOutlet="suggestion; context: { $implicit: item }"></ng-container>
           }
@@ -67,7 +66,6 @@
       <div class="row">
         <span>{{searchQuery.trim() ? 'Matching items:' : 'Suggested items:'}} </span>
       </div>
-      <p class="suggestion-note">Empty crafting slots are filled with what the planner would put in them for your goals. Change them here before you equip.</p>
 
       @for (item of gear; track item.name) {
         <ng-container *ngTemplateOutlet="suggestion; context: { $implicit: item }"></ng-container>

@@ -141,11 +141,6 @@
   border-radius: var(--border-radius);
 }
 
-.suggestion-note {
-  color: var(--text-secondary);
-  margin: var(--space-4) 0 var(--space-8);
-}
-
 .show-all-artifacts {
   margin: var(--space-8) 0;
 }

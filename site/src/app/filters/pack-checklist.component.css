@@ -1,0 +1,156 @@
+:host {
+  display: block;
+}
+
+/* As the filter sheet's panel titles. */
+.pack-checklist-title {
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.pack-no-match {
+  color: var(--text-secondary);
+  font-size: 0.76rem;
+  line-height: 1.4;
+  margin: 0 0 var(--space-12);
+}
+
+.pack-segments {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.pack-sort {
+  margin-left: auto;
+}
+
+.pack-sort-label {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-right: var(--space-4);
+}
+
+.pack-segment-button {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: var(--space-4) var(--space-8);
+}
+
+.pack-segment-button.active {
+  background: var(--selected-row-bg);
+  border-color: var(--primary-color);
+  color: var(--text-primary);
+}
+
+.pack-coupons {
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  column-gap: var(--space-24);
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-12);
+  padding-bottom: var(--space-12);
+  row-gap: var(--space-8);
+}
+
+.pack-coupon:not(.form-check) {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  gap: var(--space-8);
+}
+
+.pack-coupon > label:first-child {
+  font-size: 0.85rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.pack-coupon select {
+  max-width: 100%;
+  width: auto;
+}
+
+.pack-coupon.form-check {
+  margin-bottom: 0;
+}
+
+.pack-coupon-code,
+.pack-year {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+.pack-group + .pack-group {
+  margin-top: var(--space-12);
+}
+
+.pack-group-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  margin-bottom: var(--space-4);
+}
+
+.pack-filter-header {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8) var(--space-16);
+  margin-bottom: var(--space-8);
+}
+
+/* Columns, not a grid: a release-ordered list reads down, then across. */
+.pack-filter-grid {
+  column-gap: var(--space-16);
+  column-width: 15rem;
+}
+
+.pack-filter-option {
+  break-inside: avoid;
+  min-width: 0;
+}
+
+.pack-filter-option label {
+  overflow-wrap: anywhere;
+}
+
+.pack-search {
+  margin-bottom: var(--space-12);
+  max-width: 20rem;
+  position: relative;
+}
+
+.pack-search-icon {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  left: var(--space-8);
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.pack-search input {
+  padding-left: 1.6rem;
+}
+
+@media (max-width: 575.98px) {
+  .pack-filter-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .pack-sort {
+    margin-left: 0;
+  }
+}

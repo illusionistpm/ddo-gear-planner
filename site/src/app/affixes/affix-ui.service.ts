@@ -394,6 +394,32 @@ export class AffixUiService {
       .join(', ');
   }
 
+  private detailsCache = new Map<string, AffixDetails | null>();
+  private detailsCacheRevision: object | null = null;
+
+  /**
+   * getAffixDetails for a template to call on every check: the same object for the same affix
+   * until the descriptions change, so an affix name's inputs don't churn. Starts the descriptions
+   * loading if nothing has yet, so a new place that shows details needn't remember to.
+   */
+  detailsFor(name: string, type = '', value = 0, ml?: number): AffixDetails | null {
+    const revision = this.descriptions.revision;
+    if (!revision) {
+      void this.descriptions.load();
+    }
+    if (revision !== this.detailsCacheRevision) {
+      this.detailsCache.clear();
+      this.detailsCacheRevision = revision;
+    }
+    const key = `${name}|${type}|${value}|${ml ?? ''}`;
+    let details = this.detailsCache.get(key);
+    if (details === undefined) {
+      details = this.getAffixDetails(new Affix({ name, type, value }), ml);
+      this.detailsCache.set(key, details);
+    }
+    return details;
+  }
+
   /**
    * What an affix's underlined name opens: what it does, in DDO Wiki's words, and - for a
    * compound affix - the planner affixes it counts toward, which only the planner can say.

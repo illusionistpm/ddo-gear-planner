@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AffixNameComponent } from '../affix-name/affix-name.component';
 import { FormsModule } from '@angular/forms';
 
 import { ItemsWithBonusTypeComponent } from './items-with-bonus-type.component';
@@ -28,7 +29,7 @@ describe('ItemsWithBonusTypeComponent', () => {
         ItemsWithBonusTypeComponent, ItemPreviewComponent, ExternalAffixFormComponent, ExternalAffixValueComponent, AutofocusDirective,
         FiligreeSetPreviewComponent, FiligreeSetDetailsComponent, SetBonusSummaryComponent,
       ],
-      imports: [FormsModule, SlotIconComponent, TapTooltipComponent, TapTooltipPanelComponent]
+      imports: [FormsModule, SlotIconComponent, TapTooltipComponent, TapTooltipPanelComponent, AffixNameComponent]
     })
       .compileComponents();
   });

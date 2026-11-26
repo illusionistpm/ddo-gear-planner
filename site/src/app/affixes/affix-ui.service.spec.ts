@@ -73,6 +73,19 @@ describe('AffixUiService', () => {
       .toEqual(['Fortitude Save', 'Reflex Save', 'Will Save']);
   });
 
+  it('gives a template the same details for the same affix until the descriptions change', () => {
+    const descriptions = new AffixDescriptionService();
+    descriptions.use({ Deadly: { '*': '+{v} {type} bonus to weapon damage.' } });
+    const service = new AffixUiService({} as any, new AffixService(), {} as any, descriptions);
+
+    const first = service.detailsFor('Deadly', 'Competence', 6);
+    expect(service.detailsFor('Deadly', 'Competence', 6)).toBe(first);
+    expect(first?.description).toBe('+6 Competence bonus to weapon damage.');
+
+    descriptions.use({ Deadly: { '*': 'Hits harder.' } });
+    expect(service.detailsFor('Deadly', 'Competence', 6)?.description).toBe('Hits harder.');
+  });
+
   it('describes fixed affix group components', () => {
     const affixSvc = new AffixService();
     affixSvc.affixGroups.set('Songblade', ['Perform']);

@@ -12,7 +12,7 @@
             (click)="equipped.toggleImportantAffix(affix.name)"></button>
         }
         <span class="set-bonus-summary-threshold">{{tier.threshold}} pc</span>
-        <span class="set-bonus-summary-name">{{affix.name}}</span>
+        <span class="set-bonus-summary-name"><app-affix-name [name]="affix.name" [details]="affixUi.detailsFor(affix.name, affix.type, affix.value)" /></span>
         <span class="set-bonus-summary-value" [ngClass]="affixUi.getClassForSetAffix(affix, tier.eligible)">{{affixUi.getAffixValueText(affix)}}</span>
       </div>
     }

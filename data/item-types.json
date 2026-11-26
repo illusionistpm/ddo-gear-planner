@@ -7,14 +7,16 @@
             "one-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "19-20/x2"
     },
     "Battle Axes": {
         "attributes": [
             "one-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "20/x3"
     },
     "Bucklers": {
         "attributes": [
@@ -31,7 +33,8 @@
             "one-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "20/x2"
     },
     "Daggers": {
         "attributes": [
@@ -39,14 +42,16 @@
             "one-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "19-20/x2"
     },
     "Darts": {
         "attributes": [
             "thrown",
             "one-handed",
             "weapon"
-        ]
+        ],
+        "critical": "20/x2"
     },
     "Docents": {
         "attributes": [
@@ -58,7 +63,8 @@
             "one-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "20/x3"
     },
     "Eye items": {
         "attributes": []
@@ -68,7 +74,8 @@
             "two-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "18-20/x2"
     },
     "Feet items": {
         "attributes": []
@@ -81,28 +88,32 @@
             "two-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "20/x3"
     },
     "Great Clubs": {
         "attributes": [
             "two-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "20/x2"
     },
     "Great Crossbows": {
         "attributes": [
             "ranged",
             "two-handed",
             "weapon"
-        ]
+        ],
+        "critical": "18-20/x2"
     },
     "Great Swords": {
         "attributes": [
             "two-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "19-20/x2"
     },
     "Hand Axes": {
         "attributes": [
@@ -110,7 +121,8 @@
             "one-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "20/x3"
     },
     "Hand items": {
         "attributes": []
@@ -120,7 +132,8 @@
             "one-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "20/x2"
     },
     "Head items": {
         "attributes": []
@@ -130,21 +143,24 @@
             "ranged",
             "two-handed",
             "weapon"
-        ]
+        ],
+        "critical": "19-20/x2"
     },
     "Heavy Maces": {
         "attributes": [
             "one-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "20/x2"
     },
     "Heavy Picks": {
         "attributes": [
             "one-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "20/x4"
     },
     "Heavy armor": {
         "attributes": [
@@ -157,14 +173,16 @@
             "one-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "20/x2"
     },
     "Khopeshes": {
         "attributes": [
             "one-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "19-20/x3"
     },
     "Kukris": {
         "attributes": [
@@ -172,7 +190,8 @@
             "one-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "18-20/x2"
     },
     "Large shields": {
         "attributes": [
@@ -184,7 +203,8 @@
             "ranged",
             "two-handed",
             "weapon"
-        ]
+        ],
+        "critical": "19-20/x2"
     },
     "Light Hammers": {
         "attributes": [
@@ -192,7 +212,8 @@
             "one-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "20/x2"
     },
     "Light Maces": {
         "attributes": [
@@ -200,7 +221,8 @@
             "one-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "20/x2"
     },
     "Light Picks": {
         "attributes": [
@@ -208,7 +230,8 @@
             "one-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "20/x4"
     },
     "Light armor": {
         "attributes": [
@@ -220,21 +243,24 @@
             "ranged",
             "two-handed",
             "weapon"
-        ]
+        ],
+        "critical": "20/x3"
     },
     "Long Swords": {
         "attributes": [
             "one-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "19-20/x2"
     },
     "Mauls": {
         "attributes": [
             "two-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "20/x3"
     },
     "Medium armor": {
         "attributes": [
@@ -246,7 +272,8 @@
             "one-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "20/x2"
     },
     "Neck items": {
         "attributes": []
@@ -261,7 +288,8 @@
             "two-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "20/x2"
     },
     "Quiver items": {
         "attributes": []
@@ -272,21 +300,24 @@
             "one-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "18-20/x2"
     },
     "Repeating Heavy Crossbows": {
         "attributes": [
             "ranged",
             "two-handed",
             "weapon"
-        ]
+        ],
+        "critical": "19-20/x2"
     },
     "Repeating Light Crossbows": {
         "attributes": [
             "ranged",
             "two-handed",
             "weapon"
-        ]
+        ],
+        "critical": "19-20/x2"
     },
     "Rune Arms": {
         "attributes": [
@@ -299,14 +330,16 @@
             "one-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "18-20/x2"
     },
     "Short Bows": {
         "attributes": [
             "ranged",
             "two-handed",
             "weapon"
-        ]
+        ],
+        "critical": "20/x3"
     },
     "Short Swords": {
         "attributes": [
@@ -314,14 +347,16 @@
             "one-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "19-20/x2"
     },
     "Shurikens": {
         "attributes": [
             "thrown",
             "one-handed",
             "weapon"
-        ]
+        ],
+        "critical": "20/x2"
     },
     "Sickles": {
         "attributes": [
@@ -329,7 +364,8 @@
             "one-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "20/x2"
     },
     "Small shields": {
         "attributes": [
@@ -341,21 +377,24 @@
             "thrown",
             "one-handed",
             "weapon"
-        ]
+        ],
+        "critical": "20/x3"
     },
     "Throwing Daggers": {
         "attributes": [
             "thrown",
             "one-handed",
             "weapon"
-        ]
+        ],
+        "critical": "19-20/x2"
     },
     "Throwing Hammers": {
         "attributes": [
             "thrown",
             "one-handed",
             "weapon"
-        ]
+        ],
+        "critical": "20/x2"
     },
     "Tower shields": {
         "attributes": [
@@ -373,7 +412,8 @@
             "one-handed",
             "melee",
             "weapon"
-        ]
+        ],
+        "critical": "20/x3"
     },
     "Wrist items": {
         "attributes": []

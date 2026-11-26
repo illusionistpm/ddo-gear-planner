@@ -20,6 +20,7 @@ from parse_set_page import load_set_members
 from item_sources import LOCATION_HEADERS, SourceResolver, extract_sources, find_location_column, load_source_resolver, merge_resolved_source_packs, report_multi_source_entries
 
 from parse_alchemical_crafting import get_alchemical_crafting_systems, get_slots_added
+from weapon_stats import get_type_critical_profiles, parse_critical_profile, parse_damage
 from typedefs import SetAugment, CatMap, AugmentNameTransformMap, CraftingSystems, Sets, Affix, Item
 
 # Joke and event items whose enchantments cell is empty. They have nothing
@@ -417,6 +418,8 @@ def get_items_from_page(
         rows.pop(0)
 
     catMap = build_cat_map()
+    typeCriticalProfiles = get_type_critical_profiles()
+    damageIdx = cols.get('Damage and Type', cols.get('Damage'))
 
     fakeBonuses = get_fake_bonuses()
 
@@ -455,6 +458,16 @@ def get_items_from_page(
         # Uncomment and edit to stop at a particular item
         # if item['name'] == "Diabolist's Robe":
         #     a = 1
+
+        if damageIdx is not None and item['slot'] == 'Weapon':
+            damage = parse_damage(fields[damageIdx].getText(' ', strip=True))
+            if damage is not None:
+                item['damage'] = damage
+            if 'Unusual Characteristics' in cols:
+                critical = parse_critical_profile(fields[cols['Unusual Characteristics']].getText(' ', strip=True))
+                # Only where it differs from the type's (item-types.json), to keep items.json small.
+                if critical is not None and critical != typeCriticalProfiles.get(category):
+                    item['critical'] = critical
 
         # If we're doing an Armor page, add an entry for the Armor Class
         if 'AC' in cols:

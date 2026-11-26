@@ -4,6 +4,7 @@ from write_json import write_json
 from read_json import read_json
 from download_wiki_pages import get_item_type_urls
 from get_snapshot_path import get_snapshot_path
+from weapon_stats import get_type_critical_profiles, item_type_name
 
 def get_item_categories_from_page(soup):
 
@@ -25,18 +26,6 @@ def get_item_categories_from_page(soup):
     return categories
 
 def parse_item_types():
-    def normalize_category(cat):
-        if cat == 'Unarmed':
-            return 'Handwraps'
-
-        if cat.endswith(('s', 'x', 'z', 'ch', 'sh')):
-            return f"{cat}es"
-
-        if re.search(r'[^aeiou]y$', cat):
-            return f"{cat[:-1]}ies"
-
-        return f"{cat}s"
-
     types = {}
 
     for item_type_page in get_item_type_urls():
@@ -52,7 +41,7 @@ def parse_item_types():
             if cat.startswith('Composite'):
                 continue
 
-            cat = normalize_category(cat)
+            cat = item_type_name(cat)
             types.setdefault(cat, {'attributes': []})
             types[cat]['attributes'].append(attribute)
 
@@ -98,6 +87,10 @@ def parse_item_types():
             attributes.append('armor')
         elif type_name.lower() in offhand_types:
             attributes.append('offhand')
+
+    for type_name, critical in get_type_critical_profiles().items():
+        if type_name in types:
+            types[type_name]['critical'] = critical
 
     write_json(types, 'item-types')
 

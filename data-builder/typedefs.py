@@ -1,6 +1,8 @@
 import collections
 from typing import Any, Literal, TypedDict, NotRequired
 
+from weapon_stats import WeaponDamage
+
 type CatMap = collections.defaultdict[str, str]
 type AugmentNameTransformMap = dict[str, str]
 type CraftingSystems = dict[str, Any]
@@ -63,6 +65,10 @@ class Item(TypedDict):
     crafting: NotRequired[list]
     # Upgrade crafting system -> the augment colours it can become, e.g. {"Upgradeable - Primary Augment": ["Yellow", "Blue"]}.
     augmentUpgrades: NotRequired[dict[str, list[str]]]
+    # A weapon's [W] multiplier and dice ("5.80[1d8+2]" -> {"w": 5.8, "dice": "1d8+2"}).
+    damage: NotRequired[WeaponDamage]
+    # A weapon's critical profile ("17-20/x2"), only where it differs from its type's.
+    critical: NotRequired[str]
 
 class SetAugment(TypedDict):
     name: str

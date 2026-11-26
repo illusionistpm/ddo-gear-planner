@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { FiltersService } from '../planner/filters.service';
 import { AnalyticsService } from '../shared/analytics.service';
 
-import itemTypesList from '@data/item-types.json';
+import { typesWithAttributes } from '../gear/item-type-groups';
 
 @Component({
     selector: 'app-filter-item-type',
@@ -61,15 +61,7 @@ export class FilterItemTypeComponent {
       return this.optionsMap.get(key);
     }
 
-    const types = new Array<{name: string, value: boolean}>();
-    
-    const itemTypes = itemTypesList as Record<string, { attributes: Array<string> }>;
-    for (const type in itemTypes) {
-      const attributes = itemTypes[type]?.attributes || [];
-      if (searchAttributes.every(e => attributes.includes(e))) {
-        types.push({name: type, value: false});
-      }
-    }
+    const types = typesWithAttributes(searchAttributes).map(name => ({ name, value: false }));
 
     // Build a mapping of type ("long sword") back to group ("one-handed melee")
     types.forEach(t => this.typeToGroup.set(t.name, key));

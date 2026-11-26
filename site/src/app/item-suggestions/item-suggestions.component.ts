@@ -12,6 +12,7 @@ import { DrawerEquipService } from '../suggestion-drawer/drawer-equip.service';
 import { slotLabel } from '../gear/slot-display';
 import { SlotUndoService } from '../undo/slot-undo.service';
 import { FilterSheetService } from '../planner/filter-sheet.service';
+import { SuggestionScorer, withSuggestedCrafting } from '../planner/suggestion-scorer';
 
 /** How many items the list shows at first, and adds with each "Show more". */
 const PAGE_SIZE = 20;
@@ -51,7 +52,9 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
   /** The minor artifacts shown, apart from the rest: a build wears one, in whichever slot suits it. */
   artifacts: Array<Item> = [];
   private rankedArtifacts: Array<Item> = [];
-  private scorer: ((item: Item) => number) | null = null;
+  private scorer: SuggestionScorer | null = null;
+  /** Each shown item with its suggested crafting selected, made once per item. */
+  private previews = new Map<Item, Item>();
   private suggestedGear: Array<Item> = [];
   private matches: Array<Item> = [];
   private visibleCount = PAGE_SIZE;
@@ -101,7 +104,7 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
   }
 
   showAllArtifacts() {
-    this.artifacts = this.rankedArtifacts;
+    this.artifacts = this.rankedArtifacts.map(item => this.preview(item));
   }
 
   showMore() {
@@ -160,7 +163,7 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
     });
 
     this.rankedArtifacts = shortlist.filter(item => item.artifact);
-    this.artifacts = this.rankedArtifacts.slice(0, ARTIFACT_SUGGESTIONS);
+    this.artifacts = this.rankedArtifacts.slice(0, ARTIFACT_SUGGESTIONS).map(item => this.preview(item));
     this.suggestedGear = shortlist.filter(item => !item.artifact);
     this.updateDisplayedGear();
 
@@ -193,11 +196,11 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
   onChange(slot: string) {
     return (newVal: Item | string) => {
       if (newVal instanceof Item) {
-        this.gear = [newVal];
+        this.gear = [this.preview(newVal)];
       } else {
         const found = this.filteredGear.find(item => item.name === newVal);
         if (found) {
-          this.gear = [found];
+          this.gear = [this.preview(found)];
         } else {
           this.gear = [];
         }
@@ -240,13 +243,28 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
       }
       this.hiddenSorted = true;
     }
-    this.hiddenGear = this.hiddenMatches.slice(0, this.hiddenVisibleCount);
+    this.hiddenGear = this.hiddenMatches.slice(0, this.hiddenVisibleCount).map(item => this.preview(item));
     this.hiddenRemaining = this.hiddenMatches.length - this.hiddenGear.length;
   }
 
   private showMatches() {
-    this.gear = this.matches.slice(0, this.visibleCount);
+    this.gear = this.matches.slice(0, this.visibleCount).map(item => this.preview(item));
     this.remaining = this.matches.length - this.gear.length;
+  }
+
+  /**
+   * A copy of the item with the crafting the scorer would give it already selected, so the drawer
+   * shows (and equips) what it's scored for rather than empty slots. The player can change those
+   * choices in the drawer before equipping; they edit this copy, never the gear database's item.
+   * Worked out only for items shown.
+   */
+  private preview(item: Item): Item {
+    let shown = this.previews.get(item);
+    if (!shown) {
+      shown = withSuggestedCrafting(item, this.scorer ? this.scorer.suggestedCrafting(item) : []);
+      this.previews.set(item, shown);
+    }
+    return shown;
   }
 
   /** Items matching the search that would be listed with every filter off, unsorted. */

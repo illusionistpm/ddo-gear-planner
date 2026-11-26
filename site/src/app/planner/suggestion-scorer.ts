@@ -79,18 +79,37 @@ type Contribution = Map<number, number>;
 interface Choice {
   contribution: Contribution;
   set: string;
+  option: CraftableOption;
+  /** The crafting system the option belongs to, for a craftable with systems; '' otherwise. */
+  system: string;
 }
+
+/** A crafting option the scorer would put in one of an item's empty crafting slots. */
+export interface SuggestedCraft {
+  /** The slot's index in the item's `crafting`. */
+  index: number;
+  option: CraftableOption;
+  system: string;
+}
+
+/**
+ * Scores a candidate (see makeSuggestionScorer). `suggestedCrafting` says what it would put in the
+ * candidate's empty crafting slots - the options the score counts - so the drawer can show them.
+ */
+export type SuggestionScorer = ((item: Item) => number) & {
+  suggestedCrafting(item: Item): SuggestedCraft[];
+};
 
 /** How many of each crafting list's options to try per candidate, best first against the build. */
 const CHOICES_PER_LIST = 12;
 
 const PLANNED_ARTIFACT_SLOTS = 'Blue Augment Slot|Green Augment Slot|Yellow Augment Slot';
 
-export function makeSuggestionScorer(inputs: SuggestionScorerInputs, slot: string): (item: Item) => number {
+export function makeSuggestionScorer(inputs: SuggestionScorerInputs, slot: string): SuggestionScorer {
   const { affixSvc, gearDB } = inputs;
   const needs = trackedNeeds(inputs);
   if (!needs.length) {
-    return () => 0;
+    return Object.assign(() => 0, { suggestedCrafting: () => [] });
   }
   const byAffix = new Map<string, number[]>();
   needs.forEach((need, i) => byAffix.set(need.affix, [...(byAffix.get(need.affix) ?? []), i]));
@@ -154,7 +173,7 @@ export function makeSuggestionScorer(inputs: SuggestionScorerInputs, slot: strin
     let choices = choiceCache.get(key);
     if (!choices) {
       choices = optionsOf(craftable, inputs.maxLevel, inputs.hiddenPacks)
-        .map(option => ({ contribution: itemContribution(option.affixes), set: option.set }))
+        .map(({ option, system }) => ({ contribution: itemContribution(option.affixes), set: option.set, option, system }))
         .filter(choice => choice.contribution.size > 0 || choice.set);
       choiceCache.set(key, choices);
     }
@@ -243,41 +262,50 @@ export function makeSuggestionScorer(inputs: SuggestionScorerInputs, slot: strin
     return short;
   };
 
-  return (item: Item) => {
+  /** The candidate's values with its own crafting filled, and what was put where. */
+  const evaluate = (item: Item): { base: number[]; values: number[]; crafts: SuggestedCraft[] } => {
     const base = item.artifact ? filledBase : plannedBase;
     const values = base.slice();
+    const crafts: SuggestedCraft[] = [];
     apply(values, itemContribution(affixSvc.getActiveAffixes(item)));
     const sets = [...(item.getSets() ?? [])];
     if (sets.length) {
       apply(values, setGain(sets));
     }
-    for (const craftable of item.crafting ?? []) {
+    (item.crafting ?? []).forEach((craftable, index) => {
       if (craftable.selected?.affixes.length || craftable.selected?.set) {
-        continue;
+        return;
       }
-      let best: { contribution: Contribution; set: string; gain: number } | null = null;
+      let best: { choice: Choice; contribution: Contribution; gain: number } | null = null;
       for (const choice of shortlistFor(craftable, base)) {
         const contribution = choice.set ? merge(choice.contribution, setGain([...sets, choice.set])) : choice.contribution;
         const gain = gainOf(values, contribution);
         if (gain > 1e-9 && (!best || gain > best.gain)) {
-          best = { contribution, set: choice.set, gain };
+          best = { choice, contribution, gain };
         }
       }
       if (best) {
         apply(values, best.contribution);
-        if (best.set) {
-          sets.push(best.set);
+        if (best.choice.set) {
+          sets.push(best.choice.set);
         }
+        crafts.push({ index, option: best.choice.option, system: best.choice.system });
       }
-    }
-    let score = 0;
+    });
+    return { base, values, crafts };
+  };
+
+  const score = (item: Item) => {
+    const { base, values } = evaluate(item);
+    let total = 0;
     for (let i = 0; i < needs.length; i++) {
       if (values[i] !== base[i]) {
-        score += perNeed(i, values[i]) - perNeed(i, base[i]);
+        total += perNeed(i, values[i]) - perNeed(i, base[i]);
       }
     }
-    return score;
+    return total;
   };
+  return Object.assign(score, { suggestedCrafting: (item: Item) => evaluate(item).crafts });
 }
 
 function trackedNeeds(inputs: SuggestionScorerInputs): Need[] {
@@ -314,19 +342,43 @@ function merge(a: Contribution, b: Contribution): Contribution {
 }
 
 /** The options a craftable can take, across its crafting systems, within the filters. */
-function optionsOf(craftable: Craftable, maxLevel: number, hiddenPacks: ReadonlySet<string>): CraftableOption[] {
+function optionsOf(craftable: Craftable, maxLevel: number, hiddenPacks: ReadonlySet<string>): Array<{ option: CraftableOption; system: string }> {
   const usable = (option: CraftableOption) => (option.affixes.length > 0 || !!option.set)
     && option.isWithinMaxLevel(maxLevel) && !isOptionHiddenByPacks(option, hiddenPacks);
   if (!craftable.hasCraftingSystemOptions()) {
-    return craftable.options.filter(usable);
+    return craftable.options.filter(usable).map(option => ({ option, system: '' }));
   }
-  const options: CraftableOption[] = [];
+  const options: Array<{ option: CraftableOption; system: string }> = [];
   for (const system of craftable.craftingSystemOptions) {
     const probe = craftable.clone();
     probe.selectCraftingSystem(system);
-    options.push(...probe.options.filter(usable));
+    options.push(...probe.options.filter(usable).map(option => ({ option, system })));
   }
   return options;
+}
+
+/**
+ * A copy of `item` with `crafts` selected in its crafting slots: what the drawer shows, and equips,
+ * for a suggestion. The gear database's item is left alone.
+ */
+export function withSuggestedCrafting(item: Item, crafts: ReadonlyArray<SuggestedCraft>): Item {
+  // Always a copy, even with nothing to select: the drawer lets the player change the crafting
+  // before equipping, and that must never touch the gear database's shared item.
+  const copy = new Item(item);
+  for (const { index, option, system } of crafts) {
+    const craftable = copy.crafting?.[index];
+    if (!craftable) {
+      continue;
+    }
+    if (system) {
+      craftable.selectCraftingSystem(system);
+    }
+    const match = craftable.options.find(candidate => candidate === option);
+    if (match) {
+      craftable.selected = match;
+    }
+  }
+  return copy;
 }
 
 /** The Blue, Green and Yellow augment slots of a filtered minor artifact, or null if none has them. */

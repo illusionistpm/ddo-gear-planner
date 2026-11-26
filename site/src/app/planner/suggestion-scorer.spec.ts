@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { GearDbService } from '../gear/gear-db.service';
 import { Item } from '../gear/item';
 import { EquippedService } from './equipped.service';
+import { withSuggestedCrafting } from './suggestion-scorer';
 
 function makeItem(name: string, slot: string, affixes: Array<{ name: string; type: string; value: number }>,
                   options: { sets?: string[]; artifact?: boolean } = {}) {
@@ -93,6 +94,30 @@ describe('EquippedService.getSuggestionScorer', () => {
     const withTwoPieces = equipped.getSuggestionScorer('Helm')(lostPurposeHelm!);
 
     expect(withTwoPieces).toBeGreaterThan(without);
+  });
+
+  it('says what it would put in a candidate\'s empty crafting slots, and shows it on a copy', () => {
+    equipped.setImportantAffixes(['Speed']);
+    equipped.set(plainArtifact());
+    const belt = itemWithOnlyYellowSlot('Belt');
+    const crafts = equipped.getSuggestionScorer('Belt').suggestedCrafting(belt);
+
+    expect(crafts.length).toBe(1);
+    expect(crafts[0].option.affixes.some(affix => affix.name === 'Speed' && affix.value === 30)).toBe(true);
+    const preview = withSuggestedCrafting(belt, crafts);
+    expect(preview.crafting![0].selected).toBe(crafts[0].option);
+    expect(belt.crafting![0].selected?.affixes.length ?? 0).toBe(0);
+  });
+
+  it('ranks a five-filigree-slot artifact above a one-slot one once Max Filigree Slots is tracked', () => {
+    equipped.setImportantAffixes(['Speed', 'Heroic Inspiration']);
+    const trinkets = gearDB.getFilteredGearBySlot('Trinket') ?? [];
+    const voice = trinkets.find(item => item.name === 'Epic Voice of the Master');
+    const hydra = trinkets.find(item => item.name === "The Hydra's Heart");
+    expect(voice && hydra).toBeTruthy();
+    const score = equipped.getSuggestionScorer('Trinket');
+
+    expect(score(hydra!)).toBeGreaterThan(score(voice!));
   });
 
   it('scores nothing when no affix is tracked', () => {

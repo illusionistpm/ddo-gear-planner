@@ -264,6 +264,10 @@ The [W] weight, tried at ×0, ×0.5, ×1, ×2 and ×4 (`app v2, [W] x...` in the
 harness): own-type Weapon MRR 0.324 / 0.360 / 0.356 / 0.336 / 0.321. The
 derived ×1 sits at the top with ×0.5, inside the noise, so it stays.
 
+The other slots don't move: over the same builds' 6,077 other filled slots,
+MRR 0.334 -> 0.335, in the top 20 76% -> 76%, every slot within 0.004 of
+before, and each drawer about 5% quicker (67 -> 63 ms average).
+
 Across all types the player's weapon is in the top 20 only a quarter of the
 time, as before: the list mixes types, and the type is chosen for feats, not
 stats. Within its type, it's in the top 20 85% of the time.

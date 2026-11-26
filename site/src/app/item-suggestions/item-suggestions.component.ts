@@ -35,8 +35,16 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
   currentItem: Item | null = null;
   /** Items the list could still show: `gear` is the first of `matches`. */
   remaining = 0;
-  /** With nothing to show, how many items the filters are holding back. */
+  /** How many items matching the search the filters are holding back. */
   hiddenByFilters = 0;
+  /** Whether those are listed, below the suggestions: they wait behind a button. */
+  showingHidden = false;
+  /** The hidden items listed so far, paged like `gear`. */
+  hiddenGear: Array<Item> = [];
+  hiddenRemaining = 0;
+  private hiddenMatches: Array<Item> = [];
+  private hiddenSorted = false;
+  private hiddenVisibleCount = PAGE_SIZE;
   private suggestedGear: Array<Item> = [];
   private matches: Array<Item> = [];
   private visibleCount = PAGE_SIZE;
@@ -68,6 +76,10 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
     return Math.min(PAGE_SIZE, this.remaining);
   }
 
+  get nextHiddenPageSize(): number {
+    return Math.min(PAGE_SIZE, this.hiddenRemaining);
+  }
+
   isCurrent(item: Item): boolean {
     return !!this.currentItem && item.name === this.currentItem.name;
   }
@@ -79,6 +91,16 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
   showMore() {
     this.visibleCount += PAGE_SIZE;
     this.showMatches();
+  }
+
+  showHidden() {
+    this.showingHidden = true;
+    this.showHiddenMatches();
+  }
+
+  showMoreHidden() {
+    this.hiddenVisibleCount += PAGE_SIZE;
+    this.showHiddenMatches();
   }
 
   userOwnsItem(item: Item): boolean {
@@ -174,8 +196,30 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
         .filter(item => this.itemMatchesSearch(item, query))
         .sort(this.sortSearchResults(query))
       : this.suggestedGear;
-    this.hiddenByFilters = this.matches.length ? 0 : this.countHiddenByFilters(query);
+    this.hiddenMatches = this.findHiddenByFilters(query);
+    this.hiddenSorted = false;
+    this.hiddenByFilters = this.hiddenMatches.length;
+    this.hiddenVisibleCount = PAGE_SIZE;
     this.showMatches();
+    if (this.showingHidden) {
+      this.showHiddenMatches();
+    }
+  }
+
+  private showHiddenMatches() {
+    // Sorted only once shown: scoring is the costly part, and most drawers never show them.
+    if (!this.hiddenSorted) {
+      const query = this.searchQuery.trim().toLowerCase();
+      if (query) {
+        this.hiddenMatches.sort(this.sortSearchResults(query));
+      } else {
+        const scores = new Map(this.hiddenMatches.map(item => [item, this.equipped.getScore(item)]));
+        this.hiddenMatches.sort((a, b) => (scores.get(b) || 0) - (scores.get(a) || 0));
+      }
+      this.hiddenSorted = true;
+    }
+    this.hiddenGear = this.hiddenMatches.slice(0, this.hiddenVisibleCount);
+    this.hiddenRemaining = this.hiddenMatches.length - this.hiddenGear.length;
   }
 
   private showMatches() {
@@ -183,11 +227,14 @@ export class ItemSuggestionsComponent implements OnInit, OnDestroy {
     this.remaining = this.matches.length - this.gear.length;
   }
 
-  /** Items that would be listed with every filter off: only worked out when the list is empty. */
-  private countHiddenByFilters(query: string) {
+  /** Items matching the search that would be listed with every filter off, unsorted. */
+  private findHiddenByFilters(query: string) {
+    if (this.gearDB.itemFiltersHideNothing()) {
+      return [];
+    }
     const unfiltered = this.equipped.getCompatibleGearForSlot(this.slot, this.gearDB.getGearBySlot(this.slot) || []);
     const shown = new Set(this.filteredGear);
-    return unfiltered.filter(item => !shown.has(item) && (!query || this.itemMatchesSearch(item, query))).length;
+    return unfiltered.filter(item => !shown.has(item) && (!query || this.itemMatchesSearch(item, query)));
   }
 
   private itemMatchesSearch(item: Item, query: string) {

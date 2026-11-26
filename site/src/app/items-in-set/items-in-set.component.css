@@ -57,3 +57,39 @@
     font-size: 0.75rem;
     margin-left: var(--space-4);
 }
+
+.filtered-note {
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-4);
+}
+
+.filters-link {
+    background: none;
+    border: 0;
+    color: var(--link-color);
+    padding: 0;
+    text-decoration: underline;
+}
+
+/* Matches the drawers' other "show more" buttons (.item-rows-more, .slot-suggestions-more). */
+.show-hidden-by-filters {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    display: block;
+    font-weight: 600;
+    margin: var(--space-8) auto;
+    padding: var(--space-4) var(--space-12);
+}
+
+.show-hidden-by-filters:hover,
+.show-hidden-by-filters:focus-visible {
+    border-color: var(--primary-color);
+}
+
+@media (pointer: coarse) {
+    .show-hidden-by-filters {
+        min-height: 2.75rem;
+    }
+}

@@ -110,6 +110,11 @@
   margin: var(--space-12) 0;
 }
 
+.slot-suggestions-hidden-note {
+  color: var(--text-secondary);
+  margin: var(--space-4) 0 var(--space-12);
+}
+
 .slot-suggestions-hidden {
   display: block;
   margin-top: var(--space-4);

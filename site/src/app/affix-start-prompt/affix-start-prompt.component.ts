@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { AffixPackagesService, DEFAULT_PACKAGE } from '../affixes/affix-packages.service';
 import { AffixEditorService } from '../planner/affix-editor.service';
 import { EquippedService } from '../planner/equipped.service';
+import { START_PATH } from '../build/start-redirect.guard';
 
 /**
  * One line over the equipment while a build has no focus yet: a fresh build
@@ -19,6 +20,7 @@ import { EquippedService } from '../planner/equipped.service';
   standalone: false
 })
 export class AffixStartPromptComponent implements OnInit, OnDestroy {
+  readonly startPath = START_PATH;
   defaultSelected = false;
 
   private subscription?: Subscription;

@@ -1,0 +1,14 @@
+<div class="container start-page">
+  <app-page-chrome></app-page-chrome>
+  <div class="start-page-scroll">
+    @if (body) {
+      <ng-container *ngComponentOutlet="body"></ng-container>
+    } @else if (loadFailed) {
+      <div class="start-page-message" role="alert">
+        Couldn't load this page. <button type="button" class="start-page-retry" (click)="loadBody()">Try again</button>
+      </div>
+    } @else {
+      <p class="start-page-message" aria-live="polite">Loading…</p>
+    }
+  </div>
+</div>

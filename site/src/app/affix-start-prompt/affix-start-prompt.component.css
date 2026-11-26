@@ -26,8 +26,19 @@
   color: var(--text-primary);
 }
 
+.affix-start-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.affix-start-guided {
+  text-decoration: none;
+}
+
 /* Touch: tap targets at least 44px tall. */
 @media (pointer: coarse) {
+  .affix-start-guided,
   .affix-start-choose {
     min-height: 44px;
   }

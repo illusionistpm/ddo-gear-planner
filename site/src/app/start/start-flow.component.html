@@ -1,0 +1,326 @@
+@if (step === null) {
+  <main class="start-landing">
+    <section class="start-hero">
+      <h1>Plan your DDO gear</h1>
+      <p>Pick what your build needs, and the planner suggests gear, augments and sets to get it.</p>
+    </section>
+
+    <div class="start-columns">
+      <section class="start-card start-new" aria-labelledby="start-new-heading">
+        <h2 id="start-new-heading">Start a new build</h2>
+        <button type="button" class="start-primary start-guided" (click)="startGuided()">
+          <span class="fas fa-wand-magic-sparkles" aria-hidden="true"></span> Guided setup
+        </button>
+        <p class="start-hint">A few quick questions - role, weapons, armor, stats - to filter the gear and focus the suggestions. Skip any of them.</p>
+        <button type="button" class="start-secondary start-blank" (click)="openBlankBuild()">Blank build</button>
+        <p class="start-hint">Straight to the planner, and choose your goals there.</p>
+      </section>
+
+      <section class="start-card start-builds" aria-labelledby="start-builds-heading" aria-live="polite">
+        <h2 id="start-builds-heading">Your builds</h2>
+        @if (!authReady) {
+          <div class="start-skeleton" aria-hidden="true"></div>
+          <div class="start-skeleton" aria-hidden="true"></div>
+        } @else if (!signedIn) {
+          <p>Sign in to save builds and open them on any device.</p>
+          <button type="button" class="start-primary start-sign-in" (click)="signIn()">
+            <span class="fas fa-right-to-bracket" aria-hidden="true"></span> Sign in
+          </button>
+        } @else if (buildsFailed) {
+          <p role="alert">Couldn't load your builds. <button type="button" class="start-link" (click)="loadBuilds()">Try again</button></p>
+        } @else if (builds === null) {
+          <div class="start-skeleton" aria-hidden="true"></div>
+          <div class="start-skeleton" aria-hidden="true"></div>
+        } @else if (!builds.length) {
+          <p>No saved builds yet. Builds you save appear here.</p>
+        } @else {
+          <ul class="start-build-list">
+            @for (build of shownBuilds; track build.id) {
+              <li>
+                <a class="start-build" [href]="buildLink(build)" (click)="openBuild(build, $event)">
+                  <span class="start-build-name">{{build.name}}</span>
+                  @if (buildLabel(build); as label) {
+                    <span class="start-build-label">{{label}}</span>
+                  }
+                </a>
+              </li>
+            }
+          </ul>
+          @if (hiddenBuildCount) {
+            <button type="button" class="start-link start-show-all-builds" (click)="showAllBuilds = true">Show all {{builds.length}}</button>
+          }
+        }
+      </section>
+    </div>
+
+    <label class="start-prefers-planner">
+      <input type="checkbox" [checked]="prefersPlanner" (change)="setPrefersPlanner($any($event.target).checked)">
+      Open the planner directly next time
+    </label>
+  </main>
+} @else {
+  <main class="start-setup" [attr.aria-label]="'New build: ' + stepLabel(step)">
+    <nav class="start-progress" aria-label="Setup steps">
+      @for (s of steps; track s; let i = $index) {
+        <button type="button" class="start-progress-step"
+          [class.current]="s === step" [class.done]="i < stepIndex"
+          [attr.aria-current]="s === step ? 'step' : null"
+          (click)="goTo(s)">
+          <span class="start-progress-dot" aria-hidden="true">{{i + 1}}</span>
+          <span class="start-progress-label">{{stepLabel(s)}}</span>
+        </button>
+      }
+    </nav>
+
+    <section class="start-step">
+      @switch (step) {
+        @case ('role') {
+          <h2>What does this build do?</h2>
+          <div class="start-choice-grid" role="radiogroup" aria-label="Role">
+            <button type="button" class="start-choice start-role-melee" role="radio"
+              [attr.aria-checked]="answers.role === 'melee'" (click)="chooseRole('melee')">
+              <span class="fas fa-khanda" aria-hidden="true"></span>
+              <strong>Melee</strong><span>Fights up close</span>
+            </button>
+            <button type="button" class="start-choice start-role-ranged" role="radio"
+              [attr.aria-checked]="answers.role === 'ranged'" (click)="chooseRole('ranged')">
+              <span class="fas fa-bullseye" aria-hidden="true"></span>
+              <strong>Ranged</strong><span>Bows, crossbows, thrown</span>
+            </button>
+            <button type="button" class="start-choice start-role-caster" role="radio"
+              [attr.aria-checked]="answers.role === 'caster' && !isHealer" (click)="chooseRole('caster')">
+              <span class="fas fa-fire" aria-hidden="true"></span>
+              <strong>Caster</strong><span>Damage and crowd control</span>
+            </button>
+            <button type="button" class="start-choice start-role-healer" role="radio"
+              [attr.aria-checked]="isHealer" (click)="chooseRole('caster', true)">
+              <span class="fas fa-heart-pulse" aria-hidden="true"></span>
+              <strong>Healer</strong><span>Healing spell power</span>
+            </button>
+          </div>
+          <label class="start-check">
+            <input type="checkbox" [checked]="answers.trapping" (change)="setTrapping($any($event.target).checked)">
+            Also trapping (Disable Device, Open Lock, Search, Spot)
+          </label>
+
+          <h3>Levels</h3>
+          <div class="start-chips" role="radiogroup" aria-label="Levels">
+            <button type="button" class="start-chip" role="radio" [attr.aria-checked]="answers.level === 'endgame'"
+              (click)="setEndgame(true)">Endgame ({{endgameLabel}})</button>
+            <button type="button" class="start-chip" role="radio" [attr.aria-checked]="answers.level !== 'endgame'"
+              (click)="setEndgame(false)">Levelling</button>
+          </div>
+          @if (answers.level !== 'endgame') {
+            <div class="start-levels">
+              <label>From <input type="number" min="1" [max]="maxLevel" [value]="levelRange[0]" (change)="setLevel(0, $any($event.target).value)"></label>
+              <label>to <input type="number" min="1" [max]="maxLevel" [value]="levelRange[1]" (change)="setLevel(1, $any($event.target).value)"></label>
+            </div>
+          }
+        }
+
+        @case ('weapons') {
+          @if (isMartial) {
+            <h2>Which weapons?</h2>
+            <p class="start-hint">Gear lists only show these. Tap a group to switch all of it, or "only" to use just that group.</p>
+            @for (family of weaponFamilies; track family.label) {
+              <div class="start-family">
+                <div class="start-family-header">
+                  <button type="button" class="start-chip start-family-toggle" [attr.aria-pressed]="familyState(family) === 'all'"
+                    [class.partial]="familyState(family) === 'some'" (click)="toggleFamily(family)">{{family.label}}</button>
+                  <button type="button" class="start-link" (click)="onlyFamily(family)">only {{family.label | lowercase}}</button>
+                </div>
+                <div class="start-chips">
+                  @for (type of family.types; track type) {
+                    <button type="button" class="start-chip start-chip-small start-weapon-type" [attr.aria-pressed]="isWeaponAllowed(type)"
+                      (click)="toggleWeapon(type)">{{type}}</button>
+                  }
+                </div>
+              </div>
+            }
+          }
+          <h2 [class.start-subheading]="isMartial">What goes in your off hand?</h2>
+          <div class="start-chips">
+            <button type="button" class="start-chip start-offhand-any" [attr.aria-pressed]="answers.offhandTypes === null" (click)="setOffhandAny()">Anything</button>
+            @for (family of offhandFamilies; track family.label) {
+              <button type="button" class="start-chip start-offhand-family" [attr.aria-pressed]="isOffhandFamilyAllowed(family)"
+                (click)="toggleOffhandFamily(family)">{{family.label}}</button>
+            }
+            <button type="button" class="start-chip start-offhand-none" [attr.aria-pressed]="answers.offhandTypes?.length === 0"
+              (click)="setOffhandNone()">Nothing (two-handed, or empty)</button>
+          </div>
+        }
+
+        @case ('armor') {
+          <h2>What do you wear?</h2>
+          <div class="start-choice-grid" role="radiogroup" aria-label="Armor">
+            <button type="button" class="start-choice start-armor-armor" role="radio" [attr.aria-checked]="armorKind === 'armor'" (click)="setArmorKind('armor')">
+              <strong>Armor</strong><span>Cloth, light, medium or heavy</span>
+            </button>
+            <button type="button" class="start-choice start-armor-docent" role="radio" [attr.aria-checked]="armorKind === 'docent'" (click)="setArmorKind('docent')">
+              <strong>Docent</strong><span>Warforged and Bladeforged</span>
+            </button>
+            <button type="button" class="start-choice start-armor-any" role="radio" [attr.aria-checked]="armorKind === 'any'" (click)="setArmorKind('any')">
+              <strong>Not sure yet</strong><span>Show everything</span>
+            </button>
+          </div>
+          @if (armorKind === 'armor') {
+            <div class="start-chips">
+              @for (type of bodyArmorTypes; track type) {
+                <button type="button" class="start-chip start-armor-type" [attr.aria-pressed]="isArmorAllowed(type)" (click)="toggleArmor(type)">{{type}}</button>
+              }
+            </div>
+          }
+        }
+
+        @case ('stats') {
+          <h2>Main stat</h2>
+          <p class="start-hint">Constitution is already in: every build gets it.</p>
+          <div class="start-chips" role="radiogroup" aria-label="Main stat">
+            @for (stat of attributes; track stat) {
+              <button type="button" class="start-chip start-main-stat" role="radio" [attr.aria-checked]="answers.mainStat === stat"
+                (click)="setMainStat(stat)">{{stat}}</button>
+            }
+          </div>
+          <h3>Other stats you want</h3>
+          <div class="start-chips">
+            @for (stat of attributes; track stat) {
+              @if (stat !== answers.mainStat) {
+                <button type="button" class="start-chip start-chip-small start-other-stat" [attr.aria-pressed]="answers.otherStats.includes(stat)"
+                  (click)="toggleIn('otherStats', stat)">{{stat}}</button>
+              }
+            }
+          </div>
+          @if (answers.role === 'caster') {
+            <h3>Spell power</h3>
+            <div class="start-chips">
+              @for (power of spellpowers; track power) {
+                <button type="button" class="start-chip start-chip-small start-spellpower" [attr.aria-pressed]="answers.spellpowers.includes(power)"
+                  (click)="toggleIn('spellpowers', power)">{{power}}</button>
+              }
+            </div>
+            <h3>Spell schools (DCs)</h3>
+            <div class="start-chips">
+              @for (school of schools; track school) {
+                <button type="button" class="start-chip start-chip-small start-school" [attr.aria-pressed]="answers.schools.includes(school)"
+                  (click)="toggleIn('schools', school)">{{school}}</button>
+              }
+            </div>
+          }
+          @if (answers.role === 'melee') {
+            <h3>Tactics</h3>
+            <div class="start-chips">
+              @for (tactic of tactics; track tactic) {
+                <button type="button" class="start-chip start-chip-small start-tactic" [attr.aria-pressed]="answers.tactics.includes(tactic)"
+                  (click)="toggleIn('tactics', tactic)">{{tactic}}</button>
+              }
+            </div>
+          }
+        }
+
+        @case ('trance') {
+          <h2>Do you use a trance?</h2>
+          <p class="start-hint">A trance's bonuses count as covered, so the suggestions stop chasing them on gear.</p>
+          <div class="start-choice-grid" role="radiogroup" aria-label="Trance">
+            <button type="button" class="start-choice start-trance-none" role="radio" [attr.aria-checked]="answers.trance === 'none'" (click)="setTrance('none')">
+              <strong>No trance</strong>
+            </button>
+            <button type="button" class="start-choice start-trance-partial" role="radio" [attr.aria-checked]="answers.trance === 'partial'" (click)="setTrance('partial')">
+              <strong>Partial</strong><span>Insight Deadly</span>
+            </button>
+            <button type="button" class="start-choice start-trance-full" role="radio" [attr.aria-checked]="answers.trance === 'full'" (click)="setTrance('full')">
+              <strong>Full</strong><span>Insight Deadly, Accuracy and tactics DCs</span>
+            </button>
+          </div>
+          @if (answers.trance !== 'none') {
+            <label class="start-levels">Insight Deadly
+              <input type="number" min="1" class="start-trance-deadly" [placeholder]="defaultTranceDeadly"
+                [value]="answers.tranceDeadly ?? ''" (change)="setTranceDeadly($any($event.target).value)">
+            </label>
+          }
+        }
+
+        @case ('extras') {
+          <h2>Legendary Green Steel effect</h2>
+          <p class="start-hint">Most endgame builds want one. It comes on Horn, Woeful and Sealed weapons, so mostly raid weapons.</p>
+          <div class="start-chips" role="radiogroup" aria-label="Legendary Green Steel effect">
+            @for (element of greenSteelChoices; track element) {
+              <button type="button" class="start-chip start-green-steel" role="radio" [attr.aria-checked]="answers.greenSteel === element"
+                (click)="setGreenSteel(element)">{{element}}</button>
+            }
+            <button type="button" class="start-chip start-green-steel-none" role="radio" [attr.aria-checked]="answers.greenSteel === null"
+              (click)="setGreenSteel(null)">None</button>
+          </div>
+          @if (isMartial) {
+            <h3>Weapon extras</h3>
+            <p class="start-hint">Procs some builds chase.</p>
+            <div class="start-chips">
+              @for (extra of weaponExtras; track extra) {
+                <button type="button" class="start-chip start-chip-small start-weapon-extra" [attr.aria-pressed]="answers.weaponExtras.includes(extra)"
+                  (click)="toggleIn('weaponExtras', extra)">{{extra}}</button>
+              }
+            </div>
+          }
+        }
+
+        @case ('artifact') {
+          <h2>Your minor artifact</h2>
+          <p class="start-hint">A build wears one, in whichever slot suits it. These suit your goals best.</p>
+          @if (artifacts === null) {
+            <div aria-live="polite" class="start-ranking">
+              <span class="visually-hidden">Ranking artifacts…</span>
+              <div class="start-skeleton" aria-hidden="true"></div>
+              <div class="start-skeleton" aria-hidden="true"></div>
+              <div class="start-skeleton" aria-hidden="true"></div>
+            </div>
+          } @else if (!artifacts.length) {
+            <p>No minor artifacts at these levels.</p>
+          } @else {
+            <ul class="start-artifact-list">
+              @for (row of shownArtifacts; track row.ranked.item.name) {
+                <li class="start-artifact" [class.chosen]="isChosenArtifact(row)">
+                  <div class="start-artifact-head">
+                    <strong class="start-artifact-name">{{row.ranked.item.name}}</strong>
+                    <span class="start-artifact-meta">{{row.ranked.slot}} · ML {{row.ranked.item.ml}}@if (row.filigree) { · {{row.filigree}} filigree }</span>
+                  </div>
+                  @if (row.highlights.length) {
+                    <p class="start-artifact-highlights">{{row.highlights.join(', ')}}</p>
+                  }
+                  <button type="button" class="start-secondary start-artifact-use" [attr.aria-pressed]="isChosenArtifact(row)"
+                    (click)="chooseArtifact(isChosenArtifact(row) ? null : row)">{{isChosenArtifact(row) ? 'Chosen' : 'Use this'}}</button>
+                </li>
+              }
+            </ul>
+            @if (!showAllArtifacts && artifacts.length > shownArtifacts.length) {
+              <button type="button" class="start-link" (click)="showAllArtifacts = true">Show {{artifacts.length - shownArtifacts.length}} more</button>
+            }
+          }
+        }
+
+        @case ('summary') {
+          <h2>Your build</h2>
+          <dl class="start-summary">
+            @for (row of summaryRows; track row.label) {
+              <div class="start-summary-row">
+                <dt>{{row.label}}</dt>
+                <dd>{{row.value}}</dd>
+                <button type="button" class="start-link" (click)="goTo(row.step)">Change</button>
+              </div>
+            }
+          </dl>
+        }
+      }
+    </section>
+
+    <footer class="start-footer">
+      <button type="button" class="start-link start-back" (click)="back()">Back</button>
+      @if (step !== 'role' && step !== 'summary') {
+        <button type="button" class="start-link start-skip" (click)="skipStep()">Skip this step</button>
+      }
+      <span class="start-footer-spacer"></span>
+      @if (step !== 'summary') {
+        <button type="button" class="start-secondary start-next" [disabled]="step === 'role' && !answers.role" (click)="next()">Next</button>
+      }
+      <button type="button" class="start-primary start-plan" (click)="startPlanning()">Start planning</button>
+    </footer>
+  </main>
+}

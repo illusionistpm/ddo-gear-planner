@@ -130,6 +130,15 @@ undo land on the bare URL, which re-applies the change and pushes again -
 a Back trap that also wipes out redo. A `replaceUrl` navigation made outside
 `QueryParamsService` drops the stamp, which only switches undo off there.
 
+**A fresh build's URL is held until the player edits.** On a bare `/`,
+`QueryParamsService.holdUntilFirstEdit()` keeps the Basic package (and any
+other write inside `replacingUrl`) out of the address bar; the first write
+outside it pushes the whole build. The start page (`/start`, `start/`) sets a
+build up in the planner's services under `holdingUrl()` and reaches the URL
+only through `navigateToBuild()`. `startRedirectGuard` sends only the page
+*load* of a bare `/` to `/start`; the app's own navigations to `/` mean the
+planner, so "start a new build" must navigate to `NEW_BUILD_URL` itself.
+
 **`Craftable`'s selection strings travel in those URLs**: `"System: Option"`, or
 `"System (empty)"` for a system chosen with nothing in it yet. `craftable.spec.ts`
 pins every shape. Item copies use `Craftable.clone()` - don't route copies back

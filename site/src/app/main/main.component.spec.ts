@@ -21,6 +21,7 @@ import { PlannerOnboardingService } from '../planner/planner-onboarding.service'
 import { ItemBonusSettingsService } from '../planner/item-bonus-settings.service';
 import { CloseRequestService } from '../shared/close-request.service';
 import { EditHistoryService } from '../build/edit-history.service';
+import { NewBuildService } from '../start/new-build.service';
 
 describe('MainComponent', () => {
   let component: MainComponent;
@@ -125,6 +126,18 @@ describe('MainComponent', () => {
     expect(extras.replaceUrl).toBe(false);
     const decoded = TestBed.inject(BuildUrlCodecService).decode((extras.queryParams as any).b)!;
     expect(decoded['tracked']).toEqual(expect.arrayContaining(['Dodge', 'Strength']));
+  });
+
+  it('opens on the gear, editor shut, for a build the start page hands over', () => {
+    const editor = TestBed.inject(AffixEditorService);
+    const newBuild = TestBed.inject(NewBuildService);
+    (newBuild as any).handedOff = true;
+
+    (component as any).applyFreshBuildDefaults(false);
+
+    expect(editor.isOpen).toBe(false);
+    expect(activeTab()).toBe('equipment');
+    expect(newBuild.consumeHandOff()).toBe(false);
   });
 
   it('still counts the user\'s own first edit as an unsaved change', () => {

@@ -10,7 +10,7 @@ import { FiltersService } from './planner/filters.service';
 import { QueryParamsService } from './build/query-params.service';
 import { CurrentBuildService } from './build/current-build.service';
 import {
-  isBuildShortIdRoute, isCompareRoute, isGroupRunRoute, isStillNeededRoute, routePathOf, urlWithoutFragment
+  isBuildShortIdRoute, isCompareRoute, isGroupRunRoute, isStartRoute, isStillNeededRoute, routePathOf, urlWithoutFragment
 } from './build/build-route';
 import { hasUnsavedWork } from './build/unsaved-changes.guard';
 import { PlannerOnboardingService } from './planner/planner-onboarding.service';
@@ -112,6 +112,12 @@ export class AppComponent implements OnInit, OnDestroy {
       // its builds itself, and leaves the planner as it was - applying this
       // URL's (empty) params would clear it.
       done({ skipped: isStillNeededRoute(routePath) ? 'stillNeededRoute' : isGroupRunRoute(routePath) ? 'groupRunRoute' : 'compareRoute' });
+      return;
+    }
+    if (isStartRoute(routePath)) {
+      // The start page sets the planner up itself, from the guided setup's
+      // answers (NewBuildService), and only once someone starts one.
+      done({ skipped: 'startRoute' });
       return;
     }
     const queryParamMap = this.router.parseUrl(this.router.url).queryParamMap;

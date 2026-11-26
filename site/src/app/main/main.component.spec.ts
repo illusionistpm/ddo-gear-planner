@@ -430,7 +430,11 @@ describe('MainComponent', () => {
 
       expect(actions.querySelector('app-support-link')).not.toBeNull();
       expect(menu.querySelector('.menu-theme')).not.toBeNull();
-      expect([...menu.querySelectorAll('.menu-row')].map(e => e.textContent?.trim()))
+      // Each row's label, without the shortcut hint at its edge.
+      const label = (row: Element) => [...row.childNodes]
+        .filter(node => !(node instanceof HTMLElement && node.classList.contains('kbd-hint')))
+        .map(node => node.textContent).join('').trim();
+      expect([...menu.querySelectorAll('.menu-row')].map(label))
         .toEqual(['About and credits', 'Keyboard shortcuts', 'Buy me a coffee']);
       expect(menu.querySelector('app-admin-link')).not.toBeNull();
     });

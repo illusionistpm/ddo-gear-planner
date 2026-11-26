@@ -69,3 +69,15 @@
     min-width: 2.75rem;
   }
 }
+
+.undo-strip-kbd {
+  margin-left: var(--space-8);
+}
+
+/* On the filled hover, the keys go quiet with the button rather than staying grey boxes. */
+.undo-strip-action:hover .kbd-hint kbd,
+.undo-strip-action:focus-visible .kbd-hint kbd {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.6);
+  color: inherit;
+}

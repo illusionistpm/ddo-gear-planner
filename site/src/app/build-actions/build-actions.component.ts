@@ -44,6 +44,7 @@ export interface SaveControlViewModel {
 
 const NEW_BUILD_CONFIRM_MESSAGE = 'Start a new build? The gear on this one will be cleared.';
 
+import { modKeyLabel } from '../shared/keyboard-shortcuts';
 @Component({
   selector: 'app-build-actions',
   templateUrl: './build-actions.component.html',
@@ -77,6 +78,8 @@ export class BuildActionsComponent implements OnInit, OnDestroy {
   // Bound to the rename input's [maxLength] - was a bare maxlength="60" in
   // the template, hand-duplicating validateBuildName's own limit.
   readonly nameMaxLength = MAX_BUILD_NAME_LENGTH;
+  /** Ctrl, or ⌘ on a Mac, for the save button's shortcut. */
+  readonly modKey = modKeyLabel();
 
   // True while an in-place Save (saveInPlace, below) is in flight - unlike
   // create/Save As, this path has no dialog to show its own "Saving…" state

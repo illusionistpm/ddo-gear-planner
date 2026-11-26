@@ -1724,3 +1724,40 @@ code {
   order: 1;
 }
 
+
+/*
+ * A keyboard shortcut shown beside what it does, as the gear search shows "/".
+ * Quiet, and only where there's a keyboard to press it on - never on a touch
+ * screen. Its keys are <kbd>s.
+ */
+.kbd-hint {
+  align-items: center;
+  color: var(--text-secondary);
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-size: 0.75rem;
+  font-weight: normal;
+  gap: 0.2rem;
+  white-space: nowrap;
+}
+
+.kbd-hint kbd {
+  background: var(--surface-subtle-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  box-shadow: none;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+  min-width: 1.4em;
+  padding: 0.15rem 0.35rem;
+  text-align: center;
+}
+
+@media (hover: none), (pointer: coarse) {
+  .kbd-hint {
+    display: none !important;
+  }
+}

@@ -184,6 +184,10 @@ app-admin-link {
   text-align: left;
 }
 
+.menu-row-kbd {
+  margin-left: auto;
+}
+
 .menu-row:hover,
 .menu-row:focus-visible {
   background: var(--surface-subtle-color);
@@ -1021,4 +1025,9 @@ app-admin-link {
 
 .rank-legend dd {
   margin: 0;
+}
+
+/* The sheet's own shortcut, at the far end of its active-filters row. */
+.planner-filter-kbd {
+  margin-left: auto;
 }

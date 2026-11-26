@@ -68,6 +68,7 @@
             <button type="button" class="menu-row" role="menuitem" aria-keyshortcuts="?"
                 (click)="buildActions.closeMenu(); shortcutsOpen = true">
                 <i class="fas fa-keyboard menu-row-icon" aria-hidden="true"></i>Keyboard shortcuts
+                <span class="kbd-hint menu-row-kbd" aria-hidden="true"><kbd>?</kbd></span>
             </button>
             <!-- A phone has no room for Ko-fi in the bar; it lives here instead. -->
             <button type="button" class="menu-row menu-row-support" role="menuitem"
@@ -120,6 +121,8 @@
                         <!-- Disabled rather than missing, so the row keeps its height. -->
                         <button type="button" class="planner-filter-reset-all" disabled>Reset all</button>
                     }
+                    <!-- Not a tooltip on the toggle: that would cover the peek. -->
+                    <span class="kbd-hint planner-filter-kbd" aria-hidden="true"><kbd>F</kbd> to close</span>
                 </div>
                 <app-filters (troveFileSelected)="onTroveFileSelected($event)"
                     (sortOwnedToTopChanged)="onSortOwnedToTopChanged($event)"></app-filters>

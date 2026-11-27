@@ -265,16 +265,19 @@ export function makeSuggestionScorer(inputs: SuggestionScorerInputs, slot: strin
   /** The candidate's values with its own crafting filled, and what was put where. */
   const evaluate = (item: Item): { base: number[]; values: number[]; crafts: SuggestedCraft[] } => {
     const base = item.artifact ? filledBase : plannedBase;
-    const values = base.slice();
-    const crafts: SuggestedCraft[] = [];
-    apply(values, itemContribution(affixSvc.getActiveAffixes(item)));
+    const fixed = base.slice();
+    apply(fixed, itemContribution(affixSvc.getActiveAffixes(item)));
     const sets = [...(item.getSets() ?? [])];
     if (sets.length) {
-      apply(values, setGain(sets));
+      apply(fixed, setGain(sets));
     }
+
     // Its empty slots are filled as the build's are (see fill): the best (slot, option) first, so a
     // slot doesn't take a bonus another slot of the same item gives better. Slot by slot, an
     // earlier slot's Stunning +17 was outranked by a later slot's Stunning +18.
+    type Pick = { index: number; craftable: Craftable; choice: Choice; contribution: Contribution };
+    const picks: Pick[] = [];
+    const values = fixed.slice();
     const open = (item.crafting ?? [])
       .map((craftable, index) => ({ craftable, index }))
       .filter(({ craftable }) => !craftable.selected?.affixes.length && !craftable.selected?.set);
@@ -296,11 +299,54 @@ export function makeSuggestionScorer(inputs: SuggestionScorerInputs, slot: strin
       if (best.choice.set) {
         sets.push(best.choice.set);
       }
-      crafts.push({ index: open[best.p].index, option: best.choice.option, system: best.choice.system });
+      picks.push({ ...open[best.p], choice: best.choice, contribution: best.contribution });
       open.splice(best.p, 1);
     }
-    crafts.sort((a, b) => a.index - b.index);
-    return { base, values, crafts };
+
+    // Greedy can't take a pick back: one that helped several needs at once (Well Rounded's +8 to
+    // every ability) can end up outranked part by part by later picks (+15 Strength, +15
+    // Constitution), leaving it doing nothing. So each ordinary pick is looked at again against
+    // everything else the item gives, and swapped for whatever does more there.
+    const without = (skip: Pick | null) => {
+      const result = fixed.slice();
+      picks.forEach(pick => pick !== skip && apply(result, pick.contribution));
+      return result;
+    };
+    for (let round = 0; round < 2; round++) {
+      let changed = false;
+      for (const pick of picks.filter(candidate => !candidate.choice.set)) {
+        const rest = without(pick);
+        let best = { choice: pick.choice, contribution: pick.contribution, gain: gainOf(rest, pick.contribution) };
+        for (const choice of shortlistFor(pick.craftable, base)) {
+          if (choice.set) {
+            continue;
+          }
+          const gain = gainOf(rest, choice.contribution);
+          if (gain > best.gain + 1e-9) {
+            best = { choice, contribution: choice.contribution, gain };
+          }
+        }
+        if (best.choice !== pick.choice) {
+          pick.choice = best.choice;
+          pick.contribution = best.contribution;
+          changed = true;
+        }
+      }
+      if (!changed) {
+        break;
+      }
+    }
+
+    // A pick still outranked by the rest is left out, one at a time, so of two that tie one stays.
+    for (const pick of picks.slice()) {
+      if (!pick.choice.set && gainOf(without(pick), pick.contribution) <= 1e-9) {
+        picks.splice(picks.indexOf(pick), 1);
+      }
+    }
+    const crafts = picks
+      .map(pick => ({ index: pick.index, option: pick.choice.option, system: pick.choice.system }))
+      .sort((a, b) => a.index - b.index);
+    return { base, values: without(null), crafts };
   };
 
   const score = (item: Item) => {

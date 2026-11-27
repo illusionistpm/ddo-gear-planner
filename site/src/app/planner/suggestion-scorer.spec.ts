@@ -1,3 +1,6 @@
+import { AffixPackagesService } from '../affixes/affix-packages.service';
+import { Affix } from '../affixes/affix';
+import { AffixService } from '../affixes/affix.service';
 import { TestBed } from '@angular/core/testing';
 
 import { GearDbService } from '../gear/gear-db.service';
@@ -138,5 +141,31 @@ describe('EquippedService.getSuggestionScorer', () => {
 
     expect(stunning.map(craft => craft.option.affixes.find(affix => affix.name === 'Stunning')!.value)).toEqual([18]);
     expect(crafts.map(craft => craft.index)).toEqual([...crafts.map(craft => craft.index)].sort((a, b) => a - b));
+  });
+
+  it('suggests no crafting the same item\'s other bonuses outrank', () => {
+    // Legendary Agony's Eyes took Globe of Cursed Blood (+8 to every ability) first, then +15
+    // Strength and +15 Constitution elsewhere, which left the Globe doing nothing.
+    TestBed.inject(FiltersService).setLevelRange(30, 36);
+    const packages = TestBed.inject(AffixPackagesService).packages;
+    // A melee build's goals from the start page. Slot first, the Globe was outranked on 14 artifacts.
+    equipped.setImportantAffixes([...packages.get('Basic')!, ...packages.get('Melee')!, 'Strength', 'Legendary Dust']);
+    const tracked = Array.from(equipped.getImportantAffixes());
+    const affixSvc = TestBed.inject(AffixService);
+    const flat = (affixes: ReadonlyArray<Affix>) => affixSvc.flattenAffixGroups(affixes, true).filter(affix => tracked.includes(affix.name));
+
+    for (const slot of gearDB.getSlots()) {
+      const scorer = equipped.getSuggestionScorer(slot);
+      for (const item of (gearDB.getFilteredGearBySlot(slot) ?? []).filter(candidate => candidate.artifact)) {
+        const crafts = scorer.suggestedCrafting(item);
+        for (const craft of crafts.filter(candidate => !candidate.option.set)) {
+          const rest = [...item.affixes, ...crafts.filter(other => other !== craft).flatMap(other => other.option.affixes)];
+          const best = (name: string, type: string) => Math.max(0, ...flat(rest)
+            .filter(affix => affix.name === name && affix.type === type).map(affix => Number(affix.value)));
+          const earns = flat(craft.option.affixes).some(affix => Number(affix.value) > best(affix.name, affix.type));
+          expect(earns, `${item.name}: ${craft.option.name}`).toBe(true);
+        }
+      }
+    }
   });
 });

@@ -272,26 +272,34 @@ export function makeSuggestionScorer(inputs: SuggestionScorerInputs, slot: strin
     if (sets.length) {
       apply(values, setGain(sets));
     }
-    (item.crafting ?? []).forEach((craftable, index) => {
-      if (craftable.selected?.affixes.length || craftable.selected?.set) {
-        return;
-      }
-      let best: { choice: Choice; contribution: Contribution; gain: number } | null = null;
-      for (const choice of shortlistFor(craftable, base)) {
-        const contribution = choice.set ? merge(choice.contribution, setGain([...sets, choice.set])) : choice.contribution;
-        const gain = gainOf(values, contribution);
-        if (gain > 1e-9 && (!best || gain > best.gain)) {
-          best = { choice, contribution, gain };
+    // Its empty slots are filled as the build's are (see fill): the best (slot, option) first, so a
+    // slot doesn't take a bonus another slot of the same item gives better. Slot by slot, an
+    // earlier slot's Stunning +17 was outranked by a later slot's Stunning +18.
+    const open = (item.crafting ?? [])
+      .map((craftable, index) => ({ craftable, index }))
+      .filter(({ craftable }) => !craftable.selected?.affixes.length && !craftable.selected?.set);
+    while (open.length) {
+      let best: { p: number; choice: Choice; contribution: Contribution; gain: number } | null = null;
+      for (let p = 0; p < open.length; p++) {
+        for (const choice of shortlistFor(open[p].craftable, base)) {
+          const contribution = choice.set ? merge(choice.contribution, setGain([...sets, choice.set])) : choice.contribution;
+          const gain = gainOf(values, contribution);
+          if (gain > 1e-9 && (!best || gain > best.gain)) {
+            best = { p, choice, contribution, gain };
+          }
         }
       }
-      if (best) {
-        apply(values, best.contribution);
-        if (best.choice.set) {
-          sets.push(best.choice.set);
-        }
-        crafts.push({ index, option: best.choice.option, system: best.choice.system });
+      if (!best) {
+        break;
       }
-    });
+      apply(values, best.contribution);
+      if (best.choice.set) {
+        sets.push(best.choice.set);
+      }
+      crafts.push({ index: open[best.p].index, option: best.choice.option, system: best.choice.system });
+      open.splice(best.p, 1);
+    }
+    crafts.sort((a, b) => a.index - b.index);
     return { base, values, crafts };
   };
 

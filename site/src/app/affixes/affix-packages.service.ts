@@ -24,11 +24,11 @@ export interface BuildGoalsSummary {
 export const DEFAULT_PACKAGE = 'Basic';
 
 /**
- * Weapon procs only some builds use, offered one by one alongside Melee and Ranged: a quarter to a
+ * Damage procs only some builds use, offered one by one alongside Melee and Ranged: a quarter to a
  * third of the players who got them with those packages removed them (docs/suggestions-analysis.md).
  * Not the weaker 'Blood Rage', which is a different effect.
  */
-export const WEAPON_EXTRAS = ['Alchemical Air Attunement', 'Alchemical Earth Attunement', 'Alchemical Fire Attunement',
+export const DAMAGE_BOOSTS = ['Alchemical Air Attunement', 'Alchemical Earth Attunement', 'Alchemical Fire Attunement',
   'Alchemical Water Attunement', 'Dripping with Magma', 'Enhanced Bloodrage', 'Relentless Fury'];
 
 const TRANCE_INSIGHTFUL_DEADLY: AffixPackageExternal = {

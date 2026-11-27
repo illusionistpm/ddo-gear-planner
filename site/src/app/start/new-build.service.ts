@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { AffixPackagesService } from '../affixes/affix-packages.service';
 import { CurrentBuildService } from '../build/current-build.service';
 import { QueryParamsService } from '../build/query-params.service';
-import { GearDbService } from '../gear/gear-db.service';
 import { EquippedService } from '../planner/equipped.service';
 import { FiltersService } from '../planner/filters.service';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
@@ -30,30 +29,21 @@ export class NewBuildService {
     private readonly queryParams: QueryParamsService,
     private readonly equipped: EquippedService,
     private readonly filters: FiltersService,
-    private readonly gearDB: GearDbService,
     private readonly affixPackages: AffixPackagesService,
     private readonly currentBuild: CurrentBuildService,
     private readonly onboarding: PlannerOnboardingService
   ) { }
 
-  /** Whether this viewer asked for a bare "/" to open the planner rather than the start page. */
+  /**
+   * Whether a bare "/" should open the planner rather than the start page. The app offers
+   * no setting for it: it's for tools/visual-diff/capture.py, whose empty-build scenes are
+   * the planner's.
+   */
   prefersPlanner(): boolean {
     try {
       return localStorage.getItem(PREFERS_PLANNER_KEY) === '1';
     } catch {
       return false;
-    }
-  }
-
-  setPrefersPlanner(prefers: boolean): void {
-    try {
-      if (prefers) {
-        localStorage.setItem(PREFERS_PLANNER_KEY, '1');
-      } else {
-        localStorage.removeItem(PREFERS_PLANNER_KEY);
-      }
-    } catch {
-      // A per-browser convenience: without storage, the start page shows each time.
     }
   }
 
@@ -119,7 +109,6 @@ export class NewBuildService {
     this.queryParams.holdingUrl(() => {
       const maxLevel = this.filters.getMaxLevel();
       const [min, max] = levelRangeOf(answers, maxLevel);
-      // First, so the trance default reads the best Deadly from the gear these allow.
       this.filters.setLevelRange(min, max);
       this.filters.setShowRaidItems(answers.showRaid);
       this.filters.setShowRareItems(answers.showRare);
@@ -127,8 +116,7 @@ export class NewBuildService {
       const plan = planFromAnswers(answers, {
         packages: this.affixPackages.packages,
         spellpowerPackages: this.affixPackages.spellpowerPackages,
-        maxLevel,
-        bestCompetenceDeadly: this.gearDB.getBestValueForAffixType('Deadly', 'Competence')
+        maxLevel
       });
       this.filters.setHiddenTypes(plan.hiddenTypes);
       this.equipped.setImportantAffixes(plan.tracked);
@@ -145,11 +133,6 @@ export class NewBuildService {
         }
       }
     });
-  }
-
-  /** The Insight Deadly a partial trance defaults to at the answers' levels. */
-  bestCompetenceDeadly(): number {
-    return this.gearDB.getBestValueForAffixType('Deadly', 'Competence');
   }
 
   /**

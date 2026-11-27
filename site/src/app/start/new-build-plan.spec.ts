@@ -1,6 +1,7 @@
 import { DOCENT_TYPE, MELEE_WEAPON_TYPES, OFFHAND_TYPES, RANGED_WEAPON_TYPES } from '../gear/item-type-groups';
 import {
-  ATTRIBUTES, NewBuildAnswers, PlanContext, defaultTranceDeadly, emptyAnswers, greenSteelChoices, planFromAnswers, withRole
+  ATTRIBUTES, LEVELLING_RANGE, NewBuildAnswers, PlanContext, emptyAnswers, greenSteelChoices, planFromAnswers, tranceDeadlyFor,
+  withRole
 } from './new-build-plan';
 
 const context: PlanContext = {
@@ -12,8 +13,7 @@ const context: PlanContext = {
     ['Trapping', ['Disable Device']]
   ]),
   spellpowerPackages: new Map([['Healing', ['Devotion']], ['Fire', ['Combustion']]]),
-  maxLevel: 34,
-  bestCompetenceDeadly: 12
+  maxLevel: 36
 };
 
 const answers = (overrides: Partial<NewBuildAnswers> = {}): NewBuildAnswers => ({ ...emptyAnswers(), ...overrides });
@@ -37,16 +37,19 @@ describe('planFromAnswers', () => {
     expect(planFromAnswers(answers(), context).hiddenPacks.size).toBe(0);
   });
 
-  it('starts endgame six levels below the cap', () => {
-    expect(planFromAnswers(answers(), context).levelRange).toEqual([28, 34]);
+  it('runs endgame from 30 to the cap', () => {
+    expect(planFromAnswers(answers(), context).levelRange).toEqual([30, 36]);
+    // New gear raises the cap; endgame still starts at 30.
+    expect(planFromAnswers(answers(), { ...context, maxLevel: 37 }).levelRange).toEqual([30, 37]);
+    expect(LEVELLING_RANGE).toEqual([1, 20]);
     expect(planFromAnswers(answers({ level: [12, 20] }), context).levelRange).toEqual([12, 20]);
   });
 
-  it('gives a melee build its package, main stat and a partial trance, and hides ranged weapons', () => {
+  it('gives a melee build its package, Strength and a partial trance, and hides ranged weapons', () => {
     const plan = planFromAnswers(withRole(answers(), 'melee'), context);
 
     expect(plan.tracked).toEqual(['Constitution', 'Dodge', 'Melee Power', 'Deadly', 'Strength']);
-    expect(plan.externals).toEqual([{ affixName: 'Deadly', bonusType: 'Insight', value: 18 }]);
+    expect(plan.externals).toEqual([{ affixName: 'Deadly', bonusType: 'Insight', value: 15 }]);
     for (const type of RANGED_WEAPON_TYPES) {
       expect(plan.hiddenTypes.has(type)).toBe(true);
     }
@@ -73,7 +76,15 @@ describe('planFromAnswers', () => {
     expect(plan.externals).toEqual([]);
   });
 
-  it('hides every offhand for a build that leaves its off hand empty', () => {
+  it('leaves the offhand alone for a build of two-handers only, whose off hand is empty anyway', () => {
+    const plan = planFromAnswers({ ...withRole(answers(), 'melee'), weaponTypes: ['Great Swords'], offhandTypes: ['Orbs'] }, context);
+
+    for (const type of OFFHAND_TYPES) {
+      expect(plan.hiddenTypes.has(type)).toBe(false);
+    }
+  });
+
+  it('hides every shield, orb and rune arm for a second weapon', () => {
     const plan = planFromAnswers({ ...withRole(answers(), 'melee'), offhandTypes: [] }, context);
 
     for (const type of OFFHAND_TYPES) {
@@ -98,11 +109,11 @@ describe('planFromAnswers', () => {
     expect(plan.tracked).toEqual(['Constitution', 'Dodge', 'Spellcraft', 'Devotion', 'Necromancy Focus', 'Wisdom']);
   });
 
-  it('tracks the Green Steel effect, weapon extras and tactics picked', () => {
+  it('tracks the Green Steel effect, damage boosts and tactics picked', () => {
     const plan = planFromAnswers({
       ...withRole(answers(), 'melee'),
       greenSteel: 'Dust',
-      weaponExtras: ['Dripping with Magma'],
+      damageBoosts: ['Dripping with Magma'],
       tactics: ['Stunning']
     }, context);
 
@@ -110,7 +121,7 @@ describe('planFromAnswers', () => {
   });
 
   it('drops what belongs to another role', () => {
-    const wasMelee = { ...withRole(answers(), 'melee'), tactics: ['Stunning'], weaponExtras: ['Relentless Fury'] };
+    const wasMelee = { ...withRole(answers(), 'melee'), tactics: ['Stunning'], damageBoosts: ['Relentless Fury'] };
     const plan = planFromAnswers({ ...wasMelee, role: 'caster' }, context);
 
     expect(plan.tracked).not.toContain('Stunning');
@@ -118,9 +129,9 @@ describe('planFromAnswers', () => {
     expect(plan.externals).toEqual([]);
   });
 
-  it('marks Insight Accuracy and the tactics as covered for a full trance, and takes the player\'s Deadly', () => {
+  it('marks Insight Accuracy and the tactics as covered for a full trance, and takes Deadly from the trance\'s ability score', () => {
     const plan = planFromAnswers({
-      ...withRole(answers(), 'melee'), trance: 'full', tranceDeadly: 15, tactics: ['Stunning', 'Vertigo']
+      ...withRole(answers(), 'melee'), trance: 'full', tranceAbility: 70, tactics: ['Stunning', 'Vertigo']
     }, context);
 
     expect(plan.externals).toEqual([
@@ -146,9 +157,10 @@ describe('new build choices', () => {
     expect(greenSteelChoices('caster')).toEqual(['Ash', 'Ooze', 'Vacuum']);
   });
 
-  it('defaults a trance to half again the best Competence Deadly, or 10 with none', () => {
-    expect(defaultTranceDeadly(12)).toBe(18);
-    expect(defaultTranceDeadly(0)).toBe(10);
+  it('gives a trance Insight Deadly of (ability - 10) / 4, rounded down', () => {
+    expect(tranceDeadlyFor(70)).toBe(15);
+    expect(tranceDeadlyFor(41)).toBe(7);
+    expect(tranceDeadlyFor(8)).toBe(0);
   });
 
   it('keeps the level, armor and trapping on a change of role, and resets the rest', () => {
@@ -164,6 +176,6 @@ describe('new build choices', () => {
     expect(after.showRaid).toBe(false);
     expect(after.hiddenPacks).toEqual(['Tomb of Annihilation']);
     expect(after.greenSteel).toBeNull();
-    expect(after.mainStat).toBe('Dexterity');
+    expect(after.abilities).toEqual(['Dexterity']);
   });
 });

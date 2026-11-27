@@ -702,7 +702,7 @@ suggestions match what people actually fill.
 - **Caster** adds Magical Efficiency.
 
 Later, the weapon procs moved out of Melee and Ranged into an opt-in
-**Weapon extras** row in the goals editor, shown while either is on: the four
+**Other damage boosts** row in the goals editor, shown while either is on: the four
 Alchemical Attunements, Dripping with Magma, Enhanced Bloodrage and Relentless
 Fury. Action Boost Charges stays in both bundles.
 

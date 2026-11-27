@@ -145,23 +145,23 @@ describe('AffixPickerComponent', () => {
     expect(component.packages.get('Ranged')).toContain('Greater Marksmanship');
   });
 
-  it('offers Enhanced Bloodrage among the weapon extras, not Blood Rage', () => {
-    expect(component.weaponExtras).toContain('Enhanced Bloodrage');
-    expect(component.weaponExtras).not.toContain('Blood Rage');
-    expect(component.weaponExtras).not.toContain('Bloodrage');
+  it('offers Enhanced Bloodrage among the other damage boosts, not Blood Rage', () => {
+    expect(component.damageBoosts).toContain('Enhanced Bloodrage');
+    expect(component.damageBoosts).not.toContain('Blood Rage');
+    expect(component.damageBoosts).not.toContain('Bloodrage');
   });
 
-  it('leaves the weapon procs out of Melee and Ranged, and offers them one by one once either is on', () => {
+  it('leaves the damage procs out of Melee and Ranged, and offers them one by one once either is on', () => {
     const el: HTMLElement = fixture.nativeElement;
-    for (const extra of component.weaponExtras) {
+    for (const extra of component.damageBoosts) {
       expect(component.packages.get('Melee')).not.toContain(extra);
       expect(component.packages.get('Ranged')).not.toContain(extra);
     }
-    expect(el.querySelector('.affix-weapon-extra-chip')).toBeNull();
+    expect(el.querySelector('.affix-damage-boost-chip')).toBeNull();
 
     component.addPackage('Ranged');
     fixture.detectChanges();
-    const magma = Array.from(el.querySelectorAll<HTMLButtonElement>('.affix-weapon-extra-chip'))
+    const magma = Array.from(el.querySelectorAll<HTMLButtonElement>('.affix-damage-boost-chip'))
       .find(chip => chip.textContent?.trim() === 'Dripping with Magma')!;
     magma.click();
     fixture.detectChanges();
@@ -304,7 +304,7 @@ describe('AffixPickerComponent', () => {
     component.addPackage('Caster');
     refreshView();
 
-    expect(panelHeadings()).toEqual(['Build Packages', 'Tactics', 'Weapon extras', 'Spell Power', 'Spell Schools', 'Key Attributes', 'Find an affix']);
+    expect(panelHeadings()).toEqual(['Build Packages', 'Tactics', 'Other damage boosts', 'Spell Power', 'Spell Schools', 'Key Attributes', 'Find an affix']);
   });
 
   it('says under the search what a pick did', () => {

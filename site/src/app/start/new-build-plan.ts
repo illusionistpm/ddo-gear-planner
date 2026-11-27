@@ -1,5 +1,5 @@
 import {
-  ALL_WEAPON_TYPES, ARMOR_TYPES, MELEE_WEAPON_TYPES, OFFHAND_TYPES, RANGED_WEAPON_TYPES
+  ALL_WEAPON_TYPES, ARMOR_TYPES, MELEE_WEAPON_TYPES, OFFHAND_TYPES, RANGED_WEAPON_TYPES, TWO_HANDED_WEAPON_TYPES
 } from '../gear/item-type-groups';
 
 /**
@@ -22,21 +22,22 @@ export interface NewBuildAnswers {
   hiddenPacks: string[];
   /** Weapon types allowed; null keeps the role's default (every melee, or every ranged and thrown, type). */
   weaponTypes: string[] | null;
-  /** Offhand types allowed; null allows them all, [] none (two-handers, or nothing in the off hand). */
+  /** Offhand types allowed; null allows them all. [] is "a second weapon": no shields, orbs or rune arms. */
   offhandTypes: string[] | null;
   /** Armor types allowed, Docents included; null allows them all. */
   armorTypes: string[] | null;
-  mainStat: string | null;
-  otherStats: string[];
+  /** The ability scores the build wants. Constitution isn't among the choices: Basic tracks it. */
+  abilities: string[];
   spellpowers: string[];
   schools: string[];
   tactics: string[];
   trance: TranceChoice;
-  /** Insight Deadly from a partial or full trance; null for the default, worked out from the level. */
-  tranceDeadly: number | null;
+  /** The final value of the ability score the trance keys off; null for TRANCE_DEFAULT_ABILITY. */
+  tranceAbility: number | null;
   /** A Legendary Green Steel effect, by its element ("Dust"), or null for none. */
   greenSteel: string | null;
-  weaponExtras: string[];
+  /** Opt-in procs (DAMAGE_BOOSTS), for melee and ranged. */
+  damageBoosts: string[];
   /** The minor artifact chosen, to equip again after a reload; null to decide in the planner. */
   artifact: { name: string; slot: string } | null;
 }
@@ -52,12 +53,22 @@ export function greenSteelChoices(role: BuildRole | null): string[] {
 
 export const greenSteelAffix = (element: string) => `Legendary ${element}`;
 
-/** How many levels below the cap "endgame" starts. */
-export const ENDGAME_LEVELS = 6;
+/**
+ * Where "endgame" starts. Its top is the cap, the highest item level in the data, so new
+ * gear moves it; the bottom stays here.
+ */
+export const ENDGAME_MIN_LEVEL = 30;
+/** Where a levelling range starts when first chosen. */
+export const LEVELLING_RANGE: [number, number] = [1, 20];
 
 export const TRANCE_LABEL = 'Trance';
-/** What the Melee and Ranged packages have always assumed for a trance, when the level gives nothing better. */
-const FALLBACK_TRANCE_DEADLY = 10;
+/** A trance's ability score when the player doesn't say: high enough at cap that the exact value hardly matters. */
+export const TRANCE_DEFAULT_ABILITY = 70;
+
+/** A trance's Insight Deadly from the ability score it keys off: (score - 10) / 4, rounded down. */
+export function tranceDeadlyFor(ability: number): number {
+  return Math.max(0, Math.floor((ability - 10) / 4));
+}
 
 export function emptyAnswers(): NewBuildAnswers {
   return {
@@ -70,15 +81,14 @@ export function emptyAnswers(): NewBuildAnswers {
     weaponTypes: null,
     offhandTypes: null,
     armorTypes: null,
-    mainStat: null,
-    otherStats: [],
+    abilities: [],
     spellpowers: [],
     schools: [],
     tactics: [],
     trance: 'none',
-    tranceDeadly: null,
+    tranceAbility: null,
     greenSteel: null,
-    weaponExtras: [],
+    damageBoosts: [],
     artifact: null
   };
 }
@@ -94,14 +104,13 @@ export function withRole(answers: NewBuildAnswers, role: BuildRole, healer = fal
     role,
     weaponTypes: null,
     offhandTypes: null,
-    mainStat: role === 'melee' ? 'Strength' : role === 'ranged' ? 'Dexterity' : healer ? 'Wisdom' : null,
-    otherStats: answers.otherStats.filter(stat => stat !== answers.mainStat),
+    abilities: role === 'melee' ? ['Strength'] : role === 'ranged' ? ['Dexterity'] : healer ? ['Wisdom'] : [],
     spellpowers: role === 'caster' && healer ? ['Healing'] : [],
     schools: [],
     tactics: [],
     trance: martial ? 'partial' : 'none',
     greenSteel: null,
-    weaponExtras: []
+    damageBoosts: []
   };
 }
 
@@ -110,8 +119,6 @@ export interface PlanContext {
   spellpowerPackages: ReadonlyMap<string, ReadonlyArray<string>>;
   /** The highest item level in the data: the cap. */
   maxLevel: number;
-  /** The best Competence Deadly an item gives at the build's levels, for the trance default. */
-  bestCompetenceDeadly: number;
 }
 
 export interface PlannedExternal {
@@ -134,14 +141,9 @@ export interface NewBuildPlan {
 
 export function levelRangeOf(answers: NewBuildAnswers, maxLevel: number): [number, number] {
   if (answers.level === 'endgame') {
-    return [Math.max(1, maxLevel - ENDGAME_LEVELS), maxLevel];
+    return [Math.min(ENDGAME_MIN_LEVEL, maxLevel), maxLevel];
   }
   return answers.level;
-}
-
-/** A partial trance's Insight Deadly, unless the player gave one: half again the best Competence Deadly on gear. */
-export function defaultTranceDeadly(bestCompetenceDeadly: number): number {
-  return bestCompetenceDeadly > 0 ? Math.round(bestCompetenceDeadly * 1.5) : FALLBACK_TRANCE_DEADLY;
 }
 
 export function planFromAnswers(answers: NewBuildAnswers, context: PlanContext): NewBuildPlan {
@@ -175,13 +177,12 @@ export function planFromAnswers(answers: NewBuildAnswers, context: PlanContext):
   if (role === 'melee') {
     add(answers.tactics);
   }
-  add(answers.mainStat ? [answers.mainStat] : []);
-  add(answers.otherStats);
+  add(answers.abilities);
   if (answers.greenSteel) {
     add([greenSteelAffix(answers.greenSteel)]);
   }
   if (role === 'melee' || role === 'ranged') {
-    add(answers.weaponExtras);
+    add(answers.damageBoosts);
   }
 
   return {
@@ -191,31 +192,44 @@ export function planFromAnswers(answers: NewBuildAnswers, context: PlanContext):
     showRare: answers.showRare,
     hiddenPacks: new Set(answers.hiddenPacks),
     hiddenTypes: hiddenTypesOf(answers),
-    externals: tranceExternals(answers, context)
+    externals: tranceExternals(answers)
   };
+}
+
+/** The weapon types a melee or ranged build allows; null for a caster or no role, who aren't filtered. */
+function allowedWeapons(answers: NewBuildAnswers): ReadonlyArray<string> | null {
+  if (answers.role !== 'melee' && answers.role !== 'ranged') {
+    return null;
+  }
+  return answers.weaponTypes ?? (answers.role === 'melee' ? MELEE_WEAPON_TYPES : RANGED_WEAPON_TYPES);
+}
+
+/** Every weapon allowed is two-handed (a greatsword, a bow): the off hand is empty, so it isn't filtered. */
+export function isTwoHandedOnly(answers: NewBuildAnswers): boolean {
+  const allowed = allowedWeapons(answers);
+  return !!allowed && allowed.length > 0 && allowed.every(type => TWO_HANDED_WEAPON_TYPES.includes(type));
 }
 
 function hiddenTypesOf(answers: NewBuildAnswers): Set<string> {
   const hidden = new Set<string>();
-  const allowWeapons = answers.weaponTypes
-    ?? (answers.role === 'melee' ? MELEE_WEAPON_TYPES : answers.role === 'ranged' ? RANGED_WEAPON_TYPES : null);
+  const allowWeapons = allowedWeapons(answers);
   const hideAllBut = (all: ReadonlyArray<string>, allowed: ReadonlyArray<string> | null) => {
     if (allowed) {
       all.filter(type => !allowed.includes(type)).forEach(type => hidden.add(type));
     }
   };
   // A caster's weapon is whatever carries their stats: no weapon filter for them.
-  hideAllBut(ALL_WEAPON_TYPES, answers.role === 'caster' ? null : allowWeapons);
-  hideAllBut(OFFHAND_TYPES, answers.offhandTypes);
+  hideAllBut(ALL_WEAPON_TYPES, allowWeapons);
+  hideAllBut(OFFHAND_TYPES, isTwoHandedOnly(answers) ? null : answers.offhandTypes);
   hideAllBut(ARMOR_TYPES, answers.armorTypes);
   return hidden;
 }
 
-function tranceExternals(answers: NewBuildAnswers, context: PlanContext): PlannedExternal[] {
+function tranceExternals(answers: NewBuildAnswers): PlannedExternal[] {
   if (answers.role === 'caster' || answers.role === null || answers.trance === 'none') {
     return [];
   }
-  const deadly = answers.tranceDeadly ?? defaultTranceDeadly(context.bestCompetenceDeadly);
+  const deadly = tranceDeadlyFor(answers.tranceAbility ?? TRANCE_DEFAULT_ABILITY);
   const externals: PlannedExternal[] = [{ affixName: 'Deadly', bonusType: 'Insight', value: deadly }];
   if (answers.trance === 'full') {
     // A full trance also gives Insight Accuracy and tactics DCs; their values vary too much

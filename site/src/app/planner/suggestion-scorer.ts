@@ -238,7 +238,7 @@ export function makeSuggestionScorer(inputs: SuggestionScorerInputs, slot: strin
   const tracked = new Set(inputs.tracked);
   const weaponBuild = [...WEAPON_BUILD_AFFIXES].some(affix => tracked.has(affix));
   const casterBuild = [...tracked].some(isCasterAffix);
-  const needs = [...trackedNeeds(inputs), ...weaponEffectNeeds(inputs, tracked, weaponBuild, casterBuild)];
+  const needs = [...trackedNeeds(inputs), ...(slot === 'Weapon' ? weaponEffectNeeds(inputs, tracked, weaponBuild, casterBuild) : [])];
   const weaponFactor = inputs.weaponDiceFactor ?? 1;
   const diceCredit = weaponDiceCredit(gearDB);
   const weaponCredit = weaponFactor && weaponBuild ? (item: Item) => diceCredit(item) * weaponFactor : () => 0;
@@ -512,7 +512,9 @@ function trackedNeeds(inputs: SuggestionScorerInputs): Need[] {
 /**
  * A need per group of the weapon effects that help this build (WEAPON_EFFECT_VALUES) and no goal
  * tracks: worth the group's best effect, at perDamagePercent per % of damage. Physical effects help
- * builds that fight with weapons, magical ones builds that cast, and the rest both.
+ * builds that fight with weapons, magical ones builds that cast, and the rest both. Only for the
+ * Weapon slot: in the Offhand they lifted every weapon over the shields, orbs and rune arms most
+ * builds wear there (the saved builds' own Offhand fell from rank 90 to 203 among its type).
  */
 function weaponEffectNeeds(inputs: SuggestionScorerInputs, tracked: ReadonlySet<string>, weaponBuild: boolean,
                            casterBuild: boolean): Need[] {
@@ -522,11 +524,20 @@ function weaponEffectNeeds(inputs: SuggestionScorerInputs, tracked: ReadonlySet<
   if (!(perPercent > 0)) {
     return [];
   }
+  /** An effect valued as bonuses to tracked affixes, as the % of damage that scores the same. */
+  const asPercent = (bonuses: ReadonlyArray<{ name: string; value: number }>) => bonuses.reduce((total, { name, value }) => {
+    const best = inputs.gearDB.getBestValueForAffix(name);
+    if (!tracked.has(name) || !(best > 0)) {
+      return total;
+    }
+    return total + Math.min(value, best) / best * inputs.gearDB.getAffixWeight(name, best) * (inputs.weightFactor?.(name) ?? 1);
+  }, 0) / perPercent;
   const groups = new Map<string, Map<string, number>>();
   for (const [name, value] of WEAPON_EFFECT_VALUES) {
-    if (helps(value.kind) && !tracked.has(name)) {
+    const percent = value.asAffixes ? asPercent(value.asAffixes) : value.percent;
+    if (helps(value.kind) && !tracked.has(name) && percent > 0) {
       const group = value.group ?? name;
-      groups.set(group, (groups.get(group) ?? new Map()).set(name, value.percent));
+      groups.set(group, (groups.get(group) ?? new Map()).set(name, percent));
     }
   }
   return [...groups].map(([group, effects]) => ({

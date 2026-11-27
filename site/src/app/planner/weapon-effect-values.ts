@@ -12,6 +12,8 @@
  *  - Keen and Impact are worth nothing: they don't stack with Improved Critical, which endgame builds have.
  *  - The large, non-scaling damage over time of the Dripping with Magma family is worth having.
  *  - Crowd control is irreplaceable: DC 100 or more, or no save at all.
+ *  - Improved Destruction's stacks (-1 AC, -1% Fortification, up to 15, one a second) come to about
+ *    15 Armor-Piercing and 15 Accuracy over a fight; Destruction (one every three seconds) to 2/3 of that.
  *  - Legendary Green Steel's effects are worth a lot: Slime 10%, Ash 20% of magical damage, Vacuum
  *    20% of any, Dust 35% of physical. Vulnerable is Vacuum's effect.
  *
@@ -24,6 +26,11 @@ export type WeaponEffectKind = 'physical' | 'magical' | 'any';
 export interface WeaponEffectValue {
   /** Worth this % of the build's damage. */
   percent: number;
+  /**
+   * Or worth these bonuses to tracked affixes, on a channel of their own (a debuff on the target stacks
+   * with the build's bonuses), in place of `percent`.
+   */
+  asAffixes?: ReadonlyArray<{ name: string; value: number }>;
   kind: WeaponEffectKind;
   /** Effects in one group don't stack: a build gains the group's best once. Defaults to the effect's own name. */
   group?: string;
@@ -47,6 +54,12 @@ export const WEAPON_EFFECT_VALUES: ReadonlyMap<string, WeaponEffectValue> = new 
   ['Fire Vulnerability', vulnerable],
   ['Cold Vulnerability', vulnerable],
   ['3rd Degree Burns', vulnerable],
+
+  // Armor Destruction stacks on the target.
+  ['Improved Destruction', { percent: 0, kind: 'physical', group: 'Armor Destruction',
+    asAffixes: [{ name: 'Armor-Piercing', value: 15 }, { name: 'Accuracy', value: 15 }] }],
+  ['Destruction', { percent: 0, kind: 'physical', group: 'Armor Destruction',
+    asAffixes: [{ name: 'Armor-Piercing', value: 10 }, { name: 'Accuracy', value: 10 }] }],
 
   // +1 critical multiplier on a 19 or 20.
   ['Blunt Trauma', { percent: 5, kind: 'physical', group: 'critical multiplier' }],

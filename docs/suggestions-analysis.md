@@ -272,6 +272,58 @@ Across all types the player's weapon is in the top 20 only a quarter of the
 time, as before: the list mixes types, and the type is chosen for feats, not
 stats. Within its type, it's in the top 20 85% of the time.
 
+**Weapon effects (built 2026-11-27).** Even with [W], the scorer saw the
+most-worn endgame weapons as nearly empty. Kinesis (38 saved builds), Maw and
+Audion carry Guardbreaking, Legendary Paralysis, Blunt Trauma, Rippling
+Energy and the like, and no goal tracks any of them. So Legendary Thirteen's
+seven augment slots beat them, though everything an augment carries can be
+found elsewhere. The planner lists 524 effects only weapons carry.
+
+`planner/weapon-effect-values.ts` values the ones that matter as a share of
+damage, following a player's review. Fixed damage doesn't scale, so it's
+worth nothing at endgame, and neither are DCs under 100, vorpal-triggered
+damage, or Keen and Impact (endgame builds have Improved Critical). That
+settles most of them. What's listed:
+
+| Effects | Worth |
+|---|---|
+| Legendary Dust (physical) | 35% |
+| Legendary Ash (magical) | 20% |
+| Legendary Vacuum; Vulnerable stacks (Frostbite, Fire Vulnerability, 3rd Degree Burns...) | 20%, once |
+| Legendary Slime | 10% |
+| Crowd control, DC 100+ or no save (Paralysis, Stone Prison, Guardbreaking, Felling the Oak...) | 8% each |
+| Large damage over time (Rippling Energy, Rupturing Echo, Lingering Acidic Burn...) | 5% |
+| +1 critical multiplier on 19-20 (Blunt Trauma, Serrated, Elasticity) | 5% |
+| Sovereign / Superior / Greater Vorpal: +0.5[W] | ~3% |
+| Improved Destruction / Destruction | 15 / 10 Armor-Piercing and Accuracy |
+
+Each group is a need the scorer adds, untracked, for the builds it helps:
+physical effects for builds that fight with weapons, magical ones for builds
+that cast, the rest both. Each 1% of damage counts at the [W] credit's rate (1
+damage on a 100-damage hit, as 2 attribute points). Because they're needs,
+crafting and augment slots are filled for them too. A Sealed in Fire slot
+takes Legendary Dust, and a Purple slot takes Lifetaker's Legendary Slay
+Living.
+
+They count only in the Weapon slot. In the Offhand they lifted every weapon
+over the shields, orbs and rune arms most builds wear there. Ranked within its
+type, the player's own Offhand fell from rank 90 to 203.
+
+**Against the saved builds** (Weapon, 447 slots, ranked within the weapon's
+type):
+
+| Effects at | Mean rank | MRR | Top 1 | Top 5 | Top 20 |
+|---|---|---|---|---|---|
+| none | 11.0 | 0.356 | 19% | 46% | 85% |
+| x0.25 | 9.6 | 0.361 | 15% | 59% | 89% |
+| x1 (as reviewed) | 9.7 | 0.350 | 12% | 59% | 87% |
+
+The player's weapon moves into the top 5 far more often. It's first less
+often, mostly because a plain "X of the Undying Age", whose Sealed in Fire
+slot takes Legendary Dust or Vacuum, now ranks just above the named weapon
+the player chose (The Slayer of the Living, Maw, The Bloody End, Clank). The
+reviewed values stay; MRR can't tell them from x0.25.
+
 **Not built yet:**
 
 - (Since built.) **Crafting pickers in the drawer.** Each suggestion's crafting

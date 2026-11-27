@@ -235,11 +235,33 @@ describe('EquippedService.getSuggestionScorer', () => {
       expect(score(weapon('Dusty', ['Legendary Dust']))).toBe(score(plain()));
     });
 
+    it('values Armor Destruction as the Armor-Piercing and Accuracy it comes to, for builds tracking them', () => {
+      equipped.setImportantAffixes(['Melee Power', 'Armor-Piercing', 'Accuracy']);
+      let score = equipped.getSuggestionScorer('Weapon');
+      const improved = score(weapon('Improved', ['Improved Destruction']));
+      expect(improved).toBeGreaterThan(score(weapon('Destruction', ['Destruction'])));
+      expect(score(weapon('Destruction', ['Destruction']))).toBeGreaterThan(score(plain()));
+      // The same debuff: the better one counts, once.
+      expect(score(weapon('Both', ['Improved Destruction', 'Destruction']))).toBe(improved);
+
+      equipped.setImportantAffixes(['Melee Power']);
+      score = equipped.getSuggestionScorer('Weapon');
+      expect(score(weapon('Improved', ['Improved Destruction']))).toBe(score(plain()));
+    });
+
     it('counts effects that don\'t stack once', () => {
       equipped.setImportantAffixes(['Melee Power']);
       const score = equipped.getSuggestionScorer('Weapon');
 
       expect(score(weapon('Twice Vulnerable', ['Legendary Vacuum', 'Frostbite']))).toBe(score(weapon('Vulnerable', ['Legendary Vacuum'])));
+    });
+
+    it('counts them only in the Weapon slot, so an Offhand weapon doesn\'t outrank a shield for them', () => {
+      equipped.setImportantAffixes(['Melee Power']);
+      const shield = new Item({ name: 'Shield', slot: 'Offhand', type: 'Large shields', ml: 34, url: '/page/Shield' });
+
+      expect(equipped.getSuggestionScorer('Offhand')(weapon('Dusty', ['Legendary Dust']))).toBeLessThanOrEqual(
+        equipped.getSuggestionScorer('Offhand')(shield));
     });
 
     it('fills a crafting slot with the option that grants an effect', () => {

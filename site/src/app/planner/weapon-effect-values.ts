@@ -39,6 +39,8 @@ export interface WeaponEffectValue {
 const crowdControl: WeaponEffectValue = { percent: 8, kind: 'physical' };
 const largeDamageOverTime: WeaponEffectValue = { percent: 5, kind: 'any' };
 const vulnerable: WeaponEffectValue = { percent: 20, kind: 'any', group: 'Vulnerable' };
+/** Vulnerable from weapon hits (or vorpals) alone, which a caster doesn't land. */
+const vulnerableOnHit: WeaponEffectValue = { ...vulnerable, kind: 'physical' };
 /** +0.5[W], at the reference die (6.5) per [W] on a ~100 damage hit. Vorpals don't stack. */
 const halfW: WeaponEffectValue = { percent: 3.25, kind: 'physical', group: 'Vorpal' };
 
@@ -48,12 +50,12 @@ export const WEAPON_EFFECT_VALUES: ReadonlyMap<string, WeaponEffectValue> = new 
   ['Legendary Ash', { percent: 20, kind: 'magical' }],
   ['Legendary Vacuum', vulnerable],
   ['Legendary Slime', { percent: 10, kind: 'any' }],
-  // Vulnerable stacks on hit.
-  ['Frostbite', vulnerable],
-  ['Flamebitten', vulnerable],
-  ['Fire Vulnerability', vulnerable],
-  ['Cold Vulnerability', vulnerable],
-  ['3rd Degree Burns', vulnerable],
+  // Vulnerable stacks on a weapon hit, or (3rd Degree Burns) a vorpal.
+  ['Frostbite', vulnerableOnHit],
+  ['Flamebitten', vulnerableOnHit],
+  ['Fire Vulnerability', vulnerableOnHit],
+  ['Cold Vulnerability', vulnerableOnHit],
+  ['3rd Degree Burns', vulnerableOnHit],
 
   // Armor Destruction stacks on the target.
   ['Improved Destruction', { percent: 0, kind: 'physical', group: 'Armor Destruction',

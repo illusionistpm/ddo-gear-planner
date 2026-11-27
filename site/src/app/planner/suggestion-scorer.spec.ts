@@ -233,6 +233,9 @@ describe('EquippedService.getSuggestionScorer', () => {
 
       expect(score(weapon('Ashen', ['Legendary Ash']))).toBeGreaterThan(score(plain()));
       expect(score(weapon('Dusty', ['Legendary Dust']))).toBe(score(plain()));
+      // Vulnerable from weapon hits or vorpals needs a build that lands them; Vacuum's comes from spells too.
+      expect(score(weapon('Burning', ['3rd Degree Burns']))).toBe(score(plain()));
+      expect(score(weapon('Vacuum', ['Legendary Vacuum']))).toBeGreaterThan(score(plain()));
     });
 
     it('values Armor Destruction as the Armor-Piercing and Accuracy it comes to, for builds tracking them', () => {

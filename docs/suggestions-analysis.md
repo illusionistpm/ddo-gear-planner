@@ -289,7 +289,7 @@ settles most of them. What's listed:
 |---|---|
 | Legendary Dust (physical) | 35% |
 | Legendary Ash (magical) | 20% |
-| Legendary Vacuum; Vulnerable stacks (Frostbite, Fire Vulnerability, 3rd Degree Burns...) | 20%, once |
+| Legendary Vacuum; Vulnerable stacks (Frostbite, Fire Vulnerability, 3rd Degree Burns...: weapon hits and vorpals, so not for casters) | 20%, once |
 | Legendary Slime | 10% |
 | Crowd control, DC 100+ or no save (Paralysis, Stone Prison, Guardbreaking, Felling the Oak...) | 8% each |
 | Large damage over time (Rippling Energy, Rupturing Echo, Lingering Acidic Burn...) | 5% |
@@ -315,14 +315,15 @@ type):
 | Effects at | Mean rank | MRR | Top 1 | Top 5 | Top 20 |
 |---|---|---|---|---|---|
 | none | 11.0 | 0.356 | 19% | 46% | 85% |
-| x0.25 | 9.6 | 0.361 | 15% | 59% | 89% |
-| x1 (as reviewed) | 9.7 | 0.350 | 12% | 59% | 87% |
+| as reviewed | 9.8 | **0.382** | 17% | 60% | 88% |
 
-The player's weapon moves into the top 5 far more often. It's first less
-often, mostly because a plain "X of the Undying Age", whose Sealed in Fire
-slot takes Legendary Dust or Vacuum, now ranks just above the named weapon
-the player chose (The Slayer of the Living, Maw, The Bloody End, Clank). The
-reviewed values stay; MRR can't tell them from x0.25.
+The Slayer of the Living, the most-worn caster weapon, is first for 29 of the
+34 builds that wear it. That came once on-hit and vorpal Vulnerable stopped
+counting for casters; before, Club of the Undying Age edged it out. Most
+other weapons the players chose are first or second. Second is usually
+behind a plain "X of the Undying Age", whose Sealed in Fire slot takes a full
+Legendary Green Steel effect (Kukri of the Undying Age over Maw: better
+single-target damage, while Maw's crowd control is better against crowds).
 
 **Not built yet:**
 

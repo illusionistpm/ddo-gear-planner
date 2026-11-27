@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { GearDbService } from '../gear/gear-db.service';
 import { Item } from '../gear/item';
 import { EquippedService } from './equipped.service';
+import { FiltersService } from './filters.service';
 import { withSuggestedCrafting } from './suggestion-scorer';
 
 function makeItem(name: string, slot: string, affixes: Array<{ name: string; type: string; value: number }>,
@@ -123,5 +124,19 @@ describe('EquippedService.getSuggestionScorer', () => {
   it('scores nothing when no affix is tracked', () => {
     equipped.setImportantAffixes([]);
     expect(equipped.getSuggestionScorer('Boots')(fastBoots())).toBe(0);
+  });
+
+  it('fills a candidate\'s crafting best first, so one slot never takes a bonus another slot outranks', () => {
+    // The Mask of the Killer's Miserable slot offers Stunning +17 and its Blue slot Stunning +18,
+    // both Enhancement. Slot by slot, Miserable took the +17 and Blue then outranked it.
+    TestBed.inject(FiltersService).setLevelRange(30, 36);
+    equipped.setImportantAffixes(['Stunning', 'Magical Sheltering', 'Constitution']);
+    const mask = gearDB.findGearBySlot('Helm', 'The Mask of the Killer')!;
+
+    const crafts = equipped.getSuggestionScorer('Helm').suggestedCrafting(mask);
+    const stunning = crafts.filter(craft => craft.option.affixes.some(affix => affix.name === 'Stunning'));
+
+    expect(stunning.map(craft => craft.option.affixes.find(affix => affix.name === 'Stunning')!.value)).toEqual([18]);
+    expect(crafts.map(craft => craft.index)).toEqual([...crafts.map(craft => craft.index)].sort((a, b) => a - b));
   });
 });

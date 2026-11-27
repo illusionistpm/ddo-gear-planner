@@ -8,9 +8,9 @@
     }
   </p>
   <div class="affix-start-actions">
-    <a class="onboarding-action-button affix-start-guided" [routerLink]="startPath" fragment="role">
+    <button type="button" class="onboarding-action-button affix-start-guided" (click)="startGuided()">
       <span class="fas fa-wand-magic-sparkles" aria-hidden="true"></span> Guided setup
-    </a>
+    </button>
     <button type="button" class="onboarding-action-button affix-start-choose" (click)="chooseAffixes()">
       <span class="fas fa-bullseye" aria-hidden="true"></span> Choose build goals
     </button>

@@ -7,9 +7,10 @@ import { GearDbService } from '../gear/gear-db.service';
 import { EquippedService } from '../planner/equipped.service';
 import { FiltersService } from '../planner/filters.service';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
+import { NEW_BUILD_ANSWERS_KEY } from './start-new-build';
 import { NewBuildAnswers, TRANCE_LABEL, emptyAnswers, levelRangeOf, planFromAnswers } from './new-build-plan';
 
-const ANSWERS_KEY = 'ddo-gear-planner-new-build-answers';
+const ANSWERS_KEY = NEW_BUILD_ANSWERS_KEY;
 const PREFERS_PLANNER_KEY = 'ddo-gear-planner-open-planner-directly';
 const PACKS_KEY = 'ddo-gear-planner-new-build-packs';
 
@@ -35,6 +36,7 @@ export class NewBuildService {
     private readonly currentBuild: CurrentBuildService,
     private readonly onboarding: PlannerOnboardingService
   ) { }
+
 
   /**
    * Whether a bare "/" should open the planner rather than the start page. The app offers

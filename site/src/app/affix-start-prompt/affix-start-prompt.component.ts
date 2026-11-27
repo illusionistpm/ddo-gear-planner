@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { AffixPackagesService, DEFAULT_PACKAGE } from '../affixes/affix-packages.service';
 import { AffixEditorService } from '../planner/affix-editor.service';
 import { EquippedService } from '../planner/equipped.service';
-import { START_PATH } from '../build/start-redirect.guard';
+import { startNewBuild } from '../start/start-new-build';
 
 /**
  * One line over the equipment while a build has no focus yet: a fresh build
@@ -20,7 +21,6 @@ import { START_PATH } from '../build/start-redirect.guard';
   standalone: false
 })
 export class AffixStartPromptComponent implements OnInit, OnDestroy {
-  readonly startPath = START_PATH;
   defaultSelected = false;
 
   private subscription?: Subscription;
@@ -28,7 +28,8 @@ export class AffixStartPromptComponent implements OnInit, OnDestroy {
   constructor(
     private editor: AffixEditorService,
     private affixPackages: AffixPackagesService,
-    private equipped: EquippedService
+    private equipped: EquippedService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -39,6 +40,10 @@ export class AffixStartPromptComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription?.unsubscribe();
+  }
+
+  startGuided() {
+    void startNewBuild(this.router);
   }
 
   chooseAffixes() {

@@ -76,9 +76,14 @@ export function isCompareRoute(routePath: string): boolean {
   return COMPARE_ROUTE.test(routePath);
 }
 
+/** The start page: your builds, or setting up a new one. */
+export const START_PATH = '/start';
+/** Starting a new build: the start page's guided setup, past its landing (NewBuildService.startNewBuild). */
+export const NEW_BUILD_URL = `${START_PATH}#role`;
+
 /** Whether a route path is the start page (/start): your builds, or setting up a new one. */
 export function isStartRoute(routePath: string): boolean {
-  return routePath === '/start';
+  return routePath === START_PATH;
 }
 
 /** The compare page for two saved builds or short links, by shortId; either can be left to pick. */

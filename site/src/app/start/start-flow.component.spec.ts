@@ -13,6 +13,7 @@ import { AffixDescriptionService } from '../affixes/affix-description.service';
 import { AuthService } from '../shared/auth.service';
 import { StartFlowComponent } from './start-flow.component';
 import { NewBuildService } from './new-build.service';
+import { startNewBuild } from './start-new-build';
 
 @Component({ template: 'planner', standalone: true })
 class PlannerStubComponent { }
@@ -275,6 +276,31 @@ describe('StartFlowComponent', () => {
     expect(el().textContent).not.toContain('Which weapons?');
 
     expect(Array.from(el().querySelectorAll('.start-progress-label')).map(label => label.textContent)).not.toContain('Trance');
+  });
+
+  it('starts a new build from scratch, though Back from the planner finds the answers', async () => {
+    await click('.start-guided');
+    await click('.start-role-ranged');
+    await click('.start-finish-now');
+    expect(TestBed.inject(Router).url.startsWith('/?b=')).toBe(true);
+
+    await startNewBuild(TestBed.inject(Router));
+    await settle();
+
+    expect(TestBed.inject(Router).url).toBe('/start#role');
+    expect(el().querySelector('.start-role-ranged')?.getAttribute('aria-checked')).toBe('false');
+    expect(TestBed.inject(EquippedService).getImportantAffixes().has('Ranged Power')).toBe(false);
+  });
+
+  it('starts over from the landing\'s Guided setup, after a setup in the same visit', async () => {
+    await click('.start-guided');
+    await click('.start-role-melee');
+    await click('.start-back');
+    expect(TestBed.inject(Router).url).toBe('/start');
+
+    await click('.start-guided');
+
+    expect(el().querySelector('.start-role-melee')?.getAttribute('aria-checked')).toBe('false');
   });
 
   it('brings the answers back after leaving the setup and returning', async () => {

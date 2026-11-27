@@ -8,7 +8,7 @@ import { BuildsService } from '../build/builds.service';
 import { CurrentBuildService } from '../build/current-build.service';
 import { confirmLeaveUnsavedChanges } from '../build/unsaved-changes.guard';
 import { buildPath, comparePath } from '../build/build-route';
-import { NEW_BUILD_URL } from '../build/start-redirect.guard';
+import { startNewBuild } from '../start/start-new-build';
 import { EquippedService } from '../planner/equipped.service';
 
 @Component({
@@ -86,7 +86,7 @@ export class MyBuildsComponent implements OnInit {
     }
 
     this.currentBuild.reset();
-    this.router.navigateByUrl(NEW_BUILD_URL);
+    void startNewBuild(this.router);
     this.closed.emit();
   }
 

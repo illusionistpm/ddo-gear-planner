@@ -29,6 +29,7 @@ import {
   emptyAnswers, greenSteelAffix, greenSteelChoices, isTwoHandedOnly, levelRangeOf, tranceDeadlyFor, withRole
 } from './new-build-plan';
 import { NewBuildService } from './new-build.service';
+import { startNewBuild } from './start-new-build';
 
 export type StartStep = 'role' | 'sources' | 'weapons' | 'armor' | 'stats' | 'trance' | 'extras' | 'artifact' | 'summary';
 
@@ -190,8 +191,10 @@ export class StartFlowComponent implements OnInit, OnDestroy {
     this.auth.signIn();
   }
 
+  /** A new build, from scratch: the setup starts over even if this page set one up before. */
   startGuided(): void {
-    this.goTo('role');
+    this.setupStarted = false;
+    void startNewBuild(this.router);
   }
 
   openBlankBuild(): void {

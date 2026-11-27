@@ -2,10 +2,8 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 
 import { NewBuildService } from '../start/new-build.service';
+import { START_PATH } from './build-route';
 
-export const START_PATH = '/start';
-/** Starting a new build: the start page's guided setup, past its landing. */
-export const NEW_BUILD_URL = `${START_PATH}#role`;
 
 /**
  * A visit to the bare site - nothing in the URL - starts on the start page:

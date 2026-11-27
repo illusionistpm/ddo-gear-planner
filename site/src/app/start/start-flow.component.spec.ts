@@ -9,6 +9,7 @@ import { BuildUrlCodecService } from '../build/build-url-codec.service';
 import { BuildsService } from '../build/builds.service';
 import { EquippedService } from '../planner/equipped.service';
 import { FiltersService } from '../planner/filters.service';
+import { AffixDescriptionService } from '../affixes/affix-description.service';
 import { AuthService } from '../shared/auth.service';
 import { StartFlowComponent } from './start-flow.component';
 import { NewBuildService } from './new-build.service';
@@ -92,10 +93,8 @@ describe('StartFlowComponent', () => {
     expect(el().querySelector('.start-sign-in')).toBeNull();
   });
 
-  it('remembers asking for the planner directly', async () => {
-    await click('.start-prefers-planner input');
-
-    expect(TestBed.inject(NewBuildService).prefersPlanner()).toBe(true);
+  it('offers no "skip the start page" setting', () => {
+    expect(el().querySelector('input[type="checkbox"]')).toBeNull();
   });
 
   it('walks a melee build through the steps with the URL held, then hands it to the planner', async () => {
@@ -109,7 +108,9 @@ describe('StartFlowComponent', () => {
     await click('.start-next');
     expect(router.url).toBe('/start#weapons');
     await click('.start-link', 'only two-handed');
-    await click('.start-offhand-none');
+    // Two-handers leave the off hand empty: nothing to ask, and no offhand filter.
+    expect(el().querySelector('.start-offhand-two-handed')).not.toBeNull();
+    expect(el().querySelector('.start-offhand-any')).toBeNull();
     await click('.start-next');
     await click('.start-armor-docent');
     await click('.start-next');
@@ -121,7 +122,7 @@ describe('StartFlowComponent', () => {
 
     expect(router.url).toBe('/start#extras');
 
-    await click('.start-plan');
+    await click('.start-finish-now');
 
     expect(router.url.startsWith('/?b=')).toBe(true);
     const params = decodedUrl();
@@ -131,6 +132,7 @@ describe('StartFlowComponent', () => {
     expect(params['hiddentypes']).toEqual(expect.stringContaining('Heavy armor'));
     expect(params['hiddentypes']).not.toEqual(expect.stringContaining('Great Swords'));
     expect(params['hiddentypes']).not.toEqual(expect.stringContaining('Docents'));
+    expect(params['hiddentypes']).not.toEqual(expect.stringContaining('Tower shields'));
     const trance = TestBed.inject(EquippedService).getExternalAffixesSnapshot().filter(entry => entry.label === 'Trance');
     expect(trance.map(entry => `${entry.affixName} ${entry.bonusType} ${entry.kind}`)).toEqual([
       'Deadly Insight value', 'Accuracy Insight ignored', 'Stunning Insight ignored'
@@ -140,12 +142,108 @@ describe('StartFlowComponent', () => {
 
   it('starts planning from the first step, on Basic and nothing else', async () => {
     await click('.start-guided');
-    await click('.start-plan');
+    await click('.start-finish-now');
 
     const tracked = decodedUrl()['tracked'] as string[];
     expect(tracked).toContain('Dodge');
     expect(tracked).not.toContain('Melee Power');
     expect(decodedUrl()['hiddentypes']).toBeUndefined();
+  });
+
+  it('keeps one bright button, Next, in the footer\'s corner, and Start planning there on the summary', async () => {
+    await click('.start-guided');
+    await click('.start-role-ranged');
+    const footer = () => el().querySelector('.start-footer')!;
+
+    expect(Array.from(footer().querySelectorAll('.start-primary')).map(button => button.textContent?.trim())).toEqual(['Next']);
+    expect(footer().querySelector('.start-plan')).toBeNull();
+
+    await click('.start-progress-step', 'Summary');
+
+    expect(Array.from(footer().querySelectorAll('.start-primary')).map(button => button.textContent?.trim())).toEqual(['Start planning']);
+    expect(el().querySelector('.start-finish-now')).toBeNull();
+    await click('.start-plan');
+    expect(TestBed.inject(Router).url.startsWith('/?b=')).toBe(true);
+  });
+
+  it('offers a second weapon for two-weapon fighting: shields, orbs and rune arms go, weapons stay', async () => {
+    await click('.start-guided');
+    await click('.start-role-melee');
+    await click('.start-progress-step', 'Weapons');
+    await click('.start-offhand-weapon');
+    await click('.start-finish-now');
+
+    const hidden = String(decodedUrl()['hiddentypes']).split(',');
+    expect(hidden).toEqual(expect.arrayContaining(['Tower shields', 'Orbs', 'Rune Arms']));
+    expect(hidden).not.toContain('Long Swords');
+    expect(hidden).not.toContain('Kukris');
+  });
+
+  it('lists exotic weapons in their own group, with no group of light ones', async () => {
+    await click('.start-guided');
+    await click('.start-role-melee');
+    await click('.start-progress-step', 'Weapons');
+
+    const groups = Array.from(el().querySelectorAll('.start-family-toggle')).map(toggle => toggle.textContent?.trim());
+    expect(groups).toEqual(['One-handed', 'Two-handed', 'Exotic']);
+  });
+
+  it('starts levelling at 1-20', async () => {
+    await click('.start-guided');
+    await click('.start-chip', 'Levelling');
+
+    const inputs = Array.from(el().querySelectorAll<HTMLInputElement>('.start-levels input'));
+    expect(inputs.map(input => input.value)).toEqual(['1', '20']);
+  });
+
+  it('says what each Green Steel effect does', async () => {
+    TestBed.inject(AffixDescriptionService).use({
+      'Legendary Dust': { '*': 'Your attacks reduce enemy PRR. Then more.' },
+      'Legendary Ooze': { '*': 'Your attacks summon oozes.(Note: which ooze varies.)' }
+    });
+    await click('.start-guided');
+    await click('.start-role-melee');
+    await click('.start-progress-step', 'Extras');
+
+    const effects = Array.from(el().querySelectorAll('.start-green-steel-effect')).map(effect => effect.textContent?.trim());
+    expect(effects).toEqual(['Your attacks reduce enemy PRR.', 'Your attacks summon oozes.']);
+  });
+
+  it('works the trance\'s Insight Deadly out from its ability score', async () => {
+    await click('.start-guided');
+    await click('.start-role-melee');
+    await click('.start-progress-step', 'Trance');
+    expect(el().querySelector('.start-trance-gives')?.textContent).toContain('+15');
+
+    const input = el().querySelector<HTMLInputElement>('.start-trance-ability')!;
+    input.value = '41';
+    input.dispatchEvent(new Event('change'));
+    await settle();
+
+    expect(el().querySelector('.start-trance-gives')?.textContent).toContain('+7');
+  });
+
+  it('shows artifacts as the planner shows gear, and equips the one chosen', async () => {
+    await click('.start-guided');
+    await click('.start-role-melee');
+    await click('.start-progress-step', 'Artifact');
+    for (let i = 0; i < 50 && !el().querySelector('.start-artifact'); i++) {
+      await new Promise(resolve => setTimeout(resolve, 20));
+      await settle();
+    }
+
+    const first = el().querySelector('.start-artifact')!;
+    expect(first.querySelector('app-gear-description')).not.toBeNull();
+    const name = first.querySelector('.start-artifact-name')!.textContent!.trim();
+    (first.querySelector('.start-artifact-use') as HTMLButtonElement).click();
+    await settle();
+
+    const equipped = TestBed.inject(EquippedService);
+    expect(equipped.getSlotNames().some(slot => {
+      let item: { name: string } | null = null;
+      equipped.getSlot(slot)?.subscribe(value => item = value).unsubscribe();
+      return (item as { name: string } | null)?.name === name;
+    })).toBe(true);
   });
 
   it('skips a step without answering it, and offers a trance only to melee and ranged builds', async () => {
@@ -206,7 +304,7 @@ describe('StartFlowComponent', () => {
       await click('.start-show-raid');
       await ownTwoPacks();
       expect(tickedPacks()).toBe(2);
-      await click('.start-plan');
+      await click('.start-finish-now');
 
       const params = decodedUrl();
       expect(params['raids']).toBe('false');
@@ -243,7 +341,7 @@ describe('StartFlowComponent', () => {
       await click('.start-packs-owned');
 
       await click('.start-skip');
-      await click('.start-plan');
+      await click('.start-finish-now');
 
       const params = decodedUrl();
       expect(params['rare']).toBe('true');

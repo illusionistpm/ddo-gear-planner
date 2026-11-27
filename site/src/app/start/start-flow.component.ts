@@ -1,10 +1,12 @@
-import { LowerCasePipe } from '@angular/common';
+import { LowerCasePipe, NgComponentOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, combineLatest } from 'rxjs';
 
-import { AffixPackagesService, WEAPON_EXTRAS } from '../affixes/affix-packages.service';
+import { AffixDescriptionService } from '../affixes/affix-description.service';
+import { AffixPackagesService, DAMAGE_BOOSTS } from '../affixes/affix-packages.service';
 import { FILIGREE_TRACKING_MIN_LEVEL, getMaxFiligreeSlots } from '../affixes/filigree-affix';
+import { GearDescriptionComponent } from '../gear-description/gear-description.component';
 import { BuildSummary } from '../build/build';
 import { gearSummaryLabel } from '../build/build-gear-summary';
 import { buildPath } from '../build/build-route';
@@ -14,7 +16,6 @@ import { PackChecklistComponent } from '../filters/pack-checklist.component';
 import { PackChecklistModel } from '../filters/pack-checklist-model';
 import { GameDataService } from '../gear/game-data.service';
 import { GearDbService } from '../gear/gear-db.service';
-import { Item } from '../gear/item';
 import {
   BODY_ARMOR_TYPES, DOCENT_TYPE, ItemTypeFamily, MELEE_WEAPON_FAMILIES, MELEE_WEAPON_TYPES, OFFHAND_FAMILIES,
   RANGED_WEAPON_FAMILIES, RANGED_WEAPON_TYPES
@@ -24,8 +25,8 @@ import { EquippedService } from '../planner/equipped.service';
 import { FiltersService } from '../planner/filters.service';
 import { AuthService } from '../shared/auth.service';
 import {
-  ATTRIBUTES, BuildRole, ENDGAME_LEVELS, NewBuildAnswers, SPELL_SCHOOLS, TACTICS, TranceChoice, defaultTranceDeadly,
-  emptyAnswers, greenSteelChoices, withRole
+  ATTRIBUTES, BuildRole, LEVELLING_RANGE, NewBuildAnswers, SPELL_SCHOOLS, TACTICS, TRANCE_DEFAULT_ABILITY, TranceChoice,
+  emptyAnswers, greenSteelAffix, greenSteelChoices, isTwoHandedOnly, levelRangeOf, tranceDeadlyFor, withRole
 } from './new-build-plan';
 import { NewBuildService } from './new-build.service';
 
@@ -50,14 +51,14 @@ const ARTIFACTS_SHOWN = 5;
 interface ArtifactRow {
   ranked: RankedArtifact;
   filigree: number;
-  /** The tracked bonuses it gives, crafting included, as "Doublestrike +15 (Insight)". */
-  highlights: string[];
+  /** GearDescriptionComponent's inputs: editable, so its crafting can change before it's chosen. */
+  inputs: { item: RankedArtifact['item']; readonly: false; equipOnChange: false };
 }
 
 /**
  * The start page's body: the landing (sign in, your builds, start one) at
  * /start, and the guided setup's steps at /start#role, #weapons and so on.
- * Every step can be skipped, and "Start planning" is always there; see
+ * Every step can be skipped, and "Finish now" is always there; see
  * NewBuildService for how the answers reach the planner.
  */
 @Component({
@@ -66,14 +67,20 @@ interface ArtifactRow {
   styleUrls: ['./start-flow.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [LowerCasePipe, PackChecklistComponent]
+  imports: [LowerCasePipe, NgComponentOutlet, PackChecklistComponent]
 })
 export class StartFlowComponent implements OnInit, OnDestroy {
   readonly labels = STEP_LABELS;
   readonly attributes = ATTRIBUTES;
   readonly schools = SPELL_SCHOOLS;
   readonly tactics = TACTICS;
-  readonly weaponExtras = WEAPON_EXTRAS;
+  readonly damageBoosts = DAMAGE_BOOSTS;
+  readonly tranceDefaultAbility = TRANCE_DEFAULT_ABILITY;
+  /**
+   * How the suggestion drawer shows an item. Declared in the eager AppModule, so it's
+   * rendered with ngComponentOutlet rather than imported here.
+   */
+  readonly gearDescription = GearDescriptionComponent;
   readonly offhandFamilies = OFFHAND_FAMILIES;
   readonly bodyArmorTypes = BODY_ARMOR_TYPES;
   readonly docentType = DOCENT_TYPE;
@@ -89,7 +96,6 @@ export class StartFlowComponent implements OnInit, OnDestroy {
   builds: BuildSummary[] | null = null;
   buildsFailed = false;
   showAllBuilds = false;
-  prefersPlanner: boolean;
 
   /** "Only packs I own" is chosen: the checklist shows, though every pack may be ticked. */
   ownsPacks = false;
@@ -100,6 +106,7 @@ export class StartFlowComponent implements OnInit, OnDestroy {
   showAllArtifacts = false;
 
   private setupStarted = false;
+  private levellingRange: [number, number] = LEVELLING_RANGE;
   private packModel?: PackChecklistModel;
   private rankingRun = 0;
   private readonly subscriptions = new Subscription();
@@ -115,16 +122,18 @@ export class StartFlowComponent implements OnInit, OnDestroy {
     private readonly equipped: EquippedService,
     private readonly gearDB: GearDbService,
     private readonly gameData: GameDataService,
+    private readonly affixDescriptions: AffixDescriptionService,
     filters: FiltersService,
     affixPackages: AffixPackagesService
   ) {
     this.spellpowers = affixPackages.spellpowerPackageKeys;
     this.maxLevel = filters.getMaxLevel();
-    this.prefersPlanner = newBuild.prefersPlanner();
   }
 
   ngOnInit(): void {
     this.subscriptions.add(this.route.fragment.subscribe(fragment => this.show(fragment)));
+    // The Green Steel effects say what they do.
+    void this.affixDescriptions.load().then(() => this.cdr.markForCheck());
     this.subscriptions.add(combineLatest([this.auth.isLoading$, this.auth.isAuthenticated$]).subscribe(([loading, signedIn]) => {
       this.authReady = !loading;
       this.signedIn = signedIn;
@@ -191,11 +200,6 @@ export class StartFlowComponent implements OnInit, OnDestroy {
     void this.router.navigateByUrl('/');
   }
 
-  setPrefersPlanner(prefers: boolean): void {
-    this.prefersPlanner = prefers;
-    this.newBuild.setPrefersPlanner(prefers);
-  }
-
   // Moving between steps
 
   get steps(): StartStep[] {
@@ -247,10 +251,10 @@ export class StartFlowComponent implements OnInit, OnDestroy {
         this.update({ armorTypes: null });
         break;
       case 'trance':
-        this.update({ trance: 'partial', tranceDeadly: null });
+        this.update({ trance: 'partial', tranceAbility: null });
         break;
       case 'extras':
-        this.update({ greenSteel: null, weaponExtras: [] });
+        this.update({ greenSteel: null, damageBoosts: [] });
         break;
       case 'artifact':
         this.chooseArtifact(null);
@@ -258,7 +262,7 @@ export class StartFlowComponent implements OnInit, OnDestroy {
       case 'stats':
         if (role) {
           const reset = withRole(this.answers, role);
-          this.update({ mainStat: reset.mainStat, otherStats: [], spellpowers: reset.spellpowers, schools: [], tactics: [] });
+          this.update({ abilities: reset.abilities, spellpowers: reset.spellpowers, schools: [], tactics: [] });
         }
         break;
     }
@@ -321,17 +325,27 @@ export class StartFlowComponent implements OnInit, OnDestroy {
   }
 
   get levelRange(): [number, number] {
-    return this.answers.level === 'endgame'
-      ? [Math.max(1, this.maxLevel - ENDGAME_LEVELS), this.maxLevel]
-      : this.answers.level;
+    return levelRangeOf(this.answers, this.maxLevel);
   }
 
   get endgameLabel(): string {
-    return `${Math.max(1, this.maxLevel - ENDGAME_LEVELS)}-${this.maxLevel}`;
+    const [min, max] = levelRangeOf({ ...this.answers, level: 'endgame' }, this.maxLevel);
+    return `${min}-${max}`;
   }
 
+  /** Levelling starts at 1-20, or the range typed before switching to endgame and back. */
   setEndgame(endgame: boolean): void {
-    this.update({ level: endgame ? 'endgame' : [...this.levelRange] as [number, number] });
+    if (endgame === (this.answers.level === 'endgame')) {
+      return;
+    }
+    if (!endgame) {
+      this.update({ level: [...this.levellingRange] as [number, number] });
+      return;
+    }
+    if (this.answers.level !== 'endgame') {
+      this.levellingRange = this.answers.level;
+    }
+    this.update({ level: 'endgame' });
   }
 
   setLevel(which: 0 | 1, value: string): void {
@@ -444,6 +458,16 @@ export class StartFlowComponent implements OnInit, OnDestroy {
     this.update({ weaponTypes: [...family.types] });
   }
 
+  /** Only two-handed weapons allowed: the off hand stays empty, so there's nothing to ask. */
+  get twoHandedOnly(): boolean {
+    return isTwoHandedOnly(this.answers);
+  }
+
+  /** "Second weapon": no shields, orbs or rune arms, so the offhand lists the weapons chosen above. */
+  get secondWeapon(): boolean {
+    return this.answers.offhandTypes?.length === 0;
+  }
+
   isOffhandFamilyAllowed(family: ItemTypeFamily): boolean {
     return this.answers.offhandTypes !== null && family.types.every(type => this.answers.offhandTypes!.includes(type));
   }
@@ -461,7 +485,7 @@ export class StartFlowComponent implements OnInit, OnDestroy {
     this.update({ offhandTypes: null });
   }
 
-  setOffhandNone(): void {
+  setSecondWeapon(): void {
     this.update({ offhandTypes: [] });
   }
 
@@ -487,14 +511,7 @@ export class StartFlowComponent implements OnInit, OnDestroy {
 
   // Stats
 
-  setMainStat(stat: string): void {
-    this.update({
-      mainStat: this.answers.mainStat === stat ? null : stat,
-      otherStats: this.answers.otherStats.filter(other => other !== stat)
-    });
-  }
-
-  toggleIn(key: 'otherStats' | 'spellpowers' | 'schools' | 'tactics' | 'weaponExtras', value: string): void {
+  toggleIn(key: 'abilities' | 'spellpowers' | 'schools' | 'tactics' | 'damageBoosts', value: string): void {
     const list = this.answers[key];
     this.update({ [key]: list.includes(value) ? list.filter(v => v !== value) : [...list, value] });
   }
@@ -505,13 +522,14 @@ export class StartFlowComponent implements OnInit, OnDestroy {
     this.update({ trance });
   }
 
-  get defaultTranceDeadly(): number {
-    return defaultTranceDeadly(this.newBuild.bestCompetenceDeadly());
+  /** The Insight Deadly the trance gives, from the ability score entered or its default. */
+  get tranceDeadly(): number {
+    return tranceDeadlyFor(this.answers.tranceAbility ?? TRANCE_DEFAULT_ABILITY);
   }
 
-  setTranceDeadly(value: string): void {
+  setTranceAbility(value: string): void {
     const parsed = Math.round(Number(value));
-    this.update({ tranceDeadly: value === '' || !Number.isFinite(parsed) || parsed <= 0 ? null : parsed });
+    this.update({ tranceAbility: value === '' || !Number.isFinite(parsed) || parsed <= 0 ? null : parsed });
   }
 
   // Extras
@@ -522,6 +540,11 @@ export class StartFlowComponent implements OnInit, OnDestroy {
 
   setGreenSteel(element: string | null): void {
     this.update({ greenSteel: element });
+  }
+
+  /** What the effect does, in the wiki's first sentence: '' until the descriptions load. */
+  greenSteelDescription(element: string): string {
+    return firstSentence(this.affixDescriptions.describe({ name: greenSteelAffix(element) }));
   }
 
   // Minor artifact
@@ -572,11 +595,10 @@ export class StartFlowComponent implements OnInit, OnDestroy {
     if (run !== this.rankingRun) {
       return;
     }
-    const tracked = this.equipped.getImportantAffixes();
     this.artifacts = ranked.map(entry => ({
       ranked: entry,
       filigree: getMaxFiligreeSlots(entry.item),
-      highlights: highlightsOf(entry.item, tracked)
+      inputs: { item: entry.item, readonly: false, equipOnChange: false }
     }));
     this.cdr.markForCheck();
   }
@@ -599,18 +621,20 @@ export class StartFlowComponent implements OnInit, OnDestroy {
     if (this.isMartial) {
       rows.push({ step: 'weapons', label: 'Weapons', value: a.weaponTypes === null ? `Any ${a.role}` : listOrNone(a.weaponTypes) });
     }
-    rows.push({ step: 'weapons', label: 'Offhand', value: a.offhandTypes === null ? 'Any' : a.offhandTypes.length ? a.offhandTypes.join(', ') : 'Nothing' });
+    const offhand = this.twoHandedOnly ? 'None (two-handed)'
+      : a.offhandTypes === null ? 'Any' : a.offhandTypes.length ? a.offhandTypes.join(', ') : 'Second weapon';
+    rows.push({ step: 'weapons', label: 'Offhand', value: offhand });
     const armor = a.armorTypes === null ? 'Any'
       : BODY_ARMOR_TYPES.every(type => a.armorTypes!.includes(type)) && !a.armorTypes.includes(DOCENT_TYPE) ? 'Any but Docents'
-        : listOrNone(a.armorTypes);
+        : listOrNone([DOCENT_TYPE, ...BODY_ARMOR_TYPES].filter(type => a.armorTypes!.includes(type)));
     rows.push({ step: 'armor', label: 'Armor', value: armor });
-    rows.push({ step: 'stats', label: 'Stats', value: listOrNone([...(a.mainStat ? [a.mainStat] : []), ...a.otherStats]) });
+    rows.push({ step: 'stats', label: 'Main abilities', value: listOrNone(a.abilities) });
     if (a.role === 'caster') {
       rows.push({ step: 'stats', label: 'Spell power', value: listOrNone(a.spellpowers) });
     }
     if (this.isMartial) {
       const trance = a.trance === 'none' ? 'None'
-        : `${a.trance === 'full' ? 'Full' : 'Partial'}, Insight Deadly +${a.tranceDeadly ?? this.defaultTranceDeadly}`;
+        : `${a.trance === 'full' ? 'Full' : 'Partial'}, Insight Deadly +${this.tranceDeadly}`;
       rows.push({ step: 'trance', label: 'Trance', value: trance });
     }
     rows.push({ step: 'extras', label: 'Green Steel', value: a.greenSteel ? `Legendary ${a.greenSteel}` : 'None' });
@@ -625,10 +649,9 @@ function listOrNone(values: ReadonlyArray<string>): string {
   return values.length ? values.join(', ') : 'None';
 }
 
-/** What it gives the tracked goals, the crafting the scorer counted included. */
-function highlightsOf(item: Item, tracked: ReadonlySet<string>): string[] {
-  return item.getActiveAffixes()
-    .filter(affix => tracked.has(affix.name) && affix.value > 0)
-    .slice(0, 6)
-    .map(affix => affix.type === 'Bool' ? affix.name : `${affix.name} +${affix.value}${affix.type ? ` (${affix.type})` : ''}`);
+/** A description's first sentence, without a trailing "(Note: ...)". */
+function firstSentence(text: string): string {
+  const withoutNote = text.replace(/\s*\(.*$/s, '').trim();
+  const end = withoutNote.indexOf('. ');
+  return end < 0 ? withoutNote : withoutNote.slice(0, end + 1);
 }

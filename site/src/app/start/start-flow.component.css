@@ -1,7 +1,8 @@
 :host {
   display: block;
   margin: 0 auto;
-  max-width: 56rem;
+  /* Wide enough for every step's name and Finish now on one line. */
+  max-width: 64rem;
   padding: var(--space-16) 0 var(--space-32);
 }
 
@@ -120,15 +121,6 @@ h3 {
   }
 }
 
-.start-prefers-planner {
-  align-items: center;
-  color: var(--text-secondary);
-  display: flex;
-  font-size: 0.9rem;
-  gap: var(--space-8);
-  margin-top: var(--space-24);
-}
-
 /* Buttons */
 
 .start-primary,
@@ -186,11 +178,26 @@ h3 {
 
 /* The setup */
 
+.start-progress-row {
+  align-items: flex-start;
+  display: flex;
+  gap: var(--space-12);
+  margin-bottom: var(--space-24);
+}
+
 .start-progress {
   display: flex;
+  flex: 1 1 auto;
   flex-wrap: wrap;
   gap: var(--space-4);
-  margin-bottom: var(--space-24);
+}
+
+/* Finishing early: a quiet link, never next to Next. */
+.start-finish-now {
+  flex: 0 0 auto;
+  font-size: 0.85rem;
+  padding: var(--space-4) 0;
+  white-space: nowrap;
 }
 
 .start-progress-step {
@@ -267,12 +274,18 @@ h3 {
   text-align: left;
 }
 
-.start-choice .fas {
-  color: var(--primary-color);
-  font-size: 1.2rem;
+.start-choice-title {
+  align-items: center;
+  display: inline-flex;
+  gap: var(--space-8);
 }
 
-.start-choice span:not(.fas) {
+.start-choice .fas {
+  color: var(--primary-color);
+  font-size: 1.1rem;
+}
+
+.start-choice > span:not(.start-choice-title) {
   color: var(--text-secondary);
   font-size: 0.85rem;
 }
@@ -398,21 +411,17 @@ h3 {
 
 .start-artifact-list {
   display: grid;
-  gap: var(--space-8);
+  gap: var(--space-12);
   list-style: none;
   margin: 0 0 var(--space-12);
   padding: 0;
 }
 
 .start-artifact {
-  align-items: center;
   background: var(--surface-elevated-color);
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius-lg);
-  display: grid;
-  gap: var(--space-4) var(--space-12);
-  grid-template-columns: 1fr auto;
-  padding: var(--space-12);
+  padding: var(--space-8) var(--space-12) var(--space-12);
 }
 
 .start-artifact.chosen {
@@ -421,9 +430,15 @@ h3 {
 }
 
 .start-artifact-head {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: 0 var(--space-8);
+  gap: var(--space-4) var(--space-8);
+  margin-bottom: var(--space-8);
+}
+
+.start-artifact-name {
+  font-weight: 700;
 }
 
 .start-artifact-meta {
@@ -431,16 +446,23 @@ h3 {
   font-size: 0.85rem;
 }
 
-.start-artifact-highlights {
-  color: var(--text-secondary);
-  font-size: 0.85rem;
-  grid-column: 1;
-  margin: 0;
+/* As the drawer's Equip button: sized to its label, at the row's end. */
+.start-artifact-use {
+  margin-left: auto;
+  padding: var(--space-4) var(--space-12);
 }
 
-.start-artifact-use {
-  grid-column: 2;
-  grid-row: 1 / span 2;
+.start-artifact.chosen .start-artifact-use {
+  opacity: 0.8;
+}
+
+.start-trance-gives {
+  color: var(--text-secondary);
+  font-weight: 700;
+}
+
+.start-green-steel-effect {
+  white-space: normal;
 }
 
 .start-summary {
@@ -465,14 +487,41 @@ h3 {
   margin: 0;
 }
 
+/*
+ * One row on every step and every width: Back on the left, the one bright
+ * button (Next, or Start planning on the summary) in the right corner.
+ */
 .start-footer {
   align-items: center;
+  background: var(--background-color);
   border-top: 1px solid var(--border-color);
+  bottom: 0;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: var(--space-12);
   margin-top: var(--space-24);
-  padding-top: var(--space-16);
+  padding: var(--space-12) 0;
+  position: sticky;
+  z-index: 1;
+}
+
+.start-footer .start-primary,
+.start-footer .start-secondary {
+  white-space: nowrap;
+}
+
+.start-footer .start-next {
+  min-width: 6.5rem;
+}
+
+.start-skip {
+  white-space: nowrap;
+}
+
+@media (max-width: 400px) {
+  .start-skip-long {
+    display: none;
+  }
 }
 
 .start-footer-spacer {

@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { GearDbService } from '../gear/gear-db.service';
+import { CraftableInit } from '../gear/game-data-types';
 import { Item } from '../gear/item';
 import { AffixPackagesService } from '../affixes/affix-packages.service';
 import { EquippedService } from './equipped.service';
@@ -206,6 +207,50 @@ describe('EquippedService.getSuggestionScorer', () => {
     const score = equipped.getSuggestionScorer('Offhand');
 
     expect(score(weapon)).toBeLessThanOrEqual(score(shield));
+  });
+
+  describe('weapon effects', () => {
+    const weapon = (name: string, effects: string[], crafting: CraftableInit[] = []) => new Item({
+      name, slot: 'Weapon', type: 'Long Swords', ml: 34, url: '/page/' + name, damage: { w: 6, dice: '1d8+2' },
+      affixes: effects.map(effect => ({ name: effect, type: 'Bool', value: 1 })), crafting,
+    });
+    const plain = () => weapon('Plain', []);
+
+    it('counts crowd control and Legendary Green Steel effects for a build that fights with weapons', () => {
+      equipped.setImportantAffixes(['Melee Power']);
+      const score = equipped.getSuggestionScorer('Weapon');
+
+      expect(score(weapon('Paralyzing', ['Legendary Paralysis']))).toBeGreaterThan(score(plain()));
+      // Legendary Dust (35%) is worth more than a DC 100 crowd control effect (8%).
+      expect(score(weapon('Dusty', ['Legendary Dust']))).toBeGreaterThan(score(weapon('Paralyzing', ['Legendary Paralysis'])));
+      // Fixed damage isn't listed, so it's worth nothing.
+      expect(score(weapon('Flaming', ['Flaming']))).toBe(score(plain()));
+    });
+
+    it('counts magical effects for a caster, and physical ones only for a build that fights with weapons', () => {
+      equipped.setImportantAffixes(['Fire Spell Power']);
+      const score = equipped.getSuggestionScorer('Weapon');
+
+      expect(score(weapon('Ashen', ['Legendary Ash']))).toBeGreaterThan(score(plain()));
+      expect(score(weapon('Dusty', ['Legendary Dust']))).toBe(score(plain()));
+    });
+
+    it('counts effects that don\'t stack once', () => {
+      equipped.setImportantAffixes(['Melee Power']);
+      const score = equipped.getSuggestionScorer('Weapon');
+
+      expect(score(weapon('Twice Vulnerable', ['Legendary Vacuum', 'Frostbite']))).toBe(score(weapon('Vulnerable', ['Legendary Vacuum'])));
+    });
+
+    it('fills a crafting slot with the option that grants an effect', () => {
+      equipped.setImportantAffixes(['Melee Power']);
+      const item = weapon('Craftable', [], [{ name: 'Test Slot', options: [
+        { name: 'Paralysis', affixes: [{ name: 'Legendary Paralysis', type: 'Bool', value: 1 }] },
+        { name: 'Flames', affixes: [{ name: 'Flaming', type: 'Bool', value: 1 }] },
+      ] }]);
+
+      expect(equipped.getSuggestionScorer('Weapon').suggestedCrafting(item).map(craft => craft.option.name)).toEqual(['Paralysis']);
+    });
   });
 
   it('scores nothing when no affix is tracked', () => {

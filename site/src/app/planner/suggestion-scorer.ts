@@ -7,6 +7,7 @@ import { CraftableOption } from '../gear/craftable-option';
 import { GearDbService } from '../gear/gear-db.service';
 import { Item } from '../gear/item';
 import { isOptionHiddenByPacks } from '../gear/pack-filter';
+import { WEAPON_EFFECT_VALUES, WeaponEffectKind } from './weapon-effect-values';
 
 /**
  * Scores a slot's candidate items for the suggestion drawer: what each would add to the build's
@@ -29,6 +30,8 @@ import { isOptionHiddenByPacks } from '../gear/pack-filter';
  *  - For a build that fights with weapons, a weapon's [W] counts too (weaponDiceCredit): it is most of
  *    what separates an endgame weapon from an older one, and no affix carries it. It's a penalty for
  *    [W] below the best available, so it never lifts a weapon over a shield.
+ *  - Effects only weapons carry count too, untracked, at what they add to the build's damage
+ *    (weapon-effect-values.ts): Legendary Green Steel's, crowd control, large damage over time.
  *
  * In a simulation, against an expert's priorities and against 1,316 slots of players' saved builds,
  * this beat the earlier scorer (docs/suggestions-analysis.md), and it is quicker. Crafting rules that span slots
@@ -60,6 +63,29 @@ export const WEAPON_BUILD_AFFIXES: ReadonlySet<string> = new Set(['Melee Power',
 export const REFERENCE_DICE_AVERAGE = 6.5;
 /** Damage per hit from 2 points of the attribute a weapon uses: the unit a [W] is valued in. */
 const ATTRIBUTE_POINTS_PER_DAMAGE = 2;
+/** The damage of an endgame hit the effect table's percentages are taken of: 1% is 1 damage. */
+const REFERENCE_HIT_DAMAGE = 100;
+/** Tracking any of these, or any spell power or lore, marks a build that casts, which magical weapon effects help. */
+export const CASTER_BUILD_AFFIXES: ReadonlySet<string> = new Set(['Spellcraft', 'Wizardry', 'Spell Penetration',
+  'Magical Efficiency', 'Potency']);
+
+export function isCasterAffix(affix: string): boolean {
+  return CASTER_BUILD_AFFIXES.has(affix) || / (Spell Power|Lore)$/.test(affix);
+}
+
+/** Score per attribute point, at Strength's weight: the unit the [W] and weapon effect credits are in. */
+function perAttributePoint(gearDB: GearDbService): number {
+  const best = gearDB.getBestValueForAffix('Strength');
+  return best > 0 ? gearDB.getAffixWeight('Strength', best) / best : 0;
+}
+
+/**
+ * The score per 1% of damage a weapon effect adds: 1 damage on a REFERENCE_HIT_DAMAGE hit, as the
+ * attribute points that add as much, the same rate the [W] credit uses.
+ */
+export function perDamagePercent(gearDB: GearDbService): number {
+  return REFERENCE_HIT_DAMAGE / 100 * ATTRIBUTE_POINTS_PER_DAMAGE * perAttributePoint(gearDB);
+}
 
 /**
  * What a weapon's [W] is worth to the score of a build that fights with weapons, in the score's own
@@ -72,9 +98,7 @@ const ATTRIBUTE_POINTS_PER_DAMAGE = 2;
  * from rank 147 to 732 on average).
  */
 export function weaponDiceCredit(gearDB: GearDbService): (item: Item) => number {
-  const best = gearDB.getBestValueForAffix('Strength');
-  const perPoint = best > 0 ? gearDB.getAffixWeight('Strength', best) / best : 0;
-  const perW = REFERENCE_DICE_AVERAGE * ATTRIBUTE_POINTS_PER_DAMAGE * perPoint;
+  const perW = REFERENCE_DICE_AVERAGE * ATTRIBUTE_POINTS_PER_DAMAGE * perAttributePoint(gearDB);
   let bestW = 0;
   for (const item of gearDB.getFilteredGearBySlot('Weapon') ?? []) {
     bestW = Math.max(bestW, item.damage?.w ?? 0);
@@ -99,6 +123,8 @@ export interface SuggestionScorerInputs {
   weightFactor?: (affixName: string) => number;
   /** A factor on weaponDiceCredit (default 1), for the suggestion harness to tune it. */
   weaponDiceFactor?: number;
+  /** A factor on the weapon effects' values (default 1), for the suggestion harness to tune them. */
+  weaponEffectFactor?: number;
 }
 
 interface Need {
@@ -108,6 +134,8 @@ interface Need {
   /** The affix's best total over its bonus types times its weight: what a need's value is divided by. */
   scale: number;
   summed: boolean;
+  /** For a weapon effect group's need (weaponEffectNeeds): its effects, by name, and their % of damage. */
+  effects?: ReadonlyMap<string, number>;
 }
 
 /** Need index -> value an item, option or set bonus gives it. */
@@ -207,18 +235,22 @@ const PLANNED_ARTIFACT_SLOTS = 'Blue Augment Slot|Green Augment Slot|Yellow Augm
 
 export function makeSuggestionScorer(inputs: SuggestionScorerInputs, slot: string): SuggestionScorer {
   const { affixSvc, gearDB } = inputs;
-  const needs = trackedNeeds(inputs);
   const tracked = new Set(inputs.tracked);
+  const weaponBuild = [...WEAPON_BUILD_AFFIXES].some(affix => tracked.has(affix));
+  const casterBuild = [...tracked].some(isCasterAffix);
+  const needs = [...trackedNeeds(inputs), ...weaponEffectNeeds(inputs, tracked, weaponBuild, casterBuild)];
   const weaponFactor = inputs.weaponDiceFactor ?? 1;
   const diceCredit = weaponDiceCredit(gearDB);
-  const weaponCredit = weaponFactor && [...WEAPON_BUILD_AFFIXES].some(affix => tracked.has(affix))
-    ? (item: Item) => diceCredit(item) * weaponFactor : () => 0;
+  const weaponCredit = weaponFactor && weaponBuild ? (item: Item) => diceCredit(item) * weaponFactor : () => 0;
   if (!needs.length) {
     return Object.assign((item: Item) => weaponCredit(item), { suggestedCrafting: () => [] });
   }
   const byAffix = new Map<string, number[]>();
   needs.forEach((need, i) => byAffix.set(need.affix, [...(byAffix.get(need.affix) ?? []), i]));
   const indexOf = new Map(needs.map((need, i) => [`${need.affix}|${need.type}`, i]));
+  /** Weapon effect -> its group's need index and its % of damage. */
+  const effectIndex = new Map<string, { i: number; percent: number }>();
+  needs.forEach((need, i) => need.effects?.forEach((percent, name) => effectIndex.set(name, { i, percent })));
 
   /** What `affixes` give the needs: an item's, flattened as the planner counts them. */
   const itemContribution = (affixes: ReadonlyArray<Affix>): Contribution => {
@@ -227,6 +259,12 @@ export function makeSuggestionScorer(inputs: SuggestionScorerInputs, slot: strin
       const i = indexOf.get(`${affix.name}|${affix.type}`);
       if (i !== undefined && affix.value > 0) {
         result.set(i, needs[i].summed ? (result.get(i) ?? 0) + affix.value : Math.max(result.get(i) ?? 0, affix.value));
+      }
+    }
+    for (const affix of affixes) {
+      const effect = effectIndex.get(affix.name);
+      if (effect) {
+        result.set(effect.i, Math.max(result.get(effect.i) ?? 0, effect.percent));
       }
     }
     return result;
@@ -267,7 +305,8 @@ export function makeSuggestionScorer(inputs: SuggestionScorerInputs, slot: strin
   // The build without this slot's item: its set bonuses recounted without it.
   const others = Array.from(inputs.slots).filter(([s, item]) => s !== slot && item) as Array<[string, Item]>;
   const setsWithout = [...countSets(others)].map(([set, pieces]) => [set, gearDB.getSetBonus(set, pieces)] as [string, Affix[]]);
-  const baseValues = needs.map(need => combineBonusTypeValues(need.type,
+  const otherEffects = itemContribution(others.flatMap(([, item]) => affixSvc.getActiveAffixes(item)));
+  const baseValues = needs.map((need, i) => need.effects ? otherEffects.get(i) ?? 0 : combineBonusTypeValues(need.type,
     valuesForAffixType(inputs.view, affixSvc, need.affix, need.type, { skipSlot: slot, setBonuses: setsWithout })
       .map(entry => entry.value)));
 
@@ -468,6 +507,31 @@ function trackedNeeds(inputs: SuggestionScorerInputs): Need[] {
     }
   }
   return needs;
+}
+
+/**
+ * A need per group of the weapon effects that help this build (WEAPON_EFFECT_VALUES) and no goal
+ * tracks: worth the group's best effect, at perDamagePercent per % of damage. Physical effects help
+ * builds that fight with weapons, magical ones builds that cast, and the rest both.
+ */
+function weaponEffectNeeds(inputs: SuggestionScorerInputs, tracked: ReadonlySet<string>, weaponBuild: boolean,
+                           casterBuild: boolean): Need[] {
+  const factor = inputs.weaponEffectFactor ?? 1;
+  const perPercent = perDamagePercent(inputs.gearDB) * factor;
+  const helps = (kind: WeaponEffectKind) => kind === 'physical' ? weaponBuild : kind === 'magical' ? casterBuild : weaponBuild || casterBuild;
+  if (!(perPercent > 0)) {
+    return [];
+  }
+  const groups = new Map<string, Map<string, number>>();
+  for (const [name, value] of WEAPON_EFFECT_VALUES) {
+    if (helps(value.kind) && !tracked.has(name)) {
+      const group = value.group ?? name;
+      groups.set(group, (groups.get(group) ?? new Map()).set(name, value.percent));
+    }
+  }
+  return [...groups].map(([group, effects]) => ({
+    affix: `Weapon effect: ${group}`, type: '', best: Math.max(...effects.values()), scale: 1 / perPercent, summed: false, effects,
+  }));
 }
 
 function merge(a: Contribution, b: Contribution): Contribution {

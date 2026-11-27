@@ -68,7 +68,7 @@ export const liveScorer: Scorer = (ctx, state, open) => {
  * The app's own scorer v2 (EquippedService.getSuggestionScorer), with the state equipped like the
  * live scorer. It should reproduce the harness's "total value, augment-aware, planned artifact".
  */
-export function appScorerWith(options: { weightFactor?: (affixName: string) => number; weaponDiceFactor?: number } = {}): Scorer {
+export function appScorerWith(options: { weightFactor?: (affixName: string) => number; weaponDiceFactor?: number; weaponEffectFactor?: number } = {}): Scorer {
   return (ctx, state, open) => {
     liveScorer(ctx, state, open);
     const perSlot = new Map<string, (item: Item) => number>();
@@ -314,6 +314,8 @@ export const SCORERS: Array<[string, Scorer]> = [
   ['app v2, no utility weighting', appScorerWith({ weightFactor: () => 1 })],
   // The [W] credit (weaponDiceCredit) at other weights; it only moves Weapon and Offhand.
   ...[0, 0.5, 2, 4].map(factor => [`app v2, [W] x${factor}`, appScorerWith({ weaponDiceFactor: factor })] as [string, Scorer]),
+  // The weapon effects' values (weapon-effect-values.ts) at other weights; they only move Weapon and Offhand.
+  ...[0, 0.25, 0.5, 2].map(factor => [`app v2, effects x${factor}`, appScorerWith({ weaponEffectFactor: factor })] as [string, Scorer]),
   ['total value, items only', marginalScorer(legacyObjective, { augmentAware: false })],
   ['total value, augment-aware', marginalScorer(legacyObjective, { augmentAware: true })],
   ['total value, augment-aware + discount', marginalScorer(legacyObjective, { augmentAware: true, scarcity: scarcityWithDiscount(0.35) })],

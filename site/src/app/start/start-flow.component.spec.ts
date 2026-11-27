@@ -116,7 +116,7 @@ describe('StartFlowComponent', () => {
     await click('.start-next');
     await click('.start-tactic', 'Stunning');
     await click('.start-next');
-    await click('.start-trance-full');
+    await click('.start-trance-class');
     await click('.start-next');
     await click('.start-green-steel', 'Dust');
 
@@ -209,18 +209,39 @@ describe('StartFlowComponent', () => {
     expect(effects).toEqual(['Your attacks reduce enemy PRR.', 'Your attacks summon oozes.']);
   });
 
-  it('works the trance\'s Insight Deadly out from its ability score', async () => {
+  it('names battle trances by where they come from, links the wiki, and estimates Deadly', async () => {
     await click('.start-guided');
     await click('.start-role-melee');
     await click('.start-progress-step', 'Trance');
-    expect(el().querySelector('.start-trance-gives')?.textContent).toContain('+15');
 
-    const input = el().querySelector<HTMLInputElement>('.start-trance-ability')!;
-    input.value = '41';
-    input.dispatchEvent(new Event('change'));
-    await settle();
+    expect(el().querySelector('.start-trance-universal')?.getAttribute('aria-checked')).toBe('true');
+    expect(el().querySelector('.start-trance-class')?.textContent).toContain('Accuracy');
+    expect(el().querySelector<HTMLAnchorElement>('.start-wiki-link')?.href).toBe('https://ddowiki.com/page/Battle_Trance');
+    expect(el().querySelector('.start-trance-gives')?.textContent).toContain('estimate');
+    expect(el().querySelector('input')).toBeNull();
+  });
 
-    expect(el().querySelector('.start-trance-gives')?.textContent).toContain('+7');
+  it('marks the steps already seen, wherever the player goes back to', async () => {
+    await click('.start-guided');
+    await click('.start-role-melee');
+    await click('.start-next');
+    await click('.start-next');
+    await click('.start-progress-step', 'Role');
+
+    const visited = Array.from(el().querySelectorAll('.start-progress-step.done .start-progress-label')).map(label => label.textContent);
+    expect(visited).toEqual(['Gear sources', 'Weapons']);
+  });
+
+  it('has no "skip" links: Next is never blocked once a role is chosen', async () => {
+    await click('.start-guided');
+    expect(el().querySelector<HTMLButtonElement>('.start-next')!.disabled).toBe(true);
+    await click('.start-role-ranged');
+
+    for (let i = 0; i < 5; i++) {
+      expect(el().querySelector('.start-skip')).toBeNull();
+      expect(el().querySelector<HTMLButtonElement>('.start-next')!.disabled).toBe(false);
+      await click('.start-next');
+    }
   });
 
   it('shows artifacts as the planner shows gear, and equips the one chosen', async () => {
@@ -246,15 +267,13 @@ describe('StartFlowComponent', () => {
     })).toBe(true);
   });
 
-  it('skips a step without answering it, and offers a trance only to melee and ranged builds', async () => {
+  it('asks a caster only about the offhand, and offers a trance only to melee and ranged builds', async () => {
     await click('.start-guided');
     await click('.start-role-caster');
     await click('.start-progress-step', 'Offhand');
     expect(el().textContent).toContain('What goes in your off hand?');
     expect(el().textContent).not.toContain('Which weapons?');
 
-    await click('.start-skip');
-    expect(TestBed.inject(Router).url).toBe('/start#armor');
     expect(Array.from(el().querySelectorAll('.start-progress-label')).map(label => label.textContent)).not.toContain('Trance');
   });
 
@@ -332,20 +351,6 @@ describe('StartFlowComponent', () => {
 
       await click('.start-packs-all');
       expect(TestBed.inject(NewBuildService).rememberedPacks()).toBeNull();
-    });
-
-    it('shows every pack, raids and rares again when the step is skipped', async () => {
-      await click('.start-guided');
-      await click('.start-progress-step', 'Gear sources');
-      await click('.start-show-rare');
-      await click('.start-packs-owned');
-
-      await click('.start-skip');
-      await click('.start-finish-now');
-
-      const params = decodedUrl();
-      expect(params['rare']).toBe('true');
-      expect(params['hiddenpacks']).toBeUndefined();
     });
 
     it('warns on the Green Steel step that raid weapons are hidden', async () => {

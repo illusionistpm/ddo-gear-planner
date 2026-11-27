@@ -8,7 +8,11 @@ import {
  */
 
 export type BuildRole = 'melee' | 'ranged' | 'caster';
-export type TranceChoice = 'none' | 'partial' | 'full';
+/**
+ * A battle trance: 'universal' (from a universal enhancement tree: Insight Deadly and tactics DCs)
+ * or 'class' (from a class tree: those and Insight Accuracy).
+ */
+export type TranceChoice = 'none' | 'universal' | 'class';
 
 export interface NewBuildAnswers {
   role: BuildRole | null;
@@ -32,8 +36,8 @@ export interface NewBuildAnswers {
   schools: string[];
   tactics: string[];
   trance: TranceChoice;
-  /** The final value of the ability score the trance keys off; null for TRANCE_DEFAULT_ABILITY. */
-  tranceAbility: number | null;
+  /** The setup's steps the player has been to, so the step dots can show them. */
+  visitedSteps: string[];
   /** A Legendary Green Steel effect, by its element ("Dust"), or null for none. */
   greenSteel: string | null;
   /** Opt-in procs (DAMAGE_BOOSTS), for melee and ranged. */
@@ -62,12 +66,20 @@ export const ENDGAME_MIN_LEVEL = 30;
 export const LEVELLING_RANGE: [number, number] = [1, 20];
 
 export const TRANCE_LABEL = 'Trance';
-/** A trance's ability score when the player doesn't say: high enough at cap that the exact value hardly matters. */
-export const TRANCE_DEFAULT_ABILITY = 70;
+/** What the Melee and Ranged packages have always assumed for a trance, when the level gives nothing better. */
+const FALLBACK_TRANCE_DEADLY = 10;
 
-/** A trance's Insight Deadly from the ability score it keys off: (score - 10) / 4, rounded down. */
-export function tranceDeadlyFor(ability: number): number {
-  return Math.max(0, Math.floor((ability - 10) / 4));
+/**
+ * A trance's Insight Deadly, estimated: half again the best Competence Deadly on gear. A trance
+ * almost always beats what gear gives, so the exact value hardly matters.
+ */
+export function tranceDeadlyFor(bestCompetenceDeadly: number): number {
+  return bestCompetenceDeadly > 0 ? Math.round(bestCompetenceDeadly * 1.5) : FALLBACK_TRANCE_DEADLY;
+}
+
+/** The Green Steel effect a role starts on: Dust for melee and ranged, Ash for casters. */
+export function defaultGreenSteel(role: BuildRole | null): string | null {
+  return role === null ? null : role === 'caster' ? 'Ash' : 'Dust';
 }
 
 export function emptyAnswers(): NewBuildAnswers {
@@ -86,7 +98,7 @@ export function emptyAnswers(): NewBuildAnswers {
     schools: [],
     tactics: [],
     trance: 'none',
-    tranceAbility: null,
+    visitedSteps: [],
     greenSteel: null,
     damageBoosts: [],
     artifact: null
@@ -108,8 +120,8 @@ export function withRole(answers: NewBuildAnswers, role: BuildRole, healer = fal
     spellpowers: role === 'caster' && healer ? ['Healing'] : [],
     schools: [],
     tactics: [],
-    trance: martial ? 'partial' : 'none',
-    greenSteel: null,
+    trance: martial ? 'universal' : 'none',
+    greenSteel: defaultGreenSteel(role),
     damageBoosts: []
   };
 }
@@ -119,6 +131,8 @@ export interface PlanContext {
   spellpowerPackages: ReadonlyMap<string, ReadonlyArray<string>>;
   /** The highest item level in the data: the cap. */
   maxLevel: number;
+  /** The best Competence Deadly an item gives at the build's levels, for the trance's estimate. */
+  bestCompetenceDeadly: number;
 }
 
 export interface PlannedExternal {
@@ -192,7 +206,7 @@ export function planFromAnswers(answers: NewBuildAnswers, context: PlanContext):
     showRare: answers.showRare,
     hiddenPacks: new Set(answers.hiddenPacks),
     hiddenTypes: hiddenTypesOf(answers),
-    externals: tranceExternals(answers)
+    externals: tranceExternals(answers, context)
   };
 }
 
@@ -225,19 +239,21 @@ function hiddenTypesOf(answers: NewBuildAnswers): Set<string> {
   return hidden;
 }
 
-function tranceExternals(answers: NewBuildAnswers): PlannedExternal[] {
+function tranceExternals(answers: NewBuildAnswers, context: PlanContext): PlannedExternal[] {
   if (answers.role === 'caster' || answers.role === null || answers.trance === 'none') {
     return [];
   }
-  const deadly = tranceDeadlyFor(answers.tranceAbility ?? TRANCE_DEFAULT_ABILITY);
-  const externals: PlannedExternal[] = [{ affixName: 'Deadly', bonusType: 'Insight', value: deadly }];
-  if (answers.trance === 'full') {
-    // A full trance also gives Insight Accuracy and tactics DCs; their values vary too much
-    // to guess, so they're marked as covered, which is what matters to the suggestions.
+  // Every trance gives Insight Deadly and tactics DCs; a class trance Insight Accuracy too. Only
+  // Deadly gets a value: the others vary too much to guess, so they're marked as covered, which
+  // is what matters to the suggestions.
+  const externals: PlannedExternal[] = [
+    { affixName: 'Deadly', bonusType: 'Insight', value: tranceDeadlyFor(context.bestCompetenceDeadly) }
+  ];
+  if (answers.trance === 'class') {
     externals.push({ affixName: 'Accuracy', bonusType: 'Insight', value: null });
-    for (const tactic of answers.role === 'melee' ? answers.tactics : []) {
-      externals.push({ affixName: tactic, bonusType: 'Insight', value: null });
-    }
+  }
+  for (const tactic of answers.role === 'melee' ? answers.tactics : []) {
+    externals.push({ affixName: tactic, bonusType: 'Insight', value: null });
   }
   return externals;
 }

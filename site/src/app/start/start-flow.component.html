@@ -59,7 +59,7 @@
       <nav class="start-progress" aria-label="Setup steps">
         @for (s of steps; track s; let i = $index) {
           <button type="button" class="start-progress-step"
-            [class.current]="s === step" [class.done]="i < stepIndex"
+            [class.current]="s === step" [class.done]="isVisited(s)"
             [attr.aria-current]="s === step ? 'step' : null"
             (click)="goTo(s)">
             <span class="start-progress-dot" aria-hidden="true">{{i + 1}}</span>
@@ -120,16 +120,15 @@
         }
 
         @case ('sources') {
-          <h2>Where does your gear come from?</h2>
-          <p class="start-hint">Suggestions only offer gear you can get.</p>
+          <h2>Where can your gear come from?</h2>
           <div class="start-switches">
             <label class="start-check">
               <input type="checkbox" class="start-show-raid" [checked]="answers.showRaid" (change)="setShowRaid($any($event.target).checked)">
-              <span><strong>Raid items</strong><span class="start-hint-inline">Much of endgame's best gear, and the Green Steel weapons</span></span>
+              <strong>Raid items</strong>
             </label>
             <label class="start-check">
               <input type="checkbox" class="start-show-rare" [checked]="answers.showRare" (change)="setShowRare($any($event.target).checked)">
-              <span><strong>Rare items</strong><span class="start-hint-inline">Rare drops from chests</span></span>
+              <strong>Rare items</strong>
             </label>
           </div>
 
@@ -245,27 +244,24 @@
         }
 
         @case ('trance') {
-          <h2>Do you use a trance?</h2>
-          <p class="start-hint">A trance's bonuses count as covered, so the suggestions stop chasing them on gear.</p>
-          <div class="start-choice-grid" role="radiogroup" aria-label="Trance">
+          <h2>Do you use a battle trance?</h2>
+          <p class="start-hint">
+            A <a class="start-wiki-link" href="https://ddowiki.com/page/Battle_Trance" target="_blank" rel="noopener">battle trance</a>
+            counts its bonuses as covered, so the suggestions stop chasing them on gear.
+          </p>
+          <div class="start-choice-grid" role="radiogroup" aria-label="Battle trance">
             <button type="button" class="start-choice start-trance-none" role="radio" [attr.aria-checked]="answers.trance === 'none'" (click)="setTrance('none')">
               <strong>No trance</strong>
             </button>
-            <button type="button" class="start-choice start-trance-partial" role="radio" [attr.aria-checked]="answers.trance === 'partial'" (click)="setTrance('partial')">
-              <strong>Partial</strong><span>Insight Deadly</span>
+            <button type="button" class="start-choice start-trance-universal" role="radio" [attr.aria-checked]="answers.trance === 'universal'" (click)="setTrance('universal')">
+              <strong>Universal trance</strong><span>From a universal enhancement tree: Deadly and tactics DCs</span>
             </button>
-            <button type="button" class="start-choice start-trance-full" role="radio" [attr.aria-checked]="answers.trance === 'full'" (click)="setTrance('full')">
-              <strong>Full</strong><span>Insight Deadly, Accuracy and tactics DCs</span>
+            <button type="button" class="start-choice start-trance-class" role="radio" [attr.aria-checked]="answers.trance === 'class'" (click)="setTrance('class')">
+              <strong>Class trance</strong><span>From a class tree: Deadly, Accuracy and tactics DCs</span>
             </button>
           </div>
           @if (answers.trance !== 'none') {
-            <div class="start-levels">
-              <label>Final value of the ability your trance uses
-                <input type="number" min="1" class="start-trance-ability" [placeholder]="tranceDefaultAbility"
-                  [value]="answers.tranceAbility ?? ''" (change)="setTranceAbility($any($event.target).value)">
-              </label>
-              <span class="start-trance-gives">Insight Deadly +{{tranceDeadly}}</span>
-            </div>
+            <p class="start-hint start-trance-gives">Counted as about Insight Deadly +{{tranceDeadly}}: an estimate, since a trance almost always beats what gear gives.</p>
           }
         }
 
@@ -354,9 +350,6 @@
     <footer class="start-footer">
       <button type="button" class="start-secondary start-back" (click)="back()">Back</button>
       <span class="start-footer-spacer"></span>
-      @if (step !== 'role' && step !== 'summary') {
-        <button type="button" class="start-link start-skip" (click)="skipStep()">Skip<span class="start-skip-long"> this step</span></button>
-      }
       @if (step === 'summary') {
         <button type="button" class="start-primary start-plan" (click)="startPlanning()">Start planning</button>
       } @else {

@@ -358,20 +358,6 @@ h3 {
   margin-bottom: var(--space-8);
 }
 
-.start-switches .start-check {
-  align-items: flex-start;
-}
-
-.start-switches input {
-  margin-top: var(--space-4);
-}
-
-.start-hint-inline {
-  color: var(--text-secondary);
-  display: block;
-  font-size: 0.85rem;
-}
-
 .start-pack-checklist {
   background: var(--surface-elevated-color);
   border: 1px solid var(--border-color);
@@ -409,9 +395,16 @@ h3 {
   margin-bottom: var(--space-8);
 }
 
+.start-wiki-link {
+  color: var(--link-color);
+}
+
+/* Cards as wide as the suggestion drawer's (34rem), in columns when there's room. */
 .start-artifact-list {
+  align-items: start;
   display: grid;
   gap: var(--space-12);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 28rem), 1fr));
   list-style: none;
   margin: 0 0 var(--space-12);
   padding: 0;
@@ -454,11 +447,6 @@ h3 {
 
 .start-artifact.chosen .start-artifact-use {
   opacity: 0.8;
-}
-
-.start-trance-gives {
-  color: var(--text-secondary);
-  font-weight: 700;
 }
 
 .start-green-steel-effect {
@@ -512,16 +500,6 @@ h3 {
 
 .start-footer .start-next {
   min-width: 6.5rem;
-}
-
-.start-skip {
-  white-space: nowrap;
-}
-
-@media (max-width: 400px) {
-  .start-skip-long {
-    display: none;
-  }
 }
 
 .start-footer-spacer {

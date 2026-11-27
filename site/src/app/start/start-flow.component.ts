@@ -25,7 +25,7 @@ import { EquippedService } from '../planner/equipped.service';
 import { FiltersService } from '../planner/filters.service';
 import { AuthService } from '../shared/auth.service';
 import {
-  ATTRIBUTES, BuildRole, LEVELLING_RANGE, NewBuildAnswers, SPELL_SCHOOLS, TACTICS, TRANCE_DEFAULT_ABILITY, TranceChoice,
+  ATTRIBUTES, BuildRole, LEVELLING_RANGE, NewBuildAnswers, SPELL_SCHOOLS, TACTICS, TranceChoice,
   emptyAnswers, greenSteelAffix, greenSteelChoices, isTwoHandedOnly, levelRangeOf, tranceDeadlyFor, withRole
 } from './new-build-plan';
 import { NewBuildService } from './new-build.service';
@@ -75,7 +75,6 @@ export class StartFlowComponent implements OnInit, OnDestroy {
   readonly schools = SPELL_SCHOOLS;
   readonly tactics = TACTICS;
   readonly damageBoosts = DAMAGE_BOOSTS;
-  readonly tranceDefaultAbility = TRANCE_DEFAULT_ABILITY;
   /**
    * How the suggestion drawer shows an item. Declared in the eager AppModule, so it's
    * rendered with ngComponentOutlet rather than imported here.
@@ -235,40 +234,6 @@ export class StartFlowComponent implements OnInit, OnDestroy {
     this.goTo(this.stepIndex > 0 ? this.steps[this.stepIndex - 1] : null);
   }
 
-  /** Leaves this step's answers at their defaults, and moves on. */
-  skipStep(): void {
-    const role = this.answers.role;
-    switch (this.step) {
-      case 'weapons':
-        this.update({ weaponTypes: null, offhandTypes: null });
-        break;
-      case 'sources':
-        // Every pack for this build; what's remembered stays for the next.
-        this.ownsPacks = false;
-        this.update({ showRaid: true, showRare: true, hiddenPacks: [] });
-        break;
-      case 'armor':
-        this.update({ armorTypes: null });
-        break;
-      case 'trance':
-        this.update({ trance: 'partial', tranceAbility: null });
-        break;
-      case 'extras':
-        this.update({ greenSteel: null, damageBoosts: [] });
-        break;
-      case 'artifact':
-        this.chooseArtifact(null);
-        break;
-      case 'stats':
-        if (role) {
-          const reset = withRole(this.answers, role);
-          this.update({ abilities: reset.abilities, spellpowers: reset.spellpowers, schools: [], tactics: [] });
-        }
-        break;
-    }
-    this.next();
-  }
-
   startPlanning(): void {
     this.rankingRun++;
     this.newBuild.apply(this.answers);
@@ -288,6 +253,9 @@ export class StartFlowComponent implements OnInit, OnDestroy {
       this.newBuild.apply(this.answers);
     }
     this.step = step && this.steps.includes(step) ? step : step ? 'summary' : null;
+    if (this.step && !this.answers.visitedSteps.includes(this.step)) {
+      this.update({ visitedSteps: [...this.answers.visitedSteps, this.step] });
+    }
     if (this.step === 'artifact') {
       this.rankArtifacts();
     }
@@ -522,14 +490,14 @@ export class StartFlowComponent implements OnInit, OnDestroy {
     this.update({ trance });
   }
 
-  /** The Insight Deadly the trance gives, from the ability score entered or its default. */
+  /** The Insight Deadly counted for a trance: an estimate from the gear at these levels. */
   get tranceDeadly(): number {
-    return tranceDeadlyFor(this.answers.tranceAbility ?? TRANCE_DEFAULT_ABILITY);
+    return tranceDeadlyFor(this.newBuild.bestCompetenceDeadly());
   }
 
-  setTranceAbility(value: string): void {
-    const parsed = Math.round(Number(value));
-    this.update({ tranceAbility: value === '' || !Number.isFinite(parsed) || parsed <= 0 ? null : parsed });
+  /** A step the player has been to, other than the one showing: the dots mark it. */
+  isVisited(step: StartStep): boolean {
+    return step !== this.step && this.answers.visitedSteps.includes(step);
   }
 
   // Extras
@@ -634,7 +602,7 @@ export class StartFlowComponent implements OnInit, OnDestroy {
     }
     if (this.isMartial) {
       const trance = a.trance === 'none' ? 'None'
-        : `${a.trance === 'full' ? 'Full' : 'Partial'}, Insight Deadly +${this.tranceDeadly}`;
+        : `${a.trance === 'class' ? 'Class' : 'Universal'} trance, about Insight Deadly +${this.tranceDeadly}`;
       rows.push({ step: 'trance', label: 'Trance', value: trance });
     }
     rows.push({ step: 'extras', label: 'Green Steel', value: a.greenSteel ? `Legendary ${a.greenSteel}` : 'None' });

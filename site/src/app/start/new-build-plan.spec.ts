@@ -13,7 +13,8 @@ const context: PlanContext = {
     ['Trapping', ['Disable Device']]
   ]),
   spellpowerPackages: new Map([['Healing', ['Devotion']], ['Fire', ['Combustion']]]),
-  maxLevel: 36
+  maxLevel: 36,
+  bestCompetenceDeadly: 12
 };
 
 const answers = (overrides: Partial<NewBuildAnswers> = {}): NewBuildAnswers => ({ ...emptyAnswers(), ...overrides });
@@ -45,11 +46,11 @@ describe('planFromAnswers', () => {
     expect(planFromAnswers(answers({ level: [12, 20] }), context).levelRange).toEqual([12, 20]);
   });
 
-  it('gives a melee build its package, Strength and a partial trance, and hides ranged weapons', () => {
+  it('gives a melee build its package, Strength, Dust and a universal trance, and hides ranged weapons', () => {
     const plan = planFromAnswers(withRole(answers(), 'melee'), context);
 
-    expect(plan.tracked).toEqual(['Constitution', 'Dodge', 'Melee Power', 'Deadly', 'Strength']);
-    expect(plan.externals).toEqual([{ affixName: 'Deadly', bonusType: 'Insight', value: 15 }]);
+    expect(plan.tracked).toEqual(['Constitution', 'Dodge', 'Melee Power', 'Deadly', 'Strength', 'Legendary Dust']);
+    expect(plan.externals).toEqual([{ affixName: 'Deadly', bonusType: 'Insight', value: 18 }]);
     for (const type of RANGED_WEAPON_TYPES) {
       expect(plan.hiddenTypes.has(type)).toBe(true);
     }
@@ -106,7 +107,7 @@ describe('planFromAnswers', () => {
     const healer = withRole(answers(), 'caster', true);
     const plan = planFromAnswers({ ...healer, schools: ['Necromancy'] }, context);
 
-    expect(plan.tracked).toEqual(['Constitution', 'Dodge', 'Spellcraft', 'Devotion', 'Necromancy Focus', 'Wisdom']);
+    expect(plan.tracked).toEqual(['Constitution', 'Dodge', 'Spellcraft', 'Devotion', 'Necromancy Focus', 'Wisdom', 'Legendary Ash']);
   });
 
   it('tracks the Green Steel effect, damage boosts and tactics picked', () => {
@@ -129,13 +130,19 @@ describe('planFromAnswers', () => {
     expect(plan.externals).toEqual([]);
   });
 
-  it('marks Insight Accuracy and the tactics as covered for a full trance, and takes Deadly from the trance\'s ability score', () => {
+  it('marks the tactics as covered for any trance, and Insight Accuracy too for a class trance', () => {
+    const universal = planFromAnswers({ ...withRole(answers(), 'melee'), tactics: ['Stunning'] }, context);
+    expect(universal.externals).toEqual([
+      { affixName: 'Deadly', bonusType: 'Insight', value: 18 },
+      { affixName: 'Stunning', bonusType: 'Insight', value: null }
+    ]);
+
     const plan = planFromAnswers({
-      ...withRole(answers(), 'melee'), trance: 'full', tranceAbility: 70, tactics: ['Stunning', 'Vertigo']
+      ...withRole(answers(), 'melee'), trance: 'class', tactics: ['Stunning', 'Vertigo']
     }, context);
 
     expect(plan.externals).toEqual([
-      { affixName: 'Deadly', bonusType: 'Insight', value: 15 },
+      { affixName: 'Deadly', bonusType: 'Insight', value: 18 },
       { affixName: 'Accuracy', bonusType: 'Insight', value: null },
       { affixName: 'Stunning', bonusType: 'Insight', value: null },
       { affixName: 'Vertigo', bonusType: 'Insight', value: null }
@@ -157,16 +164,22 @@ describe('new build choices', () => {
     expect(greenSteelChoices('caster')).toEqual(['Ash', 'Ooze', 'Vacuum']);
   });
 
-  it('gives a trance Insight Deadly of (ability - 10) / 4, rounded down', () => {
-    expect(tranceDeadlyFor(70)).toBe(15);
-    expect(tranceDeadlyFor(41)).toBe(7);
-    expect(tranceDeadlyFor(8)).toBe(0);
+  it('estimates a trance\'s Insight Deadly as half again the best Competence Deadly, or 10 with none', () => {
+    expect(tranceDeadlyFor(12)).toBe(18);
+    expect(tranceDeadlyFor(0)).toBe(10);
+  });
+
+  it('starts melee and ranged on Dust, casters on Ash', () => {
+    expect(withRole(answers(), 'melee').greenSteel).toBe('Dust');
+    expect(withRole(answers(), 'ranged').greenSteel).toBe('Dust');
+    expect(withRole(answers(), 'caster').greenSteel).toBe('Ash');
+    expect(withRole(answers(), 'caster', true).greenSteel).toBe('Ash');
   });
 
   it('keeps the level, armor and trapping on a change of role, and resets the rest', () => {
     const before = {
       ...withRole(answers({ trapping: true, armorTypes: ['Light armor'], level: [10, 20], showRaid: false, hiddenPacks: ['Tomb of Annihilation'] }), 'melee'),
-      greenSteel: 'Dust'
+      greenSteel: 'Ooze'
     };
     const after = withRole(before, 'ranged');
 
@@ -175,7 +188,7 @@ describe('new build choices', () => {
     expect(after.level).toEqual([10, 20]);
     expect(after.showRaid).toBe(false);
     expect(after.hiddenPacks).toEqual(['Tomb of Annihilation']);
-    expect(after.greenSteel).toBeNull();
+    expect(after.greenSteel).toBe('Dust');
     expect(after.abilities).toEqual(['Dexterity']);
   });
 });

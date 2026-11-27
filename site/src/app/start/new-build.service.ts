@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AffixPackagesService } from '../affixes/affix-packages.service';
 import { CurrentBuildService } from '../build/current-build.service';
 import { QueryParamsService } from '../build/query-params.service';
+import { GearDbService } from '../gear/gear-db.service';
 import { EquippedService } from '../planner/equipped.service';
 import { FiltersService } from '../planner/filters.service';
 import { PlannerOnboardingService } from '../planner/planner-onboarding.service';
@@ -29,6 +30,7 @@ export class NewBuildService {
     private readonly queryParams: QueryParamsService,
     private readonly equipped: EquippedService,
     private readonly filters: FiltersService,
+    private readonly gearDB: GearDbService,
     private readonly affixPackages: AffixPackagesService,
     private readonly currentBuild: CurrentBuildService,
     private readonly onboarding: PlannerOnboardingService
@@ -116,7 +118,8 @@ export class NewBuildService {
       const plan = planFromAnswers(answers, {
         packages: this.affixPackages.packages,
         spellpowerPackages: this.affixPackages.spellpowerPackages,
-        maxLevel
+        maxLevel,
+        bestCompetenceDeadly: this.bestCompetenceDeadly()
       });
       this.filters.setHiddenTypes(plan.hiddenTypes);
       this.equipped.setImportantAffixes(plan.tracked);
@@ -133,6 +136,11 @@ export class NewBuildService {
         }
       }
     });
+  }
+
+  /** The best Competence Deadly on gear at the filters' levels, which a trance's estimate starts from. */
+  bestCompetenceDeadly(): number {
+    return this.gearDB.getBestValueForAffixType('Deadly', 'Competence');
   }
 
   /**

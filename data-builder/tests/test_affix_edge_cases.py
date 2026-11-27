@@ -502,3 +502,31 @@ def test_sneak_attack_dice_are_sneak_attack_dice(text):
     li = BeautifulSoup(f'<li>{text}</li>', 'html.parser').li
     aff = translate_list_tag_to_affix_map('Test Item', li, {}, get_fake_bonuses(), 10, {}, {})
     assert (aff['name'], aff['type'], aff['value']) == ('Sneak Attack Dice', 'Profane', '2')
+
+
+@pytest.mark.parametrize('rank, bypass', [('2', '8'), ('3', '9'), ('7', '23')])
+def test_dragons_edge_also_grants_its_tooltips_armor_piercing(rank, bypass):
+    # The rank isn't the bypass: the percent comes from the tooltip.
+    li = BeautifulSoup(
+        f'<li><span class="has_tooltip">Dragon\'s Edge {rank}<span class="tooltip">Dragon\'s Edge {rank}: '
+        f'+{bypass}% <a href="/page/Enhancement_bonus" title="Enhancement bonus">Enhancement bonus</a> to bypass enemy '
+        f'<a href="/page/Fortification" title="Fortification">Fortification</a>. On Crit: {rank}d8 Bleeding Damage '
+        'to those that are vulnerable to it.</span></span></li>',
+        'html.parser',
+    ).li
+    aff = translate_list_tag_to_affix_map('Test Item', li, {}, get_fake_bonuses(), 10, {}, {})
+    assert aff == [
+        {'name': "Dragon's Edge", 'type': 'Enhancement', 'value': rank},
+        {'name': 'Armor-Piercing', 'type': 'Enhancement', 'value': bypass},
+    ]
+
+
+def test_armor_piercing_gets_no_second_armor_piercing():
+    li = BeautifulSoup(
+        '<li><span class="has_tooltip">Armor-Piercing 10%<span class="tooltip">Armor-Piercing 10%: '
+        '+10% Enhancement bonus to bypass enemy Fortification.</span></span></li>',
+        'html.parser',
+    ).li
+    aff = translate_list_tag_to_affix_map('Test Item', li, {}, get_fake_bonuses(), 10, {}, {})
+    assert isinstance(aff, dict)
+    assert aff['name'] == 'Armor-Piercing'

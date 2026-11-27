@@ -413,6 +413,15 @@ describe('EquippedService', () => {
     expect(service.getCurrentValueForAffixType('Concentration', 'Insight')).toBe(4);
   });
 
+  it('counts Dragon\'s Edge\'s fortification bypass as Armor-Piercing, at the percent its rank gives', () => {
+    const service: EquippedService = TestBed.inject(EquippedService);
+    // Real game data: Dragon's Edge 7 is 23% bypass, not 7.
+    service.set(service['gearList'].findGearBySlot('Weapon', 'Legendary The Dragon Dagger') as Item);
+
+    expect(service.getCurrentValueForAffixType('Armor-Piercing', 'Enhancement')).toBe(23);
+    expect(service.getCurrentValueForAffixType('Dragon\'s Edge', 'Enhancement')).toBe(7);
+  });
+
   it('gives an item\'s affix group to its members at their component values, but a non-gear group at its full value', () => {
     const service: EquippedService = TestBed.inject(EquippedService);
     // Riposte's Armor Class is half its value rounded up, its saves half rounded down.

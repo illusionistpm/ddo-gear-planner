@@ -508,6 +508,28 @@ def apply_augmentation_caster_levels(affix, tooltip):
     return affix
 
 
+# ex: Dragon's Edge 7: +23% Enhancement bonus to bypass enemy Fortification. On Crit: 7d8 Bleeding Damage ...
+FORTIFICATION_BYPASS = re.compile(r'\+([0-9]+)% ([A-Za-z]+) bonus to bypass (?:enemy |an enemy\'s )?Fortification\b', re.IGNORECASE)
+
+
+def parse_fortification_bypass_companion(affix, tooltip):
+    """The Armor-Piercing an enchantment grants besides its own effect, read off its tooltip.
+
+    Dragon's Edge is ranked, and its rank isn't its bypass (rank 2 is 8%, 3 is 9%,
+    7 is 23%), so the percent comes from the tooltip rather than from the rank. The
+    enchantment stays as it is: its on-crit bleed is its own."""
+    if affix.get('name') == 'Armor-Piercing' or affix.get('set'):
+        return None
+    search = FORTIFICATION_BYPASS.search(tooltip or '')
+    if not search:
+        return None
+    return {
+        'name': 'Armor-Piercing',
+        'type': search.group(2).capitalize(),
+        'value': search.group(1),
+    }
+
+
 def strip_outside_commentary(text, label):
     """The tooltip's label alone, when everything else on the line is commentary around it:
     "Vitality +20 (only from chain end reward)", "Improved Deception +17 (Bug: ...)", or the
@@ -1246,6 +1268,8 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
         if 'value' in aff:
             del(aff['value'])
 
+    fortification_bypass = parse_fortification_bypass_companion(aff, source_tooltip)
+
     # case exists where deathblock effect is added to other effects
     # append the deathblock effect to the detected effect when returning to caller
     tooltipSearch = re.search(r'^.*?immune to magical effects that can cause instant death.*$', words)
@@ -1262,6 +1286,13 @@ def translate_list_tag_to_affix_map(itemName, tag, synonymMap, fakeBonuses, ml, 
         ]
     else:
         aff = add_affix_provenance(aff, source_text, source_tooltip, 'translate_list_tag_to_affix_map')
+
+    if fortification_bypass:
+        # No tooltip on the companion: a tooltip recorded under two affix names
+        # describes neither (affix_descriptions.py), which would cost the
+        # enchantment its own description.
+        companion = add_affix_provenance(fortification_bypass, source_text, '', 'translate_list_tag_to_affix_map:fortification-bypass')
+        aff = (aff if isinstance(aff, list) else [aff]) + [companion]
 
     return aff
 

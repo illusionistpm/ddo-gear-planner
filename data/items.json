@@ -8638,6 +8638,11 @@
                 "value": "3"
             },
             {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "9"
+            },
+            {
                 "name": "Returning",
                 "type": "Bool",
                 "value": 1
@@ -23823,6 +23828,11 @@
                 "name": "Dragon's Edge",
                 "type": "Enhancement",
                 "value": "2"
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "8"
             }
         ],
         "crafting": [
@@ -31483,6 +31493,11 @@
                 "name": "Dragon's Edge",
                 "type": "Enhancement",
                 "value": "3"
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "9"
             }
         ],
         "crafting": [
@@ -55512,6 +55527,11 @@
                 "name": "Dragon's Edge",
                 "type": "Enhancement",
                 "value": "3"
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "9"
             }
         ],
         "crafting": [
@@ -55552,6 +55572,11 @@
                 "name": "Dragon's Edge",
                 "type": "Enhancement",
                 "value": "2"
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "8"
             }
         ],
         "crafting": [
@@ -128411,6 +128436,11 @@
                 "value": "7"
             },
             {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "23"
+            },
+            {
                 "name": "Returning",
                 "type": "Bool",
                 "value": 1
@@ -134142,6 +134172,11 @@
                 "name": "Dragon's Edge",
                 "type": "Enhancement",
                 "value": "7"
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "23"
             }
         ],
         "crafting": [
@@ -137956,6 +137991,11 @@
                 "name": "Dragon's Edge",
                 "type": "Enhancement",
                 "value": "7"
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "23"
             }
         ],
         "crafting": [
@@ -148584,6 +148624,11 @@
                 "name": "Dragon's Edge",
                 "type": "Enhancement",
                 "value": "7"
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "23"
             }
         ],
         "crafting": [
@@ -148625,6 +148670,11 @@
                 "name": "Dragon's Edge",
                 "type": "Enhancement",
                 "value": "7"
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "23"
             }
         ],
         "crafting": [
@@ -185218,6 +185268,11 @@
                 "name": "Dragon's Edge",
                 "type": "Enhancement",
                 "value": "7"
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "23"
             }
         ],
         "crafting": [
@@ -196973,6 +197028,11 @@
                 "name": "Dragon's Edge",
                 "type": "Enhancement",
                 "value": "7"
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "23"
             }
         ],
         "crafting": [
@@ -197766,6 +197826,11 @@
                 "name": "Dragon's Edge",
                 "type": "Enhancement",
                 "value": "7"
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "23"
             }
         ],
         "crafting": [
@@ -203524,6 +203589,11 @@
                 "name": "Dragon's Edge",
                 "type": "Enhancement",
                 "value": "7"
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "23"
             }
         ],
         "crafting": [
@@ -249290,6 +249360,11 @@
                 "name": "Dragon's Edge",
                 "type": "Enhancement",
                 "value": "3"
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "9"
             }
         ],
         "crafting": [
@@ -276870,6 +276945,11 @@
                 "name": "Dragon's Edge",
                 "type": "Enhancement",
                 "value": "3"
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "9"
             }
         ],
         "crafting": [
@@ -280616,6 +280696,11 @@
                 "name": "Dragon's Edge",
                 "type": "Enhancement",
                 "value": "3"
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "9"
             }
         ],
         "crafting": [
@@ -300075,6 +300160,11 @@
                 "name": "Dragon's Edge",
                 "type": "Enhancement",
                 "value": "3"
+            },
+            {
+                "name": "Armor-Piercing",
+                "type": "Enhancement",
+                "value": "9"
             }
         ],
         "crafting": [
